@@ -1,4 +1,15 @@
 (function(){
+  var styleTag = document.createElement('style');
+  styleTag.textContent = '\n.eb-diag-overlay{position:fixed;inset:0;background:rgba(255,255,255,.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);z-index:99999;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .45s ease;padding:24px}\n.eb-diag-overlay.open{opacity:1;visibility:visible}\n.eb-diag-panel{background:rgba(255,255,255,.35);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);width:100%;max-width:600px;max-height:88vh;overflow-y:auto;padding:52px 40px;position:relative;font-family:\'Montserrat\',sans-serif;color:#000;box-shadow:0 30px 80px rgba(0,0,0,.25)}\n.eb-diag-close{position:absolute;top:18px;right:20px;background:none;border:none;font-size:22px;cursor:pointer;line-height:1;color:#000;transition:transform .2s ease}\n.eb-diag-close:hover{transform:scale(1.2) rotate(90deg)}\n.eb-diag-progress{height:2px;background:#e5e2da;border-radius:2px;margin-bottom:40px;overflow:hidden}\n.eb-diag-progress-bar{height:100%;background:#000;width:8%;transition:width .5s ease}\n.eb-diag-screen{display:none;animation:ebFadeIn .5s ease}\n.eb-diag-screen.active{display:block}\n@keyframes ebFadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}\n.eb-diag-eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;margin-bottom:16px}\n.eb-diag-question{font-size:23px;font-weight:700;line-height:1.45;margin-bottom:30px}\n.eb-diag-intro-text{font-size:15px;line-height:1.9;opacity:.75;margin-bottom:38px}\n.eb-diag-answer{display:block;width:100%;text-align:left;background:transparent;border:1px solid #000;padding:18px 20px;margin-bottom:14px;font-family:\'Montserrat\',sans-serif;font-size:15px;font-weight:500;color:#000;cursor:pointer;transition:transform .22s ease,background .22s ease,color .22s ease;line-height:1.5}\n.eb-diag-answer:hover{transform:scale(1.025);background:#000;color:#fff}\n.eb-diag-start-btn{display:block;width:100%;text-align:center;background:#000;color:#fff;border:none;padding:18px;font-family:\'Montserrat\',sans-serif;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease}\n.eb-diag-start-btn:hover{transform:scale(1.03)}\n.eb-diag-nav{display:flex;justify-content:space-between;align-items:center;margin-top:28px}\n.eb-diag-back{background:none;border:none;font-family:\'Montserrat\',sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.45;cursor:pointer;text-decoration:underline}\n.eb-diag-back:hover{opacity:.8}\n.eb-diag-count{font-size:11px;opacity:.45;letter-spacing:.06em}\n.eb-diag-result-eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;margin-bottom:16px}\n.eb-diag-result-headline{font-size:25px;font-weight:800;line-height:1.45;margin-bottom:30px}\n.eb-diag-result p{font-size:15px;line-height:1.95;margin:0 0 20px}\n.eb-diag-result h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin:38px 0 4px;font-weight:700}\n.eb-diag-result-needs-list{margin:18px 0 8px;padding:0;list-style:none}\n.eb-diag-result-needs-list li{font-size:14.5px;line-height:2;margin-bottom:12px;padding-left:22px;position:relative}\n.eb-diag-result-needs-list li:before{content:"•";position:absolute;left:0;top:0;font-size:16px;opacity:.6}\n.eb-diag-product{border:1px solid #000;padding:20px 22px;margin-bottom:16px;cursor:pointer;transition:transform .2s ease,background .2s ease}\n.eb-diag-product:hover{transform:scale(1.02);background:rgba(0,0,0,.03)}\n.eb-diag-product-name{font-weight:700;font-size:15px;margin-bottom:8px}\n.eb-diag-product-why{font-size:13px;line-height:1.75;opacity:.65}\n.eb-diag-approach{margin-top:38px;padding:26px;border:1px solid #000}\n.eb-diag-approach p{margin-bottom:0}\n.eb-diag-footnote{font-size:13px;line-height:1.9;opacity:.55;font-style:italic;margin-top:38px}\n.eb-diag-gesture{font-style:italic;opacity:.6;font-size:13.5px;line-height:1.8;margin-top:8px}\n.eb-diag-cta{display:inline-block;margin-top:34px;padding:17px 34px;background:#000;color:#fff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:transform .2s ease}\n.eb-diag-cta:hover{transform:scale(1.05)}\n.eb-diag-restart{display:block;margin-top:22px;background:none;border:none;font-family:\'Montserrat\',sans-serif;font-size:12px;text-decoration:underline;opacity:.45;cursor:pointer}\n';
+  document.head.appendChild(styleTag);
+
+  var container = document.createElement('div');
+  container.innerHTML = '<div class="eb-diag-overlay" id="ebDiagOverlay">\n  <div class="eb-diag-panel">\n    <button class="eb-diag-close" onclick="ebDiagClose()">&times;</button>\n    <div class="eb-diag-progress"><div class="eb-diag-progress-bar" id="ebProgressBar"></div></div>\n\n    <div class="eb-diag-screen active" data-screen="intro">\n      <div class="eb-diag-eyebrow">Diagnostic peau ELKHA.B</div>\n      <div class="eb-diag-question">Votre peau évolue, parfois discrètement, parfois de façon plus visible.</div>\n      <div class="eb-diag-intro-text">Ce diagnostic vous aide à mieux la comprendre et à lui apporter des soins réellement adaptés, parmi l\'ensemble des gammes ELKHA.B.<br><br>Quelques questions, une minute, et une routine pensée pour vous.</div>\n      <button class="eb-diag-start-btn" onclick="ebDiagStart()">Commencer mon diagnostic</button>\n    </div>\n\n    <div class="eb-diag-screen" data-screen="questions">\n      <div class="eb-diag-eyebrow" id="ebQIntro"></div>\n      <div class="eb-diag-question" id="ebQTitle"></div>\n      <div id="ebQAnswers"></div>\n      <div class="eb-diag-nav">\n        <button class="eb-diag-back" id="ebBack" onclick="ebDiagBack()">Précédent</button>\n        <div class="eb-diag-count" id="ebCount"></div>\n      </div>\n    </div>\n\n    <div class="eb-diag-screen" data-screen="result">\n      <div id="ebResultContent"></div>\n      <button class="eb-diag-restart" onclick="ebDiagRestart()">Refaire le diagnostic</button>\n    </div>\n  </div>\n</div>';
+  document.body.appendChild(container);
+})();
+
+
+(function(){
 
 const questions = [
   { intro:"Lorsque vous vous regardez dans le miroir...", q:"Comment décririez-vous l'éclat de votre peau ?",
@@ -154,7 +165,7 @@ function ebShowResult(){
   html += '<h4>Votre routine ELKHA.B recommandée :</h4>';
   selected.forEach(p=>{
     const ebScoresStr = ['radiance','sebum','hydration','texture','sensitivity','barrier'].map(k=>scores[k]||0).join(',');
-    html += '<a class="eb-diag-product" href="https://elkhab-soins.carrd.co/?from='+EB_DIAG_ORIGIN+'&back='+window.scrollY+'&s='+ebScoresStr+'#'+p.id+'" style="text-decoration:none;color:inherit;display:block"><div class="eb-diag-product-name">'+p.name+' →</div><div class="eb-diag-product-why">'+p.why+'</div></a>';
+    html += '<a class="eb-diag-product" href="https://elkhab-soins.carrd.co/?from='+ (window.EB_DIAG_ORIGIN||'accueil') +'&back='+window.scrollY+'&s='+ebScoresStr+'#'+p.id+'" style="text-decoration:none;color:inherit;display:block"><div class="eb-diag-product-name">'+p.name+' →</div><div class="eb-diag-product-why">'+p.why+'</div></a>';
   });
   html += '<div class="eb-diag-gesture">'+ALWAYS_RECOMMEND.why+'</div>';
 
@@ -169,25 +180,17 @@ function ebShowResult(){
 
 function ebDiagRestart(){ ebShow('intro'); document.getElementById('ebProgressBar').style.width='8%'; }
 function ebDiagOpen(){
-  sessionStorage.setItem('ebDiagScrollY', window.scrollY);
   document.getElementById('ebDiagOverlay').classList.add('open');
   ebShow('intro');
 }
 function ebDiagOpenWithScores(scoresArr){
-  sessionStorage.setItem('ebDiagScrollY', window.scrollY);
   const keys = ['radiance','sebum','hydration','texture','sensitivity','barrier'];
   scores = {};
   keys.forEach(function(k,i){ scores[k] = scoresArr[i] || 0; });
   document.getElementById('ebDiagOverlay').classList.add('open');
   ebShowResult();
 }
-function ebDiagClose(){
-  document.getElementById('ebDiagOverlay').classList.remove('open');
-  const saved = sessionStorage.getItem('ebDiagScrollY');
-  if(saved !== null){
-    window.scrollTo({top: parseInt(saved,10), behavior:'instant'});
-  }
-}
+function ebDiagClose(){ document.getElementById('ebDiagOverlay').classList.remove('open'); }
 
 window.ebDiagStart = ebDiagStart;
 window.ebDiagBack = ebDiagBack;
@@ -197,6 +200,24 @@ window.ebDiagOpenWithScores = ebDiagOpenWithScores;
 window.ebDiagClose = ebDiagClose;
 
 })();
+
+
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('openDiag') === '1'){
+    const s = params.get('s');
+    setTimeout(function(){
+      if(s && typeof ebDiagOpenWithScores === 'function'){
+        ebDiagOpenWithScores(s.split(',').map(Number));
+      } else if(typeof ebDiagOpen === 'function'){
+        ebDiagOpen();
+      }
+    }, 300);
+  }
+})();
+
+
+// Auto-ouverture si on revient d'un site après avoir cliqué sur un produit recommandé
 (function(){
   const params = new URLSearchParams(window.location.search);
   if(params.get('openDiag') === '1'){
