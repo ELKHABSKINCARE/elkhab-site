@@ -193,4 +193,4 @@ function ebInciClose(){
 }
 
 window.ebInciOpen = ebInciOpen;
-window.ebInciClose = ebInciClose;}
+window.ebInciClose = ebInciClose;
