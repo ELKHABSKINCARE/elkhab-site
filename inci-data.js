@@ -110,8 +110,9 @@ const INCI_DETAILS = {
     organic:null,
     engagement:"Une formule sans parfum et testée sous contrôle dermatologique, pensée pour convenir également aux peaux sensibles.",
     certification:null
-  }
-"bright-glow-decongestionnant": {
+  },
+
+  "bright-glow-decongestionnant": {
     title:"Lumi Eyes Bright & Glow — Décongestionnant",
     ingredients:"Aqua (Water), Glycerin, Chondrus Crispus, Panthenol, Glucomannan, Sucrose, Maltodextrin, Phenethyl Alcohol, Sodium Levulinate, p-Anisic Acid, Caffeine, Rosa Gallica Flower Extract, Sodium Hydroxide, Punica Granatum Flower Extract, Sodium Ascorbyl Phosphate, Citric Acid, Lactic Acid, Potassium Sorbate, Sodium Benzoate",
     legend:[],
@@ -129,17 +130,19 @@ const INCI_DETAILS = {
     organic:null,
     engagement:"Chez ELKHA.B, nous privilégions des formules ciblées qui associent performance et confort, sans superflu. Ces patchs réunissent des antioxydants et des actifs hydratants dans un soin pensé pour revitaliser le contour des yeux tout en respectant sa délicatesse.",
     certification:null
-    },
- "lumi-lips-hydra-plump": {
+  },
+
+  "lumi-lips-hydra-plump": {
     title:"Lumi Lips Hydra Plump",
-    ingredients:"Aqua (Water), Glycerin, Carrageenan, Panthenol, Amorphophallus Konjac Root Extract, Sucrose, Sodium Levulinate, Phenoxyethanol, Aroma (Flavor), Sodium Anisate, Sodium Hyaluronate, Litchi Chinensis Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Benzoic Acid, Dehydroacetic Acid, Lactic Acid, Sorbic Acid, Chlorella Vulgaris/Lupinus Albus Protein Ferment [À COMPLÉTER — liste coupée sur la capture]",
+    ingredients:"Aqua (Water), Glycerin, Carrageenan, Panthenol, Amorphophallus Konjac Root Extract, Sucrose, Sodium Levulinate, Phenoxyethanol, Aroma (Flavor), Sodium Anisate, Sodium Hyaluronate, Litchi Chinensis Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Benzoic Acid, Dehydroacetic Acid, Lactic Acid, Sorbic Acid, Chlorella Vulgaris/Lupinus Albus Protein Ferment",
     legend:["① Ingrédient issu de l'agriculture biologique."],
     natural:null,
     organic:null,
     engagement:"Chez ELKHA.B, nous privilégions des formules ciblées qui associent performance et confort, sans superflu. Lumi Lips Hydra Plump réunit l'acide hyaluronique, le panthénol et la glycérine dans un soin pensé pour répondre aux besoins des lèvres sèches et déshydratées.",
     certification:null
-   }
-   };
+  }
+
+};
 function ebInciOpen(productId){
   const d = INCI_DETAILS[productId];
   if(!d) return;
@@ -190,4 +193,4 @@ function ebInciClose(){
 }
 
 window.ebInciOpen = ebInciOpen;
-window.ebInciClose = ebInciClose;
+window.ebInciClose = ebInciClose;}
