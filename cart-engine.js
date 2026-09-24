@@ -69,11 +69,15 @@ const CART_FIELDS = `
 
 async function ebCartCreate(variantId, quantity){
   const mutation = `mutation cartCreate($input: CartInput!) {
-    cartCreate(input: $input) { cart { ${CART_FIELDS} } userErrors { message } }
+    cartCreate(input: $input) { cart { ${CART_FIELDS} } userErrors { field message } }
   }`;
   const result = await shopifyFetch(mutation, {
     input: { lines: [{ quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId }] }
   });
+  const userErrors = result && result.data && result.data.cartCreate && result.data.cartCreate.userErrors;
+  if(userErrors && userErrors.length){
+    console.error('ELKHA.B panier — Shopify a refusé la création (variant '+variantId+') :', userErrors);
+  }
   const cart = result && result.data && result.data.cartCreate && result.data.cartCreate.cart;
   if(!cart){
     console.error('ELKHA.B panier — échec création de panier', result);
@@ -83,12 +87,17 @@ async function ebCartCreate(variantId, quantity){
 
 async function ebCartAddLine(variantId, quantity){
   const mutation = `mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-    cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ${CART_FIELDS} } userErrors { message } }
+    cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ${CART_FIELDS} } userErrors { field message } }
   }`;
   const result = await shopifyFetch(mutation, {
     cartId: cartId,
     lines: [{ quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId }]
   });
+
+  const userErrors = result && result.data && result.data.cartLinesAdd && result.data.cartLinesAdd.userErrors;
+  if(userErrors && userErrors.length){
+    console.error('ELKHA.B panier — Shopify a refusé l\'ajout (variant '+variantId+') :', userErrors);
+  }
 
   const cart = result && result.data && result.data.cartLinesAdd && result.data.cartLinesAdd.cart;
 
