@@ -7,6 +7,31 @@ const ENDPOINT = 'https://' + SHOPIFY_DOMAIN + '/api/' + API_VERSION + '/graphql
 
 let cartId = localStorage.getItem('elkhab_cart_id') || null;
 
+// Synchronisation du panier entre les sites ELKHA.B
+const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/;
+
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const urlCart = params.get('cart');
+  if(urlCart){
+    cartId = urlCart;
+    localStorage.setItem('elkhab_cart_id', cartId);
+  }
+})();
+
+// Intercepte tout clic vers un autre site ELKHA.B pour y transporter le panier
+document.addEventListener('click', function(e){
+  const link = e.target.closest('a[href]');
+  if(!link) return;
+  const href = link.getAttribute('href');
+  if(!href || !EB_SITES_PATTERN.test(href)) return;
+  if(!cartId) return;
+  e.preventDefault();
+  const url = new URL(href, window.location.href);
+  url.searchParams.set('cart', cartId);
+  window.location.href = url.toString();
+}, true);
+
 async function shopifyFetch(query, variables){
   const res = await fetch(ENDPOINT, {
     method: 'POST',
