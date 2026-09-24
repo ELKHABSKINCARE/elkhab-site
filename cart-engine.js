@@ -7,7 +7,7 @@ const ENDPOINT = 'https://' + SHOPIFY_DOMAIN + '/api/' + API_VERSION + '/graphql
 
 let cartId = localStorage.getItem('elkhab_cart_id') || null;
 
-// Synchronisation du panier entre les sites ELKHA.B
+// Synchronisation du panier ET du statut "connecté" entre les sites ELKHA.B
 const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/;
 
 (function(){
@@ -17,20 +17,42 @@ const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins
     cartId = urlCart;
     localStorage.setItem('elkhab_cart_id', cartId);
   }
+  if(params.get('connected') === '1'){
+    sessionStorage.setItem('elkhab_connected', '1');
+  }
 })();
 
 // Intercepte tout clic vers un autre site ELKHA.B pour y transporter le panier
+// et le statut "connectée" (si actif)
 document.addEventListener('click', function(e){
   const link = e.target.closest('a[href]');
   if(!link) return;
   const href = link.getAttribute('href');
   if(!href || !EB_SITES_PATTERN.test(href)) return;
-  if(!cartId) return;
+
+  const isConnected = sessionStorage.getItem('elkhab_connected') === '1';
+  if(!cartId && !isConnected) return;
+
   e.preventDefault();
   const url = new URL(href, window.location.href);
-  url.searchParams.set('cart', cartId);
+  if(cartId){ url.searchParams.set('cart', cartId); }
+  if(isConnected){ url.searchParams.set('connected', '1'); }
   window.location.href = url.toString();
 }, true);
+
+function ebUpdateProfileIcon(){
+  const profileBtn = document.getElementById('ebProfileButton');
+  if(!profileBtn) return;
+  const isConnected = sessionStorage.getItem('elkhab_connected') === '1';
+  profileBtn.classList.toggle('eb-profile-active', isConnected);
+}
+
+function ebGoToAccount(){
+  sessionStorage.setItem('elkhab_connected', '1');
+  ebUpdateProfileIcon();
+  window.location.href = 'https://shopify.com/101686837593/account';
+}
+window.ebGoToAccount = ebGoToAccount;
 
 async function shopifyFetch(query, variables){
   const res = await fetch(ENDPOINT, {
@@ -252,6 +274,8 @@ document.addEventListener('DOMContentLoaded', function(){
       if(cart) ebRenderCart(cart);
     });
   }
+
+  ebUpdateProfileIcon();
 
   });
 });
