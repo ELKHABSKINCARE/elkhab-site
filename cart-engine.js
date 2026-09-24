@@ -144,11 +144,21 @@ function ebFormatPrice(amount){
   return parseFloat(amount).toFixed(2).replace('.', ',') + '€';
 }
 
-function ebRenderCart(cart){
+function ebRenderCart(cart, attemptsLeft){
+  attemptsLeft = attemptsLeft === undefined ? 15 : attemptsLeft;
   const countEl = document.getElementById('ebCartCount');
   const itemsEl = document.getElementById('ebCartItems');
   const totalEl = document.getElementById('ebCartTotal');
-  if(!countEl || !itemsEl || !totalEl) return;
+  if(!countEl || !itemsEl || !totalEl){
+    if(attemptsLeft <= 0){
+      console.error('ELKHA.B panier — éléments du panier introuvables sur cette page après plusieurs tentatives');
+      return;
+    }
+    // Le menu n'est peut-être pas encore chargé (Embed placé plus bas sur la page) :
+    // on réessaie un peu plus tard au lieu d'abandonner silencieusement
+    setTimeout(function(){ ebRenderCart(cart, attemptsLeft - 1); }, 300);
+    return;
+  }
 
   const qty = cart ? cart.totalQuantity : 0;
   countEl.textContent = qty;
@@ -185,8 +195,20 @@ window.ebCartRemoveClick = async function(lineId){
 
 window.ebCartAddItem = ebCartAddItem;
 
+function ebWaitForCartUI(callback, attemptsLeft){
+  attemptsLeft = attemptsLeft === undefined ? 25 : attemptsLeft;
+  const cartButton = document.getElementById('ebCartButton');
+  if(cartButton || attemptsLeft <= 0){
+    callback();
+  } else {
+    setTimeout(function(){ ebWaitForCartUI(callback, attemptsLeft - 1); }, 200);
+  }
+}
+
 // Ouverture/fermeture du panneau panier
 document.addEventListener('DOMContentLoaded', function(){
+  ebWaitForCartUI(function(){
+
   const cartButton = document.getElementById('ebCartButton');
   const cartPanel = document.getElementById('ebCartPanel');
   const cartBackdrop = document.getElementById('ebCartBackdrop');
@@ -215,32 +237,33 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 
-  // Délégation d'événements : tout bouton "Ajouter au panier" doit juste avoir
-  // la classe eb-cart-add-btn + un attribut data-variant-id (mis à jour dynamiquement
-  // si le produit a des variantes)
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('.eb-cart-add-btn');
-    if(!btn) return;
-    const variantId = btn.dataset.variantId;
-    if(!variantId) return;
-
-    const originalHTML = btn.innerHTML;
-    ebCartAddItem(variantId, 1).then(function(cart){
-      if(cart){
-        const priceSpan = btn.querySelector('.eb-produit-add-price');
-        const priceText = priceSpan ? priceSpan.outerHTML : '';
-        btn.innerHTML = 'AJOUTÉ ✓ ' + priceText;
-        setTimeout(function(){ btn.innerHTML = originalHTML; }, 1500);
-      }
-    });
-  });
-
   // Au chargement, si un panier existe déjà (cliente revenue plus tard), on le récupère
   if(cartId){
     ebCartFetch().then(function(cart){
       if(cart) ebRenderCart(cart);
     });
   }
+
+  });
+});
+
+// La délégation de clic sur les boutons "Ajouter au panier" ne dépend pas du
+// chargement du menu : elle fonctionne dès que la page a commencé à se charger
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.eb-cart-add-btn');
+  if(!btn) return;
+  const variantId = btn.dataset.variantId;
+  if(!variantId) return;
+
+  const originalHTML = btn.innerHTML;
+  ebCartAddItem(variantId, 1).then(function(cart){
+    if(cart){
+      const priceSpan = btn.querySelector('.eb-produit-add-price');
+      const priceText = priceSpan ? priceSpan.outerHTML : '';
+      btn.innerHTML = 'AJOUTÉ ✓ ' + priceText;
+      setTimeout(function(){ btn.innerHTML = originalHTML; }, 1500);
+    }
+  });
 });
 
 })();
