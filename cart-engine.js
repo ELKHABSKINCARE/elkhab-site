@@ -74,7 +74,11 @@ async function ebCartCreate(variantId, quantity){
   const result = await shopifyFetch(mutation, {
     input: { lines: [{ quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId }] }
   });
-  return result.data && result.data.cartCreate && result.data.cartCreate.cart;
+  const cart = result && result.data && result.data.cartCreate && result.data.cartCreate.cart;
+  if(!cart){
+    console.error('ELKHA.B panier — échec création de panier', result);
+  }
+  return cart;
 }
 
 async function ebCartAddLine(variantId, quantity){
@@ -85,13 +89,17 @@ async function ebCartAddLine(variantId, quantity){
     cartId: cartId,
     lines: [{ quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId }]
   });
-  if(result.errors || !result.data.cartLinesAdd.cart){
-    // Le panier stocké n'existe plus côté Shopify (expiré) : on en recrée un
+
+  const cart = result && result.data && result.data.cartLinesAdd && result.data.cartLinesAdd.cart;
+
+  if(!cart){
+    console.error('ELKHA.B panier — échec ajout à un panier existant, on en recrée un', result);
+    // Le panier stocké n'existe plus côté Shopify (expiré ou invalide) : on en recrée un
     cartId = null;
     localStorage.removeItem('elkhab_cart_id');
     return ebCartCreate(variantId, quantity);
   }
-  return result.data.cartLinesAdd.cart;
+  return cart;
 }
 
 async function ebCartRemoveLine(lineId){
@@ -111,18 +119,25 @@ async function ebCartFetch(){
 
 async function ebCartAddItem(variantId, quantity){
   quantity = quantity || 1;
-  let cart;
-  if(cartId){
-    cart = await ebCartAddLine(variantId, quantity);
-  } else {
-    cart = await ebCartCreate(variantId, quantity);
+  try {
+    let cart;
+    if(cartId){
+      cart = await ebCartAddLine(variantId, quantity);
+    } else {
+      cart = await ebCartCreate(variantId, quantity);
+    }
+    if(cart){
+      cartId = cart.id;
+      localStorage.setItem('elkhab_cart_id', cartId);
+      ebRenderCart(cart);
+    } else {
+      console.error('ELKHA.B panier — aucun panier retourné pour variantId', variantId);
+    }
+    return cart;
+  } catch(err){
+    console.error('ELKHA.B panier — erreur inattendue', err);
+    return null;
   }
-  if(cart){
-    cartId = cart.id;
-    localStorage.setItem('elkhab_cart_id', cartId);
-    ebRenderCart(cart);
-  }
-  return cart;
 }
 
 function ebFormatPrice(amount){
