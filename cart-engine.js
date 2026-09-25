@@ -154,6 +154,14 @@ async function ebCartRemoveLine(lineId){
   return result.data && result.data.cartLinesRemove && result.data.cartLinesRemove.cart;
 }
 
+async function ebCartUpdateLineQuantity(lineId, newQuantity){
+  const mutation = `mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+    cartLinesUpdate(cartId: $cartId, lines: $lines) { cart { ${CART_FIELDS} } userErrors { message } }
+  }`;
+  const result = await shopifyFetch(mutation, { cartId: cartId, lines: [{ id: lineId, quantity: newQuantity }] });
+  return result.data && result.data.cartLinesUpdate && result.data.cartLinesUpdate.cart;
+}
+
 async function ebCartFetch(){
   if(!cartId) return null;
   const query = `query cart($id: ID!) { cart(id: $id) { ${CART_FIELDS} } }`;
@@ -225,15 +233,17 @@ function ebRenderCart(cart, attemptsLeft){
     }
     html += '<div class="eb-cart-item-bottom">';
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
-    html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
+    html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
     html += '</div></div>';
   });
   itemsEl.innerHTML = html;
   totalEl.textContent = ebFormatPrice(cart.cost.subtotalAmount.amount);
 }
 
-window.ebCartRemoveClick = async function(lineId){
-  const cart = await ebCartRemoveLine(lineId);
+window.ebCartRemoveClick = async function(lineId, currentQuantity){
+  const cart = currentQuantity > 1
+    ? await ebCartUpdateLineQuantity(lineId, currentQuantity - 1)
+    : await ebCartRemoveLine(lineId);
   if(cart){ ebRenderCart(cart); }
 };
 
