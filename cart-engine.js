@@ -10,6 +10,12 @@ let cartId = sessionStorage.getItem('elkhab_cart_id') || null;
 // Synchronisation du panier ET du statut "connecté" entre les sites ELKHA.B
 const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/;
 
+// Déduit automatiquement le nom du site actuel depuis son adresse (plus besoin de le déclarer à la main sur chaque page)
+const EB_SITE_NAME = (function(){
+  const m = window.location.hostname.match(/elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/);
+  return m ? m[1] : null;
+})();
+
 (function(){
   const params = new URLSearchParams(window.location.search);
   const urlCart = params.get('cart');
@@ -32,7 +38,7 @@ document.addEventListener('click', function(e){
 
   const isConnected = sessionStorage.getItem('elkhab_connected') === '1';
   const goingToFiche = /elkhab-(soins|journal)\.carrd\.co/.test(href);
-  const canTagOrigin = goingToFiche && typeof window.EB_SITE_NAME !== 'undefined';
+  const canTagOrigin = goingToFiche && !!EB_SITE_NAME;
 
   if(!cartId && !isConnected && !canTagOrigin) return;
 
@@ -41,7 +47,7 @@ document.addEventListener('click', function(e){
   if(cartId){ url.searchParams.set('cart', cartId); }
   if(isConnected){ url.searchParams.set('connected', '1'); }
   if(canTagOrigin){
-    url.searchParams.set('origin', window.EB_SITE_NAME);
+    url.searchParams.set('origin', EB_SITE_NAME);
     url.searchParams.set('pos', window.scrollY);
   }
   window.location.href = url.toString();
