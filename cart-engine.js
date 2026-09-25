@@ -5,7 +5,7 @@ const STOREFRONT_TOKEN = 'd7b9bf173e3b947dc2bb10f375e14185';
 const API_VERSION = '2026-07';
 const ENDPOINT = 'https://' + SHOPIFY_DOMAIN + '/api/' + API_VERSION + '/graphql.json';
 
-let cartId = localStorage.getItem('elkhab_cart_id') || null;
+let cartId = sessionStorage.getItem('elkhab_cart_id') || null;
 
 // Synchronisation du panier ET du statut "connecté" entre les sites ELKHA.B
 const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/;
@@ -15,15 +15,15 @@ const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins
   const urlCart = params.get('cart');
   if(urlCart){
     cartId = urlCart;
-    localStorage.setItem('elkhab_cart_id', cartId);
+    sessionStorage.setItem('elkhab_cart_id', cartId);
   }
   if(params.get('connected') === '1'){
     sessionStorage.setItem('elkhab_connected', '1');
   }
 })();
 
-// Intercepte tout clic vers un autre site ELKHA.B pour y transporter le panier
-// et le statut "connectée" (si actif)
+// Intercepte tout clic vers un autre site ELKHA.B pour y transporter le panier,
+// le statut "connectée", ET la position de scroll à restaurer (fiches produits / articles)
 document.addEventListener('click', function(e){
   const link = e.target.closest('a[href]');
   if(!link) return;
@@ -31,12 +31,19 @@ document.addEventListener('click', function(e){
   if(!href || !EB_SITES_PATTERN.test(href)) return;
 
   const isConnected = sessionStorage.getItem('elkhab_connected') === '1';
-  if(!cartId && !isConnected) return;
+  const goingToFiche = /elkhab-(soins|journal)\.carrd\.co/.test(href);
+  const canTagOrigin = goingToFiche && typeof window.EB_SITE_NAME !== 'undefined';
+
+  if(!cartId && !isConnected && !canTagOrigin) return;
 
   e.preventDefault();
   const url = new URL(href, window.location.href);
   if(cartId){ url.searchParams.set('cart', cartId); }
   if(isConnected){ url.searchParams.set('connected', '1'); }
+  if(canTagOrigin){
+    url.searchParams.set('origin', window.EB_SITE_NAME);
+    url.searchParams.set('pos', window.scrollY);
+  }
   window.location.href = url.toString();
 }, true);
 
@@ -127,7 +134,7 @@ async function ebCartAddLine(variantId, quantity){
     console.error('ELKHA.B panier — échec ajout à un panier existant, on en recrée un', result);
     // Le panier stocké n'existe plus côté Shopify (expiré ou invalide) : on en recrée un
     cartId = null;
-    localStorage.removeItem('elkhab_cart_id');
+    sessionStorage.removeItem('elkhab_cart_id');
     return ebCartCreate(variantId, quantity);
   }
   return cart;
@@ -159,7 +166,7 @@ async function ebCartAddItem(variantId, quantity){
     }
     if(cart){
       cartId = cart.id;
-      localStorage.setItem('elkhab_cart_id', cartId);
+      sessionStorage.setItem('elkhab_cart_id', cartId);
       ebRenderCart(cart);
     } else {
       console.error('ELKHA.B panier — aucun panier retourné pour variantId', variantId);
@@ -212,7 +219,7 @@ function ebRenderCart(cart, attemptsLeft){
     }
     html += '<div class="eb-cart-item-bottom">';
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
-    html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\')">Retirer</button>';
+    html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
     html += '</div></div>';
   });
   itemsEl.innerHTML = html;
