@@ -42,9 +42,8 @@
   }
 
   // À appeler sur chaque fiche produit : ebRenderReviews('id-du-conteneur', 'Nom exact du produit')
-  window.ebRenderReviews = async function(containerId, productName){
-    const container = document.getElementById(containerId);
-    if(!container) return;
+  // Rend les avis pour un conteneur donné
+  async function ebRenderReviewsInto(container, productName){
     container.innerHTML = '<div class="eb-review-status">Chargement des avis…</div>';
     try {
       const res = await fetch(CSV_URL);
@@ -88,5 +87,25 @@
       container.innerHTML = '<div class="eb-review-status">Avis momentanément indisponibles.</div>';
       console.error('ELKHA.B avis — erreur de chargement', e);
     }
+  }
+
+  // Cherche tout seul, dès qu'il est chargé, tous les blocs avis présents sur la page
+  // (plus besoin d'appeler quoi que ce soit après — supprime tout risque de mauvais ordre d'exécution)
+  function ebScanAndRenderReviews(){
+    document.querySelectorAll('.eb-reviews[data-product]').forEach(function(container){
+      ebRenderReviewsInto(container, container.getAttribute('data-product'));
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', ebScanAndRenderReviews);
+  } else {
+    ebScanAndRenderReviews();
+  }
+
+  // Gardé pour compatibilité si jamais appelé manuellement ailleurs
+  window.ebRenderReviews = function(containerId, productName){
+    const container = document.getElementById(containerId);
+    if(container){ ebRenderReviewsInto(container, productName); }
   };
 })();
