@@ -3,6 +3,7 @@
   const GID = "1134795247"; // onglet "Publiés"
   const CSV_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
 
+  // Petit analyseur de CSV (gère les virgules et retours à la ligne à l'intérieur d'un commentaire entre guillemets)
   function parseCSV(text){
     const rows = [];
     let row = [], field = '', inQuotes = false;
@@ -34,12 +35,27 @@
     return s;
   }
 
+  function formatDate(horodateur){
+    if(!horodateur) return '';
+    const datePart = horodateur.trim().split(' ')[0]; // "27/09/2026 14:32:10" -> "27/09/2026"
+    const parts = datePart.split('/');
+    if(parts.length !== 3) return '';
+    const mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    const jour = parseInt(parts[0], 10);
+    const moisIndex = parseInt(parts[1], 10) - 1;
+    const annee = parts[2];
+    if(isNaN(jour) || !mois[moisIndex]) return '';
+    return jour + ' ' + mois[moisIndex] + ' ' + annee;
+  }
+
   function escapeHTML(str){
     const div = document.createElement('div');
     div.textContent = str || '';
     return div.innerHTML;
   }
 
+  // À appeler sur chaque fiche produit : ebRenderReviews('id-du-conteneur', 'Nom exact du produit')
+  // Rend les avis pour un conteneur donné
   async function ebRenderReviewsInto(container, productName){
     container.innerHTML = '<div class="eb-review-status">Chargement des avis…</div>';
     try {
@@ -56,6 +72,7 @@
       }
       const header = rows[0];
       const idx = {
+        horodateur: header.indexOf('Horodateur'),
         produit: header.indexOf('Produit concerné'),
         prenom: header.indexOf('Prénom'),
         age: header.indexOf('Age'),
@@ -73,9 +90,10 @@
 
       let html = '';
       matches.forEach(function(r){
+        const dateFormatee = formatDate(r[idx.horodateur]);
         html += '<div class="eb-review">';
         html += '<div class="eb-review-stars">' + starsHTML(r[idx.note]) + '</div>';
-        html += '<div class="eb-review-meta">' + escapeHTML(r[idx.prenom]) + ', ' + escapeHTML(r[idx.age]) + ' ans — ' + escapeHTML(r[idx.peau]) + '</div>';
+        html += '<div class="eb-review-meta">' + escapeHTML(r[idx.prenom]) + ', ' + escapeHTML(r[idx.age]) + ' ans — ' + escapeHTML(r[idx.peau]) + (dateFormatee ? ' · ' + dateFormatee : '') + '</div>';
         html += '<div class="eb-review-text">' + escapeHTML(r[idx.commentaire]) + '</div>';
         html += '</div>';
       });
@@ -86,6 +104,7 @@
     }
   }
 
+  // Fonction appelable directement depuis chaque fiche produit
   window.ebRenderReviews = function(containerId, productName){
     const container = document.getElementById(containerId);
     if(container){ ebRenderReviewsInto(container, productName); }
