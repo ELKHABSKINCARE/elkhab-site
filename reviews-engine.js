@@ -7,6 +7,15 @@
 .eb-review-status{font-size:13px;opacity:.5;font-style:italic;padding:12px 0}
 </style>
 
-<div class="eb-reviews" data-product="Radiance C Serum"></div>
+<div class="eb-reviews" id="ebReviews-radiance-serum"></div>
 
-<script src="https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/reviews-engine.js?v=5"></script>
+<script src="https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/reviews-engine.js?v=6"></script>
+<script>
+(function attendreEtAfficher(essaisRestants){
+  if(window.ebReviewsEngineReady){
+    window.ebRenderReviews('ebReviews-radiance-serum', 'Radiance C Serum');
+  } else if(essaisRestants > 0){
+    setTimeout(function(){ attendreEtAfficher(essaisRestants - 1); }, 200);
+  }
+})(25);
+</script>
