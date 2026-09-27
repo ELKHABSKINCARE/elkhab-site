@@ -45,11 +45,19 @@
   window.ebRenderReviews = async function(containerId, productName){
     const container = document.getElementById(containerId);
     if(!container) return;
+    container.innerHTML = '<div class="eb-review-status">Chargement des avis…</div>';
     try {
       const res = await fetch(CSV_URL);
+      if(!res.ok){
+        container.innerHTML = '<div class="eb-review-status">Avis momentanément indisponibles (erreur ' + res.status + ').</div>';
+        return;
+      }
       const text = await res.text();
       const rows = parseCSV(text);
-      if(rows.length < 2) return;
+      if(rows.length < 2){
+        container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
+        return;
+      }
       const header = rows[0];
       const idx = {
         produit: header.indexOf('Produit concerné'),
@@ -62,7 +70,10 @@
       const matches = rows.slice(1).filter(function(r){
         return r[idx.produit] && r[idx.produit].trim() === productName;
       });
-      if(matches.length === 0){ return; }
+      if(matches.length === 0){
+        container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
+        return;
+      }
 
       let html = '';
       matches.forEach(function(r){
@@ -74,6 +85,7 @@
       });
       container.innerHTML = html;
     } catch(e){
+      container.innerHTML = '<div class="eb-review-status">Avis momentanément indisponibles.</div>';
       console.error('ELKHA.B avis — erreur de chargement', e);
     }
   };
