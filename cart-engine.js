@@ -284,9 +284,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
   if(checkoutBtn){
     checkoutBtn.addEventListener('click', async function(){
+      const originalText = checkoutBtn.textContent;
+      checkoutBtn.textContent = 'CHARGEMENT...';
+      checkoutBtn.disabled = true;
       const cart = await ebCartFetch();
       if(cart && cart.checkoutUrl){
         window.location.href = cart.checkoutUrl;
+      } else {
+        alert("Un souci est survenu avec votre panier (un produit n'est peut-être plus disponible). Merci de retirer puis rajouter vos articles, ou de nous contacter si le problème persiste.");
+        checkoutBtn.textContent = originalText;
+        checkoutBtn.disabled = false;
       }
     });
   }
