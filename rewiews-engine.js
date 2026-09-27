@@ -52,12 +52,12 @@
       if(rows.length < 2) return;
       const header = rows[0];
       const idx = {
-        produit: header.indexOf('Produit'),
+        produit: header.indexOf('Produit concerné'),
         prenom: header.indexOf('Prénom'),
-        age: header.indexOf('Âge'),
+        age: header.indexOf('Age'),
         peau: header.indexOf('Type de peau'),
-        note: header.indexOf('Note'),
-        commentaire: header.indexOf('Commentaire')
+        note: header.indexOf('Votre note'),
+        commentaire: header.indexOf('Votre avis')
       };
       const matches = rows.slice(1).filter(function(r){
         return r[idx.produit] && r[idx.produit].trim() === productName;
