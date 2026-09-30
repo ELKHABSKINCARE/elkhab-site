@@ -166,6 +166,9 @@ document.addEventListener('click', function(e){
   if(canTagOrigin){
     url.searchParams.set('origin', EB_SITE_NAME);
     url.searchParams.set('pos', Math.round(window.scrollY));
+    // Section où se trouve la cliente (ex. un article du Journal), pour l'y ramener exactement
+    const currentHash = window.location.hash.replace('#','');
+    if(currentHash){ url.searchParams.set('h', currentHash); }
   }
   window.location.href = url.toString();
 }, true);
