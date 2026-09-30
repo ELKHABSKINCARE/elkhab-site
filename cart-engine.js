@@ -5,16 +5,65 @@ const STOREFRONT_TOKEN = 'd7b9bf173e3b947dc2bb10f375e14185';
 const API_VERSION = '2026-07';
 const ENDPOINT = 'https://' + SHOPIFY_DOMAIN + '/api/' + API_VERSION + '/graphql.json';
 
-let cartId = sessionStorage.getItem('elkhab_cart_id') || null;
+// =====================================================================
+// ADRESSES DES SITES ELKHA.B
+// C'est le SEUL endroit où les adresses sont écrites. Les autres fichiers
+// (diagnostic, recherche, boutons Fermer...) viennent les lire ici.
+// =====================================================================
+const EB_SITES = {
+  accueil:    'https://elkhab.com/',
+  bloom:      'https://bloom.elkhab.com/',
+  balance:    'https://balance.elkhab.com/',
+  journal:    'https://journal.elkhab.com/',
+  experience: 'https://experience.elkhab.com/',
+  soins:      'https://soins.elkhab.com/'
+};
+window.EB_SITES = EB_SITES;
 
-// Synchronisation du panier ET du statut "connecté" entre les sites ELKHA.B
-const EB_SITES_PATTERN = /elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/;
+// Reconnaît un site ELKHA.B à partir d'un nom de domaine
+// (nouvelles adresses, et anciennes en carrd.co par sécurité)
+function ebSiteFromHost(host){
+  host = (host || '').toLowerCase();
+  if(host === 'elkhab.com' || host === 'www.elkhab.com') return 'accueil';
+  let m = host.match(/^(bloom|balance|journal|experience|soins)\.elkhab\.com$/);
+  if(m) return m[1];
+  m = host.match(/^elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co$/);
+  if(m) return m[1];
+  return null;
+}
+window.ebSiteFromHost = ebSiteFromHost;
 
-// Déduit automatiquement le nom du site actuel depuis son adresse (plus besoin de le déclarer à la main sur chaque page)
-const EB_SITE_NAME = (function(){
-  const m = window.location.hostname.match(/elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co/);
-  return m ? m[1] : null;
+// Nom du site actuel (accueil, bloom, balance, journal, experience ou soins)
+const EB_SITE_NAME = ebSiteFromHost(window.location.hostname);
+window.EB_SITE_NAME = EB_SITE_NAME;
+
+// =====================================================================
+// INFORMATIONS TRANSPORTÉES DANS LES LIENS
+// On les mémorise au chargement, puis on les efface de la barre d'adresse
+// pour qu'elle reste propre. Les autres fichiers les lisent avec ebGetParam().
+// =====================================================================
+const EB_PARAM_KEYS = ['cart','connected','scrollTo','origin','pos','from','back','s','openDiag'];
+// Celles qu'on garde en mémoire si la cliente actualise la page (pour que le bouton Fermer marche toujours)
+const EB_RETURN_KEYS = ['origin','pos','from','back','s'];
+
+const EB_PARAMS = (function(){
+  const current = new URLSearchParams(window.location.search);
+  const snapshot = new URLSearchParams();
+  let found = false;
+  EB_PARAM_KEYS.forEach(function(k){
+    if(current.has(k)){ snapshot.set(k, current.get(k)); found = true; }
+  });
+  if(found) return snapshot;
+  // Page actualisée : on récupère les informations de retour gardées en mémoire
+  const st = history.state;
+  if(st && typeof st === 'object' && st.ebParams){
+    return new URLSearchParams(st.ebParams);
+  }
+  return snapshot;
 })();
+window.ebGetParam = function(name){ return EB_PARAMS.get(name); };
+
+let cartId = sessionStorage.getItem('elkhab_cart_id') || null;
 
 (function(){
   const params = new URLSearchParams(window.location.search);
@@ -28,30 +77,118 @@ const EB_SITE_NAME = (function(){
   }
 })();
 
+// =====================================================================
+// RETOUR "EXACTEMENT LÀ OÙ ELLE ÉTAIT" — fonctionne désormais sur les 6 sites
+// =====================================================================
+(function(){
+  const raw = new URLSearchParams(window.location.search).get('scrollTo');
+  if(raw === null) return;
+  const targetY = parseInt(raw, 10);
+  if(isNaN(targetY)) return;
+  // On cache la page immédiatement pour éviter l'effet "saut" à l'écran
+  document.documentElement.style.visibility = 'hidden';
+  function ebApplyScroll(){
+    window.scrollTo({top: targetY, behavior:'instant'});
+  }
+  function ebSettleThenReveal(){
+    ebApplyScroll();
+    // On corrige plusieurs fois PENDANT que la page est encore cachée,
+    // pour absorber les petits décalages dus aux images/polices qui finissent de charger
+    setTimeout(ebApplyScroll, 80);
+    setTimeout(ebApplyScroll, 180);
+    setTimeout(function(){
+      ebApplyScroll();
+      document.documentElement.style.visibility = 'visible';
+    }, 300);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', ebSettleThenReveal);
+  } else {
+    ebSettleThenReveal();
+  }
+  // Filet de sécurité : on ne laisse jamais la page cachée indéfiniment
+  setTimeout(function(){ document.documentElement.style.visibility = 'visible'; }, 1200);
+})();
+
+// Une fois la page entièrement chargée (tous les autres codes ont lu ce dont ils avaient besoin),
+// on efface les informations techniques de la barre d'adresse
+window.addEventListener('load', function(){
+  try {
+    const url = new URL(window.location.href);
+    let changed = false;
+    EB_PARAM_KEYS.forEach(function(k){
+      if(url.searchParams.has(k)){ url.searchParams.delete(k); changed = true; }
+    });
+    if(!changed) return;
+    const keep = new URLSearchParams();
+    EB_RETURN_KEYS.forEach(function(k){ if(EB_PARAMS.has(k)) keep.set(k, EB_PARAMS.get(k)); });
+    const st = history.state;
+    const baseState = (st && typeof st === 'object') ? st : {};
+    const newState = Object.assign({}, baseState, { ebParams: keep.toString() });
+    history.replaceState(newState, '', url.pathname + url.search + url.hash);
+  } catch(err){
+    console.error('ELKHA.B — nettoyage de l\'adresse impossible', err);
+  }
+});
+
+// =====================================================================
+// NAVIGATION ENTRE LES SITES
+// =====================================================================
+
 // Intercepte tout clic vers un autre site ELKHA.B pour y transporter le panier,
-// le statut "connectée", ET la position de scroll à restaurer (fiches produits / articles)
+// le statut "connectée", ET la position de scroll à restaurer
+// (fiches Soins, articles du Journal, pages légales et contact de l'Accueil...)
 document.addEventListener('click', function(e){
   const link = e.target.closest('a[href]');
   if(!link) return;
+  // Ouverture dans un nouvel onglet : on laisse faire le navigateur
+  if(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  if(link.target && link.target !== '_self') return;
+
   const href = link.getAttribute('href');
-  if(!href || !EB_SITES_PATTERN.test(href)) return;
+  if(!href || !/^https?:\/\//i.test(href)) return;
+
+  let url;
+  try { url = new URL(href); } catch(err){ return; }
+  const targetSite = ebSiteFromHost(url.hostname);
+  if(!targetSite) return;
 
   const isConnected = sessionStorage.getItem('elkhab_connected') === '1';
-  const goingToFiche = /elkhab-(soins|journal)\.carrd\.co/.test(href);
+  // Une "fiche" = un lien vers Soins, ou tout lien vers une section précise (#...)
+  const goingToFiche = targetSite === 'soins' || !!url.hash;
   const canTagOrigin = goingToFiche && !!EB_SITE_NAME;
 
   if(!cartId && !isConnected && !canTagOrigin) return;
 
   e.preventDefault();
-  const url = new URL(href, window.location.href);
   if(cartId){ url.searchParams.set('cart', cartId); }
   if(isConnected){ url.searchParams.set('connected', '1'); }
   if(canTagOrigin){
     url.searchParams.set('origin', EB_SITE_NAME);
-    url.searchParams.set('pos', window.scrollY);
+    url.searchParams.set('pos', Math.round(window.scrollY));
   }
   window.location.href = url.toString();
 }, true);
+
+// Outil utilisé par les boutons Fermer (et autres) pour aller vers un site ELKHA.B
+// en emportant toujours le panier. Exemple : ebNavigate('bloom', {scrollTo: 1200})
+window.ebNavigate = function(siteName, params, hash){
+  const url = new URL(EB_SITES[siteName] || EB_SITES.accueil);
+  if(params){
+    Object.keys(params).forEach(function(k){
+      const v = params[k];
+      if(v !== null && v !== undefined && v !== '') url.searchParams.set(k, v);
+    });
+  }
+  if(cartId){ url.searchParams.set('cart', cartId); }
+  if(sessionStorage.getItem('elkhab_connected') === '1'){ url.searchParams.set('connected', '1'); }
+  if(hash){ url.hash = hash; }
+  window.location.href = url.toString();
+};
+
+// =====================================================================
+// PANIER (inchangé)
+// =====================================================================
 
 function ebUpdateProfileIcon(){
   const profileBtn = document.getElementById('ebProfileButton');
