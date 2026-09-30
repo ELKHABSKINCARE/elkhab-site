@@ -84,30 +84,67 @@ let cartId = sessionStorage.getItem('elkhab_cart_id') || null;
   const raw = new URLSearchParams(window.location.search).get('scrollTo');
   if(raw === null) return;
   const targetY = parseInt(raw, 10);
-  if(isNaN(targetY)) return;
+  if(isNaN(targetY) || targetY <= 0) return;
+
+  const root = document.documentElement;
   // On cache la page immédiatement pour éviter l'effet "saut" à l'écran
-  document.documentElement.style.visibility = 'hidden';
-  function ebApplyScroll(){
-    window.scrollTo({top: targetY, behavior:'instant'});
+  root.style.visibility = 'hidden';
+  if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
+
+  let loaded = document.readyState === 'complete';
+  window.addEventListener('load', function(){ loaded = true; });
+
+  let userActed = false;
+  ['touchstart','wheel','mousedown','keydown'].forEach(function(evt){
+    window.addEventListener(evt, function(){ userActed = true; }, { passive: true, once: true });
+  });
+
+  function apply(){
+    if(!userActed && Math.abs(window.scrollY - targetY) > 2){
+      window.scrollTo({ top: targetY, behavior: 'instant' });
+    }
   }
-  function ebSettleThenReveal(){
-    ebApplyScroll();
-    // On corrige plusieurs fois PENDANT que la page est encore cachée,
-    // pour absorber les petits décalages dus aux images/polices qui finissent de charger
-    setTimeout(ebApplyScroll, 80);
-    setTimeout(ebApplyScroll, 180);
-    setTimeout(function(){
-      ebApplyScroll();
-      document.documentElement.style.visibility = 'visible';
-    }, 300);
+
+  let revealed = false;
+  function reveal(){
+    if(revealed) return;
+    revealed = true;
+    apply();
+    root.style.visibility = 'visible';
+    if('scrollRestoration' in history){ history.scrollRestoration = 'auto'; }
   }
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', ebSettleThenReveal);
-  } else {
-    ebSettleThenReveal();
+
+  // Tant que la page est cachée : on replace la page toutes les 50 ms,
+  // et on ne l'affiche que lorsque tout est chargé ET que la position ne bouge plus
+  const start = Date.now();
+  let stableCount = 0;
+  let lastHeight = 0;
+  const timer = setInterval(function(){
+    apply();
+    const h = document.documentElement.scrollHeight;
+    const onTarget = Math.abs(window.scrollY - targetY) <= 2;
+    stableCount = (onTarget && h === lastHeight) ? stableCount + 1 : 0;
+    lastHeight = h;
+    const elapsed = Date.now() - start;
+    if((loaded && stableCount >= 4) || elapsed > 2500){
+      clearInterval(timer);
+      reveal();
+      guard();
+    }
+  }, 50);
+
+  // Une fois la page affichée : pendant encore 2 secondes, si quelque chose
+  // (une image, une animation) décale la page sans que la cliente ait touché à rien, on la remet en place
+  function guard(){
+    const guardStart = Date.now();
+    const g = setInterval(function(){
+      if(userActed || Date.now() - guardStart > 2000){ clearInterval(g); return; }
+      apply();
+    }, 100);
   }
+
   // Filet de sécurité : on ne laisse jamais la page cachée indéfiniment
-  setTimeout(function(){ document.documentElement.style.visibility = 'visible'; }, 1200);
+  setTimeout(reveal, 3000);
 })();
 
 // Une fois la page entièrement chargée (tous les autres codes ont lu ce dont ils avaient besoin),
