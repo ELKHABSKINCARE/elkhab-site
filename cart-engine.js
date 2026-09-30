@@ -42,9 +42,9 @@ window.EB_SITE_NAME = EB_SITE_NAME;
 // On les mémorise au chargement, puis on les efface de la barre d'adresse
 // pour qu'elle reste propre. Les autres fichiers les lisent avec ebGetParam().
 // =====================================================================
-const EB_PARAM_KEYS = ['cart','connected','scrollTo','origin','pos','from','back','s','openDiag'];
+const EB_PARAM_KEYS = ['cart','connected','scrollTo','origin','pos','from','back','s','h','openDiag'];
 // Celles qu'on garde en mémoire si la cliente actualise la page (pour que le bouton Fermer marche toujours)
-const EB_RETURN_KEYS = ['origin','pos','from','back','s'];
+const EB_RETURN_KEYS = ['origin','pos','from','back','s','h'];
 
 const EB_PARAMS = (function(){
   const current = new URLSearchParams(window.location.search);
