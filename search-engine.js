@@ -29,8 +29,13 @@
   document.body.appendChild(container);
 })();
 
-const EB_SOINS_BASE = "https://elkhab-soins.carrd.co/";
-const EB_JOURNAL_BASE = "https://elkhab-journal.carrd.co/";
+// Adresses : lues dans cart-engine.js (un seul endroit), avec une valeur de secours
+function ebSearchSoinsBase(){
+  return (window.EB_SITES && window.EB_SITES.soins) || "https://soins.elkhab.com/";
+}
+function ebSearchJournalBase(){
+  return (window.EB_SITES && window.EB_SITES.journal) || "https://journal.elkhab.com/";
+}
 
 const EB_PRODUCTS = [
   {id:"radiance-serum", name:"Radiance C Serum", keywords:["vitamine c","eclat","teint","taches","antioxydant","serum"]},
@@ -64,6 +69,13 @@ function ebSearchNormalize(str){
   return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
 
+// Affiche le texte tapé par la cliente sans risque (pas interprété comme du code)
+function ebSearchEscape(str){
+  const div = document.createElement('div');
+  div.textContent = str || '';
+  return div.innerHTML;
+}
+
 function ebSearchMatch(item, query){
   const q = ebSearchNormalize(query);
   if(ebSearchNormalize(item.name).includes(q)) return true;
@@ -80,21 +92,23 @@ function ebSearchRun(query){
   const matchedArticles = EB_ARTICLES.filter(function(a){ return ebSearchMatch(a, query); });
 
   if(matchedProducts.length === 0 && matchedArticles.length === 0){
-    resultsEl.innerHTML = '<div class="eb-search-empty">Aucun résultat pour « '+query+' »</div>';
+    resultsEl.innerHTML = '<div class="eb-search-empty">Aucun résultat pour « '+ebSearchEscape(query)+' »</div>';
     return;
   }
 
+  const soinsBase = ebSearchSoinsBase();
+  const journalBase = ebSearchJournalBase();
   let html = '';
   if(matchedProducts.length > 0){
     html += '<div class="eb-search-group-label">Soins</div>';
     matchedProducts.forEach(function(p){
-      html += '<a class="eb-search-item" href="'+EB_SOINS_BASE+'#'+p.id+'"><div class="eb-search-item-name">'+p.name+'</div></a>';
+      html += '<a class="eb-search-item" href="'+soinsBase+'#'+p.id+'"><div class="eb-search-item-name">'+p.name+'</div></a>';
     });
   }
   if(matchedArticles.length > 0){
     html += '<div class="eb-search-group-label">Journal</div>';
     matchedArticles.forEach(function(a){
-      html += '<a class="eb-search-item" href="'+EB_JOURNAL_BASE+'#'+a.id+'"><div class="eb-search-item-name">'+a.name+'</div></a>';
+      html += '<a class="eb-search-item" href="'+journalBase+'#'+a.id+'"><div class="eb-search-item-name">'+a.name+'</div></a>';
     });
   }
   resultsEl.innerHTML = html;
