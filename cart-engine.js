@@ -16,7 +16,8 @@ const EB_SITES = {
   balance:    'https://balance.elkhab.com/',
   journal:    'https://journal.elkhab.com/',
   experience: 'https://experience.elkhab.com/',
-  soins:      'https://soins.elkhab.com/'
+  soins:      'https://soins.elkhab.com/',
+  avis:       'https://avis.elkhab.com/'
 };
 window.EB_SITES = EB_SITES;
 
@@ -25,7 +26,7 @@ window.EB_SITES = EB_SITES;
 function ebSiteFromHost(host){
   host = (host || '').toLowerCase();
   if(host === 'elkhab.com' || host === 'www.elkhab.com') return 'accueil';
-  let m = host.match(/^(bloom|balance|journal|experience|soins)\.elkhab\.com$/);
+  let m = host.match(/^(bloom|balance|journal|experience|soins|avis)\.elkhab\.com$/);
   if(m) return m[1];
   m = host.match(/^elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co$/);
   if(m) return m[1];
@@ -191,8 +192,8 @@ document.addEventListener('click', function(e){
   if(!targetSite) return;
 
   const isConnected = sessionStorage.getItem('elkhab_connected') === '1';
-  // Une "fiche" = un lien vers Soins, ou tout lien vers une section précise (#...)
-  const goingToFiche = targetSite === 'soins' || !!url.hash;
+  // Une "fiche" = un lien vers Soins, vers la page d'avis, ou vers une section précise (#...)
+  const goingToFiche = targetSite === 'soins' || targetSite === 'avis' || !!url.hash;
   const canTagOrigin = goingToFiche && !!EB_SITE_NAME;
 
   if(!cartId && !isConnected && !canTagOrigin) return;
