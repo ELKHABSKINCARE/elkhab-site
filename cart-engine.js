@@ -405,7 +405,7 @@ function ebRenderCart(cart, attemptsLeft){
     const m = line.merchandise;
     html += '<div class="eb-cart-item">';
     html += '<div class="eb-cart-item-title">' + m.product.title + '</div>';
-    if(m.title && m.title !== 'Default Title'){
+    if(m.title && m.title !== 'Default Title' && m.title !== 'Default'){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
     html += '<div class="eb-cart-item-bottom">';
