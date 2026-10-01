@@ -3,6 +3,21 @@
   const GID = "1134795247"; // onglet "Publiés"
   const CSV_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
 
+  // ---------------------------------------------------------------
+  // Style des avis et du bouton « Laisser un avis » (fond noir des fiches)
+  // ---------------------------------------------------------------
+  var styleTag = document.createElement('style');
+  styleTag.textContent =
+    ".eb-reviews{font-family:'Montserrat',sans-serif;margin-top:10px;color:#fff}" +
+    ".eb-review{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.18)}" +
+    ".eb-review-stars{color:#fff;font-size:14px;letter-spacing:2px;margin-bottom:6px}" +
+    ".eb-review-meta{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff;opacity:.6;margin-bottom:8px}" +
+    ".eb-review-text{font-size:13.5px;line-height:1.7;color:#fff;opacity:.9}" +
+    ".eb-review-status{font-size:13px;color:#fff;opacity:.6;font-style:italic;padding:12px 0}" +
+    ".eb-laisser-avis{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:280px;margin:22px auto 0;background:#fff;color:#000 !important;border:1px solid #fff;border-radius:0;padding:16px 24px;box-sizing:border-box;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none !important;cursor:pointer;transition:transform .2s ease;white-space:nowrap}" +
+    ".eb-laisser-avis:hover{transform:scale(1.03)}";
+  document.head.appendChild(styleTag);
+
   // Petit analyseur de CSV (gère les virgules et retours à la ligne à l'intérieur d'un commentaire entre guillemets)
   function parseCSV(text){
     const rows = [];
@@ -54,23 +69,31 @@
     return div.innerHTML;
   }
 
-  // À appeler sur chaque fiche produit : ebRenderReviews('id-du-conteneur', 'Nom exact du produit')
+  // Le Google Sheets n'est lu qu'une seule fois par page, même s'il y a 18 fiches
+  let csvPromise = null;
+  function getRows(){
+    if(!csvPromise){
+      csvPromise = fetch(CSV_URL)
+        .then(function(res){
+          if(!res.ok) throw new Error('HTTP ' + res.status);
+          return res.text();
+        })
+        .then(parseCSV)
+        .catch(function(err){ csvPromise = null; throw err; });
+    }
+    return csvPromise;
+  }
+
   // Rend les avis pour un conteneur donné
   async function ebRenderReviewsInto(container, productName){
     container.innerHTML = '<div class="eb-review-status">Chargement des avis…</div>';
     try {
-      const res = await fetch(CSV_URL);
-      if(!res.ok){
-        container.innerHTML = '<div class="eb-review-status">Avis momentanément indisponibles (erreur ' + res.status + ').</div>';
-        return;
-      }
-      const text = await res.text();
-      const rows = parseCSV(text);
+      const rows = await getRows();
       if(rows.length < 2){
         container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
         return;
       }
-      const header = rows[0];
+      const header = rows[0].map(function(h){ return (h || '').trim(); });
       const idx = {
         horodateur: header.indexOf('Horodateur'),
         produit: header.indexOf('Produit concerné'),
@@ -80,8 +103,9 @@
         note: header.indexOf('Votre note'),
         commentaire: header.indexOf('Votre avis')
       };
+      const cible = (productName || '').trim();
       const matches = rows.slice(1).filter(function(r){
-        return r[idx.produit] && r[idx.produit].trim() === productName;
+        return r[idx.produit] && r[idx.produit].trim() === cible;
       });
       if(matches.length === 0){
         container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
@@ -104,10 +128,37 @@
     }
   }
 
-  // Fonction appelable directement depuis chaque fiche produit
+  // Fonction appelable directement (compatibilité avec l'ancienne méthode)
   window.ebRenderReviews = function(containerId, productName){
     const container = document.getElementById(containerId);
     if(container){ ebRenderReviewsInto(container, productName); }
   };
   window.ebReviewsEngineReady = true;
+
+  // ---------------------------------------------------------------
+  // AFFICHAGE AUTOMATIQUE : remplit tous les blocs <div class="eb-reviews" data-produit="...">
+  // de la page, sans aucun code dans les fiches.
+  // ---------------------------------------------------------------
+  function renderAll(){
+    const blocs = document.querySelectorAll('.eb-reviews[data-produit]');
+    for(let i = 0; i < blocs.length; i++){
+      const b = blocs[i];
+      if(b.getAttribute('data-eb-fait') === '1') continue;
+      b.setAttribute('data-eb-fait', '1');
+      ebRenderReviewsInto(b, b.getAttribute('data-produit'));
+    }
+  }
+
+  function start(){
+    renderAll();
+    window.addEventListener('hashchange', function(){ setTimeout(renderAll, 50); setTimeout(renderAll, 600); });
+    if(window.MutationObserver){
+      new MutationObserver(function(){ renderAll(); }).observe(document.body, { childList: true, subtree: true });
+    }
+    let n = 0;
+    const t = setInterval(function(){ renderAll(); if(++n > 20) clearInterval(t); }, 500);
+  }
+
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', start); }
+  else { start(); }
 })();
