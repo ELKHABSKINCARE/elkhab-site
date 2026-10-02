@@ -8,7 +8,8 @@
   // ---------------------------------------------------------------
   var styleTag = document.createElement('style');
   styleTag.textContent =
-    ".eb-reviews{font-family:'Montserrat',sans-serif !important;margin:10px auto 0;padding:0 24px;max-width:560px;box-sizing:border-box;color:#fff !important;text-align:left !important}" +
+    ".eb-reviews{font-family:'Montserrat',sans-serif !important;margin:10px auto 0 !important;padding:0 24px !important;max-width:560px !important;width:auto !important;box-sizing:border-box !important;color:#fff !important;text-align:left !important}" +
+    ".eb-reviews .eb-review,.eb-reviews .eb-review-status{padding-left:0 !important;padding-right:0 !important}" +
     ".eb-reviews *{text-align:left !important}" +
     ".eb-review{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.18)}" +
     ".eb-review-stars{color:#fff !important;font-size:19px !important;letter-spacing:3px;line-height:1.2;margin-bottom:8px}" +
