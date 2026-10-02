@@ -93,16 +93,23 @@
         container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
         return;
       }
-      const header = rows[0].map(function(h){ return (h || '').trim(); });
+      // Reconnaît chaque colonne par un mot-clé, sans tenir compte des majuscules,
+      // des accents ni du pluriel (ex. « PRODUITS CONCERNÉS » = « Produit concerné »)
+      const norm = function(t){ return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); };
+      const header = rows[0].map(norm);
+      const col = function(motCle){ for(let i = 0; i < header.length; i++){ if(header[i].indexOf(motCle) !== -1) return i; } return -1; };
       const idx = {
-        horodateur: header.indexOf('Horodateur'),
-        produit: header.indexOf('Produit concerné'),
-        prenom: header.indexOf('Prénom'),
-        age: header.indexOf('Age'),
-        peau: header.indexOf('Type de peau'),
-        note: header.indexOf('Votre note'),
-        commentaire: header.indexOf('Votre avis')
+        horodateur: col('horodat'),
+        produit: col('produit'),
+        prenom: col('prenom'),
+        age: col('age'),
+        peau: col('peau'),
+        note: col('note'),
+        commentaire: col('avis')
       };
+      if(idx.produit === -1){
+        console.error('ELKHA.B avis — colonne des produits introuvable dans l\'onglet Publiés', rows[0]);
+      }
       const cible = (productName || '').trim();
       const matches = rows.slice(1).filter(function(r){
         return r[idx.produit] && r[idx.produit].trim() === cible;
