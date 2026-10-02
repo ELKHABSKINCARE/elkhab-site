@@ -88,7 +88,6 @@
 
   // Rend les avis pour un conteneur donné
   async function ebRenderReviewsInto(container, productName){
-    container.innerHTML = '<div class="eb-review-status">Chargement des avis…</div>';
     try {
       const rows = await getRows();
       if(rows.length < 2){
