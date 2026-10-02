@@ -31,8 +31,9 @@
   + ".eb-av-overlay.open{transform:translateX(0)}"
   + ".eb-av-overlay *{box-sizing:border-box}"
   + ".eb-av-overlay,.eb-av-overlay input,.eb-av-overlay select,.eb-av-overlay textarea,.eb-av-overlay button{font-family:'Montserrat',sans-serif !important}"
-  + ".eb-av-close{position:fixed;top:20px;left:20px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.12);border:none;font-size:20px;line-height:1;color:#fff;cursor:pointer;z-index:3;display:flex;align-items:center;justify-content:center;transition:transform .2s ease,background .2s ease}"
-  + ".eb-av-close:hover{transform:rotate(90deg);background:rgba(255,255,255,.22)}"
+  + ".eb-av-close{position:fixed;top:20px;right:20px;z-index:100000;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
+  + ".eb-av-close.visible{display:flex}"
+  + ".eb-av-close:hover{transform:scale(1.1)}"
   + ".eb-av-inner{max-width:540px;margin:0 auto;padding:76px 24px 70px}"
   + ".eb-av-banner{display:block;width:100%;height:auto;margin:0 0 34px}"
   + ".eb-av-title{font-size:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;margin:0 0 16px;color:#fff}"
@@ -63,7 +64,7 @@
   + ".eb-av-thanks button{display:inline-block;background:#fff;color:#000;border:none;padding:16px 30px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}";
 
   // ------------------------------------------------------------------ STRUCTURE
-  var overlay, list, errorEl, sendBtn, formEl, thanksEl;
+  var overlay, list, errorEl, sendBtn, formEl, thanksEl, closeBtn;
   var built = false;
 
   function build(){
@@ -80,7 +81,6 @@
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-label', 'Laisser un avis');
     overlay.innerHTML = ''
-      + '<button type="button" class="eb-av-close" aria-label="Fermer">&times;</button>'
       + '<div class="eb-av-inner">'
       +   '<img class="eb-av-banner" src="' + BANNIERE + '" alt="ELKHA.B Paris">'
       +   '<h2 class="eb-av-title">Votre avis compte</h2>'
@@ -122,7 +122,13 @@
     formEl = overlay.querySelector('.eb-av-form');
     thanksEl = overlay.querySelector('.eb-av-thanks');
 
-    overlay.querySelector('.eb-av-close').addEventListener('click', ebAvisClose);
+    closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'eb-av-close';
+    closeBtn.setAttribute('aria-label', 'Fermer');
+    closeBtn.innerHTML = '&times;';
+    document.body.appendChild(closeBtn);
+    closeBtn.addEventListener('click', ebAvisClose);
     overlay.querySelector('.eb-av-continue').addEventListener('click', ebAvisClose);
     overlay.querySelector('.eb-av-add').addEventListener('click', function(){ addCard('', '', '', true); });
     sendBtn.addEventListener('click', send);
@@ -219,11 +225,13 @@
 
     overlay.scrollTop = 0;
     requestAnimationFrame(function(){ overlay.classList.add('open'); });
+    closeBtn.classList.add('visible');
     document.documentElement.style.overflow = 'hidden';
   }
   function ebAvisClose(){
     if(!overlay) return;
     overlay.classList.remove('open');
+    if(closeBtn) closeBtn.classList.remove('visible');
     document.documentElement.style.overflow = '';
   }
   window.ebAvisOpen = ebAvisOpen;
