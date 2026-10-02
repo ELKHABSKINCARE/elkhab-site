@@ -8,12 +8,13 @@
   // ---------------------------------------------------------------
   var styleTag = document.createElement('style');
   styleTag.textContent =
-    ".eb-reviews{font-family:'Montserrat',sans-serif;margin-top:10px;color:#fff}" +
+    ".eb-reviews{font-family:'Montserrat',sans-serif !important;margin-top:10px;color:#fff !important;text-align:left !important}" +
+    ".eb-reviews *{text-align:left !important}" +
     ".eb-review{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.18)}" +
-    ".eb-review-stars{color:#fff;font-size:14px;letter-spacing:2px;margin-bottom:6px}" +
-    ".eb-review-meta{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff;opacity:.6;margin-bottom:8px}" +
-    ".eb-review-text{font-size:13.5px;line-height:1.7;color:#fff;opacity:.9}" +
-    ".eb-review-status{font-size:13px;color:#fff;opacity:.6;font-style:italic;padding:12px 0}" +
+    ".eb-review-stars{color:#fff !important;font-size:19px !important;letter-spacing:3px;line-height:1.2;margin-bottom:8px}" +
+    ".eb-review-meta{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff !important;opacity:.6;margin-bottom:8px}" +
+    ".eb-review-text{font-size:13.5px;line-height:1.7;color:#fff !important;opacity:.9}" +
+    ".eb-review-status{font-size:13px;color:#fff !important;opacity:.6;font-style:italic;padding:12px 0}" +
     ".eb-laisser-avis{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:280px;margin:22px auto 0;background:#fff;color:#000 !important;border:1px solid #fff;border-radius:0;padding:16px 24px;box-sizing:border-box;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none !important;cursor:pointer;transition:transform .2s ease;white-space:nowrap}" +
     ".eb-laisser-avis:hover{transform:scale(1.03)}";
   document.head.appendChild(styleTag);
