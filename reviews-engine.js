@@ -111,9 +111,11 @@
       if(idx.produit === -1){
         console.error('ELKHA.B avis — colonne des produits introuvable dans l\'onglet Publiés', rows[0]);
       }
-      const cible = (productName || '').trim();
+      // Comparaison tolérante : accents, majuscules et espaces invisibles ignorés
+      const cle = function(t){ return norm(t).replace(/[\s\u00a0\u202f]+/g, ' ').trim(); };
+      const cible = cle(productName);
       const matches = rows.slice(1).filter(function(r){
-        return r[idx.produit] && r[idx.produit].trim() === cible;
+        return r[idx.produit] && cle(r[idx.produit]) === cible;
       });
       if(matches.length === 0){
         container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
