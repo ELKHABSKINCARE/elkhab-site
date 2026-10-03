@@ -169,7 +169,7 @@ window.EB_PRODUITS = {
         // 📷 PHOTO 1
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Prebiotique_nette_HD.png?v=1791028579",
         // 📷 PHOTO 2
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000454c8210a827f69035d58538.png?v=1791028529"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000454c8210a827f69035d58538.png?v=1791030948"
         // 📷 PHOTO 3 — à ajouter : mettre une virgule à la fin de la ligne PHOTO 2,
         //    puis coller ici le lien entre guillemets "…"
       ]
