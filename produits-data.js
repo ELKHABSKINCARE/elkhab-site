@@ -145,6 +145,71 @@ window.EB_PRODUITS = {
       prix: "28,90€",
       variantId: "59324234891609"
     }
+  },
+
+  // =====================================================================
+  // GELÉE LUMI-BLOOM
+  // =====================================================================
+  "gelee-lumibloom": {
+    nom: "Gelée Lumi-Bloom",
+    sousTitre: "Prébiotiques bioactifs · Acide hyaluronique",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "28,90€",
+    variantId: "59324234891609",
+    inci: "gelee-lumibloom",
+    avis: "Gelée Lumi-Bloom au Prébiotique",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 PHOTO 1
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Prebiotique_nette_HD.png?v=1791028579",
+        // 📷 PHOTO 2
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000454c8210a827f69035d58538.png?v=1791028529"
+        // 📷 PHOTO 3 — à ajouter : mettre une virgule à la fin de la ligne PHOTO 2,
+        //    puis coller ici le lien entre guillemets "…"
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "La Gelée Lumi-Bloom est la première étape d'une peau éclatante. Sa texture gel fraîche hydrate instantanément tout en aidant à rééquilibrer le microbiome et à renforcer la barrière cutanée. La peau paraît plus confortable, plus souple et naturellement lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Grâce à ses prébiotiques bioactifs, son acide hyaluronique et son Sodium PCA, la Gelée Lumi-Bloom aide à préserver l'équilibre naturel de la peau, favorise une hydratation durable et prépare idéalement la peau à recevoir les soins suivants. Jour après jour, la peau retrouve confort, résistance et éclat." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Aide à renforcer la barrière cutanée",
+          "Préserve l'équilibre du microbiome",
+          "Hydrate durablement et améliore le confort de la peau",
+          "Prépare la peau à recevoir les soins de votre routine"
+        ] },
+      { titre: "Pensé pour",
+        texte: "Tous les types de peau, en particulier les peaux déshydratées, sensibilisées ou fragilisées recherchant davantage de confort, d'équilibre et d'éclat." },
+      { titre: "Texture & sensorialité",
+        texte: "Sa texture gel légère et rafraîchissante pénètre rapidement sans effet collant. Elle laisse la peau fraîche, souple et parfaitement préparée à recevoir les soins suivants." },
+      { titre: "Votre rituel",
+        texte: "Appliquez une pression matin et/ou soir sur une peau propre avant votre sérum. La Gelée Lumi-Bloom prépare la peau, optimise le confort cutané et accompagne chaque étape de votre routine ELKHA.B." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, nous croyons qu'une peau éclatante commence par une peau équilibrée. La Gelée LumiBloom associe des actifs soigneusement sélectionnés pour renforcer la barrière cutanée, préserver le microbiome et révéler durablement l'éclat naturel de votre peau." }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "radiance-serum",
+      nom: "Radiance C Serum",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum.png?v=1791003209",
+
+      texte: "Préparez votre peau à révéler tout son éclat.\nLa Gelée Lumi-Bloom aide à renforcer la barrière cutanée et à préserver l'équilibre du microbiome, créant les conditions idéales pour le Radiance C Serum.\nEnsemble, ils révèlent une peau plus lumineuse, plus homogène et naturellement éclatante.",
+      prix: "34,90€",
+      variantId: "59324259434841"
+    }
   }
 
 };
