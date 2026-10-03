@@ -7,13 +7,15 @@ window.EB_PRODUITS = {
 
   "radiance-serum": {
     nom: "Radiance C Serum",
+    sousTitre: "Vitamine C stabilisée · Acide hyaluronique",
+    details: ["30 ml", "Vegan"],        // affichés en petites majuscules : 30 ML · VEGAN
+    note: "une pression suffit",        // petite mention fine sous les détails (laisser "" pour ne rien afficher)
     prix: "34,90€",
     variantId: "59324259434841",
-    accroche: "Une texture sorbet à la teinte solaire, une délicate senteur d'agrumes et une formule pensée pour révéler la radiance naturelle de la peau.",
-    // Nom exact utilisé pour les avis (Google Form)
-    avis: "Radiance C Serum",
+    inci: "radiance-c-serum",           // clé de la composition dans inci-data.js
+    avis: "Radiance C Serum",           // nom exact utilisé pour les avis (Google Form)
     media: {
-      type: "video", // "video" ou "diaporama"
+      type: "video",                    // "video" ou "diaporama"
       video: "https://cdn.shopify.com/videos/c/o/v/a36600a0c70a4392be399a4a8a1c4d78.mp4",
       image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/RADAINCE_C_SERUM.jpg?v=1790958700"
       // Pour un diaporama : images: ["lien1", "lien2", "lien3"]
@@ -25,7 +27,7 @@ window.EB_PRODUITS = {
         texte: "Lumibloom associe une vitamine C stabilisée à l'acide hyaluronique multimoléculaire pour révéler la radiance naturelle de la peau sans jamais compromettre son hydratation. Sa formule haute tolérance illumine progressivement le teint, unifie le grain de peau et aide à protéger la peau des agressions quotidiennes responsables du vieillissement cutané prématuré." },
       { titre: "Bénéfices clés",
         liste: [
-          "Ravive la radiance naturelle du teint",
+          "Ravive la radiance naturelle du teint (Healthy Glow)",
           "Unifie visiblement le teint et aide à atténuer l'apparence des taches",
           "Protège du stress oxydatif et des agressions extérieures",
           "Soutient les mécanismes naturels de production du collagène",
@@ -50,7 +52,15 @@ window.EB_PRODUITS = {
           "Vitamine C stabilisée haute tolérance",
           "Formule concentrée, pensée pour durer"
         ] }
-    ]
+    ],
+    accord: {
+      fiche: "luminescence-jour",       // fiche ouverte par le bouton « Découvrir »
+      nom: "Crème Luminescence Jour",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_Jour.png?v=1791003209",
+      texte: "L'alliance du Radiance C Serum et de la crème Luminescence Jour offre une routine complète où l'éclat rencontre l'hydratation.\nLe sérum unifie et illumine le teint, tandis que la crème repulpe intensément la peau et aide à préserver durablement sa radiance.\nEnsemble, ils révèlent une peau naturellement lumineuse, souple et éclatante de santé.",
+      prix: "34,90€",
+      variantId: "59324221129049"
+    }
   }
 
 };
