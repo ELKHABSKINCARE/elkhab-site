@@ -54,6 +54,15 @@
   + ".eb-fp-sel-options.eb-une-col{grid-template-columns:1fr}"
   + ".eb-fp-sel-opt{background:#fff;color:#000;border:1px solid #cfcfcf;border-radius:0;padding:11px 6px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;white-space:nowrap;transition:background .2s ease,color .2s ease,border-color .2s ease}"
   + ".eb-fp-sel-opt.active{background:#000;color:#fff;border-color:#000}"
+  // Aperçu de la teinte choisie : petite photo qui apparaît sous les options
+  + ".eb-fp-sel-preview{display:flex;align-items:center;gap:14px;margin-top:0;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .45s ease,margin-top .45s ease}"
+  + ".eb-fp-sel-preview.on{max-height:110px;opacity:1;margin-top:14px}"
+  + ".eb-fp-sel-thumb{width:84px;height:84px;flex-shrink:0;object-fit:cover;background:#f6f4f0;transform:scale(.85);transition:transform .45s cubic-bezier(.2,.8,.2,1)}"
+  + ".eb-fp-sel-preview.on .eb-fp-sel-thumb{transform:scale(1)}"
+  + ".eb-fp-sel-preview.eb-flash .eb-fp-sel-thumb{animation:ebFpThumb .45s ease}"
+  + "@keyframes ebFpThumb{0%{opacity:.2;transform:scale(.9)}100%{opacity:1;transform:scale(1)}}"
+  + ".eb-fp-sel-caption{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#555;line-height:1.6;text-align:left}"
+  + ".eb-fp-sel-caption strong{display:block;color:#000;font-weight:600;letter-spacing:.06em}"
   + ".eb-fp-buy .eb-produit-add-price{font-weight:400;opacity:.85}"
   + ".eb-fp-ship{font-size:12px;line-height:1.6;text-align:center;color:#444;margin:12px auto 0;max-width:320px;opacity:0;transform:translateY(10px) scale(.88);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}"
   + ".eb-fp-ship.eb-in{opacity:1;transform:scale(1)}"
@@ -176,6 +185,16 @@
         var bouton = overlay.querySelector('.eb-fp-main-buy');
         if(bouton) bouton.setAttribute('data-variant-id', opt.getAttribute('data-variant'));
         var photo = opt.getAttribute('data-photo');
+        // Petite photo de rappel sous les teintes
+        var apercu = overlay.querySelector('.eb-fp-sel-preview');
+        var images = (overlay._ebMedia && overlay._ebMedia.images) || [];
+        if(apercu && photo != null && images[parseInt(photo, 10)]){
+          var vignette = apercu.querySelector('.eb-fp-sel-thumb');
+          vignette.src = hd(images[parseInt(photo, 10)], 400);
+          apercu.querySelector('strong').textContent = opt.textContent;
+          apercu.classList.add('on');
+          apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
+        }
         var piste = overlay.querySelector('.eb-fp-slides');
         if(photo != null && piste){
           clearInterval(slideTimer); // la cliente a choisi : le diaporama s'arrête sur sa teinte
@@ -348,7 +367,11 @@
         h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
           + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '') + '>' + esc(v.label) + '</button>';
       });
-      h += '</div></div>';
+      h += '</div>';
+      if(variantes.some(function(v){ return v.photo != null; })){
+        h += '<div class="eb-fp-sel-preview"><img class="eb-fp-sel-thumb" alt=""><div class="eb-fp-sel-caption">Votre choix<strong></strong></div></div>';
+      }
+      h += '</div>';
     }
 
     // Achat
@@ -412,6 +435,7 @@
     h += '</div></div></div>';
 
     overlay.innerHTML = h;
+    overlay._ebMedia = data.media || {};
     overlay.scrollTop = 0;
 
     ajusterHauteurMedia();
