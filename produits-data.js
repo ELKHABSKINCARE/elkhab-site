@@ -218,7 +218,7 @@ window.EB_PRODUITS = {
   "lumiveil-cc-cream": {
     nom: "Lumi-Veil CC Cream SPF 30",
     sousTitre: "Céramides · Beurre de cacao · Vitamine E",
-    details: ["SPF 30", "Vegan"],       // ajouter la contenance ici, ex. ["15 g", "SPF 30", "Vegan"]
+    details: ["12 g", "SPF 30", "Vegan"],
     note: "",
     prix: "26,90€",
     inci: "lumi-veil-cc-cream",
@@ -316,8 +316,8 @@ window.EB_PRODUITS = {
       // 📷 VIDÉO (lien Shopify .mp4)
       video: "https://cdn.shopify.com/videos/c/o/v/616a91cb2fb9411d9d05500f2bd41b56.mp4",
 
-      // 📷 PHOTO (affichée le temps que la vidéo se charge) — à ajouter entre les guillemets
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/w5ZvPjDCx68fKpeAOVLXIqkW8m3eDGKY.jpg?v=1788719223"
+      // 📷 PHOTO (affichée le temps que la vidéo se charge)
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Bloom_niacinamide_5.jpg?v=1791040735"
     },
     sections: [
       { titre: "L'expérience",
@@ -367,6 +367,227 @@ window.EB_PRODUITS = {
       texte: "L'alliance de Lumi-Bloom Niacinamide 5 et de Lumi-Veil CC Cream SPF 30 révèle un teint plus uniforme, des pores visiblement estompés et une peau naturellement lumineuse.\nLe gel perfecteur prépare la peau, tandis que Lumi-Veil unifie, protège et sublime l'éclat pour un effet glow frais et naturel, sans effet gras.",
       prix: "26,90€"
       // Les teintes et leurs identifiants sont repris automatiquement de la fiche Lumi-Veil CC Cream
+    }
+  },
+
+  // =====================================================================
+  // LUMINESCENCE NUIT
+  // =====================================================================
+  "luminescence-nuit": {
+    nom: "Luminescence Nuit",
+    sousTitre: "Plancton marin · Collagène",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "34,90€",
+    variantId: "59324229943641",
+    inci: "luminescence-nuit",
+    avis: "Luminescence Nuit",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Luminescence Nuit             │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "video",
+
+      // 📷 VIDÉO (lien Shopify .mp4)
+      video: "https://cdn.shopify.com/videos/c/o/v/31f522b869a14fb38922afb5c7d79369.mp4",
+
+      // 📷 PHOTO (affichée le temps que la vidéo se charge)
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_nuit.jpg?v=1791040707"
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "La nuit est le moment où la peau se régénère naturellement. Luminescence Nuit l'accompagne dans ce précieux instant en l'enveloppant d'une texture riche, fondante et réconfortante. Au réveil, la peau paraît plus ferme, plus souple, visiblement rebondie et parfaitement reposée." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que les plus beaux résultats s'obtiennent souvent pendant le sommeil. Luminescence Nuit associe un extrait innovant de plancton marin et du collagène à des actifs nourrissants comme le beurre de cacao, le beurre de karité, l'aloe vera et le Sodium PCA." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Nourrit intensément la peau pendant la nuit",
+          "Améliore visiblement la fermeté et la souplesse cutanée",
+          "Repulpe les traits et améliore le rebond de la peau",
+          "Atténue l'apparence des ridules",
+          "Préserve durablement l'hydratation et le confort cutané",
+          "Réveille une peau plus douce, plus ferme et naturellement lumineuse"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux en perte de fermeté",
+          "Les peaux sèches ou déshydratées",
+          "Les peaux souhaitant préserver leur capital jeunesse",
+          "Les peaux recherchant confort, nutrition et rebond au réveil"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture riche, fondante et enveloppante qui pénètre confortablement sans laisser de fini gras. Son délicat parfum aux notes de nénuphar, de jasmin blanc, de vanille et d'une subtile touche de menthe poivrée transforme chaque application en un véritable rituel du soir." },
+      { titre: "Votre rituel",
+        texte: "Appliquez une pression sur peau propre chaque soir, après votre sérum Bloom. Pour une routine complète, associez-la au Radiance C Serum ou à Lumi-Bloom Niacinamide 5 selon les besoins de votre peau." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "99% d'ingrédients d'origine naturelle",
+          "Formule enrichie en plancton marin, beurre de cacao et beurre de karité",
+          "Formule concentrée, pensée pour durer"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "lumibloom-niac-5",
+      nom: "Lumi-Bloom Niacinamide 5",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumibloom_niac_5.png?v=1791003209",
+
+      texte: "L'allié idéal de Luminescence Nuit.\nEnsemble, ils accompagnent la peau tout au long de la nuit pour révéler un teint plus harmonieux, une peau plus confortable et un éclat naturel au réveil.",
+      prix: "34,90€",
+      variantId: "59324243411289"
+    }
+  },
+
+  // =====================================================================
+  // RITUEL LUMINESCENCE (Jour & Nuit)
+  // =====================================================================
+  "rituel-luminescence": {
+    nom: "Rituel Luminescence",
+    sousTitre: "Acide hyaluronique · Plancton marin · Collagène",
+    details: ["Jour & Nuit", "2 × 50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "67,90€",
+    variantId: "59358612750681",
+    inci: "rituel-luminescence",
+    avis: "Rituel Luminescence",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Rituel Luminescence           │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "video",
+
+      // 📷 VIDÉO (lien Shopify .mp4)
+      video: "https://cdn.shopify.com/videos/c/o/v/7152afc055204f83883f27b08505b3db.mp4",
+
+      // 📷 PHOTO (affichée le temps que la vidéo se charge)
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Rituel_Luminescence.png?v=1791054871"
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Le Rituel Luminescence accompagne votre peau du matin jusqu'au soir pour lui offrir une hydratation continue et révéler un éclat naturel durable. Jour après jour, la peau paraît plus souple, plus rebondie et visiblement plus lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Le Rituel Luminescence réunit deux formules complémentaires qui accompagnent la peau à chaque moment de la journée. Le matin, l'acide hyaluronique multimoléculaire hydrate à différents niveaux, tandis que le bisabolol apaise et aide à préserver le confort cutané pour une peau plus souple, fraîche et lumineuse.\nLe soir, le plancton marin, le collagène et les actifs hydratants prennent le relais pour soutenir la fermeté, le rebond et l'aspect régénéré de la peau. Ensemble, Luminescence Jour et Luminescence Nuit offrent une routine complète pour une peau intensément hydratée, apaisée, plus rebondie et naturellement éclatante au réveil comme tout au long de la journée." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Hydrate intensément jour et nuit",
+          "Révèle un glow naturel durable",
+          "Améliore la souplesse et le rebond de la peau",
+          "Contribue à préserver la barrière cutanée"
+        ] },
+      { titre: "Pensé pour",
+        texte: "Toutes les peaux en manque d'hydratation, de confort ou d'éclat, souhaitant une routine complète pour révéler une peau visiblement plus lumineuse, souple et rebondie." },
+      { titre: "Texture & sensorialité",
+        texte: "Deux textures complémentaires, douces et enveloppantes, qui fondent délicatement sur la peau sans effet gras. Au réveil comme tout au long de la journée, la peau est confortable, fraîche et naturellement lumineuse." },
+      { titre: "Votre rituel",
+        texte: "Le matin, appliquez Luminescence Jour sur une peau propre après le Radiance C Serum. Le soir, appliquez Luminescence Nuit pour accompagner la peau pendant la nuit et favoriser son renouvellement naturel. Ensemble, ils offrent une routine complète pour hydrater, nourrir et révéler durablement l'éclat de votre peau." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque rituel est pensé pour accompagner la peau à chaque moment de la journée. Le Rituel Luminescence réunit deux soins complémentaires pour révéler une peau plus lumineuse, plus confortable et naturellement éclatante, jour après jour." }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT (avec sélecteur automatique)               │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "radiance-protect",
+      nom: "Radiance Protect SPF 50",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect.png?v=1791003208",
+
+      texte: "Le trio complet pour une peau lumineuse et protégée, du matin au soir.\nLe matin, Luminescence Jour hydrate intensément la peau, puis Radiance Protect SPF 50 l'enveloppe d'une haute protection minérale contre les UVA et les UVB.\nLe soir, Luminescence Nuit prend le relais pour nourrir, raffermir et accompagner le renouvellement naturel de la peau.\nEnsemble, ils préservent la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
+      prix: "26,90€"
+      // Les versions « Sans teinte » / « Teinté » sont reprises automatiquement de la fiche Radiance Protect
+    }
+  },
+
+  // =====================================================================
+  // RADIANCE PROTECT SPF 50
+  // =====================================================================
+  "radiance-protect": {
+    nom: "Radiance Protect SPF 50",
+    sousTitre: "Protection minérale UVA/UVB · Haute tolérance",
+    details: ["12 g", "SPF 50", "Vegan"],
+    note: "",
+    prix: "26,90€",
+    inci: "radiance-protect",
+    avis: "Radiance Protect",
+
+    // Sélecteur : la version choisie part au panier,
+    // et le diaporama glisse jusqu'à sa photo (0 = 1re photo, 1 = 2e photo…)
+    choixLabel: "Choisissez votre protection",
+    variantes: [
+      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1 },
+      { label: "TEINTÉ",      variantId: "59547107983705", photo: 2 }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS DE LA FICHE — Radiance Protect (diaporama)          │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 PHOTO 1 (photo 0 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect.jpg?v=1791055295",
+        // 📷 PHOTO 2 — SANS TEINTE (photo 1)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1790155246",
+        // 📷 PHOTO 3 — TEINTÉ (photo 2)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1790155260"
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Chaque journée est une nouvelle exposition pour la peau. Radiance Protect SPF 50 l'enveloppe d'un voile protecteur léger qui préserve durablement son hydratation, son confort et sa radiance naturelle.\nSa texture fondante et son format stick rendent l'application simple, agréable et intuitive. Disponible en deux teintes naturelles, il se fond harmonieusement à la peau pour un fini lumineux, naturel et confortable." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que préserver la beauté de la peau commence par la protéger chaque jour.\nRadiance Protect SPF 50 associe une protection solaire minérale à une formule hydratante qui protège efficacement des rayons UVA et UVB tout en maintenant une peau souple, confortable et lumineuse tout au long de la journée.\nGrâce à son format stick, Radiance Protect SPF 50 s'applique avec précision et simplicité. Son geste intuitif permet une application homogène, facile à estomper, pour protéger la peau sans compromis sur le confort. Idéal pour une réapplication au cours de la journée." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Protection solaire minérale SPF 50 à large spectre UVA/UVB",
+          "Aide à préserver le capital jeunesse de la peau",
+          "Maintient durablement l'hydratation et le confort cutané",
+          "Révèle un teint naturellement lumineux (healthy glow)",
+          "Texture légère, confortable et résistante à l'eau",
+          "Format stick pratique pour une application et une réapplication faciles"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux recherchant une protection solaire minérale au quotidien",
+          "Les peaux sensibles en quête de confort et de haute tolérance",
+          "Les peaux souhaitant préserver durablement leur capital jeunesse",
+          "Les peaux recherchant une hydratation confortable associée à un teint naturellement lumineux"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture crème légère et fondante qui glisse facilement sur la peau. Elle s'estompe en douceur, sans effet gras ni sensation collante, et laisse un fini naturellement lumineux, confortable et invisible au quotidien.\nDisponible en version teintée et non teintée." },
+      { titre: "Votre rituel",
+        texte: "Appliquez Radiance Protect SPF 50 chaque matin en dernière étape de votre routine Bloom, après vos sérums et votre Crème Luminescence.\nRenouvelez l'application au cours de la journée, notamment après une exposition prolongée au soleil, afin de préserver durablement les bénéfices de votre rituel Bloom." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "98% d'ingrédients d'origine naturelle",
+          "Protection solaire minérale à haute tolérance",
+          "Disponible en deux teintes naturelles",
+          "Formule concentrée, pensée pour durer"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "radiance-serum",
+      nom: "Radiance C Serum",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum.png?v=1791055584",
+
+      texte: "Le duo indispensable de votre routine du matin. Radiance C Serum révèle l'éclat naturel du teint et aide à protéger la peau des agressions oxydatives.\nRadiance Protect SPF 50 prend ensuite le relais en offrant une haute protection contre les UVA et les UVB.\nEnsemble, ils contribuent à préserver la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
+      prix: "34,90€",
+      variantId: "59324259434841"
     }
   }
 
