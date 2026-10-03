@@ -1,7 +1,12 @@
 // =====================================================================
 // ELKHA.B — Catalogue des fiches produits
 // Chaque fiche s'ouvre en panneau, par-dessus la page.
-// Pour modifier un texte : changer ce qui est entre guillemets.
+//
+// MODE D'EMPLOI
+// - Pour modifier un texte : changer uniquement ce qui est entre guillemets "…".
+// - Pour changer une photo ou une vidéo : chercher (Ctrl + F) le repère
+//   📷  puis remplacer le lien entre guillemets par le nouveau lien Shopify.
+// - Ne pas supprimer les guillemets, les virgules ni les accolades { }.
 // =====================================================================
 window.EB_PRODUITS = {
 
@@ -14,11 +19,21 @@ window.EB_PRODUITS = {
     variantId: "59324259434841",
     inci: "radiance-c-serum",           // clé de la composition dans inci-data.js
     avis: "Radiance C Serum",           // nom exact utilisé pour les avis (Google Form)
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Radiance C Serum              │
+    // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "video",                    // "video" ou "diaporama"
+      type: "video",   // "video" ou "diaporama"
+
+      // 📷 VIDÉO (lien Shopify .mp4)
       video: "https://cdn.shopify.com/videos/c/o/v/a36600a0c70a4392be399a4a8a1c4d78.mp4",
+
+      // 📷 PHOTO (affichée le temps que la vidéo se charge)
       image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/RADAINCE_C_SERUM.jpg?v=1790958700"
-      // Pour un diaporama : images: ["lien1", "lien2", "lien3"]
+
+      // 📷 Pour un DIAPORAMA à la place de la vidéo :
+      //    mettre type: "diaporama" et remplacer les lignes video/image par
+      //    images: ["lien photo 1", "lien photo 2", "lien photo 3"]
     },
     sections: [
       { titre: "L'expérience",
@@ -27,7 +42,7 @@ window.EB_PRODUITS = {
         texte: "Lumibloom associe une vitamine C stabilisée à l'acide hyaluronique multimoléculaire pour révéler la radiance naturelle de la peau sans jamais compromettre son hydratation. Sa formule haute tolérance illumine progressivement le teint, unifie le grain de peau et aide à protéger la peau des agressions quotidiennes responsables du vieillissement cutané prématuré." },
       { titre: "Bénéfices clés",
         liste: [
-          "Ravive la radiance naturelle du teint",
+          "Ravive la radiance naturelle du teint (Healthy Glow)",
           "Unifie visiblement le teint et aide à atténuer l'apparence des taches",
           "Protège du stress oxydatif et des agressions extérieures",
           "Soutient les mécanismes naturels de production du collagène",
@@ -53,10 +68,16 @@ window.EB_PRODUITS = {
           "Formule concentrée, pensée pour durer"
         ] }
     ],
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
     accord: {
       fiche: "luminescence-jour",       // fiche ouverte par le bouton « Découvrir »
       nom: "Crème Luminescence Jour",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
       image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_Jour.png?v=1791003209",
+
       texte: "L'alliance du Radiance C Serum et de la crème Luminescence Jour offre une routine complète où l'éclat rencontre l'hydratation.\nLe sérum unifie et illumine le teint, tandis que la crème repulpe intensément la peau et aide à préserver durablement sa radiance.\nEnsemble, ils révèlent une peau naturellement lumineuse, souple et éclatante de santé.",
       prix: "34,90€",
       variantId: "59324221129049"
