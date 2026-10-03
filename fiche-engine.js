@@ -14,8 +14,16 @@
   + ".eb-fp-overlay{position:fixed;inset:0;background:#fff;color:#000;z-index:99990;transform:translateX(100%);transition:transform .5s cubic-bezier(.65,0,.35,1);overflow-y:auto;-webkit-overflow-scrolling:touch;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent}"
   + ".eb-fp-overlay.open{transform:translateX(0)}"
   + ".eb-fp-overlay *{box-sizing:border-box}"
-  + ".eb-fp-close{position:fixed;top:20px;right:20px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
+  + ".eb-fp-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
   + ".eb-fp-close.visible{display:flex}.eb-fp-close:hover{transform:scale(1.1)}"
+  // Panier de la fiche : même sac que le menu, en haut à droite
+  + ".eb-fp-cartbtn{position:fixed;top:12px;right:18px;z-index:99995;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s ease}"
+  + ".eb-fp-cartbtn.visible{display:flex}.eb-fp-cartbtn:hover{transform:scale(1.08)}"
+  + ".eb-fp-cartbtn svg{width:24px;height:24px;display:block}"
+  + ".eb-fp-cartcount{position:absolute;top:-3px;right:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:20px;background:#000;color:#fff;font-family:'Montserrat',sans-serif;font-size:9.5px;font-weight:600;display:none;align-items:center;justify-content:center;box-sizing:border-box}"
+  + ".eb-fp-cartcount.on{display:flex}"
+  + ".eb-fp-cartcount.eb-rebond{animation:ebFpRebond .6s cubic-bezier(.3,1.6,.5,1)}"
+  + "@keyframes ebFpRebond{0%{transform:scale(1)}35%{transform:scale(1.45)}60%{transform:scale(.9)}100%{transform:scale(1)}}"
   // Média : affiché en entier, jamais rogné
   + ".eb-fp-media{position:relative;width:100%;background:#f6f4f0;overflow:hidden}"
   + ".eb-fp-media video,.eb-fp-media > img{display:block;width:100%;height:auto}"
@@ -97,7 +105,7 @@
   +   ".eb-fp-exp{margin:52px -56px 0;padding:48px 56px 52px}"
   + "}";
 
-  var overlay, closeBtn, built = false, observer = null, slideTimer = null;
+  var overlay, closeBtn, cartBtn, built = false, observer = null, slideTimer = null;
 
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
 
@@ -132,6 +140,15 @@
     closeBtn.addEventListener('click', ebFicheClose);
     document.body.appendChild(closeBtn);
 
+    cartBtn = document.createElement('button');
+    cartBtn.type = 'button';
+    cartBtn.className = 'eb-fp-cartbtn';
+    cartBtn.setAttribute('aria-label', 'Voir le panier');
+    cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg><span class="eb-fp-cartcount">0</span>';
+    cartBtn.addEventListener('click', ouvrirPanier);
+    document.body.appendChild(cartBtn);
+    suivrePanier();
+
     overlay.addEventListener('click', function(e){
       // Accordéon : une seule section ouverte à la fois
       var head = e.target.closest('.eb-fp-acc-head');
@@ -150,6 +167,40 @@
         more.textContent = ferme ? 'Voir plus' : 'Voir moins';
       }
     });
+  }
+
+  // ---------------------------------------------------------------- PANIER
+  // Ouvre le panier habituel (celui du menu) par-dessus la fiche
+  function ouvrirPanier(){
+    var panel = document.getElementById('ebCartPanel');
+    var backdrop = document.getElementById('ebCartBackdrop');
+    if(panel) panel.classList.add('open');
+    if(backdrop) backdrop.classList.add('open');
+  }
+  // Recopie le nombre d'articles du menu, et fait rebondir la pastille quand il augmente
+  var dernierNombre = null;
+  function majCompteur(){
+    if(!cartBtn) return;
+    var src = document.getElementById('ebCartCount');
+    var badge = cartBtn.querySelector('.eb-fp-cartcount');
+    var n = src ? (parseInt(src.textContent, 10) || 0) : 0;
+    badge.textContent = n;
+    badge.classList.toggle('on', n > 0);
+    if(dernierNombre !== null && n > dernierNombre){
+      badge.classList.remove('eb-rebond'); void badge.offsetWidth; badge.classList.add('eb-rebond');
+    }
+    dernierNombre = n;
+  }
+  function suivrePanier(){
+    var essais = 0;
+    (function attendre(){
+      var src = document.getElementById('ebCartCount');
+      if(!src){ if(++essais < 40) setTimeout(attendre, 250); return; }
+      majCompteur();
+      if(window.MutationObserver){
+        new MutationObserver(majCompteur).observe(src, { childList: true, characterData: true, subtree: true });
+      }
+    })();
   }
 
   // Composition (INCI), reprise de inci-data.js
@@ -333,6 +384,7 @@
 
     requestAnimationFrame(function(){ overlay.classList.add('open'); });
     closeBtn.classList.add('visible');
+    if(document.getElementById('ebCartPanel')){ cartBtn.classList.add('visible'); majCompteur(); }
     document.documentElement.style.overflow = 'hidden';
   }
 
@@ -340,6 +392,7 @@
     if(!overlay) return;
     overlay.classList.remove('open');
     closeBtn.classList.remove('visible');
+    cartBtn.classList.remove('visible');
     document.documentElement.style.overflow = '';
     clearInterval(slideTimer);
     var v = overlay.querySelector('video'); if(v) v.pause();
