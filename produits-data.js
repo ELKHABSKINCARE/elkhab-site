@@ -27,7 +27,7 @@ window.EB_PRODUITS = {
         texte: "Lumibloom associe une vitamine C stabilisée à l'acide hyaluronique multimoléculaire pour révéler la radiance naturelle de la peau sans jamais compromettre son hydratation. Sa formule haute tolérance illumine progressivement le teint, unifie le grain de peau et aide à protéger la peau des agressions quotidiennes responsables du vieillissement cutané prématuré." },
       { titre: "Bénéfices clés",
         liste: [
-          "Ravive la radiance naturelle du teint (Healthy Glow)",
+          "Ravive la radiance naturelle du teint",
           "Unifie visiblement le teint et aide à atténuer l'apparence des taches",
           "Protège du stress oxydatif et des agressions extérieures",
           "Soutient les mécanismes naturels de production du collagène",
