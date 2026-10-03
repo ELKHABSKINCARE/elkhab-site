@@ -11,7 +11,7 @@
 
   var css = ''
   // Panneau
-  + ".eb-fp-overlay{position:fixed;inset:0;background:#fff;color:#000;z-index:99990;transform:translateX(100%);transition:transform .5s cubic-bezier(.65,0,.35,1);overflow-y:auto;-webkit-overflow-scrolling:touch;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent}"
+  + ".eb-fp-overlay{position:fixed;inset:0;background:#f6f4f0;color:#000;z-index:99990;transform:translateX(100%);transition:transform .5s cubic-bezier(.65,0,.35,1);overflow-y:auto;-webkit-overflow-scrolling:touch;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent}"
   + ".eb-fp-overlay.open{transform:translateX(0)}"
   + ".eb-fp-overlay *{box-sizing:border-box}"
   + ".eb-fp-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
@@ -29,7 +29,7 @@
   + ".eb-fp-media video,.eb-fp-media > img{display:block;width:100%;height:auto}"
   + ".eb-fp-media > img.eb-fp-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:opacity .9s ease;pointer-events:none}"
   + ".eb-fp-media.eb-play > img.eb-fp-poster{opacity:0}"
-  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-media .eb-fp-slides .eb-fp-slide img{width:100%;height:calc(100vh - var(--eb-reserve, 80px));height:calc(100svh - var(--eb-reserve, 80px));object-fit:cover;object-position:center;background:#fff}}"
+  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-media .eb-fp-slides .eb-fp-slide img{width:100%;height:calc(100vh - var(--eb-reserve, 80px));height:calc(100svh - var(--eb-reserve, 80px));object-fit:cover;object-position:center;background:#f6f4f0}}"
   + ".eb-fp-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}"
   + ".eb-fp-slides::-webkit-scrollbar{display:none}"
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
@@ -110,17 +110,24 @@
   + ".eb-fp-accord-buy{margin-top:22px !important}"
   // Ordinateur : deux colonnes, média fixe à gauche
   + "@media (min-width:900px){"
-  +   ".eb-fp-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100%}"
-  +   ".eb-fp-left{position:sticky;top:0;height:100vh;background:#f6f4f0;display:flex;align-items:center;justify-content:center;overflow:hidden}"
-  +   ".eb-fp-left .eb-fp-media{height:100%;display:flex;align-items:center;justify-content:center}"
-  +   ".eb-fp-left .eb-fp-media video,.eb-fp-left .eb-fp-media > img{width:100%;height:100%;object-fit:contain}"
-  +   ".eb-fp-left .eb-fp-media{position:relative}"
+  // Colonne photo plus étroite (environ 42 %), photo ou vidéo d'un bord à l'autre
+  +   ".eb-fp-wrap{display:grid;grid-template-columns:minmax(0,42fr) minmax(0,58fr);min-height:100%}"
+  +   ".eb-fp-left{position:sticky;top:0;height:100vh;background:#f6f4f0;overflow:hidden}"
+  +   ".eb-fp-left .eb-fp-media{position:relative;width:100%;height:100%;background:#f6f4f0}"
+  +   ".eb-fp-left .eb-fp-media video,.eb-fp-left .eb-fp-media > img{width:100%;height:100%;object-fit:cover;object-position:center}"
   +   ".eb-fp-left .eb-fp-slides{height:100%}"
-  +   ".eb-fp-left .eb-fp-slide img{height:100%;object-fit:contain}"
-  +   ".eb-fp-content{padding:90px 56px 80px;max-width:600px}" +
-    ".eb-fp-accord-img{width:calc(100% + 112px);margin:22px -56px 22px}"
+  +   ".eb-fp-left .eb-fp-media .eb-fp-slides .eb-fp-slide img{width:100%;height:100%;object-fit:cover;object-position:center}"
+  // Colonne texte : toute la largeur, avec des marges confortables
+  +   ".eb-fp-content{padding:90px 64px 80px;max-width:none}"
+  +   ".eb-fp-content > *:not(.eb-fp-exp){max-width:640px;margin-left:auto;margin-right:auto}"
+  +   ".eb-fp-content > .eb-fp-buy,.eb-fp-content > .eb-fp-sel,.eb-fp-content > .eb-fp-ship{max-width:320px}"
   +   ".eb-fp-title{font-size:24px}"
-  +   ".eb-fp-exp{margin:52px -56px 0;padding:48px 56px 52px}"
+  // Vos expériences : bandeau noir d'un bord à l'autre de la colonne
+  +   ".eb-fp-exp{margin:52px -64px 0;padding:52px 64px 56px}"
+  +   ".eb-fp-exp > *{max-width:640px;margin-left:auto;margin-right:auto}"
+  +   ".eb-fp-exp > .eb-fp-avis{max-width:320px}"
+  // Accord parfait : photo à taille raisonnable, centrée
+  +   ".eb-fp-accord-img{width:100%;max-width:380px !important;margin:26px auto 26px !important}"
   + "}";
 
   var overlay, closeBtn, cartBtn, built = false, observer = null, slideTimer = null;
