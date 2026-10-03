@@ -180,14 +180,17 @@
       // Sélecteur : la version choisie part au panier, et le diaporama montre sa photo
       var opt = e.target.closest('.eb-fp-sel-opt');
       if(opt){
-        overlay.querySelectorAll('.eb-fp-sel-opt').forEach(function(o){ o.classList.remove('active'); });
+        var bloc = opt.closest('.eb-fp-sel');
+        var cible = bloc.getAttribute('data-cible');
+        bloc.querySelectorAll('.eb-fp-sel-opt').forEach(function(o){ o.classList.remove('active'); });
         opt.classList.add('active');
-        var bouton = overlay.querySelector('.eb-fp-main-buy');
+        var bouton = overlay.querySelector(cible === 'accord' ? '.eb-fp-accord-buy' : '.eb-fp-main-buy');
         if(bouton) bouton.setAttribute('data-variant-id', opt.getAttribute('data-variant'));
         var photo = opt.getAttribute('data-photo');
-        // Petite photo de rappel sous les teintes
-        var apercu = overlay.querySelector('.eb-fp-sel-preview');
-        var images = (overlay._ebMedia && overlay._ebMedia.images) || [];
+        // Petite photo de rappel sous les teintes (photos de la fiche concernée)
+        var apercu = bloc.querySelector('.eb-fp-sel-preview');
+        var source = window.EB_PRODUITS[bloc.getAttribute('data-produit')];
+        var images = (source && source.media && source.media.images) || [];
         if(apercu && photo != null && images[parseInt(photo, 10)]){
           var vignette = apercu.querySelector('.eb-fp-sel-thumb');
           vignette.src = hd(images[parseInt(photo, 10)], 400);
@@ -196,7 +199,7 @@
           apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
         }
         var piste = overlay.querySelector('.eb-fp-slides');
-        if(photo != null && piste){
+        if(cible === 'main' && photo != null && piste){
           clearInterval(slideTimer); // la cliente a choisi : le diaporama s'arrête sur sa teinte
           piste.scrollTo({ left: parseInt(photo, 10) * piste.clientWidth, behavior: 'smooth' });
         }
@@ -335,6 +338,24 @@
   }
   window.addEventListener('resize', ajusterHauteurMedia);
 
+  // cible : "main" (bouton de la fiche) ou "accord" (bouton de l'accord parfait)
+  // produit : fiche dont on reprend les photos pour la petite photo de rappel
+  function selecteurHTML(variantes, label, cible, produit){
+    var longues = variantes.some(function(v){ return String(v.label).length > 16; });
+    var h = '<div class="eb-fp-sel" data-cible="' + cible + '" data-produit="' + esc(produit) + '">';
+    h += '<div class="eb-fp-sel-label">' + esc(label || 'Choisissez votre teinte') + '</div>';
+    h += '<div class="eb-fp-sel-options' + (longues ? ' eb-une-col' : '') + '">';
+    variantes.forEach(function(v, i){
+      h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
+        + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '') + '>' + esc(v.label) + '</button>';
+    });
+    h += '</div>';
+    if(variantes.some(function(v){ return v.photo != null; })){
+      h += '<div class="eb-fp-sel-preview"><img class="eb-fp-sel-thumb" alt=""><div class="eb-fp-sel-caption">Votre choix<strong></strong></div></div>';
+    }
+    return h + '</div>';
+  }
+
   function boutonAchat(variantId, prix, extraClass){
     return '<button type="button" class="eb-fp-buy eb-cart-add-btn' + (extraClass ? ' ' + extraClass : '') + '" data-variant-id="' + esc(variantId) + '">'
       + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + esc(prix) + '</span>' : '') + '</button>';
@@ -359,20 +380,7 @@
 
     // Sélecteur de variantes (teintes, formules…)
     var variantes = data.variantes || [];
-    if(variantes.length){
-      var longues = variantes.some(function(v){ return String(v.label).length > 16; });
-      h += '<div class="eb-fp-sel"><div class="eb-fp-sel-label">' + esc(data.choixLabel || 'Choisissez votre teinte') + '</div>';
-      h += '<div class="eb-fp-sel-options' + (longues ? ' eb-une-col' : '') + '">';
-      variantes.forEach(function(v, i){
-        h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
-          + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '') + '>' + esc(v.label) + '</button>';
-      });
-      h += '</div>';
-      if(variantes.some(function(v){ return v.photo != null; })){
-        h += '<div class="eb-fp-sel-preview"><img class="eb-fp-sel-thumb" alt=""><div class="eb-fp-sel-caption">Votre choix<strong></strong></div></div>';
-      }
-      h += '</div>';
-    }
+    if(variantes.length) h += selecteurHTML(variantes, data.choixLabel, 'main', id);
 
     // Achat
     var idAchat = variantes.length ? variantes[0].variantId : data.variantId;
@@ -426,8 +434,14 @@
           h += '<div class="eb-fp-center"><a class="eb-fp-pill" style="text-decoration:none" href="https://soins.elkhab.com/#' + esc(a.fiche) + '">Découvrir</a></div>';
         }
       }
-      if(a.variantId){
-        h += boutonAchat(a.variantId, a.prix, 'eb-fp-accord-buy');
+      var ficheAccord = a.fiche && window.EB_PRODUITS[a.fiche];
+      var variantesAccord = (ficheAccord && ficheAccord.variantes) || [];
+      if(variantesAccord.length){
+        h += '<div style="margin-top:28px">' + selecteurHTML(variantesAccord, ficheAccord.choixLabel, 'accord', a.fiche) + '</div>';
+      }
+      var idAccord = variantesAccord.length ? variantesAccord[0].variantId : a.variantId;
+      if(idAccord){
+        h += boutonAchat(idAccord, a.prix || (ficheAccord && ficheAccord.prix), 'eb-fp-accord-buy');
         h += '<p class="eb-fp-ship">Complétez votre rituel Bloom et profitez de la livraison offerte dès 65 € d\'achat</p>';
       }
     }
