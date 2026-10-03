@@ -19,6 +19,7 @@
   // Média : affiché en entier, jamais rogné
   + ".eb-fp-media{position:relative;width:100%;background:#f6f4f0;overflow:hidden}"
   + ".eb-fp-media video,.eb-fp-media > img{display:block;width:100%;height:auto}"
+  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-slide img{height:calc(100vh - 150px);height:calc(100svh - 150px);object-fit:contain;background:#fff}}"
   + ".eb-fp-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}"
   + ".eb-fp-slides::-webkit-scrollbar{display:none}"
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
@@ -37,7 +38,7 @@
   + ".eb-fp-buy{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:320px;margin:0 auto;background:#000;color:#fff;border:none;border-radius:0;padding:17px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
   + ".eb-fp-buy:hover{transform:scale(1.03)}"
   + ".eb-fp-buy .eb-produit-add-price{font-weight:400;opacity:.85}"
-  + ".eb-fp-ship{font-size:12px;line-height:1.6;text-align:center;color:#444;margin:12px auto 0;max-width:320px;opacity:0;transform:scale(.94);transition:opacity .8s ease,transform .8s ease}"
+  + ".eb-fp-ship{font-size:12px;line-height:1.6;text-align:center;color:#444;margin:12px auto 0;max-width:320px;opacity:0;transform:translateY(10px) scale(.88);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}"
   + ".eb-fp-ship.eb-in{opacity:1;transform:scale(1)}"
   // Accordéon
   + ".eb-fp-acc{border-top:1px solid rgba(0,0,0,.15);margin-top:40px}"
@@ -69,10 +70,11 @@
   // Pour aller plus loin / L'accord parfait
   + ".eb-fp-sep{border:none;border-top:1px solid rgba(0,0,0,.15);width:60%;margin:56px auto 30px}"
   + ".eb-fp-kicker{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:center;margin:0 0 10px}"
-  + ".eb-fp-accord-img{display:block;width:100%;height:auto;margin:22px 0 22px}"
-  + ".eb-fp-accord-text{font-size:14px;line-height:1.8;color:#222;text-align:center;overflow:hidden;transition:max-height .4s ease}"
+  + ".eb-fp-accord-img{display:block;width:calc(100% + 48px);max-width:none;height:auto;margin:22px -24px 22px}"
+  + ".eb-fp-accord-text{font-size:14px;line-height:1.8;color:#222;text-align:center}"
   + ".eb-fp-accord-text p{margin:0 0 12px}"
-  + ".eb-fp-accord-text.eb-clamp{max-height:7.2em;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}"
+  + ".eb-fp-accord-text.eb-clamp p.eb-suite{display:none}"
+  + ".eb-fp-accord-text.eb-clamp.eb-un p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}"
   + ".eb-fp-more{display:block;margin:6px auto 0;background:none;border:none;padding:4px 0;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:500;letter-spacing:.06em;text-decoration:underline;text-underline-offset:4px;color:#000;cursor:pointer}"
   + ".eb-fp-pill{display:inline-flex;align-items:center;justify-content:center;margin:26px auto 0;background:#000;color:#fff;border:none;border-radius:999px;padding:10px 28px;font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease}"
   + ".eb-fp-pill:hover{transform:scale(1.05)}"
@@ -86,7 +88,8 @@
   +   ".eb-fp-left .eb-fp-media video,.eb-fp-left .eb-fp-media > img{width:100%;height:100%;object-fit:contain}"
   +   ".eb-fp-left .eb-fp-slides{height:100%}"
   +   ".eb-fp-left .eb-fp-slide img{height:100%;object-fit:contain}"
-  +   ".eb-fp-content{padding:90px 56px 80px;max-width:600px}"
+  +   ".eb-fp-content{padding:90px 56px 80px;max-width:600px}" +
+    ".eb-fp-accord-img{width:calc(100% + 112px);margin:22px -56px 22px}"
   +   ".eb-fp-title{font-size:24px}"
   + "}";
 
@@ -218,7 +221,8 @@
         if(en.isIntersecting){ en.target.classList.add('eb-in'); observer.unobserve(en.target); }
       });
     }, { root: overlay, threshold: 0.6 });
-    els.forEach(function(el){ observer.observe(el); });
+    // On attend la fin du glissement du panneau, pour que l'effet soit bien visible
+    setTimeout(function(){ els.forEach(function(el){ observer.observe(el); }); }, 650);
   }
 
   function boutonAchat(variantId, prix, extraClass){
@@ -279,9 +283,13 @@
       h += '<h2 class="eb-fp-h2" style="margin-top:6px">L\'accord parfait</h2>';
       if(a.image) h += '<img class="eb-fp-accord-img" src="' + esc(hd(a.image, 1600)) + '" alt="' + esc(a.nom || '') + '">';
       if(a.texte){
-        h += '<div class="eb-fp-accord-text eb-clamp">';
-        String(a.texte).split('\n').forEach(function(p){ if(p.trim()) h += '<p>' + esc(p) + '</p>'; });
-        h += '</div><button type="button" class="eb-fp-more">Voir plus</button>';
+        var paras = String(a.texte).split('\n').filter(function(p){ return p.trim(); });
+        // Plusieurs paragraphes : le premier en entier, la suite derrière « Voir plus »
+        // Un seul long paragraphe : 4 lignes complètes, terminées par « … »
+        h += '<div class="eb-fp-accord-text eb-clamp' + (paras.length === 1 ? ' eb-un' : '') + '">';
+        paras.forEach(function(p, i){ h += '<p' + (i > 0 ? ' class="eb-suite"' : '') + '>' + esc(p) + '</p>'; });
+        h += '</div>';
+        if(paras.length > 1 || String(paras[0] || '').length > 220) h += '<button type="button" class="eb-fp-more">Voir plus</button>';
       }
       if(a.fiche && window.EB_PRODUITS[a.fiche]){
         h += '<div class="eb-fp-center"><button type="button" class="eb-fp-pill" data-fiche="' + esc(a.fiche) + '">Découvrir</button></div>';
@@ -296,17 +304,6 @@
 
     overlay.innerHTML = h;
     overlay.scrollTop = 0;
-
-    // « Voir plus » inutile si le texte est court
-    var txt = overlay.querySelector('.eb-fp-accord-text');
-    if(txt){
-      requestAnimationFrame(function(){
-        txt.classList.remove('eb-clamp');
-        var court = txt.scrollHeight <= 130;
-        txt.classList.add('eb-clamp');
-        if(court){ txt.classList.remove('eb-clamp'); var m = overlay.querySelector('.eb-fp-more'); if(m) m.style.display = 'none'; }
-      });
-    }
 
     var v = overlay.querySelector('video');
     if(v){ v.muted = true; var p = v.play(); if(p && p.catch) p.catch(function(){}); }
