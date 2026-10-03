@@ -82,6 +82,69 @@ window.EB_PRODUITS = {
       prix: "34,90€",
       variantId: "59324221129049"
     }
+  },
+
+  // =====================================================================
+  // LUMINESCENCE JOUR
+  // =====================================================================
+  "luminescence-jour": {
+    nom: "Luminescence Jour",
+    sousTitre: "Acide hyaluronique multimoléculaire · Bisabolol",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "34,90€",
+    variantId: "59324221129049",
+    inci: "luminescence-jour",
+    avis: "Luminescence Jour",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Luminescence Jour             │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "video",
+
+      // 📷 VIDÉO (lien Shopify .mp4)
+      video: "https://cdn.shopify.com/videos/c/o/v/bc82e3295d0341cb8b8b7504119e2e78.mp4",
+
+      // 📷 PHOTO (affichée le temps que la vidéo se charge)
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/MHKFcKhyMM2Asg2pPJ6dZDtm-1jFHUWO.jpg?v=1788718984"
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Luminescence Jour enveloppe la peau d'une hydratation immédiate et durable tout en révélant un éclat naturel. Jour après jour, la peau paraît plus souple, plus lumineuse et retrouve tout son confort." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Sa formule associe un acide hyaluronique multimoléculaire, du bisabolol et des extraits végétaux antioxydants pour hydrater intensément, apaiser la peau et préserver l'éclat du teint face aux agressions du quotidien. Sa texture légère pénètre rapidement, sans effet gras, pour une peau douce, confortable et naturellement lumineuse." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Hydrate durablement la peau",
+          "Améliore la souplesse et le confort cutané",
+          "Révèle un glow naturel et un teint plus lumineux",
+          "Aide à préserver l'équilibre de la barrière cutanée"
+        ] },
+      { titre: "Pensé pour",
+        texte: "Les peaux normales à sèches, en manque d'hydratation, de souplesse ou d'éclat. Convient également à toutes les peaux recherchant un soin hydratant confortable au quotidien." },
+      { titre: "Texture & sensorialité",
+        texte: "Sa texture crème soyeuse fond délicatement sur la peau et pénètre rapidement. Elle laisse un fini confortable, sans film gras, tout en révélant un éclat frais et naturel." },
+      { titre: "Votre rituel",
+        texte: "Appliquez chaque matin sur une peau propre, après le Radiance C Serum, puis appliquez Luminescence Jour pour hydrater durablement la peau et révéler tout son éclat." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque formule est pensée pour révéler la beauté naturelle de votre peau grâce à des actifs soigneusement sélectionnés. Luminescence Jour associe efficacité, sensorialité et confort dans un soin concentré conçu pour accompagner votre peau jour après jour." }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "gelee-lumibloom",
+      nom: "Gelée Lumi-Bloom",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gelee_Lumibloom.png?v=1791003481",
+
+      texte: "Le duo essentiel pour révéler une peau éclatante.\nLa Gelée LumiBloom aide à renforcer la barrière cutanée et à préserver son équilibre pour une peau plus éclatante.\nLuminescence Jour prolonge cette action par une hydratation intense pour une peau plus souple, rebondie et naturellement lumineuse.",
+      prix: "28,90€",
+      variantId: "59324234891609"
+    }
   }
 
 };
