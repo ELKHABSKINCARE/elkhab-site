@@ -48,6 +48,12 @@
   // Boutons
   + ".eb-fp-buy{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:320px;margin:0 auto;background:#000;color:#fff;border:none;border-radius:0;padding:17px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
   + ".eb-fp-buy:hover{transform:scale(1.03)}"
+  + ".eb-fp-sel{width:100%;max-width:320px;margin:0 auto 26px}"
+  + ".eb-fp-sel-label{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px;text-align:left}"
+  + ".eb-fp-sel-options{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}"
+  + ".eb-fp-sel-options.eb-une-col{grid-template-columns:1fr}"
+  + ".eb-fp-sel-opt{background:#fff;color:#000;border:1px solid #cfcfcf;border-radius:0;padding:11px 6px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;white-space:nowrap;transition:background .2s ease,color .2s ease,border-color .2s ease}"
+  + ".eb-fp-sel-opt.active{background:#000;color:#fff;border-color:#000}"
   + ".eb-fp-buy .eb-produit-add-price{font-weight:400;opacity:.85}"
   + ".eb-fp-ship{font-size:12px;line-height:1.6;text-align:center;color:#444;margin:12px auto 0;max-width:320px;opacity:0;transform:translateY(10px) scale(.88);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}"
   + ".eb-fp-ship.eb-in{opacity:1;transform:scale(1)}"
@@ -160,6 +166,21 @@
         var wasOpen = item.classList.contains('open');
         overlay.querySelectorAll('.eb-fp-acc-item').forEach(function(i){ i.classList.remove('open'); });
         if(!wasOpen){ item.classList.add('open'); if(item.hasAttribute('data-inci')) remplirComposition(item); }
+        return;
+      }
+      // Sélecteur : la version choisie part au panier, et le diaporama montre sa photo
+      var opt = e.target.closest('.eb-fp-sel-opt');
+      if(opt){
+        overlay.querySelectorAll('.eb-fp-sel-opt').forEach(function(o){ o.classList.remove('active'); });
+        opt.classList.add('active');
+        var bouton = overlay.querySelector('.eb-fp-main-buy');
+        if(bouton) bouton.setAttribute('data-variant-id', opt.getAttribute('data-variant'));
+        var photo = opt.getAttribute('data-photo');
+        var piste = overlay.querySelector('.eb-fp-slides');
+        if(photo != null && piste){
+          clearInterval(slideTimer); // la cliente a choisi : le diaporama s'arrête sur sa teinte
+          piste.scrollTo({ left: parseInt(photo, 10) * piste.clientWidth, behavior: 'smooth' });
+        }
         return;
       }
       // « Voir plus » / « Voir moins »
@@ -317,9 +338,23 @@
     if(data.note) h += '<p class="eb-fp-note">' + esc(data.note) + '</p>';
     h += '</div>';
 
+    // Sélecteur de variantes (teintes, formules…)
+    var variantes = data.variantes || [];
+    if(variantes.length){
+      var longues = variantes.some(function(v){ return String(v.label).length > 16; });
+      h += '<div class="eb-fp-sel"><div class="eb-fp-sel-label">' + esc(data.choixLabel || 'Choisissez votre teinte') + '</div>';
+      h += '<div class="eb-fp-sel-options' + (longues ? ' eb-une-col' : '') + '">';
+      variantes.forEach(function(v, i){
+        h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
+          + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '') + '>' + esc(v.label) + '</button>';
+      });
+      h += '</div></div>';
+    }
+
     // Achat
-    if(data.variantId){
-      h += boutonAchat(data.variantId, data.prix);
+    var idAchat = variantes.length ? variantes[0].variantId : data.variantId;
+    if(idAchat){
+      h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
       h += '<p class="eb-fp-ship">Livraison offerte dès 65€ d\'achat</p>';
     }
 
