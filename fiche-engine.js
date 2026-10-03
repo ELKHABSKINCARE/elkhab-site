@@ -19,7 +19,7 @@
   // Média : affiché en entier, jamais rogné
   + ".eb-fp-media{position:relative;width:100%;background:#f6f4f0;overflow:hidden}"
   + ".eb-fp-media video,.eb-fp-media > img{display:block;width:100%;height:auto}"
-  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-slide img{height:calc(100vh - 150px);height:calc(100svh - 150px);object-fit:contain;background:#fff}}"
+  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-slide img{width:100%;height:calc(100vh - 150px);height:calc(100svh - 150px);object-fit:cover;object-position:center;background:#fff}}"
   + ".eb-fp-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}"
   + ".eb-fp-slides::-webkit-scrollbar{display:none}"
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
@@ -59,16 +59,18 @@
   + ".eb-fp-inci-stats{display:flex;gap:28px;margin:6px 0 14px}"
   + ".eb-fp-inci-val{font-size:20px;font-weight:700}"
   + ".eb-fp-inci-lab{font-size:11px;color:#666;line-height:1.4}"
-  // Vos expériences
+  // Vos expériences : bandeau #141414, comme le panneau d'avis
   + ".eb-fp-h2{font-size:26px;font-weight:700;margin:52px 0 10px;color:#000;text-align:left}"
+  + ".eb-fp-exp{background:#141414;color:#fff;margin:52px -24px 0;padding:44px 24px 48px}"
+  + ".eb-fp-exp .eb-fp-h2{color:#fff;margin:0 0 10px}"
   + ".eb-fp-overlay .eb-reviews{padding:0 !important;max-width:none !important;margin:0 !important}"
-  + ".eb-fp-overlay .eb-reviews,.eb-fp-overlay .eb-reviews *{color:#000 !important}"
-  + ".eb-fp-overlay .eb-review{border-bottom:1px solid rgba(0,0,0,.1) !important}"
-  + ".eb-fp-overlay .eb-review-meta,.eb-fp-overlay .eb-review-status{opacity:.6}"
-  + ".eb-fp-avis{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:24px auto 0;background:transparent;color:#000;border:1px solid #000;border-radius:0;padding:16px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
+  + ".eb-fp-exp .eb-reviews,.eb-fp-exp .eb-reviews *{color:#fff !important}"
+  + ".eb-fp-exp .eb-review{border-bottom:1px solid rgba(255,255,255,.18) !important}"
+  + ".eb-fp-avis{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:28px auto 0;background:#fff;color:#000;border:none;border-radius:0;padding:17px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
   + ".eb-fp-avis:hover{transform:scale(1.03)}"
   // Pour aller plus loin / L'accord parfait
   + ".eb-fp-sep{border:none;border-top:1px solid rgba(0,0,0,.15);width:60%;margin:56px auto 30px}"
+  + ".eb-fp-exp + .eb-fp-sep{border-top:none;margin-top:30px}"
   + ".eb-fp-kicker{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:center;margin:0 0 10px}"
   + ".eb-fp-accord-img{display:block;width:calc(100% + 48px);max-width:none;height:auto;margin:22px -24px 22px}"
   + ".eb-fp-accord-text{font-size:14px;line-height:1.8;color:#222;text-align:center}"
@@ -91,6 +93,7 @@
   +   ".eb-fp-content{padding:90px 56px 80px;max-width:600px}" +
     ".eb-fp-accord-img{width:calc(100% + 112px);margin:22px -56px 22px}"
   +   ".eb-fp-title{font-size:24px}"
+  +   ".eb-fp-exp{margin:52px -56px 0;padding:48px 56px 52px}"
   + "}";
 
   var overlay, closeBtn, built = false, observer = null, slideTimer = null;
@@ -270,9 +273,9 @@
 
     // Vos expériences
     if(data.avis){
-      h += '<h2 class="eb-fp-h2">Vos expériences</h2>';
+      h += '<div class="eb-fp-exp"><h2 class="eb-fp-h2">Vos expériences</h2>';
       h += '<div class="eb-reviews" data-produit="' + esc(data.avis) + '"><div class="eb-review-status">Aucun avis pour le moment.</div></div>';
-      h += '<button type="button" class="eb-fp-avis" data-avis="' + esc(data.avis) + '">Laisser un avis</button>';
+      h += '<button type="button" class="eb-fp-avis" data-avis="' + esc(data.avis) + '">Laisser un avis</button></div>';
     }
 
     // Pour aller plus loin — L'accord parfait
@@ -291,8 +294,12 @@
         h += '</div>';
         if(paras.length > 1 || String(paras[0] || '').length > 220) h += '<button type="button" class="eb-fp-more">Voir plus</button>';
       }
-      if(a.fiche && window.EB_PRODUITS[a.fiche]){
-        h += '<div class="eb-fp-center"><button type="button" class="eb-fp-pill" data-fiche="' + esc(a.fiche) + '">Découvrir</button></div>';
+      if(a.fiche){
+        if(window.EB_PRODUITS[a.fiche]){
+          h += '<div class="eb-fp-center"><button type="button" class="eb-fp-pill" data-fiche="' + esc(a.fiche) + '">Découvrir</button></div>';
+        } else {
+          h += '<div class="eb-fp-center"><a class="eb-fp-pill" style="text-decoration:none" href="https://soins.elkhab.com/#' + esc(a.fiche) + '">Découvrir</a></div>';
+        }
       }
       if(a.variantId){
         h += boutonAchat(a.variantId, a.prix, 'eb-fp-accord-buy');
