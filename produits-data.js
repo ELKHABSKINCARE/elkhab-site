@@ -317,7 +317,7 @@ window.EB_PRODUITS = {
       video: "https://cdn.shopify.com/videos/c/o/v/616a91cb2fb9411d9d05500f2bd41b56.mp4",
 
       // 📷 PHOTO (affichée le temps que la vidéo se charge) — à ajouter entre les guillemets
-      image: ""
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/w5ZvPjDCx68fKpeAOVLXIqkW8m3eDGKY.jpg?v=1788719223"
     },
     sections: [
       { titre: "L'expérience",
