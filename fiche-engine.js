@@ -19,7 +19,7 @@
   // Média : affiché en entier, jamais rogné
   + ".eb-fp-media{position:relative;width:100%;background:#f6f4f0;overflow:hidden}"
   + ".eb-fp-media video,.eb-fp-media > img{display:block;width:100%;height:auto}"
-  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-slide img{width:100%;height:calc(100vh - 100px);height:calc(100svh - 100px);object-fit:cover;object-position:center;background:#fff}}"
+  + "@media (max-width:899px){.eb-fp-media video,.eb-fp-media > img,.eb-fp-slide img{width:100%;height:calc(100vh - var(--eb-reserve, 80px));height:calc(100svh - var(--eb-reserve, 80px));object-fit:cover;object-position:center;background:#fff}}"
   + ".eb-fp-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}"
   + ".eb-fp-slides::-webkit-scrollbar{display:none}"
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
@@ -229,6 +229,17 @@
     setTimeout(function(){ els.forEach(function(el){ observer.observe(el); }); }, 650);
   }
 
+  // Téléphone : la vidéo occupe tout l'écran, sauf la place exacte du titre et des actifs
+  function ajusterHauteurMedia(){
+    if(!overlay) return;
+    var titre = overlay.querySelector('.eb-fp-title');
+    var sous = overlay.querySelector('.eb-fp-sub');
+    if(!titre) return;
+    var reserve = 16 + titre.offsetHeight + 10 + (sous ? sous.offsetHeight : 0) + 12;
+    overlay.style.setProperty('--eb-reserve', reserve + 'px');
+  }
+  window.addEventListener('resize', ajusterHauteurMedia);
+
   function boutonAchat(variantId, prix, extraClass){
     return '<button type="button" class="eb-fp-buy eb-cart-add-btn' + (extraClass ? ' ' + extraClass : '') + '" data-variant-id="' + esc(variantId) + '">'
       + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + esc(prix) + '</span>' : '') + '</button>';
@@ -312,6 +323,8 @@
 
     overlay.innerHTML = h;
     overlay.scrollTop = 0;
+
+    ajusterHauteurMedia();
 
     var v = overlay.querySelector('video');
     if(v){ v.muted = true; var p = v.play(); if(p && p.catch) p.catch(function(){}); }
