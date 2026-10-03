@@ -292,6 +292,82 @@ window.EB_PRODUITS = {
       prix: "34,90€",
       variantId: "59324221129049"
     }
+  },
+
+  // =====================================================================
+  // LUMI-BLOOM NIACINAMIDE 5
+  // =====================================================================
+  "lumibloom-niac-5": {
+    nom: "Lumi-Bloom Niacinamide 5",
+    sousTitre: "Niacinamide 5% · Ginkgo biloba",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "34,90€",
+    variantId: "59324243411289",
+    inci: "lumibloom-niacinamide-5",
+    avis: "Lumi-Bloom Niacinamide 5",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Lumi-Bloom Niacinamide 5      │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "video",
+
+      // 📷 VIDÉO (lien Shopify .mp4)
+      video: "https://cdn.shopify.com/videos/c/o/v/616a91cb2fb9411d9d05500f2bd41b56.mp4",
+
+      // 📷 PHOTO (affichée le temps que la vidéo se charge) — à ajouter entre les guillemets
+      image: ""
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Une texture gel fraîche et légère qui fond instantanément sur la peau. Pensée pour rééquilibrer les peaux sujettes aux imperfections, aux brillances ou aux irrégularités, sa formule révèle progressivement un teint plus uniforme, une peau plus lisse et naturellement lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau équilibrée est une peau qui rayonne naturellement. Lumi-Bloom Niacinamide 5 associe 5% de niacinamide à un extrait de Ginkgo Biloba et à l'algine pour améliorer visiblement la qualité de la peau sans compromettre son confort." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Unifie visiblement le teint et améliore son homogénéité",
+          "Atténue l'apparence des taches pigmentaires",
+          "Affine visiblement les pores et lisse le grain de peau",
+          "Aide à équilibrer les peaux mixtes à grasses",
+          "Renforce la barrière cutanée",
+          "Hydrate sans effet collant",
+          "Révèle un éclat naturel durable"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux mixtes à grasses",
+          "Les peaux sujettes aux pores dilatés et aux irrégularités",
+          "Les peaux déshydratées ou en manque d'équilibre",
+          "Les peaux souhaitant atténuer l'apparence des taches pigmentaires",
+          "Tous les types de peau, y compris les plus sensibles"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Un gel frais, léger et non collant qui pénètre rapidement. Il laisse la peau douce, confortable, visiblement plus lisse et parfaitement équilibrée, sans fini gras." },
+      { titre: "Votre rituel",
+        texte: "Appliquez une pression sur peau propre, matin et/ou soir, avant la Crème Luminescence. Pour une routine Bloom complète, associez-le au Radiance C Serum puis à la Crème Luminescence." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "99% d'ingrédients d'origine naturelle",
+          "Niacinamide dosée à 5% pour une efficacité maîtrisée et une haute tolérance",
+          "Formule concentrée, pensée pour durer"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT (avec sélecteur de teintes automatique)    │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "lumiveil-cc-cream",
+      nom: "Lumi-Veil CC Cream SPF 30",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_CC_Cream_description.png?v=1791038477",
+
+      texte: "L'alliance de Lumi-Bloom Niacinamide 5 et de Lumi-Veil CC Cream SPF 30 révèle un teint plus uniforme, des pores visiblement estompés et une peau naturellement lumineuse.\nLe gel perfecteur prépare la peau, tandis que Lumi-Veil unifie, protège et sublime l'éclat pour un effet glow frais et naturel, sans effet gras.",
+      prix: "26,90€"
+      // Les teintes et leurs identifiants sont repris automatiquement de la fiche Lumi-Veil CC Cream
+    }
   }
 
 };
