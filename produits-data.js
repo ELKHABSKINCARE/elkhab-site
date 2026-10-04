@@ -20,20 +20,18 @@ window.EB_PRODUITS = {
     inci: "radiance-c-serum",           // clé de la composition dans inci-data.js
     avis: "Radiance C Serum",           // nom exact utilisé pour les avis (Google Form)
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Radiance C Serum              │
+    // │ 📷  DIAPORAMA DE LA FICHE  — Radiance C Serum              │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "video",   // "video" ou "diaporama"
-
-      // 📷 VIDÉO (lien Shopify .mp4)
-      video: "https://cdn.shopify.com/videos/c/o/v/a36600a0c70a4392be399a4a8a1c4d78.mp4",
-
-      // 📷 PHOTO (affichée le temps que la vidéo se charge)
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/RADAINCE_C_SERUM.jpg?v=1790958700"
-
-      // 📷 Pour un DIAPORAMA à la place de la vidéo :
-      //    mettre type: "diaporama" et remplacer les lignes video/image par
-      //    images: ["lien photo 1", "lien photo 2", "lien photo 3"]
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      images: [
+        // 📷 1. PHOTO PRODUIT
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_2.png?v=1791129774",
+        // 📷 2. PHOTO 2
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397",
+        // 📷 3. PHOTO 3
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_7.jpg?v=1791129452"
+      ]
     },
     sections: [
       { titre: "L'expérience",
@@ -76,7 +74,7 @@ window.EB_PRODUITS = {
       nom: "Crème Luminescence Jour",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_Jour.png?v=1791003209",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_jour_1f7cd66e-6693-43ff-91c7-ac246a40bb05.png?v=1791131916",
 
       texte: "L'alliance du Radiance C Serum et de la crème Luminescence Jour offre une routine complète où l'éclat rencontre l'hydratation.\nLe sérum unifie et illumine le teint, tandis que la crème repulpe intensément la peau et aide à préserver durablement sa radiance.\nEnsemble, ils révèlent une peau naturellement lumineuse, souple et éclatante de santé.",
       prix: "34,90€",
@@ -98,16 +96,18 @@ window.EB_PRODUITS = {
     avis: "Luminescence Jour",
 
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Luminescence Jour             │
+    // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Jour             │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "video",
-
-      // 📷 VIDÉO (lien Shopify .mp4)
-      video: "https://cdn.shopify.com/videos/c/o/v/bc82e3295d0341cb8b8b7504119e2e78.mp4",
-
-      // 📷 PHOTO (affichée le temps que la vidéo se charge)
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/MHKFcKhyMM2Asg2pPJ6dZDtm-1jFHUWO.jpg?v=1788718984"
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      images: [
+        // 📷 1. PHOTO PRODUIT
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_Jour_2.png?v=1791129774",
+        // 📷 2. VIDÉO TEXTURE
+        "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
+        // 📷 3. PHOTO 3
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000abd88243ba1913179c7d8e92.png?v=1791130040"
+      ]
     },
     sections: [
       { titre: "L'expérience",
@@ -139,7 +139,7 @@ window.EB_PRODUITS = {
       nom: "Gelée Lumi-Bloom",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gelee_Lumibloom.png?v=1791003481",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Publicite_minimaliste_pour_serum_eclat.png?v=1791131937",
 
       texte: "Le duo essentiel pour révéler une peau éclatante.\nLa Gelée LumiBloom aide à renforcer la barrière cutanée et à préserver son équilibre pour une peau plus éclatante.\nLuminescence Jour prolonge cette action par une hydratation intense pour une peau plus souple, rebondie et naturellement lumineuse.",
       prix: "28,90€",
@@ -164,14 +164,14 @@ window.EB_PRODUITS = {
     // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "diaporama",
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 PHOTO 1
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Prebiotique_nette_HD.png?v=1791028579",
-        // 📷 PHOTO 2
+        // 📷 1. PHOTO PRODUIT
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gelee_Lumi-bloom_2.png?v=1791129773",
+        // 📷 2. VIDÉO TEXTURE
+        "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
+        // 📷 3. PHOTO 3
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000454c8210a827f69035d58538.png?v=1791030948"
-        // 📷 PHOTO 3 — à ajouter : mettre une virgule à la fin de la ligne PHOTO 2,
-        //    puis coller ici le lien entre guillemets "…"
       ]
     },
     sections: [
@@ -204,7 +204,7 @@ window.EB_PRODUITS = {
       nom: "Radiance C Serum",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum.png?v=1791003209",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_1.png?v=1791131947",
 
       texte: "Préparez votre peau à révéler tout son éclat.\nLa Gelée Lumi-Bloom aide à renforcer la barrière cutanée et à préserver l'équilibre du microbiome, créant les conditions idéales pour le Radiance C Serum.\nEnsemble, ils révèlent une peau plus lumineuse, plus homogène et naturellement éclatante.",
       prix: "34,90€",
@@ -230,28 +230,26 @@ window.EB_PRODUITS = {
     variantes: [
       { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 1 },
       { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 2 },
-      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 4 },
-      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3 }
+      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 3 },
+      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 4 }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  PHOTOS DE LA FICHE — Lumi-Veil CC Cream (diaporama)        │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "diaporama",
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 PHOTO 1 (photo 0 pour le sélecteur)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/k_2HSJO-YzNUoy4iqGFAiDCwrQESxBtm.jpg?v=1790241607",
-        // 📷 PHOTO 2 — teinte CLAIR (photo 1)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_5b8aa941-9e33-48fe-b488-8bda773354d2.jpg?v=1789055738",
-        // 📷 PHOTO 3 — teinte MOYEN (photo 2)
+        // 📷 1. PHOTO PRODUIT  (n°0 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil.png?v=1791129774",
+        // 📷 2. TEINTE CLAIR  (n°1 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1789055825",
+        // 📷 3. TEINTE MOYEN  (n°2 pour le sélecteur)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_c5c7f861-cd6f-46d6-bdb6-996ebbd5fe01.jpg?v=1789055754",
-        // 📷 PHOTO 4 — teinte FONCÉ (photo 3)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_309d9185-ba4a-4b67-a6b2-56b16ae8b40d.jpg?v=1789055872",
-        // 📷 PHOTO 5 — teinte HÂLÉ (photo 4)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1789055856",
-        // 📷 PHOTO 6 (photo 5)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002dec81f4be313feecebdf58f.png?v=1791033748"
+        // 📷 4. TEINTE HÂLÉ  (n°3 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_96fcd036-81c4-4cf6-b189-370d27d0dc2d.jpg?v=1789055767",
+        // 📷 5. TEINTE FONCÉ  (n°4 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1789055785"
       ]
     },
     sections: [
@@ -286,7 +284,7 @@ window.EB_PRODUITS = {
       nom: "Luminescence Jour",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_Jour.png?v=1791003209",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_jour_1f7cd66e-6693-43ff-91c7-ac246a40bb05.png?v=1791131916",
 
       texte: "Offrez à votre peau le duo qui fait toute la différence.\nLuminescence Jour l'hydrate intensément, l'apaise et lui redonne toute sa souplesse.\nLumi-Veil CC Crème révèle ensuite un teint unifié, un glow naturel et une protection quotidienne.\nLa peau paraît plus rebondie, plus lumineuse et si fraîche qu'elle attire naturellement le regard.",
       prix: "34,90€",
@@ -308,16 +306,18 @@ window.EB_PRODUITS = {
     avis: "Lumi-Bloom Niacinamide 5",
 
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Lumi-Bloom Niacinamide 5      │
+    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Niacinamide 5      │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "video",
-
-      // 📷 VIDÉO (lien Shopify .mp4)
-      video: "https://cdn.shopify.com/videos/c/o/v/616a91cb2fb9411d9d05500f2bd41b56.mp4",
-
-      // 📷 PHOTO (affichée le temps que la vidéo se charge)
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Bloom_niacinamide_5.jpg?v=1791040735"
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      images: [
+        // 📷 1. PHOTO PRODUIT
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/LUMI-BLOOM_Niacinamide_5.png?v=1791129774",
+        // 📷 2. VIDÉO TEXTURE
+        "https://cdn.shopify.com/videos/c/o/v/2306ccc5a1554bcea8c47c32c12f29be.mp4",
+        // 📷 3. PHOTO 3
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_soin_Lumi-Bloom_sur_verre_reflechissant.png?v=1791131037"
+      ]
     },
     sections: [
       { titre: "L'expérience",
@@ -362,7 +362,7 @@ window.EB_PRODUITS = {
       nom: "Lumi-Veil CC Cream SPF 30",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_CC_Cream_description.png?v=1791038477",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gamme_CC_Cream_Lumi_Veil_SPF30.png?v=1791131975",
 
       texte: "L'alliance de Lumi-Bloom Niacinamide 5 et de Lumi-Veil CC Cream SPF 30 révèle un teint plus uniforme, des pores visiblement estompés et une peau naturellement lumineuse.\nLe gel perfecteur prépare la peau, tandis que Lumi-Veil unifie, protège et sublime l'éclat pour un effet glow frais et naturel, sans effet gras.",
       prix: "26,90€"
@@ -384,16 +384,18 @@ window.EB_PRODUITS = {
     avis: "Luminescence Nuit",
 
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Luminescence Nuit             │
+    // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Nuit             │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "video",
-
-      // 📷 VIDÉO (lien Shopify .mp4)
-      video: "https://cdn.shopify.com/videos/c/o/v/31f522b869a14fb38922afb5c7d79369.mp4",
-
-      // 📷 PHOTO (affichée le temps que la vidéo se charge)
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_nuit.jpg?v=1791040707"
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      images: [
+        // 📷 1. PHOTO PRODUIT
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_Nuit_2.png?v=1791129775",
+        // 📷 2. VIDÉO TEXTURE
+        "https://cdn.shopify.com/videos/c/o/v/8aa68ee794404b48a3a17fad02c2610a.mp4",
+        // 📷 3. PHOTO 3
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elegance_skincare_sur_velours_rose.png?v=1791130417"
+      ]
     },
     sections: [
       { titre: "L'expérience",
@@ -436,7 +438,7 @@ window.EB_PRODUITS = {
       nom: "Lumi-Bloom Niacinamide 5",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumibloom_niac_5.png?v=1791003209",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Niacinamide_5.png?v=1791132000",
 
       texte: "L'allié idéal de Luminescence Nuit.\nEnsemble, ils accompagnent la peau tout au long de la nuit pour révéler un teint plus harmonieux, une peau plus confortable et un éclat naturel au réveil.",
       prix: "34,90€",
@@ -458,16 +460,18 @@ window.EB_PRODUITS = {
     avis: "Rituel Luminescence",
 
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS & VIDÉO DE LA FICHE — Rituel Luminescence           │
+    // │ 📷  DIAPORAMA DE LA FICHE  — Rituel Luminescence           │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "video",
-
-      // 📷 VIDÉO (lien Shopify .mp4)
-      video: "https://cdn.shopify.com/videos/c/o/v/7152afc055204f83883f27b08505b3db.mp4",
-
-      // 📷 PHOTO (affichée le temps que la vidéo se charge)
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Rituel_Luminescence.png?v=1791054871"
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      images: [
+        // 📷 1. PHOTO PRODUIT
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elegance_skincare_sur_fond_creme.png?v=1791131104",
+        // 📷 2. VIDÉO TEXTURE (Luminescence Jour)
+        "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
+        // 📷 3. PHOTO 3
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_24.png?v=1791131395"
+      ]
     },
     sections: [
       { titre: "L'expérience",
@@ -499,7 +503,7 @@ window.EB_PRODUITS = {
       nom: "Radiance Protect SPF 50",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect.png?v=1791003208",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect_1.png?v=1791132013",
 
       texte: "Le trio complet pour une peau lumineuse et protégée, du matin au soir.\nLe matin, Luminescence Jour hydrate intensément la peau, puis Radiance Protect SPF 50 l'enveloppe d'une haute protection minérale contre les UVA et les UVB.\nLe soir, Luminescence Nuit prend le relais pour nourrir, raffermir et accompagner le renouvellement naturel de la peau.\nEnsemble, ils préservent la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
       prix: "26,90€"
@@ -531,14 +535,14 @@ window.EB_PRODUITS = {
     // │ 📷  PHOTOS DE LA FICHE — Radiance Protect (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      type: "diaporama",
+      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 PHOTO 1 (photo 0 pour le sélecteur)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect.jpg?v=1791055295",
-        // 📷 PHOTO 2 — SANS TEINTE (photo 1)
+        // 📷 1. PHOTO PRODUIT  (n°0 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect_2.png?v=1791129774",
+        // 📷 2. SANS TEINTE  (n°1 pour le sélecteur)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1790155246",
-        // 📷 PHOTO 3 — TEINTÉ (photo 2)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1790155260"
+        // 📷 3. TEINTÉ  (n°2 pour le sélecteur)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_0f2cdd3d-9968-440f-947d-23df50887b8d.jpg?v=1790154976"
       ]
     },
     sections: [
@@ -583,7 +587,7 @@ window.EB_PRODUITS = {
       nom: "Radiance C Serum",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum.png?v=1791055584",
+      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_1.png?v=1791131947",
 
       texte: "Le duo indispensable de votre routine du matin. Radiance C Serum révèle l'éclat naturel du teint et aide à protéger la peau des agressions oxydatives.\nRadiance Protect SPF 50 prend ensuite le relais en offrant une haute protection contre les UVA et les UVB.\nEnsemble, ils contribuent à préserver la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
       prix: "34,90€",
