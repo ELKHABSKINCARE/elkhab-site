@@ -24,7 +24,6 @@
   // ORDINATEUR : deux colonnes — vidéos à gauche (en fondu enchaîné), diagnostic à droite
   // ==========================================================================
   var EB_DIAG_VIDEOS = [
-    EB_DIAG_VIDEO,                                                              // vidéo d'introduction actuelle
     'https://cdn.shopify.com/videos/c/o/v/44d073274ddc45f2b336ec63cd08f88d.mp4',
     'https://cdn.shopify.com/videos/c/o/v/b0123ce9a6924f3eb5a61934eafdc044.mp4',
     'https://cdn.shopify.com/videos/c/o/v/abdc438cf15542ef9daf8749d954cd2b.mp4',
