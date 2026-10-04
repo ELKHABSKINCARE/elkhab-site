@@ -19,6 +19,86 @@
   closeBtn.innerHTML = '&times;';
   closeBtn.addEventListener('click', function(){ if(window.ebDiagClose) window.ebDiagClose(); });
   document.body.appendChild(closeBtn);
+
+  // ==========================================================================
+  // ORDINATEUR : deux colonnes — vidéos à gauche (en fondu enchaîné), diagnostic à droite
+  // ==========================================================================
+  var EB_DIAG_VIDEOS = [
+    EB_DIAG_VIDEO,                                                              // vidéo d'introduction actuelle
+    'https://cdn.shopify.com/videos/c/o/v/44d073274ddc45f2b336ec63cd08f88d.mp4',
+    'https://cdn.shopify.com/videos/c/o/v/b0123ce9a6924f3eb5a61934eafdc044.mp4',
+    'https://cdn.shopify.com/videos/c/o/v/abdc438cf15542ef9daf8749d954cd2b.mp4',
+    'https://cdn.shopify.com/videos/c/o/v/3ca944e1c65749beac96a1de37005378.mp4'
+  ];
+  var sideCss = document.createElement('style');
+  sideCss.textContent = ''
+    + '.eb-diag-side{display:none}'
+    + '@media (min-width:900px){'
+    +   '.eb-diag-side{display:block;position:fixed;top:0;left:0;width:42vw;height:100vh;background:#141414;z-index:99999;overflow:hidden;transform:translateX(-100%);transition:transform .5s cubic-bezier(.65,0,.35,1)}'
+    +   '.eb-diag-side.open{transform:translateX(0)}'
+    +   '.eb-diag-side video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}'
+    +   '.eb-diag-side video.eb-paysage{object-fit:contain}'
+    +   '.eb-diag-side video.eb-visible{opacity:1}'
+    +   '#ebDiagOverlay{padding-left:42vw}'
+    +   '#ebDiagOverlay .eb-diag-intro-image{display:none}'
+    +   '#ebDiagOverlay .eb-diag-screen[data-screen="intro"].active{min-height:100vh;display:flex;flex-direction:column;justify-content:center}'
+    + '}';
+  document.head.appendChild(sideCss);
+
+  var side = document.createElement('div');
+  side.className = 'eb-diag-side';
+  side.innerHTML = '<video muted playsinline preload="auto"></video><video muted playsinline preload="none"></video>';
+  document.body.appendChild(side);
+  var lecteurs = side.querySelectorAll('video');
+  var actif = 0, rang = 0;
+
+  function formater(v){
+    // Vidéo horizontale (16/9) : affichée en entier ; vidéo portrait : remplit la colonne
+    v.classList.toggle('eb-paysage', v.videoWidth > v.videoHeight);
+  }
+  lecteurs.forEach(function(v){
+    v.addEventListener('loadedmetadata', function(){ formater(v); });
+    v.addEventListener('ended', function(){ if(v === lecteurs[actif]) suivante(); });
+  });
+  function jouer(v){ v.muted = true; var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+  function preparer(v, i){ v.preload = 'auto'; v.src = EB_DIAG_VIDEOS[i % EB_DIAG_VIDEOS.length]; }
+  function suivante(){
+    var courant = lecteurs[actif], prochain = lecteurs[1 - actif];
+    rang = (rang + 1) % EB_DIAG_VIDEOS.length;
+    if(!prochain.src || prochain.getAttribute('data-rang') != String(rang)){ preparer(prochain, rang); }
+    prochain.currentTime = 0;
+    jouer(prochain);
+    prochain.classList.add('eb-visible');
+    courant.classList.remove('eb-visible');
+    actif = 1 - actif;
+    // Une fois le fondu terminé, l'ancienne vidéo laisse place à la suivante, qui se prépare discrètement
+    var apres = (rang + 1) % EB_DIAG_VIDEOS.length;
+    setTimeout(function(){
+      courant.pause();
+      preparer(courant, apres); courant.setAttribute('data-rang', String(apres));
+    }, 1300);
+  }
+  function demarrerColonne(){
+    if(!window.matchMedia('(min-width:900px)').matches) return;
+    var v = lecteurs[actif];
+    if(!v.src){
+      rang = 0; preparer(v, 0); v.setAttribute('data-rang', '0');
+      preparer(lecteurs[1 - actif], 1); lecteurs[1 - actif].setAttribute('data-rang', '1');
+    }
+    v.classList.add('eb-visible');
+    jouer(v);
+  }
+  function arreterColonne(){ lecteurs.forEach(function(v){ v.pause(); }); }
+
+  // La colonne s'ouvre et se ferme en même temps que le diagnostic
+  var ov = document.getElementById('ebDiagOverlay');
+  if(ov && window.MutationObserver){
+    new MutationObserver(function(){
+      var ouvert = ov.classList.contains('open');
+      side.classList.toggle('open', ouvert);
+      if(ouvert) demarrerColonne(); else arreterColonne();
+    }).observe(ov, { attributes: true, attributeFilter: ['class'] });
+  }
 })();
 
 
