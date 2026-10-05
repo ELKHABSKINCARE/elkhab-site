@@ -102,7 +102,12 @@ function ebSearchRun(query){
   if(matchedProducts.length > 0){
     html += '<div class="eb-search-group-label">Soins</div>';
     matchedProducts.forEach(function(p){
-      html += '<a class="eb-search-item" href="'+soinsBase+'#'+p.id+'"><div class="eb-search-item-name">'+p.name+'</div></a>';
+      // Fiche en panneau si elle existe dans le catalogue, sinon l'ancienne fiche du site Soins
+      if(window.EB_PRODUITS && window.EB_PRODUITS[p.id] && typeof window.ebFicheOpen === 'function'){
+        html += '<a class="eb-search-item" href="#" onclick="return ebSearchFiche(\''+p.id+'\')"><div class="eb-search-item-name">'+p.name+'</div></a>';
+      } else {
+        html += '<a class="eb-search-item" href="'+soinsBase+'#'+p.id+'"><div class="eb-search-item-name">'+p.name+'</div></a>';
+      }
     });
   }
   if(matchedArticles.length > 0){
@@ -124,6 +129,13 @@ function ebSearchClose(){
   document.getElementById('ebSearchResults').innerHTML = '';
 }
 
+// Ferme la recherche puis ouvre la fiche produit en panneau, sans quitter la page
+function ebSearchFiche(id){
+  ebSearchClose();
+  setTimeout(function(){ window.ebFicheOpen(id); }, 150);
+  return false;
+}
+window.ebSearchFiche = ebSearchFiche;
 window.ebSearchOpen = ebSearchOpen;
 window.ebSearchClose = ebSearchClose;
 window.ebSearchRun = ebSearchRun;
