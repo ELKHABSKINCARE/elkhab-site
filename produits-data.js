@@ -514,7 +514,7 @@ window.EB_PRODUITS = {
         // 📷 2. VIDÉO TEXTURE (Luminescence Jour)
         "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
         // 📷 3. PHOTO 3
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_24.png?v=1791131395"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Rituel_luminescence_eau.png?v=1791316799"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
