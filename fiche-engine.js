@@ -85,6 +85,32 @@
   + ".eb-fp-inci-stats{display:flex;gap:28px;margin:6px 0 14px}"
   + ".eb-fp-inci-val{font-size:20px;font-weight:700}"
   + ".eb-fp-inci-lab{font-size:11px;color:#666;line-height:1.4}"
+  // Bouton « Retour » (fiche ouverte depuis une autre fiche ou une routine)
+  + ".eb-fp-back{position:fixed;top:16px;left:18px;z-index:99995;height:38px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;gap:6px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#000;cursor:pointer;transition:transform .2s ease}"
+  + ".eb-fp-back.visible{display:flex}.eb-fp-back:hover{transform:scale(1.04)}"
+  // Soin consulté depuis une routine : prix seul, non cliquable
+  + ".eb-fp-price-only{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:0 auto;border:1px solid rgba(0,0,0,.18);padding:16px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:#000;cursor:default}"
+  + ".eb-fp-inclus{font-size:11.5px;font-style:italic;font-weight:300;line-height:1.6;text-align:center;color:#666;margin:12px auto 0;max-width:320px}"
+  + ".eb-fp-inclus button{display:block;margin:6px auto 0;background:none;border:none;padding:2px 0;font-family:'Montserrat',sans-serif;font-size:11px;font-style:normal;font-weight:500;letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;color:#000;cursor:pointer}"
+  // Fiches routines
+  + ".eb-fp-intro{margin:42px 0 0}"
+  + ".eb-fp-intro p{font-size:14px;line-height:1.85;color:#222;text-align:center;margin:0 0 12px}"
+  + ".eb-fp-h3{font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-align:center;color:#000;margin:50px 0 22px}"
+  + ".eb-fp-soins{display:grid;gap:10px}"
+  + ".eb-fp-soin{background:none;border:none;padding:0;margin:0;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;color:#000}"
+  + ".eb-fp-soin-img{display:block;aspect-ratio:3/4;overflow:hidden;background:#F6F4F0}"
+  + ".eb-fp-soin-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}"
+  + ".eb-fp-soin:hover .eb-fp-soin-img img{transform:scale(1.05)}"
+  + ".eb-fp-soin-name{display:block;margin-top:9px;font-size:9.5px;font-weight:400;letter-spacing:.14em;line-height:1.5;text-transform:uppercase}"
+  + ".eb-fp-soin-voir{display:block;margin-top:3px;font-size:10px;letter-spacing:.04em;text-decoration:underline;text-underline-offset:3px;opacity:.55}"
+  + ".eb-fp-moment{font-size:11px;font-style:italic;font-weight:300;letter-spacing:.06em;text-align:center;color:#666;margin:-12px 0 12px}"
+  + ".eb-fp-etapes{list-style:none;margin:0;padding:0;border-top:1px solid rgba(0,0,0,.12)}"
+  + ".eb-fp-etape{display:flex;gap:16px;padding:18px 2px;border-bottom:1px solid rgba(0,0,0,.12)}"
+  + ".eb-fp-etape-num{flex-shrink:0;min-width:24px;font-size:11px;font-weight:500;letter-spacing:.1em;color:#999;padding-top:2px}"
+  + ".eb-fp-etape-soin{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;margin-bottom:5px}"
+  + ".eb-fp-etape-txt{font-size:13.5px;line-height:1.8;color:#222;text-align:left}"
+  + ".eb-fp-conclusion{font-size:13.5px;font-style:italic;font-weight:300;line-height:1.85;text-align:center;color:#444;margin:38px auto 0;max-width:460px}"
+  + ".eb-fp-conclusion strong{font-weight:500}"
   // Vos expériences : bandeau #141414, comme le panneau d'avis
   + ".eb-fp-h2{font-size:26px;font-weight:700;margin:52px 0 10px;color:#000;text-align:left}"
   + ".eb-fp-exp{background:#141414;color:#fff;margin:52px -24px 0;padding:44px 24px 48px}"
@@ -130,7 +156,7 @@
   +   ".eb-fp-accord-img{width:100%;max-width:380px !important;margin:26px auto 26px !important}"
   + "}";
 
-  var overlay, closeBtn, cartBtn, built = false, observer = null, slideTimer = null;
+  var overlay, closeBtn, cartBtn, backBtn, pile = [], courant = null, built = false, observer = null, slideTimer = null;
 
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
 
@@ -164,6 +190,13 @@
     closeBtn.innerHTML = '&times;';
     closeBtn.addEventListener('click', ebFicheClose);
     document.body.appendChild(closeBtn);
+
+    backBtn = document.createElement('button');
+    backBtn.type = 'button';
+    backBtn.className = 'eb-fp-back';
+    backBtn.innerHTML = '&larr; Retour';
+    backBtn.addEventListener('click', ebFicheRetour);
+    document.body.appendChild(backBtn);
 
     cartBtn = document.createElement('button');
     cartBtn.type = 'button';
@@ -206,12 +239,13 @@
           apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
         }
         var piste = overlay.querySelector('.eb-fp-slides');
-        if(cible === 'main' && photo != null && piste){
+        if(cible === 'main' && photo != null && piste && bloc.getAttribute('data-produit') === (courant && courant.id)){
           clearTimeout(slideTimer); // la cliente a choisi : le diaporama s'arrête sur sa teinte
           piste.scrollTo({ left: parseInt(photo, 10) * piste.clientWidth, behavior: 'smooth' });
         }
         return;
       }
+      if(e.target.closest('.eb-fp-inclus button')){ ebFicheRetour(); return; }
       // « Voir plus » / « Voir moins »
       var more = e.target.closest('.eb-fp-more');
       if(more){
@@ -395,10 +429,14 @@
       + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + esc(prix) + '</span>' : '') + '</button>';
   }
 
-  function ebFicheOpen(id){
+  // ctx.routine : identifiant de la routine depuis laquelle le soin est consulté
+  function ebFicheOpen(id, ctx){
     var data = window.EB_PRODUITS && window.EB_PRODUITS[id];
     if(!data){ console.error('ELKHA.B fiche — produit inconnu :', id); return; }
+    ctx = ctx || {};
     build();
+    courant = { id: id, ctx: ctx };
+    var routineParente = ctx.routine && window.EB_PRODUITS[ctx.routine];
     charger(REVIEWS_ENGINE, function(){ return typeof window.ebRenderReviews === 'function'; });
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
 
@@ -412,20 +450,64 @@
     if(data.note) h += '<p class="eb-fp-note">' + esc(data.note) + '</p>';
     h += '</div>';
 
-    // Sélecteur de variantes (teintes, formules…)
     var variantes = data.variantes || [];
-    if(variantes.length) h += selecteurHTML(variantes, data.choixLabel, 'main', id);
+    if(routineParente){
+      // Soin consulté depuis une routine : prix seul, l'achat se fait dans la routine
+      if(data.prix) h += '<div class="eb-fp-price-only">' + esc(data.prix) + '</div>';
+      h += '<p class="eb-fp-inclus">Inclus dans votre ' + esc(routineParente.nom) + '<button type="button">&larr; Revenir à la routine</button></p>';
+    } else {
+      // Sélecteur de variantes (teintes, formules…)
+      if(variantes.length) h += selecteurHTML(variantes, data.choixLabel, 'main', data.photosTeintes || id);
+      // Achat
+      var idAchat = variantes.length ? variantes[0].variantId : data.variantId;
+      if(idAchat){
+        h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
+        h += '<p class="eb-fp-ship">Livraison offerte dès 65€ d\'achat</p>';
+      }
+    }
 
-    // Achat
-    var idAchat = variantes.length ? variantes[0].variantId : data.variantId;
-    if(idAchat){
-      h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
-      h += '<p class="eb-fp-ship">Livraison offerte dès 65€ d\'achat</p>';
+    // Routine : présentation, soins inclus, rituel, conclusion
+    var r = data.routine;
+    if(r){
+      if(r.intro){
+        h += '<div class="eb-fp-intro">';
+        String(r.intro).split('\n').forEach(function(p){ if(p.trim()) h += '<p>' + esc(p) + '</p>'; });
+        h += '</div>';
+      }
+      var soins = (r.soins || []).filter(function(sid){ return window.EB_PRODUITS[sid]; });
+      if(soins.length){
+        h += '<h3 class="eb-fp-h3">Votre routine</h3>';
+        h += '<div class="eb-fp-soins" style="grid-template-columns:repeat(' + Math.min(soins.length, 3) + ',1fr)">';
+        soins.forEach(function(sid){
+          var sp = window.EB_PRODUITS[sid], m = sp.media || {};
+          var img = (m.images && m.images[0]) || m.image || '';
+          h += '<button type="button" class="eb-fp-soin" data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
+          h += '<span class="eb-fp-soin-img">' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
+          h += '<span class="eb-fp-soin-name">' + esc(sp.nom) + '</span><span class="eb-fp-soin-voir">Voir la fiche</span></button>';
+        });
+        h += '</div>';
+      }
+      if(r.etapes && r.etapes.length){
+        h += '<h3 class="eb-fp-h3">Le rituel</h3>';
+        if(r.moment) h += '<p class="eb-fp-moment">' + esc(r.moment) + '</p>';
+        h += '<ol class="eb-fp-etapes">';
+        r.etapes.forEach(function(et, i){
+          var sp = et.soin && window.EB_PRODUITS[et.soin];
+          h += '<li class="eb-fp-etape"><span class="eb-fp-etape-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span><div>';
+          if(et.titre || sp) h += '<span class="eb-fp-etape-soin">' + esc(et.titre || sp.nom) + '</span>';
+          h += '<div class="eb-fp-etape-txt">' + esc(et.texte) + '</div></div></li>';
+        });
+        h += '</ol>';
+      }
+      if(r.conclusion){
+        var cc = String(r.conclusion).split('\n');
+        h += '<p class="eb-fp-conclusion"><strong>' + esc(cc[0]) + '</strong>' + (cc.length > 1 ? '<br>' + esc(cc.slice(1).join(' ')) : '') + '</p>';
+      }
     }
 
     // Accordéon (+ composition en dernier)
-    h += '<div class="eb-fp-acc">';
     var sections = (data.sections || []).slice();
+    h += sections.length || data.inci ? '<div class="eb-fp-acc">' : '<div>';
     if(data.inci) sections.push({ titre: 'Composition', inci: data.inci });
     sections.forEach(function(s, i){
       h += '<div class="eb-fp-acc-item' + (i === 0 ? ' open' : '') + '"' + (s.inci ? ' data-inci="' + esc(s.inci) + '"' : '') + '>';
@@ -446,7 +528,7 @@
     }
 
     // Pour aller plus loin — L'accord parfait
-    var a = data.accord;
+    var a = routineParente ? null : data.accord;
     if(a){
       h += '<hr class="eb-fp-sep">';
       h += '<p class="eb-fp-kicker">Pour aller plus loin</p>';
@@ -500,12 +582,21 @@
 
     requestAnimationFrame(function(){ overlay.classList.add('open'); });
     closeBtn.classList.add('visible');
+    backBtn.classList.toggle('visible', pile.length > 0);
     if(document.getElementById('ebCartPanel')){ cartBtn.classList.add('visible'); majCompteur(); }
     document.documentElement.style.overflow = 'hidden';
   }
 
+  // Revient à la fiche précédente (routine, ou fiche d'origine d'un « Découvrir »)
+  function ebFicheRetour(){
+    var prec = pile.pop();
+    if(prec) ebFicheOpen(prec.id, prec.ctx);
+  }
+
   function ebFicheClose(){
     if(!overlay) return;
+    pile = []; courant = null;
+    backBtn.classList.remove('visible');
     overlay.classList.remove('open');
     closeBtn.classList.remove('visible');
     cartBtn.classList.remove('visible');
@@ -530,7 +621,11 @@
     if(!id || !(window.EB_PRODUITS && window.EB_PRODUITS[id])) return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    ebFicheOpen(id);
+    // Ouverte depuis une autre fiche : on garde la précédente pour le bouton « Retour »
+    var dejaOuverte = overlay && overlay.classList.contains('open') && courant;
+    if(dejaOuverte) pile.push(courant); else pile = [];
+    var depuis = el.getAttribute('data-depuis-routine');
+    ebFicheOpen(id, depuis ? { routine: depuis } : {});
   }, true);
 
   // Ouverture directe par l'adresse : ?fiche=radiance-serum
