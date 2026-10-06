@@ -96,6 +96,7 @@
   // Fiches routines
   + ".eb-fp-intro{margin:42px 0 0}"
   + ".eb-fp-intro p{font-size:14px;line-height:1.85;color:#222;text-align:center;margin:0 0 12px}"
+  + ".eb-fp-acc + .eb-fp-h3{margin-top:56px}"
   + ".eb-fp-h3{font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-align:center;color:#000;margin:50px 0 22px}"
   + ".eb-fp-soins{display:grid;gap:10px}"
   + ".eb-fp-soin{background:none;border:none;padding:0;margin:0;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;color:#000}"
@@ -109,6 +110,7 @@
   + ".eb-fp-etape{display:flex;gap:16px;padding:18px 2px;border-bottom:1px solid rgba(0,0,0,.12)}"
   + ".eb-fp-etape-num{flex-shrink:0;min-width:24px;font-size:11px;font-weight:500;letter-spacing:.1em;color:#999;padding-top:2px}"
   + ".eb-fp-etape-soin{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;margin-bottom:5px}"
+  + ".eb-fp-etape-lien{background:none;border:none;padding:0;font-family:'Montserrat',sans-serif;cursor:pointer;text-align:left;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(0,0,0,.3)}"
   + ".eb-fp-etape-txt{font-size:13.5px;line-height:1.8;color:#222;text-align:left}"
   + ".eb-fp-conclusion{font-size:13.5px;font-weight:300;line-height:1.85;text-align:center;color:#444;margin:38px auto 0;max-width:460px}"
   + ".eb-fp-conclusion em{font-style:italic}"
@@ -500,6 +502,7 @@
 
     // Routine : présentation, soins inclus, rituel, conclusion
     var r = data.routine;
+    var hAvant = h; h = '';
     if(r){
       if(r.intro){
         h += '<div class="eb-fp-intro">';
@@ -532,7 +535,14 @@
             momentEnCours = mo;
           }
           h += '<li class="eb-fp-etape"><span class="eb-fp-etape-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span><div>';
-          if(et.titre || sp) h += '<span class="eb-fp-etape-soin">' + esc(et.titre || sp.nom) + '</span>';
+          if(et.titre || sp){
+            var titreEt = esc(et.titre || sp.nom);
+            if(sp && et.soin !== id && !routineParente){
+              h += '<button type="button" class="eb-fp-etape-soin eb-fp-etape-lien" data-fiche="' + esc(et.soin) + '">' + titreEt + '</button>';
+            } else {
+              h += '<span class="eb-fp-etape-soin">' + titreEt + '</span>';
+            }
+          }
           h += '<div class="eb-fp-etape-txt">' + esc(et.texte) + '</div></div></li>';
         });
         h += '</ol>';
@@ -542,6 +552,11 @@
         h += '<p class="eb-fp-conclusion"><em>' + esc(cc[0]) + '</em>' + (cc.length > 1 ? '<br><strong>' + esc(cc.slice(1).join(' ')) + '</strong>' : '') + '</p>';
       }
     }
+
+    var hRituel = h; h = hAvant;
+    // Routine (soins en vignettes) : le rituel avant l'accordéon. Soin seul : le rituel après l'accordéon.
+    var rituelApres = r && !(r.soins && r.soins.length);
+    if(!rituelApres) h += hRituel;
 
     // Accordéon (+ composition en dernier)
     var sections = (data.sections || []).slice();
@@ -557,6 +572,8 @@
       h += '</div></div></div>';
     });
     h += '</div>';
+
+    if(rituelApres) h += hRituel;
 
     // Vos expériences
     if(data.avis){
