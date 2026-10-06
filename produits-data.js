@@ -33,6 +33,17 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_7.jpg?v=1791129452"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (présenté avant l'accordéon)            │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Sur peau propre, appliquez une pression sur le visage et le cou." },
+        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50, afin de préserver durablement la radiance de la peau et de la protéger des agressions quotidiennes." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Une texture sorbet à la teinte solaire, une délicate senteur d'agrumes et une formule pensée pour révéler la radiance naturelle de la peau. Dès les premières applications, Radiance C Serum transforme chaque geste en un véritable moment d'éveil, où sensorialité et performance s'unissent dans le respect des peaux, même les plus sensibles." },
@@ -57,8 +68,6 @@ window.EB_PRODUITS = {
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture sorbet fraîche et fondante, délicatement parfumée aux agrumes. Elle pénètre rapidement sans laisser de fini gras, révélant une peau douce, confortable et naturellement lumineuse." },
-      { titre: "Votre rituel",
-        texte: "Appliquez une pression sur peau propre, matin et/ou soir, avant la Crème Luminescence. Le matin, complétez votre routine avec Radiance Protect SPF 50 afin de préserver durablement la radiance de la peau et de la protéger des agressions quotidiennes." },
       { titre: "Engagement ELKHA.B",
         liste: [
           "99% d'ingrédients d'origine naturelle",
@@ -73,8 +82,7 @@ window.EB_PRODUITS = {
       fiche: "luminescence-jour",       // fiche ouverte par le bouton « Découvrir »
       nom: "Crème Luminescence Jour",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_jour_1f7cd66e-6693-43ff-91c7-ac246a40bb05.png?v=1791131916",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "L'alliance du Radiance C Serum et de la crème Luminescence Jour offre une routine complète où l'éclat rencontre l'hydratation.\nLe sérum unifie et illumine le teint, tandis que la crème repulpe intensément la peau et aide à préserver durablement sa radiance.\nEnsemble, ils révèlent une peau naturellement lumineuse, souple et éclatante de santé.",
       prix: "34,90€",
@@ -106,7 +114,7 @@ window.EB_PRODUITS = {
         // 📷 2. VIDÉO TEXTURE
         "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
         // 📷 3. PHOTO 3
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000abd88243ba1913179c7d8e92.png?v=1791130040"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cebc81f5b624e0a99f645a4f.png?v=1791313529"
       ]
     },
     sections: [
@@ -138,8 +146,7 @@ window.EB_PRODUITS = {
       fiche: "gelee-lumibloom",
       nom: "Gelée Lumi-Bloom",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Publicite_minimaliste_pour_serum_eclat.png?v=1791131937",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Le duo essentiel pour révéler une peau éclatante.\nLa Gelée LumiBloom aide à renforcer la barrière cutanée et à préserver son équilibre pour une peau plus éclatante.\nLuminescence Jour prolonge cette action par une hydratation intense pour une peau plus souple, rebondie et naturellement lumineuse.",
       prix: "28,90€",
@@ -203,8 +210,7 @@ window.EB_PRODUITS = {
       fiche: "radiance-serum",
       nom: "Radiance C Serum",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_1.png?v=1791131947",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Préparez votre peau à révéler tout son éclat.\nLa Gelée Lumi-Bloom aide à renforcer la barrière cutanée et à préserver l'équilibre du microbiome, créant les conditions idéales pour le Radiance C Serum.\nEnsemble, ils révèlent une peau plus lumineuse, plus homogène et naturellement éclatante.",
       prix: "34,90€",
@@ -249,7 +255,7 @@ window.EB_PRODUITS = {
         // 📷 4. TEINTE HÂLÉ  (n°3 pour le sélecteur)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743",
         // 📷 5. TEINTE FONCÉ  (n°4 pour le sélecteur)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1789055785"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970"
       ]
     },
     sections: [
@@ -283,8 +289,7 @@ window.EB_PRODUITS = {
       fiche: "luminescence-jour",
       nom: "Luminescence Jour",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Luminescence_jour_1f7cd66e-6693-43ff-91c7-ac246a40bb05.png?v=1791131916",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Offrez à votre peau le duo qui fait toute la différence.\nLuminescence Jour l'hydrate intensément, l'apaise et lui redonne toute sa souplesse.\nLumi-Veil CC Crème révèle ensuite un teint unifié, un glow naturel et une protection quotidienne.\nLa peau paraît plus rebondie, plus lumineuse et si fraîche qu'elle attire naturellement le regard.",
       prix: "34,90€",
@@ -361,8 +366,7 @@ window.EB_PRODUITS = {
       fiche: "lumiveil-cc-cream",
       nom: "Lumi-Veil CC Cream SPF 30",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gamme_CC_Cream_Lumi_Veil_SPF30.png?v=1791131975",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "L'alliance de Lumi-Bloom Niacinamide 5 et de Lumi-Veil CC Cream SPF 30 révèle un teint plus uniforme, des pores visiblement estompés et une peau naturellement lumineuse.\nLe gel perfecteur prépare la peau, tandis que Lumi-Veil unifie, protège et sublime l'éclat pour un effet glow frais et naturel, sans effet gras.",
       prix: "26,90€"
@@ -437,8 +441,7 @@ window.EB_PRODUITS = {
       fiche: "lumibloom-niac-5",
       nom: "Lumi-Bloom Niacinamide 5",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Niacinamide_5.png?v=1791132000",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "L'allié idéal de Luminescence Nuit.\nEnsemble, ils accompagnent la peau tout au long de la nuit pour révéler un teint plus harmonieux, une peau plus confortable et un éclat naturel au réveil.",
       prix: "34,90€",
@@ -513,8 +516,7 @@ window.EB_PRODUITS = {
       fiche: "radiance-protect",
       nom: "Radiance Protect SPF 50",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect_1.png?v=1791132013",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Le trio complet pour une peau lumineuse et protégée, du matin au soir.\nLe matin, Luminescence Jour hydrate intensément la peau, puis Radiance Protect SPF 50 l'enveloppe d'une haute protection minérale contre les UVA et les UVB.\nLe soir, Luminescence Nuit prend le relais pour nourrir, raffermir et accompagner le renouvellement naturel de la peau.\nEnsemble, ils préservent la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
       prix: "26,90€"
@@ -597,8 +599,7 @@ window.EB_PRODUITS = {
       fiche: "radiance-serum",
       nom: "Radiance C Serum",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_1.png?v=1791131947",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Le duo indispensable de votre routine du matin. Radiance C Serum révèle l'éclat naturel du teint et aide à protéger la peau des agressions oxydatives.\nRadiance Protect SPF 50 prend ensuite le relais en offrant une haute protection contre les UVA et les UVB.\nEnsemble, ils contribuent à préserver la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
       prix: "34,90€",
@@ -633,6 +634,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
+      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_eclat_2.png?v=1791127339",
@@ -787,8 +789,7 @@ window.EB_PRODUITS = {
       fiche: "radiance-eye-cream",
       nom: "Radiance Eye Cream",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Eye_Cream_2.png?v=1791129774",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Prolongez l'effet fraîcheur au quotidien.\nAprès la parenthèse express des patchs Lumi-Eyes Bright & Glow, Radiance Eye Cream prend le relais jour après jour pour hydrater, lisser et illuminer le contour de l'œil.\nLe duo idéal pour préserver un regard frais, lumineux et visiblement moins marqué par les signes de fatigue.",
       prix: "28,90€",
@@ -852,8 +853,7 @@ window.EB_PRODUITS = {
       fiche: "radiance-eye-cream",
       nom: "Radiance Eye Cream",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Eye_Cream_2.png?v=1791129774",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Prolongez l'effet fraîcheur au quotidien.\nAprès la parenthèse express des patchs Lumi-Eyes Bright & Glow, Radiance Eye Cream prend le relais jour après jour pour hydrater, lisser et illuminer le contour de l'œil.\nLe duo idéal pour préserver un regard frais, lumineux et visiblement moins marqué par les signes de fatigue.",
       prix: "28,90€",
@@ -917,8 +917,7 @@ window.EB_PRODUITS = {
       fiche: "radiance-eye-cream",
       nom: "Radiance Eye Cream",
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Eye_Cream_2.png?v=1791129774",
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
       texte: "Prolongez l'effet fraîcheur au quotidien.\nAprès la parenthèse express des patchs Lumi-Eyes Bright & Glow, Radiance Eye Cream prend le relais jour après jour pour hydrater, lisser et illuminer le contour de l'œil.\nLe duo idéal pour préserver un regard frais, lumineux et visiblement moins marqué par les signes de fatigue.",
       prix: "28,90€",
@@ -943,6 +942,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
+      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_hydratation_2.png?v=1791127240",
@@ -989,6 +989,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
+      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_anti-age.png?v=1791127047",
@@ -1037,6 +1038,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
+      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_equilibre_2.png?v=1791127281",
@@ -1085,6 +1087,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
+      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_teint_et_protection.png?v=1791127110",
@@ -1131,6 +1134,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
+      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_regard_3.png?v=1791127193",
