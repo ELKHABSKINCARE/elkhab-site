@@ -44,6 +44,7 @@
   + ".eb-fp-title{font-size:21px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin:0 0 10px;color:#000}"
   + ".eb-fp-sub{font-size:14px;font-weight:300;line-height:1.6;margin:0 0 14px;color:#222}"
   + ".eb-fp-details{font-size:10.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#555;margin:0 0 7px}"
+  + ".eb-fp-actifs{font-size:12.5px;font-weight:300;line-height:1.6;margin:-6px 0 14px;color:#666}"
   + ".eb-fp-note{font-size:11px;font-weight:300;font-style:italic;letter-spacing:.04em;color:#888;margin:0}"
   // Boutons
   + ".eb-fp-buy{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:320px;margin:0 auto;background:#000;color:#fff;border:none;border-radius:0;padding:17px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
@@ -109,8 +110,9 @@
   + ".eb-fp-etape-num{flex-shrink:0;min-width:24px;font-size:11px;font-weight:500;letter-spacing:.1em;color:#999;padding-top:2px}"
   + ".eb-fp-etape-soin{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#000;margin-bottom:5px}"
   + ".eb-fp-etape-txt{font-size:13.5px;line-height:1.8;color:#222;text-align:left}"
-  + ".eb-fp-conclusion{font-size:13.5px;font-style:italic;font-weight:300;line-height:1.85;text-align:center;color:#444;margin:38px auto 0;max-width:460px}"
-  + ".eb-fp-conclusion strong{font-weight:500}"
+  + ".eb-fp-conclusion{font-size:13.5px;font-weight:300;line-height:1.85;text-align:center;color:#444;margin:38px auto 0;max-width:460px}"
+  + ".eb-fp-conclusion em{font-style:italic}"
+  + ".eb-fp-conclusion strong{font-weight:600;color:#222}"
   // Vos expériences : bandeau #141414, comme le panneau d'avis
   + ".eb-fp-h2{font-size:26px;font-weight:700;margin:52px 0 10px;color:#000;text-align:left}"
   + ".eb-fp-exp{background:#141414;color:#fff;margin:52px -24px 0;padding:44px 24px 48px}"
@@ -231,9 +233,26 @@
         var apercu = bloc.querySelector('.eb-fp-sel-preview');
         var source = window.EB_PRODUITS[bloc.getAttribute('data-produit')];
         var images = (source && source.media && source.media.images) || [];
-        if(apercu && photo != null && images[parseInt(photo, 10)]){
+        var imgOpt = opt.getAttribute('data-img') || (photo != null && images[parseInt(photo, 10)] ? hd(images[parseInt(photo, 10)], 400) : '');
+        var cibleFiche = opt.getAttribute('data-cible-fiche');
+        if(cibleFiche && window.EB_PRODUITS[cibleFiche]){
+          var zone = bloc.closest('.eb-fp-content');
+          if(cible === 'accord'){
+            var pill = zone.querySelector('.eb-fp-pill[data-fiche]');
+            if(pill) pill.setAttribute('data-fiche', cibleFiche);
+          } else {
+            var vig = zone.querySelector('.eb-fp-soin[data-selon-choix]');
+            if(vig){
+              var mm = window.EB_PRODUITS[cibleFiche].media || {};
+              var src = (mm.images && mm.images[0]) || mm.image;
+              vig.setAttribute('data-fiche', cibleFiche);
+              var vi = vig.querySelector('img'); if(vi && src) vi.src = hd(src, 600);
+            }
+          }
+        }
+        if(apercu && imgOpt){
           var vignette = apercu.querySelector('.eb-fp-sel-thumb');
-          vignette.src = hd(images[parseInt(photo, 10)], 400);
+          vignette.src = imgOpt;
           apercu.querySelector('strong').textContent = opt.textContent;
           apercu.classList.add('on');
           apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
@@ -298,6 +317,7 @@
     (function tenter(){
       var base = (typeof INCI_DETAILS !== 'undefined') ? INCI_DETAILS : null;
       var d = base && base[key];
+      if(base && !d){ item.parentNode && item.parentNode.removeChild(item); return; }
       if(!d){
         if(++essai < 25){ setTimeout(tenter, 200); }
         else { inner.innerHTML = '<p>Composition momentanément indisponible.</p>'; }
@@ -415,10 +435,12 @@
     h += '<div class="eb-fp-sel-options' + (longues ? ' eb-une-col' : '') + '">';
     variantes.forEach(function(v, i){
       h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
-        + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '') + '>' + esc(v.label) + '</button>';
+        + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '')
+        + (v.image ? ' data-img="' + esc(hd(v.image, 400)) + '"' : '')
+        + (v.fiche ? ' data-cible-fiche="' + esc(v.fiche) + '"' : '') + '>' + esc(v.label) + '</button>';
     });
     h += '</div>';
-    if(variantes.some(function(v){ return v.photo != null; })){
+    if(variantes.some(function(v){ return v.photo != null || v.image; })){
       h += '<div class="eb-fp-sel-preview"><img class="eb-fp-sel-thumb" alt=""><div class="eb-fp-sel-caption">Votre choix<strong></strong></div></div>';
     }
     return h + '</div>';
@@ -446,7 +468,11 @@
     h += '<div class="eb-fp-head">';
     h += '<h1 class="eb-fp-title">' + esc(data.nom) + '</h1>';
     if(data.sousTitre) h += '<p class="eb-fp-sub">' + esc(data.sousTitre) + '</p>';
-    if(data.details && data.details.length) h += '<p class="eb-fp-details">' + data.details.map(esc).join(' · ') + '</p>';
+    if(data.actifs) h += '<p class="eb-fp-actifs">' + esc(data.actifs) + '</p>';
+    if(data.details && data.details.length){
+      var lignes = Array.isArray(data.details[0]) ? data.details : [data.details];
+      lignes.forEach(function(l){ h += '<p class="eb-fp-details">' + l.map(esc).join(' · ') + '</p>'; });
+    }
     if(data.note) h += '<p class="eb-fp-note">' + esc(data.note) + '</p>';
     h += '</div>';
 
@@ -454,7 +480,7 @@
     if(routineParente){
       // Soin consulté depuis une routine : prix seul, l'achat se fait dans la routine
       if(data.prix) h += '<div class="eb-fp-price-only">' + esc(data.prix) + '</div>';
-      h += '<p class="eb-fp-inclus">Inclus dans votre ' + esc(routineParente.nom) + '<button type="button">&larr; Revenir à la routine</button></p>';
+      h += '<p class="eb-fp-inclus">Inclus dans votre ' + esc(routineParente.nom) + '</p>';
     } else {
       // Sélecteur de variantes (teintes, formules…)
       if(variantes.length) h += selecteurHTML(variantes, data.choixLabel, 'main', data.photosTeintes || id);
@@ -476,12 +502,12 @@
       }
       var soins = (r.soins || []).filter(function(sid){ return window.EB_PRODUITS[sid]; });
       if(soins.length){
-        h += '<h3 class="eb-fp-h3">Votre routine</h3>';
+        h += '<h3 class="eb-fp-h3">' + esc(r.titreSoins || 'Votre routine') + '</h3>';
         h += '<div class="eb-fp-soins" style="grid-template-columns:repeat(' + Math.min(soins.length, 3) + ',1fr)">';
-        soins.forEach(function(sid){
+        soins.forEach(function(sid, k){
           var sp = window.EB_PRODUITS[sid], m = sp.media || {};
           var img = (m.images && m.images[0]) || m.image || '';
-          h += '<button type="button" class="eb-fp-soin" data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
+          h += '<button type="button" class="eb-fp-soin"' + (r.soinSelonChoix === k ? ' data-selon-choix="1"' : '') + ' data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
           h += '<span class="eb-fp-soin-img">' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
           h += '<span class="eb-fp-soin-name">' + esc(sp.nom) + '</span><span class="eb-fp-soin-voir">Voir la fiche</span></button>';
         });
@@ -489,10 +515,16 @@
       }
       if(r.etapes && r.etapes.length){
         h += '<h3 class="eb-fp-h3">Le rituel</h3>';
-        if(r.moment) h += '<p class="eb-fp-moment">' + esc(r.moment) + '</p>';
-        h += '<ol class="eb-fp-etapes">';
+        var momentEnCours = null;
         r.etapes.forEach(function(et, i){
           var sp = et.soin && window.EB_PRODUITS[et.soin];
+          var mo = et.moment || r.moment || '';
+          if(i === 0 || mo !== momentEnCours){
+            if(i > 0) h += '</ol>';
+            if(mo) h += '<p class="eb-fp-moment"' + (i > 0 ? ' style="margin-top:26px"' : '') + '>' + esc(mo) + '</p>';
+            h += '<ol class="eb-fp-etapes">';
+            momentEnCours = mo;
+          }
           h += '<li class="eb-fp-etape"><span class="eb-fp-etape-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span><div>';
           if(et.titre || sp) h += '<span class="eb-fp-etape-soin">' + esc(et.titre || sp.nom) + '</span>';
           h += '<div class="eb-fp-etape-txt">' + esc(et.texte) + '</div></div></li>';
@@ -501,7 +533,7 @@
       }
       if(r.conclusion){
         var cc = String(r.conclusion).split('\n');
-        h += '<p class="eb-fp-conclusion"><strong>' + esc(cc[0]) + '</strong>' + (cc.length > 1 ? '<br>' + esc(cc.slice(1).join(' ')) : '') + '</p>';
+        h += '<p class="eb-fp-conclusion"><em>' + esc(cc[0]) + '</em>' + (cc.length > 1 ? '<br><strong>' + esc(cc.slice(1).join(' ')) + '</strong>' : '') + '</p>';
       }
     }
 
@@ -551,9 +583,9 @@
         }
       }
       var ficheAccord = a.fiche && window.EB_PRODUITS[a.fiche];
-      var variantesAccord = (ficheAccord && ficheAccord.variantes) || [];
+      var variantesAccord = a.variantes || (ficheAccord && ficheAccord.variantes) || [];
       if(variantesAccord.length){
-        h += '<div style="margin-top:28px">' + selecteurHTML(variantesAccord, ficheAccord.choixLabel, 'accord', a.fiche) + '</div>';
+        h += '<div style="margin-top:28px">' + selecteurHTML(variantesAccord, a.choixLabel || (ficheAccord && ficheAccord.choixLabel), 'accord', a.fiche) + '</div>';
       }
       var idAccord = variantesAccord.length ? variantesAccord[0].variantId : a.variantId;
       if(idAccord){
