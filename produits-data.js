@@ -30,17 +30,17 @@ window.EB_PRODUITS = {
         // 📷 2. PHOTO 2
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397",
         // 📷 3. PHOTO 3
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_7.jpg?v=1791129452"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_glace.png?v=1791315833"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (présenté avant l'accordéon)            │
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Sur peau propre, appliquez une pression sur le visage et le cou." },
-        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50, afin de préserver durablement la radiance de la peau et de la protéger des agressions quotidiennes." }
+        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Sur peau propre, déposez une pression de ce sorbet à la teinte solaire et appliquez-la sur le visage et le cou. Laissez sa délicate senteur d'agrumes éveiller vos sens." },
+        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Une fois le sérum pénétré, poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 : son stick fondant glisse sur la peau et préserve l'éclat de votre teint tout au long de la journée." }
       ]
     },
 
@@ -117,6 +117,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cebc81f5b624e0a99f645a4f.png?v=1791313529"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le matin", soin: "radiance-serum", texte: "Sur peau propre, commencez par une pression de Radiance C Serum pour éveiller l'éclat du teint." },
+        { moment: "Le matin", soin: "luminescence-jour", texte: "Appliquez une pression de crème : sa texture soyeuse fond sur la peau et l'enveloppe d'une hydratation fraîche, sans film gras." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Luminescence Jour enveloppe la peau d'une hydratation immédiate et durable tout en révélant un éclat naturel. Jour après jour, la peau paraît plus souple, plus lumineuse et retrouve tout son confort." },
@@ -133,8 +143,6 @@ window.EB_PRODUITS = {
         texte: "Les peaux normales à sèches, en manque d'hydratation, de souplesse ou d'éclat. Convient également à toutes les peaux recherchant un soin hydratant confortable au quotidien." },
       { titre: "Texture & sensorialité",
         texte: "Sa texture crème soyeuse fond délicatement sur la peau et pénètre rapidement. Elle laisse un fini confortable, sans film gras, tout en révélant un éclat frais et naturel." },
-      { titre: "Votre rituel",
-        texte: "Appliquez chaque matin sur une peau propre, après le Radiance C Serum, puis appliquez Luminescence Jour pour hydrater durablement la peau et révéler tout son éclat." },
       { titre: "Engagement ELKHA.B",
         texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque formule est pensée pour révéler la beauté naturelle de votre peau grâce à des actifs soigneusement sélectionnés. Luminescence Jour associe efficacité, sensorialité et confort dans un soin concentré conçu pour accompagner votre peau jour après jour." }
     ],
@@ -181,6 +189,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000454c8210a827f69035d58538.png?v=1791030948"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de gelée : sa texture fraîche se pose comme une eau sur la peau et la prépare en douceur." },
+        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Poursuivez avec Radiance C Serum, qui révèle tout son éclat sur une peau parfaitement préparée." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "La Gelée Lumi-Bloom est la première étape d'une peau éclatante. Sa texture gel fraîche hydrate instantanément tout en aidant à rééquilibrer le microbiome et à renforcer la barrière cutanée. La peau paraît plus confortable, plus souple et naturellement lumineuse." },
@@ -197,8 +215,6 @@ window.EB_PRODUITS = {
         texte: "Tous les types de peau, en particulier les peaux déshydratées, sensibilisées ou fragilisées recherchant davantage de confort, d'équilibre et d'éclat." },
       { titre: "Texture & sensorialité",
         texte: "Sa texture gel légère et rafraîchissante pénètre rapidement sans effet collant. Elle laisse la peau fraîche, souple et parfaitement préparée à recevoir les soins suivants." },
-      { titre: "Votre rituel",
-        texte: "Appliquez une pression matin et/ou soir sur une peau propre avant votre sérum. La Gelée Lumi-Bloom prépare la peau, optimise le confort cutané et accompagne chaque étape de votre routine ELKHA.B." },
       { titre: "Engagement ELKHA.B",
         texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, nous croyons qu'une peau éclatante commence par une peau équilibrée. La Gelée LumiBloom associe des actifs soigneusement sélectionnés pour renforcer la barrière cutanée, préserver le microbiome et révéler durablement l'éclat naturel de votre peau." }
     ],
@@ -258,6 +274,17 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le matin", titre: "Vos soins Bloom", texte: "Appliquez votre sérum puis votre crème, et laissez-les pénétrer quelques instants." },
+        { moment: "Le matin", soin: "lumiveil-cc-cream", texte: "En dernière étape, faites glisser le stick directement sur la peau, puis estompez du bout des doigts ou au pinceau : sa texture fondante fusionne avec la peau pour un fini seconde peau." },
+        { moment: "Au cours de la journée", texte: "Retouchez selon vos envies, là où le teint en a besoin : son format stick se glisse partout avec vous." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Lumi-Veil CC Cream est bien plus qu'une simple CC crème. Ce soin hybride associe correction du teint, protection solaire SPF 30 et soin de la peau dans un format stick pratique. Sa texture fondante se fond instantanément à la peau pour révéler un teint naturellement lumineux, uniforme et confortable." },
@@ -276,8 +303,6 @@ window.EB_PRODUITS = {
         texte: "Tous les types de peau, en particulier celles qui recherchent un teint naturellement lumineux, une protection quotidienne et un produit pratique à emporter partout." },
       { titre: "Texture & sensorialité",
         texte: "Sa texture crémeuse glisse facilement sur la peau et fusionne au contact de celle-ci pour un fini léger, homogène et naturellement lumineux. Son format stick permet une application rapide ainsi que des retouches à tout moment de la journée." },
-      { titre: "Votre rituel",
-        texte: "Appliquez chaque matin en dernière étape de votre routine, directement sur la peau, puis estompez du bout des doigts ou au pinceau. Retouchez au cours de la journée selon vos envies." },
       { titre: "Engagement ELKHA.B",
         texte: "• 98% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque formule est pensée pour offrir des résultats visibles tout en respectant l'équilibre naturel de la peau." }
     ],
@@ -324,6 +349,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_soin_Lumi-Bloom_sur_verre_reflechissant.png?v=1791131037"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "lumibloom-niac-5", texte: "Sur peau propre, appliquez une pression de gel : frais et léger, il fond instantanément et laisse la peau lisse, sans effet collant." },
+        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir, pour une routine Bloom complète." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Une texture gel fraîche et légère qui fond instantanément sur la peau. Pensée pour rééquilibrer les peaux sujettes aux imperfections, aux brillances ou aux irrégularités, sa formule révèle progressivement un teint plus uniforme, une peau plus lisse et naturellement lumineuse." },
@@ -349,8 +384,6 @@ window.EB_PRODUITS = {
         ] },
       { titre: "Texture & sensorialité",
         texte: "Un gel frais, léger et non collant qui pénètre rapidement. Il laisse la peau douce, confortable, visiblement plus lisse et parfaitement équilibrée, sans fini gras." },
-      { titre: "Votre rituel",
-        texte: "Appliquez une pression sur peau propre, matin et/ou soir, avant la Crème Luminescence. Pour une routine Bloom complète, associez-le au Radiance C Serum puis à la Crème Luminescence." },
       { titre: "Engagement ELKHA.B",
         liste: [
           "99% d'ingrédients d'origine naturelle",
@@ -401,6 +434,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elegance_skincare_sur_velours_rose.png?v=1791130417"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le soir", titre: "Votre sérum Bloom", texte: "Sur peau propre, appliquez Radiance C Serum ou Lumi-Bloom Niacinamide 5, selon les besoins de votre peau." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Réchauffez une pression entre vos mains, puis enveloppez le visage de gestes lents. Laissez ses notes de nénuphar, de jasmin blanc et de vanille accompagner votre moment du soir." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "La nuit est le moment où la peau se régénère naturellement. Luminescence Nuit l'accompagne dans ce précieux instant en l'enveloppant d'une texture riche, fondante et réconfortante. Au réveil, la peau paraît plus ferme, plus souple, visiblement rebondie et parfaitement reposée." },
@@ -424,8 +467,6 @@ window.EB_PRODUITS = {
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture riche, fondante et enveloppante qui pénètre confortablement sans laisser de fini gras. Son délicat parfum aux notes de nénuphar, de jasmin blanc, de vanille et d'une subtile touche de menthe poivrée transforme chaque application en un véritable rituel du soir." },
-      { titre: "Votre rituel",
-        texte: "Appliquez une pression sur peau propre chaque soir, après votre sérum Bloom. Pour une routine complète, associez-la au Radiance C Serum ou à Lumi-Bloom Niacinamide 5 selon les besoins de votre peau." },
       { titre: "Engagement ELKHA.B",
         liste: [
           "99% d'ingrédients d'origine naturelle",
@@ -558,6 +599,17 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_0f2cdd3d-9968-440f-947d-23df50887b8d.jpg?v=1790154976"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le matin", titre: "Vos soins Bloom", texte: "Appliquez vos sérums, puis votre crème Luminescence." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "En dernière étape, faites glisser le stick sur le visage et estompez en douceur : un voile léger, sans effet gras, qui laisse la peau lumineuse." },
+        { moment: "Au cours de la journée", texte: "Renouvelez l'application, notamment après une exposition prolongée au soleil, pour préserver durablement les bénéfices de votre rituel." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Chaque journée est une nouvelle exposition pour la peau. Radiance Protect SPF 50 l'enveloppe d'un voile protecteur léger qui préserve durablement son hydratation, son confort et sa radiance naturelle.\nSa texture fondante et son format stick rendent l'application simple, agréable et intuitive. Disponible en deux teintes naturelles, il se fond harmonieusement à la peau pour un fini lumineux, naturel et confortable." },
@@ -581,8 +633,6 @@ window.EB_PRODUITS = {
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture crème légère et fondante qui glisse facilement sur la peau. Elle s'estompe en douceur, sans effet gras ni sensation collante, et laisse un fini naturellement lumineux, confortable et invisible au quotidien.\nDisponible en version teintée et non teintée." },
-      { titre: "Votre rituel",
-        texte: "Appliquez Radiance Protect SPF 50 chaque matin en dernière étape de votre routine Bloom, après vos sérums et votre Crème Luminescence.\nRenouvelez l'application au cours de la journée, notamment après une exposition prolongée au soleil, afin de préserver durablement les bénéfices de votre rituel Bloom." },
       { titre: "Engagement ELKHA.B",
         liste: [
           "98% d'ingrédients d'origine naturelle",
@@ -686,6 +736,17 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Texture_creme.png?v=1791055980"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "radiance-eye-cream", texte: "Sur peau propre, prélevez une petite quantité de crème : sa texture douce, aux notes de coton et de fleurs, se pose délicatement sur le contour des yeux." },
+        { moment: "Matin et/ou soir", texte: "Tapotez du bout des doigts jusqu'à absorption, puis poursuivez avec votre routine habituelle." },
+        { moment: "1 à 2 fois par semaine", titre: "Lumi-Eyes Bright & Glow", texte: "Offrez à votre regard une pause fraîcheur de 15 minutes avec les patchs, comme un véritable masque du contour des yeux." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Un soin quotidien ciblé pour réveiller les regards fatigués. Radiance Eye Cream hydrate la zone délicate du contour de l'œil, aide à atténuer l'apparence des poches et des cernes et lisse visiblement les ridules de déshydratation. Le regard paraît plus frais, reposé et lumineux." },
@@ -703,8 +764,6 @@ window.EB_PRODUITS = {
         texte: "Les contours des yeux présentant cernes, poches, ridules ou signes de déshydratation, ainsi que les regards fatigués en quête de fraîcheur et de confort." },
       { titre: "Texture & sensorialité",
         texte: "Une texture crème douce et confortable qui enveloppe délicatement le contour des yeux. Son parfum délicat aux notes de coton doux et de fleurs accompagne le geste de soin." },
-      { titre: "Votre rituel",
-        texte: "Matin et/ou soir, sur peau propre, appliquez une petite quantité de Radiance Eye Cream sur le contour des yeux. Tapotez délicatement du bout des doigts jusqu'à absorption, puis poursuivez avec votre routine habituelle. Une petite quantité suffit." },
       { titre: "Engagement ELKHA.B",
         texte: "Une formule 100% d'origine naturelle, dont 10% issus de l'agriculture biologique, certifiée COSMOS Natural par ECOCERT Greenlife. Un soin qui s'inscrit dans l'engagement ELKHA.B pour des formules ciblées, sensorielles et respectueuses de la peau." }
     ],
@@ -759,6 +818,18 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_dore.png?v=1791273035"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "1 à 2 fois par semaine", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre et sèche, déposez un patch sous chaque œil : l'hydrogel frais et enveloppant épouse délicatement le contour de l'œil." },
+        { moment: "1 à 2 fois par semaine", texte: "Laissez poser 15 minutes, le temps d'une vraie pause pour votre regard." },
+        { moment: "1 à 2 fois par semaine", texte: "Retirez les patchs, puis faites pénétrer l'excédent de sérum par légers tapotements. Ne pas rincer." },
+        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Prolongez l'effet fraîcheur avec Radiance Eye Cream, matin et/ou soir." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Un véritable masque hydrogel pour offrir au contour des yeux 15 minutes de fraîcheur et de soin. Lumi-Eyes Bright & Glow hydrate, aide à lisser l'apparence des ridules de déshydratation et à raviver l'éclat du regard. À retirer après la pose pour découvrir un contour des yeux visiblement plus frais, doux et reposé." },
@@ -776,8 +847,6 @@ window.EB_PRODUITS = {
         texte: "Tous les types de peau, y compris les peaux sèches, sensibles et matures. Idéal lorsque le contour des yeux paraît fatigué, déshydraté, terne ou marqué par de fines ridules." },
       { titre: "Texture & sensorialité",
         texte: "Des patchs hydrogel frais et enveloppants, inspirés des rituels K-beauty, qui épousent délicatement le contour de l'œil pendant la pose. Sans parfum." },
-      { titre: "Votre rituel",
-        texte: "1 à 2 fois par semaine, sur peau propre et sèche, appliquez un patch sous chaque œil et laissez poser 15 minutes, comme un masque du contour des yeux. Retirez les patchs puis faites pénétrer délicatement l'excédent de sérum par légers tapotements. Ne pas rincer." },
       { titre: "Engagement ELKHA.B",
         texte: "Une formule sans parfum et testée sous contrôle dermatologique, pensée pour convenir également aux peaux sensibles. Des patchs conçus selon des procédés respectueux de l'environnement et des ressources naturelles, dans une démarche de formulation responsable." }
     ],
@@ -825,6 +894,18 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_gris.png?v=1791273110"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Selon vos besoins", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre et sèche, déposez un patch sous chaque œil : l'hydrogel frais, sans parfum, épouse le contour de l'œil et apporte une sensation immédiate de fraîcheur." },
+        { moment: "Selon vos besoins", texte: "Laissez poser 15 minutes, le temps d'une vraie pause pour votre regard." },
+        { moment: "Selon vos besoins", texte: "Retirez les patchs, puis faites pénétrer l'excédent de sérum par légers tapotements. Ne pas rincer." },
+        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Prolongez l'effet fraîcheur avec Radiance Eye Cream, matin et/ou soir." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Offrez à votre regard une pause fraîcheur. Ces patchs hydrogel légers épousent délicatement le contour des yeux pour apporter une sensation immédiate de confort. Leur texture rafraîchissante accompagne un véritable moment de détente, tandis que leur formule aide à revitaliser le regard fatigué." },
@@ -840,8 +921,6 @@ window.EB_PRODUITS = {
         texte: "Les regards fatigués, les poches et les contours des yeux en manque d'éclat. Idéal pour celles et ceux qui recherchent un soin ponctuel rafraîchissant, hydratant et facile à intégrer à leur routine." },
       { titre: "Texture & sensorialité",
         texte: "Une texture hydrogel fraîche, légère et souple, qui épouse le contour des yeux. Sans parfum, elle offre une sensation de fraîcheur et de confort pendant la pose, sans nécessiter de rinçage." },
-      { titre: "Votre rituel",
-        texte: "Appliquez un patch sous chaque œil sur une peau propre et sèche. Laissez agir environ 15 minutes, puis retirez-les et massez délicatement pour faire pénétrer le sérum restant. Ne pas rincer. À utiliser selon les besoins, pour offrir au regard une pause fraîcheur et hydratation." },
       { titre: "Engagement ELKHA.B",
         texte: "• Testé dermatologiquement\n• Végan\n• Sans parfum\nChez ELKHA.B, nous privilégions des formules ciblées qui associent performance et confort, sans superflu. Ces patchs sont formulés avec de la caféine, de la vitamine C, du panthénol et de la glycérine pour répondre aux besoins du contour des yeux." }
     ],
@@ -889,6 +968,18 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_orange.png?v=1791273034"
       ]
     },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Selon vos besoins", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre et sèche, déposez un patch sous chaque œil : l'hydrogel frais épouse le contour de l'œil, porté par un parfum floral léger aux notes végétales." },
+        { moment: "Selon vos besoins", texte: "Laissez poser 15 minutes, le temps d'une vraie pause pour votre regard." },
+        { moment: "Selon vos besoins", texte: "Retirez les patchs, puis faites pénétrer l'excédent de sérum par légers tapotements. Ne pas rincer." },
+        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Prolongez l'effet fraîcheur avec Radiance Eye Cream, matin et/ou soir." }
+      ]
+    },
+
     sections: [
       { titre: "L'expérience",
         texte: "Offrez à votre regard un moment de fraîcheur et de détente. Ces patchs hydrogel épousent délicatement le contour des yeux pour apporter une sensation de confort et de légèreté. Leur formule associe des antioxydants et des actifs hydratants pour revitaliser cette zone délicate et lui donner un aspect plus reposé." },
@@ -904,8 +995,6 @@ window.EB_PRODUITS = {
         texte: "Les contours des yeux fatigués, en manque de fraîcheur ou de confort. Idéal pour celles et ceux qui recherchent un soin ponctuel hydratant et revitalisant, à intégrer facilement à leur routine." },
       { titre: "Texture & sensorialité",
         texte: "Une texture hydrogel fraîche, souple et légère, qui épouse délicatement le contour des yeux. Son parfum floral frais et léger, aux subtiles notes végétales, accompagne ce moment de détente." },
-      { titre: "Votre rituel",
-        texte: "Appliquez un patch sous chaque œil sur une peau propre et sèche. Laissez agir environ 15 minutes, puis retirez-les et massez délicatement pour faire pénétrer le sérum restant. Aucun rinçage nécessaire. À utiliser selon les besoins, pour offrir au regard une pause fraîcheur et hydratation." },
       { titre: "Engagement ELKHA.B",
         texte: "• Testé dermatologiquement\n• Végan\n• Sans noix\nChez ELKHA.B, nous privilégions des formules ciblées qui associent performance et confort, sans superflu. Ces patchs réunissent des antioxydants et des actifs hydratants dans un soin pensé pour revitaliser le contour des yeux tout en respectant sa délicatesse." }
     ],
