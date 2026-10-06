@@ -127,6 +127,8 @@
   + ".eb-fp-exp + .eb-fp-sep{border-top:none;margin-top:30px}"
   + ".eb-fp-kicker{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:center;margin:0 0 10px}"
   + ".eb-fp-accord-img{display:block;width:calc(100% + 48px);max-width:none;height:auto;margin:22px -24px 22px}"
+  + ".eb-fp-accord-nom{font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-align:center;color:#000;margin:-8px 0 4px}"
+  + ".eb-fp-accord-sous{font-size:12px;font-weight:300;line-height:1.6;text-align:center;color:#666;margin:0 0 18px}"
   + ".eb-fp-accord-text{font-size:14px;line-height:1.8;color:#222;text-align:center}"
   + ".eb-fp-accord-text p{margin:0 0 12px}"
   + ".eb-fp-accord-text.eb-clamp p.eb-suite{display:none}"
@@ -349,6 +351,10 @@
         + '</div>';
     }
     var imgs = m.images || (m.image ? [m.image] : []);
+    // mobileSeulement : numéros des photos affichées uniquement sur téléphone (1 = 1re photo)
+    if(m.mobileSeulement && window.matchMedia('(min-width:900px)').matches){
+      imgs = imgs.filter(function(_, i){ return m.mobileSeulement.indexOf(i + 1) === -1; });
+    }
     if(imgs.length <= 1){
       return imgs.length ? '<div class="eb-fp-media"><img src="' + esc(hd(imgs[0], 1600)) + '" alt="' + esc(nom) + '"></div>' : '';
     }
@@ -565,7 +571,14 @@
       h += '<hr class="eb-fp-sep">';
       h += '<p class="eb-fp-kicker">Pour aller plus loin</p>';
       h += '<h2 class="eb-fp-h2" style="margin-top:6px">L\'accord parfait</h2>';
-      if(a.image) h += '<img class="eb-fp-accord-img" src="' + esc(hd(a.image, 1600)) + '" alt="' + esc(a.nom || '') + '">';
+      var ficheA = a.fiche && window.EB_PRODUITS[a.fiche];
+      var mA = (ficheA && ficheA.media) || {};
+      var imgA = a.image || (mA.images && mA.images[0]) || mA.image;
+      if(imgA) h += '<img class="eb-fp-accord-img" src="' + esc(hd(imgA, 1600)) + '" alt="' + esc(a.nom || '') + '">';
+      var nomA = (ficheA && !a.image) ? ficheA.nom : a.nom;
+      var sousA = a.sousTitre || (ficheA && !a.image ? ficheA.sousTitre : '');
+      if(nomA) h += '<p class="eb-fp-accord-nom">' + esc(nomA) + '</p>';
+      if(sousA) h += '<p class="eb-fp-accord-sous">' + esc(sousA) + '</p>';
       if(a.texte){
         var paras = String(a.texte).split('\n').filter(function(p){ return p.trim(); });
         // Plusieurs paragraphes : le premier en entier, la suite derrière « Voir plus »
