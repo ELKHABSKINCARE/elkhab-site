@@ -593,6 +593,55 @@ window.EB_PRODUITS = {
       prix: "34,90€",
       variantId: "59324259434841"
     }
+  },
+
+  // =====================================================================
+  // ROUTINE ÉCLAT (fiche routine — TEST)
+  // =====================================================================
+  "routine-eclat": {
+    nom: "Routine Éclat",
+    sousTitre: "Radiance C Serum · Luminescence Jour · Lumi-Veil CC Cream",
+    details: ["3 soins", "Vegan"],
+    note: "",
+    prix: "96€",
+    avis: "Routine éclat",
+
+    // Sélecteur de teinte (teinte de la CC Cream incluse dans la routine)
+    // La petite photo de rappel reprend les photos de teintes de la fiche Lumi-Veil CC Cream
+    choixLabel: "Choisissez votre teinte",
+    photosTeintes: "lumiveil-cc-cream",
+    variantes: [
+      { label: "N°B1 CLAIR", variantId: "59324360720729", photo: 1 },
+      { label: "N°B2 MOYEN", variantId: "59358027972953", photo: 2 },
+      { label: "N°B3 HÂLÉ",  variantId: "59358028005721", photo: 3 },
+      { label: "N°B4 FONCÉ", variantId: "59358028038489", photo: 4 }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE — Routine Éclat                       │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. PHOTO PRODUIT (provisoire : photo du carrousel)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_eclat_2.png?v=1791127339"
+      ]
+    },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  CONTENU DE LA ROUTINE                                       │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      intro: "Trois soins complémentaires pour révéler l'éclat du teint, préserver l'hydratation de la peau et l'unifier au quotidien.\nRadiance C Serum prépare la peau grâce à son action antioxydante et illuminatrice, Luminescence Jour lui apporte hydratation et confort, puis Lumi-Veil CC Cream SPF 30 unifie le teint et le protège tout au long de la journée.\nUn rituel simple pour une peau hydratée, lumineuse, protégée et visiblement plus uniforme.",
+      soins: ["radiance-serum", "luminescence-jour", "lumiveil-cc-cream"],
+      moment: "Le matin",
+      etapes: [
+        { soin: "radiance-serum",    texte: "Sur peau propre, appliquez une pression sur le visage et le cou." },
+        { soin: "luminescence-jour", texte: "Laissez pénétrer quelques instants, puis appliquez Luminescence Jour." },
+        { soin: "lumiveil-cc-cream", texte: "En dernière étape, appliquez-la directement sur la peau, puis estompez du bout des doigts. Retouchez au cours de la journée selon vos envies." }
+      ],
+      conclusion: "Simple à adopter, pensée pour durer.\nTrois gestes complémentaires qui trouvent naturellement leur place dans votre quotidien."
+    }
   }
 
 };
