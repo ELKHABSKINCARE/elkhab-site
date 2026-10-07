@@ -486,6 +486,23 @@ if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoad
 else { verifierAdresse(); }
 window.addEventListener('hashchange', verifierAdresse);
 
+// ─── Accueil : sur téléphone, l'image du haut (fond Carrd) est cachée quand on ouvre
+//     la page Contact (ou une page légale par lien direct), pour arriver directement au contenu
+var SANS_IMAGE = ['contact'].concat(Object.keys(PAGES));
+var cssContact = document.createElement('style');
+cssContact.textContent = "@media (max-width:980px){html.eb-sans-image body::before{display:none !important}}";
+document.head.appendChild(cssContact);
+function imageAccueil(){
+  var surAccueil = /^(www\.)?elkhab\.com$/i.test(location.hostname);
+  var h = location.hash.replace('#', '');
+  var cacher = surAccueil && SANS_IMAGE.indexOf(h) !== -1;
+  var avant = document.documentElement.classList.contains('eb-sans-image');
+  document.documentElement.classList.toggle('eb-sans-image', cacher);
+  if(cacher && !avant){ [0, 60, 300].forEach(function(t){ setTimeout(function(){ window.scrollTo(0, 0); }, t); }); }
+}
+imageAccueil();
+window.addEventListener('hashchange', imageAccueil);
+
 window.ebLegalOpen = function(id){ return ouvrir(id, true); };
 window.ebLegalClose = function(){ fermer(true); };
 })();
