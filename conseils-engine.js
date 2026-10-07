@@ -87,11 +87,12 @@ if(!document.getElementById('eb-cm-style')){
   /* Téléphone : pleine largeur de l'écran, flèches remplacées par « glisser » */
   /* Ordinateur : de bout en bout, comme le reste du site — texte à gauche, « petit plus » à droite */
   + '@media (min-width:900px){'
-  +   '.eb-cm{max-width:none;padding:0 clamp(32px,4.5vw,72px)}'
+  +   '.eb-cm{max-width:none;padding:0 clamp(48px,7vw,140px)}'
   +   '.eb-cm-onglets-zone{display:block}'
   +   '.eb-cm-onglets{width:100%;padding:0;gap:8px}'
   +   '.eb-cm-onglet{flex:1 1 0;text-align:center;padding:14px 10px;font-size:11px}'
-  +   '.eb-cm-panneau{padding:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center}'
+  +   '.eb-cm-onglets-zone{padding:0 12px}'
+  +   '.eb-cm-panneau{padding:0 12px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center}'
   +   '.eb-cm-texte{margin:0;font-size:15px}'
   +   '.eb-cm-titre{font-size:21px}'
   +   '.eb-cm-plus{padding:28px 30px;font-size:14.5px}'
@@ -160,7 +161,7 @@ function construire(zone){
   function aller(i){
     i = Math.max(0, Math.min(CONSEILS.length - 1, i));
     marquer(i);
-    var x = i * piste.clientWidth;
+    var x = piste.children[i].offsetLeft - piste.children[0].offsetLeft;
     try { piste.scrollTo({ left: x, behavior: 'smooth' }); } catch(e){ piste.scrollLeft = x; }
   }
 
