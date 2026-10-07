@@ -157,7 +157,9 @@ var CSS = ""
 + ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-journal-close.visible{display:flex}"
 + ".eb-journal-close:hover{transform:scale(1.1)}"
-+ ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal,.eb-article-ouvert .eb-cache-article{display:none !important}";
++ ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal,.eb-article-ouvert .eb-cache-article{display:none !important}"
+/* Téléphone et tablette : Carrd place l'image du site tout en haut de la page (body::before) — cachée pendant la lecture d'un article */
++ "@media (max-width:980px){html.eb-article-ouvert body::before{display:none !important}}";
 
 /* Filtres : une règle par section */
 SECTIONS.forEach(function(s){
