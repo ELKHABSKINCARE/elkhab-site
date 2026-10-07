@@ -120,8 +120,10 @@ var css = ""
 + ".ebc-h{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:0 0 16px}"
 + ".ebc-p{font-size:13.5px;font-weight:300;line-height:1.8;opacity:.85;margin:0 0 10px}"
 + ".ebc-kv{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid rgba(255,255,255,.12);font-size:13px}"
-+ ".ebc-kv span:first-child{opacity:.55;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}"
-+ ".ebc-kv span:last-child{text-align:right;font-weight:600;line-height:1.6}"
++ ".ebc-kv > span:first-child{opacity:.55;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}"
++ ".ebc-kv > span:last-child{text-align:right;font-weight:600;line-height:1.6}"
++ ".ebc-produit{display:block}"
++ "@media (max-width:600px){.ebc-kv{flex-direction:column;gap:6px}.ebc-kv > span:last-child{text-align:left}}"
 + ".ebc-valeur{font-size:11.5px;line-height:1.7;opacity:.7;margin:12px 0 0;padding:12px 14px;border-left:2px solid rgba(255,255,255,.5);background:rgba(255,255,255,.04)}"
 + ".ebc-video{display:grid;grid-template-columns:42px 1fr;gap:4px 12px;padding:18px 0;border-top:1px solid rgba(255,255,255,.12)}"
 + ".ebc-num{font-size:22px;font-weight:200;opacity:.6;line-height:1.1}"
@@ -270,7 +272,7 @@ var lecture = { debut: null, fin: null, luEntier: false };
 
 function ecranEspace(){
   var i = session.infos;
-  var produits = (i.produits || []).map(function(p){ return esc(p); }).join('<br>');
+  var produits = (i.produits || []).map(function(p){ return '<span class="ebc-produit">' + esc(p).replace(/ (€|\()/g, '&nbsp;$1').replace(/(\d) (\d)/g, '$1&nbsp;$2') + '</span>'; }).join('');
   var html = '<div class="ebc-ecran">'
     + '<img class="ebc-banner" src="' + BANNIERE + '" alt="ELKHA.B Paris">'
     + '<span class="ebc-tag">Espace ambassadrice</span>'
