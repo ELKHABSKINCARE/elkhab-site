@@ -281,17 +281,12 @@ function ebShowResult(openRoutine){
   });
 
   const selected = candidates.slice(0,3);
-  const soinsBase = ebDiagSiteUrl('soins', 'https://soins.elkhab.com/');
-  const fromSite = ebDiagCurrentSite();
-  // Section où se trouvait la cliente quand elle a ouvert le diagnostic (ex. une fiche Soins)
-  const currentHash = window.location.hash.replace('#','');
-  const ebScoresStr = ['radiance','sebum','hydration','texture','sensitivity','barrier'].map(k=>scores[k]||0).join(',');
+  // Chaque soin recommandé ouvre sa fiche en panneau (sur Bloom si le catalogue n'est pas chargé)
+  const bloomBase = ebDiagSiteUrl('bloom', 'https://bloom.elkhab.com/');
   let routineHtml = '';
   selected.forEach(p=>{
-    let href = soinsBase + '?from=' + fromSite + '&back=' + Math.round(window.scrollY) + '&s=' + ebScoresStr;
-    if(currentHash){ href += '&h=' + encodeURIComponent(currentHash); }
-    href += '#' + p.id;
-    routineHtml += '<a class="eb-diag-product" href="'+href+'" style="text-decoration:none;color:inherit;display:block"><div class="eb-diag-product-name">'+p.name+' →</div><div class="eb-diag-product-why">'+p.why+'</div></a>';
+    const href = bloomBase + '?fiche=' + encodeURIComponent(p.id);
+    routineHtml += '<a class="eb-diag-product" data-diag-fiche="'+p.id+'" href="'+href+'" style="text-decoration:none;color:inherit;display:block"><div class="eb-diag-product-name">'+p.name+' →</div><div class="eb-diag-product-why">'+p.why+'</div></a>';
   });
   routineHtml += '<div class="eb-diag-gesture">'+ALWAYS_RECOMMEND.why+'</div>';
 
@@ -369,6 +364,18 @@ window.ebDiagRestart = ebDiagRestart;
 window.ebDiagOpen = ebDiagOpen;
 window.ebDiagOpenWithScores = ebDiagOpenWithScores;
 window.ebDiagClose = ebDiagClose;
+
+// Clic sur un soin recommandé : le diagnostic se ferme et la fiche s'ouvre sur place
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('[data-diag-fiche]');
+  if(!a) return;
+  var id = a.getAttribute('data-diag-fiche');
+  if(window.EB_PRODUITS && window.EB_PRODUITS[id] && typeof window.ebFicheOpen === 'function'){
+    e.preventDefault(); e.stopPropagation();
+    ebDiagClose();
+    setTimeout(function(){ window.ebFicheOpen(id); }, 350);
+  }
+}, true);
 
 })();
 
