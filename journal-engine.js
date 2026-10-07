@@ -13,10 +13,8 @@
    └─────────────────────────────────────────────────────────────────────┘ */
 
 // ★ ARTICLE À LA UNE : mets ici l'identifiant de l'article (voir la liste ci-dessous)
+//   Sa photo est celle que tu as mise pour cet article dans la liste ARTICLES.
 var A_LA_UNE = "article-peau-deshydratee";
-
-// 📷 PHOTO À LA UNE : colle le lien entre les guillemets (laisse "" pour la vignette beige)
-var PHOTO_A_LA_UNE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi_Eyes_gris_1.png?v=1791354936";
 
 // SECTIONS DU JOURNAL, dans l'ordre d'affichage
 var SECTIONS = [
@@ -51,7 +49,7 @@ var ARTICLES = [
   // Article seulement à la une pour l'instant (pas de carte) : étiquette « Besoins de la peau »
   { id: "article-peau-deshydratee",    section: "",        etiquette: "Besoins de la peau",
     titre: "Peau sèche ou déshydratée", question: "Comment faire la différence ?",
-    photo: "" }
+    photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi_Eyes_gris_1.png?v=1791354936" }
 ];
 
 /* ┌─────────────────────────────────────────────────────────────────────┐
@@ -162,7 +160,7 @@ function construireAccueil(){
   var une = trouverArticle(A_LA_UNE);
   if(une){
     html += '<a class="ebj-une" href="#' + une.id + '">'
-         +  vignette(PHOTO_A_LA_UNE, '', une.titre)
+         +  vignette(une.photo, '', une.titre)
          +  '<div class="ebj-une-txt"><span class="ebj-tag">À la une' + (etiquette(une) ? ' · ' + esc(etiquette(une)) : '') + '</span>'
          +  '<h2 class="ebj-une-titre">' + esc(une.titre) + '</h2>'
          +  '<p class="ebj-une-q">' + q(une.question) + '</p>'
