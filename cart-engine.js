@@ -508,3 +508,13 @@ document.addEventListener('click', function(e){
 });
 
 })();
+
+/* ─── Pages légales en panneau (CGV, mentions légales…) : chargées sur tous les sites ─── */
+(function(){
+  if(window.ebLegalCharge || document.querySelector('script[data-eb-legal]')) return;
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/pages-legales.js?v=1';
+  s.async = true;
+  s.setAttribute('data-eb-legal', '1');
+  (document.head || document.documentElement).appendChild(s);
+})();
