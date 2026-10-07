@@ -35,6 +35,9 @@ var SECTIONS = [
 //   titre   : affiché en majuscules dans la bannière de l'article
 //   question: la phrase sous le titre
 //   photo   : 📷 lien de la photo de la carte (laisse "" pour la vignette beige)
+//   diagnostic : (facultatif) ajoute le bloc noir « diagnostic » à la fin de l'article
+//                diagnostic: true                → phrase standard
+//                diagnostic: "Ta question ici"   → ta question en grand, puis la phrase standard
 var ARTICLES = [
   { id: "article-vitaminec",           section: "actifs",  titre: "Vitamine C",                 question: "Pourquoi est-elle devenue incontournable en skincare ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Serum_eclat_Bloom_et_citron.png?v=1791354955" },
@@ -55,6 +58,7 @@ var ARTICLES = [
   // Article seulement à la une pour l'instant (pas de carte) : étiquette « Besoins de la peau »
   { id: "article-peau-deshydratee",    section: "",        etiquette: "Besoins de la peau",
     titre: "Peau sèche ou déshydratée", question: "Comment faire la différence ?",
+    diagnostic: "Peau sèche, déshydratée… ou les deux ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi_Eyes_gris_1.png?v=1791354936" }
 ];
 
@@ -129,6 +133,15 @@ var CSS = ""
 + "@keyframes ebjaTrait{from{width:0}to{width:46px}}"
 + "@keyframes ebjaFade{from{opacity:0}to{opacity:1}}"
 + "@media (min-width:900px){.ebja{padding:100px 40px 84px}.ebja-titre{font-size:38px}.ebja-q{font-size:18px}}"
+/* Bloc diagnostic en fin d'article */
++ ".ebjd{position:relative;width:100vw;margin:44px 0 10px calc(50% - 50vw);background:#141414;color:#fff;text-align:center;font-family:'Montserrat',sans-serif;padding:60px 28px;box-sizing:border-box}"
++ ".ebjd-in{max-width:620px;margin:0 auto}"
++ ".ebjd-tag{display:block;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:18px}"
++ ".ebjd-q{font-size:22px;font-weight:600;line-height:1.35;margin:0 0 10px;color:#fff}"
++ ".ebjd-p{font-size:15px;font-weight:300;line-height:1.6;margin:0 0 28px;opacity:.85}"
++ ".ebjd-btn{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#000;border:none;border-radius:0;padding:16px 26px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
++ ".ebjd-btn:hover{transform:scale(1.03)}"
++ "@media (min-width:900px){.ebjd{padding:84px 40px}.ebjd-q{font-size:28px}}"
 + "@media (prefers-reduced-motion:reduce){.ebja.go,.ebja.go *,.ebja.go ~ *{animation:none !important}}"
 /* Bouton Fermer des articles */
 + ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
@@ -212,6 +225,18 @@ function construireBannieres(){
       + '<p class="ebja-q">' + q(a.question) + '</p>'
       + '<span class="ebja-trait"></span></div>';
     sec.insertBefore(b, sec.firstChild);
+    if(a.diagnostic && !sec.querySelector('.ebjd')){
+      var d = document.createElement('div');
+      d.className = 'ebjd';
+      d.innerHTML = '<div class="ebjd-in"><span class="ebjd-tag">Diagnostic de peau</span>'
+        + (typeof a.diagnostic === 'string' ? '<p class="ebjd-q">' + q(a.diagnostic) + '</p><p class="ebjd-p">Votre peau a des choses à vous dire.</p>'
+                                             : '<p class="ebjd-q">Votre peau a des choses à vous dire.</p><p class="ebjd-p"></p>')
+        + '<button type="button" class="ebjd-btn">2 minutes pour l\'écouter</button></div>';
+      d.querySelector('.ebjd-btn').addEventListener('click', function(){
+        if(typeof window.ebDiagOpen === 'function'){ window.ebDiagOpen(); }
+      });
+      sec.appendChild(d);
+    }
   });
 }
 // Repère automatiquement la bannière du haut du Journal :
@@ -235,7 +260,7 @@ function marquerHaut(){
 // Sur ordinateur, si le site est en deux parties (texte à gauche, image à droite),
 // la bannière prend toute la largeur de la colonne de gauche au lieu de tout l'écran
 function ajusterLargeur(){
-  var bs = document.querySelectorAll('.ebja');
+  var bs = document.querySelectorAll('.ebja, .ebjd');
   for(var i = 0; i < bs.length; i++){
     var b = bs[i];
     if(!b.offsetParent) continue;                     // section cachée
