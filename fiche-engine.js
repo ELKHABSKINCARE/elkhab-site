@@ -87,7 +87,7 @@
   + ".eb-fp-inci-val{font-size:20px;font-weight:700}"
   + ".eb-fp-inci-lab{font-size:11px;color:#666;line-height:1.4}"
   // Bouton « Retour » (fiche ouverte depuis une autre fiche ou une routine)
-  + ".eb-fp-back{position:fixed;top:16px;left:18px;z-index:99995;height:38px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;gap:6px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#000;cursor:pointer;transition:transform .2s ease}"
+  + ".eb-fp-back{position:fixed;top:16px;left:18px;z-index:99995;height:38px;padding:0 16px;border-radius:999px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;gap:6px;white-space:nowrap;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#000;cursor:pointer;transition:transform .2s ease}"
   + ".eb-fp-back.visible{display:flex}.eb-fp-back:hover{transform:scale(1.04)}"
   // Soin consulté depuis une routine : prix seul, non cliquable
   + ".eb-fp-price-only{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:0 auto;border:1px solid rgba(0,0,0,.18);padding:16px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;letter-spacing:.06em;color:#000;cursor:default}"
@@ -537,7 +537,9 @@
           h += '<li class="eb-fp-etape"><span class="eb-fp-etape-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span><div>';
           if(et.titre || sp){
             var titreEt = esc(et.titre || sp.nom);
-            if(sp && et.soin !== id && !routineParente){
+            // Dans une routine, les soins du rituel ne sont pas cliquables (ils sont déjà présentés au-dessus)
+            var estRoutine = r.soins && r.soins.length;
+            if(sp && et.soin !== id && !routineParente && !estRoutine){
               h += '<button type="button" class="eb-fp-etape-soin eb-fp-etape-lien" data-fiche="' + esc(et.soin) + '">' + titreEt + '</button>';
             } else {
               h += '<span class="eb-fp-etape-soin">' + titreEt + '</span>';
@@ -645,6 +647,10 @@
     requestAnimationFrame(function(){ overlay.classList.add('open'); });
     closeBtn.classList.add('visible');
     backBtn.classList.toggle('visible', pile.length > 0);
+    // Libellé : « Retour à la routine » quand la fiche précédente est une routine
+    var precedente = pile.length ? window.EB_PRODUITS[pile[pile.length - 1].id] : null;
+    var versRoutine = precedente && precedente.routine && precedente.routine.soins && precedente.routine.soins.length;
+    backBtn.innerHTML = versRoutine ? '&larr; Retour &agrave; la routine' : '&larr; Retour';
     if(document.getElementById('ebCartPanel')){ cartBtn.classList.add('visible'); majCompteur(); }
     document.documentElement.style.overflow = 'hidden';
   }
