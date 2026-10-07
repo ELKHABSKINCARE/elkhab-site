@@ -55,7 +55,7 @@ function num(i){ return (i < 9 ? '0' : '') + (i + 1); }
 
 if(!document.getElementById('eb-cm-style')){
   var css = ''
-  + '.eb-cm{width:100%;max-width:720px;margin:0 auto;font-family:"Montserrat",sans-serif;color:#000;text-align:left;-webkit-tap-highlight-color:transparent}'
+  + '.eb-cm{box-sizing:border-box;width:100%;max-width:720px;margin:0 auto;font-family:"Montserrat",sans-serif;color:#000;text-align:left;-webkit-tap-highlight-color:transparent}'
   + '.eb-cm *{box-sizing:border-box}'
   /* Onglets */
   + '.eb-cm-onglets-zone{display:flex;justify-content:center;margin:0 0 28px}'
@@ -87,7 +87,7 @@ if(!document.getElementById('eb-cm-style')){
   /* Téléphone : pleine largeur de l'écran, flèches remplacées par « glisser » */
   /* Ordinateur : de bout en bout, comme le reste du site — texte à gauche, « petit plus » à droite */
   + '@media (min-width:900px){'
-  +   '.eb-cm{max-width:none}'
+  +   '.eb-cm{max-width:none;padding:0 clamp(32px,4.5vw,72px)}'
   +   '.eb-cm-onglets-zone{display:block}'
   +   '.eb-cm-onglets{width:100%;padding:0;gap:8px}'
   +   '.eb-cm-onglet{flex:1 1 0;text-align:center;padding:14px 10px;font-size:11px}'
