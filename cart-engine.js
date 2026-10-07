@@ -513,7 +513,7 @@ document.addEventListener('click', function(e){
 (function(){
   if(window.ebLegalCharge || document.querySelector('script[data-eb-legal]')) return;
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/pages-legales.js?v=1';
+  s.src = 'https://elkhabskincare.github.io/elkhab-site/pages-legales.js';
   s.async = true;
   s.setAttribute('data-eb-legal', '1');
   (document.head || document.documentElement).appendChild(s);
@@ -523,7 +523,7 @@ document.addEventListener('click', function(e){
 (function(){
   if(window.ebCollabCharge || document.querySelector('script[data-eb-collab]')) return;
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/collab-engine.js?v=1';
+  s.src = 'https://elkhabskincare.github.io/elkhab-site/collab-engine.js';
   s.async = true;
   s.setAttribute('data-eb-collab', '1');
   (document.head || document.documentElement).appendChild(s);
