@@ -5,7 +5,7 @@
   // Le contenu vient de produits-data.js (window.EB_PRODUITS).
   // ==========================================================================
 
-  var BASE = 'https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/';
+  var BASE = 'https://elkhabskincare.github.io/elkhab-site/';
   var REVIEWS_ENGINE = BASE + 'reviews-engine.js?v=9';
   var INCI_DATA = BASE + 'inci-data.js?v=2';
 
