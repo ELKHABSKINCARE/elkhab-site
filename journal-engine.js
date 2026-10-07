@@ -340,6 +340,25 @@ function animer(){
   if(estArticle){ window.scrollTo(0, 0); ajusterLargeur(); setTimeout(ajusterLargeur, 80); setTimeout(ajusterLargeur, 400); }
   var b = document.querySelector('.ebja[data-article="' + h + '"]');
   if(!b) return;
+  rejouer(b);
+  // Si quelque chose reste au-dessus de la bannière (image du haut sur téléphone),
+  // la page remonte jusqu'à la bannière, puis l'animation se rejoue sous les yeux de la cliente
+  var touche = false;
+  function stop(){ touche = true; }
+  window.addEventListener('touchstart', stop, { passive: true, once: true });
+  window.addEventListener('wheel', stop, { passive: true, once: true });
+  [60, 350, 800].forEach(function(t, i){
+    setTimeout(function(){
+      if(touche || location.hash.replace('#', '') !== h || !b.offsetParent) return;
+      var y = b.getBoundingClientRect().top + window.scrollY;
+      if(Math.abs(window.scrollY - y) > 4){
+        window.scrollTo({ top: y, behavior: 'instant' });
+        if(i === 0) rejouer(b);
+      }
+    }, t);
+  });
+}
+function rejouer(b){
   b.classList.remove('go');
   void b.offsetWidth;
   b.classList.add('go');
