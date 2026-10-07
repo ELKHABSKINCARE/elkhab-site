@@ -122,6 +122,7 @@ var css = ""
 + ".ebc-kv{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid rgba(255,255,255,.12);font-size:13px}"
 + ".ebc-kv span:first-child{opacity:.55;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}"
 + ".ebc-kv span:last-child{text-align:right;font-weight:600;line-height:1.6}"
++ ".ebc-valeur{font-size:11.5px;line-height:1.7;opacity:.7;margin:12px 0 0;padding:12px 14px;border-left:2px solid rgba(255,255,255,.5);background:rgba(255,255,255,.04)}"
 + ".ebc-video{display:grid;grid-template-columns:42px 1fr;gap:4px 12px;padding:18px 0;border-top:1px solid rgba(255,255,255,.12)}"
 + ".ebc-num{font-size:22px;font-weight:200;opacity:.6;line-height:1.1}"
 + ".ebc-video-t{font-size:13.5px;font-weight:600;line-height:1.4}"
@@ -148,8 +149,17 @@ var css = ""
 + ".ebc-sign{border:1px solid #fff;padding:26px 22px;margin:0 0 22px;background:rgba(255,255,255,.04);transition:border-color .3s ease,box-shadow .3s ease}"
 + ".ebc-sign input#ebcSignature{border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.06);padding:16px;font-size:18px;font-weight:500;letter-spacing:.02em;text-align:center;margin:6px 0 0}"
 + ".ebc-sign input#ebcSignature:focus{border-color:#fff}"
++ ".ebc-sign-titre{font-size:22px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-align:center;margin:0 0 14px}"
++ ".ebc-sign .ebc-p{text-align:center;opacity:.95}"
++ ".ebc-sign{border-width:2px}"
 + ".ebc-sign-note{font-size:11.5px;line-height:1.6;opacity:.55;margin:12px 0 0;text-align:center}"
 + ".ebc-sign.alerte{border-color:#ff8a80;box-shadow:0 0 0 3px rgba(255,138,128,.25)}"
++ ".ebc-etat{display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;line-height:1.6;margin:16px 0 0;min-height:21px;opacity:.9}"
++ ".ebc-spin{display:inline-block;width:18px;height:18px;border:2px solid rgba(0,0,0,.2);border-top-color:#000;border-radius:50%;animation:ebcTourne .8s linear infinite;vertical-align:middle}"
++ ".ebc-spin.petit{width:14px;height:14px;border-color:rgba(255,255,255,.25);border-top-color:#fff}"
++ ".ebc-ok{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#b9f6ca;color:#000;font-size:12px;font-weight:700}"
++ "@keyframes ebcTourne{to{transform:rotate(360deg)}}"
++ ".ebc-code input:disabled{opacity:.5}"
 + ".ebc-note{font-size:11.5px;line-height:1.7;text-align:center;opacity:.5;margin:14px 0 0}"
 + ".ebc-merci{text-align:center;padding:20px 0}"
 + ".ebc-close{position:fixed;top:20px;right:20px;z-index:100000;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
@@ -209,6 +219,7 @@ function ecranAccueil(){
     + '<a class="ebc-btn" href="' + TIKTOK + '" target="_blank" rel="noopener">Nous écrire sur TikTok</a>'
     + '<div class="ebc-sep">Vous avez reçu un code&nbsp;?</div>'
     + '<div class="ebc-code"><input type="text" id="ebcCode" placeholder="LKB-PRÉNOM-01" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" class="ebc-btn" id="ebcGo">Accéder</button></div>'
+    + '<p class="ebc-etat" id="ebcEtat"></p>'
     + '<p class="ebc-err" id="ebcErrCode"></p>'
     + '</div>';
   panneau.scrollTop = 0;
@@ -222,14 +233,23 @@ function verifierCode(){
   var err = $('#ebcErrCode'), btn = $('#ebcGo');
   err.textContent = '';
   if(!code){ err.textContent = 'Merci de saisir votre code personnel.'; return; }
-  btn.disabled = true; btn.textContent = '…';
+  var etat = $('#ebcEtat');
+  btn.disabled = true; btn.innerHTML = '<span class="ebc-spin"></span>';
+  $('#ebcCode').disabled = true;
+  etat.innerHTML = '<span class="ebc-spin petit"></span> Vérification de votre code…';
   demanderCode(code).then(function(r){
-    btn.disabled = false; btn.textContent = 'Accéder';
-    if(r && r.ok){ session = { code: code, infos: r, ouvertA: new Date().toISOString() }; ecranEspace(); return; }
+    btn.disabled = false; btn.textContent = 'Accéder'; $('#ebcCode').disabled = false; etat.innerHTML = '';
+    if(r && r.ok){
+      etat.innerHTML = '<span class="ebc-ok">✓</span> Code validé — ouverture de votre espace…';
+      btn.disabled = true;
+      session = { code: code, infos: r, ouvertA: new Date().toISOString() };
+      setTimeout(ecranEspace, 900);
+      return;
+    }
     if(r && r.raison === 'utilise'){ err.textContent = 'Ce code a déjà été utilisé. Si vous pensez qu\'il s\'agit d\'une erreur, écrivez-nous sur TikTok.'; return; }
     err.textContent = 'Ce code n\'est pas reconnu. Vérifiez-le, ou écrivez-nous sur TikTok.';
   }).catch(function(){
-    btn.disabled = false; btn.textContent = 'Accéder';
+    btn.disabled = false; btn.textContent = 'Accéder'; $('#ebcCode').disabled = false; etat.innerHTML = '';
     err.textContent = 'Connexion impossible pour le moment. Merci de réessayer dans quelques instants.';
   });
 }
@@ -261,7 +281,8 @@ function ecranEspace(){
     + '<p class="ebc-p">Le contenu réalisé devra rester en accord avec l\'univers ELKHA.B&nbsp;: une approche naturelle, lumineuse, authentique et centrée sur la mise en valeur de la peau et de l\'expérience produit.</p>'
     + '<p class="ebc-p">Les contenus publiés devront mentionner et identifier le compte ELKHA.B.</p>'
     + (i.gamme ? '<div class="ebc-kv"><span>Gamme</span><span>' + esc(i.gamme) + '</span></div>' : '')
-    + (produits ? '<div class="ebc-kv"><span>Votre colis</span><span>' + produits + '</span></div>' : '')
+    + (produits ? '<div class="ebc-kv"><span>Votre colis</span><span>' + produits + '</span></div>'
+      + '<p class="ebc-valeur">Les soins sont envoyés <strong>sans frais pour vous</strong> dans le cadre de la collaboration&nbsp;: aucun paiement ne vous sera demandé. Les prix indiqués correspondent uniquement à la <strong>valeur des produits envoyés</strong>.</p>' : '')
     + '</div>'
 
     + '<div class="ebc-bloc"><h3 class="ebc-h">Contenus et délais attendus</h3>'
@@ -304,7 +325,7 @@ function ecranEspace(){
     + '</div>'
 
     + '<div class="ebc-sign" id="ebcSignBloc">'
-    + '<h3 class="ebc-h">✍&nbsp; Signature électronique</h3>'
+    + '<h3 class="ebc-sign-titre">✍&nbsp; Signature</h3>'
     + '<p class="ebc-p">Pour signer l\'accord de collaboration, saisissez vos <strong>prénom et nom</strong> ci-dessous, tels qu\'indiqués dans vos informations de contact.</p>'
     + '<input type="text" id="ebcSignature" autocomplete="name" placeholder="Prénom Nom">'
     + '<p class="ebc-sign-note">En signant, vous confirmez avoir lu et accepté l\'accord de collaboration ELKHA.B.</p>'
@@ -383,7 +404,7 @@ function envoyer(){
   var sig = ($('#ebcSignature').value || '').trim();
   var norm = function(t){ return (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z]/g, ''); };
   if(!sig || norm(sig).indexOf(norm(d.prenom)) === -1 || norm(sig).indexOf(norm(d.nom)) === -1){
-    err.textContent = 'Pour signer, saisissez vos prénom et nom dans le cadre « Signature électronique ».';
+    err.textContent = 'Pour signer, saisissez vos prénom et nom dans le cadre « Signature ».';
     var bloc = $('#ebcSignBloc'); bloc.classList.add('alerte');
     setTimeout(function(){ bloc.scrollIntoView({ behavior: 'smooth', block: 'center' }); $('#ebcSignature').focus({ preventScroll: true }); }, 60);
     $('#ebcSignature').addEventListener('input', function(){ bloc.classList.remove('alerte'); }, { once: true });
