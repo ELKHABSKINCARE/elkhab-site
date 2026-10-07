@@ -518,3 +518,13 @@ document.addEventListener('click', function(e){
   s.setAttribute('data-eb-legal', '1');
   (document.head || document.documentElement).appendChild(s);
 })();
+
+/* ─── Espace ambassadrice / collaborations (lien « #collaboration ») : chargé sur tous les sites ─── */
+(function(){
+  if(window.ebCollabCharge || document.querySelector('script[data-eb-collab]')) return;
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/collab-engine.js?v=1';
+  s.async = true;
+  s.setAttribute('data-eb-collab', '1');
+  (document.head || document.documentElement).appendChild(s);
+})();
