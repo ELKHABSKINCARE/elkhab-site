@@ -71,7 +71,7 @@ window.ebJournalCharge = true;
 
 var CSS = ""
 /* Accueil du Journal */
-+ ".ebj{font-family:'Montserrat',sans-serif;color:#000;max-width:1180px;margin:0 auto;padding:0 0 30px;box-sizing:border-box;-webkit-tap-highlight-color:transparent;text-align:left}"
++ ".ebj{font-family:'Montserrat',sans-serif;color:#000;width:100vw;max-width:none;margin:0 0 0 calc(50% - 50vw);padding:0 0 30px;box-sizing:border-box;-webkit-tap-highlight-color:transparent;text-align:left}"
 + ".ebj *{box-sizing:border-box}"
 + ".ebj a{color:#000;text-decoration:none}"
 + ".ebj input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}"
@@ -83,7 +83,7 @@ var CSS = ""
 + ".ebj-une{display:block;margin:0 0 44px}"
 + ".ebj-une .ebj-img{aspect-ratio:4/5}"
 + ".ebj-une-txt{padding:18px 20px 0}"
-+ ".ebj-une-titre{font-size:22px;font-weight:600;line-height:1.3;margin:0 0 6px}"
++ ".ebj-une-titre{font-size:21px;font-weight:600;line-height:1.3;letter-spacing:.05em;text-transform:uppercase;margin:0 0 8px}"
 + ".ebj-une-q{font-size:15px;font-weight:300;line-height:1.55;margin:0 0 14px}"
 + ".ebj-lire{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:3px;transition:opacity .2s ease}"
 + ".ebj a:hover .ebj-lire{opacity:.6}"
@@ -101,17 +101,27 @@ var CSS = ""
 + ".ebj-card-titre{font-size:15px;font-weight:600;margin:0 0 4px}"
 + ".ebj-card-q{font-size:13px;font-weight:300;line-height:1.55;margin:0}"
 + "@media (min-width:900px){"
-+ ".ebj-une{display:grid;grid-template-columns:58% 1fr;align-items:center;gap:56px;padding:0 40px;margin-bottom:64px}"
-+ ".ebj-une .ebj-img{aspect-ratio:4/3}"
-+ ".ebj-une-txt{padding:0}"
-+ ".ebj-une-titre{font-size:30px}"
-+ ".ebj-une-q{font-size:17px}"
-+ ".ebj-filtres{justify-content:center;gap:8px;padding:0 40px;margin-bottom:46px}"
++ ".ebj-une{margin-bottom:56px}"
++ ".ebj-une .ebj-img{aspect-ratio:16/10}"
++ ".ebj-une-txt{padding:24px 22px 0}"
++ ".ebj-une-titre{font-size:25px}"
++ ".ebj-une-q{font-size:16px}"
++ ".ebj-filtres{justify-content:center;gap:8px;padding:0 22px;margin-bottom:46px}"
 + ".ebj-filtres label{padding:10px 18px;font-size:11.5px;letter-spacing:.08em}"
 + ".ebj-sec{margin-bottom:60px}"
-+ ".ebj-sec-titre{padding:0 40px}"
-+ ".ebj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;overflow:visible;padding:0 40px}"
++ ".ebj-sec-titre{padding:0 22px}"
++ ".ebj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;overflow:visible;padding:0}"
++ ".ebj-card > :not(.ebj-img){padding-left:22px;padding-right:22px}"
 + ".ebj-card{flex:none}"
++ "}"
+/* Grand écran sans image à droite : photo à la une à gauche, texte à droite */
++ ".ebj{container-type:inline-size}"
++ "@container (min-width:1000px){"
++ ".ebj-une{display:grid;grid-template-columns:58% 1fr;align-items:center;gap:48px;padding:0 40px 0 0;margin-bottom:64px}"
++ ".ebj-une .ebj-img{aspect-ratio:4/3}"
++ ".ebj-une-txt{padding:0}"
++ ".ebj-une-titre{font-size:28px}"
++ ".ebj-une-q{font-size:17px}"
 + "}"
 /* Bannière des articles */
 + "html{overflow-x:clip}"
@@ -260,7 +270,7 @@ function marquerHaut(){
 // Sur ordinateur, si le site est en deux parties (texte à gauche, image à droite),
 // la bannière prend toute la largeur de la colonne de gauche au lieu de tout l'écran
 function ajusterLargeur(){
-  var bs = document.querySelectorAll('.ebja, .ebjd');
+  var bs = document.querySelectorAll('.ebja, .ebjd, .ebj');
   for(var i = 0; i < bs.length; i++){
     var b = bs[i];
     if(!b.offsetParent) continue;                     // section cachée
@@ -378,10 +388,11 @@ function boutonFermer(){
 
 function demarrer(){
   construireAccueil();
+  ajusterLargeur(); setTimeout(ajusterLargeur, 300); setTimeout(ajusterLargeur, 1200);
   construireBannieres();
   boutonFermer();
   animer();
-  window.addEventListener('hashchange', function(){ setTimeout(animer, 30); });
+  window.addEventListener('hashchange', function(){ setTimeout(animer, 30); setTimeout(ajusterLargeur, 120); });
 }
 if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', demarrer); }
 else { demarrer(); }
