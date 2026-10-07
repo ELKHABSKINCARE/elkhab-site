@@ -594,9 +594,9 @@ window.EB_PRODUITS = {
         // 📷 1. PHOTO PRODUIT  (n°0 pour le sélecteur)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_Protect_2.png?v=1791129774",
         // 📷 2. SANS TEINTE  (n°1 pour le sélecteur)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1790155246",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282",
         // 📷 3. TEINTÉ  (n°2 pour le sélecteur)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_0f2cdd3d-9968-440f-947d-23df50887b8d.jpg?v=1790154976"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
