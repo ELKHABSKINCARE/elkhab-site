@@ -85,6 +85,17 @@ if(!document.getElementById('eb-cm-style')){
   + '.eb-cm-compteur{font-size:11px;font-weight:600;letter-spacing:.16em;min-width:54px;text-align:center}'
   + '.eb-cm-glisser{display:none;text-align:center;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.45;margin-top:16px}'
   /* Téléphone : pleine largeur de l'écran, flèches remplacées par « glisser » */
+  /* Ordinateur : de bout en bout, comme le reste du site — texte à gauche, « petit plus » à droite */
+  + '@media (min-width:900px){'
+  +   '.eb-cm{max-width:none}'
+  +   '.eb-cm-onglets-zone{display:block}'
+  +   '.eb-cm-onglets{width:100%;padding:0;gap:8px}'
+  +   '.eb-cm-onglet{flex:1 1 0;text-align:center;padding:14px 10px;font-size:11px}'
+  +   '.eb-cm-panneau{padding:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:48px;align-items:center}'
+  +   '.eb-cm-texte{margin:0;font-size:15px}'
+  +   '.eb-cm-titre{font-size:21px}'
+  +   '.eb-cm-plus{padding:28px 30px;font-size:14.5px}'
+  + '}'
   + '@media (max-width:899px){'
   +   '.eb-cm{width:100vw;max-width:100vw;margin-left:calc(50% - 50vw)}'
   +   '.eb-cm-onglets-zone{justify-content:flex-start;padding:0 16px}'
@@ -111,9 +122,9 @@ function construire(zone){
   h += '</div></div><div class="eb-cm-piste">';
   CONSEILS.forEach(function(c, i){
     h += '<div class="eb-cm-panneau" role="tabpanel">'
-       +   '<p class="eb-cm-tag">Conseil ' + num(i) + '</p>'
+       +   '<div class="eb-cm-gauche"><p class="eb-cm-tag">Conseil ' + num(i) + '</p>'
        +   '<h3 class="eb-cm-titre">' + esc(c.titre) + '</h3>'
-       +   '<p class="eb-cm-texte">' + c.texte + '</p>'
+       +   '<p class="eb-cm-texte">' + c.texte + '</p></div>'
        +   (c.plus ? '<div class="eb-cm-plus"><span class="eb-cm-plus-tag">Le petit plus ELKHA.B</span>' + c.plus + '</div>' : '')
        + '</div>';
   });
