@@ -13,9 +13,9 @@ window.ebCollabCharge = true;
    │ ✏️ RÉGLAGES                                                          │
    └─────────────────────────────────────────────────────────────────────┘ */
 
-// Adresse du script Google (Apps Script) — laissée vide = MODE TEST
-// (en mode test, seul le code LKB-TEST-01 fonctionne et rien n'est enregistré)
-var URL_SCRIPT = "";
+// Adresse du script Google (Apps Script) du Google Sheet « ELKHA.B — Collaborations »
+// (si on la vide : MODE TEST, seul le code LKB-TEST-01 fonctionne et rien n'est enregistré)
+var URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxQCXs8onhnmA1p_mbMHPWhlUF0x_sIxRiveilPYitjZExd70PZLilpMxflvT8ttTVa1Q/exec";
 
 var TIKTOK = "https://www.tiktok.com/@elkha.b";
 var BANNIERE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200";
@@ -377,6 +377,9 @@ function envoyer(){
   d.infos = ($('#ebcInfos').value || '').trim();
   d.signature = sig;
   d.confirmations = CONFIRMATIONS.join(' | ');
+  d.contenus_attendus = CONTENUS.map(function(c, n){ return '0' + (n + 1) + ' — ' + c.titre + (c.delai ? ' (' + c.delai + ')' : '') + ' — ' + (c.obligatoire ? 'OBLIGATOIRE' : 'FACULTATIF'); }).join('\n');
+  d.produits = (session.infos.produits || []).join(' / ');
+  d.gamme = session.infos.gamme || '';
   d.accord_version = VERSION_ACCORD;
   d.accord_texte = texteAccord();
   d.accord_ouvert_le = lecture.debut;
