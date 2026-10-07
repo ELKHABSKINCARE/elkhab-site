@@ -145,6 +145,11 @@ var css = ""
 + ".ebc-check input{appearance:none;-webkit-appearance:none;width:20px;height:20px;flex-shrink:0;border:1px solid rgba(255,255,255,.6);margin:2px 0 0;cursor:pointer;display:grid;place-content:center}"
 + ".ebc-check input:checked{background:#fff}.ebc-check input:checked:after{content:'✓';color:#000;font-size:13px;font-weight:700}"
 + ".ebc-check input:disabled{opacity:.3;cursor:not-allowed}.ebc-check.bloque{opacity:.45;cursor:not-allowed}"
++ ".ebc-sign{border:1px solid #fff;padding:26px 22px;margin:0 0 22px;background:rgba(255,255,255,.04);transition:border-color .3s ease,box-shadow .3s ease}"
++ ".ebc-sign input#ebcSignature{border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.06);padding:16px;font-size:18px;font-weight:500;letter-spacing:.02em;text-align:center;margin:6px 0 0}"
++ ".ebc-sign input#ebcSignature:focus{border-color:#fff}"
++ ".ebc-sign-note{font-size:11.5px;line-height:1.6;opacity:.55;margin:12px 0 0;text-align:center}"
++ ".ebc-sign.alerte{border-color:#ff8a80;box-shadow:0 0 0 3px rgba(255,138,128,.25)}"
 + ".ebc-note{font-size:11.5px;line-height:1.7;text-align:center;opacity:.5;margin:14px 0 0}"
 + ".ebc-merci{text-align:center;padding:20px 0}"
 + ".ebc-close{position:fixed;top:20px;right:20px;z-index:100000;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
@@ -295,8 +300,14 @@ function ecranEspace(){
   CONFIRMATIONS.forEach(function(t, n){
     html += '<label class="ebc-check' + (n === 0 ? ' bloque' : '') + '" id="ebcCheckL' + n + '"><input type="checkbox" id="ebcCheck' + n + '"' + (n === 0 ? ' disabled' : '') + '><span>' + nb(t) + '</span></label>';
   });
-  html += '<div class="ebc-champ" style="margin-top:10px"><label for="ebcSignature">Signature — saisissez vos prénom et nom</label><input type="text" id="ebcSignature" autocomplete="name"></div>'
-    + '<div class="ebc-q"><span class="ebc-ql">Informations complémentaires (facultatif)</span><textarea id="ebcInfos" placeholder="Souhaitez-vous nous transmettre une information complémentaire concernant cette collaboration ?"></textarea></div>'
+  html += '<div class="ebc-q"><span class="ebc-ql">Informations complémentaires (facultatif)</span><textarea id="ebcInfos" placeholder="Souhaitez-vous nous transmettre une information complémentaire concernant cette collaboration ?"></textarea></div>'
+    + '</div>'
+
+    + '<div class="ebc-sign" id="ebcSignBloc">'
+    + '<h3 class="ebc-h">✍&nbsp; Signature électronique</h3>'
+    + '<p class="ebc-p">Pour signer l\'accord de collaboration, saisissez vos <strong>prénom et nom</strong> ci-dessous, tels qu\'indiqués dans vos informations de contact.</p>'
+    + '<input type="text" id="ebcSignature" autocomplete="name" placeholder="Prénom Nom">'
+    + '<p class="ebc-sign-note">En signant, vous confirmez avoir lu et accepté l\'accord de collaboration ELKHA.B.</p>'
     + '</div>'
 
     + '<p class="ebc-err" id="ebcErr"></p>'
@@ -372,11 +383,16 @@ function envoyer(){
   var sig = ($('#ebcSignature').value || '').trim();
   var norm = function(t){ return (t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z]/g, ''); };
   if(!sig || norm(sig).indexOf(norm(d.prenom)) === -1 || norm(sig).indexOf(norm(d.nom)) === -1){
-    err.textContent = 'Pour signer, saisissez vos prénom et nom tels qu\'indiqués dans vos informations de contact.'; return;
+    err.textContent = 'Pour signer, saisissez vos prénom et nom dans le cadre « Signature électronique ».';
+    var bloc = $('#ebcSignBloc'); bloc.classList.add('alerte');
+    setTimeout(function(){ bloc.scrollIntoView({ behavior: 'smooth', block: 'center' }); $('#ebcSignature').focus({ preventScroll: true }); }, 60);
+    $('#ebcSignature').addEventListener('input', function(){ bloc.classList.remove('alerte'); }, { once: true });
+    return;
   }
   d.infos = ($('#ebcInfos').value || '').trim();
   d.signature = sig;
   d.confirmations = CONFIRMATIONS.join(' | ');
+  d.contenus_json = JSON.stringify(CONTENUS);
   d.contenus_attendus = CONTENUS.map(function(c, n){ return '0' + (n + 1) + ' — ' + c.titre + (c.delai ? ' (' + c.delai + ')' : '') + ' — ' + (c.obligatoire ? 'OBLIGATOIRE' : 'FACULTATIF'); }).join('\n');
   d.produits = (session.infos.produits || []).join(' / ');
   d.gamme = session.infos.gamme || '';
