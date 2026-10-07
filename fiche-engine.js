@@ -609,7 +609,7 @@
         if(window.EB_PRODUITS[a.fiche]){
           h += '<div class="eb-fp-center"><button type="button" class="eb-fp-pill" data-fiche="' + esc(a.fiche) + '">Découvrir</button></div>';
         } else {
-          h += '<div class="eb-fp-center"><a class="eb-fp-pill" style="text-decoration:none" href="https://soins.elkhab.com/#' + esc(a.fiche) + '">Découvrir</a></div>';
+          h += '<div class="eb-fp-center"><a class="eb-fp-pill" style="text-decoration:none" href="https://bloom.elkhab.com/?fiche=' + esc(a.fiche) + '">Découvrir</a></div>';
         }
       }
       var ficheAccord = a.fiche && window.EB_PRODUITS[a.fiche];
