@@ -16,6 +16,12 @@
 //   Sa photo est celle que tu as mise pour cet article dans la liste ARTICLES.
 var A_LA_UNE = "article-peau-deshydratee";
 
+// BANNIÈRE DU HAUT DU JOURNAL : cachée quand un article est ouvert,
+// pour que la cliente voie la bannière de l'article glisser.
+// Repérée automatiquement (tout ce qui est au-dessus de la première section).
+// Facultatif : si un élément Carrd porte cet ID, c'est lui qui sera caché à la place.
+var BANNIERE_DU_SITE = "banniere-journal";
+
 // SECTIONS DU JOURNAL, dans l'ordre d'affichage
 var SECTIONS = [
   { cle: "actifs",  nom: "Actifs" },
@@ -127,7 +133,8 @@ var CSS = ""
 /* Bouton Fermer des articles */
 + ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-journal-close.visible{display:flex}"
-+ ".eb-journal-close:hover{transform:scale(1.1)}";
++ ".eb-journal-close:hover{transform:scale(1.1)}"
++ ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal{display:none !important}";
 
 /* Filtres : une règle par section */
 SECTIONS.forEach(function(s){
@@ -207,9 +214,57 @@ function construireBannieres(){
     sec.insertBefore(b, sec.firstChild);
   });
 }
+// Repère automatiquement la bannière du haut du Journal :
+// les éléments Carrd placés au-dessus de la première section (communs à toutes les sections)
+var hautMarque = false;
+function marquerHaut(){
+  if(hautMarque || document.getElementById(BANNIERE_DU_SITE)) return;
+  var premier = null;
+  for(var i = 0; i < ARTICLES.length && !premier; i++){ premier = sectionDe(ARTICLES[i].id); }
+  if(!premier || !premier.parentElement) return;
+  hautMarque = true;
+  var enfants = premier.parentElement.children;
+  for(var j = 0; j < enfants.length; j++){
+    var el = enfants[j];
+    if(el.tagName === 'SECTION') break;              // on s'arrête à la première section
+    if(el.querySelector('section, #eb-journal')) continue;
+    el.classList.add('eb-haut-journal');
+  }
+}
+
+// Sur ordinateur, si le site est en deux parties (texte à gauche, image à droite),
+// la bannière prend toute la largeur de la colonne de gauche au lieu de tout l'écran
+function ajusterLargeur(){
+  var bs = document.querySelectorAll('.ebja');
+  for(var i = 0; i < bs.length; i++){
+    var b = bs[i];
+    if(!b.offsetParent) continue;                     // section cachée
+    b.style.width = ''; b.style.marginLeft = '';
+    var col = null, el = b.parentElement;
+    while(el && el !== document.body){
+      var r = el.getBoundingClientRect();
+      var auBord = r.left <= 2 || r.right >= window.innerWidth - 2;   // colonne collée au bord de l'écran
+      if(r.width > 0 && r.width < window.innerWidth * 0.9 && auBord){ col = el; }
+      el = el.parentElement;
+    }
+    if(!col) continue;                                // site sur toute la largeur : rien à changer
+    var p = b.parentElement, pr = p.getBoundingClientRect(), ps = getComputedStyle(p);
+    var c = col.getBoundingClientRect();
+    var L = pr.left + parseFloat(ps.paddingLeft || 0) + parseFloat(ps.borderLeftWidth || 0);
+    b.style.width = c.width + 'px';
+    b.style.marginLeft = (c.left - L) + 'px';
+  }
+}
+window.addEventListener('resize', ajusterLargeur);
+
 // Rejoue l'animation à chaque ouverture d'un article
 function animer(){
   var h = location.hash.replace('#', '');
+  // Article ouvert : on cache la bannière du haut du Journal et on remonte en haut
+  var estArticle = !!trouverArticle(h);
+  marquerHaut();
+  document.documentElement.classList.toggle('eb-article-ouvert', estArticle);
+  if(estArticle){ window.scrollTo(0, 0); ajusterLargeur(); setTimeout(ajusterLargeur, 80); setTimeout(ajusterLargeur, 400); }
   var b = document.querySelector('.ebja[data-article="' + h + '"]');
   if(!b) return;
   b.classList.remove('go');
