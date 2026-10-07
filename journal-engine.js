@@ -157,7 +157,7 @@ var CSS = ""
 + ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-journal-close.visible{display:flex}"
 + ".eb-journal-close:hover{transform:scale(1.1)}"
-+ ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal{display:none !important}";
++ ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal,.eb-article-ouvert .eb-cache-article{display:none !important}";
 
 /* Filtres : une règle par section */
 SECTIONS.forEach(function(s){
@@ -292,6 +292,43 @@ function ajusterLargeur(){
 }
 window.addEventListener('resize', ajusterLargeur);
 
+// Sur téléphone, l'image de la mise en page en deux parties passe AU-DESSUS du contenu :
+// on cache aussi tout ce qui se trouve au-dessus de l'article (jamais le menu ni les panneaux)
+var masqueFait = null;
+function masquerAuDessus(id){
+  if(id && masqueFait === id) return;                 // déjà fait pour cet article
+  var anciens = document.querySelectorAll('.eb-cache-article');
+  for(var i = 0; i < anciens.length; i++){ anciens[i].classList.remove('eb-cache-article'); }
+  masqueFait = null;
+  if(!id) return;
+  var sec = sectionDe(id);
+  if(!sec || !sec.offsetParent){                      // Carrd n'a pas encore affiché l'article : on réessaie
+    setTimeout(function(){ if(location.hash.replace('#','') === id) masquerAuDessus(id); }, 150);
+    return;
+  }
+  masqueFait = id;
+  var haut = sec.getBoundingClientRect().top + 1;
+  var aCacher = [];
+  var el = sec;
+  while(el && el.parentElement && el.parentElement !== document.documentElement){
+    var parent = el.parentElement;
+    for(var j = 0; j < parent.children.length; j++){
+      var f = parent.children[j];
+      if(f === el || /^(SCRIPT|STYLE|LINK)$/.test(f.tagName)) continue;
+      var cs = getComputedStyle(f);
+      if(cs.position === 'fixed' || cs.display === 'none') continue;
+      if(f.querySelector('section') || f.tagName === 'SECTION') continue;
+      if(/eb-|ebFiche|ebCart|ebOverlay/.test((f.className || '') + ' ' + (f.id || '')) ) continue;
+      var r = f.getBoundingClientRect();
+      if(r.height > 0 && r.bottom <= haut){ aCacher.push(f); }
+    }
+    if(parent === document.body) break;
+    el = parent;
+  }
+  aCacher.forEach(function(f){ f.classList.add('eb-cache-article'); });
+  if(aCacher.length){ window.scrollTo(0, 0); }
+}
+
 // Rejoue l'animation à chaque ouverture d'un article
 function animer(){
   var h = location.hash.replace('#', '');
@@ -299,6 +336,7 @@ function animer(){
   var estArticle = !!trouverArticle(h);
   marquerHaut();
   document.documentElement.classList.toggle('eb-article-ouvert', estArticle);
+  masquerAuDessus(estArticle ? h : null);
   if(estArticle){ window.scrollTo(0, 0); ajusterLargeur(); setTimeout(ajusterLargeur, 80); setTimeout(ajusterLargeur, 400); }
   var b = document.querySelector('.ebja[data-article="' + h + '"]');
   if(!b) return;
