@@ -400,6 +400,32 @@ function ebFormatPrice(amount){
   return parseFloat(amount).toFixed(2).replace('.', ',') + '€';
 }
 
+// Livraison offerte à partir de ce montant (en euros) — barre de progression dans le panier
+const EB_SEUIL_LIVRAISON = 65;
+
+function ebCartLivraison(sousTotal){
+  const footer = document.querySelector('#ebCartPanel .eb-cart-footer');
+  if(!footer) return;
+  let zone = document.getElementById('ebCartLivraison');
+  if(!zone){
+    zone = document.createElement('div');
+    zone.id = 'ebCartLivraison';
+    zone.className = 'eb-cart-livraison';
+    zone.innerHTML = '<div class="eb-cart-livraison-txt"></div><div class="eb-cart-livraison-barre"><span></span></div>';
+    footer.insertBefore(zone, footer.firstChild);
+  }
+  if(!sousTotal){ zone.style.display = 'none'; return; }
+  zone.style.display = 'block';
+  const reste = EB_SEUIL_LIVRAISON - sousTotal;
+  const txt = zone.querySelector('.eb-cart-livraison-txt');
+  if(reste > 0){
+    txt.innerHTML = 'Plus que <strong>' + ebFormatPrice(reste) + '</strong> pour profiter de la livraison offerte';
+  } else {
+    txt.innerHTML = '<strong>La livraison vous est offerte</strong> ✓';
+  }
+  zone.querySelector('.eb-cart-livraison-barre span').style.width = Math.min(100, Math.round(sousTotal / EB_SEUIL_LIVRAISON * 100)) + '%';
+}
+
 // Styles des miniatures du panier (ajoutés une seule fois)
 function ebCartStylePhotos(){
   if(document.getElementById('eb-cart-photos-style')) return;
@@ -409,7 +435,12 @@ function ebCartStylePhotos(){
     + '.eb-cart-item.eb-cart-item-photo{display:flex;gap:14px;align-items:flex-start}'
     + '.eb-cart-thumb{flex:0 0 64px;width:64px;height:64px;background:#EBE5DB;overflow:hidden}'
     + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:cover}'
-    + '.eb-cart-info{flex:1;min-width:0}';
+    + '.eb-cart-info{flex:1;min-width:0}'
+    + '.eb-cart-livraison{margin:0 0 16px}'
+    + '.eb-cart-livraison-txt{font-family:Montserrat,sans-serif;font-size:11.5px;font-weight:400;letter-spacing:.02em;margin-bottom:8px;text-align:center}'
+    + '.eb-cart-livraison-txt strong{font-weight:600}'
+    + '.eb-cart-livraison-barre{height:3px;background:#EBE5DB;overflow:hidden}'
+    + '.eb-cart-livraison-barre span{display:block;height:100%;width:0;background:#141414;transition:width .6s ease}';
   document.head.appendChild(st);
 }
 
@@ -436,6 +467,7 @@ function ebRenderCart(cart, attemptsLeft){
   if(!cart || cart.lines.edges.length === 0){
     itemsEl.innerHTML = '<div class="eb-cart-empty">Votre panier est vide.</div>';
     totalEl.textContent = ebFormatPrice(0);
+    ebCartLivraison(0);
     return;
   }
 
@@ -460,6 +492,7 @@ function ebRenderCart(cart, attemptsLeft){
   });
   itemsEl.innerHTML = html;
   totalEl.textContent = ebFormatPrice(cart.cost.subtotalAmount.amount);
+  ebCartLivraison(parseFloat(cart.cost.subtotalAmount.amount));
 }
 
 window.ebCartRemoveClick = async function(lineId, currentQuantity){
