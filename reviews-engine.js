@@ -1,3 +1,4 @@
+/* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 (function(){
   const SHEET_ID = "100cL1PE_giU0UnrVhWSmTEoU7aqIGVgkrUP1aYC_AcU";
   const GID = "1134795247"; // onglet "Publiés"
@@ -14,6 +15,7 @@
     ".eb-review{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.18)}" +
     ".eb-review-stars{color:#fff !important;font-size:19px !important;letter-spacing:3px;line-height:1.2;margin-bottom:8px}" +
     ".eb-review-meta{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff !important;opacity:.6;margin-bottom:8px}" +
+    ".eb-review-ambassadrice{font-size:10.5px !important;font-weight:300 !important;font-style:italic;letter-spacing:.02em;color:#fff !important;opacity:.5;margin:-5px 0 8px}" +
     ".eb-review-text{font-size:13.5px;line-height:1.7;color:#fff !important;opacity:.9}" +
     ".eb-review-status{font-size:13px;color:#fff !important;opacity:.6;font-style:italic;padding:12px 0}" +
     ".eb-laisser-avis{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:280px;margin:22px auto 0;background:#fff;color:#000 !important;border:1px solid #fff;border-radius:0;padding:16px 24px;box-sizing:border-box;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none !important;cursor:pointer;transition:transform .2s ease;white-space:nowrap}" +
@@ -106,7 +108,8 @@
         age: col('age'),
         peau: col('peau'),
         note: col('note'),
-        commentaire: col('avis')
+        commentaire: col('avis'),
+        ambassadrice: col('ambassad')   // colonne « Ambassadrice » : écrire « oui » pour un avis d'ambassadrice ou de collaboratrice
       };
       if(idx.produit === -1){
         console.error('ELKHA.B avis — colonne des produits introuvable dans l\'onglet Publiés', rows[0]);
@@ -128,6 +131,9 @@
         html += '<div class="eb-review">';
         html += '<div class="eb-review-stars">' + starsHTML(r[idx.note]) + '</div>';
         html += '<div class="eb-review-meta">' + escapeHTML(r[idx.prenom]) + ', ' + escapeHTML(r[idx.age]) + ' ans — ' + escapeHTML(r[idx.peau]) + (dateFormatee ? ' · ' + dateFormatee : '') + '</div>';
+        if(idx.ambassadrice !== -1 && /^(oui|o|x|yes|1|vrai|true)$/i.test((r[idx.ambassadrice] || '').trim())){
+          html += '<div class="eb-review-ambassadrice">Ambassadrice ELKHA.B · soin offert</div>';
+        }
         html += '<div class="eb-review-text">' + escapeHTML(r[idx.commentaire]) + '</div>';
         html += '</div>';
       });
