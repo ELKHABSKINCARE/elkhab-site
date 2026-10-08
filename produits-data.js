@@ -596,7 +596,9 @@ window.EB_PRODUITS = {
         // 📷 2. SANS TEINTE  (n°1 pour le sélecteur)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282",
         // 📷 3. TEINTÉ  (n°2 pour le sélecteur)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291",
+        // 📷 4. PHOTO 4
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_mineral_sur_sable_et_chapeau.png?v=1791446836"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -689,7 +691,7 @@ window.EB_PRODUITS = {
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_eclat_2.png?v=1791127339",
         // 📷 2. PHOTO
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Laeticia.jpg?v=1791270832"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Screenshot_20261008_002622_Gallery_2.jpg?v=1791446236"
       ]
     },
 
@@ -1132,7 +1134,7 @@ window.EB_PRODUITS = {
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_equilibre_2.png?v=1791127281",
         // 📷 2. PHOTO 2
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Joleene.jpg?v=1791270832"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Screenshot_20261008_002253_Gallery_2.jpg?v=1791446236"
       ]
     },
 
@@ -1181,7 +1183,7 @@ window.EB_PRODUITS = {
         // 📷 1. PHOTO PRODUIT
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Routine_teint_et_protection.png?v=1791127110",
         // 📷 2. PHOTO 2
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Cynthia.jpg?v=1791270832"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000009f7881f49c75311cc9043c02_1.png?v=1791446380"
       ]
     },
 
