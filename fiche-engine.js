@@ -646,11 +646,13 @@
 
     requestAnimationFrame(function(){ overlay.classList.add('open'); });
     closeBtn.classList.add('visible');
-    backBtn.classList.toggle('visible', pile.length > 0);
+    // Fiche ouverte depuis un autre panneau (ex. diagnostic) : « ← Retour au diagnostic » sur la première fiche
+    var externe = !pile.length && window.EB_FICHE_RETOUR;
+    backBtn.classList.toggle('visible', pile.length > 0 || !!externe);
     // Libellé : « Retour à la routine » quand la fiche précédente est une routine
     var precedente = pile.length ? window.EB_PRODUITS[pile[pile.length - 1].id] : null;
     var versRoutine = precedente && precedente.routine && precedente.routine.soins && precedente.routine.soins.length;
-    backBtn.innerHTML = versRoutine ? '&larr; Retour &agrave; la routine' : '&larr; Retour';
+    backBtn.innerHTML = externe ? '&larr; ' + externe.label : (versRoutine ? '&larr; Retour &agrave; la routine' : '&larr; Retour');
     if(document.getElementById('ebCartPanel')){ cartBtn.classList.add('visible'); majCompteur(); }
     document.documentElement.style.overflow = 'hidden';
   }
@@ -659,6 +661,7 @@
   function ebFicheRetour(){
     var prec = pile.pop();
     if(prec) ebFicheOpen(prec.id, prec.ctx);
+    else if(window.EB_FICHE_RETOUR) ebFicheClose();   // le panneau d'origine (diagnostic) se rouvre tout seul
   }
 
   function ebFicheClose(){
