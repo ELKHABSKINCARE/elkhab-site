@@ -528,3 +528,13 @@ document.addEventListener('click', function(e){
   s.setAttribute('data-eb-collab', '1');
   (document.head || document.documentElement).appendChild(s);
 })();
+
+/* ─── Newsletter « Le cercle ELKHA.B » (panneau en bas de page) : chargé sur tous les sites ─── */
+(function(){
+  if(window.__ebNewsletter || document.querySelector('script[data-eb-newsletter]')) return;
+  var s = document.createElement('script');
+  s.src = 'https://elkhabskincare.github.io/elkhab-site/newsletter-engine.js';
+  s.async = true;
+  s.setAttribute('data-eb-newsletter', '1');
+  (document.head || document.documentElement).appendChild(s);
+})();
