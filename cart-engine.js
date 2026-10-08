@@ -64,14 +64,32 @@ const EB_PARAMS = (function(){
 })();
 window.ebGetParam = function(name){ return EB_PARAMS.get(name); };
 
-let cartId = sessionStorage.getItem('elkhab_cart_id') || null;
+// Le panier est gardé 7 jours sur l'appareil (téléphone ou ordinateur), sur tous les sites elkhab.com,
+// même après la fermeture du navigateur. Chaque visite relance les 7 jours.
+const EB_CART_JOURS = 7;
+function ebCartLireCookie(){
+  const m = document.cookie.match(/(?:^|; )elkhab_cart=([^;]*)/);
+  return m ? decodeURIComponent(m[1]) : null;
+}
+function ebCartDomaine(){ return /(^|\.)elkhab\.com$/.test(location.hostname) ? '; domain=.elkhab.com' : ''; }
+function ebCartMemoriser(id){
+  if(!id) return;
+  try { sessionStorage.setItem('elkhab_cart_id', id); } catch(e){}
+  document.cookie = 'elkhab_cart=' + encodeURIComponent(id) + '; max-age=' + (EB_CART_JOURS * 86400) + '; path=/' + ebCartDomaine() + '; SameSite=Lax';
+}
+function ebCartOublier(){
+  try { sessionStorage.removeItem('elkhab_cart_id'); } catch(e){}
+  document.cookie = 'elkhab_cart=; max-age=0; path=/' + ebCartDomaine() + '; SameSite=Lax';
+}
+
+let cartId = sessionStorage.getItem('elkhab_cart_id') || ebCartLireCookie() || null;
 
 (function(){
   const params = new URLSearchParams(window.location.search);
   const urlCart = params.get('cart');
   if(urlCart){
     cartId = urlCart;
-    sessionStorage.setItem('elkhab_cart_id', cartId);
+    ebCartMemoriser(cartId);
   }
   if(params.get('connected') === '1'){
     sessionStorage.setItem('elkhab_connected', '1');
@@ -319,7 +337,7 @@ async function ebCartAddLine(variantId, quantity){
     console.error('ELKHA.B panier — échec ajout à un panier existant, on en recrée un', result);
     // Le panier stocké n'existe plus côté Shopify (expiré ou invalide) : on en recrée un
     cartId = null;
-    sessionStorage.removeItem('elkhab_cart_id');
+    ebCartOublier();
     return ebCartCreate(variantId, quantity);
   }
   return cart;
@@ -345,6 +363,13 @@ async function ebCartFetch(){
   if(!cartId) return null;
   const query = `query cart($id: ID!) { cart(id: $id) { ${CART_FIELDS} } }`;
   const result = await shopifyFetch(query, { id: cartId });
+  if(result && result.data && result.data.cart === null){
+    // Panier expiré ou déjà payé : on repart d'un panier vide
+    cartId = null;
+    ebCartOublier();
+    return null;
+  }
+  if(result && result.data && result.data.cart){ ebCartMemoriser(cartId); }
   return result.data && result.data.cart;
 }
 
@@ -359,7 +384,7 @@ async function ebCartAddItem(variantId, quantity){
     }
     if(cart){
       cartId = cart.id;
-      sessionStorage.setItem('elkhab_cart_id', cartId);
+      ebCartMemoriser(cartId);
       ebRenderCart(cart);
     } else {
       console.error('ELKHA.B panier — aucun panier retourné pour variantId', variantId);
