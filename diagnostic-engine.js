@@ -254,6 +254,24 @@ const NEED_INFO = {
 var css = document.createElement('style');
 css.textContent = ''
   + '.eb-diag-acc-item.open .eb-diag-acc-body{max-height:4000px}'
+  // Typographie unifiée du résultat (ces règles passent devant les styles de Carrd)
+  + '#ebResultContent{font-family:Montserrat,sans-serif}'
+  + '#ebResultContent .eb-diag-result-headline{font-size:15px !important;font-weight:700;letter-spacing:.06em;text-transform:uppercase;line-height:1.6 !important;margin:2px 0 20px}'
+  + '#ebResultContent p{font-family:Montserrat,sans-serif;font-size:13.5px !important;font-weight:400;line-height:1.85 !important;margin:0 0 16px;opacity:.85;text-align:left;-webkit-hyphens:auto;hyphens:auto}'
+  + '@media (min-width:600px){#ebResultContent p{text-align:justify}}'   // justifié sur ordinateur ; sur téléphone, aligné à gauche (sinon trous entre les mots)
+  + '#ebResultContent .eb-diag-acc-body-inner p:last-child{margin-bottom:0}'
+  + '#ebResultContent .eb-diag-result-needs-list li{font-size:13.5px !important;line-height:1.7 !important;margin-bottom:12px}'
+  + '#ebResultContent .eb-diag-approach{padding:28px 30px}'
+  + '#ebResultContent .eb-diag-approach h4{margin:0 0 14px !important;font-size:12.5px !important;font-weight:700;letter-spacing:.1em;text-transform:uppercase;line-height:1.5 !important}'
+  + '#ebResultContent .eb-diag-approach p{font-style:italic;margin:0}'
+  + '#ebResultContent .eb-diag-product-name{font-size:13.5px;letter-spacing:.05em;text-transform:uppercase;line-height:1.5}'
+  + '#ebResultContent .eb-diag-formule{text-transform:none;letter-spacing:0}'
+  + '#ebResultContent .eb-diag-product-why{font-size:13px;line-height:1.75}'
+  + '#ebResultContent .eb-diag-gesture{font-size:13px;line-height:1.8}'
+  + '#ebResultContent .eb-diag-mail p{text-align:left;opacity:.75;font-size:13px !important;line-height:1.7 !important;margin:0 0 18px}'
+  + '#ebResultContent .eb-diag-mail .eb-diag-mail-mention{font-size:10.5px !important;line-height:1.6 !important;margin:12px 0 0}'
+  + '#ebResultContent .eb-diag-mail-merci p{text-align:center;margin:0}'
+  + '#ebResultContent .eb-diag-footnote{text-align:center;font-size:13px !important;line-height:1.9 !important}'
   + '.eb-diag-answer.eb-choisi{background:#fff;color:#000;border-color:#fff}'
   + '.eb-diag-answer.eb-multi{position:relative;padding-left:52px}'
   + '.eb-diag-answer.eb-multi:before{content:"";position:absolute;left:20px;top:50%;width:14px;height:14px;margin-top:-8px;border:1px solid currentColor}'
@@ -580,6 +598,7 @@ function ebShowResult(openRoutine){
   html += '  <a class="eb-diag-cta" href="'+ebDiagSiteUrl('bloom', 'https://bloom.elkhab.com/')+'">Voir tous nos soins</a>';
   html += '</div>';
 
+  document.getElementById('ebResultContent').setAttribute('lang', 'fr');   // coupure des mots en français pour le texte justifié
   document.getElementById('ebResultContent').innerHTML = html;
   document.getElementById('ebProgressBar').style.width = '100%';
   ebShow('result');
@@ -678,17 +697,41 @@ window.ebDiagOpen = ebDiagOpen;
 window.ebDiagOpenWithScores = ebDiagOpenWithScores;
 window.ebDiagClose = ebDiagClose;
 
-// Clic sur un soin recommandé : le diagnostic se ferme et la fiche s'ouvre sur place
+// Clic sur un soin recommandé : le diagnostic se ferme et la fiche s'ouvre sur place.
+// Quand la cliente ferme la fiche (×), elle retrouve son résultat, au même endroit.
+var retourDiag = false, positionDiag = 0;
 document.addEventListener('click', function(e){
   var a = e.target.closest && e.target.closest('[data-diag-fiche]');
   if(!a) return;
   var id = a.getAttribute('data-diag-fiche');
   if(window.EB_PRODUITS && window.EB_PRODUITS[id] && typeof window.ebFicheOpen === 'function'){
     e.preventDefault(); e.stopPropagation();
+    var ov = document.getElementById('ebDiagOverlay');
+    positionDiag = ov ? ov.scrollTop : 0;
+    retourDiag = true;
+    window.EB_FICHE_RETOUR = { label: 'Retour au diagnostic' };   // bouton affiché en haut de la fiche
     ebDiagClose();
-    setTimeout(function(){ window.ebFicheOpen(id); }, 350);
+    setTimeout(function(){ window.ebFicheOpen(id); surveillerFiche(); }, 350);
   }
 }, true);
+function surveillerFiche(){
+  var fiche = document.querySelector('.eb-fp-overlay');
+  if(!fiche || !window.MutationObserver) return;
+  var obs = new MutationObserver(function(){
+    if(fiche.classList.contains('open')) return;
+    obs.disconnect();
+    window.EB_FICHE_RETOUR = null;
+    if(!retourDiag) return;
+    retourDiag = false;
+    var ov = document.getElementById('ebDiagOverlay');
+    if(!ov) return;
+    ov.classList.add('open');
+    ebDiagShowClose(true);
+    ebShow('result');
+    setTimeout(function(){ ov.scrollTop = positionDiag; }, 60);
+  });
+  obs.observe(fiche, { attributes: true, attributeFilter: ['class'] });
+}
 
 })();
 
