@@ -280,6 +280,9 @@ css.textContent = ''
   + '.eb-diag-valider{margin-top:8px}'
   + '.eb-diag-valider[disabled]{opacity:.35;cursor:default;transform:none}'
   + '.eb-diag-prix{font-weight:400;opacity:.65;white-space:nowrap}'
+  + '.eb-diag-voir-ligne{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}'
+  + '.eb-diag-voir{display:inline-flex;align-items:center;gap:7px;margin-left:auto;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;border-bottom:1px solid #fff;padding-bottom:3px;white-space:nowrap}'
+  + '#ebResultContent .eb-diag-prix{font-size:13px;opacity:.75}'
   + '.eb-diag-formule{display:block;font-weight:400;font-size:12.5px;opacity:.75;margin-top:3px}'
   + '.eb-diag-routine-card{display:block;background:#fff;color:#000;text-decoration:none;padding:24px 22px;margin-bottom:22px;transition:transform .2s ease}'
   + '.eb-diag-routine-card:hover{transform:scale(1.02)}'
@@ -489,13 +492,14 @@ function soinsRegard(){
 
 // ── Affichage ──
 function lienFiche(id){ return ebDiagSiteUrl('bloom', 'https://bloom.elkhab.com/') + '?fiche=' + encodeURIComponent(id); }
-function carteSoin(id){
+function carteSoin(id, sansPrix){
   var s = SOINS[id] || { nom:id, why:'' };
   return '<a class="eb-diag-product" data-diag-fiche="'+id+'" href="'+lienFiche(id)+'" style="text-decoration:none;color:inherit;display:block">'
     + '<div class="eb-diag-product-name">'+s.nom+(s.formule ? '<span class="eb-diag-formule">'+s.formule+'</span>' : '')+'</div>'
     + '<div class="eb-diag-product-why">'+s.why+'</div>'
     + (id === 'radiance-serum' && scores.sensitivity > 0 ? '<div class="eb-diag-product-why" style="margin-top:10px;font-style:italic">'+MENTION_PEAU_SENSIBLE+'</div>' : '')
-    + '<div class="eb-diag-product-why" style="margin-top:10px"><span class="eb-diag-prix">'+prixDe(id, s.prix)+'</span> &nbsp;→</div></a>';
+    + '<div class="eb-diag-voir-ligne">'+(sansPrix ? '' : '<span class="eb-diag-prix">'+prixDe(id, s.prix)+'</span>')
+    +   '<span class="eb-diag-voir"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M1.5 12S5.5 4.5 12 4.5 22.5 12 22.5 12 18.5 19.5 12 19.5 1.5 12 1.5 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Voir le soin</span></div></a>';
 }
 function carteRoutine(r, texte){
   return '<a class="eb-diag-routine-card" data-diag-fiche="'+r.id+'" href="'+lienFiche(r.id)+'">'
@@ -534,9 +538,10 @@ function ebShowResult(openRoutine){
   let routineHtml = '';
   if(yeux) routineHtml += '<div class="eb-diag-sous">Votre visage</div>';
   if(routineVisage){
-    routineHtml += carteRoutine(routineVisage, 'Les ' + (['','','deux','trois'][visage.length] || visage.length) + ' soins dont votre peau a besoin, réunis dans une routine. Vous pouvez aussi les choisir un par un :');
+    routineHtml += carteRoutine(routineVisage, 'Les ' + (['','','deux','trois'][visage.length] || visage.length) + ' soins dont votre peau a besoin, réunis dans une routine.');
+    routineHtml += '<div class="eb-diag-sous">Les soins inclus</div>';
   }
-  visage.forEach(function(id){ routineHtml += carteSoin(id); });
+  visage.forEach(function(id){ routineHtml += carteSoin(id, !!routineVisage); });
   routineHtml += '<div class="eb-diag-gesture">Le geste à ne pas oublier : une protection solaire quotidienne, avec <a href="'+lienFiche('radiance-protect')+'" data-diag-fiche="radiance-protect">Radiance Protect SPF 50</a>.</div>';
 
   // Regard
@@ -544,8 +549,9 @@ function ebShowResult(openRoutine){
     routineHtml += '<div class="eb-diag-sous" style="margin-top:36px">Votre regard</div>';
     if(yeux.routine){
       routineHtml += carteRoutine(yeux.routine, 'Radiance Eye Cream au quotidien, et les ' + SOINS[yeux.patch].formule.toLowerCase() + ' 1 à 2 fois par semaine. Formule à choisir dans la routine.');
+      routineHtml += '<div class="eb-diag-sous">Les soins inclus</div>';
     }
-    yeux.soins.forEach(function(id){ routineHtml += carteSoin(id); });
+    yeux.soins.forEach(function(id){ routineHtml += carteSoin(id, !!yeux.routine); });
     if(yeux.autres.length){
       routineHtml += '<div class="eb-diag-alterner">Vous pouvez aussi alterner avec ' + yeux.autres.map(function(id){ return '<a href="'+lienFiche(id)+'" data-diag-fiche="'+id+'">les '+SOINS[id].formule.toLowerCase()+'</a>'; }).join(' ou ') + '.</div>';
     }
