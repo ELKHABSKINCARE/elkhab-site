@@ -5,7 +5,7 @@
    • Fenêtre vidéo au fond beige du site, bouton « Voir l'autre vidéo »
    Dans Carrd, la page contient un seul embed :
      <div id="eb-experience"></div>
-     <script src="https://cdn.jsdelivr.net/gh/ELKHABSKINCARE/elkhab-site@main/experience-engine.js?v=1"></script>
+     <script src="https://elkhabskincare.github.io/elkhab-site/experience-engine.js"></script>
    ───────────────────────────────────────────────────────────────────────
    ✏️ POUR AJOUTER OU MODIFIER UNE COLLABORATRICE, ON NE TOUCHE QU'À
       LA PARTIE « RÉGLAGES »
@@ -216,7 +216,7 @@ function vueVideo(){
   var id = c.videos[videoIndex];
   enLecture = true;
   contenu.innerHTML = '<div class="ebx-video">'
-    + '<div class="ebx-video-cadre"><iframe id="ebxIframe" src="https://www.youtube.com/embed/' + encodeURIComponent(id) + '?rel=0&modestbranding=1&playsinline=1&autoplay=1&enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe><div class="ebx-bouclier"></div></div>'
+    + '<div class="ebx-video-cadre"><iframe id="ebxIframe" src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?rel=0&modestbranding=1&playsinline=1&autoplay=1&enablejsapi=1" allow="autoplay; encrypted-media" allowfullscreen></iframe><div class="ebx-bouclier"></div></div>'
     + '<div class="ebx-video-bas">'
     +   '<h3 class="ebx-nom">' + esc(c.prenom) + '</h3>'
     +   '<div class="ebx-fiche-soin">' + esc(c.soin) + '</div>'
