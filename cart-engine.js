@@ -272,7 +272,8 @@ const CART_FIELDS = `
             id
             title
             price { amount currencyCode }
-            product { title }
+            image { url }
+            product { title featuredImage { url } }
           }
         }
       }
@@ -374,6 +375,19 @@ function ebFormatPrice(amount){
   return parseFloat(amount).toFixed(2).replace('.', ',') + '€';
 }
 
+// Styles des miniatures du panier (ajoutés une seule fois)
+function ebCartStylePhotos(){
+  if(document.getElementById('eb-cart-photos-style')) return;
+  const st = document.createElement('style');
+  st.id = 'eb-cart-photos-style';
+  st.textContent = ''
+    + '.eb-cart-item.eb-cart-item-photo{display:flex;gap:14px;align-items:flex-start}'
+    + '.eb-cart-thumb{flex:0 0 64px;width:64px;height:64px;background:#EBE5DB;overflow:hidden}'
+    + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:cover}'
+    + '.eb-cart-info{flex:1;min-width:0}';
+  document.head.appendChild(st);
+}
+
 function ebRenderCart(cart, attemptsLeft){
   attemptsLeft = attemptsLeft === undefined ? 15 : attemptsLeft;
   const countEl = document.getElementById('ebCartCount');
@@ -400,11 +414,16 @@ function ebRenderCart(cart, attemptsLeft){
     return;
   }
 
+  ebCartStylePhotos();
   let html = '';
   cart.lines.edges.forEach(function(edge){
     const line = edge.node;
     const m = line.merchandise;
-    html += '<div class="eb-cart-item">';
+    // Miniature : photo de la variante (teinte, formule…), sinon photo principale du produit
+    const imgUrl = (m.image && m.image.url) || (m.product.featuredImage && m.product.featuredImage.url) || '';
+    html += '<div class="eb-cart-item eb-cart-item-photo">';
+    html += '<div class="eb-cart-thumb">' + (imgUrl ? '<img src="' + imgUrl + (imgUrl.indexOf('?') > -1 ? '&' : '?') + 'width=200" alt="" loading="lazy">' : '') + '</div>';
+    html += '<div class="eb-cart-info">';
     html += '<div class="eb-cart-item-title">' + m.product.title + '</div>';
     if(m.title && m.title !== 'Default Title' && m.title !== 'Default'){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
@@ -412,7 +431,7 @@ function ebRenderCart(cart, attemptsLeft){
     html += '<div class="eb-cart-item-bottom">';
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
     html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
-    html += '</div></div>';
+    html += '</div></div></div>';
   });
   itemsEl.innerHTML = html;
   totalEl.textContent = ebFormatPrice(cart.cost.subtotalAmount.amount);
