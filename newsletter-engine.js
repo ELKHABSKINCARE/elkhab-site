@@ -17,7 +17,7 @@
    └─────────────────────────────────────────────────────────────────────┘ */
 
 // Sites où le panneau apparaît : "accueil", "bloom", "balance", "journal", "experience"
-var SITES = ["bloom"];
+var SITES = ["accueil", "bloom", "balance", "journal", "experience"];
 
 // Après fermeture avec la croix : nombre de jours avant de le proposer à nouveau
 var JOURS_APRES_FERMETURE = 7;
@@ -72,7 +72,7 @@ var css = ''
 + '.ebn-fermer:hover{border-color:#000}'
 + '.ebn-in{max-width:1000px;margin:0 auto;padding:30px 24px 26px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px}'
 + '.ebn-tag{font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;opacity:.55;margin:0 0 8px}'
-+ '.ebn-titre{font-size:19px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin:0 0 8px;line-height:1.3;padding-right:40px}'
++ '.ebn-titre{font-size:clamp(12px,3.8vw,19px);font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px;line-height:1.3;white-space:nowrap}'
 + '.ebn-texte{font-size:13.5px;font-weight:300;line-height:1.65;margin:0}'
 + '.ebn-form{display:flex;width:100%}'
 + '.ebn-email{flex:1;min-width:0;height:50px;border:1px solid #000;border-right:0;background:#F6F4F0;padding:0 16px;font-family:"Montserrat",sans-serif;font-size:16px;color:#000;border-radius:0;-webkit-appearance:none;appearance:none;outline:none;margin:0}'
@@ -92,9 +92,8 @@ var css = ''
 + '@media (min-width:900px){'
 +   '.ebn-email{font-size:14px}'
 +   '.ebn-in{grid-template-columns:minmax(0,1fr) minmax(0,440px);gap:48px;align-items:center;padding:34px 40px}'
-+   '.ebn-titre{font-size:21px;padding-right:0}'
++   '.ebn-titre{font-size:21px;letter-spacing:.05em}'
 +   '.ebn.ebn-etroit .ebn-in{grid-template-columns:minmax(0,1fr);gap:16px;padding:30px 32px}'
-+   '.ebn.ebn-etroit .ebn-titre{padding-right:40px}'
 + '}';
 var st = document.createElement('style');
 st.textContent = css;
