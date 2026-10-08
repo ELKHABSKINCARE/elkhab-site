@@ -7,7 +7,7 @@
   var EB_DIAG_VIDEO = 'https://cdn.shopify.com/videos/c/o/v/abdc438cf15542ef9daf8749d954cd2b.mp4';
 
   var container = document.createElement('div');
-  container.innerHTML = '<div class="eb-diag-overlay" id="ebDiagOverlay">\n  <div class="eb-diag-progress"><div class="eb-diag-progress-bar" id="ebProgressBar"></div></div>\n\n  <div class="eb-diag-screen active" data-screen="intro">\n    <div class="eb-diag-intro-top">\n      <div class="eb-diag-intro-brand">ELKHA.B</div>\n      <div class="eb-diag-intro-title">Votre peau évolue</div>\n    </div>\n    <div class="eb-diag-intro-image"><video autoplay muted loop playsinline src="' + EB_DIAG_VIDEO + '"></video></div>\n    <div class="eb-diag-intro-bottom">\n      <div class="eb-diag-intro-text">Ce diagnostic vous aide à mieux comprendre votre peau et à lui apporter des soins réellement adaptés, parmi l\'ensemble des gammes ELKHA.B.<br><br>6 questions, une minute, une routine pensée pour vous.</div>\n      <button class="eb-diag-start-btn" onclick="ebDiagStart()">Commencer mon diagnostic</button>\n    </div>\n  </div>\n\n  <div class="eb-diag-screen" data-screen="questions">\n    <div class="eb-diag-content">\n      <div class="eb-diag-eyebrow" id="ebQIntro"></div>\n      <div class="eb-diag-question" id="ebQTitle"></div>\n      <div id="ebQAnswers"></div>\n      <div class="eb-diag-nav">\n        <button class="eb-diag-back" id="ebBack" onclick="ebDiagBack()">Précédent</button>\n        <div class="eb-diag-count" id="ebCount"></div>\n      </div>\n    </div>\n  </div>\n\n  <div class="eb-diag-screen" data-screen="result">\n    <div class="eb-diag-content">\n      <div id="ebResultContent"></div>\n      <button class="eb-diag-restart" onclick="ebDiagRestart()">Refaire le diagnostic</button>\n    </div>\n  </div>\n</div>';
+  container.innerHTML = '<div class="eb-diag-overlay" id="ebDiagOverlay">\n  <div class="eb-diag-progress"><div class="eb-diag-progress-bar" id="ebProgressBar"></div></div>\n\n  <div class="eb-diag-screen active" data-screen="intro">\n    <div class="eb-diag-intro-top">\n      <div class="eb-diag-intro-brand">ELKHA.B</div>\n      <div class="eb-diag-intro-title">Votre peau évolue</div>\n    </div>\n    <div class="eb-diag-intro-image"><video autoplay muted loop playsinline src="' + EB_DIAG_VIDEO + '"></video></div>\n    <div class="eb-diag-intro-bottom">\n      <div class="eb-diag-intro-text">Ce diagnostic vous aide à mieux comprendre votre peau et à lui apporter des soins réellement adaptés, parmi l\'ensemble des gammes ELKHA.B.<br><br>6 questions, une minute, une routine pensée pour vous.<br>Et, si vous le souhaitez, un focus sur votre regard.</div>\n      <button class="eb-diag-start-btn" onclick="ebDiagStart()">Commencer mon diagnostic</button>\n    </div>\n  </div>\n\n  <div class="eb-diag-screen" data-screen="questions">\n    <div class="eb-diag-content">\n      <div class="eb-diag-eyebrow" id="ebQIntro"></div>\n      <div class="eb-diag-question" id="ebQTitle"></div>\n      <div id="ebQAnswers"></div>\n      <div class="eb-diag-nav">\n        <button class="eb-diag-back" id="ebBack" onclick="ebDiagBack()">Précédent</button>\n        <div class="eb-diag-count" id="ebCount"></div>\n      </div>\n    </div>\n  </div>\n\n  <div class="eb-diag-screen" data-screen="result">\n    <div class="eb-diag-content">\n      <div id="ebResultContent"></div>\n      <button class="eb-diag-restart" onclick="ebDiagRestart()">Refaire le diagnostic</button>\n    </div>\n  </div>\n</div>';
   document.body.appendChild(container);
 
   // Croix de fermeture : placée hors du panneau pour rester fixe à l'écran pendant le défilement
@@ -103,13 +103,85 @@
 
 (function(){
 
+// ═══════════════════════════════════════════════════════════════════════
+//  RÉGLAGES DU DIAGNOSTIC — tout ce qui peut se modifier est ici
+// ═══════════════════════════════════════════════════════════════════════
+
+// Adresse du Google Sheet (même script que la newsletter et les collaborations)
+var URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxQCXs8onhnmA1p_mbMHPWhlUF0x_sIxRiveilPYitjZExd70PZLilpMxflvT8ttTVa1Q/exec";
+
+// Les soins que le diagnostic peut conseiller (prix de secours : le prix réel est lu dans produits-data quand il est chargé)
+var SOINS = {
+  "radiance-serum":       { nom:"Radiance C Serum", why:"Soin éclat dynamisant à la vitamine C, antioxydant, unifie le teint", prix:"34,90€" },
+  "lumibloom-niac-5":     { nom:"Lumi-Bloom Niacinamide 5", why:"Régule le sébum, resserre les pores, unifie le teint et estompe les taches", prix:"34,90€" },
+  "gelee-lumibloom":      { nom:"Gelée Lumi-Bloom", why:"Prébiotique bioactif : répare la barrière cutanée et protège le microbiote de la peau", prix:"28,90€" },
+  "luminescence-jour":    { nom:"Luminescence Jour", why:"Hydratation intense et apaisante", prix:"34,90€" },
+  "luminescence-nuit":    { nom:"Luminescence Nuit", why:"Hydratation intense et effet fermeté pendant la nuit", prix:"34,90€" },
+  "lumiveil-cc-cream":    { nom:"Lumi-Veil CC Cream SPF 30", why:"Unifie le teint, protège du soleil et répare la barrière (céramides, beurre de cacao)", prix:"26,90€" },
+  "radiance-protect":     { nom:"Radiance Protect SPF 50", why:"Le geste à ne pas oublier : une protection solaire quotidienne", prix:"26,90€" },
+  "radiance-eye-cream":   { nom:"Radiance Eye Cream", why:"Le soin quotidien du contour de l'œil : hydrate, atténue poches et cernes, lisse les ridules", prix:"28,90€" },
+  "bright-glow-patch":            { nom:"Lumi-Eyes Bright & Glow", formule:"Patchs éclaircissants & lissants", why:"Niacinamide et acide hyaluronique : atténuent les cernes et lissent les ridules", prix:"28,90€" },
+  "bright-glow-decongestionnant": { nom:"Lumi-Eyes Bright & Glow", formule:"Patchs éclat décongestionnants", why:"Caféine et vitamine C : dégonflent les poches et réveillent l'éclat du regard", prix:"28,90€" },
+  "bright-glow-anti-fatigue":     { nom:"Lumi-Eyes Bright & Glow", formule:"Patchs anti-fatigue réconfortants", why:"Antioxydants et provitamine B5 : réconfortent un contour sec et effacent les signes de fatigue", prix:"28,90€" }
+};
+
+// Les routines ELKHA.B : proposées UNIQUEMENT si les soins conseillés forment exactement l'une d'elles
+var ROUTINES = [
+  { id:"routine-hydratation",      nom:"Routine Hydratation",        prix:"63€",    soins:["gelee-lumibloom","luminescence-jour"] },
+  { id:"routine-teint-protection", nom:"Routine Teint & Protection", prix:"61€",    soins:["radiance-serum","lumiveil-cc-cream"] },
+  { id:"rituel-luminescence",      nom:"Rituel Luminescence",        prix:"67,90€", soins:["luminescence-jour","luminescence-nuit"] },
+  { id:"routine-eclat",            nom:"Routine Éclat",              prix:"96€",    soins:["radiance-serum","luminescence-jour","lumiveil-cc-cream"] },
+  { id:"routine-equilibre",        nom:"Routine Équilibre",          prix:"90€",    soins:["lumibloom-niac-5","gelee-lumibloom","lumiveil-cc-cream"] },
+  { id:"routine-regard",           nom:"Routine Regard",             prix:"57€",    soins:["radiance-eye-cream","PATCH"] }
+];
+
+// VISAGE — le soin qui répond à chaque besoin (1 seul soin par besoin)
+var SOIN_PAR_BESOIN = {
+  radiance:    "radiance-serum",
+  sebum:       "lumibloom-niac-5",
+  texture:     "lumibloom-niac-5",
+  hydration:   "luminescence-jour",
+  sensitivity: "gelee-lumibloom",
+  barrier:     "gelee-lumibloom"
+};
+// VISAGE — duos particuliers (sinon : le soin du 1er besoin + celui du 2e)
+var DUOS = {
+  "radiance+sensitivity": ["radiance-serum", "luminescence-jour"],   // éclat + vraie hydratation derrière
+  "radiance+barrier":     ["radiance-serum", "lumiveil-cc-cream"]
+};
+// Peau TRÈS sensible ou irritée (score de sensibilité à partir de ce chiffre) : pas de vitamine C
+var SCORE_TRES_SENSIBLE = 4;
+var DUO_TRES_SENSIBLE_ECLAT = ["gelee-lumibloom", "lumiveil-cc-cream"];
+// Mention affichée sous Radiance C Serum quand la peau est sensible
+var MENTION_PEAU_SENSIBLE = "Peau sensible : intégrez-le progressivement, un jour sur deux au début. En cas de picotements, espacez les applications, voire arrêtez.";
+// VISAGE — peau équilibrée : un seul soin pour préserver cet équilibre
+var SOIN_PEAU_EQUILIBREE = "luminescence-jour";
+// VISAGE — le 2e besoin ne compte (texte + soin) que s'il atteint ce score
+var SCORE_MIN_2E_BESOIN = 2;
+// Ordre d'application des soins (du plus léger au plus enveloppant)
+var ORDRE = ["radiance-serum","lumibloom-niac-5","gelee-lumibloom","luminescence-jour","luminescence-nuit","lumiveil-cc-cream","radiance-eye-cream"];
+
+// REGARD — les signes proposés et les patchs qui y répondent
+var SIGNES = [
+  { k:"cernes",  t:"Des cernes",                         patch:"bright-glow-patch" },
+  { k:"poches",  t:"Des poches, un regard gonflé",       patch:"bright-glow-decongestionnant" },
+  { k:"ridules", t:"Des ridules",                        patch:"bright-glow-patch" },
+  { k:"sec",     t:"Un contour sec ou inconfortable",    patch:"bright-glow-anti-fatigue" },
+  { k:"fatigue", t:"Un regard fatigué",                  patch:"bright-glow-anti-fatigue" },
+  { k:"terne",   t:"Un regard terne, qui manque d'éclat", patch:"bright-glow-decongestionnant" }
+];
+// REGARD — selon la fréquence : patchs seuls, crème seule, ou les deux (= Routine Regard)
+var FREQUENCES = [
+  { k:"passagers", t:"Passagers : après une nuit courte ou une période chargée", soins:["PATCH"] },
+  { k:"legers",    t:"Présents au quotidien, mais légers",                       soins:["radiance-eye-cream"] },
+  { k:"marques",   t:"Présents au quotidien et bien marqués",                    soins:["radiance-eye-cream","PATCH"] }
+];
+
+// ═══════════════════════════════════════════════════════════════════════
+
 // Adresses : lues dans cart-engine.js (un seul endroit), avec une valeur de secours
 function ebDiagSiteUrl(name, fallback){
   return (window.EB_SITES && window.EB_SITES[name]) || fallback;
-}
-// Site sur lequel la cliente a lancé le diagnostic : détecté automatiquement depuis l'adresse
-function ebDiagCurrentSite(){
-  return window.EB_SITE_NAME || window.EB_DIAG_ORIGIN || 'accueil';
 }
 
 const questions = [
@@ -158,84 +230,193 @@ const questions = [
 ];
 
 const NEED_INFO = {
-  radiance:{ label:"un manque d'éclat", 
+  radiance:{ label:"un manque d'éclat",
     text:"Votre teint peut paraître terne ou irrégulier. La peau perd en luminosité lorsqu'elle est ralentie ou en manque de stimulation.",
     needs:["Relancer l'éclat naturel","Uniformiser le teint","Stimuler la peau en douceur"] },
-  sebum:{ label:"un excès de sébum", 
+  sebum:{ label:"un excès de sébum",
     text:"Votre peau produit plus de sébum que nécessaire, ce qui peut se traduire par des brillances et des pores plus marqués.",
     needs:["Réguler la production de sébum","Matifier sans assécher","Affiner le grain de peau"] },
-  hydration:{ label:"un manque d'hydratation", 
+  hydration:{ label:"un manque d'hydratation",
     text:"Votre peau manque d'eau, ce qui entraîne tiraillements et inconfort au quotidien.",
     needs:["Retenir durablement l'hydratation","Réconforter la peau sans l'alourdir","Restaurer la souplesse"] },
-  texture:{ label:"un grain de peau irrégulier", 
+  texture:{ label:"un grain de peau irrégulier",
     text:"Votre peau présente des irrégularités de surface : pores visibles, texture inégale ou petites imperfections.",
     needs:["Affiner le grain de peau","Resserrer l'apparence des pores","Unifier la surface de la peau"] },
-  sensitivity:{ label:"une sensibilité marquée", 
+  sensitivity:{ label:"une sensibilité marquée",
     text:"Votre peau réagit facilement aux changements extérieurs ou aux nouveaux soins — elle a besoin de douceur avant tout.",
     needs:["Apaiser les réactions cutanées","Renforcer la tolérance de la peau","Éviter la surcharge de soins"] },
-  barrier:{ label:"une barrière cutanée fragilisée", 
+  barrier:{ label:"une barrière cutanée fragilisée",
     text:"Votre barrière cutanée montre des signes de fragilité, ce qui explique inconfort, sensibilité ou déshydratation.",
     needs:["Restaurer la barrière cutanée","Protéger le microbiote de la peau","Retenir l'hydratation plus efficacement"] }
 };
 
-const PRODUCTS = [
-  {name:"Radiance C Serum", id:"radiance-serum", why:"Soin éclat dynamisant à la vitamine C, antioxydant, unifie le teint", tags:["radiance"]},
-  {name:"Lumi-Bloom Niacinamide 5", id:"lumibloom-niac-5", why:"Régule le sébum, resserre les pores, unifie le teint et estompe les taches", tags:["sebum","texture","radiance"]},
-  {name:"Luminescence Jour", id:"luminescence-jour", why:"Hydratation intense et apaisante", tags:["hydration","sensitivity"]},
-  {name:"Luminescence Nuit", id:"luminescence-nuit", why:"Hydratation intense et effet fermeté pendant la nuit", tags:["hydration"]},
-  {name:"Lumi-Veil CC Cream SPF 30", id:"lumiveil-cc-cream", why:"Protection solaire, réparation de la barrière (céramides, beurre de cacao) et hydratation intense", tags:["barrier","hydration"]},
-  {name:"Lumi-Bloom Prébiotique Bioactif", id:"gelee-lumibloom", why:"Répare la barrière cutanée et protège le microbiote de la peau", tags:["barrier","sensitivity"]}
-];
+// ── Styles des nouveautés (choix multiples, résultat, regard, e-mail) ──
+var css = document.createElement('style');
+css.textContent = ''
+  + '.eb-diag-acc-item.open .eb-diag-acc-body{max-height:4000px}'
+  + '.eb-diag-answer.eb-choisi{background:#fff;color:#000;border-color:#fff}'
+  + '.eb-diag-answer.eb-multi{position:relative;padding-left:52px}'
+  + '.eb-diag-answer.eb-multi:before{content:"";position:absolute;left:20px;top:50%;width:14px;height:14px;margin-top:-8px;border:1px solid currentColor}'
+  + '.eb-diag-answer.eb-multi.eb-choisi:after{content:"";position:absolute;left:25px;top:50%;width:4px;height:8px;margin-top:-7px;border:solid #000;border-width:0 2px 2px 0;transform:rotate(45deg)}'
+  + '.eb-diag-hint{font-size:12px;opacity:.55;margin:-18px 0 22px;letter-spacing:.02em}'
+  + '.eb-diag-valider{margin-top:8px}'
+  + '.eb-diag-valider[disabled]{opacity:.35;cursor:default;transform:none}'
+  + '.eb-diag-prix{font-weight:400;opacity:.65;white-space:nowrap}'
+  + '.eb-diag-formule{display:block;font-weight:400;font-size:12.5px;opacity:.75;margin-top:3px}'
+  + '.eb-diag-routine-card{display:block;background:#fff;color:#000;text-decoration:none;padding:24px 22px;margin-bottom:22px;transition:transform .2s ease}'
+  + '.eb-diag-routine-card:hover{transform:scale(1.02)}'
+  + '.eb-diag-routine-tag{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:8px}'
+  + '.eb-diag-routine-nom{font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}'
+  + '.eb-diag-routine-txt{font-size:12.5px;line-height:1.7;opacity:.75}'
+  + '.eb-diag-routine-cta{display:inline-block;margin-top:14px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:2px}'
+  + '.eb-diag-sous{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.5;margin:4px 0 14px}'
+  + '.eb-diag-gesture a{color:#fff}'
+  + '.eb-diag-alterner{font-size:12.5px;line-height:1.8;opacity:.65;margin:-4px 0 6px}'
+  + '.eb-diag-alterner a{color:#fff}'
+  + '.eb-diag-mail{margin-top:42px;padding:30px;background:#fff;color:#000}'
+  + '.eb-diag-mail h4{margin:0 0 8px !important;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}'
+  + '.eb-diag-mail p{font-size:13px;line-height:1.7;margin:0 0 18px;opacity:.75}'
+  + '.eb-diag-mail-champ{display:block;width:100%;box-sizing:border-box;height:50px;border:1px solid #000;background:#F6F4F0;padding:0 16px;font-family:Montserrat,sans-serif;font-size:16px;color:#000;border-radius:0;-webkit-appearance:none;outline:none;margin-bottom:14px}'
+  + '.eb-diag-mail-case{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.55;margin-bottom:18px;cursor:pointer}'
+  + '.eb-diag-mail-case input{margin:2px 0 0;width:16px;height:16px;accent-color:#000;flex-shrink:0}'
+  + '.eb-diag-mail-btn{display:block;width:100%;height:52px;border:0;background:#000;color:#fff;font-family:Montserrat,sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:0}'
+  + '.eb-diag-mail-btn[disabled]{opacity:.5;cursor:default}'
+  + '.eb-diag-mail-erreur{display:none;font-size:12px;color:#b3261e;margin:10px 0 0}'
+  + '.eb-diag-mail-mention{font-size:10.5px !important;opacity:.55 !important;margin:12px 0 0 !important}'
+  + '.eb-diag-mail-merci{display:none;text-align:center}'
+  + '.eb-diag-mail.eb-envoye .eb-diag-mail-form{display:none}'
+  + '.eb-diag-mail.eb-envoye .eb-diag-mail-merci{display:block}';
+document.head.appendChild(css);
 
-const ALWAYS_RECOMMEND = {name:"Radiance Protect SPF 50", id:"radiance-protect", why:"Le geste à ne pas oublier : une protection solaire quotidienne"};
-
-let current = 0;
+// ── État du diagnostic ──
+// Étapes : 0 à 5 = visage ; "rq" = proposition regard ; "r1" signes ; "r2" priorité ; "r3" fréquence
+let pile = [];              // étapes déjà vues (pour « Précédent »)
+let etape = 0;
+let reponses = [];          // réponse choisie à chaque question visage
+let regard = null;          // { signes:[], prio:"", freq:"" } ou null si pas de focus regard
 let scores = {};
+let dernierResultat = null; // ce qui part dans l'e-mail
 
 function ebShow(name){
   document.querySelectorAll('.eb-diag-screen').forEach(s=>s.classList.remove('active'));
   document.querySelector('[data-screen="'+name+'"]').classList.add('active');
 }
-function ebUpdateProgress(){
-  const pct = 8 + (current/questions.length)*92;
-  document.getElementById('ebProgressBar').style.width = Math.min(pct,100)+'%';
-}
-function ebFormatRemaining(remainingQuestions){
-  const totalSeconds = Math.max(remainingQuestions, 0) * 10;
-  if(totalSeconds <= 5){ return "Dernière question"; }
+function ebFormatRemaining(n){
+  const totalSeconds = Math.max(n, 0) * 10;
+  if(totalSeconds <= 10){ return "Dernière question"; }
   if(totalSeconds < 60){ return "Encore environ " + totalSeconds + " secondes"; }
   const minutes = Math.ceil(totalSeconds/60);
   return "Encore environ " + minutes + " minute" + (minutes>1?"s":"");
 }
-function ebRenderQuestion(){
-  const q = questions[current];
-  document.getElementById('ebQIntro').textContent = q.intro;
-  document.getElementById('ebQTitle').textContent = q.q;
-  document.getElementById('ebCount').textContent = ebFormatRemaining(questions.length - current);
-  document.getElementById('ebBack').style.visibility = current===0 ? 'hidden' : 'visible';
+function restantes(){
+  if(typeof etape === 'number') return (questions.length - etape);
+  if(etape === 'rq') return 1;
+  if(etape === 'r1') return 3;
+  if(etape === 'r2') return 2;
+  return 1;
+}
+function progression(){
+  var total = questions.length + (regard ? 4 : 1);
+  var fait = typeof etape === 'number' ? etape : ({rq:6, r1:7, r2:8, r3:9})[etape];
+  document.getElementById('ebProgressBar').style.width = Math.min(8 + (fait/total)*92, 100) + '%';
+}
+function remonter(){ var ov = document.getElementById('ebDiagOverlay'); if(ov) ov.scrollTop = 0; }
+
+function boutonReponse(texte, choisi, multi, action){
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'eb-diag-answer' + (multi ? ' eb-multi' : '') + (choisi ? ' eb-choisi' : '');
+  btn.textContent = texte;
+  btn.onclick = action;
+  return btn;
+}
+
+function ebRender(){
   const wrap = document.getElementById('ebQAnswers');
+  const intro = document.getElementById('ebQIntro');
+  const titre = document.getElementById('ebQTitle');
   wrap.innerHTML = '';
-  q.answers.forEach(a=>{
-    const btn = document.createElement('button');
-    btn.className = 'eb-diag-answer';
-    btn.textContent = a.t;
-    btn.onclick = function(){ ebAnswer(a.pts); };
-    wrap.appendChild(btn);
-  });
-  ebUpdateProgress();
+  document.getElementById('ebCount').textContent = ebFormatRemaining(restantes());
+  document.getElementById('ebBack').style.visibility = pile.length ? 'visible' : 'hidden';
+
+  if(typeof etape === 'number'){
+    const q = questions[etape];
+    intro.textContent = q.intro; titre.textContent = q.q;
+    q.answers.forEach(function(a, i){
+      wrap.appendChild(boutonReponse(a.t, reponses[etape] === i, false, function(){ reponses[etape] = i; avancer(etape < questions.length - 1 ? etape + 1 : 'rq'); }));
+    });
+  }
+  else if(etape === 'rq'){
+    intro.textContent = "Pour aller plus loin...";
+    titre.textContent = "Souhaitez-vous aussi faire le point sur votre regard ?";
+    wrap.appendChild(boutonReponse("Oui, faire le point sur mon regard", false, false, function(){ regard = regard || { signes:[], prio:'', freq:'' }; avancer('r1'); }));
+    wrap.appendChild(boutonReponse("Non, voir mon résultat", false, false, function(){ regard = null; terminer(); }));
+  }
+  else if(etape === 'r1'){
+    intro.textContent = "Autour de vos yeux...";
+    titre.textContent = "Qu'observez-vous ?";
+    const hint = document.createElement('div'); hint.className = 'eb-diag-hint'; hint.textContent = "Plusieurs réponses possibles";
+    wrap.appendChild(hint);
+    const valider = document.createElement('button');
+    valider.type = 'button'; valider.className = 'eb-diag-start-btn eb-diag-valider'; valider.textContent = 'Valider';
+    function maj(){ valider.disabled = regard.signes.length === 0; }
+    SIGNES.forEach(function(s){
+      const b = boutonReponse(s.t, regard.signes.indexOf(s.k) !== -1, true, function(){
+        const i = regard.signes.indexOf(s.k);
+        if(i === -1) regard.signes.push(s.k); else regard.signes.splice(i, 1);
+        b.classList.toggle('eb-choisi', i === -1);
+        maj();
+      });
+      wrap.appendChild(b);
+    });
+    valider.onclick = function(){
+      if(!regard.signes.length) return;
+      // On garde l'ordre de la liste
+      regard.signes = SIGNES.map(function(s){ return s.k; }).filter(function(k){ return regard.signes.indexOf(k) !== -1; });
+      if(regard.signes.length > 1){ avancer('r2'); }
+      else { regard.prio = regard.signes[0]; avancer('r3'); }
+    };
+    maj();
+    wrap.appendChild(valider);
+  }
+  else if(etape === 'r2'){
+    intro.textContent = "Parmi ce que vous avez remarqué...";
+    titre.textContent = "Lequel vous gêne le plus ?";
+    SIGNES.filter(function(s){ return regard.signes.indexOf(s.k) !== -1; }).forEach(function(s){
+      wrap.appendChild(boutonReponse(s.t, regard.prio === s.k, false, function(){ regard.prio = s.k; avancer('r3'); }));
+    });
+  }
+  else if(etape === 'r3'){
+    intro.textContent = "Au fil des jours...";
+    titre.textContent = "Ces signes sont plutôt :";
+    FREQUENCES.forEach(function(f){
+      wrap.appendChild(boutonReponse(f.t, regard.freq === f.k, false, function(){ regard.freq = f.k; terminer(); }));
+    });
+  }
+  progression();
 }
+function avancer(suivante){ pile.push(etape); etape = suivante; ebRender(); remonter(); }
+
 function ebDiagStart(){
-  current = 0;
-  scores = {radiance:0, sebum:0, hydration:0, texture:0, sensitivity:0, barrier:0};
+  pile = []; etape = 0; reponses = []; regard = null;
   ebShow('questions');
-  ebRenderQuestion();
+  ebRender();
 }
-function ebAnswer(pts){
-  Object.keys(pts).forEach(k=>{ scores[k] = (scores[k]||0) + pts[k]; });
-  if(current < questions.length - 1){ current++; ebRenderQuestion(); }
-  else { ebShowResult(false); }
+function ebDiagBack(){
+  if(!pile.length) return;
+  etape = pile.pop();
+  if(etape === 'rq') regard = null;
+  ebRender();
 }
-function ebDiagBack(){ if(current>0){ current--; ebRenderQuestion(); } }
+function calculerScores(){
+  scores = {radiance:0, sebum:0, hydration:0, texture:0, sensitivity:0, barrier:0};
+  reponses.forEach(function(i, q){
+    if(i == null || !questions[q]) return;
+    var pts = questions[q].answers[i].pts;
+    Object.keys(pts).forEach(function(k){ scores[k] += pts[k]; });
+  });
+}
+function terminer(){ calculerScores(); ebShowResult(false); }
 
 function ebDiagAccToggle(headerEl){
   const item = headerEl.parentElement;
@@ -246,14 +427,76 @@ function ebDiagAccToggle(headerEl){
 }
 window.ebDiagAccToggle = ebDiagAccToggle;
 
+// ── Choix des soins ──
+function prixDe(id, secours){
+  var p = window.EB_PRODUITS && window.EB_PRODUITS[id];
+  return String((p && p.prix) || secours || '').replace(/\s*€$/, ' €');
+}
+function routineQuiCorrespond(liste){
+  var tri = liste.slice().sort().join('|');
+  for(var i = 0; i < ROUTINES.length; i++){
+    if(ROUTINES[i].soins.slice().sort().join('|') === tri) return ROUTINES[i];
+  }
+  return null;
+}
+function besoinsVisage(){
+  const ranked = Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
+  const top = [];
+  if(scores[ranked[0]] > 0) top.push(ranked[0]);
+  if(top.length && scores[ranked[1]] >= SCORE_MIN_2E_BESOIN) top.push(ranked[1]);
+  return top;
+}
+function soinsVisage(top){
+  if(!top.length) return [SOIN_PEAU_EQUILIBREE];
+  var duo = DUOS[top.join('+')] || DUOS[top.slice().reverse().join('+')];
+  if(top.indexOf('radiance') !== -1 && top.indexOf('sensitivity') !== -1 && scores.sensitivity >= SCORE_TRES_SENSIBLE) duo = DUO_TRES_SENSIBLE_ECLAT;
+  var liste = duo ? duo.slice() : top.map(function(k){ return SOIN_PAR_BESOIN[k]; });
+  liste = liste.filter(function(id, i){ return liste.indexOf(id) === i; }).slice(0, 3);
+  return liste.sort(function(a, b){ return ORDRE.indexOf(a) - ORDRE.indexOf(b); });
+}
+function soinsRegard(){
+  if(!regard || !regard.freq) return null;
+  var signe = SIGNES.filter(function(s){ return s.k === regard.prio; })[0] || SIGNES[0];
+  var patch = signe.patch;
+  var freq = FREQUENCES.filter(function(f){ return f.k === regard.freq; })[0];
+  var liste = freq.soins.map(function(id){ return id === 'PATCH' ? patch : id; });
+  // Autre formule de patchs utile pour les autres signes cochés (seulement si des patchs sont conseillés)
+  var autres = [];
+  if(liste.indexOf(patch) !== -1){
+    SIGNES.forEach(function(s){ if(regard.signes.indexOf(s.k) !== -1 && s.patch !== patch && autres.indexOf(s.patch) === -1) autres.push(s.patch); });
+  }
+  var routine = (liste.length === 2) ? ROUTINES.filter(function(r){ return r.id === 'routine-regard'; })[0] : null;
+  return { soins: liste, patch: patch, autres: autres, routine: routine };
+}
+
+// ── Affichage ──
+function lienFiche(id){ return ebDiagSiteUrl('bloom', 'https://bloom.elkhab.com/') + '?fiche=' + encodeURIComponent(id); }
+function carteSoin(id){
+  var s = SOINS[id] || { nom:id, why:'' };
+  return '<a class="eb-diag-product" data-diag-fiche="'+id+'" href="'+lienFiche(id)+'" style="text-decoration:none;color:inherit;display:block">'
+    + '<div class="eb-diag-product-name">'+s.nom+(s.formule ? '<span class="eb-diag-formule">'+s.formule+'</span>' : '')+'</div>'
+    + '<div class="eb-diag-product-why">'+s.why+'</div>'
+    + (id === 'radiance-serum' && scores.sensitivity > 0 ? '<div class="eb-diag-product-why" style="margin-top:10px;font-style:italic">'+MENTION_PEAU_SENSIBLE+'</div>' : '')
+    + '<div class="eb-diag-product-why" style="margin-top:10px"><span class="eb-diag-prix">'+prixDe(id, s.prix)+'</span> &nbsp;→</div></a>';
+}
+function carteRoutine(r, texte){
+  return '<a class="eb-diag-routine-card" data-diag-fiche="'+r.id+'" href="'+lienFiche(r.id)+'">'
+    + '<div class="eb-diag-routine-tag">La routine ELKHA.B qui vous correspond</div>'
+    + '<div class="eb-diag-routine-nom">'+r.nom+' · '+prixDe(r.id, r.prix)+'</div>'
+    + '<div class="eb-diag-routine-txt">'+texte+'</div>'
+    + '<span class="eb-diag-routine-cta">Découvrir la routine</span></a>';
+}
+function nomCourt(id){ var s = SOINS[id]; return s ? (s.formule ? s.nom + ' — ' + s.formule : s.nom) : id; }
+
 // openRoutine = true : au retour d'une fiche produit, on rouvre directement "Routine recommandée"
 function ebShowResult(openRoutine){
-  const ranked = Object.keys(scores).sort((a,b)=>scores[b]-scores[a]);
-  const top = ranked.filter(k=>scores[k] > 0).slice(0,2);
+  const top = besoinsVisage();
+  const visage = soinsVisage(top);
+  const routineVisage = routineQuiCorrespond(visage);
+  const yeux = soinsRegard();
 
   let revealHtml = '';
   let needsHtml = '';
-
   if(top.length === 0){
     revealHtml += '<div class="eb-diag-result-headline">Votre peau est équilibrée.</div>';
     revealHtml += '<p>Un bon équilibre est précieux, l\'objectif est de le préserver. Votre peau est globalement stable et confortable. Elle tolère bien les soins et ne réagit pas facilement.</p>';
@@ -262,7 +505,6 @@ function ebShowResult(openRoutine){
     const headline = top.map(k=>NEED_INFO[k].label).join(' et ');
     revealHtml += '<div class="eb-diag-result-headline">Votre peau présente '+headline+'.</div>';
     top.forEach(k=>{ revealHtml += '<p>'+NEED_INFO[k].text+'</p>'; });
-
     needsHtml += '<ul class="eb-diag-result-needs-list">';
     const needsSet = [];
     top.forEach(k=>NEED_INFO[k].needs.forEach(n=>{ if(needsSet.indexOf(n)===-1) needsSet.push(n); }));
@@ -270,25 +512,34 @@ function ebShowResult(openRoutine){
     needsHtml += '</ul>';
   }
 
-  let candidates = top.length === 0
-    ? PRODUCTS.filter(p=>p.tags.indexOf('radiance')!==-1 || p.tags.indexOf('hydration')!==-1)
-    : PRODUCTS.filter(p=>p.tags.some(t=>top.indexOf(t)!==-1));
-
-  candidates.sort(function(a,b){
-    const scoreA = a.tags.filter(function(t){ return top.indexOf(t)!==-1; }).length;
-    const scoreB = b.tags.filter(function(t){ return top.indexOf(t)!==-1; }).length;
-    return scoreB - scoreA;
-  });
-
-  const selected = candidates.slice(0,3);
-  // Chaque soin recommandé ouvre sa fiche en panneau (sur Bloom si le catalogue n'est pas chargé)
-  const bloomBase = ebDiagSiteUrl('bloom', 'https://bloom.elkhab.com/');
+  // Visage : la routine si les soins en forment exactement une, sinon les soins un par un
   let routineHtml = '';
-  selected.forEach(p=>{
-    const href = bloomBase + '?fiche=' + encodeURIComponent(p.id);
-    routineHtml += '<a class="eb-diag-product" data-diag-fiche="'+p.id+'" href="'+href+'" style="text-decoration:none;color:inherit;display:block"><div class="eb-diag-product-name">'+p.name+' →</div><div class="eb-diag-product-why">'+p.why+'</div></a>';
-  });
-  routineHtml += '<div class="eb-diag-gesture">'+ALWAYS_RECOMMEND.why+'</div>';
+  if(yeux) routineHtml += '<div class="eb-diag-sous">Votre visage</div>';
+  if(routineVisage){
+    routineHtml += carteRoutine(routineVisage, 'Les ' + (['','','deux','trois'][visage.length] || visage.length) + ' soins dont votre peau a besoin, réunis dans une routine. Vous pouvez aussi les choisir un par un :');
+  }
+  visage.forEach(function(id){ routineHtml += carteSoin(id); });
+  routineHtml += '<div class="eb-diag-gesture">Le geste à ne pas oublier : une protection solaire quotidienne, avec <a href="'+lienFiche('radiance-protect')+'" data-diag-fiche="radiance-protect">Radiance Protect SPF 50</a>.</div>';
+
+  // Regard
+  if(yeux){
+    routineHtml += '<div class="eb-diag-sous" style="margin-top:36px">Votre regard</div>';
+    if(yeux.routine){
+      routineHtml += carteRoutine(yeux.routine, 'Radiance Eye Cream au quotidien, et les ' + SOINS[yeux.patch].formule.toLowerCase() + ' 1 à 2 fois par semaine. Formule à choisir dans la routine.');
+    }
+    yeux.soins.forEach(function(id){ routineHtml += carteSoin(id); });
+    if(yeux.autres.length){
+      routineHtml += '<div class="eb-diag-alterner">Vous pouvez aussi alterner avec ' + yeux.autres.map(function(id){ return '<a href="'+lienFiche(id)+'" data-diag-fiche="'+id+'">les '+SOINS[id].formule.toLowerCase()+'</a>'; }).join(' ou ') + '.</div>';
+    }
+  }
+
+  dernierResultat = {
+    besoins: top,
+    soins: visage,
+    routine: routineVisage ? routineVisage.id : '',
+    sensible: scores.sensitivity > 0,
+    regard: yeux ? { signes: regard.signes, prio: regard.prio, freq: regard.freq, soins: yeux.soins, autres: yeux.autres, routine: yeux.routine ? yeux.routine.id : '' } : null
+  };
 
   let html = '';
   html += '<div class="eb-diag-result-eyebrow">Ce que révèle votre peau</div>';
@@ -302,12 +553,28 @@ function ebShowResult(openRoutine){
   html += '    <div class="eb-diag-acc-body"><div class="eb-diag-acc-body-inner">'+needsHtml+'</div></div>';
   html += '  </div>';
   html += '  <div class="eb-diag-acc-item" id="ebDiagRoutineItem">';
-  html += '    <div class="eb-diag-acc-header" onclick="ebDiagAccToggle(this)"><h4>Routine recommandée</h4><span class="eb-diag-acc-icon">+</span></div>';
+  html += '    <div class="eb-diag-acc-header" onclick="ebDiagAccToggle(this)"><h4>'+'Vos soins recommandés'+'</h4><span class="eb-diag-acc-icon">+</span></div>';
   html += '    <div class="eb-diag-acc-body"><div class="eb-diag-acc-body-inner">'+routineHtml+'</div></div>';
   html += '  </div>';
   html += '</div>';
 
   html += '<div class="eb-diag-approach"><h4 style="margin-top:0">L\'approche ELKHA.B</h4><p>Chaque peau est écoutée avant d\'être traitée : on répare et on apaise ce qui doit l\'être, puis on révèle l\'éclat naturel — jamais l\'inverse.</p></div>';
+
+  // Recevoir sa routine par e-mail
+  var dejaCercle = /(?:^|;\s*)ebn_inscrite=/.test(document.cookie);
+  html += '<div class="eb-diag-mail" id="ebDiagMail">'
+    + '<div class="eb-diag-mail-form">'
+    +   '<h4>Votre routine par e-mail</h4>'
+    +   '<p>Gardez votre diagnostic et vos soins conseillés à portée de main.</p>'
+    +   '<input class="eb-diag-mail-champ" id="ebDiagMailChamp" type="email" placeholder="Votre adresse e-mail" autocomplete="email">'
+    +   (dejaCercle ? '' : '<label class="eb-diag-mail-case"><input type="checkbox" id="ebDiagMailCercle"><span>Je souhaite aussi rejoindre le cercle ELKHA.B : nouveautés en avant-première, conseils et avantages réservés.</span></label>')
+    +   '<button type="button" class="eb-diag-mail-btn" id="ebDiagMailBtn">Recevoir ma routine</button>'
+    +   '<div class="eb-diag-mail-erreur" id="ebDiagMailErreur">Merci d\'indiquer une adresse e-mail valide.</div>'
+    +   '<p class="eb-diag-mail-mention">Votre adresse sert uniquement à vous envoyer votre routine' + (dejaCercle ? '' : ', et nos e-mails si vous rejoignez le cercle') + '.</p>'
+    + '</div>'
+    + '<div class="eb-diag-mail-merci"><h4>C\'est envoyé !</h4><p style="margin:0">Votre routine arrive dans votre boîte e-mail d\'ici quelques minutes. Pensez à regarder dans les courriers indésirables.</p></div>'
+    + '</div>';
+
   html += '<div class="eb-diag-final">';
   html += '  <div class="eb-diag-footnote">Votre peau évolue avec le temps. Ce diagnostic reflète ses besoins aujourd\'hui. N\'hésitez pas à le refaire dans quelques mois si vos préoccupations changent.</div>';
   html += '  <a class="eb-diag-cta" href="'+ebDiagSiteUrl('bloom', 'https://bloom.elkhab.com/')+'">Voir tous nos soins</a>';
@@ -316,21 +583,66 @@ function ebShowResult(openRoutine){
   document.getElementById('ebResultContent').innerHTML = html;
   document.getElementById('ebProgressBar').style.width = '100%';
   ebShow('result');
+  brancherMail();
 
-  if(openRoutine){
-    const overlay = document.getElementById('ebDiagOverlay');
-    const routineItem = document.getElementById('ebDiagRoutineItem');
-    if(routineItem){
-      routineItem.classList.add('open');
-      // On fait défiler le diagnostic jusqu'à la routine pour qu'elle soit visible tout de suite
-      setTimeout(function(){
-        if(overlay){ overlay.scrollTop = Math.max(0, routineItem.offsetTop - 90); }
-      }, 60);
-    }
-  } else {
-    const overlay = document.getElementById('ebDiagOverlay');
-    if(overlay){ overlay.scrollTop = 0; }
+  const overlay = document.getElementById('ebDiagOverlay');
+  const routineItem = document.getElementById('ebDiagRoutineItem');
+  if(openRoutine && routineItem){
+    routineItem.classList.add('open');
+    setTimeout(function(){ if(overlay){ overlay.scrollTop = Math.max(0, routineItem.offsetTop - 90); } }, 60);
+  } else if(overlay){ overlay.scrollTop = 0; }
+}
+
+// ── Envoi de l'e-mail « Votre routine » ──
+function prixAffiches(){
+  var r = dernierResultat, ids = r.soins.concat(['radiance-protect']);
+  if(r.routine) ids.push(r.routine);
+  if(r.regard){ ids = ids.concat(r.regard.soins, r.regard.autres); if(r.regard.routine) ids.push(r.regard.routine); }
+  var o = {};
+  ids.forEach(function(id){
+    var s = SOINS[id] || ROUTINES.filter(function(x){ return x.id === id; })[0] || {};
+    o[id] = prixDe(id, s.prix);
+  });
+  return o;
+}
+function brancherMail(){
+  var bloc = document.getElementById('ebDiagMail');
+  var champ = document.getElementById('ebDiagMailChamp');
+  var btn = document.getElementById('ebDiagMailBtn');
+  var erreur = document.getElementById('ebDiagMailErreur');
+  if(!bloc || !btn) return;
+  function envoyer(){
+    var email = champ.value.trim();
+    var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    erreur.textContent = 'Merci d\'indiquer une adresse e-mail valide.';
+    erreur.style.display = ok ? 'none' : 'block';
+    if(!ok || !dernierResultat) return;
+    var caseCercle = document.getElementById('ebDiagMailCercle');
+    var cercle = !!(caseCercle && caseCercle.checked);
+    btn.disabled = true; btn.textContent = 'Envoi en cours…';
+    var donnees = {
+      type: 'diagnostic', email: email, cercle: cercle,
+      resultat: dernierResultat,
+      prix: prixAffiches(),
+      site: window.EB_SITE_NAME || location.hostname, page: location.href, envoye_le: new Date().toISOString()
+    };
+    fetch(URL_SCRIPT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(donnees) })
+      .then(function(r){ return r.json(); })
+      .then(function(rep){
+        if(!rep || !rep.ok) throw new Error((rep && rep.raison) || 'erreur');
+        if(cercle){ document.cookie = 'ebn_inscrite=1; max-age=' + (3650*86400) + '; path=/; domain=.elkhab.com; SameSite=Lax'; }
+        bloc.classList.add('eb-envoye');
+      })
+      .catch(function(err){
+        btn.disabled = false; btn.textContent = 'Recevoir ma routine';
+        erreur.textContent = (err && err.message === 'limite')
+          ? 'Vous avez déjà reçu votre routine deux fois aujourd\'hui. Pensez à regarder dans les courriers indésirables.'
+          : 'L\'envoi n\'a pas abouti. Merci de réessayer dans un instant.';
+        erreur.style.display = 'block';
+      });
   }
+  btn.addEventListener('click', envoyer);
+  champ.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); envoyer(); } });
 }
 
 function ebDiagRestart(){ ebShow('intro'); document.getElementById('ebProgressBar').style.width='0%'; }
@@ -352,6 +664,7 @@ function ebDiagOpenWithScores(scoresArr){
   const keys = ['radiance','sebum','hydration','texture','sensitivity','barrier'];
   scores = {};
   keys.forEach(function(k,i){ scores[k] = scoresArr[i] || 0; });
+  regard = null;
   document.getElementById('ebDiagOverlay').classList.add('open');
   ebDiagShowClose(true);
   ebShowResult(true);
