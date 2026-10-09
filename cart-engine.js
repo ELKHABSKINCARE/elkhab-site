@@ -364,6 +364,18 @@ async function ebCartUpdateLineQuantity(lineId, newQuantity){
 }
 
 // Code promo : Shopify vérifie le code et calcule lui-même la réduction (le site n'invente jamais un pourcentage)
+// Mode diagnostic : ajouter ?promo=debug à l'adresse pour voir la réponse brute de Shopify sous le champ
+async function ebCartDebugCode(codes){
+  const mutation = `mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]) {
+    cartDiscountCodesUpdate(cartId: $cartId, discountCodes: $discountCodes) {
+      cart { discountCodes { code applicable } cost { subtotalAmount { amount } totalAmount { amount } } }
+      userErrors { field message code }
+      warnings { code message target }
+    }
+  }`;
+  return shopifyFetch(mutation, { cartId: cartId, discountCodes: codes });
+}
+
 async function ebCartSetCode(codes){
   const mutation = `mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]) {
     cartDiscountCodesUpdate(cartId: $cartId, discountCodes: $discountCodes) { cart { ${CART_FIELDS} } userErrors { field message } }
@@ -470,6 +482,13 @@ function ebCartPromoZone(cart, reduction){
       if(!code || !cartId) return;
       btn.disabled = true; btn.textContent = '…';
       try {
+        if(/[?&]promo=debug/.test(location.search)){
+          const brut = await ebCartDebugCode([code]);
+          err.style.cssText = 'display:block;color:#000;font-size:10px;word-break:break-all;white-space:pre-wrap;max-height:220px;overflow:auto;background:#fff;border:1px solid #ddd;padding:6px';
+          err.textContent = 'DIAGNOSTIC — ' + JSON.stringify(brut, null, 1);
+          btn.disabled = false; btn.textContent = 'Appliquer';
+          return;
+        }
         const c = await ebCartSetCode([code]);
         const dc = c && (c.discountCodes || []).filter(function(d){ return d.code.toUpperCase() === code; })[0];
         if(c && dc && dc.applicable){
