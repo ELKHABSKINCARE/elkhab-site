@@ -1,3 +1,4 @@
+/* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 (function(){
 
 const SHOPIFY_DOMAIN = 'fyjy1d-t8.myshopify.com';
@@ -279,12 +280,15 @@ const CART_FIELDS = `
   id
   checkoutUrl
   totalQuantity
-  cost { subtotalAmount { amount currencyCode } }
+  cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } }
+  discountCodes { code applicable }
+  discountAllocations { discountedAmount { amount } }
   lines(first: 50) {
     edges {
       node {
         id
         quantity
+        discountAllocations { discountedAmount { amount } }
         merchandise {
           ... on ProductVariant {
             id
@@ -359,6 +363,15 @@ async function ebCartUpdateLineQuantity(lineId, newQuantity){
   return result.data && result.data.cartLinesUpdate && result.data.cartLinesUpdate.cart;
 }
 
+// Code promo : Shopify vérifie le code et calcule lui-même la réduction (le site n'invente jamais un pourcentage)
+async function ebCartSetCode(codes){
+  const mutation = `mutation cartDiscountCodesUpdate($cartId: ID!, $discountCodes: [String!]) {
+    cartDiscountCodesUpdate(cartId: $cartId, discountCodes: $discountCodes) { cart { ${CART_FIELDS} } userErrors { field message } }
+  }`;
+  const result = await shopifyFetch(mutation, { cartId: cartId, discountCodes: codes });
+  return result && result.data && result.data.cartDiscountCodesUpdate && result.data.cartDiscountCodesUpdate.cart;
+}
+
 async function ebCartFetch(){
   if(!cartId) return null;
   const query = `query cart($id: ID!) { cart(id: $id) { ${CART_FIELDS} } }`;
@@ -416,6 +429,11 @@ function ebCartLivraison(sousTotal){
   }
   if(!sousTotal){ zone.style.display = 'none'; return; }
   zone.style.display = 'block';
+  // Petite précision quand aucun code n'est appliqué dans le panier
+  let note = zone.querySelector('.eb-cart-livraison-note');
+  if(!note){ note = document.createElement('div'); note.className = 'eb-cart-livraison-note'; zone.appendChild(note); }
+  note.textContent = ebCartCodeActif ? '' : 'Montant calculé avant code de réduction';
+  note.style.display = ebCartCodeActif ? 'none' : 'block';
   const reste = EB_SEUIL_LIVRAISON - sousTotal;
   const txt = zone.querySelector('.eb-cart-livraison-txt');
   if(reste > 0){
@@ -424,6 +442,65 @@ function ebCartLivraison(sousTotal){
     txt.innerHTML = '<strong>La livraison vous est offerte</strong> ✓';
   }
   zone.querySelector('.eb-cart-livraison-barre span').style.width = Math.min(100, Math.round(sousTotal / EB_SEUIL_LIVRAISON * 100)) + '%';
+}
+
+// ── Champ « Code promo » dans le panier ──
+let ebCartCodeActif = '';
+function ebCartPromoZone(cart, reduction){
+  const footer = document.querySelector('#ebCartPanel .eb-cart-footer');
+  if(!footer) return;
+  let zone = document.getElementById('ebCartPromo');
+  if(!zone){
+    zone = document.createElement('div');
+    zone.id = 'ebCartPromo';
+    zone.className = 'eb-cart-promo';
+    zone.innerHTML = '<button type="button" class="eb-cart-promo-lien">Vous avez un code promo ?</button>'
+      + '<div class="eb-cart-promo-form"><input type="text" placeholder="Votre code" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button">Appliquer</button></div>'
+      + '<div class="eb-cart-promo-err"></div>'
+      + '<div class="eb-cart-promo-ok"><span>Code <strong></strong> appliqué · <span class="eb-cart-promo-montant"></span></span><button type="button" class="eb-cart-promo-retirer">Retirer</button></div>';
+    const total = footer.querySelector('.eb-cart-total');
+    footer.insertBefore(zone, total || null);
+    const champ = zone.querySelector('input');
+    const btn = zone.querySelector('.eb-cart-promo-form button');
+    const err = zone.querySelector('.eb-cart-promo-err');
+    zone.querySelector('.eb-cart-promo-lien').addEventListener('click', function(){ zone.classList.toggle('ouvert'); if(zone.classList.contains('ouvert')) champ.focus(); });
+    async function appliquer(){
+      const code = champ.value.trim().toUpperCase();
+      err.style.display = 'none';
+      if(!code || !cartId) return;
+      btn.disabled = true; btn.textContent = '…';
+      try {
+        const c = await ebCartSetCode([code]);
+        const dc = c && (c.discountCodes || []).filter(function(d){ return d.code.toUpperCase() === code; })[0];
+        if(c && dc && dc.applicable){
+          champ.value = '';
+          ebRenderCart(c);
+        } else {
+          if(c){ const c2 = await ebCartSetCode([]); if(c2) ebRenderCart(c2); }
+          err.textContent = 'Ce code n\'est pas valide ou ne s\'applique pas à votre panier.';
+          err.style.display = 'block';
+        }
+      } catch(e){
+        err.textContent = 'Un souci est survenu. Merci de réessayer.';
+        err.style.display = 'block';
+      }
+      btn.disabled = false; btn.textContent = 'Appliquer';
+    }
+    btn.addEventListener('click', appliquer);
+    champ.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); appliquer(); } });
+    zone.querySelector('.eb-cart-promo-retirer').addEventListener('click', async function(){
+      const c = await ebCartSetCode([]);
+      if(c) ebRenderCart(c);
+    });
+  }
+  if(!cart || !cart.lines.edges.length){ zone.style.display = 'none'; return; }
+  zone.style.display = 'block';
+  zone.classList.toggle('applique', !!ebCartCodeActif);
+  if(ebCartCodeActif){
+    zone.querySelector('.eb-cart-promo-ok strong').textContent = ebCartCodeActif;
+    zone.querySelector('.eb-cart-promo-montant').textContent = reduction > 0 ? '−' + ebFormatPrice(reduction) : 'offre appliquée';
+    zone.classList.remove('ouvert');
+  }
 }
 
 // Styles des miniatures du panier (ajoutés une seule fois)
@@ -440,7 +517,21 @@ function ebCartStylePhotos(){
     + '.eb-cart-livraison-txt{font-family:Montserrat,sans-serif;font-size:11.5px;font-weight:400;letter-spacing:.02em;margin-bottom:8px;text-align:center}'
     + '.eb-cart-livraison-txt strong{font-weight:600}'
     + '.eb-cart-livraison-barre{height:3px;background:#EBE5DB;overflow:hidden}'
-    + '.eb-cart-livraison-barre span{display:block;height:100%;width:0;background:#141414;transition:width .6s ease}';
+    + '.eb-cart-livraison-barre span{display:block;height:100%;width:0;background:#141414;transition:width .6s ease}'
+    + '.eb-cart-livraison-note{font-family:Montserrat,sans-serif;font-size:9.5px;font-weight:300;opacity:.5;text-align:center;margin-top:6px}'
+    + '.eb-cart-promo{margin:0 0 14px;font-family:Montserrat,sans-serif}'
+    + '.eb-cart-promo-lien{background:none;border:0;padding:0;font-family:Montserrat,sans-serif;font-size:11.5px;font-weight:400;color:#000;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(0,0,0,.35);cursor:pointer}'
+    + '.eb-cart-promo-form{display:none;gap:0;margin-top:10px}'
+    + '.eb-cart-promo.ouvert .eb-cart-promo-form{display:flex}'
+    + '.eb-cart-promo-form input{flex:1;min-width:0;height:42px;border:1px solid #000;border-right:0;background:#fff;padding:0 12px;font-family:Montserrat,sans-serif;font-size:16px;letter-spacing:.06em;text-transform:uppercase;border-radius:0;-webkit-appearance:none;outline:none;color:#000}'
+    + '.eb-cart-promo-form button{height:42px;border:1px solid #000;background:#000;color:#fff;padding:0 16px;font-family:Montserrat,sans-serif;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;border-radius:0}'
+    + '.eb-cart-promo-form button[disabled]{opacity:.5}'
+    + '.eb-cart-promo-err{display:none;font-size:11px;color:#b3261e;margin-top:6px}'
+    + '.eb-cart-promo-ok{display:none;justify-content:space-between;align-items:center;font-size:12px}'
+    + '.eb-cart-promo-ok strong{font-weight:600;letter-spacing:.04em}'
+    + '.eb-cart-promo-retirer{background:none;border:0;padding:0 0 0 10px;font-family:Montserrat,sans-serif;font-size:11px;color:#000;opacity:.6;text-decoration:underline;cursor:pointer}'
+    + '.eb-cart-promo.applique .eb-cart-promo-lien,.eb-cart-promo.applique .eb-cart-promo-form{display:none}'
+    + '.eb-cart-promo.applique .eb-cart-promo-ok{display:flex}';
   document.head.appendChild(st);
 }
 
@@ -467,7 +558,9 @@ function ebRenderCart(cart, attemptsLeft){
   if(!cart || cart.lines.edges.length === 0){
     itemsEl.innerHTML = '<div class="eb-cart-empty">Votre panier est vide.</div>';
     totalEl.textContent = ebFormatPrice(0);
+    ebCartCodeActif = '';
     ebCartLivraison(0);
+    ebCartPromoZone(null, 0);
     return;
   }
 
@@ -491,8 +584,20 @@ function ebRenderCart(cart, attemptsLeft){
     html += '</div></div></div>';
   });
   itemsEl.innerHTML = html;
-  totalEl.textContent = ebFormatPrice(cart.cost.subtotalAmount.amount);
-  ebCartLivraison(parseFloat(cart.cost.subtotalAmount.amount));
+  // Réductions (code promo) : sur les articles et sur la commande, calculées par Shopify
+  let reduction = 0;
+  (cart.discountAllocations || []).forEach(function(a){ reduction += parseFloat(a.discountedAmount.amount) || 0; });
+  cart.lines.edges.forEach(function(e){ (e.node.discountAllocations || []).forEach(function(a){ reduction += parseFloat(a.discountedAmount.amount) || 0; }); });
+  const codeOk = (cart.discountCodes || []).filter(function(d){ return d.applicable; })[0];
+  ebCartCodeActif = codeOk ? codeOk.code.toUpperCase() : '';
+  let brut = 0;
+  cart.lines.edges.forEach(function(e){ brut += (parseFloat(e.node.merchandise.price.amount) || 0) * e.node.quantity; });
+  const aPayer = Math.max(0, Math.round((brut - reduction) * 100) / 100);
+  totalEl.textContent = ebFormatPrice(aPayer);
+  const libelle = totalEl.parentElement && totalEl.parentElement.firstElementChild;
+  if(libelle && libelle !== totalEl) libelle.textContent = reduction > 0 ? 'Total' : 'Sous-total';
+  ebCartPromoZone(cart, reduction);
+  ebCartLivraison(aPayer);
 }
 
 window.ebCartRemoveClick = async function(lineId, currentQuantity){
