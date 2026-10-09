@@ -1,3 +1,4 @@
+/* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 /* ═══════════════════════════════════════════════════════════════════════
    ELKHA.B — ESPACE AMBASSADRICE / COLLABORATIONS (collab-engine.js)
    Un lien vers « #collaboration » (ou l'adresse …/?collab=1) ouvre le panneau :
@@ -21,7 +22,7 @@ var TIKTOK = "https://www.tiktok.com/@elkha.b";
 var BANNIERE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200";
 
 // Version de l'accord : à changer si tu modifies le texte de l'accord
-var VERSION_ACCORD = "Accord de collaboration ELKHA.B — version du 7 octobre 2026";
+var VERSION_ACCORD = "Accord de collaboration ELKHA.B — version du 9 octobre 2026";
 
 // CONTENUS ATTENDUS (obligatoire: true / false)
 var CONTENUS = [
@@ -31,6 +32,8 @@ var CONTENUS = [
     texte: "Une vidéo face caméra intégrant le produit dans votre routine de soin. Nous souhaitons mettre en avant la texture, l'application, les sensations sur la peau, le parfum ainsi que votre ressenti lors de la première utilisation, en toute authenticité." },
   { titre: "Vidéo retour d'expérience", delai: "sous 14 jours", obligatoire: true,
     texte: "Après une période d'utilisation, une vidéo face caméra présentant votre retour d'expérience sincère. Nous souhaitons connaître votre avis sur le produit, les résultats observés, ce que vous avez particulièrement apprécié, ainsi que votre recommandation auprès de votre communauté, en toute transparence." },
+  { titre: "Avis sur le site ELKHA.B", delai: "sous 21 jours", obligatoire: true,
+    texte: "À la fin de votre expérience, un avis sincère laissé directement sur le site, sur la fiche du soin que vous avez utilisé (bouton « Laisser un avis »). Votre ressenti, positif ou non, aide nos futures clientes à choisir en confiance." },
   { titre: "Vidéo retour d'expérience après 2 mois", delai: "", obligatoire: false,
     texte: "Une vidéo face caméra relatant les changements constatés après cette période d'utilisation, ou tout autre contenu selon votre créativité et vos idées, si vous souhaitez aller plus loin avec ELKHA.B." }
 ];
@@ -59,15 +62,32 @@ Le non-respect des engagements pris dans le cadre de cette collaboration pourra 
 # Réutilisation des contenus
 Dans le cadre de la présente collaboration, l'ambassadrice autorise ELKHA.B à partager, republier, reproduire et utiliser les contenus réalisés pour la marque sur les réseaux sociaux, son site internet, ses supports de communication ainsi que dans le cadre de ses actions promotionnelles et commerciales.
 # Organisation de la collaboration
-Afin de garantir une bonne organisation des collaborations, le formulaire de participation doit nous être retourné dans un délai de 24 heures suivant sa réception. À défaut de réponse dans ce délai, ELKHA.B pourra attribuer la collaboration à un autre profil.
+Afin de garantir une bonne organisation des collaborations, le formulaire de participation doit nous être retourné dans un délai de 48 heures suivant sa réception. À défaut de réponse dans ce délai, ELKHA.B pourra attribuer la collaboration à un autre profil.
 # Merci
 Chez ELKHA.B, nous croyons aux collaborations fondées sur l'authenticité, le respect mutuel et l'expérience réelle des produits.
 Merci de faire partie de cette aventure.
 `;
 
+// INFORMATIONS LÉGALES (affichées sous l'accord, en dépliant « Informations légales de la collaboration »)
+var INFOS_LEGALES = `
+# Mention du partenariat
+L'ambassadrice s'engage à indiquer clairement, dans chacun de ses contenus, qu'il s'agit d'une collaboration avec ELKHA.B (par exemple « Collaboration commerciale » ou « Produit offert par ELKHA.B »), conformément à la loi du 9 juin 2023 encadrant l'influence commerciale.
+# Utilisation des contenus
+L'autorisation de réutilisation des contenus est accordée à titre gracieux, pour une durée de deux ans à compter de leur publication, sur internet et sur les supports de communication d'ELKHA.B. Le pseudo de l'ambassadrice est mentionné lorsque cela est possible.
+# Utilisation des soins
+Avant la première utilisation, l'ambassadrice s'engage à réaliser un test sur une petite zone de peau et à interrompre l'utilisation en cas de réaction ou d'inconfort.
+# Âge
+La collaboration est réservée aux personnes âgées de 18 ans ou plus.
+# Données personnelles
+Les coordonnées communiquées sont conservées pendant trois ans après la fin de la collaboration, puis supprimées. L'ambassadrice peut à tout moment demander l'accès, la rectification ou la suppression de ses données en écrivant à contact@elkhab.com.
+`;
+
+// Case « majeure » (dans les informations de contact)
+var CASE_MAJEURE = "Je certifie avoir 18 ans ou plus.";
+
 // CONFIRMATIONS (toutes obligatoires)
 var CONFIRMATIONS = [
-  "J'ai lu l'intégralité de l'accord de collaboration ELKHA.B ci-dessus et j'en accepte les termes.",
+  "J'ai lu l'intégralité de l'accord de collaboration ELKHA.B ci-dessus et j'en accepte les termes, ainsi que ses informations légales.",
   "J'autorise ELKHA.B à partager, republier, reproduire et utiliser les contenus réalisés dans le cadre de cette collaboration sur ses réseaux sociaux, son site internet, ses supports de communication ainsi que dans le cadre de ses actions promotionnelles et commerciales.",
   "Je confirme ma participation volontaire à cette collaboration et je m'engage à réaliser les contenus obligatoires dans les délais indiqués."
 ];
@@ -137,6 +157,13 @@ var css = ""
 + ".ebc-accord-fin{font-size:11px;letter-spacing:.06em;opacity:.5;margin:18px 0 0;text-align:center}"
 + ".ebc-lu{display:flex;align-items:center;gap:8px;font-size:12px;line-height:1.5;margin:12px 0 0;opacity:.75}"
 + ".ebc-lu.ok{opacity:1;color:#b9f6ca}"
++ ".ebc-infos-btn{display:inline-block;background:none;border:0;padding:0;margin:14px 0 0;color:#fff;font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:300;letter-spacing:.04em;opacity:.7;text-decoration:underline;text-underline-offset:3px;cursor:pointer}"
++ ".ebc-infos-btn:hover{opacity:1}"
++ ".ebc-infos{display:none;margin:12px 0 0;border:1px solid rgba(255,255,255,.18);padding:16px 16px 8px}"
++ ".ebc-infos.ouvert{display:block}"
++ ".ebc-infos h4{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin:14px 0 6px;opacity:.85}.ebc-infos h4:first-child{margin-top:0}"
++ ".ebc-infos p{font-size:11.5px;font-weight:300;line-height:1.75;opacity:.75;margin:0 0 8px}"
++ ".ebc-majeure{margin:6px 0 0}"
 + ".ebc-q{margin:26px 0 0}.ebc-q:first-child{margin-top:0}"
 + ".ebc-ql{display:block;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin:0 0 12px}"
 + ".ebc-pills{display:flex;flex-wrap:wrap;gap:8px}"
@@ -302,6 +329,8 @@ function ecranEspace(){
     + '<p class="ebc-p">Merci de lire l\'accord en entier&nbsp;: faites-le défiler jusqu\'en bas pour pouvoir l\'accepter.</p>'
     + '<div class="ebc-accord" id="ebcAccord">' + accordHTML() + '<p class="ebc-accord-fin">— ' + esc(VERSION_ACCORD) + ' —</p></div>'
     + '<p class="ebc-lu" id="ebcLu">↓ Faites défiler l\'accord jusqu\'à la fin</p>'
+    + '<button type="button" class="ebc-infos-btn" id="ebcInfosBtn">Informations légales de la collaboration ›</button>'
+    + '<div class="ebc-infos" id="ebcInfosLeg">' + blocHTML(INFOS_LEGALES) + '</div>'
     + '</div>'
 
     + '<div class="ebc-bloc"><h3 class="ebc-h">Votre profil</h3>';
@@ -317,7 +346,9 @@ function ecranEspace(){
     html += '<div class="ebc-champ' + (c.demi ? ' demi' : '') + '"><label for="ebcF_' + c.cle + '">' + esc(c.label) + (c.requis ? '' : ' (facultatif)') + '</label>'
       + '<input type="' + c.type + '" id="ebcF_' + c.cle + '" data-champ="' + c.cle + '"' + (c.auto ? ' autocomplete="' + c.auto + '"' : '') + (c.valeur ? ' value="' + esc(c.valeur) + '"' : '') + '></div>';
   });
-  html += '</div></div>'
+  html += '</div>'
+    + '<label class="ebc-check ebc-majeure"><input type="checkbox" id="ebcMajeure"><span>' + nb(CASE_MAJEURE) + '</span></label>'
+    + '</div>'
 
     + '<div class="ebc-bloc"><h3 class="ebc-h">Confirmation de participation</h3>';
   CONFIRMATIONS.forEach(function(t, n){
@@ -335,7 +366,7 @@ function ecranEspace(){
 
     + '<p class="ebc-err" id="ebcErr"></p>'
     + '<button type="button" class="ebc-btn" id="ebcEnvoyer">Confirmer ma participation</button>'
-    + '<p class="ebc-note">Merci de confirmer votre participation dans les 24 heures suivant la réception de votre code. Un récapitulatif, accompagné de l\'accord de collaboration, vous sera envoyé par e-mail.</p>'
+    + '<p class="ebc-note">Merci de confirmer votre participation dans les 48 heures suivant la réception de votre code. Un récapitulatif, accompagné de l\'accord de collaboration, vous sera envoyé par e-mail.</p>'
     + '</div>';
   boite.innerHTML = html;
   panneau.scrollTop = 0;
@@ -366,11 +397,16 @@ function ecranEspace(){
   setTimeout(verifierLecture, 400);
 
   $('#ebcEnvoyer').addEventListener('click', envoyer);
+  $('#ebcInfosBtn').addEventListener('click', function(){
+    var b = $('#ebcInfosLeg'), o = b.classList.toggle('ouvert');
+    this.textContent = 'Informations légales de la collaboration ' + (o ? '‹' : '›');
+  });
 }
 
-function accordHTML(){
+function accordHTML(){ return blocHTML(ACCORD); }
+function blocHTML(source){
   var h = '';
-  ACCORD.split('\n').forEach(function(l){
+  source.split('\n').forEach(function(l){
     l = l.trim(); if(!l) return;
     if(l.indexOf('# ') === 0) h += '<h4>' + esc(l.slice(2)) + '</h4>';
     else h += '<p>' + nb(l) + '</p>';
@@ -378,7 +414,8 @@ function accordHTML(){
   return h;
 }
 function texteAccord(){
-  return VERSION_ACCORD + '\n\n' + ACCORD.split('\n').map(function(l){ l = l.trim(); return l.indexOf('# ') === 0 ? '\n' + l.slice(2).toUpperCase() : l; }).join('\n').trim();
+  var conv = function(src){ return src.split('\n').map(function(l){ l = l.trim(); return l.indexOf('# ') === 0 ? '\n' + l.slice(2).toUpperCase() : l; }).join('\n').trim(); };
+  return VERSION_ACCORD + '\n\n' + conv(ACCORD) + '\n\n\nINFORMATIONS LÉGALES DE LA COLLABORATION\n' + conv(INFOS_LEGALES);
 }
 
 /* ─── 3. ENVOI ─── */
@@ -399,6 +436,7 @@ function envoyer(){
   });
   if(d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)){ err.textContent = 'L\'adresse e-mail ne semble pas valide.'; return; }
   if(manque.length){ err.textContent = 'Merci de compléter : ' + manque.join(', ') + '.'; return; }
+  if(!$('#ebcMajeure').checked){ err.textContent = 'La collaboration est réservée aux personnes de 18 ans ou plus : merci de cocher la case correspondante.'; return; }
   if(!lecture.luEntier){ err.textContent = 'Merci de lire l\'accord de collaboration en entier (faites-le défiler jusqu\'en bas).'; return; }
   for(var n = 0; n < CONFIRMATIONS.length; n++){
     if(!$('#ebcCheck' + n).checked){ err.textContent = 'Merci de cocher les trois cases de confirmation.'; return; }
@@ -414,7 +452,7 @@ function envoyer(){
   }
   d.infos = ($('#ebcInfos').value || '').trim();
   d.signature = sig;
-  d.confirmations = CONFIRMATIONS.join(' | ');
+  d.confirmations = [CASE_MAJEURE].concat(CONFIRMATIONS).join(' | ');
   d.contenus_json = JSON.stringify(CONTENUS);
   d.contenus_attendus = CONTENUS.map(function(c, n){ return '0' + (n + 1) + ' — ' + c.titre + (c.delai ? ' (' + c.delai + ')' : '') + ' — ' + (c.obligatoire ? 'OBLIGATOIRE' : 'FACULTATIF'); }).join('\n');
   d.produits = (session.infos.produits || []).join(' / ');
