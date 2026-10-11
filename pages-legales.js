@@ -1,3 +1,4 @@
+/* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 /* ═══════════════════════════════════════════════════════════════════════
    ELKHA.B — PAGES LÉGALES EN PANNEAU (pages-legales.js)
    Les liens du pied de page (CGV, mentions légales…) ouvrent le texte dans
@@ -23,29 +24,24 @@ window.ebLegalCharge = true;
    ║  "Non applicable".                                                  ║
    ╚═════════════════════════════════════════════════════════════════════╝ */
 var ENTREPRISE = {
-  forme:     "",                     // ex. "Micro-entreprise" ou "SAS"
-  capital:   "",                     // ex. "1 000 €" (ou "Non applicable")
-  siege:     "",                     // adresse complète du siège social
-  siret:     "",                     // ex. "123 456 789 00012"
-  tva:       "",                     // n° de TVA intracommunautaire (ou "Non applicable")
-  email:     "contact@elkhab.com",   // adresse e-mail de contact
-  directeur: ""                      // ton prénom et ton nom (directeur de la publication)
+  nom:       "Elkhansaa ZEMRANI",    // ton prénom et ton nom (n'apparaissent QUE dans les Mentions légales)
+  adresse:   "Clermont-Ferrand (63000)", // ville seulement (n'apparaît QUE dans les Mentions légales)
+  forme:     "entrepreneur individuel sous le régime de la micro-entreprise",
+  siret:     "en cours d'attribution",   // à remplacer par le numéro quand tu l'auras reçu
+  tva:       "TVA non applicable, art. 293 B du CGI",
+  email:     "contact@elkhab.com"    // adresse e-mail de contact
 };
+
+// Photo affichée à droite des pages légales sur ordinateur
+var PHOTO_DROITE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Image_ChatGPT_30_sept._2026_19_17_16.png?v=1791466549";
 /* ═══════════════════════════════════════════════════════════════════════ */
 
 var PAGES = {
   "mentions-legales": {
     titre: "MENTIONS LÉGALES",
     texte: `
-Le présent site est édité par ELKHA.B.
-Forme juridique : {forme}
-Capital social : {capital}
-Siège social : {siege}
-Numéro SIREN / SIRET : {siret}
-Numéro de TVA intracommunautaire : {tva}
-Adresse e-mail : {email}
-Directeur de la publication : {directeur}
-Nom de domaine : www.elkhab.com
+## Éditeur du site
+Le présent site www.elkhab.com est édité par {nom} EI, {forme}, exerçant sous le nom commercial ELKHA.B, établie à {adresse}. SIRET : {siret}. {tva}. Contact : {email}. Directrice de la publication : {nom}.
 
 ## Hébergement
 Le présent site est hébergé par :
@@ -77,13 +73,7 @@ En cas de litige, et à défaut de résolution amiable, les tribunaux français 
     texte: `
 ## Article 1 – Identité du vendeur
 Les présentes Conditions Générales de Vente (ci-après les « CGV ») régissent les ventes réalisées sur le site www.elkhab.com.
-Les produits sont commercialisés par :
-ELKHA.B
-Forme juridique : {forme}
-Siège social : {siege}
-SIREN / SIRET : {siret}
-TVA intracommunautaire : {tva}
-E-mail : {email}
+Les produits sont commercialisés sous le nom commercial ELKHA.B par un {forme}, dont l'identité et les coordonnées complètes figurent dans les Mentions légales du site. SIRET : {siret}. {tva}. E-mail : {email}.
 Ci-après dénommée « ELKHA.B » ou « le Vendeur ».
 
 ## Article 2 – Objet
@@ -191,7 +181,7 @@ Cette démarche permet un traitement plus rapide de la réclamation mais ne priv
 ## Article 13 – Droit de rétractation
 Conformément aux articles L221-18 et suivants du Code de la consommation, le Client dispose d'un délai de quatorze (14) jours à compter de la réception des produits pour exercer son droit de rétractation sans avoir à justifier de motif.
 Lorsque plusieurs produits d'une même commande sont livrés séparément, le délai commence à courir à compter de la réception du dernier produit.
-Pour exercer ce droit, le Client doit adresser à ELKHA.B une déclaration dénuée d'ambiguïté exprimant sa volonté de se rétracter ou utiliser le formulaire de rétractation figurant à la fin des présentes CGV.
+Pour exercer ce droit, il suffit au Client d'adresser à ELKHA.B, par e-mail à {email} ou via le formulaire de contact du site, une déclaration dénuée d'ambiguïté exprimant sa volonté de se rétracter, en précisant son numéro de commande. Le Client peut également utiliser le formulaire type de rétractation figurant en annexe des présentes CGV, sans que cela soit obligatoire.
 
 ## Article 14 – Exceptions au droit de rétractation
 Conformément à l'article L221-28 du Code de la consommation, le droit de rétractation ne peut être exercé concernant les produits cosmétiques descellés après leur livraison lorsque ceux-ci ne peuvent être renvoyés pour des raisons d'hygiène ou de protection de la santé.
@@ -264,7 +254,17 @@ En cas de litige, et après tentative de résolution amiable, les juridictions c
 ## Article 26 – Modification des CGV
 ELKHA.B se réserve le droit de modifier les présentes Conditions Générales de Vente à tout moment.
 Les nouvelles conditions s'appliqueront uniquement aux commandes passées après leur mise en ligne.
-Pour exercer votre droit de rétractation, il vous suffit d'envoyer un e-mail via le formulaire de contact du site en précisant votre numéro de commande et votre volonté de vous rétracter. Aucun formulaire spécifique n'est exigé.
+
+## Annexe – Formulaire type de rétractation
+(Veuillez compléter et renvoyer le présent formulaire uniquement si vous souhaitez vous rétracter du contrat.)
+À l'attention d'ELKHA.B – {email}
+Je vous notifie par la présente ma rétractation du contrat portant sur la vente du bien ci-dessous :
+Commandé le / reçu le :
+Numéro de commande :
+Nom du consommateur :
+Adresse du consommateur :
+Signature du consommateur (uniquement en cas de notification du présent formulaire sur papier) :
+Date :
 `
   },
 
@@ -314,8 +314,8 @@ Après réception et vérification du retour, le remboursement est effectué sel
     titre: "POLITIQUE DE CONFIDENTIALITÉ",
     texte: `
 ## 1. Qui sommes-nous ?
-Le site www.elkhab.com est édité par ELKHA.B ({forme}), dont le siège social est situé : {siege}. SIREN / SIRET : {siret}.
-Le responsable du traitement des données personnelles est {directeur}, joignable à l'adresse {email}.
+Le site www.elkhab.com est édité sous le nom commercial ELKHA.B par un {forme}, dont l'identité et les coordonnées complètes figurent dans les Mentions légales du site.
+Le responsable du traitement des données personnelles est l'éditeur du site, joignable à l'adresse {email}.
 
 ## 2. Quelles données collectons-nous ?
 Nom et prénom
@@ -379,18 +379,26 @@ Pour toute question concernant l'utilisation des cookies, vous pouvez contacter 
 var css = ""
 + ".eb-legal{position:fixed;inset:0;background:#F6F4F0;color:#000;z-index:99990;transform:translateX(100%);transition:transform .5s cubic-bezier(.65,0,.35,1);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent;visibility:hidden}"
 + ".eb-legal.open{transform:none;visibility:visible}"
++ ".eb-legal-wrap{display:block}"
++ ".eb-legal-photo{display:none}"
 + ".eb-legal-in{max-width:720px;margin:0 auto;padding:110px 26px 90px;box-sizing:border-box}"
 + ".eb-legal-tag{display:block;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:14px}"
-+ ".eb-legal-titre{font-size:24px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;line-height:1.3;margin:0 0 30px}"
++ ".eb-legal-titre{font-size:21px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;line-height:1.3;margin:0 0 30px}"
 + ".eb-legal-trait{display:block;width:46px;height:1px;background:#000;opacity:.6;margin:-14px 0 34px}"
-+ ".eb-legal-h1{font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:44px 0 16px;padding-top:22px;border-top:1px solid rgba(0,0,0,.12)}"
++ ".eb-legal-h1{font-size:13.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:44px 0 16px;padding-top:22px;border-top:1px solid rgba(0,0,0,.12)}"
 + ".eb-legal-trait + .eb-legal-h1{border-top:0;padding-top:0;margin-top:6px}"
-+ ".eb-legal-h2{font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:30px 0 10px}"
-+ ".eb-legal-p{font-size:14px;font-weight:300;line-height:1.85;margin:0 0 8px;opacity:.85}"
++ ".eb-legal-h2{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin:28px 0 10px}"
++ ".eb-legal-p{font-size:13px;font-weight:300;line-height:1.8;margin:0 0 8px;opacity:.85}"
 + ".eb-legal-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-legal-close.visible{display:flex}.eb-legal-close:hover{transform:scale(1.1)}"
 + "html.eb-legal-lock,html.eb-legal-lock body{overflow:hidden !important}"
-+ "@media (min-width:900px){.eb-legal-in{padding:130px 40px 110px}.eb-legal-titre{font-size:30px}.eb-legal-p{font-size:15px}}";
++ "@media (min-width:900px){"
++   ".eb-legal-wrap{display:flex;align-items:flex-start}"
++   ".eb-legal-in{flex:1 1 auto;min-width:0;max-width:none;margin:0;padding:130px clamp(48px,6vw,120px) 110px}"
++   ".eb-legal-in > *{max-width:640px}"
++   ".eb-legal-photo{display:block;flex:0 0 42vw;width:42vw;height:100vh;position:sticky;top:0;background:#EBE5DB center/cover no-repeat}"
++   ".eb-legal-titre{font-size:24px}.eb-legal-p{font-size:13.5px}"
++ "}";
 
 var panneau, contenu, croix, ouvert = null;
 
@@ -400,7 +408,7 @@ function rendre(id){
   var page = PAGES[id];
   var html = '<span class="eb-legal-tag">ELKHA.B · Informations</span>'
            + '<h2 class="eb-legal-titre">' + esc(page.titre) + '</h2><span class="eb-legal-trait"></span>';
-  var texte = page.texte.replace(/\{(forme|capital|siege|siret|tva|email|directeur)\}/g, function(m, cle){
+  var texte = page.texte.replace(/\{(nom|adresse|forme|siret|tva|email)\}/g, function(m, cle){
     var v = (ENTREPRISE[cle] || '').trim();
     return v || 'À compléter';
   });
@@ -420,8 +428,9 @@ function preparer(){
   panneau = document.createElement('div');
   panneau.className = 'eb-legal';
   panneau.setAttribute('role', 'dialog');
-  panneau.innerHTML = '<div class="eb-legal-in"></div>';
-  contenu = panneau.firstChild;
+  panneau.innerHTML = '<div class="eb-legal-wrap"><div class="eb-legal-in"></div><div class="eb-legal-photo"></div></div>';
+  contenu = panneau.querySelector('.eb-legal-in');
+  if(PHOTO_DROITE){ panneau.querySelector('.eb-legal-photo').style.backgroundImage = 'url("' + PHOTO_DROITE + '&width=1600")'; }
   croix = document.createElement('button');
   croix.type = 'button';
   croix.className = 'eb-legal-close';
