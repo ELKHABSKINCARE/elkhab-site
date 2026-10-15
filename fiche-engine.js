@@ -1,3 +1,4 @@
+// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 (function(){
   // ==========================================================================
   // ELKHA.B — Fiches produits en panneau
@@ -466,6 +467,7 @@
     ctx = ctx || {};
     build();
     courant = { id: id, ctx: ctx };
+    seoAppliquer(id, data);
     var routineParente = ctx.routine && window.EB_PRODUITS[ctx.routine];
     charger(REVIEWS_ENGINE, function(){ return typeof window.ebRenderReviews === 'function'; });
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
@@ -667,6 +669,7 @@
   function ebFicheClose(){
     if(!overlay) return;
     pile = []; courant = null;
+    seoRetirer();
     backBtn.classList.remove('visible');
     overlay.classList.remove('open');
     closeBtn.classList.remove('visible');
@@ -675,6 +678,116 @@
     clearTimeout(slideTimer);
     overlay.querySelectorAll('video').forEach(function(v){ v.pause(); });
   }
+
+
+  // ==========================================================================
+  // RÉFÉRENCEMENT (Google, Bing) — invisible pour les clientes
+  // Quand une fiche est ouverte : titre de l'onglet, description pour Google,
+  // adresse officielle de la fiche et « fiche d'identité » produit (prix, photo…).
+  // Tout est remis comme avant à la fermeture de la fiche.
+  // ==========================================================================
+  var SITE_FICHES = 'https://bloom.elkhab.com/';
+  var seoAvant = null;
+
+  function seoUrl(id, data){ return ((data && data.site) || SITE_FICHES) + '?fiche=' + encodeURIComponent(id); }
+
+  function seoResume(data){
+    var t = '';
+    (data.sections || []).some(function(sec){ if(sec && sec.texte){ t = sec.texte; return true; } return false; });
+    if(!t && data.routine && data.routine.intro) t = String(data.routine.intro);
+    if(!t) t = [data.sousTitre, data.actifs].filter(Boolean).join(' · ');
+    t = String(t).replace(/\s+/g, ' ').trim();
+    if(t.length > 158){ t = t.slice(0, 155); t = t.slice(0, t.lastIndexOf(' ')).replace(/[,;:·–-]+$/, '') + '…'; }
+    return t;
+  }
+
+  function seoPhotos(data){
+    var m = data.media || {};
+    var l = (m.images || []).concat(m.image ? [m.image] : []);
+    return l.filter(function(u){ return u && !/\.mp4(\?|$)/i.test(u); }).slice(0, 4);
+  }
+
+  function seoMeta(nom){
+    var el = document.querySelector('meta[name="' + nom + '"]');
+    if(!el){ el = document.createElement('meta'); el.setAttribute('name', nom); el.setAttribute('data-eb-seo', '1'); document.head.appendChild(el); }
+    return el;
+  }
+
+  function seoAppliquer(id, data){
+    try {
+      if(!seoAvant){
+        var c0 = document.querySelector('link[rel="canonical"]');
+        var d0 = document.querySelector('meta[name="description"]');
+        seoAvant = { titre: document.title, desc: d0 ? d0.getAttribute('content') : null, canon: c0 ? c0.getAttribute('href') : null };
+      }
+      var url = seoUrl(id, data);
+      var resume = seoResume(data);
+      var titre = data.nom + (data.sousTitre ? ' – ' + data.sousTitre : '') + ' | ELKHA.B';
+      if(titre.length > 70) titre = data.nom + ' | ELKHA.B';
+      document.title = titre;
+      seoMeta('description').setAttribute('content', resume);
+      var canon = document.querySelector('link[rel="canonical"]');
+      if(!canon){ canon = document.createElement('link'); canon.setAttribute('rel', 'canonical'); canon.setAttribute('data-eb-seo', '1'); document.head.appendChild(canon); }
+      canon.setAttribute('href', url);
+
+      var prix = parseFloat(String(data.prix || '').replace(/[^0-9,\.]/g, '').replace(',', '.'));
+      var fiche = {
+        '@context': 'https://schema.org',
+        '@type': 'Product',
+        'name': data.nom,
+        'description': resume,
+        'brand': { '@type': 'Brand', 'name': 'ELKHA.B' },
+        'url': url
+      };
+      var photos = seoPhotos(data);
+      if(photos.length) fiche.image = photos;
+      if(data.variantId) fiche.sku = String(data.variantId);
+      if(!isNaN(prix)){
+        fiche.offers = {
+          '@type': 'Offer',
+          'url': url,
+          'price': prix.toFixed(2),
+          'priceCurrency': 'EUR',
+          'availability': 'https://schema.org/InStock',
+          'itemCondition': 'https://schema.org/NewCondition',
+          'seller': { '@type': 'Organization', 'name': 'ELKHA.B' }
+        };
+      }
+      var ld = document.getElementById('eb-seo-produit');
+      if(!ld){ ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'eb-seo-produit'; document.head.appendChild(ld); }
+      ld.textContent = JSON.stringify(fiche);
+    } catch(err){}
+  }
+
+  function seoRetirer(){
+    try {
+      if(!seoAvant) return;
+      document.title = seoAvant.titre;
+      var d = document.querySelector('meta[name="description"]');
+      if(d){ if(d.getAttribute('data-eb-seo')) d.remove(); else if(seoAvant.desc != null) d.setAttribute('content', seoAvant.desc); }
+      var c = document.querySelector('link[rel="canonical"]');
+      if(c){ if(c.getAttribute('data-eb-seo')) c.remove(); else if(seoAvant.canon != null) c.setAttribute('href', seoAvant.canon); }
+      var ld = document.getElementById('eb-seo-produit'); if(ld) ld.remove();
+      seoAvant = null;
+    } catch(err){}
+  }
+
+  // Liens vers les fiches lisibles par Google : « #fiche-radiance-serum » devient
+  // « https://bloom.elkhab.com/?fiche=radiance-serum ». Au clic, rien ne change :
+  // la fiche s'ouvre toujours en panneau, sans quitter la page.
+  function seoLiens(){
+    try {
+      document.querySelectorAll('a[href*="#fiche-"]').forEach(function(a){
+        var id = (a.getAttribute('href') || '').split('#fiche-')[1];
+        if(!id) return;
+        id = id.split(/[?&#\/]/)[0];
+        if(!a.hasAttribute('data-fiche')) a.setAttribute('data-fiche', id);
+        a.setAttribute('href', seoUrl(id, window.EB_PRODUITS && window.EB_PRODUITS[id]));
+      });
+    } catch(err){}
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', seoLiens); else seoLiens();
+  window.addEventListener('load', seoLiens);
 
   window.ebFicheOpen = ebFicheOpen;
   window.ebFicheClose = ebFicheClose;
