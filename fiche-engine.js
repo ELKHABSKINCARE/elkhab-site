@@ -687,6 +687,28 @@
   // Tout est remis comme avant à la fermeture de la fiche.
   // ==========================================================================
   var SITE_FICHES = 'https://bloom.elkhab.com/';
+  // Livraison & retours pour Google (repris des CGV : art. 5, 10, 13, 14, 16)
+  var SEO_PAYS = ['FR','BE','LU','DE','NL','AT','DK','SE','FI','ES','PT','IT'];
+  var SEO_LIVRAISON = {
+    '@type': 'OfferShippingDetails',
+    'shippingRate': { '@type': 'MonetaryAmount', 'value': '5.90', 'currency': 'EUR' },
+    'shippingDestination': SEO_PAYS.map(function(p){ return { '@type': 'DefinedRegion', 'addressCountry': p }; }),
+    'deliveryTime': {
+      '@type': 'ShippingDeliveryTime',
+      'handlingTime': { '@type': 'QuantitativeValue', 'minValue': 1, 'maxValue': 3, 'unitCode': 'DAY' },
+      'transitTime':  { '@type': 'QuantitativeValue', 'minValue': 5, 'maxValue': 10, 'unitCode': 'DAY' }
+    }
+  };
+  var SEO_RETOURS = {
+    '@type': 'MerchantReturnPolicy',
+    'applicableCountry': SEO_PAYS,
+    'returnPolicyCountry': 'FR',
+    'returnPolicyCategory': 'https://schema.org/MerchantReturnFiniteReturnWindow',
+    'merchantReturnDays': 14,
+    'returnMethod': 'https://schema.org/ReturnByMail',
+    'returnFees': 'https://schema.org/ReturnFeesCustomerResponsibility',
+    'itemCondition': 'https://schema.org/NewCondition'
+  };
   var seoAvant = null;
 
   function seoUrl(id, data){ return ((data && data.site) || SITE_FICHES) + '?fiche=' + encodeURIComponent(id); }
@@ -750,7 +772,9 @@
           'priceCurrency': 'EUR',
           'availability': 'https://schema.org/InStock',
           'itemCondition': 'https://schema.org/NewCondition',
-          'seller': { '@type': 'Organization', 'name': 'ELKHA.B' }
+          'seller': { '@type': 'Organization', 'name': 'ELKHA.B' },
+          'shippingDetails': SEO_LIVRAISON,
+          'hasMerchantReturnPolicy': SEO_RETOURS
         };
       }
       var ld = document.getElementById('eb-seo-produit');
