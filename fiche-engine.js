@@ -687,6 +687,81 @@
   // Tout est remis comme avant à la fermeture de la fiche.
   // ==========================================================================
   var SITE_FICHES = 'https://bloom.elkhab.com/';
+  // Titres et résumés Google sur mesure (prioritaires sur le calcul automatique)
+  var SEO_TEXTES = {
+    'radiance-serum': {
+      titre: 'Radiance C Serum · Sérum vitamine C peaux sensibles | ELKHA.B',
+      resume: 'Sérum à la vitamine C stabilisée haute tolérance, pensé pour les peaux sensibles. Texture sorbet aux agrumes : éclat, teint unifié et hydratation. Vegan.'
+    },
+    "luminescence-jour": {
+      titre: "Luminescence Jour · Crème hydratante peaux sensibles | ELKHA.B",
+      resume: "Crème de jour à l'acide hyaluronique multimoléculaire et au bisabolol, pensée pour les peaux sensibles. Hydrate, apaise et révèle un glow naturel. Vegan."
+    },
+    "luminescence-nuit": {
+      titre: "Luminescence Nuit · Crème de nuit fermeté peaux sensibles | ELKHA.B",
+      resume: "Crème de nuit au plancton marin et au collagène, adaptée aux peaux sensibles. Nourrit, raffermit et repulpe la peau pendant le sommeil. Vegan."
+    },
+    "lumiveil-cc-cream": {
+      titre: "Lumi-Veil · CC cream SPF 30 en stick peaux sensibles | ELKHA.B",
+      resume: "CC cream SPF 30 en stick aux céramides, adaptée aux peaux sensibles. Unifie le teint, atténue les rougeurs, fini seconde peau. 4 teintes. Vegan."
+    },
+    "bright-glow-decongestionnant": {
+      titre: "Lumi-Eyes · Patchs yeux caféine vitamine C, peaux sensibles | ELKHA.B",
+      resume: "Patchs hydrogel à la caféine et à la vitamine C, sans parfum, pour contours des yeux sensibles. Décongestionnent et ravivent l'éclat en 15 min. Vegan."
+    },
+    "radiance-eye-cream": {
+      titre: "Radiance Eye Cream · Crème contour des yeux cernes et poches | ELKHA.B",
+      resume: "Crème contour des yeux à l'acide hyaluronique et 3 extraits végétaux bio. Aide à atténuer cernes, poches et ridules pour un regard reposé. Vegan."
+    },
+    "bright-glow-anti-fatigue": {
+      titre: "Lumi-Eyes · Patchs yeux anti-fatigue hydratants | ELKHA.B",
+      resume: "Patchs hydrogel aux antioxydants et au panthénol : 15 minutes pour un regard frais, hydraté et reposé. Testés dermatologiquement. Vegan."
+    },
+    "routine-eclat": {
+      titre: "Routine Éclat · Vitamine C, crème et CC cream peaux sensibles | ELKHA.B",
+      resume: "Sérum vitamine C, crème hydratante et CC cream SPF 30 : une routine éclat en 3 soins, pensée pour les peaux sensibles. Vegan."
+    },
+    "rituel-luminescence": {
+      titre: "Rituel Luminescence · Crèmes jour et nuit peaux sensibles | ELKHA.B",
+      resume: "Duo de crèmes : acide hyaluronique le matin, plancton marin et collagène le soir. Hydratation et fermeté pour peaux sensibles. Vegan."
+    },
+    "routine-hydratation": {
+      titre: "Routine Hydratation · Peaux sensibles et déshydratées | ELKHA.B",
+      resume: "Gelée prébiotique et crème à l'acide hyaluronique : une routine hydratation en 2 soins pour peaux sensibles et déshydratées. Vegan."
+    },
+    "routine-anti-age": {
+      titre: "Routine Hydratation & Fermeté · Jour, SPF 50 et nuit | ELKHA.B",
+      resume: "Crème de jour, stick SPF 50 minéral et crème de nuit au collagène : une routine hydratation et fermeté en 3 soins pour peaux sensibles. Vegan."
+    },
+    "routine-equilibre": {
+      titre: "Routine Équilibre · Niacinamide peaux mixtes sensibles | ELKHA.B",
+      resume: "Gel niacinamide 5 %, gelée prébiotique et CC cream SPF 30 : une routine pour peaux mixtes à grasses, même sensibles. Vegan."
+    },
+    "routine-teint-protection": {
+      titre: "Routine Teint & Protection · Vitamine C + CC SPF 30 | ELKHA.B",
+      resume: "Sérum vitamine C et CC cream SPF 30 : un teint lumineux et protégé en 2 gestes, pensé pour les peaux sensibles. Vegan."
+    },
+    "routine-regard": {
+      titre: "Routine Regard · Crème contour des yeux et patchs | ELKHA.B",
+      resume: "Crème contour des yeux et patchs hydrogel : une routine regard pour atténuer cernes, poches et signes de fatigue. Vegan."
+    },
+    "radiance-protect": {
+      titre: "Radiance Protect · Stick SPF 50 minéral peaux sensibles | ELKHA.B",
+      resume: "Stick solaire minéral SPF 50 haute tolérance, pensé pour les peaux sensibles. Protection UVA/UVB, texture légère hydratante, résistante à l'eau. Vegan."
+    },
+    "lumibloom-niac-5": {
+      titre: "Lumi-Bloom · Gel niacinamide 5 % peaux sensibles | ELKHA.B",
+      resume: "Gel à 5 % de niacinamide et ginkgo biloba, doux pour les peaux sensibles. Affine les pores, atténue les taches, hydrate sans coller. Vegan."
+    },
+    "gelee-lumibloom": {
+      titre: "Gelée Lumi-Bloom · Soin prébiotique peaux sensibles | ELKHA.B",
+      resume: "Gelée aux prébiotiques et à l'acide hyaluronique pour peaux sensibilisées ou déshydratées. Renforce la barrière cutanée et respecte le microbiome. Vegan."
+    },
+    "bright-glow-patch": {
+      titre: "Lumi-Eyes · Patchs yeux niacinamide cernes, peaux sensibles | ELKHA.B",
+      resume: "Patchs hydrogel à la niacinamide et à l'acide hyaluronique, sans parfum, pour contours des yeux sensibles. Cernes et ridules en 15 min. Vegan."
+    }
+  };
   // Livraison & retours pour Google (repris des CGV : art. 5, 10, 13, 14, 16)
   var SEO_PAYS = ['FR','BE','LU','DE','NL','AT','DK','SE','FI','ES','PT','IT'];
   var SEO_LIVRAISON = {
@@ -743,9 +818,11 @@
         seoAvant = { titre: document.title, desc: d0 ? d0.getAttribute('content') : null, canon: c0 ? c0.getAttribute('href') : null };
       }
       var url = seoUrl(id, data);
-      var resume = seoResume(data);
+      var perso = SEO_TEXTES[id] || {};
+      var resume = perso.resume || seoResume(data);
       var titre = data.nom + (data.sousTitre ? ' – ' + data.sousTitre : '') + ' | ELKHA.B';
       if(titre.length > 70) titre = data.nom + ' | ELKHA.B';
+      if(perso.titre) titre = perso.titre;
       document.title = titre;
       seoMeta('description').setAttribute('content', resume);
       var canon = document.querySelector('link[rel="canonical"]');
