@@ -199,7 +199,7 @@
     }).join(',') + ")}"
   + ".ebs-rail .c{position:absolute;right:5px;width:17px;height:17px;margin-top:-8.5px;border:1.5px solid #000;transition:top .35s ease}"
   + ".ebs-rail.glisse .c{transition:none}"
-  + ".ebs-rail .lab{position:absolute;right:30px;margin-top:-22px;white-space:nowrap;background:rgba(246,244,240,.96);border:1px solid " + LIGNE + ";padding:9px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#000;opacity:0;transform:translateX(6px);transition:opacity .35s ease,transform .35s ease,top .35s ease;pointer-events:none}"
+  + ".ebs-rail .lab{position:absolute;right:30px;margin-top:-22px;white-space:nowrap;border:0;padding:9px 13px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#000;opacity:0;transform:translateX(6px);transition:opacity .35s ease,transform .35s ease,top .35s ease;pointer-events:none}"
   + ".ebs-rail .lab small{display:block;font-size:10.5px;font-weight:400;letter-spacing:.05em;text-transform:none;margin-top:4px;opacity:.85}"
   + ".ebs-rail.lb .lab{opacity:1;transform:none}"
   + ".ebs-rail.glisse .lab{transition:opacity .35s ease,transform .35s ease}"
@@ -226,14 +226,20 @@
   + "@media (max-width:1179px){.ebs-flow{padding-right:26px}.ebs-amb{width:calc(100% + 26px) !important;margin-right:-26px !important}}"
   + ".ebs-grp{width:100%;display:flex;flex-wrap:wrap;justify-content:center;padding-bottom:10px}"
   + ".ebs-card{position:relative;display:block;width:50%;padding:0 0 34px;transition:opacity .5s ease,filter .5s ease}"
-  + ".ebs-card.off{opacity:.18;filter:grayscale(1)}"
+  + ".ebs-card{transition:opacity .5s ease,filter .5s ease,width .5s ease,padding .5s ease}"
+  + ".ebs-card.off{opacity:.25;filter:grayscale(1)}"
+  // filtre actif : les soins qui ne correspondent pas rétrécissent en petites vignettes, sans texte
+  + ".filtre .ebs-card.off{width:22%;padding-bottom:10px}"
+  + ".filtre .ebs-card.off .ebs-tx,.filtre .ebs-card.off .ebs-num{display:none}"
+  + ".filtre .ebs-h.vide{margin:0 0 8px}"
+  + ".filtre .ebs-h.vide p{display:none}"
   + ".ebs-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden}"
   + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 86%;opacity:0;transition:opacity .6s ease}"
   + ".ebs-ph img.pret{opacity:1}"
   // secours si la photo ne peut pas être retravaillée : bords fondus en CSS
   + ".ebs-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
   // textes alignés d'une vignette à l'autre (téléphone)
-  + "@media (max-width:899px){.ebs-tx h3{min-height:2.9em;display:flex;align-items:flex-end;justify-content:center}.ebs-tx .a{min-height:3.1em}}"
+  + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:10.5px;letter-spacing:.12em;min-height:2.9em;display:flex;align-items:flex-end;justify-content:center}.ebs-tx .a{min-height:3.1em}#eb-soins .ebs-cib h2{font-size:20px}}"
   + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.75}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
@@ -487,6 +493,13 @@
   function placer(i, montrer){
     var pos = ((i + .5) / ETAPES.length * 100) + '%';
     curseur.style.top = pos; lab.style.top = pos;
+    // étiquette à la couleur de l'étape, légèrement transparente
+    var cc = ETAPES[i].couleur.replace('#', ''), rgb = [0, 2, 4].map(function(k){ return parseInt(cc.substr(k, 2), 16); });
+    // texte foncé ou clair : celui qui se lit le mieux sur la couleur (contraste calculé)
+    function lum(c){ return c.map(function(v){ v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }).reduce(function(t, v, n){ return t + v * [.2126, .7152, .0722][n]; }, 0); }
+    var L = lum(rgb), fonce = (L + .05) / (lum([58, 26, 18]) + .05), clairC = (lum([251, 246, 241]) + .05) / (L + .05);
+    lab.style.background = 'rgba(' + rgb.join(',') + ',.9)';
+    lab.style.color = fonce >= clairC ? '#3a1a12' : '#fbf6f1';
     lab.innerHTML = 'Étape ' + ETAPES[i].num + ' · ' + esc(ETAPES[i].titre) + '<small>' + esc(ETAPES[i].texte) + '</small>';
     if(montrer){
       rail.classList.add('lb'); clearTimeout(minuterie);
