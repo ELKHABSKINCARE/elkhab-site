@@ -1,7 +1,7 @@
 // © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 // =====================================================================
 // ELKHA.B — Les soins Bloom, rangés par étape de routine (v2 : vitrine sobre, étapes révélées par les filtres)
-// Un seul embed Carrd :  <div id="eb-soins"></div>
+// Un seul embed Carrd :  <div id="eb-soins"><div class="ebs-intro"><p>Ton texte…</p></div></div>
 //                        <script src="https://elkhabskincare.github.io/elkhab-site/soins-engine.js"></script>
 //
 // MODE D'EMPLOI
@@ -147,15 +147,15 @@
 
   // Les 5 étapes (dans l'ordre de la routine)
   var ETAPES = [
-    { num: "01", titre: "Préparer",  texte: "Une peau équilibrée reçoit mieux ses soins.", couleur: "#efe2d6", soins: ["gelee-lumibloom"] },
-    { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, regard.",        couleur: "#ddb3a5", soins: ["radiance-serum","lumibloom-niac-5","radiance-eye-cream"],
+    { num: "01", titre: "Préparer",  texte: "Une peau équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["gelee-lumibloom"] },
+    { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","radiance-eye-cream"],
       // 📷 Grande photo d'ambiance après l'étape 02 (laisser "" pour ne rien afficher)
       ambiance: { photo: "", alt: "Lèvres et peau lumineuse, soins ELKHA.B Bloom", cadrage: "50% 40%" } },
-    { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c48366", soins: ["luminescence-jour"] },
-    { num: "04", titre: "Protéger",  texte: "Le geste du matin, chaque jour.",            couleur: "#e07048", soins: ["radiance-protect","lumiveil-cc-cream"] },
-    { num: "05", titre: "Régénérer", texte: "La nuit, la peau se répare.",                couleur: "#6b222a", soins: ["luminescence-nuit"],
-      // 📷 Grande photo d'ambiance après l'étape 05 (laisser "" pour ne rien afficher)
-      ambiance: { photo: "", alt: "Peau lumineuse et hydratée, rituel ELKHA.B Bloom", cadrage: "50% 30%" } }
+    { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"] },
+    { num: "04", titre: "Protéger",  texte: "Le geste du matin, chaque jour.",            couleur: "#e0663c", soins: ["radiance-protect","lumiveil-cc-cream"],
+      // 📷 Grande photo d'ambiance après l'étape 04 (laisser "" pour ne rien afficher)
+      ambiance: { photo: "", alt: "Peau lumineuse et hydratée, rituel ELKHA.B Bloom", cadrage: "50% 30%" } },
+    { num: "05", titre: "Régénérer", texte: "La nuit, la peau se répare.",                couleur: "#7d1f2b", soins: ["luminescence-nuit"] }
   ];
 
   // Le coffret, en grand, après l'étape 05
@@ -185,16 +185,26 @@
   // Échelle de la routine : fine barre en dégradé sur le bord droit, avec un curseur carré
   + ".ebs-rail{position:fixed;right:0;width:30px;z-index:950;opacity:0;pointer-events:none;transition:opacity .4s ease;touch-action:none;cursor:pointer}"
   + ".ebs-rail.vu{opacity:1;pointer-events:auto}"
-  + ".ebs-rail .g{position:absolute;right:12px;top:0;bottom:0;width:3px;background:linear-gradient(" + ETAPES.map(function(e){ return e.couleur; }).join(',') + ")}"
-  + ".ebs-rail .c{position:absolute;right:6px;width:15px;height:15px;margin-top:-7.5px;background:#f6f4f0;border:1.5px solid #000;transition:top .35s ease}"
+  + ".ebs-rail .g{position:absolute;right:10px;top:0;bottom:0;width:7px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);background:linear-gradient(" + ETAPES.map(function(e, i){
+      // chaque couleur garde une vraie plage, avec un fondu court vers la suivante (comme les packagings)
+      var a = i * 20, b = a + 20;
+      return e.couleur + ' ' + (i ? a + 5 : 0) + '%,' + e.couleur + ' ' + (i < ETAPES.length - 1 ? b - 5 : 100) + '%';
+    }).join(',') + ")}"
+  + ".ebs-rail .c{position:absolute;right:5px;width:17px;height:17px;margin-top:-8.5px;border:1.5px solid #000;transition:top .35s ease}"
   + ".ebs-rail.glisse .c{transition:none}"
-  + ".ebs-rail .lab{position:absolute;right:30px;margin-top:-22px;white-space:nowrap;background:rgba(246,244,240,.96);border:1px solid " + LIGNE + ";padding:8px 11px;font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#000;opacity:0;transform:translateX(6px);transition:opacity .35s ease,transform .35s ease,top .35s ease;pointer-events:none}"
-  + ".ebs-rail .lab small{display:block;font-size:11px;font-weight:300;letter-spacing:0;text-transform:none;margin-top:3px;opacity:.75}"
+  + ".ebs-rail .lab{position:absolute;right:30px;margin-top:-22px;white-space:nowrap;background:rgba(246,244,240,.96);border:1px solid " + LIGNE + ";padding:9px 12px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:#000;opacity:0;transform:translateX(6px);transition:opacity .35s ease,transform .35s ease,top .35s ease;pointer-events:none}"
+  + ".ebs-rail .lab small{display:block;font-size:10.5px;font-weight:400;letter-spacing:.05em;text-transform:none;margin-top:4px;opacity:.85}"
   + ".ebs-rail.lb .lab{opacity:1;transform:none}"
   + ".ebs-rail.glisse .lab{transition:opacity .35s ease,transform .35s ease}"
   // Barre des besoins
   + ".ebs-cap{font-size:9.5px;font-weight:600;letter-spacing:.22em;opacity:.55;margin:0 0 10px}"
   + ".ebs-sq{display:block;width:18px;height:18px}"
+  + ".ebs-txt{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14.5px;line-height:1.9;color:rgba(0,0,0,.7);text-align:center;max-width:760px;margin:0 auto}"
+  + ".ebs-txt p{margin:0 0 12px}"
+  + ".ebs-court{display:none}"
+  + ".ebs-plus{display:inline;background:none;border:0;padding:0 2px;margin:0;font-family:'Montserrat',sans-serif;font-size:19px;font-weight:400;line-height:1;color:#000;cursor:pointer;vertical-align:-1px}"
+  + ".ebs-txt.coupe:not(.ouvert) .ebs-plein{display:none}"
+  + ".ebs-txt.coupe:not(.ouvert) .ebs-court{display:block}"
   + ".ebs-slot{margin-top:24px}"
   + ".ebs-bar{padding:10px 0 10px;transition:background .3s ease}"
   + ".ebs-bar.fixe{position:fixed;left:0;right:0;z-index:900;background:rgba(246,244,240,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid " + LIGNE + "}"
@@ -207,6 +217,7 @@
   // Vitrine
   + ".ebs-flow{display:flex;flex-wrap:wrap;justify-content:center;margin-top:8px}"
   + "@media (max-width:1179px){.ebs-flow{padding-right:26px}.ebs-amb{width:calc(100% + 26px) !important;margin-right:-26px !important}}"
+  + ".ebs-grp{width:100%;display:flex;flex-wrap:wrap;justify-content:center;padding-bottom:10px}"
   + ".ebs-card{position:relative;display:block;width:50%;padding:0 0 34px;transition:opacity .5s ease,filter .5s ease}"
   + ".ebs-card.off{opacity:.18;filter:grayscale(1)}"
   + ".ebs-ph{display:block;background:#f3f1ed;overflow:hidden}"
@@ -219,13 +230,20 @@
   + ".ebs-tx .l{display:block;font-size:9.5px;font-weight:300;font-style:italic;line-height:1.5;margin-top:7px;opacity:.55}"
   + ".ebs-tx .p{display:block;font-size:9.5px;font-weight:400;margin-top:3px;opacity:.85}"
   // Titres d'étape : cachés, révélés par un filtre
-  + ".ebs-h{display:none;width:100%;padding:0 18px;margin:6px 0 18px}"
+  + ".ebs-h{display:block;width:100%;padding:0 18px;margin:0 0 30px}"
+  + ".ebs-h:first-child{display:none}"
+  + ".ebs-h div{min-height:0}"
+  + ".ebs-h div > *,.ebs-h p{display:none}"
+  + ".ebs-h div{padding-top:0}"
   + ".ebs-h div{display:flex;align-items:baseline;gap:12px;border-top:1px solid " + LIGNE + ";padding-top:16px}"
   + ".ebs-h .ebs-sq{width:12px;height:12px;align-self:center}"
   + ".ebs-h h2{font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin:0;color:#000}"
   + ".ebs-h p{font-size:12px;font-weight:300;line-height:1.5;opacity:.7;margin:6px 0 0 24px}"
-  + ".filtre .ebs-h{display:block;animation:ebsIn .6s ease both}"
-  + ".filtre .ebs-h.vide{animation:none;opacity:.3}"
+  + ".filtre .ebs-h{display:block;margin:6px 0 18px}"
+  + ".filtre .ebs-h div{padding-top:16px}"
+  + ".filtre .ebs-h div > *{display:block;animation:ebsIn .6s ease both}"
+  + ".filtre .ebs-h p{display:block;animation:ebsIn .6s ease both}"
+  + ".filtre .ebs-h.vide div > *,.filtre .ebs-h.vide p{animation:none;opacity:.3}"
   + "@keyframes ebsIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}"
   // Grandes photos
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;max-height:1400px;}"
@@ -271,7 +289,9 @@
       + '</a>';
   }
 
-  var h = '';
+  // Texte d'introduction : écrit directement dans l'embed Carrd (lisible par Google), repris ici avec un « + »
+  var intro = root.querySelector('.ebs-intro');
+  var h = intro ? '<div class="ebs-in"><div class="ebs-txt"><div class="ebs-plein">' + intro.innerHTML + '</div><p class="ebs-court"></p></div></div>' : '';
   h += '<div class="ebs-slot"><div class="ebs-bar"><div class="ebs-in"><p class="ebs-cap">VOTRE BESOIN</p><div class="ebs-chips" role="group" aria-label="Filtrer les soins par besoin">'
     + '<button type="button" class="on" data-id="">Tout voir</button>'
     + BESOINS.map(function(b){ return '<button type="button" data-id="' + b.id + '">' + esc(b.nom) + '</button>'; }).join('')
@@ -279,7 +299,7 @@
   h += '<div class="ebs-flow">';
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
-    h += e.soins.map(function(id){ return vignette(id, e); }).join('');
+    h += '<div class="ebs-grp">' + e.soins.map(function(id){ return vignette(id, e); }).join('') + '</div>';
     if(e.ambiance && e.ambiance.photo){
       h += '<figure class="ebs-amb"><img src="' + esc(src(e.ambiance.photo, 1200)) + '" alt="' + esc(e.ambiance.alt) + '" loading="lazy" decoding="async" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></figure>';
     }
@@ -292,6 +312,40 @@
   root.innerHTML = h;
 
   var cards = root.querySelectorAll('.ebs-card');
+  // Téléphone : 4 lignes, puis « … + » à la fin de la phrase ; ouvert : « − » à la fin du texte
+  var txt = root.querySelector('.ebs-txt');
+  if(txt){
+    var plein = txt.querySelector('.ebs-plein'), court = txt.querySelector('.ebs-court');
+    var mots = plein.textContent.replace(/\s+/g, ' ').trim().split(' ');
+    var moins = document.createElement('button'); moins.type = 'button'; moins.className = 'ebs-plus'; moins.textContent = '−'; moins.setAttribute('aria-label', 'Réduire le texte');
+    var dernier = plein.querySelector('p:last-child') || plein; dernier.appendChild(document.createTextNode('\u00a0')); dernier.appendChild(moins);
+    var largeur = 0;
+    function couper(){
+      if(window.innerWidth >= 900){ txt.classList.remove('coupe'); moins.style.display = 'none'; return; }
+      moins.style.display = '';
+      if(txt.clientWidth === largeur) return; largeur = txt.clientWidth;
+      txt.classList.add('coupe'); var ouvert = txt.classList.contains('ouvert'); txt.classList.remove('ouvert');
+      var lh = parseFloat(getComputedStyle(court).lineHeight) || 27.5, max = lh * 4 + 2;
+      function essai(n){ court.innerHTML = esc(mots.slice(0, n).join(' ')) + '…\u00a0<button type="button" class="ebs-plus" aria-label="Lire la suite">+</button>'; return court.offsetHeight <= max; }
+      court.innerHTML = '';
+      // le texte entier tient-il en 4 lignes ? alors pas de « + »
+      txt.classList.remove('coupe');
+      if(plein.offsetHeight <= max + lh){ txt.classList.remove('coupe'); moins.style.display = 'none'; return; }
+      txt.classList.add('coupe');
+      var a = 1, b = mots.length - 1;
+      while(a < b){ var m = Math.ceil((a + b) / 2); if(essai(m)) a = m; else b = m - 1; }
+      essai(a);
+      if(ouvert) txt.classList.add('ouvert');
+    }
+    txt.addEventListener('click', function(e){
+      var b = e.target.closest('.ebs-plus'); if(!b) return;
+      var o = txt.classList.toggle('ouvert');
+      if(!o){ var r = txt.getBoundingClientRect(); if(r.top < REGLAGES.espaceMenu) window.scrollTo({ top: window.scrollY + r.top - REGLAGES.espaceMenu - 20, behavior: 'smooth' }); }
+    });
+    couper();
+    window.addEventListener('resize', couper);
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ largeur = 0; couper(); });
+  }
   var pont = root.querySelector('.ebs-pont'), compte = root.querySelector('.ebs-compte');
 
   // id = besoin choisi ('' = tout voir)
@@ -353,7 +407,7 @@
   var HAUT_RAIL = 220, actuelle = -1, minuterie = null, glisse = false;
   function premiereDe(i){ return root.querySelector('.ebs-card[data-e="' + ETAPES[i].num + '"]'); }
   function placer(i, montrer){
-    var pos = (i / (ETAPES.length - 1) * 100) + '%';
+    var pos = ((i + .5) / ETAPES.length * 100) + '%';
     curseur.style.top = pos; lab.style.top = pos;
     lab.innerHTML = 'Étape ' + ETAPES[i].num + ' · ' + esc(ETAPES[i].titre) + '<small>' + esc(ETAPES[i].texte) + '</small>';
     if(montrer){
@@ -366,7 +420,7 @@
     rail.style.top = (REGLAGES.espaceMenu + barre + 16) + 'px';
     rail.style.height = HAUT_RAIL + 'px';
     var f = flow.getBoundingClientRect(), fin5 = root.querySelector('.ebs-cof') || fin;
-    var visible = f.top < window.innerHeight * .55 && fin5.getBoundingClientRect().top > REGLAGES.espaceMenu + barre + HAUT_RAIL * .6;
+    var visible = bar.classList.contains('fixe') && f.top < window.innerHeight * .55 && fin5.getBoundingClientRect().top > REGLAGES.espaceMenu + barre + HAUT_RAIL * .6;
     rail.classList.toggle('vu', visible);
     if(glisse) return;
     var ligne = window.innerHeight * .45, i = 0;
@@ -375,7 +429,7 @@
   }
   function etapeSous(y){
     var r = rail.getBoundingClientRect(), t = Math.min(1, Math.max(0, (y - r.top) / r.height));
-    return Math.round(t * (ETAPES.length - 1));
+    return Math.min(ETAPES.length - 1, Math.floor(t * ETAPES.length));
   }
   rail.addEventListener('pointerdown', function(e){
     glisse = true; rail.classList.add('glisse');
