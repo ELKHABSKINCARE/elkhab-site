@@ -22,6 +22,11 @@
     lienFiche: "?fiche=",
     // Pont vers Balance (affiché seulement pour certains besoins) — false pour le masquer
     pontBalance: true,
+    // Couleur exacte du fond du site : les photos y sont fondues (plus de cadre ni d'ombre coupée)
+    fondSite: "#f5f4f0",
+    // Si une photo remplacée dans Shopify s'affiche tantôt l'ancienne, tantôt la nouvelle :
+    // augmenter ce chiffre de 1 (oblige téléphones et serveurs à reprendre la photo du jour)
+    versionPhotos: 2,
     lienBalance: "https://balance.elkhab.com/"
   };
 
@@ -46,11 +51,13 @@
   };
 
   // Les soins. besoins = pastilles qui les allument ; ligne = petite ligne en italique
+  // hauteur = hauteur réelle du soin en cm : toutes les photos sont remises à la même échelle,
+  //           posées sur la même ligne (les petits soins restent petits)
   var SOINS = {
     "gelee-lumibloom": {
       nom: "Gelée Lumi-Bloom", actifs: "Prébiotique · Acide hyaluronique · Sodium PCA",
       ligne: "Hydratation · Apaisement · Barrière cutanée · Peaux sensibles",
-      besoins: ["hydratation","apaisement","sensibles"], prix: "28,90€", taille: "30 ml",
+      besoins: ["hydratation","apaisement","sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 11,
       // 📷 Gelée Lumi-Bloom
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000189881f48908d7eaebf894d3.png?v=1792227809",
       alt: "Gelée Lumi-Bloom ELKHA.B, gel aux prébiotiques et à l'acide hyaluronique, flacon pipette 30 ml"
@@ -58,7 +65,7 @@
     "radiance-serum": {
       nom: "Radiance C Serum", actifs: "Vitamine C & E · Acide hyaluronique",
       ligne: "Éclat · Anti-taches · Protection · Peaux sensibles",
-      besoins: ["eclat","anti-taches","sensibles"], prix: "34,90€", taille: "30 ml",
+      besoins: ["eclat","anti-taches","sensibles"], prix: "34,90€", taille: "30 ml", hauteur: 12.5,
       // 📷 Radiance C Serum
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000000e1481f585b2ee37b40be0d3.png?v=1792225353",
       alt: "Radiance C Serum ELKHA.B, sérum éclat à la vitamine C pour peaux sensibles, 30 ml"
@@ -66,7 +73,7 @@
     "lumibloom-niac-5": {
       nom: "Lumi-Bloom Niacinamide 5", actifs: "Vitamine B3 · Ginkgo biloba",
       ligne: "Pores & imperfections · Teint unifié · Peaux sensibles",
-      besoins: ["pores","anti-taches","sensibles"], prix: "34,90€", taille: "50 ml",
+      besoins: ["pores","anti-taches","sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5,
       // 📷 Niacinamide 5
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",
       alt: "Lumi-Bloom Niacinamide 5 ELKHA.B, soin pores et teint unifié à la niacinamide, 50 ml"
@@ -74,7 +81,7 @@
     "radiance-eye-cream": {
       nom: "Radiance Eye Cream", actifs: "Acide hyaluronique · Ginkgo biloba · Beurre de karité",
       ligne: "Cernes · Poches · Ridules",
-      besoins: ["regard"], prix: "28,90€", taille: "15 ml",
+      besoins: ["regard"], prix: "28,90€", taille: "15 ml", hauteur: 10.5,
       // 📷 Radiance Eye Cream
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a11082109a9d69ab565cdea5.png?v=1792225354",
       alt: "Radiance Eye Cream ELKHA.B, crème contour des yeux cernes et poches, 15 ml"
@@ -82,7 +89,7 @@
     "luminescence-jour": {
       nom: "Luminescence Jour", actifs: "Acide hyaluronique multi-moléculaire · Bisabolol",
       ligne: "Hydratation · Éclat · Apaisement · Peaux sensibles",
-      besoins: ["hydratation","eclat","apaisement","sensibles"], prix: "34,90€", taille: "50 ml",
+      besoins: ["hydratation","eclat","apaisement","sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5,
       // 📷 Luminescence Jour
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",
       alt: "Luminescence Jour ELKHA.B, crème hydratante éclat à l'acide hyaluronique, 50 ml"
@@ -90,7 +97,7 @@
     "radiance-protect": {
       nom: "Radiance Protect", actifs: "Jojoba · Filtres minéraux · SPF 50",
       ligne: "SPF 50 · Anti-taches · Peaux sensibles",
-      besoins: ["solaire","anti-taches","sensibles"], prix: "26,90€", taille: "12 g",
+      besoins: ["solaire","anti-taches","sensibles"], prix: "26,90€", taille: "12 g", hauteur: 9.5,
       // 📷 Radiance Protect (version teintée)
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067b4820898e2100a2336668b.png?v=1792227560",
       alt: "Radiance Protect ELKHA.B, stick solaire minéral SPF 50, 12 g"
@@ -98,7 +105,7 @@
     "lumiveil-cc-cream": {
       nom: "Lumi-Veil CC Cream SPF30", actifs: "Céramides · Beurre de cacao",
       ligne: "Teint unifié · SPF 30 · Barrière cutanée · Apaisement · Peaux sensibles",
-      besoins: ["anti-taches","solaire","apaisement","sensibles"], prix: "26,90€", taille: "12 g",
+      besoins: ["anti-taches","solaire","apaisement","sensibles"], prix: "26,90€", taille: "12 g", hauteur: 9.5,
       // 📷 Lumi-Veil (les 4 teintes)
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000006504820e806a74d83392168f.png?v=1792228400",
       alt: "Lumi-Veil CC Cream SPF 30 ELKHA.B, stick teinté en 4 teintes"
@@ -106,7 +113,7 @@
     "luminescence-nuit": {
       nom: "Luminescence Nuit", actifs: "Collagène · Plancton marin · Beurre de cacao",
       ligne: "Rides & fermeté · Hydratation intense · Peaux sensibles",
-      besoins: ["fermete","hydratation","sensibles"], prix: "34,90€", taille: "50 ml",
+      besoins: ["fermete","hydratation","sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5,
       // 📷 Luminescence Nuit
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",
       alt: "Luminescence Nuit ELKHA.B, crème de nuit fermeté au collagène et plancton marin, 50 ml"
@@ -114,7 +121,7 @@
     "rituel-luminescence": {
       nom: "Rituel Luminescence", actifs: "Le coffret Jour & Nuit · Hydratation & fermeté",
       ligne: "Hydratation intense · Fermeté · Éclat · Apaisement",
-      besoins: ["hydratation","eclat","apaisement","fermete","sensibles"], prix: "67,90€", taille: "2 × 50 ml",
+      besoins: ["hydratation","eclat","apaisement","fermete","sensibles"], prix: "67,90€", taille: "2 × 50 ml", hauteur: 14.5,
       // 📷 Rituel Luminescence
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561",
       alt: "Rituel Luminescence ELKHA.B, coffret crème de jour et crème de nuit"
@@ -122,7 +129,7 @@
     "bright-glow-patch": {
       nom: "Patchs éclaircissants & lissants", actifs: "Niacinamide · Acide hyaluronique",
       ligne: "Cernes · Ridules",
-      besoins: ["regard"], prix: "28,90€", taille: "7 paires",
+      besoins: ["regard"], prix: "28,90€", taille: "7 paires", hauteur: 11,
       // 📷 Patchs Lumi-Eyes niacinamide
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000018cc82108970f45b4b30dfff.png?v=1792225964",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B à la niacinamide, cernes et ridules"
@@ -130,7 +137,7 @@
     "bright-glow-decongestionnant": {
       nom: "Patchs éclat décongestionnants", actifs: "Caféine · Vitamine C",
       ligne: "Poches · Teint terne · Peaux sensibles",
-      besoins: ["regard","sensibles"], prix: "28,90€", taille: "7 paires",
+      besoins: ["regard","sensibles"], prix: "28,90€", taille: "7 paires", hauteur: 11,
       // 📷 Patchs Lumi-Eyes caféine + vitamine C
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000426481f48f8efd886f65ba45.png?v=1792225964",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B à la caféine et vitamine C, poches"
@@ -138,7 +145,7 @@
     "bright-glow-anti-fatigue": {
       nom: "Patchs anti-fatigue réconfortants", actifs: "Antioxydants · Provitamine B5",
       ligne: "Fatigue · Sécheresse",
-      besoins: ["regard"], prix: "28,90€", taille: "7 paires",
+      besoins: ["regard"], prix: "28,90€", taille: "7 paires", hauteur: 11,
       // 📷 Patchs Lumi-Eyes antioxydants
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000027bc81f4ab57858a2c77cf29.png?v=1792225964",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B anti-fatigue aux antioxydants"
@@ -220,8 +227,13 @@
   + ".ebs-grp{width:100%;display:flex;flex-wrap:wrap;justify-content:center;padding-bottom:10px}"
   + ".ebs-card{position:relative;display:block;width:50%;padding:0 0 34px;transition:opacity .5s ease,filter .5s ease}"
   + ".ebs-card.off{opacity:.18;filter:grayscale(1)}"
-  + ".ebs-ph{display:block;background:#f3f1ed;overflow:hidden}"
-  + ".ebs-ph img{display:block;width:100%;height:auto}"   // photo entière : jamais zoomée, jamais rognée
+  + ".ebs-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden}"
+  + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 86%;opacity:0;transition:opacity .6s ease}"
+  + ".ebs-ph img.pret{opacity:1}"
+  // secours si la photo ne peut pas être retravaillée : bords fondus en CSS
+  + ".ebs-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
+  // textes alignés d'une vignette à l'autre (téléphone)
+  + "@media (max-width:899px){.ebs-tx h3{min-height:2.9em;display:flex;align-items:flex-end;justify-content:center}.ebs-tx .a{min-height:3.1em}}"
   + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.75}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
@@ -256,7 +268,8 @@
   + ".ebs-pont.on{display:block}"
   // Coffret
   + ".ebs-cof{width:100%;padding:0 0 10px}"
-  + ".ebs-cof .ebs-card{width:100%}"
+  + ".ebs-cof{display:flex;flex-direction:column;align-items:center}"
+  + ".ebs-cof .ebs-card{width:50%}"
   + ".ebs-sur{display:block;text-align:center;font-size:9.5px;font-weight:600;letter-spacing:.22em;opacity:.55;margin:0 0 14px}"
   // Patchs (même style que les titres de section du site)
   + ".ebs-cib{width:100%;text-align:center;padding:44px 18px 22px}"
@@ -272,18 +285,18 @@
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-card{width:25%;padding:0 9px 40px}"
   +   ".ebs-amb img{height:520px;object-fit:cover}"
-  +   ".ebs-cof .ebs-card{width:50%}"
+  +   ".ebs-cof .ebs-card{width:25%}"
   + "}";
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w; }
+  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w + '&eb=' + REGLAGES.versionPhotos; }
   function prix(id){ var p = window.EB_PRODUITS && window.EB_PRODUITS[id]; return (p && p.prix) || SOINS[id].prix; }
 
   function vignette(id, etape){
     var s = SOINS[id]; if(!s) return '';
     return '<a class="ebs-card" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-b="' + esc(s.besoins.join(' ')) + '" data-e="' + (etape ? etape.num : '') + '">'
-      + '<div class="ebs-ph"><img src="' + esc(src(s.photo, 700)) + '" srcset="' + esc(src(s.photo, 450)) + ' 450w, ' + esc(src(s.photo, 700)) + ' 700w, ' + esc(src(s.photo, 1000)) + ' 1000w" sizes="(min-width:900px) 270px, 50vw" alt="' + esc(s.alt) + '" loading="lazy" decoding="async"></div>'
+      + '<div class="ebs-ph"><img src="' + esc(src(s.photo, 700)) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async"></div>'
       + (etape ? '<span class="ebs-num"><i style="background:' + etape.couleur + '"></i>' + etape.num + '</span>' : '')
       + '<div class="ebs-tx"><h3>' + esc(s.nom) + '</h3><span class="a">' + esc(s.actifs) + '</span><span class="l">' + esc(s.ligne) + '</span><span class="p" data-prix="' + esc(id) + '">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span></div>'
       + '</a>';
@@ -305,13 +318,78 @@
     }
   });
   if(REGLAGES.pontBalance) h += '<div class="ebs-pont" aria-live="polite"></div>';
-  if(SOINS[COFFRET.soin]) h += '<div class="ebs-cof"><span class="ebs-sur">' + esc(COFFRET.surtitre) + '</span>' + vignette(COFFRET.soin, null).replace('class="ebs-card"', 'class="ebs-card" style="width:100%"') + '</div>';
+  if(SOINS[COFFRET.soin]) h += '<div class="ebs-cof"><span class="ebs-sur">' + esc(COFFRET.surtitre) + '</span>' + vignette(COFFRET.soin, null) + '</div>';
   h += '<div class="ebs-cib" id="ebs-cibles"><h2>' + esc(CIBLES.titre) + '</h2><span>' + esc(CIBLES.sousTitre) + '</span><p>' + esc(CIBLES.texte) + '</p></div>';
   h += CIBLES.soins.map(function(id){ return vignette(id, null); }).join('');
   h += '</div>';
   root.innerHTML = h;
 
   var cards = root.querySelectorAll('.ebs-card');
+
+  // ── Photos : fondues dans le fond du site, même échelle, même ligne de sol ──
+  var FOND = (function(c){ c = c.replace('#', ''); return [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }); })(REGLAGES.fondSite);
+  var CW = 600, CH = 800, SOL = CH * .86, PXCM = CH * .66 / 14.5;
+  function retravailler(img){
+    var s = SOINS[img.getAttribute('data-id')], url = src(s.photo, 700);
+    var secours = setTimeout(function(){ img.classList.add('brut'); }, 6000);
+    fetch(url, { mode: 'cors' }).then(function(r){ if(!r.ok) throw 0; return r.blob(); })
+    .then(function(b){ return createImageBitmap(b); })
+    .then(function(bmp){
+      var w = bmp.width, h = bmp.height, c = document.createElement('canvas'); c.width = w; c.height = h;
+      var x = c.getContext('2d'); x.drawImage(bmp, 0, 0);
+      var d = x.getImageData(0, 0, w, h), p = d.data, i, k;
+      // 1. couleur du fond de la photo (bords du haut et des côtés)
+      var ech = [[], [], []];
+      function prendre(px, py){ var j = (py * w + px) * 4; ech[0].push(p[j]); ech[1].push(p[j + 1]); ech[2].push(p[j + 2]); }
+      for(k = 0; k < w; k += 4){ prendre(k, 2); prendre(k, 5); }
+      for(k = 0; k < h / 4; k += 4){ prendre(2, k | 0); prendre(w - 3, k | 0); }
+      var F = ech.map(function(a, n){ a.sort(function(u, v){ return u - v; }); return FOND[n] / (a[a.length >> 1] || 255); });
+      // 2. le fond de la photo devient exactement celui du site
+      for(i = 0; i < p.length; i += 4){ p[i] = Math.min(255, p[i] * F[0]); p[i + 1] = Math.min(255, p[i + 1] * F[1]); p[i + 2] = Math.min(255, p[i + 2] * F[2]); }
+      x.putImageData(d, 0, 0);
+      // 3. repérer le soin (colonnes hautes ; l'ombre au sol, plate, est ignorée)
+      var col = new Uint32Array(w), dif = new Uint8Array(w * h);
+      for(var y = 0; y < h; y++) for(var xx = 0; xx < w; xx++){
+        i = (y * w + xx) * 4;
+        if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 10){ dif[y * w + xx] = 1; col[xx]++; }
+      }
+      var x0 = -1, x1 = -1;
+      for(xx = 0; xx < w; xx++) if(col[xx] > h * .12){ if(x0 < 0) x0 = xx; x1 = xx; }
+      var y0 = -1, y1 = -1;
+      if(x0 >= 0 && x1 - x0 > w * .1){
+        var seuil = Math.max(2, (x1 - x0) * .04);
+        for(y = 0; y < h; y++){ var n = 0; for(xx = x0; xx <= x1; xx++) n += dif[y * w + xx]; if(n >= seuil){ if(y0 < 0) y0 = y; y1 = y; } }
+      }
+      // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
+      x.globalCompositeOperation = 'destination-in';
+      var g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.14, '#000'); g.addColorStop(.86, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      x.fillStyle = g; x.fillRect(0, 0, w, h);
+      g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.08, '#000'); g.addColorStop(.92, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      x.fillStyle = g; x.fillRect(0, 0, w, h);
+      // 5. cadre commun : même échelle (hauteur réelle), même ligne de sol
+      var o = document.createElement('canvas'); o.width = CW; o.height = CH;
+      var ox = o.getContext('2d');   // fond transparent : la photo se fond dans la page
+      var sc, dx, dy;
+      if(y0 >= 0 && s.hauteur && (y1 - y0) > h * .2){
+        sc = s.hauteur * PXCM / (y1 - y0);
+        if((x1 - x0) * sc > CW * .9) sc = CW * .9 / (x1 - x0);
+        dx = CW / 2 - (x0 + x1) / 2 * sc; dy = SOL - y1 * sc;
+      } else { sc = Math.min(CW / w, CH / h); dx = (CW - w * sc) / 2; dy = CH - h * sc; }
+      ox.drawImage(c, dx, dy, w * sc, h * sc);
+      o.toBlob(function(b){
+        clearTimeout(secours);
+        if(!b){ img.classList.add('brut'); return; }
+        img.onload = function(){ img.classList.add('pret'); };
+        img.src = URL.createObjectURL(b);
+      }, 'image/png');
+    })
+    .catch(function(){ clearTimeout(secours); img.classList.add('brut'); });
+  }
+  var imgs = root.querySelectorAll('.ebs-ph img');
+  if('IntersectionObserver' in window && window.fetch && window.createImageBitmap){
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); retravailler(e.target); } }); }, { rootMargin: '800px 0px' });
+    imgs.forEach(function(im){ io.observe(im); });
+  } else imgs.forEach(function(im){ im.classList.add('brut'); });
   // Téléphone : 4 lignes, puis « … + » à la fin de la phrase ; ouvert : « − » à la fin du texte
   var txt = root.querySelector('.ebs-txt');
   if(txt){
