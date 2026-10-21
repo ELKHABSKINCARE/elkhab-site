@@ -271,6 +271,10 @@
   + ".ebs-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
   // textes alignés d'une vignette à l'autre (téléphone)
   + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:11px;letter-spacing:.11em}#eb-soins .ebs-cib h2{font-size:20px}}"
+  // mobile : les noms passent à la ligne entre deux mots, jamais au milieu d'un mot
+  // mobile : même marge à gauche et à droite des vignettes (avant, tout était décalé vers la gauche à cause de l'échelle)
+  + "@media (max-width:899px){#eb-soins .ebs-flow{padding-left:20px;padding-right:20px}#eb-soins .ebs-tx{padding-left:4px;padding-right:4px}#eb-soins .ebs-amb{width:calc(100% + 40px) !important;margin-left:-20px !important;margin-right:-20px !important}#eb-soins .ebs-cof{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}}"
+  + "@media (max-width:899px){#eb-soins .ebs-tx h3{-webkit-hyphens:none;hyphens:none;overflow-wrap:normal;word-break:normal}#eb-soins .ebs-tx h3 .nb{white-space:nowrap}}"
   + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.75}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
@@ -298,6 +302,7 @@
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;max-height:1400px;}"
   + ".ebs-amb img,.ebs-amb video{display:block;width:100%;height:auto}"
   + ".filtre .ebs-amb{display:none}"
+  + ".avec-amb .ebs-amb{order:2}"
   // Pont Balance
   + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:16px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.6;text-align:center}"
   + ".ebs-pont b{font-weight:600;color:#2c5a3c}"
@@ -333,6 +338,10 @@
   // pour que les photos soient nettement plus grandes que sur mobile
   +   ".ebs-c2 .ebs-card{width:50%}"
   +   ".ebs-c3 .ebs-card{width:33.333%}"
+  // ordinateur : la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
+  +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
+  +   ".avec-amb .ebs-amb{order:-1;flex:0 0 50%;width:50% !important;margin:0 0 40px !important}"
+  +   ".avec-amb .ebs-card{width:50%}"
   +   ".ebs-amb img{height:520px;object-fit:cover}"
   // ordinateur : la vidéo prend toute la largeur de la colonne, d'un bord à l'autre (jusqu'à la bannière),
   // et s'affiche en entier ; si elle est très haute, seul le bas est rogné (le visage reste visible)
@@ -346,12 +355,17 @@
   function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w + '&eb=' + REGLAGES.versionPhotos; }
   function prix(id){ var p = window.EB_PRODUITS && window.EB_PRODUITS[id]; return (p && p.prix) || SOINS[id].prix; }
 
+  // Nom du soin : les mots à tiret (Lumi-Bloom) ne se coupent pas, un chiffre ou « & » reste collé au mot voisin
+  function nomInsecable(nom){
+    return esc(nom).replace(/ (\d+)(?= |$)/g, '\u00a0$1').replace(/&amp; /g, '&amp;\u00a0')
+      .split(' ').map(function(m){ return m.indexOf('-') > 0 ? '<span class="nb">' + m + '</span>' : m; }).join(' ');
+  }
   function vignette(id, etape){
     var s = SOINS[id]; if(!s) return '';
     return '<a class="ebs-card" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-b="' + esc(s.besoins.join(' ')) + '" data-e="' + (etape ? etape.num : '') + '">'
       + '<div class="ebs-ph"><img src="' + esc(src(s.photo, 700)) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async"></div>'
       + (etape ? '<span class="ebs-num"><i style="background:' + etape.couleur + '"></i>' + etape.num + '</span>' : '')
-      + '<div class="ebs-tx"><h3>' + esc(s.nom) + '</h3><span class="a">' + esc(s.actifs) + '</span><span class="l">' + esc(s.ligne) + '</span><span class="p" data-prix="' + esc(id) + '">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span></div>'
+      + '<div class="ebs-tx"><h3>' + nomInsecable(s.nom) + '</h3><span class="a">' + esc(s.actifs) + '</span><span class="l">' + esc(s.ligne) + '</span><span class="p" data-prix="' + esc(id) + '">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span></div>'
       + '</a>';
   }
 
@@ -369,10 +383,14 @@
   h += '<div class="ebs-flow">';
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
-    h += '<div class="ebs-grp">' + e.soins.map(function(id){ return vignette(id, e); }).join('') + '</div>';
-    if(e.ambiance && e.ambiance.video){
-      h += '<figure class="ebs-amb"><video src="' + esc(e.ambiance.video) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(e.ambiance.alt) + '" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></video></figure>';
-    } else if(e.ambiance && e.ambiance.photo){
+    var ambCote = e.ambiance && e.ambiance.video;
+    h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + '">' + e.soins.map(function(id){ return vignette(id, e); }).join('');
+    if(ambCote){
+      // la vidéo est dans le même groupe que le soin : à gauche du soin sur ordinateur, en dessous sur mobile
+      h += '<figure class="ebs-amb ebs-amb-cote"><video src="' + esc(e.ambiance.video) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(e.ambiance.alt) + '" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></video></figure>';
+    }
+    h += '</div>';
+    if(!ambCote && e.ambiance && e.ambiance.photo){
       h += '<figure class="ebs-amb"><img src="' + esc(src(e.ambiance.photo, 1200)) + '" alt="' + esc(e.ambiance.alt) + '" loading="lazy" decoding="async" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></figure>';
     }
   });
@@ -411,6 +429,16 @@
       if(window.innerWidth < 900) return;
       var r = (colonne() || root).getBoundingClientRect();
       var L = Math.max(0, r.left), R = Math.min(document.documentElement.clientWidth, r.right);
+      if(f.classList.contains('ebs-amb-cote')){
+        // vidéo à côté du soin : elle garde sa moitié, mais s'étire à gauche jusqu'au bord de la colonne
+        var n = f.getBoundingClientRect(), d = Math.max(0, n.left - L);
+        f.style.setProperty('width', (n.width + d) + 'px', 'important');
+        f.style.setProperty('max-width', 'none', 'important');
+        f.style.setProperty('flex', 'none', 'important');
+        f.style.setProperty('margin-left', (-d) + 'px', 'important');
+        f.style.setProperty('margin-right', '0', 'important');
+        return;
+      }
       f.style.setProperty('width', (R - L) + 'px', 'important');
       f.style.setProperty('max-width', 'none', 'important');
       f.style.setProperty('flex', 'none', 'important');
@@ -696,6 +724,25 @@
       });
     });
   }
+  // Mobile : si un mot est trop long pour la vignette (ex. « décongestionnants » sur petit téléphone),
+  // on resserre un peu ce titre-là au lieu de couper le mot
+  function ajusterNoms(){
+    root.querySelectorAll('.ebs-tx h3').forEach(function(t){
+      t.style.letterSpacing = ''; t.style.fontSize = '';
+      if(window.innerWidth >= 900) return;
+      if(t.scrollWidth > t.clientWidth + 1) t.style.letterSpacing = '.05em';
+      if(t.scrollWidth > t.clientWidth + 1) t.style.fontSize = '10px';
+      // titre sur 3 lignes : on essaie de le faire tenir sur 2 en resserrant légèrement les lettres
+      var lh = parseFloat(getComputedStyle(t).lineHeight) || 16, avant = Math.round(t.offsetHeight / lh);
+      if(avant > 2 && !t.style.letterSpacing){
+        t.style.letterSpacing = '.075em';
+        if(Math.round(t.offsetHeight / lh) >= avant) t.style.letterSpacing = '';
+      }
+    });
+  }
+  ajusterNoms();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ajusterNoms(); aligner(); });
+  window.addEventListener('resize', ajusterNoms);
   var largeurA = 0;
   window.addEventListener('resize', function(){ if(window.innerWidth !== largeurA){ largeurA = window.innerWidth; aligner(); } });
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(aligner);
