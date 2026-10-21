@@ -63,13 +63,12 @@
   + ".eb-av-thanks-title{font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 14px}"
   + ".eb-av-thanks p{font-size:14px;line-height:1.8;opacity:.75;margin:0 0 26px}"
   + ".eb-av-thanks button{display:inline-block;background:#fff;color:#000;border:none;padding:16px 30px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}"
-  // ---- Thème par gamme (dégradé de gauche à droite, comme le bloc « Vos expériences » des fiches)
+  // ---- Thème par gamme (dégradé en diagonale, comme le bloc « Vos expériences » des fiches)
   // Actif seulement si le fichier produits contient window.EB_AVIS_DEGRADE = true
   + ".eb-av-overlay.eb-av-bloom{--av-fond:linear-gradient(var(--av-sens),#f7efe6 0%,#f4e7dd 5%,#f0e0d4 10%,#efdace 15%,#edd4c8 20%,#eccfc2 25%,#eacbbc 30%,#e8c6b6 35%,#e6c1af 40%,#e4bca8 45%,#e2b7a2 50%,#e0b39e 55%,#deaf9a 60%,#ddaa96 65%,#dba592 70%,#d79f8d 75%,#d29888 80%,#cb8f82 85%,#c2847c 90%,#b77876 95%,#ac6b70 100%);--av-encre:#3a1a12;--av-rgb:58,26,18;--av-bouton:#5a1823}"
   + ".eb-av-overlay.eb-av-balance{--av-fond:linear-gradient(var(--av-sens),#f5f4ef 0%,#eef0ea 5%,#e7ece6 10%,#e2e8e2 15%,#dee5de 20%,#d9e2d9 25%,#d4ded4 30%,#cdd8ce 35%,#c5d2c6 40%,#bdcbbe 45%,#b4c4b6 50%,#acbeae 55%,#a3b7a7 60%,#9ab09f 65%,#91a998 70%,#89a290 75%,#829a8a 80%,#7a9284 85%,#71887d 90%,#677b72 95%,#5c6b66 100%);--av-encre:#18302a;--av-rgb:24,48,42;--av-bouton:#18302a}"
-  // Sens du dégradé : de gauche à droite sur ordinateur, en diagonale sur mobile (plus de place pour les 5 couleurs)
-  + ".eb-av-overlay{--av-sens:90deg}"
-  + "@media (max-width:700px){.eb-av-overlay{--av-sens:155deg}}"
+  // Sens du dégradé : en diagonale (haut gauche → bas droite), sur mobile comme sur ordinateur
+  + ".eb-av-overlay{--av-sens:155deg}"
   + ".eb-av-overlay.eb-av-theme{background:var(--av-fond);color:var(--av-encre)}"
   + ".eb-av-overlay.eb-av-theme .eb-av-title,.eb-av-overlay.eb-av-theme .eb-av-card-name,.eb-av-overlay.eb-av-theme .eb-av-remove,.eb-av-overlay.eb-av-theme .eb-av-link{color:var(--av-encre)}"
   + ".eb-av-overlay.eb-av-theme input,.eb-av-overlay.eb-av-theme select,.eb-av-overlay.eb-av-theme textarea{color:var(--av-encre);border-bottom-color:rgba(var(--av-rgb),.55)}"
