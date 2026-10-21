@@ -131,6 +131,13 @@
   + ".eb-fp-exp .eb-review{border-bottom:1px solid rgba(255,255,255,.18) !important}"
   + ".eb-fp-avis{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:28px auto 0;background:#fff;color:#000;border:none;border-radius:0;padding:17px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
   + ".eb-fp-avis:hover{transform:scale(1.03)}"
+  // Vos expériences — version dégradé Bloom (étapes 01 → 05, de gauche à droite)
+  // Activée seulement si le fichier produits contient window.EB_AVIS_DEGRADE = true
+  + ".eb-fp-exp.eb-fp-degrade{background:linear-gradient(90deg,#f8efe6 0%,#f3e4d9 16%,#eed3c5 36%,#eccbba 48%,#e9beaa 60%,#e4ab95 76%,#e3a892 80%,#d39a89 88%,#c38a7f 92%,#ac6b70 100%);color:#3a1a12}"
+  + ".eb-fp-exp.eb-fp-degrade .eb-fp-h2{color:#3a1a12}"
+  + ".eb-fp-exp.eb-fp-degrade .eb-reviews,.eb-fp-exp.eb-fp-degrade .eb-reviews *{color:#3a1a12 !important}"
+  + ".eb-fp-exp.eb-fp-degrade .eb-review{border-bottom:1px solid rgba(58,26,18,.16) !important}"
+  + ".eb-fp-exp.eb-fp-degrade .eb-fp-avis{background:#5a1823;color:#fbf6f1}"
   // Pour aller plus loin / L'accord parfait
   + ".eb-fp-sep{border:none;border-top:1px solid rgba(0,0,0,.15);width:60%;margin:56px auto 30px}"
   + ".eb-fp-exp + .eb-fp-sep{border-top:none;margin-top:30px}"
@@ -629,7 +636,7 @@
 
     // Vos expériences
     if(data.avis){
-      h += '<div class="eb-fp-exp"><h2 class="eb-fp-h2">Vos expériences</h2>';
+      h += '<div class="eb-fp-exp' + (window.EB_AVIS_DEGRADE ? ' eb-fp-degrade' : '') + '"><h2 class="eb-fp-h2">Vos expériences</h2>';
       h += '<div class="eb-reviews" data-produit="' + esc(data.avis) + '"><div class="eb-review-status">Aucun avis pour le moment.</div></div>';
       h += '<button type="button" class="eb-fp-avis" data-avis="' + esc(data.avis) + '">Laisser un avis</button></div>';
     }
