@@ -9,6 +9,10 @@
 //   📷  puis remplacer le lien entre guillemets par le nouveau lien Shopify.
 // - Ne pas supprimer les guillemets, les virgules ni les accolades { }.
 // =====================================================================
+
+// Bloc « Vos expériences » des fiches : dégradé Bloom (true) ou ancien fond noir (false)
+window.EB_AVIS_DEGRADE = true;
+
 window.EB_PRODUITS = {
 
   "radiance-serum": {
