@@ -124,7 +124,7 @@
       alt: "Luminescence Nuit ELKHA.B, crème de nuit fermeté au collagène et plancton marin, 50 ml"
     },
     "rituel-luminescence": {
-      nom: "Rituel Luminescence", actifs: "Le coffret Jour & Nuit · Hydratation & fermeté",
+      nom: "Rituel Luminescence", actifs: "Le duo Jour & Nuit · Hydratation & fermeté",
       ligne: "Hydratation intense · Fermeté · Éclat · Apaisement",
       besoins: ["hydratation","eclat","apaisement","fermete","sensibles"], prix: "67,90€", taille: "2 × 50 ml", hauteur: 14.5,
       // 📷 Rituel Luminescence
@@ -172,7 +172,7 @@
   ];
 
   // Le coffret, en grand, après l'étape 05
-  var COFFRET = { surtitre: "LE COFFRET JOUR & NUIT", texte: "Le rituel complet, du matin au soir, réuni dans un coffret.", soin: "rituel-luminescence" };
+  var COFFRET = { surtitre: "Le duo Jour & Nuit", texte: "Luminescence Jour et Luminescence Nuit, réunis pour un rituel complet du matin au soir.", soin: "rituel-luminescence" };
 
   // Les soins ciblés (en plus de la routine)
   var CIBLES = {
@@ -224,7 +224,7 @@
   + ".ebs-txt.coupe:not(.ouvert) .ebs-court{display:block}"
   + ".ebs-slot{margin-top:26px}"
   // La phrase-filtre, sur le dégradé Bloom (du fond du site vers le rosé poudré des packagings)
-  + ".ebs-bar{position:relative;z-index:900}"
+  + ".ebs-bar{position:relative;z-index:9000}"
   + ".ebs-bar.fixe{position:fixed;left:0;right:0}"
   + ".ebs-phrase{display:block;width:100%;border:0;margin:0;padding:17px 18px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:300;color:#000;background:linear-gradient(90deg," + REGLAGES.fondSite + " 0%,#f3e3d8 30%,#ecc9b9 62%,#e6b9a6 100%)}"
   + ".ebs-phrase b{font-weight:500;border-bottom:1px solid #000;padding-bottom:1px}"
@@ -235,8 +235,6 @@
   // Le panneau qui descend
   + ".ebs-drop{display:none;position:absolute;left:0;right:0;top:100%;background:" + REGLAGES.fondSite + ";padding:4px 20px 20px;box-shadow:0 18px 30px rgba(0,0,0,.1);overflow-y:auto;-webkit-overflow-scrolling:touch}"
   + ".ebs-bar.ouvert .ebs-drop{display:block;animation:ebsIn .35s ease}"
-  + ".ebs-voile{display:none;position:fixed;left:0;right:0;bottom:0;background:rgba(0,0,0,.25);z-index:899}"
-  + ".ebs-voile.on{display:block;animation:ebsFonduVoile .3s ease}"
   + "@keyframes ebsFonduVoile{from{opacity:0}to{opacity:1}}"
   + ".ebs-drop button{display:flex;width:100%;justify-content:space-between;align-items:center;background:none;border:0;border-top:1px solid rgba(0,0,0,.12);padding:11px 0;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:400;color:#000;text-align:left;cursor:pointer}"
   + ".ebs-drop button:first-child{border-top:0}"
@@ -261,11 +259,11 @@
   // secours si la photo ne peut pas être retravaillée : bords fondus en CSS
   + ".ebs-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
   // textes alignés d'une vignette à l'autre (téléphone)
-  + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:10.5px;letter-spacing:.12em}#eb-soins .ebs-cib h2{font-size:20px}}"
+  + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:11px;letter-spacing:.11em}#eb-soins .ebs-cib h2{font-size:20px}}"
   + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.75}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
-  + ".ebs-tx h3{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;line-height:1.45;margin:0;color:#000}"
+  + ".ebs-tx h3{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.45;margin:0;color:#000}"
   + ".ebs-tx .a{display:block;font-size:10.5px;font-weight:400;letter-spacing:.05em;line-height:1.55;margin-top:6px;opacity:.85}"
   + ".ebs-tx .l{display:block;font-size:9.5px;font-weight:300;font-style:italic;line-height:1.5;margin-top:7px;opacity:.55}"
   + ".ebs-tx .p{display:block;font-size:9.5px;font-weight:400;margin-top:3px;opacity:.85}"
@@ -298,7 +296,8 @@
   + ".ebs-cof{width:100%;display:flex;flex-direction:column;align-items:center;background:" + REGLAGES.fondCoffret + ";padding:46px 18px 40px;margin:10px 0 0}"
   + "@media (max-width:1179px){.ebs-cof{width:calc(100% + 26px);margin-right:-26px}}"
   + ".ebs-cof.eteint{display:none}"
-  + ".ebs-cof .ebs-sur{margin-bottom:8px}"
+  + "#eb-soins .ebs-coft{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:#000;text-align:center;margin:0 0 12px;line-height:1.2}"
+  + "@media (min-width:900px){#eb-soins .ebs-coft{font-size:26px}}"
   + ".ebs-cof p.ebs-cofp{font-size:12.5px;font-weight:300;line-height:1.6;opacity:.75;text-align:center;margin:0 0 18px;max-width:420px}"
   + ".ebs-cof .ebs-card{width:100%;max-width:600px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center;padding:0}"
   + ".ebs-cof .ebs-tx{text-align:left;padding:0 4px}"
@@ -313,6 +312,9 @@
   + "@media (min-width:900px){"
   +   ".ebs-in{max-width:1080px;margin:0 auto}"
   +   ".ebs-flow{margin-top:76px}"
+  +   ".ebs-h div{border-top:0}"
+  +   ".ebs-h:before{content:'';display:block;width:56px;height:1px;background:rgba(0,0,0,.22);margin:0 auto}"
+  +   ".filtre .ebs-h div{padding-top:22px}"
   +   ".ebs-drop{left:50%;right:auto;width:520px;transform:translateX(-50%)}"
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-card{width:25%;padding:0 9px 40px}"
@@ -356,7 +358,7 @@
     }
   });
   if(REGLAGES.pontBalance) h += '<div class="ebs-pont" aria-live="polite"></div>';
-  if(SOINS[COFFRET.soin]) h += '<section class="ebs-cof"><span class="ebs-sur">' + esc(COFFRET.surtitre) + '</span>' + (COFFRET.texte ? '<p class="ebs-cofp">' + esc(COFFRET.texte) + '</p>' : '') + vignette(COFFRET.soin, null).replace('<img ', '<img data-fond="' + esc(REGLAGES.fondCoffret) + '" ') + '</section>';
+  if(SOINS[COFFRET.soin]) h += '<section class="ebs-cof"><h2 class="ebs-coft">' + esc(COFFRET.surtitre) + '</h2>' + (COFFRET.texte ? '<p class="ebs-cofp">' + esc(COFFRET.texte) + '</p>' : '') + vignette(COFFRET.soin, null).replace('<img ', '<img data-fond="' + esc(REGLAGES.fondCoffret) + '" ') + '</section>';
   h += '<div class="ebs-cib" id="ebs-cibles"><h2>' + esc(CIBLES.titre) + '</h2><span>' + esc(CIBLES.sousTitre) + '</span><p>' + esc(CIBLES.texte) + '</p></div>';
   h += CIBLES.soins.map(function(id){ return vignette(id, null); }).join('');
   h += '</div>' + texteBloom;
@@ -502,7 +504,6 @@
       }, 350);
     }
   }
-  var voile = document.createElement('div'); voile.className = 'ebs-voile'; document.body.appendChild(voile);
   var html = document.documentElement, avantH = '', avantB = '';
   function bloquer(b){
     if(b){ avantH = html.style.overflow; avantB = document.body.style.overflow; html.style.overflow = 'hidden'; document.body.style.overflow = 'hidden'; }
@@ -515,17 +516,14 @@
       if(r.top > REGLAGES.espaceMenu) window.scrollTo(0, window.scrollY + r.top - REGLAGES.espaceMenu + 1);
       coller();
       cocher(actuel);
-      voile.style.top = bar.getBoundingClientRect().bottom + 'px';
-      var rv = root.getBoundingClientRect(); voile.style.left = rv.left + 'px'; voile.style.width = rv.width + 'px'; voile.style.right = 'auto';
       drop.style.maxHeight = (window.innerHeight - bar.getBoundingClientRect().bottom) + 'px';
     }
-    bar.classList.toggle('ouvert', o); voile.classList.toggle('on', o); bloquer(o);
+    bar.classList.toggle('ouvert', o); bloquer(o);
     phraseBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
     phraseBtn.querySelector('i').textContent = o ? '−' : '+';
     if(!o) coller();
     if(typeof suivre === 'function') suivre();
   }
-  voile.addEventListener('click', function(){ ouvrir(false); });
   phraseBtn.addEventListener('click', function(){ ouvrir(!bar.classList.contains('ouvert')); });
   drop.addEventListener('click', function(e){
     var b = e.target.closest('button'); if(!b) return;
