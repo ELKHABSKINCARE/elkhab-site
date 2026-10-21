@@ -332,7 +332,9 @@
   // ordinateur, mais bloc des soins étroit (ex. moitié d'écran à côté d'une bannière) : 3 soins par rangée
   +   "#eb-soins.etroit .ebs-card{width:33.333%}"
   +   "#eb-soins.etroit .ebs-tx h3{font-size:11.5px;letter-spacing:.1em}"
-  +   ".ebs-amb img,.ebs-amb video{height:520px;object-fit:cover}"
+  +   ".ebs-amb img{height:520px;object-fit:cover}"
+  // ordinateur : la vidéo s'affiche en entier (rien de coupé), à la plus grande taille qui tient à l'écran
+  +   ".ebs-amb video{width:100%;height:auto;max-height:88vh;object-fit:contain}"
   +   ".ebs-cof .ebs-card{width:100%;max-width:620px;grid-template-columns:260px 1fr;gap:30px}"
   + "}";
   if(!document.getElementById('ebs-style')){ var st = document.createElement('style'); st.id = 'ebs-style'; st.textContent = css; document.head.appendChild(st); }
