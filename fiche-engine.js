@@ -163,6 +163,10 @@
   +   ".eb-fp-left .eb-fp-media video,.eb-fp-left .eb-fp-media > img{width:100%;height:100%;object-fit:contain;object-position:center}"
   +   ".eb-fp-left .eb-fp-slides{height:100%}"
   +   ".eb-fp-left .eb-fp-media .eb-fp-slides .eb-fp-slide img,.eb-fp-left .eb-fp-media .eb-fp-slides .eb-fp-slide video{width:100%;height:100%;object-fit:contain;object-position:center}"
+  // Vidéos et photos qui ont leur propre fond : elles remplissent toute la colonne (du bord de l'écran
+  // jusqu'à la colonne de texte), sans bandes beiges. Les photos produits sur le beige du site ne bougent pas.
+  // (actif seulement si le fichier produits contient window.EB_MEDIA_PLEIN = true)
+  +   ".eb-fp-plein .eb-fp-left .eb-fp-media video,.eb-fp-plein .eb-fp-left .eb-fp-media img.eb-remplir{object-fit:cover !important;object-position:50% 30% !important}"
   // Colonne texte : toute la largeur, avec des marges confortables
   +   ".eb-fp-content{padding:90px 64px 80px;max-width:none}"
   +   ".eb-fp-content > *:not(.eb-fp-exp){max-width:640px;margin-left:auto;margin-right:auto}"
@@ -388,6 +392,29 @@
     return h + '</div></div>';
   }
 
+  // Ordinateur : une photo dont le bord n'est pas le beige du site est marquée « eb-remplir »
+  function remplirSiFond(){
+    if(!window.EB_MEDIA_PLEIN || !window.matchMedia('(min-width:900px)').matches) return;
+    overlay.querySelectorAll('.eb-fp-left .eb-fp-media img:not(.eb-fp-poster)').forEach(function(img){
+      var t = new Image(); t.crossOrigin = 'anonymous';
+      t.onload = function(){
+        try {
+          var c = document.createElement('canvas'), n = 24; c.width = c.height = n;
+          var x = c.getContext('2d'); x.drawImage(t, 0, 0, n, n);
+          var d = x.getImageData(0, 0, n, n).data, ecart = 0, k = 0;
+          for(var i = 0; i < n; i++){
+            [[i, 0], [i, n - 1], [0, i], [n - 1, i]].forEach(function(p){
+              var o = (p[1] * n + p[0]) * 4;
+              ecart += Math.max(Math.abs(d[o] - 246), Math.abs(d[o + 1] - 244), Math.abs(d[o + 2] - 240)); k++;
+            });
+          }
+          if(ecart / k > 1.5) img.classList.add('eb-remplir');
+        } catch(e){}
+      };
+      t.src = img.currentSrc || img.src;
+    });
+  }
+
   function demarrerDiaporama(){
     clearTimeout(slideTimer);
     var track = overlay.querySelector('.eb-fp-slides');
@@ -527,7 +554,7 @@
     charger(REVIEWS_ENGINE, function(){ return typeof window.ebRenderReviews === 'function'; });
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
 
-    var h = '<div class="eb-fp-wrap"><div class="eb-fp-left">' + mediaHTML(data.media, data.nom) + '</div><div class="eb-fp-right"><div class="eb-fp-content">';
+    var h = '<div class="eb-fp-wrap' + (window.EB_MEDIA_PLEIN ? ' eb-fp-plein' : '') + '"><div class="eb-fp-left">' + mediaHTML(data.media, data.nom) + '</div><div class="eb-fp-right"><div class="eb-fp-content">';
 
     // En-tête : titre, actifs, détails, petite note
     h += '<div class="eb-fp-head">';
@@ -699,6 +726,7 @@
       v.muted = true; var p = v.play(); if(p && p.catch) p.catch(function(){});
     }
     demarrerDiaporama();
+    remplirSiFond();
     animerPhrases();
 
     requestAnimationFrame(function(){ overlay.classList.add('open'); });
