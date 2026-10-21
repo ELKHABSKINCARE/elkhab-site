@@ -116,8 +116,8 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-jour-1-boite-flacon_-_Copie.png?v=1792576367",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_LUMI_JOUR.png?v=1792581371",
         // 📷 4. PHOTO 4
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_beaute_avec_soin_hydratant_ELKHA.B_1.png?v=1792580243"
       ]
@@ -439,8 +439,8 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-nuit-1-boite-flacon_-_Copie.png?v=1792576367",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/8aa68ee794404b48a3a17fad02c2610a.mp4",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_LUMI_NUIT.png?v=1792581442",
         // 📷 4. PHOTO 4
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cb60824390f842b82871e67a.png?v=1792579944"
       ]
@@ -524,11 +524,7 @@ window.EB_PRODUITS = {
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-1-boites-flacons_-_Copie.png?v=1792576367",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Rituel_luminescence_eau.png?v=1791316799"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -702,9 +698,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-carrousel_2.png?v=1792569443",
-        // 📷 2. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Screenshot_20261008_002622_Gallery_2.jpg?v=1791446236"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-carrousel_2.png?v=1792569443"
       ]
     },
 
@@ -833,9 +827,9 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000018cc82108970f45b4b30dfff.png?v=1792225964",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        // 📷 3. PATCHS SEULS
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_dore.png?v=1791273110",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        // 📷 4. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_dore.png?v=1791273035"
       ]
     },
@@ -912,10 +906,10 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000426481f48f8efd886f65ba45.png?v=1792225964",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_gris.png?v=1791273034",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_gris.png?v=1791273110"
+        // 📷 3. PATCHS SEULS
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_gris.png?v=1791273110",
+        // 📷 4. MANNEQUIN
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_gris.png?v=1791273034"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -989,9 +983,9 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000027bc81f4ab57858a2c77cf29.png?v=1792225964",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        // 📷 3. PATCHS SEULS
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_orange.png?v=1791273110",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        // 📷 4. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_orange.png?v=1791273034"
       ]
     },
@@ -1061,9 +1055,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-carrousel.png?v=1792569443",
-        // 📷 2. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Amelia.png?v=1791270834"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-carrousel.png?v=1792569443"
       ]
     },
 
@@ -1108,9 +1100,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-fermete-carrousel-v2.png?v=1792569443",
-        // 📷 2. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000093a881f4af3eb20b9c2264ad.png?v=1790834900"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-fermete-carrousel-v2.png?v=1792569443"
       ]
     },
 
@@ -1157,9 +1147,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-carrousel.png?v=1792569443",
-        // 📷 2. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Screenshot_20261008_002253_Gallery_2.jpg?v=1791446236"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-carrousel.png?v=1792569443"
       ]
     },
 
@@ -1206,9 +1194,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-teint-protection-carrousel.png?v=1792569442",
-        // 📷 2. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000009f7881f49c75311cc9043c02_1.png?v=1791446380"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-teint-protection-carrousel.png?v=1792569442"
       ]
     },
 
@@ -1253,9 +1239,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-regard-carrousel.png?v=1792569442",
-        // 📷 2. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Cynthia_patchs.jpg?v=1791276553"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-regard-carrousel.png?v=1792569442"
       ]
     },
 
