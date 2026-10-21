@@ -24,6 +24,8 @@
     pontBalance: true,
     // Couleur exacte du fond du site : les photos y sont fondues (plus de cadre ni d'ombre coupée)
     fondSite: "#f5f4f0",
+    // Titre du texte de présentation (placé après les patchs ; le texte lui-même s'écrit dans l'embed Carrd)
+    titreTexte: "La collection Bloom",
     // Si une photo remplacée dans Shopify s'affiche tantôt l'ancienne, tantôt la nouvelle :
     // augmenter ce chiffre de 1 (oblige téléphones et serveurs à reprendre la photo du jour)
     versionPhotos: 2,
@@ -157,12 +159,13 @@
   var ETAPES = [
     { num: "01", titre: "Préparer",  texte: "Une peau équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["gelee-lumibloom"] },
     { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","radiance-eye-cream"],
-      // 📷 Grande photo d'ambiance après l'étape 02 (laisser "" pour ne rien afficher)
-      ambiance: { photo: "", alt: "Lèvres et peau lumineuse, soins ELKHA.B Bloom", cadrage: "50% 40%" } },
-    { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"] },
+ },
+    { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"],
+      // 🎬 Respiration après l'étape 03 : lien de la vidéo Shopify (laisser "" pour ne rien afficher)
+      //    (pour une photo à la place : mettre le lien dans photo: "" et laisser video: "")
+      ambiance: { video: "https://cdn.shopify.com/videos/c/o/v/74ade55001d64facbc6d121c6c56d122.mp4", photo: "", alt: "Rituel ELKHA.B Bloom, peau lumineuse et hydratée", cadrage: "50% 50%" } },
     { num: "04", titre: "Protéger",  texte: "Le geste du matin, chaque jour.",            couleur: "#e0663c", soins: ["radiance-protect","lumiveil-cc-cream"],
-      // 📷 Grande photo d'ambiance après l'étape 04 (laisser "" pour ne rien afficher)
-      ambiance: { photo: "", alt: "Peau lumineuse et hydratée, rituel ELKHA.B Bloom", cadrage: "50% 30%" } },
+ },
     { num: "05", titre: "Régénérer", texte: "La nuit, la peau se répare.",                couleur: "#7d1f2b", soins: ["luminescence-nuit"] }
   ];
 
@@ -187,6 +190,7 @@
   var css = ''
   + "#eb-soins{font-family:'Montserrat',sans-serif;color:#000;text-align:left;-webkit-tap-highlight-color:transparent;width:100%}"
   + "@media (max-width:899px){#eb-soins{width:100vw !important;max-width:100vw !important;margin-left:calc(50% - 50vw) !important}}"
+  + "@media (max-height:700px){.ebs-drop button{padding:8px 0;font-size:12.5px}.ebs-drop .ebs-go{padding:13px}}"
   + "#eb-soins *{box-sizing:border-box}"
   + "#eb-soins a{color:inherit;text-decoration:none}"
   + ".ebs-in{padding:0 18px}"
@@ -209,6 +213,9 @@
   + ".ebs-sq{display:block;width:18px;height:18px}"
   + ".ebs-txt{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14.5px;line-height:1.9;color:rgba(0,0,0,.7);text-align:center;max-width:760px;margin:0 auto}"
   + ".ebs-txt p{margin:0 0 12px}"
+  + ".ebs-bloom{padding:46px 22px 10px;text-align:center}"
+  + "#eb-soins .ebs-bloom h2{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#000;margin:0 0 16px}"
+  + ".filtre .ebs-bloom{display:none}"
   + ".ebs-court{display:none}"
   + ".ebs-plus{display:inline;background:none;border:0;padding:0 2px;margin:0;font-family:'Montserrat',sans-serif;font-size:19px;font-weight:400;line-height:1;color:#000;cursor:pointer;vertical-align:-1px}"
   + ".ebs-txt.coupe:not(.ouvert) .ebs-plein{display:none}"
@@ -226,13 +233,16 @@
   // Le panneau qui descend
   + ".ebs-drop{display:none;position:absolute;left:0;right:0;top:100%;background:" + REGLAGES.fondSite + ";padding:4px 20px 20px;box-shadow:0 18px 30px rgba(0,0,0,.1);overflow-y:auto;-webkit-overflow-scrolling:touch}"
   + ".ebs-bar.ouvert .ebs-drop{display:block;animation:ebsIn .35s ease}"
-  + ".ebs-drop button{display:flex;width:100%;justify-content:space-between;align-items:center;background:none;border:0;border-top:1px solid rgba(0,0,0,.12);padding:12px 0;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:400;color:#000;text-align:left;cursor:pointer}"
+  + ".ebs-voile{display:none;position:fixed;left:0;right:0;bottom:0;background:rgba(0,0,0,.25);z-index:899}"
+  + ".ebs-voile.on{display:block;animation:ebsFonduVoile .3s ease}"
+  + "@keyframes ebsFonduVoile{from{opacity:0}to{opacity:1}}"
+  + ".ebs-drop button{display:flex;width:100%;justify-content:space-between;align-items:center;background:none;border:0;border-top:1px solid rgba(0,0,0,.12);padding:11px 0;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:400;color:#000;text-align:left;cursor:pointer}"
   + ".ebs-drop button:first-child{border-top:0}"
   + ".ebs-drop button i{display:block;width:12px;height:12px;border:1px solid #000;flex:none;margin-left:12px}"
   + ".ebs-drop button.on{font-weight:500}.ebs-drop button.on i{background:#000}"
   + ".ebs-drop .ebs-go{display:block;justify-content:center;margin-top:12px;background:#000;color:" + REGLAGES.fondSite + ";border:0;padding:15px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-align:center}"
   // Vitrine
-  + ".ebs-flow{display:flex;flex-wrap:wrap;justify-content:center;margin-top:8px}"
+  + ".ebs-flow{display:flex;flex-wrap:wrap;justify-content:center;margin-top:34px}"
   + "@media (max-width:1179px){.ebs-flow{padding-right:26px}.ebs-amb{width:calc(100% + 26px) !important;margin-right:-26px !important}}"
   + ".ebs-grp{width:100%;display:flex;flex-wrap:wrap;justify-content:center;padding-bottom:10px}"
   + ".ebs-card{position:relative;display:block;width:50%;padding:0 0 34px;transition:opacity .5s ease,filter .5s ease}"
@@ -249,7 +259,7 @@
   // secours si la photo ne peut pas être retravaillée : bords fondus en CSS
   + ".ebs-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
   // textes alignés d'une vignette à l'autre (téléphone)
-  + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:10.5px;letter-spacing:.12em;min-height:2.9em;display:flex;align-items:flex-end;justify-content:center}.ebs-tx .a{min-height:3.1em}#eb-soins .ebs-cib h2{font-size:20px}}"
+  + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:10.5px;letter-spacing:.12em}#eb-soins .ebs-cib h2{font-size:20px}}"
   + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.75}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
@@ -275,7 +285,7 @@
   + "@keyframes ebsIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}"
   // Grandes photos
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;max-height:1400px;}"
-  + ".ebs-amb img{display:block;width:100%;height:auto}"
+  + ".ebs-amb img,.ebs-amb video{display:block;width:100%;height:auto}"
   + ".filtre .ebs-amb{display:none}"
   // Pont Balance
   + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:16px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.6;text-align:center}"
@@ -299,7 +309,7 @@
   +   ".ebs-drop{left:50%;right:auto;width:520px;transform:translateX(-50%)}"
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-card{width:25%;padding:0 9px 40px}"
-  +   ".ebs-amb img{height:520px;object-fit:cover}"
+  +   ".ebs-amb img,.ebs-amb video{height:520px;object-fit:cover}"
   +   ".ebs-cof .ebs-card{width:25%}"
   + "}";
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
@@ -319,7 +329,8 @@
 
   // Texte d'introduction : écrit directement dans l'embed Carrd (lisible par Google), repris ici avec un « + »
   var intro = root.querySelector('.ebs-intro');
-  var h = intro ? '<div class="ebs-in"><div class="ebs-txt"><div class="ebs-plein">' + intro.innerHTML + '</div><p class="ebs-court"></p></div></div>' : '';
+  var texteBloom = intro ? '<section class="ebs-bloom"><h2>' + esc(REGLAGES.titreTexte) + '</h2><div class="ebs-txt"><div class="ebs-plein">' + intro.innerHTML + '</div><p class="ebs-court"></p></div></section>' : '';
+  var h = '';
   h += '<div class="ebs-slot"><div class="ebs-bar">'
     + '<button type="button" class="ebs-phrase" aria-expanded="false" aria-haspopup="true"><span class="long">Je cherche un soin pour </span><span class="court">Pour </span><b>tous mes besoins</b><i>+</i></button>'
     + '<div class="ebs-drop" role="listbox" aria-label="Choisir un besoin">'
@@ -331,7 +342,9 @@
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
     h += '<div class="ebs-grp">' + e.soins.map(function(id){ return vignette(id, e); }).join('') + '</div>';
-    if(e.ambiance && e.ambiance.photo){
+    if(e.ambiance && e.ambiance.video){
+      h += '<figure class="ebs-amb"><video src="' + esc(e.ambiance.video) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(e.ambiance.alt) + '" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></video></figure>';
+    } else if(e.ambiance && e.ambiance.photo){
       h += '<figure class="ebs-amb"><img src="' + esc(src(e.ambiance.photo, 1200)) + '" alt="' + esc(e.ambiance.alt) + '" loading="lazy" decoding="async" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></figure>';
     }
   });
@@ -339,7 +352,7 @@
   if(SOINS[COFFRET.soin]) h += '<div class="ebs-cof"><span class="ebs-sur">' + esc(COFFRET.surtitre) + '</span>' + vignette(COFFRET.soin, null) + '</div>';
   h += '<div class="ebs-cib" id="ebs-cibles"><h2>' + esc(CIBLES.titre) + '</h2><span>' + esc(CIBLES.sousTitre) + '</span><p>' + esc(CIBLES.texte) + '</p></div>';
   h += CIBLES.soins.map(function(id){ return vignette(id, null); }).join('');
-  h += '</div>';
+  h += '</div>' + texteBloom;
   root.innerHTML = h;
 
   var cards = root.querySelectorAll('.ebs-card');
@@ -480,11 +493,29 @@
       }, 350);
     }
   }
-  function ouvrir(o){
-    bar.classList.toggle('ouvert', o); phraseBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
-    phraseBtn.querySelector('i').textContent = o ? '−' : '+';
-    if(o){ cocher(actuel); drop.style.maxHeight = (window.innerHeight - bar.getBoundingClientRect().bottom - 12) + 'px'; }
+  var voile = document.createElement('div'); voile.className = 'ebs-voile'; document.body.appendChild(voile);
+  var html = document.documentElement, avantH = '', avantB = '';
+  function bloquer(b){
+    if(b){ avantH = html.style.overflow; avantB = document.body.style.overflow; html.style.overflow = 'hidden'; document.body.style.overflow = 'hidden'; }
+    else { html.style.overflow = avantH; document.body.style.overflow = avantB; }
   }
+  function ouvrir(o){
+    if(o){
+      // la phrase vient se placer juste sous le menu : le panneau tient alors en entier à l'écran
+      var r = slot.getBoundingClientRect();
+      if(r.top > REGLAGES.espaceMenu) window.scrollTo(0, window.scrollY + r.top - REGLAGES.espaceMenu + 1);
+      coller();
+      cocher(actuel);
+      voile.style.top = bar.getBoundingClientRect().bottom + 'px';
+      drop.style.maxHeight = (window.innerHeight - bar.getBoundingClientRect().bottom) + 'px';
+    }
+    bar.classList.toggle('ouvert', o); voile.classList.toggle('on', o); bloquer(o);
+    phraseBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
+    phraseBtn.querySelector('i').textContent = o ? '−' : '+';
+    if(!o) coller();
+    if(typeof suivre === 'function') suivre();
+  }
+  voile.addEventListener('click', function(){ ouvrir(false); });
   phraseBtn.addEventListener('click', function(){ ouvrir(!bar.classList.contains('ouvert')); });
   drop.addEventListener('click', function(e){
     var b = e.target.closest('button'); if(!b) return;
@@ -499,7 +530,7 @@
   var slot = root.querySelector('.ebs-slot'), bar = root.querySelector('.ebs-bar'), fin = root.querySelector('.ebs-cib');
   function coller(){
     var r = slot.getBoundingClientRect(), f = fin.getBoundingClientRect();
-    var on = r.top < REGLAGES.espaceMenu && f.top > REGLAGES.espaceMenu + 120;
+    var on = (r.top < REGLAGES.espaceMenu && f.top > REGLAGES.espaceMenu + 120) || bar.classList.contains('ouvert');
     if(on && !bar.classList.contains('fixe')){ slot.style.height = bar.offsetHeight + 'px'; bar.style.top = REGLAGES.espaceMenu + 'px'; bar.classList.add('fixe'); }
     else if(!on && bar.classList.contains('fixe')){ bar.classList.remove('fixe'); bar.style.top = ''; slot.style.height = ''; }
   }
@@ -536,7 +567,8 @@
     rail.style.top = (REGLAGES.espaceMenu + barre + 16) + 'px';
     rail.style.height = HAUT_RAIL + 'px';
     var f = flow.getBoundingClientRect(), fin5 = root.querySelector('.ebs-cof') || fin;
-    var visible = bar.classList.contains('fixe') && f.top < window.innerHeight * .55 && fin5.getBoundingClientRect().top > REGLAGES.espaceMenu + barre + HAUT_RAIL * .6;
+    var c1 = root.querySelector('.ebs-card[data-e]'), debut = c1 ? c1.getBoundingClientRect().top < window.innerHeight * .5 : true;
+    var visible = bar.classList.contains('fixe') && !bar.classList.contains('ouvert') && debut && fin5.getBoundingClientRect().top > REGLAGES.espaceMenu + barre + HAUT_RAIL * .6;
     rail.classList.toggle('vu', visible);
     if(glisse) return;
     var ligne = window.innerHeight * .45, i = 0;
@@ -573,7 +605,33 @@
   window.addEventListener('resize', suivre);
   suivre();
 
+  // ── Textes des vignettes alignés : sur une même rangée, nom, actifs et besoins commencent à la même hauteur ──
+  function aligner(){
+    var champs = ['h3', '.a', '.l'];
+    cards.forEach(function(c){ champs.forEach(function(q){ var el = c.querySelector(q); if(el) el.style.minHeight = ''; }); });
+    var rangs = {};
+    cards.forEach(function(c){
+      if(c.offsetParent === null || c.classList.contains('off')) return;
+      var k = c.parentNode === flow ? 'f' : 'g'; k += Math.round(c.getBoundingClientRect().top + window.scrollY);
+      (rangs[k] = rangs[k] || []).push(c);
+    });
+    Object.keys(rangs).forEach(function(k){
+      var r = rangs[k]; if(r.length < 2) return;
+      champs.forEach(function(q){
+        var max = 0; r.forEach(function(c){ var el = c.querySelector(q); if(el) max = Math.max(max, el.offsetHeight); });
+        r.forEach(function(c){ var el = c.querySelector(q); if(el) el.style.minHeight = max + 'px'; });
+      });
+    });
+  }
+  var largeurA = 0;
+  window.addEventListener('resize', function(){ if(window.innerWidth !== largeurA){ largeurA = window.innerWidth; aligner(); } });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(aligner);
+  aligner();
+  var filtrerAvant = filtrer;
+  filtrer = function(id, defiler){ filtrerAvant(id, defiler); setTimeout(aligner, 560); };
+
   window.addEventListener('load', function(){
+    aligner();
     root.querySelectorAll('[data-prix]').forEach(function(p){ var id = p.getAttribute('data-prix'); p.textContent = prix(id) + ' – ' + SOINS[id].taille; });
   });
 })();
