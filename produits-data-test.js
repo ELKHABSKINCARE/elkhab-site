@@ -13,6 +13,9 @@
 // Bloc « Vos expériences » des fiches : dégradé Bloom (true) ou ancien fond noir (false)
 window.EB_AVIS_DEGRADE = true;
 
+// Fiches sur ordinateur : vidéos et photos avec leur propre fond en pleine colonne (true) ou comme avant (false)
+window.EB_MEDIA_PLEIN = true;
+
 window.EB_PRODUITS = {
 
   "radiance-serum": {
