@@ -62,7 +62,27 @@
   + ".eb-av-thanks{text-align:center;padding:30px 0 10px;display:none}"
   + ".eb-av-thanks-title{font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:0 0 14px}"
   + ".eb-av-thanks p{font-size:14px;line-height:1.8;opacity:.75;margin:0 0 26px}"
-  + ".eb-av-thanks button{display:inline-block;background:#fff;color:#000;border:none;padding:16px 30px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}";
+  + ".eb-av-thanks button{display:inline-block;background:#fff;color:#000;border:none;padding:16px 30px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}"
+  // ---- Thème par gamme (dégradé de gauche à droite, comme le bloc « Vos expériences » des fiches)
+  // Actif seulement si le fichier produits contient window.EB_AVIS_DEGRADE = true
+  + ".eb-av-overlay.eb-av-bloom{--av-fond:linear-gradient(90deg,#f8efe6 0%,#f3e4d9 16%,#eed3c5 36%,#eccbba 48%,#e9beaa 60%,#e4ab95 76%,#e3a892 80%,#d39a89 88%,#c38a7f 92%,#ac6b70 100%);--av-encre:#3a1a12;--av-rgb:58,26,18;--av-bouton:#5a1823}"
+  + ".eb-av-overlay.eb-av-balance{--av-fond:linear-gradient(90deg,#f8f5f0 0%,#eaece7 16%,#dbe2db 32%,#d1dbd2 44%,#b5c5b7 56%,#a6b8a9 68%,#8ca493 78%,#809888 86%,#71887d 92%,#697c73 96%,#5c6b66 100%);--av-encre:#18302a;--av-rgb:24,48,42;--av-bouton:#18302a}"
+  + ".eb-av-overlay.eb-av-theme{background:var(--av-fond);color:var(--av-encre)}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-title,.eb-av-overlay.eb-av-theme .eb-av-card-name,.eb-av-overlay.eb-av-theme .eb-av-remove,.eb-av-overlay.eb-av-theme .eb-av-link{color:var(--av-encre)}"
+  + ".eb-av-overlay.eb-av-theme input,.eb-av-overlay.eb-av-theme select,.eb-av-overlay.eb-av-theme textarea{color:var(--av-encre);border-bottom-color:rgba(var(--av-rgb),.55)}"
+  + ".eb-av-overlay.eb-av-theme input::placeholder,.eb-av-overlay.eb-av-theme textarea::placeholder{color:var(--av-encre);opacity:.5}"
+  + ".eb-av-overlay.eb-av-theme select{background-image:linear-gradient(45deg,transparent 50%,var(--av-encre) 50%),linear-gradient(135deg,var(--av-encre) 50%,transparent 50%)}"
+  + ".eb-av-overlay.eb-av-theme textarea{border:1px solid rgba(var(--av-rgb),.3);background:rgba(251,246,241,.45)}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-card{border-color:rgba(var(--av-rgb),.16);background:rgba(251,246,241,.5)}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-card-img{background:#fbf6f1}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-star{color:rgba(var(--av-rgb),.22)}.eb-av-overlay.eb-av-theme .eb-av-star.on{color:var(--av-bouton)}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-error{color:#a3242c}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-send,.eb-av-overlay.eb-av-theme .eb-av-thanks button{background:var(--av-bouton);color:#fbf6f1}"
+  // Bannière noire ELKHA.B : de bout en bout en haut de la page, logo au centre
+  + ".eb-av-overlay.eb-av-theme{overflow-x:hidden}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-inner{padding-top:0}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-bandeau{background:#000;margin:0 calc(50% - 50vw) 34px}"
+  + ".eb-av-overlay.eb-av-theme .eb-av-bandeau .eb-av-banner{max-width:760px;margin:0 auto}";
 
   // ------------------------------------------------------------------ STRUCTURE
   var overlay, list, errorEl, sendBtn, formEl, thanksEl, closeBtn;
@@ -83,7 +103,7 @@
     overlay.setAttribute('aria-label', 'Laisser un avis');
     overlay.innerHTML = ''
       + '<div class="eb-av-inner">'
-      +   '<img class="eb-av-banner" src="' + BANNIERE + '" alt="ELKHA.B Paris">'
+      +   '<div class="eb-av-bandeau"><img class="eb-av-banner" src="' + BANNIERE + '" alt="ELKHA.B Paris"></div>'
       +   '<h2 class="eb-av-title">Votre avis compte</h2>'
       +   '<p class="eb-av-intro">Texture, sensations, évolution de votre peau… Partagez votre expérience, simplement et sincèrement. Votre avis aidera d’autres peaux à trouver les soins qui leur correspondent.</p>'
       +   '<div class="eb-av-form">'
@@ -206,8 +226,32 @@
 
   // ------------------------------------------------------------------ OUVERTURE / FERMETURE
   // items : [{ n: 'Nom du formulaire', d: 'Nom affiché', i: 'photo' }, ...]
+  // Gamme de la page : Balance sur le site Balance, Bloom partout ailleurs (tous les soins notés sont Bloom)
+  function themeGamme(){
+    if(!window.EB_AVIS_DEGRADE) return '';
+    return /balance/i.test(window.location.hostname) ? 'eb-av-balance' : 'eb-av-bloom';
+  }
+  // Le fond de la bande prend exactement le noir de la bannière (lu dans un coin de l'image)
+  var noirLu = false;
+  function noirBanniere(){
+    if(noirLu) return; noirLu = true;
+    var im = new Image(); im.crossOrigin = 'anonymous';
+    im.onload = function(){
+      try {
+        var c = document.createElement('canvas'); c.width = c.height = 1;
+        var x = c.getContext('2d'); x.drawImage(im, 2, 2, 1, 1, 0, 0, 1, 1);
+        var p = x.getImageData(0, 0, 1, 1).data;
+        overlay.querySelector('.eb-av-bandeau').style.background = 'rgb(' + p[0] + ',' + p[1] + ',' + p[2] + ')';
+      } catch(e){}
+    };
+    im.src = BANNIERE;
+  }
   function ebAvisOpen(items){
     build();
+    overlay.classList.remove('eb-av-theme', 'eb-av-bloom', 'eb-av-balance');
+    var t = themeGamme();
+    if(t) overlay.classList.add('eb-av-theme', t);
+    if(t) noirBanniere();
     list.innerHTML = '';
     errorEl.textContent = '';
     formEl.style.display = 'block';
