@@ -131,9 +131,9 @@
   + ".eb-fp-exp .eb-review{border-bottom:1px solid rgba(255,255,255,.18) !important}"
   + ".eb-fp-avis{display:flex;align-items:center;justify-content:center;width:100%;max-width:320px;margin:28px auto 0;background:#fff;color:#000;border:none;border-radius:0;padding:17px 24px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;white-space:nowrap}"
   + ".eb-fp-avis:hover{transform:scale(1.03)}"
-  // Vos expériences — version dégradé Bloom (étapes 01 → 05, de gauche à droite)
+  // Vos expériences — version dégradé Bloom (étapes 01 → 05, en diagonale)
   // Activée seulement si le fichier produits contient window.EB_AVIS_DEGRADE = true
-  + ".eb-fp-exp.eb-fp-degrade{background:linear-gradient(90deg,#f8efe6 0%,#f3e4d9 16%,#eed3c5 36%,#eccbba 48%,#e9beaa 60%,#e4ab95 76%,#e3a892 80%,#d39a89 88%,#c38a7f 92%,#ac6b70 100%);color:#3a1a12}"
+  + ".eb-fp-exp.eb-fp-degrade{background:linear-gradient(150deg,#f7efe6 0%,#f4e7dd 5%,#f0e0d4 10%,#efdace 15%,#edd4c8 20%,#eccfc2 25%,#eacbbc 30%,#e8c6b6 35%,#e6c1af 40%,#e4bca8 45%,#e2b7a2 50%,#e0b39e 55%,#deaf9a 60%,#ddaa96 65%,#dba592 70%,#d79f8d 75%,#d29888 80%,#cb8f82 85%,#c2847c 90%,#b77876 95%,#ac6b70 100%);color:#3a1a12}"
   + ".eb-fp-exp.eb-fp-degrade .eb-fp-h2{color:#3a1a12}"
   + ".eb-fp-exp.eb-fp-degrade .eb-reviews,.eb-fp-exp.eb-fp-degrade .eb-reviews *{color:#3a1a12 !important}"
   + ".eb-fp-exp.eb-fp-degrade .eb-review{border-bottom:1px solid rgba(58,26,18,.16) !important}"
