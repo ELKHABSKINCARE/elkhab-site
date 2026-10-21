@@ -1,3 +1,4 @@
+// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 (function(){
   // ==========================================================================
   // ELKHA.B — Panneau « Votre avis compte »
@@ -20,7 +21,7 @@
     'Gelée Lumi-Bloom au Prébiotique','Rituel Luminescence','Radiance Protect','Lumi-Veil CC Cream',
     'Radiance Eye Cream','Lumi-Eyes Bright & Glow Niacinamide + Acide hyaluronique',
     'Lumi-Eyes Bright & Glow Caféine + Vitamine C','Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5',
-    'Routine éclat','Routine hydratation','Routine anti-âge','Routine équilibre',
+    'Routine éclat','Routine hydratation','Routine fermeté','Routine équilibre',
     'Routine teint & protection','Routine regard'
   ];
   var BANNIERE = 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200';
