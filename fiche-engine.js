@@ -38,6 +38,12 @@
   + ".eb-fp-dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:7px}"
   + ".eb-fp-dot{width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.25);transition:background .2s ease}"
   + ".eb-fp-dot.on{background:#000}"
+  // points cliquables : zone de clic plus grande, même petit rond visible
+  + ".eb-fp-dots{gap:0}"
+  + ".eb-fp-dot{position:relative;width:19px;height:19px;background:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}"
+  + ".eb-fp-dot:after{content:'';position:absolute;left:6px;top:6px;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.25);transition:background .2s ease}"
+  + ".eb-fp-dot.on:after{background:#000}"
+  + ".eb-fp-slides{touch-action:pan-x pan-y;cursor:grab}"
   // En-tête de la fiche
   + ".eb-fp-content{padding:32px 24px 70px;max-width:620px;margin:0 auto}"
   + "@media (max-width:899px){.eb-fp-content{padding-top:16px}}"
@@ -163,7 +169,7 @@
   +   ".eb-fp-accord-img{width:100%;max-width:380px !important;margin:26px auto 26px !important}"
   + "}";
 
-  var overlay, closeBtn, cartBtn, backBtn, pile = [], courant = null, built = false, observer = null, slideTimer = null;
+  var overlay, closeBtn, cartBtn, backBtn, pile = [], courant = null, built = false, observer = null, slideTimer = null, choixManuel = false;
 
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
 
@@ -226,6 +232,7 @@
       }
       // Sélecteur : la version choisie part au panier, et le diaporama montre sa photo
       var opt = e.target.closest('.eb-fp-sel-opt');
+      if(opt && e.isTrusted !== false) choixManuel = true;
       if(opt){
         var bloc = opt.closest('.eb-fp-sel');
         var cible = bloc.getAttribute('data-cible');
@@ -402,11 +409,53 @@
       slideTimer = setTimeout(suivante, dureeEtape((i + 1) % n));
     };
     var attente = null;
+    choixManuel = false;
+    var aller = function(i){
+      clearTimeout(slideTimer);   // la cliente fait défiler elle-même : le défilement automatique s'arrête
+      i = (i + slides.length) % slides.length;
+      track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+    };
+    // Le sélecteur de teinte suit la photo affichée (tant que la cliente n'a pas choisi elle-même)
+    var suivreTeinte = function(i){
+      if(choixManuel || !courant) return;
+      var bloc = overlay.querySelector('.eb-fp-sel[data-cible="main"]');
+      if(!bloc || bloc.getAttribute('data-produit') !== courant.id) return;
+      var opt = bloc.querySelector('.eb-fp-sel-opt[data-photo="' + i + '"]');
+      if(!opt || opt.classList.contains('active')) return;
+      bloc.querySelectorAll('.eb-fp-sel-opt').forEach(function(o){ o.classList.remove('active'); });
+      opt.classList.add('active');
+      var bouton = overlay.querySelector('.eb-fp-main-buy');
+      if(bouton) bouton.setAttribute('data-variant-id', opt.getAttribute('data-variant'));
+      var apercu = bloc.querySelector('.eb-fp-sel-preview');
+      var images = (courant.data && courant.data.media && courant.data.media.images) || ((window.EB_PRODUITS[courant.id] || {}).media || {}).images || [];
+      var imgOpt = opt.getAttribute('data-img') || (images[i] ? hd(images[i], 400) : '');
+      if(apercu && imgOpt){
+        apercu.querySelector('.eb-fp-sel-thumb').src = imgOpt;
+        apercu.querySelector('strong').textContent = opt.textContent;
+        apercu.classList.add('on');
+        apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
+      }
+    };
+    dots.forEach(function(d, k){ d.addEventListener('click', function(ev){ ev.stopPropagation(); aller(k); }); });
+    // Glisser : au doigt (téléphone) ou à la souris (ordinateur)
+    var x0 = null, s0 = 0, t0 = 0;
+    var debut = function(x){ x0 = x; s0 = track.scrollLeft; t0 = Date.now(); clearTimeout(slideTimer); };
+    var fin = function(x){
+      if(x0 === null) return;
+      var dx = x - x0; x0 = null;
+      if(Math.abs(track.scrollLeft - s0) > 8) return;          // le défilement naturel a déjà fait le travail
+      if(Math.abs(dx) > 35 && Date.now() - t0 < 900) aller(indexActuel() + (dx < 0 ? 1 : -1));
+    };
+    track.addEventListener('touchstart', function(ev){ debut(ev.touches[0].clientX); }, { passive: true });
+    track.addEventListener('touchend', function(ev){ fin(ev.changedTouches[0].clientX); }, { passive: true });
+    track.addEventListener('mousedown', function(ev){ debut(ev.clientX); ev.preventDefault(); });
+    window.addEventListener('mouseup', function(ev){ fin(ev.clientX); });
     track.addEventListener('scroll', function(){
       clearTimeout(attente);
-      attente = setTimeout(function(){ activer(indexActuel()); }, 120);
+      attente = setTimeout(function(){ var i = indexActuel(); activer(i); suivreTeinte(i); }, 120);
     }, { passive: true });
     activer(0);
+    suivreTeinte(0);
     slideTimer = setTimeout(suivante, dureeEtape(0));
   }
 
