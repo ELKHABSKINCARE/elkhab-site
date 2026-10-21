@@ -30,17 +30,18 @@
     lienBalance: "https://balance.elkhab.com/"
   };
 
-  // Les besoins (petites pastilles). « id » = ce qui apparaît dans l'adresse : ?besoin=eclat
+  // Les besoins. « id » = ce qui apparaît dans l'adresse : ?besoin=eclat
+  // « phrase » = la fin de « Je cherche un soin pour … » quand ce besoin est choisi
   var BESOINS = [
-    { id: "hydratation", nom: "Hydratation" },
-    { id: "apaisement",  nom: "Apaisement" },
-    { id: "eclat",       nom: "Éclat" },
-    { id: "anti-taches", nom: "Teint unifié & anti-taches" },
-    { id: "pores",       nom: "Pores & imperfections" },
-    { id: "fermete",     nom: "Rides & fermeté" },
-    { id: "regard",      nom: "Regard" },
-    { id: "solaire",     nom: "Protection solaire" },
-    { id: "sensibles",   nom: "Peaux sensibles" }
+    { id: "hydratation", nom: "Hydratation", phrase: "l'hydratation" },
+    { id: "apaisement",  nom: "Apaisement", phrase: "l'apaisement" },
+    { id: "eclat",       nom: "Éclat", phrase: "l'éclat" },
+    { id: "anti-taches", nom: "Teint unifié & anti-taches", phrase: "un teint unifié" },
+    { id: "pores",       nom: "Pores & imperfections", phrase: "les pores & imperfections" },
+    { id: "fermete",     nom: "Rides & fermeté", phrase: "les rides & la fermeté" },
+    { id: "regard",      nom: "Regard", phrase: "le regard" },
+    { id: "solaire",     nom: "Protection solaire", phrase: "la protection solaire" },
+    { id: "sensibles",   nom: "Peaux sensibles", phrase: "les peaux sensibles" }
   ];
 
   // Texte du pont vers Balance, selon le besoin choisi
@@ -212,15 +213,24 @@
   + ".ebs-plus{display:inline;background:none;border:0;padding:0 2px;margin:0;font-family:'Montserrat',sans-serif;font-size:19px;font-weight:400;line-height:1;color:#000;cursor:pointer;vertical-align:-1px}"
   + ".ebs-txt.coupe:not(.ouvert) .ebs-plein{display:none}"
   + ".ebs-txt.coupe:not(.ouvert) .ebs-court{display:block}"
-  + ".ebs-slot{margin-top:24px}"
-  + ".ebs-bar{padding:10px 0 10px;transition:background .3s ease}"
-  + ".ebs-bar.fixe{position:fixed;left:0;right:0;z-index:900;background:rgba(246,244,240,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid " + LIGNE + "}"
-  + ".ebs-bar.fixe .ebs-cap{display:none}"
-  + ".ebs-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;margin:0 -18px;padding:0 18px}"
-  + ".ebs-chips::-webkit-scrollbar{display:none}"
-  + ".ebs-chips button{flex:none;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#000;background:transparent;border:1px solid rgba(0,0,0,.25);border-radius:0;padding:9px 13px;cursor:pointer;transition:background .25s ease,color .25s ease,border-color .25s ease}"
-  + ".ebs-chips button.on{background:#000;color:#f6f4f0;border-color:#000}"
-  + ".ebs-compte{font-size:11px;font-weight:300;font-style:italic;opacity:.6;padding-top:8px;min-height:24px}"
+  + ".ebs-slot{margin-top:26px}"
+  // La phrase-filtre, sur le dégradé Bloom (du fond du site vers le rosé poudré des packagings)
+  + ".ebs-bar{position:relative;z-index:900}"
+  + ".ebs-bar.fixe{position:fixed;left:0;right:0}"
+  + ".ebs-phrase{display:block;width:100%;border:0;margin:0;padding:17px 18px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:300;color:#000;background:linear-gradient(90deg," + REGLAGES.fondSite + " 0%,#f3e3d8 30%,#ecc9b9 62%,#e6b9a6 100%)}"
+  + ".ebs-phrase b{font-weight:500;border-bottom:1px solid #000;padding-bottom:1px}"
+  + ".ebs-phrase i{font-style:normal;font-weight:400;font-size:18px;margin-left:7px;display:inline-block;min-width:10px}"
+  + ".ebs-phrase .court{display:none}"
+  + ".ebs-bar.fixe .ebs-phrase{padding:13px 18px;font-size:14px}"
+  + ".ebs-bar.fixe .ebs-phrase .long{display:none}.ebs-bar.fixe .ebs-phrase .court{display:inline}"
+  // Le panneau qui descend
+  + ".ebs-drop{display:none;position:absolute;left:0;right:0;top:100%;background:" + REGLAGES.fondSite + ";padding:4px 20px 20px;box-shadow:0 18px 30px rgba(0,0,0,.1);overflow-y:auto;-webkit-overflow-scrolling:touch}"
+  + ".ebs-bar.ouvert .ebs-drop{display:block;animation:ebsIn .35s ease}"
+  + ".ebs-drop button{display:flex;width:100%;justify-content:space-between;align-items:center;background:none;border:0;border-top:1px solid rgba(0,0,0,.12);padding:12px 0;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:400;color:#000;text-align:left;cursor:pointer}"
+  + ".ebs-drop button:first-child{border-top:0}"
+  + ".ebs-drop button i{display:block;width:12px;height:12px;border:1px solid #000;flex:none;margin-left:12px}"
+  + ".ebs-drop button.on{font-weight:500}.ebs-drop button.on i{background:#000}"
+  + ".ebs-drop .ebs-go{display:block;justify-content:center;margin-top:12px;background:#000;color:" + REGLAGES.fondSite + ";border:0;padding:15px;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;text-align:center}"
   // Vitrine
   + ".ebs-flow{display:flex;flex-wrap:wrap;justify-content:center;margin-top:8px}"
   + "@media (max-width:1179px){.ebs-flow{padding-right:26px}.ebs-amb{width:calc(100% + 26px) !important;margin-right:-26px !important}}"
@@ -286,8 +296,7 @@
   + "@media (min-width:900px){"
   +   ".ebs-in{max-width:1080px;margin:0 auto}"
   +   ".ebs-rail{right:18px}"
-  +   ".ebs-chips{flex-wrap:wrap;justify-content:center;overflow:visible;margin:0;padding:0}"
-  +   ".ebs-slot .ebs-cap,.ebs-compte{text-align:center}"
+  +   ".ebs-drop{left:50%;right:auto;width:520px;transform:translateX(-50%)}"
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-card{width:25%;padding:0 9px 40px}"
   +   ".ebs-amb img{height:520px;object-fit:cover}"
@@ -311,10 +320,13 @@
   // Texte d'introduction : écrit directement dans l'embed Carrd (lisible par Google), repris ici avec un « + »
   var intro = root.querySelector('.ebs-intro');
   var h = intro ? '<div class="ebs-in"><div class="ebs-txt"><div class="ebs-plein">' + intro.innerHTML + '</div><p class="ebs-court"></p></div></div>' : '';
-  h += '<div class="ebs-slot"><div class="ebs-bar"><div class="ebs-in"><p class="ebs-cap">VOTRE BESOIN</p><div class="ebs-chips" role="group" aria-label="Filtrer les soins par besoin">'
-    + '<button type="button" class="on" data-id="">Tout voir</button>'
-    + BESOINS.map(function(b){ return '<button type="button" data-id="' + b.id + '">' + esc(b.nom) + '</button>'; }).join('')
-    + '</div><div class="ebs-compte" aria-live="polite"></div></div></div></div>';
+  h += '<div class="ebs-slot"><div class="ebs-bar">'
+    + '<button type="button" class="ebs-phrase" aria-expanded="false" aria-haspopup="true"><span class="long">Je cherche un soin pour </span><span class="court">Pour </span><b>tous mes besoins</b><i>+</i></button>'
+    + '<div class="ebs-drop" role="listbox" aria-label="Choisir un besoin">'
+    + '<button type="button" class="on" data-id="">Tous mes besoins<i></i></button>'
+    + BESOINS.map(function(b){ return '<button type="button" data-id="' + b.id + '">' + esc(b.nom) + '<i></i></button>'; }).join('')
+    + '<button type="button" class="ebs-go">Voir tous les soins</button>'
+    + '</div></div></div>';
   h += '<div class="ebs-flow">';
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
@@ -430,11 +442,20 @@
     window.addEventListener('resize', couper);
     if(document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ largeur = 0; couper(); });
   }
-  var pont = root.querySelector('.ebs-pont'), compte = root.querySelector('.ebs-compte');
+  var pont = root.querySelector('.ebs-pont'), PHR = {}; BESOINS.forEach(function(b){ PHR[b.id] = b.phrase || b.nom.toLowerCase(); });
+  var phraseBtn = root.querySelector('.ebs-phrase'), drop = root.querySelector('.ebs-drop'), go = root.querySelector('.ebs-go'), choix = '', actuel = '';
+  function nombre(id){ var n = 0; cards.forEach(function(c){ if(!id || (' ' + c.getAttribute('data-b') + ' ').indexOf(' ' + id + ' ') >= 0) n++; }); return n; }
+  function cocher(id){
+    choix = id;
+    drop.querySelectorAll('button[data-id]').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-id') === id); });
+    var n = nombre(id);
+    go.textContent = id ? ('Voir mes ' + n + (n > 1 ? ' soins' : ' soin')) : 'Voir tous les soins';
+  }
 
   // id = besoin choisi ('' = tout voir)
   function filtrer(id, defiler){
-    root.querySelectorAll('.ebs-chips button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-id') === id); });
+    actuel = id; cocher(id);
+    phraseBtn.querySelector('b').textContent = id ? PHR[id] : 'tous mes besoins';
     var actif = !!id, n = 0, premiere = null;
     root.classList.toggle('filtre', actif);
     cards.forEach(function(c){
@@ -448,7 +469,6 @@
       cards.forEach(function(c){ if(c.getAttribute('data-e') === num && !c.classList.contains('off')) plein = true; });
       t.classList.toggle('vide', !plein);
     });
-    compte.textContent = !actif ? '' : (n + (n > 1 ? ' soins' : ' soin') + ' pour « ' + NOMS[id] + ' »');
     if(pont){
       if(id && PONT[id]){ pont.innerHTML = PONT[id] + '<br><a href="' + esc(REGLAGES.lienBalance) + '">Découvrir Balance</a>'; pont.classList.add('on'); }
       else pont.classList.remove('on');
@@ -460,15 +480,20 @@
       }, 350);
     }
   }
-  root.querySelector('.ebs-chips').addEventListener('click', function(e){
+  function ouvrir(o){
+    bar.classList.toggle('ouvert', o); phraseBtn.setAttribute('aria-expanded', o ? 'true' : 'false');
+    phraseBtn.querySelector('i').textContent = o ? '−' : '+';
+    if(o){ cocher(actuel); drop.style.maxHeight = (window.innerHeight - bar.getBoundingClientRect().bottom - 12) + 'px'; }
+  }
+  phraseBtn.addEventListener('click', function(){ ouvrir(!bar.classList.contains('ouvert')); });
+  drop.addEventListener('click', function(e){
     var b = e.target.closest('button'); if(!b) return;
-    var id = b.getAttribute('data-id');
-    if(b.classList.contains('on') && id) id = '';
-    filtrer(id, true);
-    b.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    if(b === go){ ouvrir(false); filtrer(choix, true); return; }
+    cocher(b.getAttribute('data-id'));
   });
+  document.addEventListener('click', function(e){ if(bar.classList.contains('ouvert') && !bar.contains(e.target)) ouvrir(false); });
   // Lien direct : ?besoin=eclat
-  try { var pre = new URLSearchParams(location.search).get('besoin'); if(pre && NOMS[pre]){ filtrer(pre, false); var ch = root.querySelector('.ebs-chips'), on = ch.querySelector('button.on'); ch.scrollLeft = on.offsetLeft - ch.offsetLeft - 18; } } catch(err){}
+  try { var pre = new URLSearchParams(location.search).get('besoin'); if(pre && NOMS[pre]) filtrer(pre, false); } catch(err){}
 
   // Barre des besoins collée sous le menu
   var slot = root.querySelector('.ebs-slot'), bar = root.querySelector('.ebs-bar'), fin = root.querySelector('.ebs-cib');
