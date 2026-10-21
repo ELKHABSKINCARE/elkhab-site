@@ -1,3 +1,4 @@
+// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 /* ═══════════════════════════════════════════════════════════════════════
    ELKHA.B — RECHERCHE DU SITE (search-engine.js)
    Trouve : soins, routines, articles du Journal, diagnostic, collaborations,
@@ -123,7 +124,7 @@ var EB_SOINS_SECOURS = {
   "rituel-luminescence":"Rituel Luminescence Jour & Nuit","radiance-protect":"Radiance Protect SPF 50","radiance-eye-cream":"Radiance Eye Cream",
   "bright-glow-patch":"Lumi Eyes Bright & Glow","bright-glow-decongestionnant":"Lumi Eyes Bright & Glow Décongestionnant",
   "bright-glow-anti-fatigue":"Lumi Eyes Bright & Glow Anti-fatigue","routine-eclat":"Routine Éclat","routine-hydratation":"Routine Hydratation",
-  "routine-anti-age":"Routine Anti-âge","routine-equilibre":"Routine Équilibre","routine-teint-protection":"Routine Teint & Protection","routine-regard":"Routine Regard"
+  "routine-anti-age":"Routine Fermeté","routine-equilibre":"Routine Équilibre","routine-teint-protection":"Routine Teint & Protection","routine-regard":"Routine Regard"
 };
 
 function ebSearchNormalize(str){
