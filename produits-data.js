@@ -1,3 +1,4 @@
+// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 // =====================================================================
 // ELKHA.B — Catalogue des fiches produits
 // Chaque fiche s'ouvre en panneau, par-dessus la page.
@@ -1058,15 +1059,15 @@ window.EB_PRODUITS = {
   },
 
   // =====================================================================
-  // ROUTINE ANTI-ÂGE
+  // ROUTINE FERMETÉ (anciennement « Routine Anti-âge » — l'identifiant routine-anti-age reste le même)
   // =====================================================================
   "routine-anti-age": {
-    nom: "Routine Anti-âge",
+    nom: "Routine Fermeté",
     sousTitre: "Luminescence Jour · Radiance Protect SPF 50 · Luminescence Nuit",
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "93€",
-    avis: "Routine anti-âge",
+    avis: "Routine fermeté",
 
     choixLabel: "Choisissez votre protection",
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
@@ -1076,7 +1077,7 @@ window.EB_PRODUITS = {
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Anti-âge
+    // │ 📷  DIAPORAMA DE LA FICHE — Routine Fermeté 
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
