@@ -208,6 +208,8 @@
   // Échelle de la routine : fine barre en dégradé sur le bord droit, avec un curseur carré
   + ".ebs-rail{position:fixed;right:0;width:30px;z-index:950;opacity:0;pointer-events:none;transition:opacity .4s ease;touch-action:none;cursor:pointer}"
   + ".ebs-rail.vu{opacity:1;pointer-events:auto}"
+  + ".ebs-rail .m{position:absolute;right:9px;width:9px;background:" + REGLAGES.fondSite + ";opacity:0;transition:opacity .4s ease;pointer-events:none}"
+  + ".ebs-rail .m.eteinte{opacity:.82}"
   + ".ebs-rail .g{position:absolute;right:10px;top:0;bottom:0;width:7px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);background:linear-gradient(" + ETAPES.map(function(e, i){
       // chaque couleur garde une vraie plage, avec un fondu court vers la suivante (comme les packagings)
       var a = i * 20, b = a + 20;
@@ -324,7 +326,7 @@
   +   ".ebs-h div{border-top:0}"
   +   ".ebs-h:before{content:'';display:block;width:56px;height:1px;background:rgba(0,0,0,.22);margin:0 auto}"
   +   ".filtre .ebs-h div{padding-top:22px}"
-  +   ".ebs-drop{left:50%;right:auto;width:520px;transform:translateX(-50%)}"
+  +   ".ebs-drop{left:50%;right:auto;width:calc(100% - 48px);max-width:820px;transform:translateX(-50%);padding:8px 32px 26px}"
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-card{width:25%;padding:0 9px 40px}"
   // ordinateur, mais bloc des soins étroit (ex. moitié d'écran à côté d'une bannière) : 3 soins par rangée
@@ -565,11 +567,15 @@
   // ── L'échelle à curseur : suit la lecture, et emmène à l'étape choisie ──
   var rail = document.createElement('div');
   rail.className = 'ebs-rail'; rail.setAttribute('aria-hidden', 'true');
-  rail.innerHTML = '<i class="g"></i><i class="c"></i><div class="lab"></div>';
+  rail.innerHTML = '<i class="g"></i>' + ETAPES.map(function(e, k){ return '<b class="m" data-k="' + k + '" style="top:' + (k / ETAPES.length * 100) + '%;height:' + (100 / ETAPES.length) + '%"></b>'; }).join('') + '<i class="c"></i><div class="lab"></div>';
   document.body.appendChild(rail);
   var curseur = rail.querySelector('.c'), lab = rail.querySelector('.lab'), flow = root.querySelector('.ebs-flow');
   var HAUT_RAIL = 220, actuelle = -1, minuterie = null, glisse = false;
-  function premiereDe(i){ return root.querySelector('.ebs-card[data-e="' + ETAPES[i].num + '"]'); }
+  // avec un besoin choisi, l'échelle ne parle que des étapes qui ont des soins allumés
+  function allumee(i){ return !root.classList.contains('filtre') || !!root.querySelector('.ebs-card[data-e="' + ETAPES[i].num + '"]:not(.off)'); }
+  function premiereDe(i){ return root.querySelector('.ebs-card[data-e="' + ETAPES[i].num + '"]:not(.off)') || root.querySelector('.ebs-card[data-e="' + ETAPES[i].num + '"]'); }
+  function proche(i){ if(allumee(i)) return i; for(var d = 1; d < ETAPES.length; d++){ if(i - d >= 0 && allumee(i - d)) return i - d; if(i + d < ETAPES.length && allumee(i + d)) return i + d; } return i; }
+  function masques(){ rail.querySelectorAll('.m').forEach(function(m){ m.classList.toggle('eteinte', !allumee(+m.getAttribute('data-k'))); }); }
   function placer(i, montrer){
     var pos = ((i + .5) / ETAPES.length * 100) + '%';
     curseur.style.top = pos; lab.style.top = pos;
@@ -579,7 +585,7 @@
     function lum(c){ return c.map(function(v){ v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }).reduce(function(t, v, n){ return t + v * [.2126, .7152, .0722][n]; }, 0); }
     var L = lum(rgb), fonce = (L + .05) / (lum([58, 26, 18]) + .05), clairC = (lum([251, 246, 241]) + .05) / (L + .05);
     lab.style.background = 'rgba(' + rgb.join(',') + ',.9)';
-    lab.style.color = fonce >= clairC ? '#3a1a12' : '#fbf6f1';
+    lab.style.color = (i >= 2 || clairC > fonce) ? '#fbf6f1' : '#3a1a12';
     lab.innerHTML = 'Étape ' + ETAPES[i].num + ' · ' + esc(ETAPES[i].titre) + '<small>' + esc(ETAPES[i].texte) + '</small>';
     if(montrer){
       rail.classList.add('lb'); clearTimeout(minuterie);
@@ -596,8 +602,10 @@
     var visible = visibleBloc(root) && bar.classList.contains('fixe') && !bar.classList.contains('ouvert') && debut && fin5.getBoundingClientRect().top > REGLAGES.espaceMenu + barre + HAUT_RAIL * .6;
     rail.classList.toggle('vu', visible);
     if(glisse) return;
-    var ligne = window.innerHeight * .45, i = 0;
-    ETAPES.forEach(function(e, k){ var c = premiereDe(k); if(c && c.getBoundingClientRect().top < ligne) i = k; });
+    masques();
+    var ligne = window.innerHeight * .45, i = -1;
+    ETAPES.forEach(function(e, k){ if(!allumee(k)) return; var c = premiereDe(k); if(c && c.getBoundingClientRect().top < ligne) i = k; });
+    if(i < 0) i = proche(0);
     if(i !== actuelle){ var avant = actuelle; actuelle = i; placer(i, visible && avant !== -1); }
   }
   function etapeSous(y){
@@ -607,11 +615,11 @@
   rail.addEventListener('pointerdown', function(e){
     glisse = true; rail.classList.add('glisse');
     try { rail.setPointerCapture(e.pointerId); } catch(err){}
-    actuelle = etapeSous(e.clientY); placer(actuelle, true); e.preventDefault();
+    actuelle = proche(etapeSous(e.clientY)); placer(actuelle, true); e.preventDefault();
   });
   rail.addEventListener('pointermove', function(e){
     if(!glisse) return;
-    var i = etapeSous(e.clientY);
+    var i = proche(etapeSous(e.clientY));
     if(i !== actuelle){ actuelle = i; placer(i, true); }
   });
   function lacher(){
@@ -656,7 +664,7 @@
   filtrer = function(id, defiler){
     filtrerAvant(id, defiler);
     var cof = root.querySelector('.ebs-cof'); if(cof) cof.classList.toggle('eteint', !!cof.querySelector('.ebs-card.off'));
-    setTimeout(aligner, 560);
+    actuelle = -1; setTimeout(function(){ aligner(); suivre(); }, 560);
   };
   (function(){ var cof = root.querySelector('.ebs-cof'); if(cof) cof.classList.toggle('eteint', !!cof.querySelector('.ebs-card.off')); })();
 
