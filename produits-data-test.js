@@ -32,9 +32,7 @@ window.EB_PRODUITS = {
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000000e1481f585b2ee37b40be0d3.png?v=1792225353",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_C_Serum_glace.png?v=1791315833"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -260,10 +258,10 @@ window.EB_PRODUITS = {
     // et le diaporama glisse jusqu'à sa photo (photo : 0 = 1re photo, 1 = 2e photo…)
     choixLabel: "Choisissez votre teinte",
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 0 },
-      { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 1 },
-      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 2 },
-      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3 }
+      { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
+      { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
+      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
+      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -364,9 +362,7 @@ window.EB_PRODUITS = {
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/2306ccc5a1554bcea8c47c32c12f29be.mp4",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_soin_Lumi-Bloom_sur_verre_reflechissant.png?v=1791131037"
+        "https://cdn.shopify.com/videos/c/o/v/2306ccc5a1554bcea8c47c32c12f29be.mp4"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -452,9 +448,7 @@ window.EB_PRODUITS = {
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/8aa68ee794404b48a3a17fad02c2610a.mp4",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elegance_skincare_sur_velours_rose.png?v=1791130417"
+        "https://cdn.shopify.com/videos/c/o/v/8aa68ee794404b48a3a17fad02c2610a.mp4"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -607,8 +601,8 @@ window.EB_PRODUITS = {
     // et le diaporama glisse jusqu'à sa photo (0 = 1re photo, 1 = 2e photo…)
     choixLabel: "Choisissez votre protection",
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1 },
-      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0 }
+      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282" },
+      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -704,10 +698,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59324360720729", photo: 0 },
-      { label: "N°B2 MOYEN", variantId: "59358027972953", photo: 1 },
-      { label: "N°B3 HÂLÉ",  variantId: "59358028005721", photo: 2 },
-      { label: "N°B4 FONCÉ", variantId: "59358028038489", photo: 3 }
+      { label: "N°B1 CLAIR", variantId: "59324360720729", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
+      { label: "N°B2 MOYEN", variantId: "59358027972953", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358028005721", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
+      { label: "N°B4 FONCÉ", variantId: "59358028038489", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1112,8 +1106,8 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre protection",
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1 },
-      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0 }
+      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282" },
+      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1159,10 +1153,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0 },
-      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1 },
-      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2 },
-      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3 }
+      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
+      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
+      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1208,10 +1202,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0 },
-      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1 },
-      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2 },
-      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3 }
+      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
+      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
+      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
