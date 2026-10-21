@@ -118,8 +118,8 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/videos/c/o/v/794796597ae04672834ed23ca6aa9b51.mp4",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cebc81f5b624e0a99f645a4f.png?v=1791313529"
+        // 📷 4. PHOTO 4
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_beaute_avec_soin_hydratant_ELKHA.B_1.png?v=1792580243"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -193,8 +193,8 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000189881f48908d7eaebf894d3.png?v=1792227809",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000454c8210a827f69035d58538.png?v=1791030948"
+        // 📷 4. PHOTO 4
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000004cd88243810b9ae55a9f7669.png?v=1792579905"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -278,15 +278,7 @@ window.EB_PRODUITS = {
         // 📷 3. B3 HÂLÉ · BOÎTE + STICK
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b3-hale-1-boite-flacon_-_Copie.png?v=1792576367",
         // 📷 4. B4 FONCÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1792576367",
-        // 📷 5. B1 · STICK SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cd58821094b8187758c89c57.png?v=1792227163",
-        // 📷 6. B2 · STICK SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a5cc82108dc80c99927fc410.png?v=1792224583",
-        // 📷 7. B3 · STICK SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c7cc8243a19146c8759a0a15.png?v=1792227560",
-        // 📷 8. B4 · STICK SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000001da4821191b432af99550e0d.png?v=1792224583"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1792576367"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -448,7 +440,9 @@ window.EB_PRODUITS = {
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/8aa68ee794404b48a3a17fad02c2610a.mp4"
+        "https://cdn.shopify.com/videos/c/o/v/8aa68ee794404b48a3a17fad02c2610a.mp4",
+        // 📷 4. PHOTO 4
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cb60824390f842b82871e67a.png?v=1792579944"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -616,12 +610,8 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-teinte-1-boite-flacon.png?v=1792576367",
         // 📷 2. SANS TEINTE · BOÎTE + STICK
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-sans-teinte-1-boite-flacon_3ab9f413-1a53-496b-8fb8-682c464c3239.png?v=1792576775",
-        // 📷 3. TEINTÉ · STICK SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067b4820898e2100a2336668b.png?v=1792227560",
-        // 📷 4. SANS TEINTE · STICK SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a5208210812959d617b0f253.png?v=1792227164",
-        // 📷 5. PHOTO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_mineral_sur_sable_et_chapeau.png?v=1791446836"
+        // 📷 3. PHOTO D'AMBIANCE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
