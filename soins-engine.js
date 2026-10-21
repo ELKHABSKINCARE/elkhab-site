@@ -329,12 +329,15 @@
   +   ".ebs-drop{left:50%;right:auto;width:calc(100% - 48px);max-width:820px;transform:translateX(-50%);padding:8px 32px 26px}"
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-card{width:25%;padding:0 9px 40px}"
-  // ordinateur, mais bloc des soins étroit (ex. moitié d'écran à côté d'une bannière) : 3 soins par rangée
-  +   "#eb-soins.etroit .ebs-card{width:33.333%}"
-  +   "#eb-soins.etroit .ebs-tx h3{font-size:11.5px;letter-spacing:.1em}"
+  // ordinateur : le nombre de soins par rangée dépend de la place (environ 360 px par soin),
+  // pour que les photos soient nettement plus grandes que sur mobile
+  +   ".ebs-c2 .ebs-card{width:50%}"
+  +   ".ebs-c3 .ebs-card{width:33.333%}"
   +   ".ebs-amb img{height:520px;object-fit:cover}"
-  // ordinateur : la vidéo s'affiche en entier (rien de coupé), à la plus grande taille qui tient à l'écran
-  +   ".ebs-amb video{width:100%;height:auto;max-height:88vh;object-fit:contain}"
+  // ordinateur : la vidéo prend toute la largeur de la colonne, d'un bord à l'autre (jusqu'à la bannière),
+  // et s'affiche en entier ; si elle est très haute, seul le bas est rogné (le visage reste visible)
+  +   ".ebs-amb{max-height:150vh}"
+  +   ".ebs-amb video{width:100%;height:auto;max-height:none;object-fit:cover}"
   +   ".ebs-cof .ebs-card{width:100%;max-width:620px;grid-template-columns:260px 1fr;gap:30px}"
   + "}";
   if(!document.getElementById('ebs-style')){ var st = document.createElement('style'); st.id = 'ebs-style'; st.textContent = css; document.head.appendChild(st); }
@@ -381,8 +384,43 @@
   root.innerHTML = h;
 
   var cards = root.querySelectorAll('.ebs-card');
-  function largeurBloc(){ root.classList.toggle('etroit', window.innerWidth >= 900 && root.clientWidth > 0 && root.clientWidth < 820); }
+  function largeurBloc(){
+    var flow = root.querySelector('.ebs-flow'), w = flow ? flow.clientWidth : root.clientWidth;
+    var n = window.innerWidth < 900 || !w ? 0 : Math.max(2, Math.min(4, Math.round(w / 360)));
+    root.classList.toggle('ebs-c2', n === 2);
+    root.classList.toggle('ebs-c3', n === 3);
+    pleineLargeur();
+  }
+  // Vidéo d'ambiance (ordinateur) : étirée d'un bord à l'autre de la colonne de la page
+  function colonne(){
+    var el = root;
+    while(el.parentElement && el.parentElement !== document.body){
+      var re = el.getBoundingClientRect(), cote = [].some.call(el.parentElement.children, function(c){
+        if(c === el) return false;
+        var rc = c.getBoundingClientRect();
+        return rc.width > 50 && rc.bottom > re.top && rc.top < re.bottom && (rc.right <= re.left + 2 || rc.left >= re.right - 2);
+      });
+      if(cote) return el;
+      el = el.parentElement;
+    }
+    return null;
+  }
+  function pleineLargeur(){
+    root.querySelectorAll('.ebs-amb').forEach(function(f){
+      ['width', 'max-width', 'margin-left', 'margin-right', 'transform', 'flex'].forEach(function(p){ f.style.removeProperty(p); });
+      if(window.innerWidth < 900) return;
+      var r = (colonne() || root).getBoundingClientRect();
+      var L = Math.max(0, r.left), R = Math.min(document.documentElement.clientWidth, r.right);
+      f.style.setProperty('width', (R - L) + 'px', 'important');
+      f.style.setProperty('max-width', 'none', 'important');
+      f.style.setProperty('flex', 'none', 'important');
+      f.style.setProperty('margin-left', '0', 'important');
+      f.style.setProperty('margin-right', '0', 'important');
+      f.style.setProperty('transform', 'translateX(' + (L - f.getBoundingClientRect().left) + 'px)');
+    });
+  }
   largeurBloc(); window.addEventListener('resize', largeurBloc);
+  window.addEventListener('load', largeurBloc);
 
   // ── Photos : fondues dans le fond du site, même échelle, même ligne de sol ──
   var FONDSITE = (function(c){ c = c.replace('#', ''); return [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }); })(REGLAGES.fondSite);
