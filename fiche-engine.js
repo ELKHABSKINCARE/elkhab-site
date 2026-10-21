@@ -249,7 +249,7 @@
             var vig = zone.querySelector('.eb-fp-soin[data-selon-choix]');
             if(vig){
               var mm = window.EB_PRODUITS[cibleFiche].media || {};
-              var src = (mm.images && mm.images[0]) || mm.image;
+              var src = mm.miniature || (mm.images && mm.images[0]) || mm.image;
               vig.setAttribute('data-fiche', cibleFiche);
               var vi = vig.querySelector('img'); if(vi && src) vi.src = hd(src, 600);
             }
@@ -467,7 +467,6 @@
     ctx = ctx || {};
     build();
     courant = { id: id, ctx: ctx };
-    seoAppliquer(id, data);
     var routineParente = ctx.routine && window.EB_PRODUITS[ctx.routine];
     charger(REVIEWS_ENGINE, function(){ return typeof window.ebRenderReviews === 'function'; });
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
@@ -517,7 +516,7 @@
         h += '<div class="eb-fp-soins" style="grid-template-columns:repeat(' + Math.min(soins.length, 3) + ',1fr)">';
         soins.forEach(function(sid, k){
           var sp = window.EB_PRODUITS[sid], m = sp.media || {};
-          var img = (m.images && m.images[0]) || m.image || '';
+          var img = m.miniature || (m.images && m.images[0]) || m.image || '';
           h += '<button type="button" class="eb-fp-soin"' + (r.soinSelonChoix === k ? ' data-selon-choix="1"' : '') + ' data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
           h += '<span class="eb-fp-soin-img">' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
           h += '<span class="eb-fp-soin-name">' + esc(sp.nom) + '</span><span class="eb-fp-soin-voir">Voir la fiche</span></button>';
@@ -594,7 +593,7 @@
       h += '<h2 class="eb-fp-h2" style="margin-top:6px">L\'accord parfait</h2>';
       var ficheA = a.fiche && window.EB_PRODUITS[a.fiche];
       var mA = (ficheA && ficheA.media) || {};
-      var imgA = a.image || (mA.images && mA.images[0]) || mA.image;
+      var imgA = a.image || mA.miniature || (mA.images && mA.images[0]) || mA.image;
       if(imgA) h += '<img class="eb-fp-accord-img" src="' + esc(hd(imgA, 1600)) + '" alt="' + esc(a.nom || '') + '">';
       var nomA = (ficheA && !a.image) ? ficheA.nom : a.nom;
       var sousA = a.sousTitre || (ficheA && !a.image ? ficheA.sousTitre : '');
@@ -669,7 +668,6 @@
   function ebFicheClose(){
     if(!overlay) return;
     pile = []; courant = null;
-    seoRetirer();
     backBtn.classList.remove('visible');
     overlay.classList.remove('open');
     closeBtn.classList.remove('visible');
@@ -678,217 +676,6 @@
     clearTimeout(slideTimer);
     overlay.querySelectorAll('video').forEach(function(v){ v.pause(); });
   }
-
-
-  // ==========================================================================
-  // RÉFÉRENCEMENT (Google, Bing) — invisible pour les clientes
-  // Quand une fiche est ouverte : titre de l'onglet, description pour Google,
-  // adresse officielle de la fiche et « fiche d'identité » produit (prix, photo…).
-  // Tout est remis comme avant à la fermeture de la fiche.
-  // ==========================================================================
-  var SITE_FICHES = 'https://bloom.elkhab.com/';
-  // Titres et résumés Google sur mesure (prioritaires sur le calcul automatique)
-  var SEO_TEXTES = {
-    'radiance-serum': {
-      titre: 'Radiance C Serum · Sérum vitamine C peaux sensibles | ELKHA.B',
-      resume: 'Sérum à la vitamine C stabilisée haute tolérance, pensé pour les peaux sensibles. Texture sorbet aux agrumes : éclat, teint unifié et hydratation. Vegan.'
-    },
-    "luminescence-jour": {
-      titre: "Luminescence Jour · Crème hydratante peaux sensibles | ELKHA.B",
-      resume: "Crème de jour à l'acide hyaluronique multimoléculaire et au bisabolol, pensée pour les peaux sensibles. Hydrate, apaise et révèle un glow naturel. Vegan."
-    },
-    "luminescence-nuit": {
-      titre: "Luminescence Nuit · Crème de nuit fermeté peaux sensibles | ELKHA.B",
-      resume: "Crème de nuit au plancton marin et au collagène, adaptée aux peaux sensibles. Nourrit, raffermit et repulpe la peau pendant le sommeil. Vegan."
-    },
-    "lumiveil-cc-cream": {
-      titre: "Lumi-Veil · CC cream SPF 30 en stick peaux sensibles | ELKHA.B",
-      resume: "CC cream SPF 30 en stick aux céramides, adaptée aux peaux sensibles. Unifie le teint, atténue les rougeurs, fini seconde peau. 4 teintes. Vegan."
-    },
-    "bright-glow-decongestionnant": {
-      titre: "Lumi-Eyes · Patchs yeux caféine vitamine C, peaux sensibles | ELKHA.B",
-      resume: "Patchs hydrogel à la caféine et à la vitamine C, sans parfum, pour contours des yeux sensibles. Décongestionnent et ravivent l'éclat en 15 min. Vegan."
-    },
-    "radiance-eye-cream": {
-      titre: "Radiance Eye Cream · Crème contour des yeux cernes et poches | ELKHA.B",
-      resume: "Crème contour des yeux à l'acide hyaluronique et 3 extraits végétaux bio. Aide à atténuer cernes, poches et ridules pour un regard reposé. Vegan."
-    },
-    "bright-glow-anti-fatigue": {
-      titre: "Lumi-Eyes · Patchs yeux anti-fatigue hydratants | ELKHA.B",
-      resume: "Patchs hydrogel aux antioxydants et au panthénol : 15 minutes pour un regard frais, hydraté et reposé. Testés dermatologiquement. Vegan."
-    },
-    "routine-eclat": {
-      titre: "Routine Éclat · Vitamine C, crème et CC cream peaux sensibles | ELKHA.B",
-      resume: "Sérum vitamine C, crème hydratante et CC cream SPF 30 : une routine éclat en 3 soins, pensée pour les peaux sensibles. Vegan."
-    },
-    "rituel-luminescence": {
-      titre: "Rituel Luminescence · Crèmes jour et nuit peaux sensibles | ELKHA.B",
-      resume: "Duo de crèmes : acide hyaluronique le matin, plancton marin et collagène le soir. Hydratation et fermeté pour peaux sensibles. Vegan."
-    },
-    "routine-hydratation": {
-      titre: "Routine Hydratation · Peaux sensibles et déshydratées | ELKHA.B",
-      resume: "Gelée prébiotique et crème à l'acide hyaluronique : une routine hydratation en 2 soins pour peaux sensibles et déshydratées. Vegan."
-    },
-    "routine-anti-age": {
-      titre: "Routine Hydratation & Fermeté · Jour, SPF 50 et nuit | ELKHA.B",
-      resume: "Crème de jour, stick SPF 50 minéral et crème de nuit au collagène : une routine hydratation et fermeté en 3 soins pour peaux sensibles. Vegan."
-    },
-    "routine-equilibre": {
-      titre: "Routine Équilibre · Niacinamide peaux mixtes sensibles | ELKHA.B",
-      resume: "Gel niacinamide 5 %, gelée prébiotique et CC cream SPF 30 : une routine pour peaux mixtes à grasses, même sensibles. Vegan."
-    },
-    "routine-teint-protection": {
-      titre: "Routine Teint & Protection · Vitamine C + CC SPF 30 | ELKHA.B",
-      resume: "Sérum vitamine C et CC cream SPF 30 : un teint lumineux et protégé en 2 gestes, pensé pour les peaux sensibles. Vegan."
-    },
-    "routine-regard": {
-      titre: "Routine Regard · Crème contour des yeux et patchs | ELKHA.B",
-      resume: "Crème contour des yeux et patchs hydrogel : une routine regard pour atténuer cernes, poches et signes de fatigue. Vegan."
-    },
-    "radiance-protect": {
-      titre: "Radiance Protect · Stick SPF 50 minéral peaux sensibles | ELKHA.B",
-      resume: "Stick solaire minéral SPF 50 haute tolérance, pensé pour les peaux sensibles. Protection UVA/UVB, texture légère hydratante, résistante à l'eau. Vegan."
-    },
-    "lumibloom-niac-5": {
-      titre: "Lumi-Bloom · Gel niacinamide 5 % peaux sensibles | ELKHA.B",
-      resume: "Gel à 5 % de niacinamide et ginkgo biloba, doux pour les peaux sensibles. Affine les pores, atténue les taches, hydrate sans coller. Vegan."
-    },
-    "gelee-lumibloom": {
-      titre: "Gelée Lumi-Bloom · Soin prébiotique peaux sensibles | ELKHA.B",
-      resume: "Gelée aux prébiotiques et à l'acide hyaluronique pour peaux sensibilisées ou déshydratées. Renforce la barrière cutanée et respecte le microbiome. Vegan."
-    },
-    "bright-glow-patch": {
-      titre: "Lumi-Eyes · Patchs yeux niacinamide cernes, peaux sensibles | ELKHA.B",
-      resume: "Patchs hydrogel à la niacinamide et à l'acide hyaluronique, sans parfum, pour contours des yeux sensibles. Cernes et ridules en 15 min. Vegan."
-    }
-  };
-  // Livraison & retours pour Google (repris des CGV : art. 5, 10, 13, 14, 16)
-  var SEO_PAYS = ['FR','BE','LU','DE','NL','AT','DK','SE','FI','ES','PT','IT'];
-  var SEO_LIVRAISON = {
-    '@type': 'OfferShippingDetails',
-    'shippingRate': { '@type': 'MonetaryAmount', 'value': '5.90', 'currency': 'EUR' },
-    'shippingDestination': SEO_PAYS.map(function(p){ return { '@type': 'DefinedRegion', 'addressCountry': p }; }),
-    'deliveryTime': {
-      '@type': 'ShippingDeliveryTime',
-      'handlingTime': { '@type': 'QuantitativeValue', 'minValue': 1, 'maxValue': 3, 'unitCode': 'DAY' },
-      'transitTime':  { '@type': 'QuantitativeValue', 'minValue': 5, 'maxValue': 10, 'unitCode': 'DAY' }
-    }
-  };
-  var SEO_RETOURS = {
-    '@type': 'MerchantReturnPolicy',
-    'applicableCountry': SEO_PAYS,
-    'returnPolicyCountry': 'FR',
-    'returnPolicyCategory': 'https://schema.org/MerchantReturnFiniteReturnWindow',
-    'merchantReturnDays': 14,
-    'returnMethod': 'https://schema.org/ReturnByMail',
-    'returnFees': 'https://schema.org/ReturnFeesCustomerResponsibility',
-    'itemCondition': 'https://schema.org/NewCondition'
-  };
-  var seoAvant = null;
-
-  function seoUrl(id, data){ return ((data && data.site) || SITE_FICHES) + '?fiche=' + encodeURIComponent(id); }
-
-  function seoResume(data){
-    var t = '';
-    (data.sections || []).some(function(sec){ if(sec && sec.texte){ t = sec.texte; return true; } return false; });
-    if(!t && data.routine && data.routine.intro) t = String(data.routine.intro);
-    if(!t) t = [data.sousTitre, data.actifs].filter(Boolean).join(' · ');
-    t = String(t).replace(/\s+/g, ' ').trim();
-    if(t.length > 158){ t = t.slice(0, 155); t = t.slice(0, t.lastIndexOf(' ')).replace(/[,;:·–-]+$/, '') + '…'; }
-    return t;
-  }
-
-  function seoPhotos(data){
-    var m = data.media || {};
-    var l = (m.images || []).concat(m.image ? [m.image] : []);
-    return l.filter(function(u){ return u && !/\.mp4(\?|$)/i.test(u); }).slice(0, 4);
-  }
-
-  function seoMeta(nom){
-    var el = document.querySelector('meta[name="' + nom + '"]');
-    if(!el){ el = document.createElement('meta'); el.setAttribute('name', nom); el.setAttribute('data-eb-seo', '1'); document.head.appendChild(el); }
-    return el;
-  }
-
-  function seoAppliquer(id, data){
-    try {
-      if(!seoAvant){
-        var c0 = document.querySelector('link[rel="canonical"]');
-        var d0 = document.querySelector('meta[name="description"]');
-        seoAvant = { titre: document.title, desc: d0 ? d0.getAttribute('content') : null, canon: c0 ? c0.getAttribute('href') : null };
-      }
-      var url = seoUrl(id, data);
-      var perso = SEO_TEXTES[id] || {};
-      var resume = perso.resume || seoResume(data);
-      var titre = data.nom + (data.sousTitre ? ' – ' + data.sousTitre : '') + ' | ELKHA.B';
-      if(titre.length > 70) titre = data.nom + ' | ELKHA.B';
-      if(perso.titre) titre = perso.titre;
-      document.title = titre;
-      seoMeta('description').setAttribute('content', resume);
-      var canon = document.querySelector('link[rel="canonical"]');
-      if(!canon){ canon = document.createElement('link'); canon.setAttribute('rel', 'canonical'); canon.setAttribute('data-eb-seo', '1'); document.head.appendChild(canon); }
-      canon.setAttribute('href', url);
-
-      var prix = parseFloat(String(data.prix || '').replace(/[^0-9,\.]/g, '').replace(',', '.'));
-      var fiche = {
-        '@context': 'https://schema.org',
-        '@type': 'Product',
-        'name': data.nom,
-        'description': resume,
-        'brand': { '@type': 'Brand', 'name': 'ELKHA.B' },
-        'url': url
-      };
-      var photos = seoPhotos(data);
-      if(photos.length) fiche.image = photos;
-      if(data.variantId) fiche.sku = String(data.variantId);
-      if(!isNaN(prix)){
-        fiche.offers = {
-          '@type': 'Offer',
-          'url': url,
-          'price': prix.toFixed(2),
-          'priceCurrency': 'EUR',
-          'availability': 'https://schema.org/InStock',
-          'itemCondition': 'https://schema.org/NewCondition',
-          'seller': { '@type': 'Organization', 'name': 'ELKHA.B' },
-          'shippingDetails': SEO_LIVRAISON,
-          'hasMerchantReturnPolicy': SEO_RETOURS
-        };
-      }
-      var ld = document.getElementById('eb-seo-produit');
-      if(!ld){ ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'eb-seo-produit'; document.head.appendChild(ld); }
-      ld.textContent = JSON.stringify(fiche);
-    } catch(err){}
-  }
-
-  function seoRetirer(){
-    try {
-      if(!seoAvant) return;
-      document.title = seoAvant.titre;
-      var d = document.querySelector('meta[name="description"]');
-      if(d){ if(d.getAttribute('data-eb-seo')) d.remove(); else if(seoAvant.desc != null) d.setAttribute('content', seoAvant.desc); }
-      var c = document.querySelector('link[rel="canonical"]');
-      if(c){ if(c.getAttribute('data-eb-seo')) c.remove(); else if(seoAvant.canon != null) c.setAttribute('href', seoAvant.canon); }
-      var ld = document.getElementById('eb-seo-produit'); if(ld) ld.remove();
-      seoAvant = null;
-    } catch(err){}
-  }
-
-  // Liens vers les fiches lisibles par Google : « #fiche-radiance-serum » devient
-  // « https://bloom.elkhab.com/?fiche=radiance-serum ». Au clic, rien ne change :
-  // la fiche s'ouvre toujours en panneau, sans quitter la page.
-  function seoLiens(){
-    try {
-      document.querySelectorAll('a[href*="#fiche-"]').forEach(function(a){
-        var id = (a.getAttribute('href') || '').split('#fiche-')[1];
-        if(!id) return;
-        id = id.split(/[?&#\/]/)[0];
-        if(!a.hasAttribute('data-fiche')) a.setAttribute('data-fiche', id);
-        a.setAttribute('href', seoUrl(id, window.EB_PRODUITS && window.EB_PRODUITS[id]));
-      });
-    } catch(err){}
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', seoLiens); else seoLiens();
-  window.addEventListener('load', seoLiens);
 
   window.ebFicheOpen = ebFicheOpen;
   window.ebFicheClose = ebFicheClose;
