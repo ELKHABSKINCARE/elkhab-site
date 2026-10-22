@@ -339,7 +339,9 @@
     var essai = 0;
     (function tenter(){
       var base = (typeof INCI_DETAILS !== 'undefined') ? INCI_DETAILS : null;
-      var d = base && base[key];
+      // compositions des nouveaux soins, écrites directement dans le fichier produits (window.EB_INCI_PLUS)
+      var plus = window.EB_INCI_PLUS && window.EB_INCI_PLUS[key];
+      var d = plus || (base && base[key]);
       if(base && !d){ item.parentNode && item.parentNode.removeChild(item); return; }
       if(!d){
         if(++essai < 25){ setTimeout(tenter, 200); }
