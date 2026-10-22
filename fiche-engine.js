@@ -253,6 +253,10 @@
         if(bouton) bouton.setAttribute('data-variant-id', opt.getAttribute('data-variant'));
         var mention = opt.getAttribute('data-mention'), ship = overlay.querySelector('.eb-fp-ship');
         if(cible === 'main' && mention && ship) ship.textContent = mention;
+        var sousV = opt.getAttribute('data-sous'), sousEl = overlay.querySelector('.eb-fp-sub');
+        if(cible === 'main' && sousV && sousEl) sousEl.innerHTML = esc(sousV).replace(/\n/g, '<br>');
+        var etapeV = opt.getAttribute('data-etape'), etapeEl = overlay.querySelector('.eb-fp-choix-txt');
+        if(cible === 'main' && etapeV && etapeEl) etapeEl.textContent = etapeV;
         var photo = opt.getAttribute('data-photo');
         // Petite photo de rappel sous les teintes (photos de la fiche concernée)
         var apercu = bloc.querySelector('.eb-fp-sel-preview');
@@ -272,6 +276,8 @@
               var src = mm.miniature || (mm.images && mm.images[0]) || mm.image;
               vig.setAttribute('data-fiche', cibleFiche);
               var vi = vig.querySelector('img'); if(vi && src) vi.src = hd(src, 600);
+              var vn = vig.querySelector('.eb-fp-soin-name'); if(vn) vn.textContent = window.EB_PRODUITS[cibleFiche].nom;
+              var en = overlay.querySelector('.eb-fp-choix-nom'); if(en) en.textContent = window.EB_PRODUITS[cibleFiche].nom;
             }
           }
         }
@@ -534,7 +540,9 @@
         + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '')
         + (v.image ? ' data-img="' + esc(hd(v.image, 400)) + '"' : '')
         + (v.fiche ? ' data-cible-fiche="' + esc(v.fiche) + '"' : '')
-        + (v.mention ? ' data-mention="' + esc(v.mention) + '"' : '') + '>' + esc(v.label) + '</button>';
+        + (v.mention ? ' data-mention="' + esc(v.mention) + '"' : '')
+        + (v.sousTitre ? ' data-sous="' + esc(v.sousTitre) + '"' : '')
+        + (v.etape ? ' data-etape="' + esc(v.etape) + '"' : '') + '>' + esc(v.label) + '</button>';
     });
     h += '</div>';
     if(variantes.some(function(v){ return v.photo != null || v.image; })){
@@ -564,7 +572,8 @@
     // En-tête : titre, actifs, détails, petite note
     h += '<div class="eb-fp-head">';
     h += '<h1 class="eb-fp-title">' + esc(data.nom) + '</h1>';
-    if(data.sousTitre) h += '<p class="eb-fp-sub">' + esc(data.sousTitre).replace(/\n/g, '<br>') + '</p>';   // \n = retour à la ligne (type de soin, puis actifs)
+    var sousDepart = (data.variantes && data.variantes[0] && data.variantes[0].sousTitre) || data.sousTitre;   // routine à choix : sous-titre de la version choisie
+    if(sousDepart) h += '<p class="eb-fp-sub">' + esc(sousDepart).replace(/\n/g, '<br>') + '</p>';   // \n = retour à la ligne (type de soin, puis actifs)
     if(data.actifs) h += '<p class="eb-fp-actifs">' + esc(data.actifs) + '</p>';
     if(data.details && data.details.length){
       var lignes = Array.isArray(data.details[0]) ? data.details : [data.details];
@@ -615,7 +624,10 @@
       if(r.etapes && r.etapes.length){
         h += '<h3 class="eb-fp-h3">Le rituel</h3>';
         var momentEnCours = null;
+        var v0 = (data.variantes || [])[0] || {};
         r.etapes.forEach(function(et, i){
+          // étape « selonChoix » : le soin et le texte suivent la version choisie (ex. le nettoyant de la Routine Éclat)
+          if(et.selonChoix && v0.fiche && window.EB_PRODUITS[v0.fiche]) et = { moment: et.moment, soin: v0.fiche, texte: v0.etape || et.texte, choix: true };
           var sp = et.soin && window.EB_PRODUITS[et.soin];
           var mo = et.moment || r.moment || '';
           if(i === 0 || mo !== momentEnCours){
@@ -632,10 +644,10 @@
             if(sp && et.soin !== id && !routineParente && !estRoutine){
               h += '<button type="button" class="eb-fp-etape-soin eb-fp-etape-lien" data-fiche="' + esc(et.soin) + '">' + titreEt + '</button>';
             } else {
-              h += '<span class="eb-fp-etape-soin">' + titreEt + '</span>';
+              h += '<span class="eb-fp-etape-soin' + (et.choix ? ' eb-fp-choix-nom' : '') + '">' + titreEt + '</span>';
             }
           }
-          h += '<div class="eb-fp-etape-txt">' + esc(et.texte) + '</div></div></li>';
+          h += '<div class="eb-fp-etape-txt' + (et.choix ? ' eb-fp-choix-txt' : '') + '">' + esc(et.texte) + '</div></div></li>';
         });
         h += '</ol>';
       }
