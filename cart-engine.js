@@ -594,7 +594,8 @@ function ebRenderCart(cart, attemptsLeft){
     html += '<div class="eb-cart-thumb">' + (imgUrl ? '<img src="' + imgUrl + (imgUrl.indexOf('?') > -1 ? '&' : '?') + 'width=200" alt="" loading="lazy">' : '') + '</div>';
     html += '<div class="eb-cart-info">';
     html += '<div class="eb-cart-item-title">' + m.product.title + '</div>';
-    if(m.title && m.title !== 'Default Title' && m.title !== 'Default'){
+    // « Default », « Default Title » ou « Default / Default / Default » (lots) : rien à afficher
+    if(m.title && !m.title.split(' / ').every(function(t){ return t === 'Default' || t === 'Default Title'; })){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
     html += '<div class="eb-cart-item-bottom">';
