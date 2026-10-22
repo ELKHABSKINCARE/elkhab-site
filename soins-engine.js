@@ -59,6 +59,14 @@
   // hauteur = hauteur réelle du soin en cm : toutes les photos sont remises à la même échelle,
   //           posées sur la même ligne (les petits soins restent petits)
   var SOINS = {
+    "milky-bloom": {
+      nom: "Milky Bloom", actifs: "Huile de tournesol · Camomille · Argousier",
+      ligne: "Démaquillage · Douceur · Peaux sensibles et sèches",
+      besoins: ["sensibles","apaisement","hydratation"], prix: "29,90€", taille: "150 ml", hauteur: 17,
+      // 📷 Milky Bloom
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",
+      alt: "Milky Bloom ELKHA.B, nettoyant huile-en-lait démaquillant pour peaux sensibles et sèches, flacon pompe 150 ml"
+    },
     "gelee-lumibloom": {
       nom: "Gelée Lumi-Bloom", actifs: "Prébiotique · Acide hyaluronique · Sodium PCA",
       ligne: "Hydratation · Apaisement · Barrière cutanée · Peaux sensibles",
@@ -167,7 +175,7 @@
 
   // Les 5 étapes (dans l'ordre de la routine)
   var ETAPES = [
-    { num: "01", titre: "Préparer",  texte: "Une peau équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["gelee-lumibloom"] },
+    { num: "01", titre: "Préparer",  texte: "Une peau nette et équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["milky-bloom","gelee-lumibloom"] },
     { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, taches, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","lumibloom-arbutin","radiance-eye-cream"],
  },
     { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"],
