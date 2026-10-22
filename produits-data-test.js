@@ -16,6 +16,15 @@ window.EB_AVIS_DEGRADE = true;
 // Fiches sur ordinateur : vidéos et photos avec leur propre fond en pleine colonne (true) ou comme avant (false)
 window.EB_MEDIA_PLEIN = true;
 
+// Compositions des nouveaux soins (en plus de inci-data.js) — clé = « inci » de la fiche
+window.EB_INCI_PLUS = {
+  "lumi-bloom-arbutin": {
+    ingredients: "Aqua, Glycerin, Caprylic/Capric Triglyceride, Helianthus Annuus (Sunflower) Seed Oil, Pentylene Glycol, Cetearyl Alcohol, Sodium PCA, Glyceryl Stearate Citrate, Alpha-Arbutin, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Bidens Pilosa Extract, Cellulose, Linum Usitatissimum Seed Oil, Parfum, Xanthan Gum, Ascorbyl Palmitate, Lactic Acid, Ascophyllum Nodosum Extract, Sodium Phytate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Tocopherol, Limonene, Citrus Limon Peel Oil, Pogostemon Cablin Oil, Linalool, Juniperus Virginiana Oil, Cedrus Atlantica Oil/Extract, Pinene, Vanillin, Menthol, Citral, Beta-Caryophyllene.",
+    natural: "100",
+    organic: "23"
+  }
+};
+
 window.EB_PRODUITS = {
 
   "radiance-serum": {
