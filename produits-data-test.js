@@ -22,6 +22,11 @@ window.EB_INCI_PLUS = {
     ingredients: "Aqua, Glycerin, Caprylic/Capric Triglyceride, Helianthus Annuus (Sunflower) Seed Oil, Pentylene Glycol, Cetearyl Alcohol, Sodium PCA, Glyceryl Stearate Citrate, Alpha-Arbutin, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Bidens Pilosa Extract, Cellulose, Linum Usitatissimum Seed Oil, Parfum, Xanthan Gum, Ascorbyl Palmitate, Lactic Acid, Ascophyllum Nodosum Extract, Sodium Phytate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Tocopherol, Limonene, Citrus Limon Peel Oil, Pogostemon Cablin Oil, Linalool, Juniperus Virginiana Oil, Cedrus Atlantica Oil/Extract, Pinene, Vanillin, Menthol, Citral, Beta-Caryophyllene.",
     natural: "100",
     organic: "23"
+  },
+  "milky-bloom": {
+    ingredients: "Caprylic/Capric Triglyceride, Glycerin, Helianthus Annuus (Sunflower) Seed Oil*, Aqua, Sucrose Laurate, Sucrose Palmitate, Alcohol, Tocopherol, Mica (CI 77019), Parfum, Chamomilla Recutita (Camomile) Flower Extract*, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract*, Rubus Chamaemorus (Cloudberry) Fruit Extract*, CI 77491 (Iron Oxides), Glycolipids, Limonene, Linalyl Acetate. *Ingrédients issus de l'agriculture biologique.",
+    natural: "100",
+    organic: "39"
   }
 };
 
@@ -515,6 +520,93 @@ window.EB_PRODUITS = {
       texte: "Le duo Lumi-Bloom.\nLumi-Bloom Arbutin atténue l'apparence des taches et unifie le teint, tandis que Lumi-Bloom Niacinamide 5 affine le grain de peau et aide à estomper les marques d'imperfections.",
       prix: "34,90€",
       variantId: "59324243411289"
+    }
+  },
+
+  // =====================================================================
+  // MILKY BLOOM (nouveau soin — octobre 2026)
+  // =====================================================================
+  "milky-bloom": {
+    nom: "Milky Bloom",
+    sousTitre: "Nettoyant huile-en-lait · Camomille · Argousier",
+    details: ["150 ml", "Vegan"],
+    note: "une noisette suffit",
+    prix: "29,90€",
+    variantId: "60079562817881",
+    inci: "milky-bloom",
+    avis: "Milky Bloom",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE  — Milky Bloom                        │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. FLACON DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",
+        // 📷 2. FLACON DE DOS
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-dos-fond-site.png?v=1792659730",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c46dc4f1-9601-4c60-a383-a2347b777549.png?v=1792660545"
+      ]
+    },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "milky-bloom", texte: "Sur peau sèche, massez délicatement une noisette de Milky Bloom sur le visage pour dissoudre le maquillage et les impuretés. Humidifiez vos mains et continuez à masser : l'huile se transforme en lait. Rincez abondamment à l'eau. Évitez le contact direct avec les yeux." },
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Poursuivez avec Gelée Lumi-Bloom pour apaiser et préparer la peau." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." },
+        { moment: "Le matin", soin: "milky-bloom", texte: "Appliquez une noisette de Milky Bloom sur peau sèche ou humide, massez délicatement, puis rincez." },
+        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Gelée Lumi-Bloom, puis Luminescence Jour." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." }
+      ]
+    },
+
+    sections: [
+      { titre: "L'expérience",
+        texte: "Et si le démaquillage devenait le plus doux moment de votre rituel ? Sur peau sèche, Milky Bloom fond sous vos doigts et dissout le maquillage, même le plus épais, et les impuretés de la journée. Au contact de l'eau, l'huile se transforme en un lait soyeux qui se rince en un geste.\nLa peau est nette, douce et nourrie, sans tiraillement ni sensation de film. Le teint paraît frais et reposé : votre peau est prête à recevoir vos soins Bloom." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que les peaux sensibles méritent un nettoyage qui les respecte vraiment. Milky Bloom ne contient aucun agent moussant : il nettoie grâce à des huiles végétales et des émulsifiants d'origine naturelle, parmi les plus doux. Testé sous contrôle dermatologique, il convient aux peaux sensibles et délicates.\nL'huile de tournesol, la camomille, l'argousier et la plaquebière, issus de l'agriculture biologique, nourrissent et réconfortent la peau pendant le nettoyage. Un geste tout en douceur, qui laisse la peau souple et lumineuse." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Démaquillage complet : dissout le maquillage, même le plus épais, et les impuretés, en un seul geste",
+          "Douceur absolue : sans agent moussant, testé sous contrôle dermatologique, il convient aux peaux sensibles",
+          "Peau nourrie : les huiles végétales et les extraits de camomille, d'argousier et de plaquebière laissent la peau douce et confortable",
+          "Hydratation préservée : nettoie sans déshydrater, la peau ne tiraille pas après le rinçage",
+          "Teint frais : la peau est nette et fraîche, prête à révéler son éclat"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux sensibles, sèches et délicates, qui tiraillent après le nettoyage",
+          "Se démaquiller en douceur, même avec un maquillage épais, et le double nettoyage du soir",
+          "Pour les peaux mixtes à grasses, découvrez Radiance Cleanser, notre gel nettoyant"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Un gel huileux rosé, légèrement nacré, qui se transforme en lait soyeux au contact de l'eau. Son parfum délicat associe des fleurs blanches et une touche de jasmin à un bois de santal crémeux, sur un fond doux, poudré et légèrement vert." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "100% d'ingrédients d'origine naturelle",
+          "39% d'ingrédients issus de l'agriculture biologique",
+          "Testé sous contrôle dermatologique",
+          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Milky Bloom réinvente le démaquillage des peaux sensibles, efficace, nourrissant, et d'une douceur absolue"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "gelee-lumibloom",
+      nom: "Gelée Lumi-Bloom",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
+
+      texte: "Le duo douceur.\nMilky Bloom démaquille et nourrit la peau sans jamais la déshydrater, tandis que Gelée Lumi-Bloom apaise, hydrate et prépare la peau à recevoir ses soins.",
+      prix: "28,90€",
+      variantId: "59324234891609"
     }
   },
 
