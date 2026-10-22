@@ -985,9 +985,9 @@ window.EB_PRODUITS = {
       type: "diaporama",
       images: [
         // 📷 1. ROUTINE PEAU MIXTE À GRASSE (Radiance Cleanser)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-mixte-carrousel.png?v=1792672935",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-mixte-carrousel_1.png?v=1792677686",
         // 📷 2. ROUTINE PEAU SÈCHE OU SENSIBLE (Milky Bloom)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-sensible-carrousel.png?v=1792673116"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-sensible-carrousel_1.png?v=1792677687"
       ]
     },
 
