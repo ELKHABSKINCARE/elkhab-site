@@ -251,6 +251,8 @@
         opt.classList.add('active');
         var bouton = overlay.querySelector(cible === 'accord' ? '.eb-fp-accord-buy' : '.eb-fp-main-buy');
         if(bouton) bouton.setAttribute('data-variant-id', opt.getAttribute('data-variant'));
+        var mention = opt.getAttribute('data-mention'), ship = overlay.querySelector('.eb-fp-ship');
+        if(cible === 'main' && mention && ship) ship.textContent = mention;
         var photo = opt.getAttribute('data-photo');
         // Petite photo de rappel sous les teintes (photos de la fiche concernée)
         var apercu = bloc.querySelector('.eb-fp-sel-preview');
@@ -531,7 +533,8 @@
       h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
         + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '')
         + (v.image ? ' data-img="' + esc(hd(v.image, 400)) + '"' : '')
-        + (v.fiche ? ' data-cible-fiche="' + esc(v.fiche) + '"' : '') + '>' + esc(v.label) + '</button>';
+        + (v.fiche ? ' data-cible-fiche="' + esc(v.fiche) + '"' : '')
+        + (v.mention ? ' data-mention="' + esc(v.mention) + '"' : '') + '>' + esc(v.label) + '</button>';
     });
     h += '</div>';
     if(variantes.some(function(v){ return v.photo != null || v.image; })){
@@ -582,7 +585,8 @@
       var idAchat = variantes.length ? variantes[0].variantId : data.variantId;
       if(idAchat){
         h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
-        h += '<p class="eb-fp-ship">Livraison offerte dès 65€ d\'achat</p>';
+        // petite ligne sous le bouton : « mention » de la version choisie, sinon le rappel de livraison
+        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[0].mention ? esc(variantes[0].mention) : 'Livraison offerte dès 65€ d\'achat') + '</p>';
       }
     }
 
