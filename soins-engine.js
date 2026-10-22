@@ -60,9 +60,9 @@
   //           posées sur la même ligne (les petits soins restent petits)
   var SOINS = {
     "milky-bloom": {
-      nom: "Milky Bloom", actifs: "Huile de tournesol · Camomille · Argousier",
+      nom: "Milky Bloom", actifs: "Camomille · Argousier",
       ligne: "Démaquillage · Douceur · Peaux sensibles et sèches",
-      besoins: ["sensibles","apaisement","hydratation"], prix: "29,90€", taille: "150 ml", hauteur: 17,
+      besoins: ["sensibles","apaisement","hydratation"], prix: "29,90€", taille: "150 ml", hauteur: 14.5,
       // 📷 Milky Bloom
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",
       alt: "Milky Bloom ELKHA.B, nettoyant huile-en-lait démaquillant pour peaux sensibles et sèches, flacon pompe 150 ml"
