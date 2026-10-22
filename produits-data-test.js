@@ -27,6 +27,11 @@ window.EB_INCI_PLUS = {
     ingredients: "Caprylic/Capric Triglyceride, Glycerin, Helianthus Annuus (Sunflower) Seed Oil*, Aqua, Sucrose Laurate, Sucrose Palmitate, Alcohol, Tocopherol, Mica (CI 77019), Parfum, Chamomilla Recutita (Camomile) Flower Extract*, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract*, Rubus Chamaemorus (Cloudberry) Fruit Extract*, CI 77491 (Iron Oxides), Glycolipids, Limonene, Linalyl Acetate. *Ingrédients issus de l'agriculture biologique.",
     natural: "100",
     organic: "39"
+  },
+  "radiance-cleanser": {
+    ingredients: "Aloe Barbadensis (Aloe) Leaf Juice*, Coco-Glucoside, Cocamidopropyl Betaine, Glycerin, Aqua/Water, Xanthan Gum, Propanediol, Rubus Fruticosus (Blackberry) Fruit Extract*, Sodium PCA, Sodium Levulinate, Lactic Acid, Acacia Senegal Gum, Sodium Anisate, Acorus Calamus (Sweet Flag) Root Extract*, Parfum/Fragrance, Salvia Officinalis (Sage) Leaf Extract*, Rhamnose, CI 77491 (Iron Oxides)***, Glucose, Glucuronic Acid, Arctium Lappa (Burdock) Root Extract*, Citric Acid, Sodium Benzoate, Potassium Sorbate, Linalool**, Limonene**. *Ingrédients issus de l'agriculture biologique. **Issus d'huiles essentielles naturelles. ***Pigments minéraux purs.",
+    natural: "98",
+    organic: "10"
   }
 };
 
@@ -528,7 +533,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "milky-bloom": {
     nom: "Milky Bloom",
-    sousTitre: "Nettoyant huile-en-lait · Camomille · Argousier",
+    sousTitre: "Nettoyant huile-en-lait\nCamomille · Argousier",
     details: ["150 ml", "Vegan"],
     note: "une noisette suffit",
     prix: "29,90€",
@@ -607,6 +612,93 @@ window.EB_PRODUITS = {
       texte: "Le duo douceur.\nMilky Bloom démaquille et nourrit la peau sans jamais la déshydrater, tandis que Gelée Lumi-Bloom apaise, hydrate et prépare la peau à recevoir ses soins.",
       prix: "28,90€",
       variantId: "59324234891609"
+    }
+  },
+
+  // =====================================================================
+  // RADIANCE CLEANSER (nouveau soin — octobre 2026)
+  // =====================================================================
+  "radiance-cleanser": {
+    nom: "Radiance Cleanser",
+    sousTitre: "Gel nettoyant éclat\nAloe vera · Mûre",
+    details: ["145 ml", "Vegan"],
+    note: "une noisette suffit",
+    prix: "24,90€",
+    variantId: "60079861465433",
+    inci: "radiance-cleanser",
+    avis: "Radiance Cleanser",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE  — Radiance Cleanser                  │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. FLACON DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",
+        // 📷 2. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c209338b-01b0-4427-b4a1-6d2453144ddf.png?v=1792660763",
+        // 📷 3. MANNEQUIN
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_RADIANCE_CLEANSER.png?v=1792660603"
+      ]
+    },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le matin", soin: "radiance-cleanser", texte: "Faites mousser une noisette de Radiance Cleanser entre vos mains humides, appliquez sur le visage et massez délicatement en mouvements circulaires. Rincez abondamment à l'eau. Évitez le contact avec les yeux." },
+        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Gelée Lumi-Bloom, puis Luminescence Jour." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." },
+        { moment: "Le soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser, de la même façon que le matin." },
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Poursuivez avec Gelée Lumi-Bloom pour préparer la peau." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." }
+      ]
+    },
+
+    sections: [
+      { titre: "L'expérience",
+        texte: "Et si votre éclat commençait dès le nettoyage ? Sur les peaux mixtes à grasses, l'excès de sébum fait briller la peau et ternit le teint au fil de la journée. Radiance Cleanser le dissout en douceur, avec les impuretés et les traces de maquillage, dans une mousse légère et fraîche.\nAprès le rinçage, la peau est nette, débarrassée de l'excès de sébum, et reste confortable, sans jamais tirailler. Le teint paraît aussitôt plus frais, revitalisé et lumineux : la première étape de votre rituel Bloom." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau grasse a besoin d'être purifiée, pas agressée. Radiance Cleanser associe des agents lavants d'origine naturelle, parmi les plus doux, à un cœur hydratant de jus d'aloe vera, de glycérine et de Sodium PCA. Il élimine l'excès de sébum et tout ce qui ternit l'éclat, sans décaper la peau ni obstruer les pores. Parce qu'une peau grasse purifiée en douceur reste confortable et équilibrée.\nEnrichi en extrait de mûre et en plantes issues de l'agriculture biologique, il révèle un teint frais et revitalisé, matin et soir." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Éclat révélé : rafraîchit et revitalise le teint pour une peau visiblement plus lumineuse dès le premier geste",
+          "Excès de sébum éliminé : débarrasse la peau du sébum en excès, des impuretés et des résidus de maquillage qui ternissent le teint et font briller la peau",
+          "Hydratation préservée : le jus d'aloe vera, la glycérine et le Sodium PCA aident à maintenir l'équilibre hydrique de la peau",
+          "Pores respectés : nettoie en profondeur sans obstruer les pores",
+          "Confort après rinçage : la peau reste douce et confortable, sans sensation de tiraillement"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux mixtes à grasses, sujettes à l'excès de sébum, aux brillances et aux pores visibles",
+          "Celles et ceux qui veulent retrouver, matin et soir, une peau parfaitement nette et un teint frais et lumineux, sans dessécher la peau",
+          "Convient aussi aux peaux normales",
+          "Pour les peaux sèches ou sensibles, découvrez Milky Bloom, notre nettoyant huile-en-lait démaquillant"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Un gel fluide et frais qui se transforme en une mousse légère au contact de l'eau. Il se rince facilement et laisse la peau propre, souple et rafraîchie, avec un parfum léger. Sa formule d'origine naturelle peut présenter une légère séparation : c'est tout à fait normal." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "98% d'ingrédients d'origine naturelle",
+          "10% d'ingrédients issus de l'agriculture biologique",
+          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Radiance Cleanser prouve qu'un nettoyage efficace peut révéler l'éclat de la peau tout en respectant son équilibre"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "lumibloom-niac-5",
+      nom: "Lumi-Bloom Niacinamide 5",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
+
+      texte: "Le duo peau nette et lumineuse.\nRadiance Cleanser purifie la peau en douceur et révèle l'éclat du teint, tandis que Lumi-Bloom Niacinamide 5 affine visiblement les pores et aide à équilibrer les peaux mixtes à grasses.",
+      prix: "34,90€",
+      variantId: "59324243411289"
     }
   },
 
