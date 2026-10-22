@@ -960,21 +960,18 @@ window.EB_PRODUITS = {
   // =====================================================================
   "routine-eclat": {
     nom: "Routine Éclat",
-    sousTitre: "Radiance C Serum · Luminescence Jour · Lumi-Veil CC Cream",
+    sousTitre: "Nettoyant · Radiance C Serum · Luminescence Jour",
     details: ["3 soins", "Vegan"],
     note: "",
-    prix: "96€",
+    prix: "94€",
     avis: "Routine éclat",
 
-    // Sélecteur de teinte (teinte de la CC Cream incluse dans la routine)
-    // La petite photo de rappel reprend les photos de teintes de la fiche Lumi-Veil CC Cream
-    choixLabel: "Choisissez votre teinte",
-    photosTeintes: "lumiveil-cc-cream",
+    // Choix du type de peau : il change le nettoyant inclus (deux lots Shopify, même prix)
+    // fiche = soin qui remplace la 1re vignette de « Votre routine » ; mention = petite ligne sous le bouton panier
+    choixLabel: "Votre type de peau",
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59324360720729", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
-      { label: "N°B2 MOYEN", variantId: "59358027972953", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358028005721", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
-      { label: "N°B4 FONCÉ", variantId: "59358028038489", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
+      { label: "Peau mixte à grasse",    variantId: "60085332509017", photo: 0, fiche: "radiance-cleanser", mention: "Livraison offerte" },
+      { label: "Peau sèche ou sensible", variantId: "60085379694937", photo: 1, fiche: "milky-bloom",       mention: "5,70 € d'économie par rapport aux soins achetés séparément · Livraison offerte" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -982,10 +979,11 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     media: {
       type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-carrousel_2.png?v=1792569443"
+        // 📷 1. ROUTINE PEAU MIXTE À GRASSE (Radiance Cleanser)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-mixte-carrousel.png?v=1792672935",
+        // 📷 2. ROUTINE PEAU SÈCHE OU SENSIBLE (Milky Bloom)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-sensible-carrousel.png?v=1792673116"
       ]
     },
 
@@ -993,13 +991,15 @@ window.EB_PRODUITS = {
     // │ 🌿  CONTENU DE LA ROUTINE                                       │
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
-      intro: "Trois soins complémentaires pour révéler l'éclat du teint, préserver l'hydratation de la peau et l'unifier au quotidien.\nRadiance C Serum prépare la peau grâce à son action antioxydante et illuminatrice, Luminescence Jour lui apporte hydratation et confort, puis Lumi-Veil CC Cream SPF 30 unifie le teint et le protège tout au long de la journée.\nUn rituel simple pour une peau hydratée, lumineuse, protégée et visiblement plus uniforme.",
-      soins: ["radiance-serum", "luminescence-jour", "lumiveil-cc-cream"],
+      intro: "Trois soins complémentaires pour révéler l'éclat du teint, dès le nettoyage.\nVotre nettoyant prépare la peau : Radiance Cleanser pour les peaux mixtes à grasses, Milky Bloom pour les peaux sèches ou sensibles. Radiance C Serum illumine le teint grâce à son action antioxydante, puis Luminescence Jour lui apporte hydratation et confort.\nUn rituel complet pour une peau nette, hydratée et visiblement plus lumineuse.",
+      soins: ["radiance-cleanser", "radiance-serum", "luminescence-jour"],
+      soinSelonChoix: 0,   // la 1re vignette suit le type de peau choisi (Radiance Cleanser ou Milky Bloom)
       moment: "Le matin",
       etapes: [
-        { soin: "radiance-serum",    texte: "Sur peau propre, appliquez une pression sur le visage et le cou." },
+        { titre: "Votre nettoyant",  texte: "Radiance Cleanser pour les peaux mixtes à grasses, Milky Bloom pour les peaux sèches ou sensibles : massez délicatement sur le visage, puis rincez abondamment à l'eau." },
+        { soin: "radiance-serum",    texte: "Sur peau propre et sèche, appliquez une pression sur le visage et le cou." },
         { soin: "luminescence-jour", texte: "Laissez pénétrer quelques instants, puis appliquez Luminescence Jour." },
-        { soin: "lumiveil-cc-cream", texte: "En dernière étape, appliquez-la directement sur la peau, puis estompez du bout des doigts. Retouchez au cours de la journée selon vos envies." }
+        { soin: "radiance-protect",  texte: "Pour finir, protégez l'éclat de votre peau avec Radiance Protect SPF 50 (non inclus dans la routine)." }
       ],
       conclusion: "Simple à adopter, pensée pour durer.\nTrois gestes complémentaires qui trouvent naturellement leur place dans votre quotidien."
     }
