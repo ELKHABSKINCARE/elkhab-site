@@ -67,6 +67,14 @@
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",
       alt: "Milky Bloom ELKHA.B, nettoyant huile-en-lait démaquillant pour peaux sensibles et sèches, flacon pompe 150 ml"
     },
+    "radiance-cleanser": {
+      nom: "Radiance Cleanser", actifs: "Aloe vera · Extrait de mûre",
+      ligne: "Éclat · Excès de sébum · Peaux mixtes à grasses",
+      besoins: ["eclat","pores"], prix: "24,90€", taille: "145 ml", hauteur: 15,
+      // 📷 Radiance Cleanser
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",
+      alt: "Radiance Cleanser ELKHA.B, gel nettoyant éclat pour peaux mixtes à grasses, flacon pompe 145 ml"
+    },
     "gelee-lumibloom": {
       nom: "Gelée Lumi-Bloom", actifs: "Prébiotique · Acide hyaluronique · Sodium PCA",
       ligne: "Hydratation · Apaisement · Barrière cutanée · Peaux sensibles",
@@ -175,7 +183,7 @@
 
   // Les 5 étapes (dans l'ordre de la routine)
   var ETAPES = [
-    { num: "01", titre: "Préparer",  texte: "Une peau nette et équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["milky-bloom","gelee-lumibloom"] },
+    { num: "01", titre: "Préparer",  texte: "Une peau nette et équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["milky-bloom","radiance-cleanser","gelee-lumibloom"] },
     { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, taches, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","lumibloom-arbutin","radiance-eye-cream"],
  },
     { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"],
