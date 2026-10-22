@@ -545,7 +545,7 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Milky Bloom                        │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site_ZOOM.png?v=1792676316",   // 📷 petite photo (routines, accord parfait) : flacon cadré comme les autres soins
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-miniature-v2-fond-site.png?v=1792678426",   // 📷 petite photo (routines, accord parfait) : flacon cadré comme les autres soins
       type: "diaporama",
       images: [
         // 📷 1. FLACON DE FACE (dézoomé)
