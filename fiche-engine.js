@@ -561,7 +561,7 @@
     // En-tête : titre, actifs, détails, petite note
     h += '<div class="eb-fp-head">';
     h += '<h1 class="eb-fp-title">' + esc(data.nom) + '</h1>';
-    if(data.sousTitre) h += '<p class="eb-fp-sub">' + esc(data.sousTitre) + '</p>';
+    if(data.sousTitre) h += '<p class="eb-fp-sub">' + esc(data.sousTitre).replace(/\n/g, '<br>') + '</p>';   // \n = retour à la ligne (type de soin, puis actifs)
     if(data.actifs) h += '<p class="eb-fp-actifs">' + esc(data.actifs) + '</p>';
     if(data.details && data.details.length){
       var lignes = Array.isArray(data.details[0]) ? data.details : [data.details];
@@ -683,7 +683,7 @@
       var nomA = (ficheA && !a.image) ? ficheA.nom : a.nom;
       var sousA = a.sousTitre || (ficheA && !a.image ? ficheA.sousTitre : '');
       if(nomA) h += '<p class="eb-fp-accord-nom">' + esc(nomA) + '</p>';
-      if(sousA) h += '<p class="eb-fp-accord-sous">' + esc(sousA) + '</p>';
+      if(sousA) h += '<p class="eb-fp-accord-sous">' + esc(sousA).replace(/\n/g, '<br>') + '</p>';
       if(a.texte){
         var paras = String(a.texte).split('\n').filter(function(p){ return p.trim(); });
         // Plusieurs paragraphes : le premier en entier, la suite derrière « Voir plus »
