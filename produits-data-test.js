@@ -545,7 +545,7 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Milky Bloom                        │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site.png?v=1792659730",   // 📷 petite photo (routines, accord parfait) : à remplacer par milky-bloom-miniature-fond-site.png
       type: "diaporama",
       images: [
         // 📷 1. FLACON DE FACE
@@ -960,7 +960,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "routine-eclat": {
     nom: "Routine Éclat",
-    sousTitre: "Nettoyant · Radiance C Serum · Luminescence Jour",
+    sousTitre: "Radiance Cleanser · Radiance C Serum · Luminescence Jour",   // remplacé selon le type de peau choisi
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "94€",
@@ -970,8 +970,12 @@ window.EB_PRODUITS = {
     // fiche = soin qui remplace la 1re vignette de « Votre routine » ; mention = petite ligne sous le bouton panier
     choixLabel: "Votre type de peau",
     variantes: [
-      { label: "Peau mixte à grasse",    variantId: "60085332509017", photo: 0, fiche: "radiance-cleanser", mention: "Livraison offerte" },
-      { label: "Peau sèche ou sensible", variantId: "60085379694937", photo: 1, fiche: "milky-bloom",       mention: "5,70 € d'économie par rapport aux soins achetés séparément · Livraison offerte" }
+      { label: "Peau mixte à grasse",    variantId: "60085332509017", photo: 0, fiche: "radiance-cleanser", mention: "Livraison offerte",
+        sousTitre: "Radiance Cleanser · Radiance C Serum · Luminescence Jour",
+        etape: "Faites mousser une noisette de Radiance Cleanser entre vos mains humides, massez délicatement le visage, puis rincez abondamment à l'eau." },
+      { label: "Peau sèche ou sensible", variantId: "60085379694937", photo: 1, fiche: "milky-bloom",       mention: "5,70 € d'économie par rapport aux soins achetés séparément · Livraison offerte",
+        sousTitre: "Milky Bloom · Radiance C Serum · Luminescence Jour",
+        etape: "Sur peau sèche ou humide, massez délicatement une noisette de Milky Bloom sur le visage, puis rincez abondamment à l'eau." }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -996,7 +1000,7 @@ window.EB_PRODUITS = {
       soinSelonChoix: 0,   // la 1re vignette suit le type de peau choisi (Radiance Cleanser ou Milky Bloom)
       moment: "Le matin",
       etapes: [
-        { titre: "Votre nettoyant",  texte: "Radiance Cleanser pour les peaux mixtes à grasses, Milky Bloom pour les peaux sèches ou sensibles : massez délicatement sur le visage, puis rincez abondamment à l'eau." },
+        { selonChoix: true,          texte: "" },   // le nettoyant du type de peau choisi (nom + texte « etape » de la version)
         { soin: "radiance-serum",    texte: "Sur peau propre et sèche, appliquez une pression sur le visage et le cou." },
         { soin: "luminescence-jour", texte: "Laissez pénétrer quelques instants, puis appliquez Luminescence Jour." },
         { soin: "radiance-protect",  texte: "Pour finir, protégez l'éclat de votre peau avec Radiance Protect SPF 50 (non inclus dans la routine)." }
