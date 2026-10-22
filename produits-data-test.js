@@ -556,12 +556,12 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Le soir", soin: "milky-bloom", texte: "Sur peau sèche, massez délicatement une noisette de Milky Bloom sur le visage pour dissoudre le maquillage et les impuretés. Humidifiez vos mains et continuez à masser : l'huile se transforme en lait. Rincez abondamment à l'eau. Évitez le contact direct avec les yeux." },
-        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Poursuivez avec Gelée Lumi-Bloom pour apaiser et préparer la peau." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." },
         { moment: "Le matin", soin: "milky-bloom", texte: "Appliquez une noisette de Milky Bloom sur peau sèche ou humide, massez délicatement, puis rincez." },
         { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Gelée Lumi-Bloom, puis Luminescence Jour." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." }
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." },
+        { moment: "Le soir", soin: "milky-bloom", texte: "Sur peau sèche, massez délicatement une noisette de Milky Bloom sur le visage pour dissoudre le maquillage et les impuretés. Humidifiez vos mains et continuez à masser : l'huile se transforme en lait. Rincez abondamment à l'eau. Évitez le contact direct avec les yeux." },
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Poursuivez avec Gelée Lumi-Bloom pour apaiser et préparer la peau." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." }
       ]
     },
 
@@ -569,7 +569,7 @@ window.EB_PRODUITS = {
       { titre: "L'expérience",
         texte: "Et si le démaquillage devenait le plus doux moment de votre rituel ? Sur peau sèche, Milky Bloom fond sous vos doigts et dissout le maquillage, même le plus épais, et les impuretés de la journée. Au contact de l'eau, l'huile se transforme en un lait soyeux qui se rince en un geste.\nLa peau est nette, douce et nourrie, sans tiraillement ni sensation de film. Le teint paraît frais et reposé : votre peau est prête à recevoir vos soins Bloom." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que les peaux sensibles méritent un nettoyage qui les respecte vraiment. Milky Bloom ne contient aucun agent moussant : il nettoie grâce à des huiles végétales et des émulsifiants d'origine naturelle, parmi les plus doux. Testé sous contrôle dermatologique, il convient aux peaux sensibles et délicates.\nL'huile de tournesol, la camomille, l'argousier et la plaquebière, issus de l'agriculture biologique, nourrissent et réconfortent la peau pendant le nettoyage. Un geste tout en douceur, qui laisse la peau souple et lumineuse." },
+        texte: "Parce que les peaux sensibles méritent un nettoyage qui les respecte vraiment. Milky Bloom ne contient aucun agent moussant : il nettoie grâce à des huiles végétales et des émulsifiants d'origine naturelle, parmi les plus doux. Testé sous contrôle dermatologique, il convient aux peaux sensibles et délicates.\nLa camomille, l'argousier et la plaquebière, issus de l'agriculture biologique, nourrissent et réconfortent la peau pendant le nettoyage. Un geste tout en douceur, qui laisse la peau souple et lumineuse." },
       { titre: "Bénéfices clés",
         liste: [
           "Démaquillage complet : dissout le maquillage, même le plus épais, et les impuretés, en un seul geste",
