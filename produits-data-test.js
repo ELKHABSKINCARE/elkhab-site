@@ -423,6 +423,93 @@ window.EB_PRODUITS = {
   },
 
   // =====================================================================
+  // LUMI-BLOOM ARBUTIN (nouveau soin — octobre 2026)
+  // =====================================================================
+  "lumibloom-arbutin": {
+    nom: "Lumi-Bloom Arbutin",
+    sousTitre: "Alpha-arbutine · Bidens pilosa · Vitamine C",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "29,90€",
+    variantId: "60077870678361",
+    inci: "lumi-bloom-arbutin",
+    avis: "Lumi-Bloom Arbutin",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Arbutin                 │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_serum_Lumi-Bloom_minimaliste.png?v=1792650026",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon.png?v=1792649529",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_serum_Lumi-Bloom_minimaliste.png?v=1792650026",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE.png?v=1792649763",
+        // 📷 4. MANNEQUIN
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE.png?v=1792649764"
+      ]
+    },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau." },
+        { moment: "Le matin", soin: "lumibloom-arbutin", texte: "Appliquez Lumi-Bloom Arbutin sur le visage, en insistant sur les zones présentant des irrégularités pigmentaires, sans frotter." },
+        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Luminescence Jour pour hydrater la peau tout au long de la journée." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez toujours par Radiance Protect SPF 50 : sans protection solaire, les taches reviennent plus vite." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Appliquez Lumi-Bloom Arbutin sur peau propre et sèche, puis poursuivez avec Luminescence Nuit." }
+      ]
+    },
+
+    sections: [
+      { titre: "L'expérience",
+        texte: "Et si votre teint retrouvait toute sa lumière ? Lumi-Bloom Arbutin transforme le soin des taches pigmentaires en un véritable rituel de beauté. Sa texture légère et enveloppante glisse délicatement sur la peau, lui apportant hydratation, douceur et confort.\nAu fil des applications, les irrégularités pigmentaires paraissent moins visibles, le teint semble plus homogène et la peau révèle un éclat naturel." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'un teint uniforme ne devrait pas se faire au détriment du confort de votre peau. Lumi-Bloom Arbutin associe l'alpha-arbutine, reconnue pour son action sur l'apparence des taches pigmentaires, à des ingrédients hydratants et nourrissants. Une approche complète qui cible les irrégularités du teint tout en prenant soin de la souplesse et de l'hydratation de la peau." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Taches visiblement atténuées : l'alpha-arbutine aide à réduire progressivement l'apparence des taches brunes et des irrégularités pigmentaires",
+          "Teint plus uniforme : contribue à améliorer l'homogénéité du teint pour une peau visiblement plus harmonieuse",
+          "Éclat retrouvé : aide à révéler une peau plus lumineuse et à réduire l'aspect terne du teint",
+          "Hydratation & souplesse : le PCA de sodium, la glycérine et l'acide hyaluronique contribuent à maintenir l'hydratation cutanée",
+          "Confort nourrissant : les huiles végétales et le beurre de murumuru apportent douceur et souplesse à la peau"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux présentant des taches brunes, des marques pigmentaires ou un teint irrégulier",
+          "Celles et ceux qui souhaitent cibler l'apparence des taches liées notamment au soleil ou aux anciennes imperfections, tout en conservant une routine hydratante",
+          "Les peaux normales, sèches et mixtes recherchant un soin correcteur de teint"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture sérum légère, douce et confortable, qui s'étale facilement sur la peau. Son parfum révèle des notes boisées de vétiver et de cèdre, une touche d'agrumes, sur un fond d'amande douce et de vanille. Une expérience sensorielle délicate qui accompagne chaque application." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "100% d'ingrédients d'origine naturelle",
+          "23% d'ingrédients issus de l'agriculture biologique",
+          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Lumi-Bloom Arbutin accompagne votre peau vers un teint visiblement plus uniforme et lumineux, sans jamais négliger son confort"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "lumibloom-niac-5",
+      nom: "Lumi-Bloom Niacinamide 5",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
+
+      texte: "Le duo Lumi-Bloom.\nLumi-Bloom Arbutin atténue l'apparence des taches et unifie le teint, tandis que Lumi-Bloom Niacinamide 5 affine le grain de peau et aide à estomper les marques d'imperfections.",
+      prix: "34,90€",
+      variantId: "59324243411289"
+    }
+  },
+
+  // =====================================================================
   // LUMINESCENCE NUIT
   // =====================================================================
   "luminescence-nuit": {
