@@ -328,9 +328,13 @@
   + ".filtre .ebs-amb{display:none}"
   + ".avec-amb .ebs-amb{order:2}"
   // Pont Balance
-  + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:16px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.6;text-align:center}"
+  + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:10px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.6}"
+  // Pont vers Balance : dégradé en diagonale blanc → sauge → eucalyptus → vert sapin ; texte sur le clair, bouton beige dans le vert
+  + ".ebs-pont-g{position:relative;min-height:150px;padding:22px 22px 54px;background:#c3d3c8;background:linear-gradient(150deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%);background:linear-gradient(in oklab 150deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%)}"
+  + ".ebs-pont-g p{margin:0;max-width:72%;color:#1b2a22;text-align:left}"
   + ".ebs-pont b{font-weight:600;color:#2c5a3c}"
-  + ".ebs-pont a{display:inline-block;margin-top:8px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#2c5a3c;border-bottom:1px solid #2c5a3c;padding-bottom:2px}"
+  + ".ebs-pont a{position:absolute;right:22px;bottom:18px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f1eadb;border-bottom:1px solid #f1eadb;padding-bottom:2px;text-decoration:none}"
+  + "@media(min-width:900px){.ebs-pont-g{min-height:130px;padding:26px 30px 56px}.ebs-pont-g p{max-width:55%}.ebs-pont a{right:30px;bottom:22px}}"
   + ".ebs-pont.on{display:block}"
   // Coffret
   + ".ebs-cof{width:100%;display:flex;flex-direction:column;align-items:center;background:" + REGLAGES.fondCoffret + ";padding:46px 18px 40px;margin:10px 0 0}"
@@ -602,7 +606,7 @@
       t.classList.toggle('vide', !plein);
     });
     if(pont){
-      if(id && PONT[id]){ pont.innerHTML = PONT[id] + '<br><a href="' + esc(REGLAGES.lienBalance) + '">Découvrir Balance</a>'; pont.classList.add('on'); }
+      if(id && PONT[id]){ pont.innerHTML = '<div class="ebs-pont-g"><p>' + PONT[id] + '</p><a href="' + esc(REGLAGES.lienBalance) + '">Découvrir Balance →</a></div>'; pont.classList.add('on'); }
       else pont.classList.remove('on');
     }
     if(defiler && premiere){
