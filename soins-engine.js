@@ -328,13 +328,16 @@
   + ".filtre .ebs-amb{display:none}"
   + ".avec-amb .ebs-amb{order:2}"
   // Pont Balance
-  + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:10px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.6}"
-  // Pont vers Balance : dégradé en diagonale blanc → sauge → eucalyptus → vert sapin ; texte sur le clair, bouton beige dans le vert
-  + ".ebs-pont-g{position:relative;min-height:150px;padding:22px 22px 54px;background:#c3d3c8;background:linear-gradient(150deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%);background:linear-gradient(in oklab 150deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%)}"
-  + ".ebs-pont-g p{margin:0;max-width:72%;color:#1b2a22;text-align:left}"
+  + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:10px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.55}"
+  // Pont vers Balance : bande fine en dégradé blanc → sauge → eucalyptus → vert sapin ; texte sur le clair, bouton beige dans le vert
+  //   téléphone : bande de bout en bout de l'écran, texte sur toute la largeur, bouton en bas à droite
+  //   ordinateur : une seule bande, texte à gauche (2 lignes maximum), bouton à droite
+  + ".ebs-pont-g{padding:12px 18px;background:#c3d3c8;background:linear-gradient(165deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%);background:linear-gradient(in oklab 165deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%)}"
+  + ".ebs-pont-g p{margin:0;color:#1b2a22;text-align:left}"
   + ".ebs-pont b{font-weight:600;color:#2c5a3c}"
-  + ".ebs-pont a{position:absolute;right:22px;bottom:18px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f1eadb;border-bottom:1px solid #f1eadb;padding-bottom:2px;text-decoration:none}"
-  + "@media(min-width:900px){.ebs-pont-g{min-height:130px;padding:26px 30px 56px}.ebs-pont-g p{max-width:55%}.ebs-pont a{right:30px;bottom:22px}}"
+  + ".ebs-pont a{display:block;width:max-content;margin:6px 0 0 auto;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f1eadb;border-bottom:1px solid #f1eadb;padding-bottom:2px;text-decoration:none}"
+  + "@media (max-width:899px){#eb-soins .ebs-pont{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}}"
+  + "@media (min-width:900px){.ebs-pont-g{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:14px 30px;background:linear-gradient(100deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%);background:linear-gradient(in oklab 100deg,#ffffff 0%,#f2f3ee 16%,#c3d3c8 40%,#91ab98 57%,#5b8069 73%,#36594b 87%,#18302a 100%)}.ebs-pont-g p{max-width:56%}.ebs-pont a{margin:0;flex:none}}"
   + ".ebs-pont.on{display:block}"
   // Coffret
   + ".ebs-cof{width:100%;display:flex;flex-direction:column;align-items:center;background:" + REGLAGES.fondCoffret + ";padding:46px 18px 40px;margin:10px 0 0}"
