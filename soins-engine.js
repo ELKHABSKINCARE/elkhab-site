@@ -83,6 +83,14 @@
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",
       alt: "Lumi-Bloom Niacinamide 5 ELKHA.B, soin pores et teint unifié à la niacinamide, 50 ml"
     },
+    "lumibloom-arbutin": {
+      nom: "Lumi-Bloom Arbutin", actifs: "Alpha-arbutine · Bidens pilosa · Vitamine C",
+      ligne: "Anti-taches · Teint unifié · Éclat",
+      besoins: ["anti-taches","eclat"], prix: "29,90€", taille: "30 ml", hauteur: 10.5,
+      // 📷 Lumi-Bloom Arbutin
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_serum_Lumi-Bloom_minimaliste.png?v=1792650026",
+      alt: "Lumi-Bloom Arbutin ELKHA.B, sérum anti-taches à l'alpha-arbutine, flacon verre 30 ml"
+    },
     "radiance-eye-cream": {
       nom: "Radiance Eye Cream", actifs: "Acide hyaluronique · Ginkgo biloba · Beurre de karité",
       ligne: "Cernes · Poches · Ridules",
@@ -160,7 +168,7 @@
   // Les 5 étapes (dans l'ordre de la routine)
   var ETAPES = [
     { num: "01", titre: "Préparer",  texte: "Une peau équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["gelee-lumibloom"] },
-    { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","radiance-eye-cream"],
+    { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, taches, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","lumibloom-arbutin","radiance-eye-cream"],
  },
     { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"],
       // 🎬 Respiration après l'étape 03 : lien de la vidéo Shopify (laisser "" pour ne rien afficher)
