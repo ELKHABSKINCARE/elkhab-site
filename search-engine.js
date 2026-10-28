@@ -50,6 +50,9 @@
 var EB_MOTS_SOINS = {
   "radiance-serum": ["vitamine c","eclat","teint","taches","antioxydant","serum","glow","bloom"],
   "luminescence-jour": ["creme","jour","hydratation","acide hyaluronique","bisabolol","apaisant","bloom"],
+  "lumi-pure": ["masque","argile","charbon","purifiant","points noirs","pores","sebum","brillance","peau grasse","peau mixte","bloom"],
+  "milky-bloom": ["demaquillant","nettoyant","huile","lait","camomille","peau sensible","peau seche","bloom"],
+  "radiance-cleanser": ["nettoyant","gel","sebum","peau grasse","peau mixte","aloe vera","bloom"],
   "gelee-lumibloom": ["prebiotique","microbiome","barriere cutanee","hydratation","gelee","bloom"],
   "lumiveil-cc-cream": ["cc creme","cc cream","teint","spf","spf 30","fond de teint","teinte","ceramides","beurre de cacao","bloom"],
   "lumibloom-niac-5": ["niacinamide","sebum","pores","imperfections","boutons","peau grasse","teint","serum","bloom"],
@@ -120,7 +123,7 @@ var EB_SUGGESTIONS = ["Vitamine C", "Diagnostic", "Contour des yeux", "Routine",
 // Liste des soins de secours (si le catalogue des fiches n'est pas chargé)
 var EB_SOINS_SECOURS = {
   "radiance-serum":"Radiance C Serum","luminescence-jour":"Luminescence Jour","gelee-lumibloom":"Gelée Lumi-Bloom",
-  "lumiveil-cc-cream":"Lumi-Veil CC Cream SPF 30","lumibloom-niac-5":"Lumi-Bloom Niacinamide 5","luminescence-nuit":"Luminescence Nuit",
+  "lumiveil-cc-cream":"Lumi-Veil CC Cream SPF 30","lumibloom-niac-5":"Lumi-Bloom Niacinamide 5","lumi-pure":"Lumi-Pure","milky-bloom":"Milky Bloom","radiance-cleanser":"Radiance Cleanser","luminescence-nuit":"Luminescence Nuit",
   "rituel-luminescence":"Rituel Luminescence Jour & Nuit","radiance-protect":"Radiance Protect SPF 50","radiance-eye-cream":"Radiance Eye Cream",
   "bright-glow-patch":"Lumi Eyes Bright & Glow","bright-glow-decongestionnant":"Lumi Eyes Bright & Glow Décongestionnant",
   "bright-glow-anti-fatigue":"Lumi Eyes Bright & Glow Anti-fatigue","routine-eclat":"Routine Éclat","routine-hydratation":"Routine Hydratation",
