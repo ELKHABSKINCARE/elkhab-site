@@ -629,7 +629,7 @@ window.EB_PRODUITS = {
     details: ["90 ml", "Vegan"],
     note: "une à deux fois par semaine",
     prix: "29,90€",
-    variantId: "",   // 🛒 À REMPLIR : l'identifiant de variante Shopify de Lumi-Pure (sinon le bouton « Ajouter » ne fonctionne pas)
+    variantId: "60254749819225",
     inci: "lumi-pure",
     avis: "Lumi-Pure",
 
@@ -645,7 +645,9 @@ window.EB_PRODUITS = {
         // 📷 2. POT DE DOS
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-dos-fond-site.jpg?v=1793208637",
         // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d637d80b-e15b-40f3-92b5-0aaf6cf4ec6e.png?v=1793208600"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d637d80b-e15b-40f3-92b5-0aaf6cf4ec6e.png?v=1793208600",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_558a59d1-b12f-48c9-987f-19808cd3a870.png?v=1793208601"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
