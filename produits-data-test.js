@@ -23,6 +23,11 @@ window.EB_INCI_PLUS = {
     natural: "100",
     organic: "23"
   },
+  "lumi-pure": {
+    ingredients: "Aloe Barbadensis Leaf Juice*, Kaolin, Glycerin, Montmorillonite, Diatomaceous Earth, Butylene Glycol, Aqua/Water, Sodium PCA, Lactic Acid, Sodium Levulinate, Olea Europaea (Olive) Fruit Oil*, Tocopherol, Xanthan Gum, Propanediol, Sodium Anisate, Glyceryl Caprylate, Charcoal Powder, Camellia Sinensis (Black Tea) Leaf Extract*, Cucumis Sativus (Cucumber) Fruit Extract*, Salvia Officinalis (Sage) Leaf Extract*, [CI 77491, CI 77492, CI 77499 (Iron Oxides)]**, Rhamnose, Glycolipids, Glucose, Glucuronic Acid.",
+    natural: "100",
+    organic: "16"
+  },
   "milky-bloom": {
     ingredients: "Caprylic/Capric Triglyceride, Glycerin, Helianthus Annuus (Sunflower) Seed Oil*, Aqua, Sucrose Laurate, Sucrose Palmitate, Alcohol, Tocopherol, Mica (CI 77019), Parfum, Chamomilla Recutita (Camomile) Flower Extract*, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract*, Rubus Chamaemorus (Cloudberry) Fruit Extract*, CI 77491 (Iron Oxides), Glycolipids, Limonene, Linalyl Acetate. *Ingrédients issus de l'agriculture biologique.",
     natural: "100",
@@ -612,6 +617,92 @@ window.EB_PRODUITS = {
       texte: "Le duo douceur.\nMilky Bloom démaquille et nourrit la peau sans jamais la déshydrater, tandis que Gelée Lumi-Bloom apaise, hydrate et prépare la peau à recevoir ses soins.",
       prix: "28,90€",
       variantId: "59324234891609"
+    }
+  },
+
+  // =====================================================================
+  // LUMI-PURE (nouveau soin — octobre 2026)
+  // =====================================================================
+  "lumi-pure": {
+    nom: "Lumi-Pure",
+    sousTitre: "Masque purifiant séborégulateur\nArgiles · Charbon végétal",
+    details: ["90 ml", "Vegan"],
+    note: "une à deux fois par semaine",
+    prix: "29,90€",
+    variantId: "",   // 🛒 À REMPLIR : l'identifiant de variante Shopify de Lumi-Pure (sinon le bouton « Ajouter » ne fonctionne pas)
+    inci: "lumi-pure",
+    avis: "Lumi-Pure",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Pure                          │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793208637",   // 📷 petite photo (routines, accord parfait) : le pot seul
+      type: "diaporama",
+      images: [
+        // 📷 1. POT DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793208637",
+        // 📷 2. POT DE DOS
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-dos-fond-site.jpg?v=1793208637",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d637d80b-e15b-40f3-92b5-0aaf6cf4ec6e.png?v=1793208600"
+      ]
+    },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le soir, une à deux fois par semaine", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser, puis séchez-la en tamponnant." },
+        { moment: "Le soir, une à deux fois par semaine", soin: "lumi-pure", texte: "Appliquez Lumi-Pure en couche uniforme sur une peau propre, en évitant le contour des yeux et des lèvres. Laissez poser 5 à 10 minutes, puis rincez abondamment. Une légère rougeur peut apparaître juste après, elle disparaît rapidement." },
+        { moment: "Le soir, une à deux fois par semaine", soin: "lumibloom-niac-5", texte: "Poursuivez avec Lumi-Bloom Niacinamide 5 pour resserrer les pores et réguler le sébum." },
+        { moment: "Le soir, une à deux fois par semaine", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." }
+      ]
+    },
+
+    sections: [
+      { titre: "L'expérience",
+        texte: "Et si vous offriez à votre peau une vraie parenthèse de pureté ? Lumi-Pure associe un mélange d'argiles purifiantes au charbon végétal et à des extraits botaniques soigneusement sélectionnés. Il absorbe l'excès de sébum, aide à désincruster les pores et débarrasse la peau des impuretés accumulées. En 5 à 10 minutes, une à deux fois par semaine, votre peau retrouve fraîcheur et netteté, avec un grain visiblement plus fin." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau nette commence par une purification ciblée. Lumi-Pure s'adresse aux peaux sujettes aux brillances, aux pores encombrés et aux points noirs. Il associe le pouvoir absorbant du kaolin et de la montmorillonite à l'hydratation du jus d'aloe vera bio et de la glycérine : la peau est purifiée, mais reste fraîche et confortable, prête à recevoir la suite de votre rituel." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Purifie en profondeur : aide à éliminer les impuretés et l'excès de sébum",
+          "Affine l'apparence des pores : le grain de peau est visiblement plus net",
+          "Cible les points noirs : accompagne la purification des zones aux pores obstrués",
+          "Réduit les brillances : absorbe l'excès de sébum pour un fini plus mat",
+          "Revitalise la peau : une sensation de fraîcheur après le rinçage"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux mixtes à grasses, sujettes à l'excès de sébum et aux brillances",
+          "Les points noirs, les pores obstrués et le grain de peau irrégulier",
+          "Les impuretés accumulées au quotidien",
+          "Ne convient pas aux peaux sensibles. Pour affiner le grain de peau en douceur, découvrez Lumi-Bloom Niacinamide 5"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture de masque à l'argile, enveloppante et facile à répartir. Son parfum discret, aux nuances naturellement argileuses, privilégie une expérience sobre et authentique. La présence d'ingrédients naturels peut entraîner une légère séparation des phases, sans altérer la qualité du soin." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "100% d'ingrédients d'origine naturelle",
+          "16% d'ingrédients issus de l'agriculture biologique",
+          "Sans allergènes",
+          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Lumi-Pure purifie la peau en profondeur, sans jamais la priver de son confort"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "lumibloom-niac-5",
+      nom: "Lumi-Bloom Niacinamide 5",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
+
+      texte: "Le duo peau nette.\nLumi-Pure désincruste les pores et absorbe l'excès de sébum une à deux fois par semaine, tandis que Lumi-Bloom Niacinamide 5 régule la brillance et affine le grain de peau, jour après jour.",
+      prix: "34,90€",
+      variantId: "59324243411289"
     }
   },
 
