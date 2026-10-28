@@ -75,6 +75,14 @@
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",
       alt: "Radiance Cleanser ELKHA.B, gel nettoyant éclat pour peaux mixtes à grasses, flacon pompe 145 ml"
     },
+    "lumi-pure": {
+      nom: "Lumi-Pure", actifs: "Argiles · Charbon végétal",
+      ligne: "Masque purifiant · Pores et points noirs · Peaux mixtes à grasses",
+      besoins: ["pores"], prix: "29,90€", taille: "90 ml", hauteur: 8,
+      // 📷 Lumi-Pure
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793208637",
+      alt: "Lumi-Pure ELKHA.B, masque purifiant séborégulateur aux argiles et au charbon végétal pour peaux mixtes à grasses, pot 90 ml"
+    },
     "gelee-lumibloom": {
       nom: "Gelée Lumi-Bloom", actifs: "Prébiotique · Acide hyaluronique · Sodium PCA",
       ligne: "Hydratation · Apaisement · Barrière cutanée · Peaux sensibles",
@@ -183,7 +191,7 @@
 
   // Les 5 étapes (dans l'ordre de la routine)
   var ETAPES = [
-    { num: "01", titre: "Préparer",  texte: "Une peau nette et équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["milky-bloom","radiance-cleanser","gelee-lumibloom"] },
+    { num: "01", titre: "Préparer",  texte: "Une peau nette et équilibrée reçoit mieux ses soins.", couleur: "#e6cdbb", soins: ["milky-bloom","radiance-cleanser","lumi-pure","gelee-lumibloom"] },
     { num: "02", titre: "Traiter",   texte: "Le soin ciblé : éclat, pores, taches, regard.",        couleur: "#d9a796", soins: ["radiance-serum","lumibloom-niac-5","lumibloom-arbutin","radiance-eye-cream"],
  },
     { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"],
