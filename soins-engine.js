@@ -205,7 +205,7 @@
     { num: "03", titre: "Hydrater",  texte: "L'hydratation au cœur de la routine.",       couleur: "#c27a5c", soins: ["luminescence-jour"],
       // 🎬 Respiration après l'étape 03 : lien de la vidéo Shopify (laisser "" pour ne rien afficher)
       //    (pour une photo à la place : mettre le lien dans photo: "" et laisser video: "")
-      ambiance: { video: "https://cdn.shopify.com/videos/c/o/v/74ade55001d64facbc6d121c6c56d122.mp4", photo: "", alt: "Rituel ELKHA.B Bloom, peau lumineuse et hydratée", cadrage: "50% 50%" } },
+      ambiance: { video: "https://cdn.shopify.com/videos/c/o/v/10cbd7af9222428db48ede51b66e58c9.mp4", photo: "", alt: "Rituel ELKHA.B Bloom, peau lumineuse et hydratée", cadrage: "50% 50%" } },
     { num: "04", titre: "Protéger",  texte: "Le geste du matin, chaque jour.",            couleur: "#e0663c", soins: ["radiance-protect","lumiveil-cc-cream"],
  },
     { num: "05", titre: "Régénérer", texte: "La nuit, la peau se répare.",                couleur: "#7d1f2b", soins: ["luminescence-boost","luminescence-nuit"] }
