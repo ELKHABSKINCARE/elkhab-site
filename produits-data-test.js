@@ -820,13 +820,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Boost                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793378737",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793379697",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-1-boite-flacon.png?v=1793376159",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793378737"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793379697"
         // 📷 3. TEXTURE (à ajouter plus tard : une virgule après le lien du dessus, puis le nouveau lien)
       ]
     },
@@ -1204,13 +1204,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Radiance Eye Cream
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793378830",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-eye-cream-1-boite-flacon.png?v=1793375349",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793378830",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Votre_texte_de_paragraphe_2.jpg?v=1791055787",
         // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
