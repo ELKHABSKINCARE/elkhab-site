@@ -30,7 +30,7 @@
     fondCoffret: "#ece5db",
     // Si une photo remplacée dans Shopify s'affiche tantôt l'ancienne, tantôt la nouvelle :
     // augmenter ce chiffre de 1 (oblige téléphones et serveurs à reprendre la photo du jour)
-    versionPhotos: 3,
+    versionPhotos: 4,
     lienBalance: "https://balance.elkhab.com/"
   };
 
@@ -120,7 +120,7 @@
       ligne: "Cernes · Poches · Ridules",
       besoins: ["regard"], prix: "28,90€", taille: "15 ml", hauteur: 10.5,
       // 📷 Radiance Eye Cream
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793378830",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",
       alt: "Radiance Eye Cream ELKHA.B, crème contour des yeux cernes et poches, 15 ml"
     },
     "luminescence-jour": {
@@ -152,7 +152,7 @@
       ligne: "Rides & fermeté · Rebond · Hydratation",
       besoins: ["fermete","hydratation"], prix: "31,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Luminescence Boost
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793378737",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793379697",
       alt: "Luminescence Boost ELKHA.B, sérum booster de fermeté, 30 ml"
     },
     "luminescence-nuit": {
@@ -532,6 +532,12 @@
       if(x0 >= 0 && x1 - x0 > w * .1){
         var seuil = Math.max(2, (x1 - x0) * .04);
         for(y = 0; y < h; y++){ var n = 0; for(xx = x0; xx <= x1; xx++) n += dif[y * w + xx]; if(n >= seuil){ if(y0 < 0) y0 = y; y1 = y; } }
+        // le pied du soin = dernière ligne vraiment pleine (le reflet sous le flacon ne compte pas)
+        if(y0 >= 0){
+          var yb = y1, plein = (x1 - x0) * .5;
+          while(yb > y0){ var m = 0; for(xx = x0; xx <= x1; xx++) m += dif[yb * w + xx]; if(m >= plein) break; yb--; }
+          if(y1 - yb > (y1 - y0) * .03) y1 = yb;
+        }
       }
       // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
       x.globalCompositeOperation = 'destination-in';
