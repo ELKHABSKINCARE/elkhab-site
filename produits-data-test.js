@@ -215,13 +215,13 @@ window.EB_PRODUITS = {
     // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000189881f48908d7eaebf894d3.png?v=1792227809",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793374944",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/gelee-lumibloom-1-boite-flacon.png?v=1792576368",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/gelee-lumibloom-1-boite-flacon.png?v=1793375005",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000189881f48908d7eaebf894d3.png?v=1792227809",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793374944",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
         // 📷 4. PHOTO 4
@@ -289,27 +289,27 @@ window.EB_PRODUITS = {
     // et le diaporama glisse jusqu'à sa photo (photo : 0 = 1re photo, 1 = 2e photo…)
     choixLabel: "Choisissez votre teinte",
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
-      { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
-      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
-      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
+      { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
+      { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
+      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
+      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  PHOTOS DE LA FICHE — Lumi-Veil CC Cream (diaporama)        │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a5cc82108dc80c99927fc410.png?v=1792224583",   // 📷 petite photo : stick seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867",   // 📷 petite photo : stick seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. B1 CLAIR · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b1-clair-1-boite-flacon_-_Copie.png?v=1792576367",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b1-clair-1-boite-flacon_-_Copie.png?v=1793375505",
         // 📷 2. B2 MOYEN · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b2-moyen-1-boite-flacon_-_Copie.png?v=1792576367",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b2-moyen-1-boite-flacon_-_Copie.png?v=1793375453",
         // 📷 3. B3 HÂLÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b3-hale-1-boite-flacon_-_Copie.png?v=1792576367",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b3-hale-1-boite-flacon_-_Copie.png?v=1793375478",
         // 📷 4. B4 FONCÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1792576367"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1793375415"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -463,13 +463,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Arbutin                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_serum_Lumi-Bloom_minimaliste.png?v=1792650026",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793375160",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon.png?v=1792649529",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon_cc9a2df4-0202-4453-8e69-b16daa06c0e3.png?v=1793375045",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_serum_Lumi-Bloom_minimaliste.png?v=1792650026",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793375160",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE.png?v=1792649763",
         // 📷 4. MANNEQUIN
@@ -971,21 +971,21 @@ window.EB_PRODUITS = {
     // et le diaporama glisse jusqu'à sa photo (0 = 1re photo, 1 = 2e photo…)
     choixLabel: "Choisissez votre protection",
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282" },
-      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291" }
+      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
+      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  PHOTOS DE LA FICHE — Radiance Protect (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067b4820898e2100a2336668b.png?v=1792227560",   // 📷 petite photo : stick seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692",   // 📷 petite photo : stick seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. TEINTÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-teinte-1-boite-flacon.png?v=1792576367",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-teinte-1-boite-flacon.png?v=1793376713",
         // 📷 2. SANS TEINTE · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-sans-teinte-1-boite-flacon_3ab9f413-1a53-496b-8fb8-682c464c3239.png?v=1792576775",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-sans-teinte-1-boite.png?v=1793376672",
         // 📷 3. PHOTO D'AMBIANCE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207"
       ]
@@ -1119,13 +1119,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Radiance Eye Cream
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a11082109a9d69ab565cdea5.png?v=1792225354",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793375290",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-eye-cream-1-boite-flacon.png?v=1792576367",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-eye-cream-1-boite-flacon.png?v=1793375349",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a11082109a9d69ab565cdea5.png?v=1792225354",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793375290",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Votre_texte_de_paragraphe_2.jpg?v=1791055787",
         // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
@@ -1472,8 +1472,8 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre protection",
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282" },
-      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291" }
+      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
+      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1517,10 +1517,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
-      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
-      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
+      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
+      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
+      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1564,10 +1564,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948" },
-      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743" },
-      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970" }
+      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
+      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
+      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
