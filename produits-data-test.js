@@ -1524,7 +1524,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-carrousel.png?v=1792569443"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-carrousel.png?v=1793385822"
       ]
     },
 
@@ -1569,7 +1569,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-fermete-carrousel-v2.png?v=1792569443"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-fermete-carrousel-v2.png?v=1793386032"
       ]
     },
 
@@ -1616,7 +1616,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-carrousel.png?v=1792569443"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-carrousel.png?v=1793385932"
       ]
     },
 
@@ -1663,7 +1663,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-teint-protection-carrousel.png?v=1792569442"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-teint-protection-carrousel.png?v=1793385991"
       ]
     },
 
@@ -1708,7 +1708,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-regard-carrousel.png?v=1792569442"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-regard-carrousel.png?v=1793385845"
       ]
     },
 
