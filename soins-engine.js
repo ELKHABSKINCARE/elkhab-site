@@ -30,7 +30,7 @@
     fondCoffret: "#ece5db",
     // Si une photo remplacée dans Shopify s'affiche tantôt l'ancienne, tantôt la nouvelle :
     // augmenter ce chiffre de 1 (oblige téléphones et serveurs à reprendre la photo du jour)
-    versionPhotos: 4,
+    versionPhotos: 6,
     lienBalance: "https://balance.elkhab.com/"
   };
 
@@ -80,7 +80,7 @@
       ligne: "Masque purifiant · Pores et points noirs · Peaux mixtes à grasses",
       besoins: ["pores"], prix: "29,90€", taille: "90 ml", hauteur: 8,
       // 📷 Lumi-Pure
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793208637",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",
       alt: "Lumi-Pure ELKHA.B, masque purifiant séborégulateur aux argiles et au charbon végétal pour peaux mixtes à grasses, pot 90 ml"
     },
     "gelee-lumibloom": {
@@ -88,7 +88,7 @@
       ligne: "Hydratation · Apaisement · Barrière cutanée · Peaux sensibles",
       besoins: ["hydratation","apaisement","sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 11,
       // 📷 Gelée Lumi-Bloom
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793378491",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",
       alt: "Gelée Lumi-Bloom ELKHA.B, gel aux prébiotiques et à l'acide hyaluronique, flacon pipette 30 ml"
     },
     "radiance-serum": {
@@ -112,7 +112,7 @@
       ligne: "Anti-taches · Teint unifié · Éclat",
       besoins: ["anti-taches","eclat"], prix: "29,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Lumi-Bloom Arbutin
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793378661",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793380817",
       alt: "Lumi-Bloom Arbutin ELKHA.B, sérum anti-taches à l'alpha-arbutine, flacon verre 30 ml"
     },
     "radiance-eye-cream": {
@@ -152,7 +152,7 @@
       ligne: "Rides & fermeté · Rebond · Hydratation",
       besoins: ["fermete","hydratation"], prix: "31,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Luminescence Boost
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793379697",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793380782",
       alt: "Luminescence Boost ELKHA.B, sérum booster de fermeté, 30 ml"
     },
     "luminescence-nuit": {
