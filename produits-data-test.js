@@ -220,13 +220,13 @@ window.EB_PRODUITS = {
     // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793378491",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/gelee-lumibloom-1-boite-flacon.png?v=1793375005",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793378491",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
         // 📷 4. PHOTO 4
@@ -468,13 +468,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Arbutin                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793378661",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793380817",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon_cc9a2df4-0202-4453-8e69-b16daa06c0e3.png?v=1793375045",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793378661",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793380817",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE.png?v=1792649763",
         // 📷 4. MANNEQUIN
@@ -642,11 +642,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Pure                          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793208637",   // 📷 petite photo (routines, accord parfait) : le pot seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",   // 📷 petite photo (routines, accord parfait) : le pot seul
       type: "diaporama",
       images: [
         // 📷 1. POT DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793208637",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",
         // 📷 2. POT DE DOS
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-dos-fond-site.jpg?v=1793208637",
         // 📷 3. TEXTURE
@@ -820,13 +820,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Boost                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793379697",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793380782",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-1-boite-flacon.png?v=1793376159",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793379697"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793380782"
         // 📷 3. TEXTURE (à ajouter plus tard : une virgule après le lien du dessus, puis le nouveau lien)
       ]
     },
