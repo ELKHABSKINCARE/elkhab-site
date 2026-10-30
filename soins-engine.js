@@ -88,7 +88,7 @@
       ligne: "Hydratation · Apaisement · Barrière cutanée · Peaux sensibles",
       besoins: ["hydratation","apaisement","sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 11,
       // 📷 Gelée Lumi-Bloom
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000189881f48908d7eaebf894d3.png?v=1792227809",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793374944",
       alt: "Gelée Lumi-Bloom ELKHA.B, gel aux prébiotiques et à l'acide hyaluronique, flacon pipette 30 ml"
     },
     "radiance-serum": {
@@ -112,7 +112,7 @@
       ligne: "Anti-taches · Teint unifié · Éclat",
       besoins: ["anti-taches","eclat"], prix: "29,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Lumi-Bloom Arbutin
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Flacon_de_serum_Lumi-Bloom_minimaliste.png?v=1792650026",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793375160",
       alt: "Lumi-Bloom Arbutin ELKHA.B, sérum anti-taches à l'alpha-arbutine, flacon verre 30 ml"
     },
     "radiance-eye-cream": {
@@ -120,7 +120,7 @@
       ligne: "Cernes · Poches · Ridules",
       besoins: ["regard"], prix: "28,90€", taille: "15 ml", hauteur: 10.5,
       // 📷 Radiance Eye Cream
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000a11082109a9d69ab565cdea5.png?v=1792225354",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793375290",
       alt: "Radiance Eye Cream ELKHA.B, crème contour des yeux cernes et poches, 15 ml"
     },
     "luminescence-jour": {
@@ -136,7 +136,7 @@
       ligne: "SPF 50 · Anti-taches · Peaux sensibles",
       besoins: ["solaire","anti-taches","sensibles"], prix: "26,90€", taille: "12 g", hauteur: 9.5,
       // 📷 Radiance Protect (version teintée)
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067b4820898e2100a2336668b.png?v=1792227560",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692",
       alt: "Radiance Protect ELKHA.B, stick solaire minéral SPF 50, 12 g"
     },
     "lumiveil-cc-cream": {
@@ -144,7 +144,7 @@
       ligne: "Teint unifié · SPF 30 · Barrière cutanée · Apaisement · Peaux sensibles",
       besoins: ["anti-taches","solaire","apaisement","sensibles"], prix: "26,90€", taille: "12 g", hauteur: 9.5,
       // 📷 Lumi-Veil (les 4 teintes)
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000006504820e806a74d83392168f.png?v=1792228400",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_4_teintes_flacons.png?v=1793375785",
       alt: "Lumi-Veil CC Cream SPF 30 ELKHA.B, stick teinté en 4 teintes"
     },
     "luminescence-nuit": {
