@@ -18,6 +18,11 @@ window.EB_MEDIA_PLEIN = true;
 
 // Compositions des nouveaux soins (en plus de inci-data.js) — clé = « inci » de la fiche
 window.EB_INCI_PLUS = {
+  "luminescence-boost": {
+    ingredients: "Aqua, Glycerin, Caprylic/Capric Triglyceride, Helianthus Annuus (Sunflower) Seed Oil, Pentylene Glycol, Cetearyl Alcohol, Glyceryl Stearate Citrate, Sodium PCA, Cellulose, Parfum, Hydrolyzed Hyaluronic Acid, Xanthan Gum, Glyceryl Caprylate, Nasturtium Officinale (Watercress) Flower/Leaf Extract, Sambucus Nigra (Elder) Fruit Extract, Ascorbyl Palmitate, Sodium Hyaluronate, Sodium Phytate, Potassium Hydroxide, Linalool, Geraniol, Citronellol.",
+    natural: "100",
+    organic: "23"
+  },
   "lumi-bloom-arbutin": {
     ingredients: "Aqua, Glycerin, Caprylic/Capric Triglyceride, Helianthus Annuus (Sunflower) Seed Oil, Pentylene Glycol, Cetearyl Alcohol, Sodium PCA, Glyceryl Stearate Citrate, Alpha-Arbutin, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Bidens Pilosa Extract, Cellulose, Linum Usitatissimum Seed Oil, Parfum, Xanthan Gum, Ascorbyl Palmitate, Lactic Acid, Ascophyllum Nodosum Extract, Sodium Phytate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Tocopherol, Limonene, Citrus Limon Peel Oil, Pogostemon Cablin Oil, Linalool, Juniperus Virginiana Oil, Cedrus Atlantica Oil/Extract, Pinene, Vanillin, Menthol, Citral, Beta-Caryophyllene.",
     natural: "100",
@@ -215,13 +220,13 @@ window.EB_PRODUITS = {
     // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793374944",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793378491",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/gelee-lumibloom-1-boite-flacon.png?v=1793375005",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793374944",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793378491",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
         // 📷 4. PHOTO 4
@@ -463,13 +468,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Arbutin                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793375160",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793378661",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon_cc9a2df4-0202-4453-8e69-b16daa06c0e3.png?v=1793375045",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793375160",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793378661",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE.png?v=1792649763",
         // 📷 4. MANNEQUIN
@@ -798,6 +803,86 @@ window.EB_PRODUITS = {
   // =====================================================================
   // LUMINESCENCE NUIT
   // =====================================================================
+  // ─────────────────────────────────────────────────────────────────
+  // LUMINESCENCE BOOST (nouveau soin — octobre 2026)
+  // ─────────────────────────────────────────────────────────────────
+  "luminescence-boost": {
+    nom: "Luminescence Boost",
+    sousTitre: "Cresson · Sureau · Acide hyaluronique",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "31,90€",
+    variantId: "60291035627865",
+    inci: "luminescence-boost",
+    avis: "Luminescence Boost",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Boost                 │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793378737",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-1-boite-flacon.png?v=1793376159",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793378737"
+        // 📷 3. TEXTURE (à ajouter plus tard : une virgule après le lien du dessus, puis le nouveau lien)
+      ]
+    },
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "luminescence-boost", texte: "Sur peau propre, appliquez une pression de Luminescence Boost sur le visage et le cou, en remontant du bas vers le haut. Sa texture légère pénètre en quelques secondes." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Scellez avec Luminescence Nuit : sa texture riche prolonge l'action du sérum toute la nuit, pour une peau plus ferme et rebondie au réveil." }
+      ]
+    },
+
+    sections: [
+      { titre: "L'expérience",
+        texte: "Retrouvez une peau visiblement plus ferme, plus lisse et pleine de rebond. Luminescence Boost associe des actifs hydratants et des extraits végétaux pour accompagner la peau face aux premiers signes de perte de fermeté. Sa formule aide à améliorer la tonicité cutanée, à lisser l'apparence des ridules et à préserver la souplesse de la peau, jour après jour." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'il conjugue fermeté, hydratation et confort en un seul geste. Les extraits de cresson et de sureau accompagnent la peau dans sa quête de tonicité, tandis que l'acide hyaluronique et le Sodium PCA maintiennent son hydratation. Utilisé avant Luminescence Nuit, il prépare la peau à recevoir toute la richesse de la crème." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Fermeté & tonicité : une peau d'apparence plus ferme et plus tonique",
+          "Rides & ridules : leur apparence est atténuée, la peau paraît plus lisse",
+          "Hydratation : la peau reste hydratée et confortable",
+          "Souplesse & rebond : une peau plus souple et visiblement rebondie",
+          "Éclat & vitalité : un teint frais et revitalisé"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux qui souhaitent préserver leur fermeté",
+          "Les peaux qui montrent une perte de tonicité, des ridules ou un manque de souplesse",
+          "Celles et ceux qui cherchent un soin ciblé fermeté, sans renoncer à l'hydratation"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture légère et fondante, absorbée rapidement, qui laisse une agréable sensation de fraîcheur. Son parfum dévoile des notes poudrées d'iris, nuancées de violette, sur un fond musqué et boisé." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "100 % d'ingrédients d'origine naturelle, dont 23 % issus de l'agriculture biologique",
+          "Certifié COSMOS NATURAL par ECOCERT",
+          "Formule végane, développée selon les principes de la chimie verte"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      fiche: "luminescence-nuit",
+      nom: "Luminescence Nuit",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
+
+      texte: "Le duo de nuit de la gamme Bloom.\nLuminescence Boost apporte les actifs fermeté, Luminescence Nuit nourrit et scelle l'hydratation : au réveil, la peau paraît plus ferme, plus souple et reposée.",
+      prix: "34,90€",
+      variantId: "59324229943641"
+    }
+  },
   "luminescence-nuit": {
     nom: "Luminescence Nuit",
     sousTitre: "Plancton marin · Collagène",
@@ -870,14 +955,14 @@ window.EB_PRODUITS = {
     // │ 🤝  L'ACCORD PARFAIT                                            │
     // └─────────────────────────────────────────────────────────────────┘
     accord: {
-      fiche: "lumibloom-niac-5",
-      nom: "Lumi-Bloom Niacinamide 5",
+      fiche: "luminescence-boost",
+      nom: "Luminescence Boost",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
 
-      texte: "L'allié idéal de Luminescence Nuit.\nEnsemble, ils accompagnent la peau tout au long de la nuit pour révéler un teint plus harmonieux, une peau plus confortable et un éclat naturel au réveil.",
-      prix: "34,90€",
-      variantId: "59324243411289"
+      texte: "Le duo de nuit de la gamme Bloom.\nAppliqué juste avant, Luminescence Boost apporte ses actifs fermeté, puis Luminescence Nuit nourrit et scelle l'hydratation : au réveil, la peau paraît plus ferme, plus souple et reposée.",
+      prix: "31,90€",
+      variantId: "60291035627865"
     }
   },
 
@@ -972,14 +1057,14 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre protection",
     variantes: [
       { label: "SANS TEINTE", variantId: "59547107950937", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
-      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692" }
+      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  PHOTOS DE LA FICHE — Radiance Protect (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692",   // 📷 petite photo : stick seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886",   // 📷 petite photo : stick seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. TEINTÉ · BOÎTE + STICK
@@ -1119,13 +1204,13 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Radiance Eye Cream
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793375290",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793378830",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-eye-cream-1-boite-flacon.png?v=1793375349",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793375290",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793378830",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Votre_texte_de_paragraphe_2.jpg?v=1791055787",
         // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
@@ -1473,7 +1558,7 @@ window.EB_PRODUITS = {
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
     variantes: [
       { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
-      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793375692" }
+      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
