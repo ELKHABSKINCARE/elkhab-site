@@ -69,22 +69,22 @@
   // hauteur = hauteur réelle du soin en cm : toutes les photos sont remises à la même échelle,
   //           posées sur la même ligne (les petits soins restent petits)
   var SOINS = {
-    "hydra-balance": { nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 10.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site.png", alt: "Hydra Balance ELKHA.B Balance" },
-    "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site.png", alt: "Calm Balance Jour ELKHA.B Balance" },
-    "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "36,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site.png", alt: "Calm Balance Nuit ELKHA.B Balance" },
-    "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides · Karité", ligne: "Barrière cutanée · Réparation", besoins: ["hydratation", "sensibles"], prix: "38,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site.png", alt: "Ceramide Night Restore ELKHA.B Balance" },
-    "cellular-eye-restore": { nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", hauteur: 10.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site.png", alt: "Cellular Eye Restore ELKHA.B Balance" },
-    "cellular-renew": { nom: "Cellular Renew", actifs: "Alternative végétale au rétinol", ligne: "Rides · Régénération", besoins: ["fermete"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site.png", alt: "Cellular Renew ELKHA.B Balance" },
-    "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", hauteur: 10.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site.png", alt: "Active Lift ELKHA.B Balance" },
-    "age-lift": { nom: "Age Lift", actifs: "Peptides", ligne: "Rides · Fermeté", besoins: ["fermete"], prix: "37,90€", taille: "50 ml", hauteur: 14.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site.png", alt: "Age Lift ELKHA.B Balance" },
-    "eye-lift": { nom: "Eye Lift", actifs: "Peptides", ligne: "Regard · Paupières", besoins: ["regard"], prix: "29,90€", taille: "15 ml", hauteur: 10.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site.png", alt: "Eye Lift ELKHA.B Balance" },
-    "cellular-reveal": { nom: "Cellular Reveal", actifs: "Bidens pilosa", ligne: "Ridules · Teint unifié", besoins: ["fermete", "texture"], prix: "37,90€", taille: "30 ml", hauteur: 10.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site.png", alt: "Cellular Reveal ELKHA.B Balance" },
-    "bakuchiol-elixir": { nom: "Bakuchiol Elixir", actifs: "Bakuchiol · Huiles précieuses", ligne: "Rides installées · Grain de peau", besoins: ["fermete", "texture"], prix: "39,90€", taille: "30 ml", hauteur: 11, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-flacon-site.png", alt: "Bakuchiol Elixir ELKHA.B Balance" },
-    "spot-control": { nom: "Spot Control", actifs: "Acide kojique & vitamine C", ligne: "Taches · Matin", besoins: ["taches"], prix: "28,90€", taille: "15 ml", hauteur: 10.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-flacon-site.png", alt: "Spot Control ELKHA.B Balance" },
-    "bright-control": { nom: "Bright Control", actifs: "Correcteur anti-taches", ligne: "Taches · Teint unifié · Soir", besoins: ["taches"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site.png", alt: "Bright Control ELKHA.B Balance" },
-    "bha-balance": { nom: "BHA Balance", actifs: "Acide salicylique", ligne: "Pores · Imperfections · Soir", besoins: ["imperfections"], prix: "24,90€", taille: "200 ml", hauteur: 18, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site.png", alt: "BHA Balance ELKHA.B Balance" },
-    "glyco-balance": { nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau · 2 à 3 soirs / semaine", besoins: ["texture"], prix: "29,90€", taille: "250 ml", hauteur: 18.5, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v2.png", alt: "Glyco Balance ELKHA.B Balance" },
-    "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau · 1 à 2 soirs / semaine", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", hauteur: 11, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site.png", alt: "AHA Balance Peel ELKHA.B Balance" }
+    "hydra-balance": { nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 10.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v3.png", alt: "Hydra Balance ELKHA.B Balance" },
+    "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site-v3.png", alt: "Calm Balance Jour ELKHA.B Balance" },
+    "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "36,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site-v3.png", alt: "Calm Balance Nuit ELKHA.B Balance" },
+    "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides · Karité", ligne: "Barrière cutanée · Réparation", besoins: ["hydratation", "sensibles"], prix: "38,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site-v3.png", alt: "Ceramide Night Restore ELKHA.B Balance" },
+    "cellular-eye-restore": { nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", hauteur: 10.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v3.png", alt: "Cellular Eye Restore ELKHA.B Balance" },
+    "cellular-renew": { nom: "Cellular Renew", actifs: "Alternative végétale au rétinol", ligne: "Rides · Régénération", besoins: ["fermete"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site-v3.png", alt: "Cellular Renew ELKHA.B Balance" },
+    "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", hauteur: 10.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v3.png", alt: "Active Lift ELKHA.B Balance" },
+    "age-lift": { nom: "Age Lift", actifs: "Peptides", ligne: "Rides · Fermeté", besoins: ["fermete"], prix: "37,90€", taille: "50 ml", hauteur: 14.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site-v3.png", alt: "Age Lift ELKHA.B Balance" },
+    "eye-lift": { nom: "Eye Lift", actifs: "Peptides", ligne: "Regard · Paupières", besoins: ["regard"], prix: "29,90€", taille: "15 ml", hauteur: 10.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site-v3.png", alt: "Eye Lift ELKHA.B Balance" },
+    "cellular-reveal": { nom: "Cellular Reveal", actifs: "Bidens pilosa", ligne: "Ridules · Teint unifié", besoins: ["fermete", "texture"], prix: "37,90€", taille: "30 ml", hauteur: 10.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site-v3.png", alt: "Cellular Reveal ELKHA.B Balance" },
+    "bakuchiol-elixir": { nom: "Bakuchiol Elixir", actifs: "Bakuchiol · Huiles précieuses", ligne: "Rides installées · Grain de peau", besoins: ["fermete", "texture"], prix: "39,90€", taille: "30 ml", hauteur: 11, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-flacon-site-v3.png", alt: "Bakuchiol Elixir ELKHA.B Balance" },
+    "spot-control": { nom: "Spot Control", actifs: "Acide kojique & vitamine C", ligne: "Taches · Matin", besoins: ["taches"], prix: "28,90€", taille: "15 ml", hauteur: 10.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-flacon-site-v3.png", alt: "Spot Control ELKHA.B Balance" },
+    "bright-control": { nom: "Bright Control", actifs: "Correcteur anti-taches", ligne: "Taches · Teint unifié · Soir", besoins: ["taches"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site-v3.png", alt: "Bright Control ELKHA.B Balance" },
+    "bha-balance": { nom: "BHA Balance", actifs: "Acide salicylique", ligne: "Pores · Imperfections · Soir", besoins: ["imperfections"], prix: "24,90€", taille: "200 ml", hauteur: 18, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site-v3.png", alt: "BHA Balance ELKHA.B Balance" },
+    "glyco-balance": { nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau · 2 à 3 soirs / semaine", besoins: ["texture"], prix: "29,90€", taille: "250 ml", hauteur: 18.5, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v3.png", alt: "Glyco Balance ELKHA.B Balance" },
+    "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau · 1 à 2 soirs / semaine", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", hauteur: 11, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v3.png", alt: "AHA Balance Peel ELKHA.B Balance" }
   };
 
   // Les 5 niveaux d’intensité (du plus doux au plus fort)
@@ -414,7 +414,11 @@
         if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 10){ dif[y * w + xx] = 1; col[xx]++; }
       }
       var x0 = -1, x1 = -1;
-      for(xx = 0; xx < w; xx++) if(col[xx] > h * .12){ if(x0 < 0) x0 = xx; x1 = xx; }
+      // le flacon = les colonnes nettement différentes du fond (une ombre douce n'est pas prise pour le flacon)
+      var fort = new Uint32Array(w);
+      for(var y3 = 0; y3 < h; y3++) for(var x3 = 0; x3 < w; x3++){ i = (y3 * w + x3) * 4; if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 40) fort[x3]++; }
+      for(xx = 0; xx < w; xx++) if(fort[xx] > h * .08){ if(x0 < 0) x0 = xx; x1 = xx; }
+      if(x0 < 0 || x1 - x0 < w * .1){ x0 = x1 = -1; for(xx = 0; xx < w; xx++) if(col[xx] > h * .12){ if(x0 < 0) x0 = xx; x1 = xx; } }
       var y0 = -1, y1 = -1;
       if(x0 >= 0 && x1 - x0 > w * .1){
         var seuil = Math.max(2, (x1 - x0) * .04);
@@ -426,34 +430,11 @@
           if(y1 - yb > (y1 - y0) * .03) y1 = yb;
         }
       }
-      // 3 bis. adoucir le reflet de lumière blanche sur les côtés des flacons verts (éclairage des rendus)
-      if(x0 >= 0 && y0 >= 0){
-        var bw = x1 - x0 + 1, sl = new Float32Array(bw), nb = new Uint32Array(bw), xx2, yy2, L;
-        for(yy2 = y0; yy2 <= y1; yy2++) for(xx2 = x0; xx2 <= x1; xx2++){
-          i = (yy2 * w + xx2) * 4; L = .3 * p[i] + .59 * p[i + 1] + .11 * p[i + 2];
-          if(L < 150 && p[i + 1] >= p[i] - 6 && p[i + 1] >= p[i + 2]){ sl[xx2 - x0] += L; nb[xx2 - x0]++; }
-        }
-        var moy = new Float32Array(bw), okc = new Uint8Array(bw), vals = [];
-        for(k = 0; k < bw; k++){ if(nb[k] > (y1 - y0) * .2){ moy[k] = sl[k] / nb[k]; okc[k] = 1; vals.push(moy[k]); } }
-        if(vals.length > bw * .3){
-          vals.sort(function(u, v){ return u - v; }); var Lg = vals[vals.length >> 1];
-          var lis = new Float32Array(bw), r2 = Math.max(2, Math.round(bw * .03));
-          for(k = 0; k < bw; k++){ if(!okc[k]) continue; var sm = 0, c2 = 0; for(var q = Math.max(0, k - r2); q <= Math.min(bw - 1, k + r2); q++) if(okc[q]){ sm += moy[q]; c2++; } lis[k] = sm / c2; }
-          for(yy2 = y0; yy2 <= y1; yy2++) for(xx2 = x0; xx2 <= x1; xx2++){
-            k = xx2 - x0; if(!okc[k]) continue;
-            i = (yy2 * w + xx2) * 4; L = .3 * p[i] + .59 * p[i + 1] + .11 * p[i + 2];
-            if(L >= 150 || p[i + 1] < p[i] - 6 || p[i + 1] < p[i + 2]) continue;
-            var fct = Lg * Math.pow(lis[k] / Lg, .15) / lis[k]; fct = Math.max(.55, Math.min(1.08, fct));
-            p[i] *= fct; p[i + 1] *= fct; p[i + 2] *= fct;
-          }
-          x.putImageData(d, 0, 0);
-        }
-      }
       // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
       x.globalCompositeOperation = 'destination-in';
       //    seulement AUTOUR du flacon : le flacon lui-même n'est jamais rendu transparent (pas de halo blanc sur ses bords)
       var fg = .14, fd = .86, fh = .08, fb = .92;
-      if(x0 >= 0){ fg = Math.min(.14, Math.max(0, (x0 - 4) / w)); fd = Math.max(.86, Math.min(1, (x1 + 4) / w)); }
+      if(x0 >= 0){ var mg = (x1 - x0) * .1 + 4; fg = Math.min(.14, Math.max(0, (x0 - mg) / w)); fd = Math.max(.86, Math.min(1, (x1 + mg) / w)); }
       if(y0 >= 0){ fh = Math.min(.08, Math.max(0, (y0 - 3) / h)); fb = Math.max(.92, Math.min(1, (y1 + 3) / h)); }
       var g = x.createLinearGradient(0, 0, w, 0);
       g.addColorStop(0, fg > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fg, '#000'); g.addColorStop(fd, '#000'); g.addColorStop(1, fd < .999 ? 'rgba(0,0,0,0)' : '#000');
