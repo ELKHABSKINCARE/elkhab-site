@@ -41,7 +41,7 @@ var ICI = /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.
 
 var CSS = ""
 + ".eb-navbar{height:64px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
-+ ".eb-navbar.eb-scrolled,.eb-navbar.eb-menu-open,.eb-navbar.ebm-soins-ouvert{background:rgba(245,244,240,.94) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;box-shadow:0 1px 0 #e3ded4}"
++ "html body .eb-navbar.eb-scrolled,html body .eb-navbar.eb-menu-open,html body .eb-navbar.ebm-soins-ouvert{background:rgba(245,244,240,.88) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;box-shadow:0 1px 0 #e3ded4}"
 /* logo : ELKHA.B fin et espacé, PARIS entre deux traits */
 + ".eb-navbar .eb-navbar-brand{font-weight:500 !important;font-size:14px !important;letter-spacing:.4em !important;padding-left:.42em;gap:0 !important;line-height:1}"
 + ".eb-navbar .eb-navbar-brand span{display:flex !important;align-items:center;gap:8px;margin:5px 0 0 -.4em !important;font-size:4.5px !important;letter-spacing:.6em !important;font-weight:500 !important;opacity:1 !important;padding-left:.6em}"
@@ -59,7 +59,8 @@ var CSS = ""
 + ".eb-navbar #ebBurger{width:24px !important;height:17px !important}.eb-navbar #ebBurger span{height:2.4px !important;background:#000 !important;border-radius:1px}"
 + ".eb-navbar #ebCartButton svg,.eb-navbar .ebm-mloupe svg,.ebm-icone svg{stroke-width:2.1 !important}"
 /* liste du téléphone */
-+ "#ebOverlay.ebm-liste{top:64px !important;background:rgba(245,244,240,.78) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;padding:4px max(22px,env(safe-area-inset-left,0px)) 22px !important;max-height:calc(100dvh - 140px);overflow-y:auto;box-shadow:0 14px 24px rgba(40,30,20,.08);z-index:9999}"
++ "html body .eb-navbar.eb-menu-open,html body .eb-navbar.ebm-soins-ouvert{box-shadow:none !important}"
++ "#ebOverlay.ebm-liste{top:64px !important;background:rgba(245,244,240,.88) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;padding:4px max(22px,env(safe-area-inset-left,0px)) 22px !important;max-height:calc(100dvh - 140px);overflow-y:auto;box-shadow:0 14px 24px rgba(40,30,20,.08);z-index:9999}"
 + ".ebm-l a,.ebm-l button.ebm-ouvre{display:flex !important;justify-content:space-between;align-items:center;width:100%;font-family:'Montserrat',sans-serif;font-size:12px !important;font-weight:400 !important;letter-spacing:.2em !important;text-transform:uppercase;color:#000;padding:17px 0 !important;border:0;border-bottom:1px solid #e6e1d7 !important;background:none;text-align:left;cursor:pointer;text-decoration:none}"
 + ".ebm-l a:hover{padding-left:0 !important;opacity:1 !important}"
 + ".ebm-l .ebm-fl{font-weight:300;letter-spacing:0;font-size:14px}"
@@ -72,7 +73,7 @@ var CSS = ""
 + ".ebm-voile{position:fixed;inset:0;z-index:9996;background:transparent;display:none}"
 + ".ebm-voile.on{display:block}"
 /* panneau « Nos soins » (ordinateur) */
-+ ".ebm-soins{position:fixed;left:0;right:0;top:64px;z-index:9998;background:rgba(245,244,240,.8) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;border-bottom:1px solid #e3ded4;box-shadow:0 18px 30px rgba(40,30,20,.08);display:none;font-family:'Montserrat',sans-serif}"
++ ".ebm-soins{position:fixed;left:0;right:0;top:64px;z-index:9998;background:rgba(245,244,240,.88) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;border-bottom:0;box-shadow:0 18px 30px rgba(40,30,20,.08);display:none;font-family:'Montserrat',sans-serif}"
 + ".ebm-soins.on{display:block;animation:ebmIn .3s ease}"
 + "@keyframes ebmIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}"
 + ".ebm-soins-in{max-width:1180px;margin:0 auto;padding:30px 40px 34px;display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:40px}"
