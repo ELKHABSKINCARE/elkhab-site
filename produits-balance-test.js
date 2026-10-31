@@ -26,9 +26,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -78,9 +79,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -129,9 +131,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -181,9 +184,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -232,9 +236,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -284,9 +289,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -335,9 +341,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -387,9 +394,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -438,9 +446,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -490,9 +499,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -542,9 +552,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -593,10 +604,11 @@ var BALANCE = {
       miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site.png",
-        // 📷 3. TEXTURE
+        // 📷 1. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-1-flacon.jpg",
+        // 📷 2. DOS DU FLACON (composition)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-2-dos.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -646,9 +658,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -698,9 +711,10 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site.png",
-        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
@@ -750,10 +764,11 @@ var BALANCE = {
       miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site.png",
-        // 📷 3. TEXTURE
+        // 📷 1. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-1-flacon.jpg",
+        // 📷 2. DOS DU FLACON (composition)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-2-dos.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
     routine: {
