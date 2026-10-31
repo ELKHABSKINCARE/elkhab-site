@@ -426,11 +426,40 @@
           if(y1 - yb > (y1 - y0) * .03) y1 = yb;
         }
       }
+      // 3 bis. adoucir le reflet de lumière blanche sur les côtés des flacons verts (éclairage des rendus)
+      if(x0 >= 0 && y0 >= 0){
+        var bw = x1 - x0 + 1, sl = new Float32Array(bw), nb = new Uint32Array(bw), xx2, yy2, L;
+        for(yy2 = y0; yy2 <= y1; yy2++) for(xx2 = x0; xx2 <= x1; xx2++){
+          i = (yy2 * w + xx2) * 4; L = .3 * p[i] + .59 * p[i + 1] + .11 * p[i + 2];
+          if(L < 150 && p[i + 1] >= p[i] - 6 && p[i + 1] >= p[i + 2]){ sl[xx2 - x0] += L; nb[xx2 - x0]++; }
+        }
+        var moy = new Float32Array(bw), okc = new Uint8Array(bw), vals = [];
+        for(k = 0; k < bw; k++){ if(nb[k] > (y1 - y0) * .2){ moy[k] = sl[k] / nb[k]; okc[k] = 1; vals.push(moy[k]); } }
+        if(vals.length > bw * .3){
+          vals.sort(function(u, v){ return u - v; }); var Lg = vals[vals.length >> 1];
+          var lis = new Float32Array(bw), r2 = Math.max(2, Math.round(bw * .03));
+          for(k = 0; k < bw; k++){ if(!okc[k]) continue; var sm = 0, c2 = 0; for(var q = Math.max(0, k - r2); q <= Math.min(bw - 1, k + r2); q++) if(okc[q]){ sm += moy[q]; c2++; } lis[k] = sm / c2; }
+          for(yy2 = y0; yy2 <= y1; yy2++) for(xx2 = x0; xx2 <= x1; xx2++){
+            k = xx2 - x0; if(!okc[k]) continue;
+            i = (yy2 * w + xx2) * 4; L = .3 * p[i] + .59 * p[i + 1] + .11 * p[i + 2];
+            if(L >= 150 || p[i + 1] < p[i] - 6 || p[i + 1] < p[i + 2]) continue;
+            var fct = Lg * Math.pow(lis[k] / Lg, .15) / lis[k]; fct = Math.max(.55, Math.min(1.08, fct));
+            p[i] *= fct; p[i + 1] *= fct; p[i + 2] *= fct;
+          }
+          x.putImageData(d, 0, 0);
+        }
+      }
       // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
       x.globalCompositeOperation = 'destination-in';
-      var g = x.createLinearGradient(0, 0, w, 0); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.14, '#000'); g.addColorStop(.86, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      //    seulement AUTOUR du flacon : le flacon lui-même n'est jamais rendu transparent (pas de halo blanc sur ses bords)
+      var fg = .14, fd = .86, fh = .08, fb = .92;
+      if(x0 >= 0){ fg = Math.min(.14, Math.max(0, (x0 - 4) / w)); fd = Math.max(.86, Math.min(1, (x1 + 4) / w)); }
+      if(y0 >= 0){ fh = Math.min(.08, Math.max(0, (y0 - 3) / h)); fb = Math.max(.92, Math.min(1, (y1 + 3) / h)); }
+      var g = x.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, fg > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fg, '#000'); g.addColorStop(fd, '#000'); g.addColorStop(1, fd < .999 ? 'rgba(0,0,0,0)' : '#000');
       x.fillStyle = g; x.fillRect(0, 0, w, h);
-      g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(.08, '#000'); g.addColorStop(.92, '#000'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g = x.createLinearGradient(0, 0, 0, h);
+      g.addColorStop(0, fh > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fh, '#000'); g.addColorStop(fb, '#000'); g.addColorStop(1, fb < .999 ? 'rgba(0,0,0,0)' : '#000');
       x.fillStyle = g; x.fillRect(0, 0, w, h);
       // 5. cadre commun : même échelle (hauteur réelle), même ligne de sol
       var o = document.createElement('canvas'); o.width = CW; o.height = CH;
