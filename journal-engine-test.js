@@ -103,39 +103,42 @@ var CSS = ""
 + ".ebjc-ok.bloom i{background:#b0675e;box-shadow:0 0 0 3px rgba(176,103,94,.18)}.ebjc-ok.balance i{background:#6f8a2c;box-shadow:0 0 0 3px rgba(111,138,44,.18)}"
 /* À la une : la même carte, en grand */
 + ".ebj-une{display:block;padding:0 16px;margin:0 0 40px}"
-+ ".ebj-une .ebjc{max-width:300px;margin:0 auto;padding:15px 16px 17px}"
++ ".ebj-une .ebjc{max-width:260px;margin:0 auto;padding:13px 14px 15px}"
 + ".ebj-une .ebjc-t{font-size:17px}.ebj-une .ebjc-q{font-size:12px}"
++ ".ebj-une .ebjc-ph{width:74%;margin:24px auto 14px}.ebj-une .ebjc-vg{top:34px;height:64px;opacity:.75}"
 + ".ebj-une-tag{display:block;text-align:center;font-size:10px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#8a8580;margin:0 0 16px}"
 /* Rubriques : texte fin souligné (pas de pastilles) */
 + ".ebj-filtres{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:0 16px;margin:0 0 34px}"
 + ".ebj-filtres label{cursor:pointer;font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding-bottom:5px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;opacity:.6}"
 + ".ebj-sec{margin:0 0 40px}"
-+ ".ebj-sec-titre{font-size:11px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;margin:0 0 16px;padding:0 16px;color:#141414}"
++ ".ebj-sec-titre{display:flex;align-items:center;gap:16px;font-size:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;margin:0 0 18px;padding:0 16px;color:#141414}"
++ ".ebj-sec-titre:after{content:'';flex:1;height:1px;background:#141414;opacity:.25}"
 + "@keyframes ebjFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}"
 + ".ebj-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 16px 26px;scroll-padding:0 16px}"
 + ".ebj-row::-webkit-scrollbar{display:none}"
-+ ".ebj-row .ebjc{flex:0 0 min(60%,230px);scroll-snap-align:start;padding:13px 14px 15px;border-radius:13px;box-shadow:0 10px 24px rgba(60,40,20,.13)}"
-+ ".ebj-row .ebjc-vg{top:24px;height:62px}"
++ ".ebj-row .ebjc{flex:0 0 min(43%,190px);scroll-snap-align:start;padding:11px 12px 13px;border-radius:13px;box-shadow:0 10px 24px rgba(60,40,20,.13)}"
++ ".ebj-row .ebjc-vg{top:30px;height:56px;opacity:.75}"
 + ".ebj-row .ebjc-top{margin-bottom:10px}"
-+ ".ebj-row .ebjc-k{font-size:6.5px;letter-spacing:.3em;padding-top:6px}"
++ ".ebj-row .ebjc-k{font-size:6px;letter-spacing:.22em;padding-top:5px}"
++ ".ebjc-lire{font-weight:inherit}.ebj-row .ebjc-lire{display:none}"
 + ".ebj-row .ebjc-mono{width:34px;height:43px}.ebj-row .ebjc-mono span{font-size:14.5px}.ebj-row .ebjc-mono small{font-size:3.4px;margin-top:4px}"
-+ ".ebj-row .ebjc-ph{border-radius:9px;margin-bottom:11px;box-shadow:0 6px 14px rgba(40,25,15,.12)}"
++ ".ebj-row .ebjc-ph{width:72%;margin:22px auto 11px;border-radius:8px;box-shadow:0 6px 14px rgba(40,25,15,.12)}"
 + ".ebj-row .ebjc-n{font-size:7px;letter-spacing:.22em;margin-bottom:5px}"
-+ ".ebj-row .ebjc-t{font-size:15px;margin-bottom:4px}"
++ ".ebj-row .ebjc-t{font-size:14px;margin-bottom:4px}"
 + ".ebj-row .ebjc-q{font-size:11px;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}"
 + ".ebj-row .ebjc-ok{font-size:7px;letter-spacing:.18em;gap:6px}.ebj-row .ebjc-ok i{width:5px;height:5px}"
 + "@container (min-width:620px){"
 + ".ebj-une{margin-bottom:56px;padding:0 24px}"
 + ".ebj-une .ebjc{max-width:none;width:min(640px,100%);display:grid;grid-template-columns:minmax(180px,220px) 1fr;grid-template-rows:auto 1fr;column-gap:30px;padding:24px 28px 26px}"
 + ".ebj-une .ebjc-top{grid-column:1 / -1}"
-+ ".ebj-une .ebjc-ph{grid-row:2;margin:0}"
++ ".ebj-une .ebjc-ph{grid-row:2;margin:0;width:auto}"
 + ".ebj-une .ebjc-body{justify-content:center}"
 + ".ebj-une .ebjc-t{font-size:24px}.ebj-une .ebjc-q{font-size:14px}"
 + ".ebj-filtres{margin-bottom:46px;gap:30px}"
 + ".ebj-sec{margin-bottom:56px}"
 + ".ebj-sec-titre{padding:0 24px}"
 + ".ebj-row{gap:22px;padding:6px 24px 26px;scroll-padding:0 24px}"
-+ ".ebj-row .ebjc{flex:0 0 220px}"
++ ".ebj-row .ebjc{flex:0 0 190px}"
 + "}"
 + "@container (min-width:1000px){.ebj-sec-titre{padding:0 40px}.ebj-row{padding:6px 40px 26px;scroll-padding:0 40px}}"
 + ".ebjc-body{position:relative;display:flex;flex-direction:column;flex:1}"
@@ -224,8 +227,9 @@ function ligneN(a){
   return '<span class="ebjc-n">' + numero(a) + (et ? ' · ' + esc(et) : '') + (g ? '<em class="' + g + '"> · ' + (g === 'bloom' ? 'Bloom' : 'Balance') + '</em>' : '') + '</span>';
 }
 function ligneOk(a, lien){
-  var l = lecture(a), txt = [l, lien].filter(Boolean).join(' · ');
-  return '<span class="ebjc-ok ' + gamme(a) + '"><i></i>' + esc(txt) + '</span>';
+  var l = lecture(a);
+  var txt = esc(l) + (lien ? '<b class="ebjc-lire">' + (l ? ' · ' : '') + esc(lien) + '</b>' : '');
+  return '<span class="ebjc-ok ' + gamme(a) + '"><i></i>' + txt + '</span>';
 }
 function carte(a, tag){
   return '<' + tag + ' class="ebjc" href="#' + a.id + '">' + VAGUES
