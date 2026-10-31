@@ -40,12 +40,12 @@ var h = location.hostname;
 var ICI = /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
 
 var CSS = ""
-+ ".eb-navbar{height:72px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
++ ".eb-navbar{height:64px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
 + ".eb-navbar.eb-scrolled,.eb-navbar.eb-menu-open,.eb-navbar.ebm-soins-ouvert{background:#f5f4f0 !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;box-shadow:0 1px 0 #e3ded4}"
 /* logo : ELKHA.B fin et espacé, PARIS entre deux traits */
-+ ".eb-navbar .eb-navbar-brand{font-weight:500 !important;font-size:17px !important;letter-spacing:.42em !important;padding-left:.42em;gap:0 !important;line-height:1}"
-+ ".eb-navbar .eb-navbar-brand span{display:flex !important;align-items:center;gap:8px;margin:7px 0 0 -.42em !important;font-size:5.5px !important;letter-spacing:.6em !important;font-weight:500 !important;opacity:1 !important;padding-left:.6em}"
-+ ".eb-navbar .eb-navbar-brand span:before,.eb-navbar .eb-navbar-brand span:after{content:'';display:block;width:16px;height:1px;background:#000;opacity:.7}"
++ ".eb-navbar .eb-navbar-brand{font-weight:500 !important;font-size:14px !important;letter-spacing:.4em !important;padding-left:.42em;gap:0 !important;line-height:1}"
++ ".eb-navbar .eb-navbar-brand span{display:flex !important;align-items:center;gap:8px;margin:5px 0 0 -.4em !important;font-size:4.5px !important;letter-spacing:.6em !important;font-weight:500 !important;opacity:1 !important;padding-left:.6em}"
++ ".eb-navbar .eb-navbar-brand span:before,.eb-navbar .eb-navbar-brand span:after{content:'';display:block;width:12px;height:1px;background:#000;opacity:.7}"
 /* textes du menu : fins, en capitales espacées */
 + ".ebm-t{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:#000;text-decoration:none;background:none;border:0;padding:6px 0;cursor:pointer;position:relative;white-space:nowrap}"
 + ".ebm-t:after{content:'';position:absolute;left:0;right:.2em;bottom:0;height:1px;background:#000;transform:scaleX(0);transform-origin:left;transition:transform .35s ease}"
@@ -56,15 +56,10 @@ var CSS = ""
 + ".ebm-icone{width:18px;height:18px;cursor:pointer;display:flex}.ebm-icone svg{width:100%;height:100%}"
 /* téléphone : MENU / PANIER en texte */
 + ".ebm-menu,.ebm-panier{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:#000;cursor:pointer;background:none;border:0;padding:8px 0}"
-+ ".eb-navbar #ebBurger{display:none !important}"
-+ ".eb-navbar #ebCartButton{width:auto !important;height:auto !important}"
-+ ".eb-navbar #ebCartButton svg{display:none}"
-+ ".eb-navbar #ebCartButton:before{content:'Panier';font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#000}"
-+ ".eb-navbar #ebCartButton:hover{transform:none !important}"
-+ ".eb-navbar #ebCartCount{position:static !important;background:none !important;color:#000 !important;min-width:0 !important;height:auto !important;padding:0 0 0 4px !important;font-size:10px !important;font-weight:400 !important;letter-spacing:.1em;border-radius:0 !important}"
-+ ".eb-navbar #ebCartCount:before{content:'('}.eb-navbar #ebCartCount:after{content:')'}"
++ ".eb-navbar #ebBurger{width:24px !important;height:17px !important}.eb-navbar #ebBurger span{height:2.4px !important;background:#000 !important;border-radius:1px}"
++ ".eb-navbar #ebCartButton svg,.eb-navbar .ebm-mloupe svg,.ebm-icone svg{stroke-width:2.1 !important}"
 /* liste du téléphone */
-+ "#ebOverlay.ebm-liste{top:72px !important;background:#f5f4f0 !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;padding:4px max(22px,env(safe-area-inset-left,0px)) 22px !important;max-height:calc(100dvh - 140px);overflow-y:auto;box-shadow:0 14px 24px rgba(40,30,20,.08);z-index:9999}"
++ "#ebOverlay.ebm-liste{top:64px !important;background:#f5f4f0 !important;-webkit-backdrop-filter:none !important;backdrop-filter:none !important;padding:4px max(22px,env(safe-area-inset-left,0px)) 22px !important;max-height:calc(100dvh - 140px);overflow-y:auto;box-shadow:0 14px 24px rgba(40,30,20,.08);z-index:9999}"
 + ".ebm-l a,.ebm-l button.ebm-ouvre{display:flex !important;justify-content:space-between;align-items:center;width:100%;font-family:'Montserrat',sans-serif;font-size:12px !important;font-weight:400 !important;letter-spacing:.2em !important;text-transform:uppercase;color:#000;padding:17px 0 !important;border:0;border-bottom:1px solid #e6e1d7 !important;background:none;text-align:left;cursor:pointer;text-decoration:none}"
 + ".ebm-l a:hover{padding-left:0 !important;opacity:1 !important}"
 + ".ebm-l .ebm-fl{font-weight:300;letter-spacing:0;font-size:14px}"
@@ -77,7 +72,7 @@ var CSS = ""
 + ".ebm-voile{position:fixed;inset:0;z-index:9996;background:transparent;display:none}"
 + ".ebm-voile.on{display:block}"
 /* panneau « Nos soins » (ordinateur) */
-+ ".ebm-soins{position:fixed;left:0;right:0;top:72px;z-index:9998;background:#faf9f6;border-bottom:1px solid #e3ded4;box-shadow:0 18px 30px rgba(40,30,20,.08);display:none;font-family:'Montserrat',sans-serif}"
++ ".ebm-soins{position:fixed;left:0;right:0;top:64px;z-index:9998;background:#faf9f6;border-bottom:1px solid #e3ded4;box-shadow:0 18px 30px rgba(40,30,20,.08);display:none;font-family:'Montserrat',sans-serif}"
 + ".ebm-soins.on{display:block;animation:ebmIn .3s ease}"
 + "@keyframes ebmIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}"
 + ".ebm-soins-in{max-width:1180px;margin:0 auto;padding:30px 40px 34px;display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:40px}"
@@ -91,7 +86,7 @@ var CSS = ""
 + "@media (min-width:1000px){"
 + ".eb-navbar{padding:0 40px}"
 + ".ebm-g,.ebm-d{display:flex}"
-+ ".ebm-menu,.ebm-mloupe{display:none !important}"
++ ".eb-navbar #ebBurger,.ebm-mloupe{display:none !important}"
 + ".eb-navbar .eb-navbar-brand{font-size:22px !important}"
 + ".eb-navbar .eb-navbar-brand span{font-size:6.5px !important;margin-top:8px !important}"
 + ".eb-navbar .eb-navbar-brand span:before,.eb-navbar .eb-navbar-brand span:after{width:20px}"
@@ -116,8 +111,8 @@ function construire(){
 
   var gauche=nav.children[0], droite=nav.children[2];
   // ── Téléphone : MENU à la place des trois traits (la loupe reste à côté)
-  var bMenu=el('button','ebm-menu','Menu'); bMenu.type='button';
-  gauche.insertBefore(bMenu, gauche.firstChild);
+  var bMenu=burger.cloneNode(true); burger.parentNode.replaceChild(bMenu, burger); burger=bMenu;
+  bMenu.setAttribute('role','button'); bMenu.setAttribute('aria-label','Menu');
   var loupeTel=gauche.querySelector('[onclick*="ebSearchOpen"]'); if(loupeTel) loupeTel.classList.add('ebm-mloupe');
 
   // ── Ordinateur : liens à gauche
