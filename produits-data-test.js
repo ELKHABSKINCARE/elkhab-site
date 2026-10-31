@@ -1,1730 +1,886 @@
 // © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 // =====================================================================
-// ELKHA.B — Catalogue des fiches produits — VERSION TEST (nouveaux packagings, testbloom uniquement)
-// Chaque fiche s'ouvre en panneau, par-dessus la page.
-//
-// MODE D'EMPLOI
-// - Pour modifier un texte : changer uniquement ce qui est entre guillemets "…".
-// - Pour changer une photo ou une vidéo : chercher (Ctrl + F) le repère
-//   📷  puis remplacer le lien entre guillemets par le nouveau lien Shopify.
-// - Ne pas supprimer les guillemets, les virgules ni les accolades { }.
+// ELKHA.B — FICHES BALANCE — VERSION TEST (à charger après produits-data-test.js)
+// Ajoute les soins Balance au catalogue des fiches (window.EB_PRODUITS).
+// À compléter depuis Shopify : 🛒 variantId et 📷 photos de chaque soin.
+// Active Lift : fiche à écrire (fiche Selfnamed à recevoir).
 // =====================================================================
-
-// Bloc « Vos expériences » des fiches : dégradé Bloom (true) ou ancien fond noir (false)
+// Bloc « Vos expériences » des fiches en dégradé (vert sur le site Balance)
 window.EB_AVIS_DEGRADE = true;
-
-// Fiches sur ordinateur : vidéos et photos avec leur propre fond en pleine colonne (true) ou comme avant (false)
-window.EB_MEDIA_PLEIN = true;
-
-// Compositions des nouveaux soins (en plus de inci-data.js) — clé = « inci » de la fiche
-window.EB_INCI_PLUS = {
-  "luminescence-boost": {
-    ingredients: "Aqua, Glycerin, Caprylic/Capric Triglyceride, Helianthus Annuus (Sunflower) Seed Oil, Pentylene Glycol, Cetearyl Alcohol, Glyceryl Stearate Citrate, Sodium PCA, Cellulose, Parfum, Hydrolyzed Hyaluronic Acid, Xanthan Gum, Glyceryl Caprylate, Nasturtium Officinale (Watercress) Flower/Leaf Extract, Sambucus Nigra (Elder) Fruit Extract, Ascorbyl Palmitate, Sodium Hyaluronate, Sodium Phytate, Potassium Hydroxide, Linalool, Geraniol, Citronellol.",
-    natural: "100",
-    organic: "23"
-  },
-  "lumi-bloom-arbutin": {
-    ingredients: "Aqua, Glycerin, Caprylic/Capric Triglyceride, Helianthus Annuus (Sunflower) Seed Oil, Pentylene Glycol, Cetearyl Alcohol, Sodium PCA, Glyceryl Stearate Citrate, Alpha-Arbutin, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Bidens Pilosa Extract, Cellulose, Linum Usitatissimum Seed Oil, Parfum, Xanthan Gum, Ascorbyl Palmitate, Lactic Acid, Ascophyllum Nodosum Extract, Sodium Phytate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Tocopherol, Limonene, Citrus Limon Peel Oil, Pogostemon Cablin Oil, Linalool, Juniperus Virginiana Oil, Cedrus Atlantica Oil/Extract, Pinene, Vanillin, Menthol, Citral, Beta-Caryophyllene.",
-    natural: "100",
-    organic: "23"
-  },
-  "lumi-pure": {
-    ingredients: "Aloe Barbadensis Leaf Juice*, Kaolin, Glycerin, Montmorillonite, Diatomaceous Earth, Butylene Glycol, Aqua/Water, Sodium PCA, Lactic Acid, Sodium Levulinate, Olea Europaea (Olive) Fruit Oil*, Tocopherol, Xanthan Gum, Propanediol, Sodium Anisate, Glyceryl Caprylate, Charcoal Powder, Camellia Sinensis (Black Tea) Leaf Extract*, Cucumis Sativus (Cucumber) Fruit Extract*, Salvia Officinalis (Sage) Leaf Extract*, [CI 77491, CI 77492, CI 77499 (Iron Oxides)]**, Rhamnose, Glycolipids, Glucose, Glucuronic Acid.",
-    natural: "100",
-    organic: "16"
-  },
-  "milky-bloom": {
-    ingredients: "Caprylic/Capric Triglyceride, Glycerin, Helianthus Annuus (Sunflower) Seed Oil*, Aqua, Sucrose Laurate, Sucrose Palmitate, Alcohol, Tocopherol, Mica (CI 77019), Parfum, Chamomilla Recutita (Camomile) Flower Extract*, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract*, Rubus Chamaemorus (Cloudberry) Fruit Extract*, CI 77491 (Iron Oxides), Glycolipids, Limonene, Linalyl Acetate. *Ingrédients issus de l'agriculture biologique.",
-    natural: "100",
-    organic: "39"
-  },
-  "radiance-cleanser": {
-    ingredients: "Aloe Barbadensis (Aloe) Leaf Juice*, Coco-Glucoside, Cocamidopropyl Betaine, Glycerin, Aqua/Water, Xanthan Gum, Propanediol, Rubus Fruticosus (Blackberry) Fruit Extract*, Sodium PCA, Sodium Levulinate, Lactic Acid, Acacia Senegal Gum, Sodium Anisate, Acorus Calamus (Sweet Flag) Root Extract*, Parfum/Fragrance, Salvia Officinalis (Sage) Leaf Extract*, Rhamnose, CI 77491 (Iron Oxides)***, Glucose, Glucuronic Acid, Arctium Lappa (Burdock) Root Extract*, Citric Acid, Sodium Benzoate, Potassium Sorbate, Linalool**, Limonene**. *Ingrédients issus de l'agriculture biologique. **Issus d'huiles essentielles naturelles. ***Pigments minéraux purs.",
-    natural: "98",
-    organic: "10"
-  }
-};
-
-window.EB_PRODUITS = {
-
-  "radiance-serum": {
-    nom: "Radiance C Serum",
-    sousTitre: "Vitamine C stabilisée · Acide hyaluronique",
-    details: ["30 ml", "Vegan"],        // affichés en petites majuscules : 30 ML · VEGAN
-    note: "une pression suffit",        // petite mention fine sous les détails (laisser "" pour ne rien afficher)
-    prix: "34,90€",
-    variantId: "59324259434841",
-    inci: "radiance-c-serum",           // clé de la composition dans inci-data.js
-    avis: "Radiance C Serum",           // nom exact utilisé pour les avis (Google Form)
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Radiance C Serum              │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-2-flacon_dezoome.png?v=1792676875",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-2-flacon_dezoome.png?v=1792676875",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Sur peau propre, déposez une pression de ce sorbet à la teinte solaire et appliquez-la sur le visage et le cou. Laissez sa délicate senteur d'agrumes éveiller vos sens." },
-        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Une fois le sérum pénétré, poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 : son stick fondant glisse sur la peau et préserve l'éclat de votre teint tout au long de la journée." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Une texture sorbet à la teinte solaire, une délicate senteur d'agrumes et une formule pensée pour révéler la radiance naturelle de la peau. Dès les premières applications, Radiance C Serum transforme chaque geste en un véritable moment d'éveil, où sensorialité et performance s'unissent dans le respect des peaux, même les plus sensibles." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Lumibloom associe une vitamine C stabilisée à l'acide hyaluronique multimoléculaire pour révéler la radiance naturelle de la peau sans jamais compromettre son hydratation. Sa formule haute tolérance illumine progressivement le teint, unifie le grain de peau et aide à protéger la peau des agressions quotidiennes responsables du vieillissement cutané prématuré." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Ravive la radiance naturelle du teint (Healthy Glow)",
-          "Unifie visiblement le teint et aide à atténuer l'apparence des taches",
-          "Protège du stress oxydatif et des agressions extérieures",
-          "Soutient les mécanismes naturels de production du collagène",
-          "Hydrate et nourrit sans alourdir",
-          "Convient aux peaux sensibles"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux ternes ou en manque de radiance",
-          "Les peaux déshydratées en quête d'une hydratation intense",
-          "Les teints irréguliers ou sujets aux taches pigmentaires",
-          "Les peaux souhaitant préserver leur capital jeunesse",
-          "Tous les types de peau, y compris les plus sensibles"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Une texture sorbet fraîche et fondante, délicatement parfumée aux agrumes. Elle pénètre rapidement sans laisser de fini gras, révélant une peau douce, confortable et naturellement lumineuse." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "99% d'ingrédients d'origine naturelle",
-          "Vitamine C stabilisée haute tolérance",
-          "Formule concentrée, pensée pour durer"
-        ] }
-    ],
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "luminescence-jour",       // fiche ouverte par le bouton « Découvrir »
-      nom: "Crème Luminescence Jour",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "L'alliance du Radiance C Serum et de la crème Luminescence Jour offre une routine complète où l'éclat rencontre l'hydratation.\nLe sérum unifie et illumine le teint, tandis que la crème repulpe intensément la peau et aide à préserver durablement sa radiance.\nEnsemble, ils révèlent une peau naturellement lumineuse, souple et éclatante de santé.",
-      prix: "34,90€",
-      variantId: "59324221129049"
-    }
-  },
-
+window.EB_PRODUITS = window.EB_PRODUITS || {};
+window.EB_INCI_PLUS = window.EB_INCI_PLUS || {};
+(function(){
+var BALANCE = {
   // =====================================================================
-  // LUMINESCENCE JOUR
+  // CALM BALANCE JOUR
   // =====================================================================
-  "luminescence-jour": {
-    nom: "Luminescence Jour",
-    sousTitre: "Acide hyaluronique multimoléculaire · Bisabolol",
+  "calm-balance-jour": {
+    nom: "Calm Balance Jour",
+    sousTitre: "Crème de jour apaisante · Aloe vera · Sans parfum",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
-    variantId: "59324221129049",
-    inci: "luminescence-jour",
-    avis: "Luminescence Jour",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Jour             │
-    // └─────────────────────────────────────────────────────────────────┘
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "calm-balance-jour",
+    avis: "Calm Balance Jour",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-jour-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",
-        // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_LUMI_JOUR.png?v=1792581371",
-        // 📷 4. PHOTO 4
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_beaute_avec_soin_hydratant_ELKHA.B_1.png?v=1792580243"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le matin", soin: "radiance-serum", texte: "Sur peau propre, commencez par une pression de Radiance C Serum pour éveiller l'éclat du teint." },
-        { moment: "Le matin", soin: "luminescence-jour", texte: "Appliquez une pression de crème : sa texture soyeuse fond sur la peau et l'enveloppe d'une hydratation fraîche, sans film gras." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Luminescence Jour enveloppe la peau d'une hydratation immédiate et durable tout en révélant un éclat naturel. Jour après jour, la peau paraît plus souple, plus lumineuse et retrouve tout son confort." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Sa formule associe un acide hyaluronique multimoléculaire, du bisabolol et des extraits végétaux antioxydants pour hydrater intensément, apaiser la peau et préserver l'éclat du teint face aux agressions du quotidien. Sa texture légère pénètre rapidement, sans effet gras, pour une peau douce, confortable et naturellement lumineuse." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Hydrate durablement la peau",
-          "Améliore la souplesse et le confort cutané",
-          "Révèle un glow naturel et un teint plus lumineux",
-          "Aide à préserver l'équilibre de la barrière cutanée"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Les peaux normales à sèches, en manque d'hydratation, de souplesse ou d'éclat. Convient également à toutes les peaux recherchant un soin hydratant confortable au quotidien." },
-      { titre: "Texture & sensorialité",
-        texte: "Sa texture crème soyeuse fond délicatement sur la peau et pénètre rapidement. Elle laisse un fini confortable, sans film gras, tout en révélant un éclat frais et naturel." },
-      { titre: "Engagement ELKHA.B",
-        texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque formule est pensée pour révéler la beauté naturelle de votre peau grâce à des actifs soigneusement sélectionnés. Luminescence Jour associe efficacité, sensorialité et confort dans un soin concentré conçu pour accompagner votre peau jour après jour." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "gelee-lumibloom",
-      nom: "Gelée Lumi-Bloom",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo essentiel pour révéler une peau éclatante.\nLa Gelée LumiBloom aide à renforcer la barrière cutanée et à préserver son équilibre pour une peau plus éclatante.\nLuminescence Jour prolonge cette action par une hydratation intense pour une peau plus souple, rebondie et naturellement lumineuse.",
-      prix: "28,90€",
-      variantId: "59324234891609"
-    }
-  },
-
-  // =====================================================================
-  // GELÉE LUMI-BLOOM
-  // =====================================================================
-  "gelee-lumibloom": {
-    nom: "Gelée Lumi-Bloom",
-    sousTitre: "Prébiotiques bioactifs · Acide hyaluronique",
-    details: ["30 ml", "Vegan"],
-    note: "une pression suffit",
-    prix: "28,90€",
-    variantId: "59324234891609",
-    inci: "gelee-lumibloom",
-    avis: "Gelée Lumi-Bloom au Prébiotique",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/gelee-lumibloom-1-boite-flacon.png?v=1793375005",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
-        // 📷 4. PHOTO 4
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000004cd88243810b9ae55a9f7669.png?v=1792579905"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Matin et/ou soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de gelée : sa texture fraîche se pose comme une eau sur la peau et la prépare en douceur." },
-        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Poursuivez avec Radiance C Serum, qui révèle tout son éclat sur une peau parfaitement préparée." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "La Gelée Lumi-Bloom est la première étape d'une peau éclatante. Sa texture gel fraîche hydrate instantanément tout en aidant à rééquilibrer le microbiome et à renforcer la barrière cutanée. La peau paraît plus confortable, plus souple et naturellement lumineuse." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Grâce à ses prébiotiques bioactifs, son acide hyaluronique et son Sodium PCA, la Gelée Lumi-Bloom aide à préserver l'équilibre naturel de la peau, favorise une hydratation durable et prépare idéalement la peau à recevoir les soins suivants. Jour après jour, la peau retrouve confort, résistance et éclat." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Aide à renforcer la barrière cutanée",
-          "Préserve l'équilibre du microbiome",
-          "Hydrate durablement et améliore le confort de la peau",
-          "Prépare la peau à recevoir les soins de votre routine"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Tous les types de peau, en particulier les peaux déshydratées, sensibilisées ou fragilisées recherchant davantage de confort, d'équilibre et d'éclat." },
-      { titre: "Texture & sensorialité",
-        texte: "Sa texture gel légère et rafraîchissante pénètre rapidement sans effet collant. Elle laisse la peau fraîche, souple et parfaitement préparée à recevoir les soins suivants." },
-      { titre: "Engagement ELKHA.B",
-        texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, nous croyons qu'une peau éclatante commence par une peau équilibrée. La Gelée LumiBloom associe des actifs soigneusement sélectionnés pour renforcer la barrière cutanée, préserver le microbiome et révéler durablement l'éclat naturel de votre peau." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "radiance-serum",
-      nom: "Radiance C Serum",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Préparez votre peau à révéler tout son éclat.\nLa Gelée Lumi-Bloom aide à renforcer la barrière cutanée et à préserver l'équilibre du microbiome, créant les conditions idéales pour le Radiance C Serum.\nEnsemble, ils révèlent une peau plus lumineuse, plus homogène et naturellement éclatante.",
-      prix: "34,90€",
-      variantId: "59324259434841"
-    }
-  },
-
-  // =====================================================================
-  // LUMI-VEIL CC CREAM SPF 30
-  // =====================================================================
-  "lumiveil-cc-cream": {
-    nom: "Lumi-Veil CC Cream SPF 30",
-    sousTitre: "Céramides · Beurre de cacao · Vitamine E",
-    details: ["12 g", "SPF 30", "Vegan"],
-    note: "",
-    prix: "26,90€",
-    inci: "lumi-veil-cc-cream",
-    avis: "Lumi-Veil CC Cream",
-
-    // Sélecteur de teintes : la teinte choisie part au panier,
-    // et le diaporama glisse jusqu'à sa photo (photo : 0 = 1re photo, 1 = 2e photo…)
-    choixLabel: "Choisissez votre teinte",
-    variantes: [
-      { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
-      { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
-      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
-      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS DE LA FICHE — Lumi-Veil CC Cream (diaporama)        │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867",   // 📷 petite photo : stick seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. B1 CLAIR · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b1-clair-1-boite-flacon_-_Copie.png?v=1793375505",
-        // 📷 2. B2 MOYEN · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b2-moyen-1-boite-flacon_-_Copie.png?v=1793375453",
-        // 📷 3. B3 HÂLÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b3-hale-1-boite-flacon_-_Copie.png?v=1793375478",
-        // 📷 4. B4 FONCÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1793375415"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le matin", titre: "Vos soins Bloom", texte: "Appliquez votre sérum puis votre crème, et laissez-les pénétrer quelques instants." },
-        { moment: "Le matin", soin: "lumiveil-cc-cream", texte: "En dernière étape, faites glisser le stick directement sur la peau, puis estompez du bout des doigts ou au pinceau : sa texture fondante fusionne avec la peau pour un fini seconde peau." },
-        { moment: "Au cours de la journée", texte: "Retouchez selon vos envies, là où le teint en a besoin : son format stick se glisse partout avec vous." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Lumi-Veil CC Cream est bien plus qu'une simple CC crème. Ce soin hybride associe correction du teint, protection solaire SPF 30 et soin de la peau dans un format stick pratique. Sa texture fondante se fond instantanément à la peau pour révéler un teint naturellement lumineux, uniforme et confortable." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Enrichie en céramides, vitamine E et beurre de cacao, sa formule aide à préserver la barrière cutanée tout en maintenant l'hydratation tout au long de la journée. Son fini seconde peau offre un éclat naturel, sans effet masque, pour une peau sublimée en toute simplicité." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Unifie visiblement le teint",
-          "Atténue l'apparence des rougeurs, des pores et des petites imperfections",
-          "Protège la peau des UV grâce au SPF 30",
-          "Contribue à renforcer la barrière cutanée",
-          "Hydrate durablement et procure une sensation de confort",
-          "Disponible en quatre teintes : Claire, Moyenne, Hâlée et Foncée"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Tous les types de peau, en particulier celles qui recherchent un teint naturellement lumineux, une protection quotidienne et un produit pratique à emporter partout." },
-      { titre: "Texture & sensorialité",
-        texte: "Sa texture crémeuse glisse facilement sur la peau et fusionne au contact de celle-ci pour un fini léger, homogène et naturellement lumineux. Son format stick permet une application rapide ainsi que des retouches à tout moment de la journée." },
-      { titre: "Engagement ELKHA.B",
-        texte: "• 98% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque formule est pensée pour offrir des résultats visibles tout en respectant l'équilibre naturel de la peau." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "luminescence-jour",
-      nom: "Luminescence Jour",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Offrez à votre peau le duo qui fait toute la différence.\nLuminescence Jour l'hydrate intensément, l'apaise et lui redonne toute sa souplesse.\nLumi-Veil CC Crème révèle ensuite un teint unifié, un glow naturel et une protection quotidienne.\nLa peau paraît plus rebondie, plus lumineuse et si fraîche qu'elle attire naturellement le regard.",
-      prix: "34,90€",
-      variantId: "59324221129049"
-    }
-  },
-
-  // =====================================================================
-  // LUMI-BLOOM NIACINAMIDE 5
-  // =====================================================================
-  "lumibloom-niac-5": {
-    nom: "Lumi-Bloom Niacinamide 5",
-    sousTitre: "Niacinamide 5% · Ginkgo biloba",
-    details: ["50 ml", "Vegan"],
-    note: "une pression suffit",
-    prix: "34,90€",
-    variantId: "59324243411289",
-    inci: "lumibloom-niacinamide-5",
-    avis: "Lumi-Bloom Niacinamide 5",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Niacinamide 5      │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/niacinamide-5-1-boite-flacon_673d71dc-9fcb-4556-94ee-65f84a9af9d8.png?v=1792576759",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/videos/c/o/v/2306ccc5a1554bcea8c47c32c12f29be.mp4"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Matin et/ou soir", soin: "lumibloom-niac-5", texte: "Sur peau propre, appliquez une pression de gel : frais et léger, il fond instantanément et laisse la peau lisse, sans effet collant." },
-        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir, pour une routine Bloom complète." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Une texture gel fraîche et légère qui fond instantanément sur la peau. Pensée pour rééquilibrer les peaux sujettes aux imperfections, aux brillances ou aux irrégularités, sa formule révèle progressivement un teint plus uniforme, une peau plus lisse et naturellement lumineuse." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce qu'une peau équilibrée est une peau qui rayonne naturellement. Lumi-Bloom Niacinamide 5 associe 5% de niacinamide à un extrait de Ginkgo Biloba et à l'algine pour améliorer visiblement la qualité de la peau sans compromettre son confort." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Unifie visiblement le teint et améliore son homogénéité",
-          "Atténue l'apparence des taches pigmentaires",
-          "Affine visiblement les pores et lisse le grain de peau",
-          "Aide à équilibrer les peaux mixtes à grasses",
-          "Renforce la barrière cutanée",
-          "Hydrate sans effet collant",
-          "Révèle un éclat naturel durable"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux mixtes à grasses",
-          "Les peaux sujettes aux pores dilatés et aux irrégularités",
-          "Les peaux déshydratées ou en manque d'équilibre",
-          "Les peaux souhaitant atténuer l'apparence des taches pigmentaires",
-          "Tous les types de peau, y compris les plus sensibles"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Un gel frais, léger et non collant qui pénètre rapidement. Il laisse la peau douce, confortable, visiblement plus lisse et parfaitement équilibrée, sans fini gras." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "99% d'ingrédients d'origine naturelle",
-          "Niacinamide dosée à 5% pour une efficacité maîtrisée et une haute tolérance",
-          "Formule concentrée, pensée pour durer"
-        ] }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT (avec sélecteur de teintes automatique)    │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "lumiveil-cc-cream",
-      nom: "Lumi-Veil CC Cream SPF 30",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "L'alliance de Lumi-Bloom Niacinamide 5 et de Lumi-Veil CC Cream SPF 30 révèle un teint plus uniforme, des pores visiblement estompés et une peau naturellement lumineuse.\nLe gel perfecteur prépare la peau, tandis que Lumi-Veil unifie, protège et sublime l'éclat pour un effet glow frais et naturel, sans effet gras.",
-      prix: "26,90€"
-      // Les teintes et leurs identifiants sont repris automatiquement de la fiche Lumi-Veil CC Cream
-    }
-  },
-
-  // =====================================================================
-  // LUMI-BLOOM ARBUTIN (nouveau soin — octobre 2026)
-  // =====================================================================
-  "lumibloom-arbutin": {
-    nom: "Lumi-Bloom Arbutin",
-    sousTitre: "Alpha-arbutine · Bidens pilosa · Vitamine C",
-    details: ["30 ml", "Vegan"],
-    note: "une pression suffit",
-    prix: "29,90€",
-    variantId: "60077870678361",
-    inci: "lumi-bloom-arbutin",
-    avis: "Lumi-Bloom Arbutin",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Arbutin                 │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793380817",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon_cc9a2df4-0202-4453-8e69-b16daa06c0e3.png?v=1793375045",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793380817",
-        // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE.png?v=1792649763",
-        // 📷 4. MANNEQUIN
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE.png?v=1792649764"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom : ses prébiotiques préparent la peau en douceur et l'aident à retrouver son équilibre." },
+        { moment: "Le matin", soin: "calm-balance-jour", texte: "Appliquez une pression de Calm Balance Jour et lissez-la du centre vers l'extérieur du visage : elle apaise, hydrate et enveloppe la peau de confort, sans fini gras." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 : son filtre minéral protège les peaux sensibles des UV, qui accentuent rougeurs et inconfort." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Calm Balance Jour est une parenthèse de douceur pour les peaux sensibles. Sa crème légère et sans parfum apaise les inconforts, atténue l'apparence des rougeurs et hydrate durablement. Jour après jour, la peau paraît plus calme, plus souple et retrouve son équilibre." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que les peaux sensibles ont besoin de douceur, mais aussi d'une hydratation qui dure. Calm Balance Jour associe le jus d'aloe vera, l'acide hyaluronique, le Sodium PCA et l'huile de jojoba dans une formule sans parfum, pour calmer la peau et soutenir sa barrière naturelle. Sa texture légère mais nourrissante s'absorbe rapidement, sans sensation grasse." },
+      { titre: "Bénéfices clés",
+        liste: ["Aide à apaiser les sensations d'inconfort", "Atténue visiblement l'apparence des rougeurs", "Hydrate durablement la peau", "Soutient la barrière cutanée", "Sans parfum, pensée pour les peaux sensibles"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux sensibles, délicates ou réactives, sujettes aux rougeurs et aux sensations d'inconfort. Idéale pour celles et ceux qui recherchent une crème de jour hydratante et sans parfum, à utiliser au quotidien." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture crème légère et nourrissante, qui s'absorbe facilement et laisse la peau douce et confortable, sans fini gras. Sans parfum ajouté : une expérience simple et délicate, pensée pour les peaux sensibles." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 100% d'ingrédients d'origine naturelle\n• 22% d'ingrédients issus de l'agriculture biologique\n• Sans parfum\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Calm Balance Jour en est l'expression la plus pure : une formule sans parfum qui prend soin des peaux sensibles sans jamais les brusquer." }
+    ],
+    accord: {
+      fiche: "calm-balance-nuit",
+      nom: "Calm Balance Nuit",
+      texte: "Le duo apaisant, du matin au soir.\nCalm Balance Jour apaise et hydrate la peau tout au long de la journée.\nCalm Balance Nuit prend le relais pendant le sommeil, pour une peau calme, confortable et reposée au réveil.",
+      prix: "36,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // CALM BALANCE NUIT
+  // =====================================================================
+  "calm-balance-nuit": {
+    nom: "Calm Balance Nuit",
+    sousTitre: "Crème de nuit apaisante · Aloe vera · Algues · Sans parfum",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "36,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "calm-balance-nuit",
+    avis: "Calm Balance Nuit",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau et préserver son équilibre." },
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Calm Balance Nuit : elle apaise et hydrate la peau pendant toute la nuit, pour un réveil tout en confort." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Calm Balance Nuit offre à la peau une parenthèse de douceur pendant le sommeil. Sa formule sans parfum associe le jus d'aloe vera, des algues et l'acide hyaluronique pour apaiser les irritations, atténuer l'apparence des rougeurs et préserver l'hydratation. Au réveil, la peau paraît plus calme, douce et équilibrée." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que la nuit est le moment où la peau se répare. Calm Balance Nuit réunit apaisement et hydratation longue durée dans une formule douce et sans parfum, qui accompagne les peaux délicates pendant leur repos. Un soin réconfortant qui s'intègre naturellement à une routine respectueuse des peaux sensibles." },
+      { titre: "Bénéfices clés",
+        liste: ["Aide à apaiser les irritations et les sensations d'inconfort", "Atténue visiblement l'apparence des rougeurs", "Hydrate durablement pendant la nuit", "Renforce la barrière d'hydratation naturelle de la peau", "Sans parfum, pensée pour les peaux sensibles"] },
+      { titre: "Pensé pour",
+        texte: "Tous les types de peau, et particulièrement les peaux sensibles, délicates ou sujettes aux rougeurs et aux irritations. Idéale pour celles et ceux qui recherchent un soin de nuit hydratant et apaisant, sans parfum, pour retrouver une peau confortable au réveil." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture douce et enveloppante qui apporte confort à la peau tout au long de la nuit. Sans parfum ajouté : seule l'odeur naturellement neutre de la formule, pour une expérience discrète et respectueuse des peaux sensibles." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 42% d'ingrédients issus de l'agriculture biologique\n• Sans parfum\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Calm Balance Nuit accompagne les peaux sensibles pendant leur repos, avec une formule sans parfum qui respecte leur équilibre." }
+    ],
+    accord: {
+      fiche: "calm-balance-jour",
+      nom: "Calm Balance Jour",
+      texte: "Le duo apaisant, du matin au soir.\nCalm Balance Jour apaise et hydrate la peau tout au long de la journée.\nCalm Balance Nuit prend le relais pendant le sommeil, pour une peau calme et reposée au réveil.",
+      prix: "34,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // HYDRA BALANCE
+  // =====================================================================
+  "hydra-balance": {
+    nom: "Hydra Balance",
+    sousTitre: "Gel hydratant · Acide hyaluronique · Sodium PCA",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "28,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "hydra-balance",
+    avis: "Hydra Balance",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance : son gel frais désaltère la peau et la prépare à recevoir les soins suivants." },
+        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Luminescence Jour, qui scelle l'hydratation et révèle l'éclat naturel du teint." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 pour préserver la peau des UV tout au long de la journée." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Hydra Balance offre à la peau un véritable bain d'hydratation. Son gel frais et léger associe l'acide hyaluronique à différents poids moléculaires et le Sodium PCA pour retenir l'eau dans la peau. Jour après jour, la peau paraît plus rebondie, plus souple et lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau bien hydratée retrouve naturellement souplesse et confort. Hydra Balance réunit deux actifs complémentaires, l'acide hyaluronique et le Sodium PCA, enrichis en aloe vera et en extraits de thé blanc et de sauge. Sa texture gel apporte une fraîcheur immédiate et aide à lisser les petites ridules liées à la déshydratation." },
+      { titre: "Bénéfices clés",
+        liste: ["Hydrate intensément et durablement", "Repulpe et lisse les ridules de déshydratation", "Préserve la souplesse et l'élasticité de la peau", "Procure une sensation de fraîcheur immédiate"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux déshydratées, en manque de souplesse ou présentant des ridules liées à la déshydratation. Idéal pour celles et ceux qui recherchent une hydratation efficace dans une texture légère et fraîche, quel que soit leur type de peau. Peut suffire seul aux peaux mixtes." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture gel fraîche et légère qui glisse sur la peau et apporte une agréable sensation d'hydratation, sans aucune lourdeur. Son parfum aquatique aux notes fruitées et juteuses accompagne cette sensation de fraîcheur." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 11% d'ingrédients issus de l'agriculture biologique\n• Formule certifiée COSMOS NATURAL par Ecocert\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Hydra Balance place l'hydratation, cœur de toutes nos formules, au premier plan." }
+    ],
+    accord: {
+      fiche: "calm-balance-jour",
+      nom: "Calm Balance Jour",
+      texte: "Le duo fraîcheur et confort.\nHydra Balance gorge la peau d'eau et la prépare en douceur.\nCalm Balance Jour scelle cette hydratation et apaise la peau tout au long de la journée.",
+      prix: "34,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // CERAMIDE NIGHT RESTORE
+  // =====================================================================
+  "ceramide-night-restore": {
+    nom: "Ceramide Night Restore",
+    sousTitre: "Crème de nuit nourrissante · Céramides végétaux · Karité",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "38,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "ceramide-night-restore",
+    avis: "Ceramide Night Restore",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour gorger la peau d'hydratation." },
+        { moment: "Le soir", soin: "ceramide-night-restore", texte: "Terminez par une pression de Ceramide Night Restore. Les soirs où vous utilisez Glyco Balance ou AHA Balance Peel, elle apporte tout le réconfort dont la peau a besoin." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Ceramide Night Restore offre à la peau une nuit de confort. Ses céramides végétaux aident à renforcer la barrière cutanée, tandis que l'aloe vera, l'acide hyaluronique et les beurres végétaux nourrissent et assouplissent la peau pendant le sommeil. Au réveil, la peau paraît plus confortable, reposée et lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que la nuit est un moment privilégié pour prendre soin de la barrière cutanée. Ceramide Night Restore associe les céramides végétaux à une sélection d'ingrédients hydratants et nourrissants pour aider la peau à préserver son équilibre et à limiter les sensations de sécheresse. Le soin réconfort idéal après une exfoliation." },
+      { titre: "Bénéfices clés",
+        liste: ["Soutient la barrière cutanée", "Hydrate en profondeur pendant la nuit", "Nourrit et assouplit la peau", "Ravive l'éclat au réveil"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux qui manquent d'hydratation, de souplesse ou de confort, notamment lorsqu'elles présentent des sensations de sécheresse ou une barrière cutanée fragilisée. Idéale aussi pour réconforter la peau les soirs d'exfoliation." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture crème nourrissante qui glisse délicatement sur la peau et l'enveloppe d'un confort durable. Son parfum délicat de fleurs blanches s'accompagne de notes fraîches de lavande, sur un fond herbacé subtil." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 27% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Ceramide Night Restore soutient la barrière cutanée pour que la peau puisse recevoir les actifs en toute sérénité." }
+    ],
+    accord: {
+      fiche: "glyco-balance",
+      nom: "Glyco Balance",
+      texte: "Le duo peau neuve, en douceur.\nGlyco Balance affine le grain de peau et ravive l'éclat.\nCeramide Night Restore réconforte aussitôt la peau et renforce sa barrière pendant la nuit.",
+      prix: "29,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // CELLULAR REVEAL
+  // =====================================================================
+  "cellular-reveal": {
+    nom: "Cellular Reveal",
+    sousTitre: "Sérum lissant · Bidens pilosa · Myrte rose",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "37,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "cellular-reveal",
+    avis: "Cellular Reveal",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Poursuivez avec Luminescence Nuit : son plancton marin et son collagène prolongent l'action lissante pendant le sommeil." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez votre routine par Radiance Protect SPF 50 pour préserver la peau des signes de l'âge liés au soleil." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Cellular Reveal est un sérum qui accompagne les premiers signes de l'âge tout en douceur. Au cœur de sa formule, l'extrait de Bidens pilosa, une alternative végétale au rétinol, aide à affiner le grain de peau et à atténuer l'apparence des ridules et des taches brunes. Associé à l'aloe vera, à l'huile de jojoba et à la myrte rose, il révèle une peau plus lisse, plus uniforme et lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que prendre soin des signes de l'âge peut aussi rimer avec douceur. Cellular Reveal est le premier pas idéal vers une alternative au rétinol : plus doux que Bakuchiol Elixir, il convient aux peaux qui débutent. Sa formule hydratante et antioxydante révèle progressivement un teint plus frais et éclatant, sans multiplier les étapes." },
+      { titre: "Bénéfices clés",
+        liste: ["Atténue l'apparence des ridules", "Affine le grain de peau", "Aide à unifier le teint et à atténuer les taches brunes", "Hydrate et protège la peau des agressions"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux qui présentent les premiers signes de l'âge ou un manque d'éclat. Idéal pour celles et ceux qui souhaitent commencer en douceur avec une alternative au rétinol, tout en préservant confort et souplesse." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture légère qui s'intègre facilement à la routine et laisse la peau douce et confortable. Son parfum de rose légèrement sucré, rehaussé d'une touche de géranium rouge sur un fond vert et fruité, offre une expérience florale et subtile." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 24% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Cellular Reveal en est la preuve : une alternative végétale au rétinol pour accompagner la peau au fil du temps, sans la brusquer." }
+    ],
+    accord: {
+      fiche: "cellular-eye-restore",
+      nom: "Cellular Eye Restore",
+      texte: "Le duo lissant visage et regard.\nCellular Reveal lisse le grain de peau et unifie le teint.\nCellular Eye Restore prolonge cette action sur la zone délicate du contour des yeux.",
+      prix: "32,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // CELLULAR EYE RESTORE
+  // =====================================================================
+  "cellular-eye-restore": {
+    nom: "Cellular Eye Restore",
+    sousTitre: "Sérum contour des yeux · Bidens pilosa · Acide hyaluronique",
+    details: ["15 ml", "Vegan"],
+    note: "une petite quantité suffit",
+    prix: "32,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "cellular-eye-restore",
+    avis: "Cellular Eye Restore",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
+        { moment: "Le soir", soin: "cellular-eye-restore", texte: "Déposez une petite quantité de Cellular Eye Restore sur le contour des yeux et faites-la pénétrer en tapotant doucement, de l'intérieur vers l'extérieur." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Cellular Eye Restore est un sérum ciblé qui accompagne les premiers signes de l'âge tout en prenant soin de la zone délicate du regard. L'extrait de Bidens pilosa, une alternative végétale au rétinol, aide à atténuer l'apparence des ridules, des pattes-d'oie et des signes de fatigue. Associé à l'acide hyaluronique, à l'aloe vera et aux huiles de jojoba et de ricin, il laisse le contour des yeux plus lisse, frais et lumineux." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que lisser le contour des yeux ne devrait pas se faire au détriment de son confort. Cellular Eye Restore offre une approche plus douce que le rétinol traditionnel, associée à des ingrédients hydratants et nourrissants, pour un regard visiblement plus lisse tout en préservant cette zone fragile." },
+      { titre: "Bénéfices clés",
+        liste: ["Atténue l'apparence des ridules et des pattes-d'oie", "Hydrate en profondeur le contour des yeux", "Nourrit et adoucit la peau du regard", "Aide à atténuer les signes visibles de fatigue"] },
+      { titre: "Pensé pour",
+        texte: "Les contours des yeux qui présentent les premiers signes de l'âge, notamment des ridules et des pattes-d'oie, ainsi que des signes visibles de fatigue. Idéal pour celles et ceux qui souhaitent prendre soin de leur regard en douceur." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture douce, pensée pour la peau fine du contour des yeux, qui apporte hydratation et confort. Son parfum de rose légèrement sucré, rehaussé d'une touche de géranium rouge, offre une note florale subtile." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 100% d'ingrédients d'origine naturelle\n• 22% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Cellular Eye Restore apporte au regard une approche douce des premiers signes de l'âge." }
+    ],
+    accord: {
+      fiche: "cellular-reveal",
+      nom: "Cellular Reveal",
+      texte: "Le duo lissant visage et regard.\nCellular Reveal lisse le grain de peau et unifie le teint.\nCellular Eye Restore prolonge cette action sur le contour des yeux.",
+      prix: "37,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // AGE LIFT
+  // =====================================================================
+  "age-lift": {
+    nom: "Age Lift",
+    sousTitre: "Crème raffermissante · Peptides · Acide hyaluronique",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "37,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "age-lift",
+    avis: "Age Lift",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Matin et soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour gorger la peau d'hydratation." },
+        { moment: "Matin et soir", soin: "age-lift", texte: "Appliquez une pression de Age Lift sur le visage et le cou, en remontant vers les tempes : la peau paraît plus lisse et repulpée." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez par Radiance Protect SPF 50 : le soleil est le premier accélérateur des signes de l'âge." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Age Lift accompagne la beauté de la peau au fil du temps. Son complexe de peptides, associé à l'acide hyaluronique, aide à lisser l'apparence des ridules, à améliorer la souplesse de la peau et à lui redonner un aspect repulpé. Un seul soin, pensé pour le matin comme pour le soir." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que prendre soin des signes de l'âge ne devrait pas compliquer votre routine. Age Lift réunit hydratation, confort et action raffermissante dans une formule polyvalente qui accompagne votre peau jour après jour, sans multiplier les étapes." },
+      { titre: "Bénéfices clés",
+        liste: ["Aide à lisser l'apparence des ridules", "Hydrate et repulpe la peau", "Améliore la souplesse et l'apparence de fermeté", "Laisse la peau douce et confortable"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux qui présentent des ridules, une perte de souplesse ou de fermeté, ainsi que celles qui recherchent une hydratation quotidienne associée à une action raffermissante." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture légère et nourrissante qui pénètre facilement, sans sensation de lourdeur, et laisse un fini souple et confortable. Son parfum floral délicat apporte une touche subtile de sensorialité à chaque application." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 9% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Age Lift réunit l'efficacité des peptides et le confort de l'hydratation dans un seul soin, matin et soir." }
+    ],
+    accord: {
+      fiche: "eye-lift",
+      nom: "Eye Lift",
+      texte: "Le duo lissant visage et regard.\nAge Lift lisse et repulpe la peau du visage.\nEye Lift prolonge cette action sur le contour des yeux, pour un regard visiblement plus lisse.",
+      prix: "29,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // EYE LIFT
+  // =====================================================================
+  "eye-lift": {
+    nom: "Eye Lift",
+    sousTitre: "Crème contour des yeux · Peptides · Vitamines C et E",
+    details: ["15 ml", "Vegan"],
+    note: "une petite quantité suffit",
+    prix: "29,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "eye-lift",
+    avis: "Eye Lift",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Matin et soir", soin: "eye-lift", texte: "Sur peau propre, déposez une petite quantité de Eye Lift sur le contour des yeux et faites-la pénétrer en tapotant doucement." },
+        { moment: "Matin et soir", soin: "age-lift", texte: "Poursuivez avec une pression de Age Lift sur le visage et le cou." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Eye Lift est une crème aux peptides spécialement conçue pour la zone délicate du contour des yeux. Sa formule hydratante et raffermissante aide à atténuer l'apparence des ridules, des rides et des pattes-d'oie, tout en améliorant la fermeté de la peau, pour un regard visiblement plus lisse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que le contour des yeux mérite une attention particulière, sans compliquer votre routine. Eye Lift associe un complexe de peptides à une texture légère et confortable pour cibler les premiers signes visibles de l'âge. Un soin précis qui complète naturellement les autres soins Balance." },
+      { titre: "Bénéfices clés",
+        liste: ["Aide à lisser les ridules et les pattes-d'oie", "Hydrate et préserve le confort du regard", "Améliore l'apparence de fermeté", "Pénètre facilement, sans film gras"] },
+      { titre: "Pensé pour",
+        texte: "Les contours des yeux marqués par les ridules, les pattes-d'oie ou une perte de fermeté, ainsi que celles et ceux qui recherchent un soin hydratant et ciblé pour accompagner les signes visibles de l'âge." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture légère et agréable qui pénètre facilement, sans laisser de film gras. Son parfum de rose légèrement sucré, rehaussé d'une touche de géranium rouge sur un fond vert et fruité, accompagne chaque application d'une note florale subtile." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 8% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Eye Lift prend soin du regard avec une formule ciblée, pensée pour compléter une routine simple et cohérente." }
+    ],
+    accord: {
+      fiche: "age-lift",
+      nom: "Age Lift",
+      texte: "Le duo lissant visage et regard.\nEye Lift lisse et raffermit le contour des yeux.\nAge Lift prolonge cette action sur tout le visage.",
+      prix: "37,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // BAKUCHIOL ELIXIR
+  // =====================================================================
+  "bakuchiol-elixir": {
+    nom: "Bakuchiol Elixir",
+    sousTitre: "Sérum lissant · Bakuchiol · Rose musquée",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "39,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "bakuchiol-elixir",
+    avis: "Bakuchiol Elixir",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour hydrater la peau." },
+        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Réchauffez une pression de Bakuchiol Elixir entre vos paumes et pressez-la délicatement sur le visage. Les soirs d'exfoliation, sautez cette étape." },
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Calm Balance Nuit, qui apaise et hydrate la peau pendant le sommeil." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Bakuchiol Elixir est un sérum à la texture soyeuse, sublimé par des huiles végétales précieuses de jojoba, de rose musquée et d'onagre. Au cœur de sa formule, le bakuchiol, une alternative végétale au rétinol, aide à atténuer l'apparence des rides et à améliorer visiblement la fermeté, tout en aidant à unifier le teint." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce que votre peau est prête pour une action plus affirmée, sans renoncer au confort. Plus intense que Cellular Reveal, Bakuchiol Elixir associe l'action lissante et raffermissante du bakuchiol à la richesse nourrissante des huiles végétales. Sa texture soyeuse s'absorbe rapidement et laisse la peau douce et lumineuse, sans effet huileux." },
+      { titre: "Bénéfices clés",
+        liste: ["Lisse l'apparence des rides et ridules", "Améliore l'apparence de fermeté", "Nourrit et assouplit la peau", "Ravive l'éclat et aide à unifier le teint"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux présentant des rides, un manque de fermeté ou de souplesse. Idéal pour celles et ceux qui souhaitent une alternative végétale au rétinol plus affirmée, après avoir commencé avec Cellular Reveal, dans un sérum nourrissant et agréable à utiliser." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture soyeuse et enveloppante, enrichie en huiles végétales, qui pénètre rapidement et laisse la peau douce, souple et confortable. Son parfum élégant de rose dévoile des notes chaleureuses, épicées et boisées." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 61% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Bakuchiol Elixir allie la force d'une alternative végétale au rétinol à la douceur des huiles précieuses." }
+    ],
+    accord: {
+      fiche: "age-lift",
+      nom: "Age Lift",
+      texte: "Le duo fermeté jour et nuit.\nBakuchiol Elixir lisse et raffermit la peau pendant la nuit.\nAge Lift hydrate et repulpe la peau, matin et soir.",
+      prix: "37,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // BRIGHT CONTROL
+  // =====================================================================
+  "bright-control": {
+    nom: "Bright Control",
+    sousTitre: "Crème correctrice anti-taches · Acide kojique · Vitamine C",
+    details: ["50 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "34,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "bright-control",
+    avis: "Bright Control",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
     routine: {
       etapes: [
         { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau." },
-        { moment: "Le matin", soin: "lumibloom-arbutin", texte: "Appliquez Lumi-Bloom Arbutin sur le visage, en insistant sur les zones présentant des irrégularités pigmentaires, sans frotter." },
-        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Luminescence Jour pour hydrater la peau tout au long de la journée." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez toujours par Radiance Protect SPF 50 : sans protection solaire, les taches reviennent plus vite." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Appliquez Lumi-Bloom Arbutin sur peau propre et sèche, puis poursuivez avec Luminescence Nuit." }
+        { moment: "Le matin", soin: "bright-control", texte: "Appliquez une pression de Bright Control sur tout le visage : elle unifie le teint et hydrate la peau." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez toujours par Radiance Protect SPF 50 : sans protection solaire, les taches reviennent plus vite." }
       ]
     },
-
     sections: [
       { titre: "L'expérience",
-        texte: "Et si votre teint retrouvait toute sa lumière ? Lumi-Bloom Arbutin transforme le soin des taches pigmentaires en un véritable rituel de beauté. Sa texture légère et enveloppante glisse délicatement sur la peau, lui apportant hydratation, douceur et confort.\nAu fil des applications, les irrégularités pigmentaires paraissent moins visibles, le teint semble plus homogène et la peau révèle un éclat naturel." },
+        texte: "Bright Control est une crème visage conçue pour atténuer l'apparence des taches brunes et des irrégularités pigmentaires. L'acide kojique s'associe à la vitamine C, à l'extrait de romarin et à des ingrédients hydratants pour accompagner la peau vers un teint plus homogène et lumineux." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce qu'un teint uniforme ne devrait pas se faire au détriment du confort de votre peau. Lumi-Bloom Arbutin associe l'alpha-arbutine, reconnue pour son action sur l'apparence des taches pigmentaires, à des ingrédients hydratants et nourrissants. Une approche complète qui cible les irrégularités du teint tout en prenant soin de la souplesse et de l'hydratation de la peau." },
+        texte: "Parce qu'un teint irrégulier ne devrait pas vous obliger à multiplier les soins. Bright Control est la crème qui agit sur tout le visage : elle unifie le teint tout en préservant la souplesse et le confort de la peau. Pour cibler une tache précise, associez-la à Spot Control." },
       { titre: "Bénéfices clés",
-        liste: [
-          "Taches visiblement atténuées : l'alpha-arbutine aide à réduire progressivement l'apparence des taches brunes et des irrégularités pigmentaires",
-          "Teint plus uniforme : contribue à améliorer l'homogénéité du teint pour une peau visiblement plus harmonieuse",
-          "Éclat retrouvé : aide à révéler une peau plus lumineuse et à réduire l'aspect terne du teint",
-          "Hydratation & souplesse : le PCA de sodium, la glycérine et l'acide hyaluronique contribuent à maintenir l'hydratation cutanée",
-          "Confort nourrissant : les huiles végétales et le beurre de murumuru apportent douceur et souplesse à la peau"
-        ] },
+        liste: ["Aide à atténuer l'apparence des taches brunes", "Unifie le teint et ravive l'éclat", "Apporte un soutien antioxydant", "Hydrate et adoucit la peau"] },
       { titre: "Pensé pour",
-        liste: [
-          "Les peaux présentant des taches brunes, des marques pigmentaires ou un teint irrégulier",
-          "Celles et ceux qui souhaitent cibler l'apparence des taches liées notamment au soleil ou aux anciennes imperfections, tout en conservant une routine hydratante",
-          "Les peaux normales, sèches et mixtes recherchant un soin correcteur de teint"
-        ] },
+        texte: "Les peaux présentant des taches brunes superficielles, des marques pigmentaires post-imperfections ou un teint irrégulier et terne. Le matin, une protection solaire comme Radiance Protect SPF 50 est indispensable pour préserver les résultats." },
       { titre: "Texture & sensorialité",
-        texte: "Une texture sérum légère, douce et confortable, qui s'étale facilement sur la peau. Son parfum révèle des notes boisées de vétiver et de cèdre, une touche d'agrumes, sur un fond d'amande douce et de vanille. Une expérience sensorielle délicate qui accompagne chaque application." },
+        texte: "Une texture crème qui apporte hydratation et souplesse à la peau. Son parfum associe la fraîcheur des agrumes, du citron et de l'orange à des notes de gingembre et de concombre, sur un fond boisé de vétiver, de cèdre et de patchouli." },
       { titre: "Engagement ELKHA.B",
-        liste: [
-          "100% d'ingrédients d'origine naturelle",
-          "23% d'ingrédients issus de l'agriculture biologique",
-          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Lumi-Bloom Arbutin accompagne votre peau vers un teint visiblement plus uniforme et lumineux, sans jamais négliger son confort"
-        ] }
+        texte: "• 100% d'ingrédients d'origine naturelle\n• 8% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Bright Control prend soin du teint tout en respectant le confort de la peau." }
     ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
     accord: {
-      fiche: "lumibloom-niac-5",
-      nom: "Lumi-Bloom Niacinamide 5",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo Lumi-Bloom.\nLumi-Bloom Arbutin atténue l'apparence des taches et unifie le teint, tandis que Lumi-Bloom Niacinamide 5 affine le grain de peau et aide à estomper les marques d'imperfections.",
-      prix: "34,90€",
-      variantId: "59324243411289"
-    }
-  },
-
-  // =====================================================================
-  // MILKY BLOOM (nouveau soin — octobre 2026)
-  // =====================================================================
-  "milky-bloom": {
-    nom: "Milky Bloom",
-    sousTitre: "Nettoyant huile-en-lait\nCamomille · Argousier",
-    details: ["150 ml", "Vegan"],
-    note: "une noisette suffit",
-    prix: "29,90€",
-    variantId: "60079562817881",
-    inci: "milky-bloom",
-    avis: "Milky Bloom",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Milky Bloom                        │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-miniature-v3-fond-site.png?v=1792679878",   // 📷 petite photo (routines, accord parfait) : flacon cadré comme les autres soins
-      type: "diaporama",
-      images: [
-        // 📷 1. FLACON DE FACE (dézoomé)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site_D_ZOOM.png?v=1792676351",
-        // 📷 2. FLACON DE DOS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-dos-fond-site.png?v=1792659730",
-        // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c46dc4f1-9601-4c60-a383-a2347b777549.png?v=1792660545"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le matin", soin: "milky-bloom", texte: "Appliquez une noisette de Milky Bloom sur peau sèche ou humide, massez délicatement, puis rincez." },
-        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Gelée Lumi-Bloom, puis Luminescence Jour." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." },
-        { moment: "Le soir", soin: "milky-bloom", texte: "Sur peau sèche, massez délicatement une noisette de Milky Bloom sur le visage pour dissoudre le maquillage et les impuretés. Humidifiez vos mains et continuez à masser : l'huile se transforme en lait. Rincez abondamment à l'eau. Évitez le contact direct avec les yeux." },
-        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Poursuivez avec Gelée Lumi-Bloom pour apaiser et préparer la peau." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Et si le démaquillage devenait le plus doux moment de votre rituel ? Sur peau sèche, Milky Bloom fond sous vos doigts et dissout le maquillage, même le plus épais, et les impuretés de la journée. Au contact de l'eau, l'huile se transforme en un lait soyeux qui se rince en un geste.\nLa peau est nette, douce et nourrie, sans tiraillement ni sensation de film. Le teint paraît frais et reposé : votre peau est prête à recevoir vos soins Bloom." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que les peaux sensibles méritent un nettoyage qui les respecte vraiment. Milky Bloom ne contient aucun agent moussant : il nettoie grâce à des huiles végétales et des émulsifiants d'origine naturelle, parmi les plus doux. Testé sous contrôle dermatologique, il convient aux peaux sensibles et délicates.\nLa camomille, l'argousier et la plaquebière, issus de l'agriculture biologique, nourrissent et réconfortent la peau pendant le nettoyage. Un geste tout en douceur, qui laisse la peau souple et lumineuse." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Démaquillage complet : dissout le maquillage, même le plus épais, et les impuretés, en un seul geste",
-          "Douceur absolue : sans agent moussant, testé sous contrôle dermatologique, il convient aux peaux sensibles",
-          "Peau nourrie : les huiles végétales et les extraits de camomille, d'argousier et de plaquebière laissent la peau douce et confortable",
-          "Hydratation préservée : nettoie sans déshydrater, la peau ne tiraille pas après le rinçage",
-          "Teint frais : la peau est nette et fraîche, prête à révéler son éclat"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux sensibles, sèches et délicates, qui tiraillent après le nettoyage",
-          "Se démaquiller en douceur, même avec un maquillage épais, et le double nettoyage du soir",
-          "Pour les peaux mixtes à grasses, découvrez Radiance Cleanser, notre gel nettoyant"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Un gel huileux rosé, légèrement nacré, qui se transforme en lait soyeux au contact de l'eau. Son parfum délicat associe des fleurs blanches et une touche de jasmin à un bois de santal crémeux, sur un fond doux, poudré et légèrement vert." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "100% d'ingrédients d'origine naturelle",
-          "39% d'ingrédients issus de l'agriculture biologique",
-          "Testé sous contrôle dermatologique",
-          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Milky Bloom réinvente le démaquillage des peaux sensibles, efficace, nourrissant, et d'une douceur absolue"
-        ] }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "gelee-lumibloom",
-      nom: "Gelée Lumi-Bloom",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo douceur.\nMilky Bloom démaquille et nourrit la peau sans jamais la déshydrater, tandis que Gelée Lumi-Bloom apaise, hydrate et prépare la peau à recevoir ses soins.",
+      fiche: "spot-control",
+      nom: "Spot Control",
+      texte: "Le duo teint unifié.\nBright Control unifie le teint sur tout le visage.\nSpot Control agit en ciblé sur les taches les plus marquées.",
       prix: "28,90€",
-      variantId: "59324234891609"
+      variantId: ""   // 🛒 à compléter
     }
   },
 
   // =====================================================================
-  // LUMI-PURE (nouveau soin — octobre 2026)
+  // SPOT CONTROL
   // =====================================================================
-  "lumi-pure": {
-    nom: "Lumi-Pure",
-    sousTitre: "Masque purifiant séborégulateur\nArgiles · Charbon végétal",
-    details: ["90 ml", "Vegan"],
-    note: "une à deux fois par semaine",
-    prix: "29,90€",
-    variantId: "60254749819225",
-    inci: "lumi-pure",
-    avis: "Lumi-Pure",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Pure                          │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",   // 📷 petite photo (routines, accord parfait) : le pot seul
-      type: "diaporama",
-      images: [
-        // 📷 1. POT DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",
-        // 📷 2. POT DE DOS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-dos-fond-site.jpg?v=1793208637",
-        // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d637d80b-e15b-40f3-92b5-0aaf6cf4ec6e.png?v=1793208600",
-        // 📷 4. VISAGE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_558a59d1-b12f-48c9-987f-19808cd3a870.png?v=1793208601"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le soir, une à deux fois par semaine", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser, puis séchez-la en tamponnant." },
-        { moment: "Le soir, une à deux fois par semaine", soin: "lumi-pure", texte: "Appliquez Lumi-Pure en couche uniforme sur une peau propre, en évitant le contour des yeux et des lèvres. Laissez poser 5 à 10 minutes, puis rincez abondamment. Une légère rougeur peut apparaître juste après, elle disparaît rapidement." },
-        { moment: "Le soir, une à deux fois par semaine", soin: "lumibloom-niac-5", texte: "Poursuivez avec Lumi-Bloom Niacinamide 5 pour resserrer les pores et réguler le sébum." },
-        { moment: "Le soir, une à deux fois par semaine", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Et si vous offriez à votre peau une vraie parenthèse de pureté ? Lumi-Pure associe un mélange d'argiles purifiantes au charbon végétal et à des extraits botaniques soigneusement sélectionnés. Il absorbe l'excès de sébum, aide à désincruster les pores et débarrasse la peau des impuretés accumulées. En 5 à 10 minutes, une à deux fois par semaine, votre peau retrouve fraîcheur et netteté, avec un grain visiblement plus fin." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce qu'une peau nette commence par une purification ciblée. Lumi-Pure s'adresse aux peaux sujettes aux brillances, aux pores encombrés et aux points noirs. Il associe le pouvoir absorbant du kaolin et de la montmorillonite à l'hydratation du jus d'aloe vera bio et de la glycérine : la peau est purifiée, mais reste fraîche et confortable, prête à recevoir la suite de votre rituel." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Purifie en profondeur : aide à éliminer les impuretés et l'excès de sébum",
-          "Affine l'apparence des pores : le grain de peau est visiblement plus net",
-          "Cible les points noirs : accompagne la purification des zones aux pores obstrués",
-          "Réduit les brillances : absorbe l'excès de sébum pour un fini plus mat",
-          "Revitalise la peau : une sensation de fraîcheur après le rinçage"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux mixtes à grasses, sujettes à l'excès de sébum et aux brillances",
-          "Les points noirs, les pores obstrués et le grain de peau irrégulier",
-          "Les impuretés accumulées au quotidien",
-          "Ne convient pas aux peaux sensibles. Pour affiner le grain de peau en douceur, découvrez Lumi-Bloom Niacinamide 5"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Une texture de masque à l'argile, enveloppante et facile à répartir. Son parfum discret, aux nuances naturellement argileuses, privilégie une expérience sobre et authentique. La présence d'ingrédients naturels peut entraîner une légère séparation des phases, sans altérer la qualité du soin." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "100% d'ingrédients d'origine naturelle",
-          "16% d'ingrédients issus de l'agriculture biologique",
-          "Sans allergènes",
-          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Lumi-Pure purifie la peau en profondeur, sans jamais la priver de son confort"
-        ] }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "lumibloom-niac-5",
-      nom: "Lumi-Bloom Niacinamide 5",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo peau nette.\nLumi-Pure désincruste les pores et absorbe l'excès de sébum une à deux fois par semaine, tandis que Lumi-Bloom Niacinamide 5 régule la brillance et affine le grain de peau, jour après jour.",
-      prix: "34,90€",
-      variantId: "59324243411289"
-    }
-  },
-
-  // =====================================================================
-  // RADIANCE CLEANSER (nouveau soin — octobre 2026)
-  // =====================================================================
-  "radiance-cleanser": {
-    nom: "Radiance Cleanser",
-    sousTitre: "Gel nettoyant éclat\nAloe vera · Mûre",
-    details: ["145 ml", "Vegan"],
-    note: "une noisette suffit",
-    prix: "24,90€",
-    variantId: "60079861465433",
-    inci: "radiance-cleanser",
-    avis: "Radiance Cleanser",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Radiance Cleanser                  │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",
-      images: [
-        // 📷 1. FLACON DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",
-        // 📷 2. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c209338b-01b0-4427-b4a1-6d2453144ddf.png?v=1792660763",
-        // 📷 3. MANNEQUIN
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_RADIANCE_CLEANSER.png?v=1792660603"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le matin", soin: "radiance-cleanser", texte: "Faites mousser une noisette de Radiance Cleanser entre vos mains humides, appliquez sur le visage et massez délicatement en mouvements circulaires. Rincez abondamment à l'eau. Évitez le contact avec les yeux." },
-        { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Gelée Lumi-Bloom, puis Luminescence Jour." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." },
-        { moment: "Le soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser, de la même façon que le matin." },
-        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Poursuivez avec Gelée Lumi-Bloom pour préparer la peau." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Terminez par Luminescence Nuit." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Et si votre éclat commençait dès le nettoyage ? Sur les peaux mixtes à grasses, l'excès de sébum fait briller la peau et ternit le teint au fil de la journée. Radiance Cleanser le dissout en douceur, avec les impuretés et les traces de maquillage, dans une mousse légère et fraîche.\nAprès le rinçage, la peau est nette, débarrassée de l'excès de sébum, et reste confortable, sans jamais tirailler. Le teint paraît aussitôt plus frais, revitalisé et lumineux : la première étape de votre rituel Bloom." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce qu'une peau grasse a besoin d'être purifiée, pas agressée. Radiance Cleanser associe des agents lavants d'origine naturelle, parmi les plus doux, à un cœur hydratant de jus d'aloe vera, de glycérine et de Sodium PCA. Il élimine l'excès de sébum et tout ce qui ternit l'éclat, sans décaper la peau ni obstruer les pores. Parce qu'une peau grasse purifiée en douceur reste confortable et équilibrée.\nEnrichi en extrait de mûre et en plantes issues de l'agriculture biologique, il révèle un teint frais et revitalisé, matin et soir." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Éclat révélé : rafraîchit et revitalise le teint pour une peau visiblement plus lumineuse dès le premier geste",
-          "Excès de sébum éliminé : débarrasse la peau du sébum en excès, des impuretés et des résidus de maquillage qui ternissent le teint et font briller la peau",
-          "Hydratation préservée : le jus d'aloe vera, la glycérine et le Sodium PCA aident à maintenir l'équilibre hydrique de la peau",
-          "Pores respectés : nettoie en profondeur sans obstruer les pores",
-          "Confort après rinçage : la peau reste douce et confortable, sans sensation de tiraillement"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux mixtes à grasses, sujettes à l'excès de sébum, aux brillances et aux pores visibles",
-          "Celles et ceux qui veulent retrouver, matin et soir, une peau parfaitement nette et un teint frais et lumineux, sans dessécher la peau",
-          "Convient aussi aux peaux normales",
-          "Pour les peaux sèches ou sensibles, découvrez Milky Bloom, notre nettoyant huile-en-lait démaquillant"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Un gel fluide et frais qui se transforme en une mousse légère au contact de l'eau. Il se rince facilement et laisse la peau propre, souple et rafraîchie, avec un parfum léger. Sa formule d'origine naturelle peut présenter une légère séparation : c'est tout à fait normal." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "98% d'ingrédients d'origine naturelle",
-          "10% d'ingrédients issus de l'agriculture biologique",
-          "Chez ELKHA.B, nous mettons la douceur au cœur des actifs : Radiance Cleanser prouve qu'un nettoyage efficace peut révéler l'éclat de la peau tout en respectant son équilibre"
-        ] }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "lumibloom-niac-5",
-      nom: "Lumi-Bloom Niacinamide 5",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo peau nette et lumineuse.\nRadiance Cleanser purifie la peau en douceur et révèle l'éclat du teint, tandis que Lumi-Bloom Niacinamide 5 affine visiblement les pores et aide à équilibrer les peaux mixtes à grasses.",
-      prix: "34,90€",
-      variantId: "59324243411289"
-    }
-  },
-
-  // =====================================================================
-  // LUMINESCENCE NUIT
-  // =====================================================================
-  // ─────────────────────────────────────────────────────────────────
-  // LUMINESCENCE BOOST (nouveau soin — octobre 2026)
-  // ─────────────────────────────────────────────────────────────────
-  "luminescence-boost": {
-    nom: "Luminescence Boost",
-    sousTitre: "Cresson · Sureau · Acide hyaluronique",
-    details: ["30 ml", "Vegan"],
+  "spot-control": {
+    nom: "Spot Control",
+    sousTitre: "Sérum anti-taches ciblé · Acide kojique · Vitamine C",
+    details: ["15 ml", "Vegan"],
     note: "une pression suffit",
-    prix: "31,90€",
-    variantId: "60291035627865",
-    inci: "luminescence-boost",
-    avis: "Luminescence Boost",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Boost                 │
-    // └─────────────────────────────────────────────────────────────────┘
+    prix: "28,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "spot-control",
+    avis: "Spot Control",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793380782",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-1-boite-flacon.png?v=1793376159",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793380782"
-        // 📷 3. TEXTURE (à ajouter plus tard : une virgule après le lien du dessus, puis le nouveau lien)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Le soir", soin: "luminescence-boost", texte: "Sur peau propre, appliquez une pression de Luminescence Boost sur le visage et le cou, en remontant du bas vers le haut. Sa texture légère pénètre en quelques secondes." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Scellez avec Luminescence Nuit : sa texture riche prolonge l'action du sérum toute la nuit, pour une peau plus ferme et rebondie au réveil." }
+        { moment: "Matin et soir", soin: "spot-control", texte: "Sur peau propre, appliquez Spot Control uniquement sur les taches, en tapotant légèrement." },
+        { moment: "Matin et soir", soin: "bright-control", texte: "Poursuivez avec une pression de Bright Control sur tout le visage pour unifier le teint." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez toujours par Radiance Protect SPF 50 pour protéger le teint des UV." }
       ]
     },
-
     sections: [
       { titre: "L'expérience",
-        texte: "Retrouvez une peau visiblement plus ferme, plus lisse et pleine de rebond. Luminescence Boost associe des actifs hydratants et des extraits végétaux pour accompagner la peau face aux premiers signes de perte de fermeté. Sa formule aide à améliorer la tonicité cutanée, à lisser l'apparence des ridules et à préserver la souplesse de la peau, jour après jour." },
+        texte: "Spot Control est un sérum conçu pour agir précisément sur les zones présentant des taches brunes. L'acide kojique s'associe à la vitamine C, à la vitamine E et à l'extrait de romarin, tandis que la bétaïne, le Sodium PCA et l'huile de jojoba préservent l'hydratation, pour un teint visiblement plus uniforme et lumineux." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce qu'il conjugue fermeté, hydratation et confort en un seul geste. Les extraits de cresson et de sureau accompagnent la peau dans sa quête de tonicité, tandis que l'acide hyaluronique et le Sodium PCA maintiennent son hydratation. Utilisé avant Luminescence Nuit, il prépare la peau à recevoir toute la richesse de la crème." },
+        texte: "Parce qu'un soin ciblé permet d'agir précisément là où le teint manque d'uniformité. Spot Control concentre son action sur l'apparence des taches brunes. Il est aussi idéal pour entretenir les résultats d'un soin anti-taches et préserver l'éclat du teint le plus longtemps possible." },
       { titre: "Bénéfices clés",
-        liste: [
-          "Fermeté & tonicité : une peau d'apparence plus ferme et plus tonique",
-          "Rides & ridules : leur apparence est atténuée, la peau paraît plus lisse",
-          "Hydratation : la peau reste hydratée et confortable",
-          "Souplesse & rebond : une peau plus souple et visiblement rebondie",
-          "Éclat & vitalité : un teint frais et revitalisé"
-        ] },
+        liste: ["Aide à atténuer l'apparence des taches brunes", "Rend les irrégularités pigmentaires moins visibles", "Favorise l'éclat du teint", "Hydrate et adoucit la peau"] },
       { titre: "Pensé pour",
-        liste: [
-          "Les peaux qui souhaitent préserver leur fermeté",
-          "Les peaux qui montrent une perte de tonicité, des ridules ou un manque de souplesse",
-          "Celles et ceux qui cherchent un soin ciblé fermeté, sans renoncer à l'hydratation"
-        ] },
+        texte: "Les peaux présentant des taches brunes localisées, des marques pigmentaires post-imperfections ou de légères irrégularités. Idéal pour cibler certaines zones du visage, ou pour entretenir les résultats d'un soin anti-taches. Le matin, une protection solaire comme Radiance Protect SPF 50 est indispensable." },
       { titre: "Texture & sensorialité",
-        texte: "Une texture légère et fondante, absorbée rapidement, qui laisse une agréable sensation de fraîcheur. Son parfum dévoile des notes poudrées d'iris, nuancées de violette, sur un fond musqué et boisé." },
+        texte: "Une texture sérum pensée pour une application précise sur les zones concernées. Son parfum mêle la fraîcheur des agrumes, du citron et de l'orange à des notes de gingembre et de concombre, sur un fond boisé de vétiver, de cèdre et de patchouli." },
       { titre: "Engagement ELKHA.B",
-        liste: [
-          "100 % d'ingrédients d'origine naturelle, dont 23 % issus de l'agriculture biologique",
-          "Certifié COSMOS NATURAL par ECOCERT",
-          "Formule végane, développée selon les principes de la chimie verte"
-        ] }
+        texte: "• 100% d'ingrédients d'origine naturelle\n• 8% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Spot Control agit avec précision, là où la peau en a besoin, sans jamais compromettre son confort." }
     ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
     accord: {
-      fiche: "luminescence-nuit",
-      nom: "Luminescence Nuit",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo de nuit de la gamme Bloom.\nLuminescence Boost apporte les actifs fermeté, Luminescence Nuit nourrit et scelle l'hydratation : au réveil, la peau paraît plus ferme, plus souple et reposée.",
+      fiche: "bright-control",
+      nom: "Bright Control",
+      texte: "Le duo teint unifié.\nSpot Control agit en ciblé sur les taches les plus marquées.\nBright Control unifie le teint sur tout le visage.",
       prix: "34,90€",
-      variantId: "59324229943641"
+      variantId: ""   // 🛒 à compléter
     }
   },
-  "luminescence-nuit": {
-    nom: "Luminescence Nuit",
-    sousTitre: "Plancton marin · Collagène",
+
+  // =====================================================================
+  // GLYCO BALANCE
+  // =====================================================================
+  "glyco-balance": {
+    nom: "Glyco Balance",
+    sousTitre: "Lotion exfoliante · Acide glycolique · Bétaïne",
+    details: ["250 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "29,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "glyco-balance",
+    avis: "Glyco Balance",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-1-flacon.jpg",
+        // 📷 2. DOS DU FLACON (composition)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-2-dos.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "2 à 3 soirs par semaine", soin: "glyco-balance", texte: "Sur peau propre et sèche, appliquez Glyco Balance à l'aide d'un coton, en évitant le contour des yeux. Ne rincez pas." },
+        { moment: "Le soir", soin: "ceramide-night-restore", texte: "Terminez par Ceramide Night Restore pour réconforter la peau et renforcer sa barrière pendant la nuit." },
+        { moment: "Le lendemain matin", soin: "radiance-protect", texte: "Appliquez Radiance Protect SPF 50 : après une exfoliation, la protection solaire est indispensable." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Glyco Balance est une lotion tonique exfoliante qui affine visiblement le grain de peau et ravive l'éclat du teint. L'acide glycolique, un AHA, aide à éliminer les cellules mortes à la surface de la peau, tandis que la glycérine, la bétaïne et le Sodium PCA préservent son hydratation." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau lumineuse commence par un grain de peau régulier. Glyco Balance élimine en douceur les cellules mortes qui ternissent le teint et lisse visiblement la texture cutanée, tout en préservant l'hydratation. À utiliser quelques soirs par semaine, jamais le même soir qu'AHA Balance Peel." },
+      { titre: "Bénéfices clés",
+        liste: ["Exfolie en douceur la surface de la peau", "Lisse visiblement le grain de peau", "Ravive l'éclat d'un teint terne", "Préserve l'hydratation de la peau"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux au teint terne, au grain de peau irrégulier ou présentant une accumulation de cellules mortes. Idéal pour intégrer une exfoliation à sa routine et retrouver progressivement une peau plus lisse et lumineuse. Le matin, protégez votre peau avec Radiance Protect SPF 50 : les acides exfoliants la rendent plus sensible au soleil." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture liquide et légère, à appliquer sur un coton, pour un geste de soin simple et ciblé. Une formule sans parfum ajouté, à la sensorialité discrète." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• Sans parfum ajouté\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Glyco Balance associe l'exfoliation à des ingrédients hydratants pour renouveler la peau sans l'agresser." }
+    ],
+    accord: {
+      fiche: "ceramide-night-restore",
+      nom: "Ceramide Night Restore",
+      texte: "Le duo peau neuve, en douceur.\nGlyco Balance affine le grain de peau et ravive l'éclat.\nCeramide Night Restore réconforte aussitôt la peau et renforce sa barrière pendant la nuit.",
+      prix: "38,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // AHA BALANCE PEEL
+  // =====================================================================
+  "aha-balance-peel": {
+    nom: "AHA Balance Peel",
+    sousTitre: "Concentré exfoliant · Acide lactique · Acide hyaluronique",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "32,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "aha-balance-peel",
+    avis: "AHA Balance Peel",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-1-boite-flacon.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "1 à 2 soirs par semaine", soin: "aha-balance-peel", texte: "Sur peau propre et sèche, appliquez une fine couche de AHA Balance Peel en évitant le contour des yeux. Jamais le même soir que Glyco Balance." },
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Calm Balance Nuit pour apaiser et hydrater la peau pendant le sommeil." },
+        { moment: "Le lendemain matin", soin: "radiance-protect", texte: "Appliquez Radiance Protect SPF 50 : après une exfoliation, la protection solaire est indispensable." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "AHA Balance Peel est un concentré exfoliant qui affine le grain de peau et révèle un teint plus frais et lumineux. L'acide lactique aide à éliminer les cellules mortes et accompagne le renouvellement de surface, tandis que l'acide hyaluronique et les extraits de thé blanc et de sauge préservent l'hydratation." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'un teint terne ou un grain de peau irrégulier peuvent masquer l'éclat naturel de la peau. AHA Balance Peel lisse visiblement la texture, atténue l'apparence des petites taches et des ridules, et conjugue exfoliation et hydratation pour une peau renouvelée, sans négliger son confort." },
+      { titre: "Bénéfices clés",
+        liste: ["Exfolie et renouvelle la surface de la peau", "Lisse le grain de peau et les ridules", "Unifie et illumine le teint", "Préserve l'hydratation et la souplesse"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux présentant un teint terne, un grain de peau irrégulier, des ridules ou des taches superficielles. Idéal pour améliorer la texture et l'éclat de la peau grâce à une exfoliation ciblée. Le matin, protégez votre peau avec Radiance Protect SPF 50 : les acides exfoliants la rendent plus sensible au soleil." },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture liquide et légère qui s'étale facilement sur la peau. Sa formule dévoile une senteur discrète, légèrement sucrée, pour une expérience simple et agréable." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 100% d'ingrédients d'origine naturelle\n• 2% d'ingrédients issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. AHA Balance Peel associe exfoliation et hydratation pour révéler l'éclat de la peau en douceur." }
+    ],
+    accord: {
+      fiche: "hydra-balance",
+      nom: "Hydra Balance",
+      texte: "Le duo éclat et hydratation.\nAHA Balance Peel renouvelle la surface de la peau et ravive son éclat.\nHydra Balance la réhydrate intensément les jours suivants.",
+      prix: "28,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
+  // CELLULAR RENEW
+  // =====================================================================
+  "cellular-renew": {
+    nom: "Cellular Renew",
+    sousTitre: "Crème hydratante lissante · Bidens pilosa · Acide hyaluronique",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
-    variantId: "59324229943641",
-    inci: "luminescence-nuit",
-    avis: "Luminescence Nuit",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Nuit             │
-    // └─────────────────────────────────────────────────────────────────┘
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "cellular-renew",
+    avis: "Cellular Renew",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-nuit-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",
-        // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_LUMI_NUIT.png?v=1792581442",
-        // 📷 4. PHOTO 4
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cb60824390f842b82871e67a.png?v=1792579944"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le soir", titre: "Votre sérum Bloom", texte: "Sur peau propre, appliquez Radiance C Serum ou Lumi-Bloom Niacinamide 5, selon les besoins de votre peau." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Réchauffez une pression entre vos mains, puis enveloppez le visage de gestes lents. Laissez ses notes de nénuphar, de jasmin blanc et de vanille accompagner votre moment du soir." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "La nuit est le moment où la peau se régénère naturellement. Luminescence Nuit l'accompagne dans ce précieux instant en l'enveloppant d'une texture riche, fondante et réconfortante. Au réveil, la peau paraît plus ferme, plus souple, visiblement rebondie et parfaitement reposée." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que les plus beaux résultats s'obtiennent souvent pendant le sommeil. Luminescence Nuit associe un extrait innovant de plancton marin et du collagène à des actifs nourrissants comme le beurre de cacao, le beurre de karité, l'aloe vera et le Sodium PCA." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Nourrit intensément la peau pendant la nuit",
-          "Améliore visiblement la fermeté et la souplesse cutanée",
-          "Repulpe les traits et améliore le rebond de la peau",
-          "Atténue l'apparence des ridules",
-          "Préserve durablement l'hydratation et le confort cutané",
-          "Réveille une peau plus douce, plus ferme et naturellement lumineuse"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux en perte de fermeté",
-          "Les peaux sèches ou déshydratées",
-          "Les peaux souhaitant préserver leur capital jeunesse",
-          "Les peaux recherchant confort, nutrition et rebond au réveil"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Une texture riche, fondante et enveloppante qui pénètre confortablement sans laisser de fini gras. Son délicat parfum aux notes de nénuphar, de jasmin blanc, de vanille et d'une subtile touche de menthe poivrée transforme chaque application en un véritable rituel du soir." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "99% d'ingrédients d'origine naturelle",
-          "Formule enrichie en plancton marin, beurre de cacao et beurre de karité",
-          "Formule concentrée, pensée pour durer"
-        ] }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "luminescence-boost",
-      nom: "Luminescence Boost",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo de nuit de la gamme Bloom.\nAppliqué juste avant, Luminescence Boost apporte ses actifs fermeté, puis Luminescence Nuit nourrit et scelle l'hydratation : au réveil, la peau paraît plus ferme, plus souple et reposée.",
-      prix: "31,90€",
-      variantId: "60291035627865"
-    }
-  },
-
-  // =====================================================================
-  // RITUEL LUMINESCENCE (Jour & Nuit)
-  // =====================================================================
-  "rituel-luminescence": {
-    nom: "Rituel Luminescence",
-    sousTitre: "Acide hyaluronique · Plancton marin · Collagène",
-    details: ["Jour & Nuit", "2 × 50 ml", "Vegan"],
-    note: "une pression suffit",
-    prix: "67,90€",
-    variantId: "59358612750681",
-    inci: "rituel-luminescence",
-    avis: "Rituel Luminescence",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE  — Rituel Luminescence           │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-1-boites-flacons_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES                                         │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      titreSoins: "Vos deux soins",
-      soins: ["luminescence-jour", "luminescence-nuit"],
-      etapes: [
-        { moment: "Le matin", soin: "luminescence-jour", texte: "Sur peau propre, après votre sérum, appliquez une pression sur le visage et le cou, en massant délicatement jusqu'à complète pénétration." },
-        { moment: "Le soir",  soin: "luminescence-nuit", texte: "Sur peau propre, appliquez une pression en mouvements enveloppants, pour accompagner la peau pendant la nuit et favoriser son renouvellement naturel." }
-      ],
-      conclusion: "Du matin au soir, un soin pour chaque moment.\nDeux gestes simples pour une peau hydratée, rebondie et naturellement lumineuse, au réveil comme tout au long de la journée."
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Le Rituel Luminescence accompagne votre peau du matin jusqu'au soir pour lui offrir une hydratation continue et révéler un éclat naturel durable. Jour après jour, la peau paraît plus souple, plus rebondie et visiblement plus lumineuse." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Le Rituel Luminescence réunit deux formules complémentaires qui accompagnent la peau à chaque moment de la journée. Le matin, l'acide hyaluronique multimoléculaire hydrate à différents niveaux, tandis que le bisabolol apaise et aide à préserver le confort cutané pour une peau plus souple, fraîche et lumineuse.\nLe soir, le plancton marin, le collagène et les actifs hydratants prennent le relais pour soutenir la fermeté, le rebond et l'aspect régénéré de la peau. Ensemble, Luminescence Jour et Luminescence Nuit offrent une routine complète pour une peau intensément hydratée, apaisée, plus rebondie et naturellement éclatante au réveil comme tout au long de la journée." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Hydrate intensément jour et nuit",
-          "Révèle un glow naturel durable",
-          "Améliore la souplesse et le rebond de la peau",
-          "Contribue à préserver la barrière cutanée"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Toutes les peaux en manque d'hydratation, de confort ou d'éclat, souhaitant une routine complète pour révéler une peau visiblement plus lumineuse, souple et rebondie." },
-      { titre: "Texture & sensorialité",
-        texte: "Deux textures complémentaires, douces et enveloppantes, qui fondent délicatement sur la peau sans effet gras. Au réveil comme tout au long de la journée, la peau est confortable, fraîche et naturellement lumineuse." },
-      { titre: "Engagement ELKHA.B",
-        texte: "• 99% d'ingrédients d'origine naturelle\nChez ELKHA.B, chaque rituel est pensé pour accompagner la peau à chaque moment de la journée. Le Rituel Luminescence réunit deux soins complémentaires pour révéler une peau plus lumineuse, plus confortable et naturellement éclatante, jour après jour." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT (avec sélecteur automatique)               │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "radiance-protect",
-      nom: "Radiance Protect SPF 50",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le trio complet pour une peau lumineuse et protégée, du matin au soir.\nLe matin, Luminescence Jour hydrate intensément la peau, puis Radiance Protect SPF 50 l'enveloppe d'une haute protection minérale contre les UVA et les UVB.\nLe soir, Luminescence Nuit prend le relais pour nourrir, raffermir et accompagner le renouvellement naturel de la peau.\nEnsemble, ils préservent la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
-      prix: "26,90€"
-      // Les versions « Sans teinte » / « Teinté » sont reprises automatiquement de la fiche Radiance Protect
-    }
-  },
-
-  // =====================================================================
-  // RADIANCE PROTECT SPF 50
-  // =====================================================================
-  "radiance-protect": {
-    nom: "Radiance Protect SPF 50",
-    sousTitre: "Protection minérale UVA/UVB · Haute tolérance",
-    details: ["12 g", "SPF 50", "Vegan"],
-    note: "",
-    prix: "26,90€",
-    inci: "radiance-protect",
-    avis: "Radiance Protect",
-
-    // Sélecteur : la version choisie part au panier,
-    // et le diaporama glisse jusqu'à sa photo (0 = 1re photo, 1 = 2e photo…)
-    choixLabel: "Choisissez votre protection",
-    variantes: [
-      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
-      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886" }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  PHOTOS DE LA FICHE — Radiance Protect (diaporama)          │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886",   // 📷 petite photo : stick seul
-      type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      images: [
-        // 📷 1. TEINTÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-teinte-1-boite-flacon.png?v=1793376713",
-        // 📷 2. SANS TEINTE · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-sans-teinte-1-boite.png?v=1793376672",
-        // 📷 3. PHOTO D'AMBIANCE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Le matin", titre: "Vos soins Bloom", texte: "Appliquez vos sérums, puis votre crème Luminescence." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "En dernière étape, faites glisser le stick sur le visage et estompez en douceur : un voile léger, sans effet gras, qui laisse la peau lumineuse." },
-        { moment: "Au cours de la journée", texte: "Renouvelez l'application, notamment après une exposition prolongée au soleil, pour préserver durablement les bénéfices de votre rituel." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Chaque journée est une nouvelle exposition pour la peau. Radiance Protect SPF 50 l'enveloppe d'un voile protecteur léger qui préserve durablement son hydratation, son confort et sa radiance naturelle.\nSa texture fondante et son format stick rendent l'application simple, agréable et intuitive. Disponible en deux teintes naturelles, il se fond harmonieusement à la peau pour un fini lumineux, naturel et confortable." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que préserver la beauté de la peau commence par la protéger chaque jour.\nRadiance Protect SPF 50 associe une protection solaire minérale à une formule hydratante qui protège efficacement des rayons UVA et UVB tout en maintenant une peau souple, confortable et lumineuse tout au long de la journée.\nGrâce à son format stick, Radiance Protect SPF 50 s'applique avec précision et simplicité. Son geste intuitif permet une application homogène, facile à estomper, pour protéger la peau sans compromis sur le confort. Idéal pour une réapplication au cours de la journée." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Protection solaire minérale SPF 50 à large spectre UVA/UVB",
-          "Aide à préserver le capital jeunesse de la peau",
-          "Maintient durablement l'hydratation et le confort cutané",
-          "Révèle un teint naturellement lumineux (healthy glow)",
-          "Texture légère, confortable et résistante à l'eau",
-          "Format stick pratique pour une application et une réapplication faciles"
-        ] },
-      { titre: "Pensé pour",
-        liste: [
-          "Les peaux recherchant une protection solaire minérale au quotidien",
-          "Les peaux sensibles en quête de confort et de haute tolérance",
-          "Les peaux souhaitant préserver durablement leur capital jeunesse",
-          "Les peaux recherchant une hydratation confortable associée à un teint naturellement lumineux"
-        ] },
-      { titre: "Texture & sensorialité",
-        texte: "Une texture crème légère et fondante qui glisse facilement sur la peau. Elle s'estompe en douceur, sans effet gras ni sensation collante, et laisse un fini naturellement lumineux, confortable et invisible au quotidien.\nDisponible en version teintée et non teintée." },
-      { titre: "Engagement ELKHA.B",
-        liste: [
-          "98% d'ingrédients d'origine naturelle",
-          "Protection solaire minérale à haute tolérance",
-          "Disponible en deux teintes naturelles",
-          "Formule concentrée, pensée pour durer"
-        ] }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "radiance-serum",
-      nom: "Radiance C Serum",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Le duo indispensable de votre routine du matin. Radiance C Serum révèle l'éclat naturel du teint et aide à protéger la peau des agressions oxydatives.\nRadiance Protect SPF 50 prend ensuite le relais en offrant une haute protection contre les UVA et les UVB.\nEnsemble, ils contribuent à préserver la jeunesse de la peau pour un teint plus lumineux, plus uniforme et protégé jour après jour.",
-      prix: "34,90€",
-      variantId: "59324259434841"
-    }
-  },
-
-  // =====================================================================
-  // ROUTINE ÉCLAT (fiche routine — TEST)
-  // =====================================================================
-  "routine-eclat": {
-    nom: "Routine Éclat",
-    sousTitre: "Radiance Cleanser · Radiance C Serum · Luminescence Jour",   // remplacé selon le type de peau choisi
-    details: ["3 soins", "Vegan"],
-    note: "",
-    prix: "94€",
-    avis: "Routine éclat",
-
-    // Choix du type de peau : il change le nettoyant inclus (deux lots Shopify, même prix)
-    // fiche = soin qui remplace la 1re vignette de « Votre routine » ; mention = petite ligne sous le bouton panier
-    choixLabel: "Votre type de peau",
-    variantes: [
-      { label: "Peau mixte à grasse",    variantId: "60085332509017", photo: 0, fiche: "radiance-cleanser", mention: "Livraison offerte",
-        sousTitre: "Radiance Cleanser · Radiance C Serum · Luminescence Jour",
-        etape: "Faites mousser une noisette de Radiance Cleanser entre vos mains humides, massez délicatement le visage, puis rincez abondamment à l'eau." },
-      { label: "Peau sèche ou sensible", variantId: "60085379694937", photo: 1, fiche: "milky-bloom",       mention: "5,70 € d'économie par rapport aux soins achetés séparément · Livraison offerte",
-        sousTitre: "Milky Bloom · Radiance C Serum · Luminescence Jour",
-        etape: "Sur peau sèche ou humide, massez délicatement une noisette de Milky Bloom sur le visage, puis rincez abondamment à l'eau." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Éclat                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      type: "diaporama",
-      images: [
-        // 📷 1. ROUTINE PEAU MIXTE À GRASSE (Radiance Cleanser)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-mixte-carrousel_1.png?v=1792677686",
-        // 📷 2. ROUTINE PEAU SÈCHE OU SENSIBLE (Milky Bloom)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-sensible-carrousel_1.png?v=1792677687"
-      ]
-    },
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  CONTENU DE LA ROUTINE                                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      intro: "Trois soins complémentaires pour révéler l'éclat du teint, dès le nettoyage.\nVotre nettoyant prépare la peau : Radiance Cleanser pour les peaux mixtes à grasses, Milky Bloom pour les peaux sèches ou sensibles. Radiance C Serum illumine le teint grâce à son action antioxydante, puis Luminescence Jour lui apporte hydratation et confort.\nUn rituel complet pour une peau nette, hydratée et visiblement plus lumineuse.",
-      soins: ["radiance-cleanser", "radiance-serum", "luminescence-jour"],
-      soinSelonChoix: 0,   // la 1re vignette suit le type de peau choisi (Radiance Cleanser ou Milky Bloom)
-      moment: "Le matin",
-      etapes: [
-        { selonChoix: true,          texte: "" },   // le nettoyant du type de peau choisi (nom + texte « etape » de la version)
-        { soin: "radiance-serum",    texte: "Sur peau propre et sèche, appliquez une pression sur le visage et le cou." },
-        { soin: "luminescence-jour", texte: "Laissez pénétrer quelques instants, puis appliquez Luminescence Jour." },
-        { soin: "radiance-protect",  texte: "Pour finir, protégez l'éclat de votre peau avec Radiance Protect SPF 50 (non inclus dans la routine)." }
-      ],
-      conclusion: "Simple à adopter, pensée pour durer.\nTrois gestes complémentaires qui trouvent naturellement leur place dans votre quotidien."
-    }
-  },
-
-  // =====================================================================
-  // RADIANCE EYE CREAM
-  // =====================================================================
-  "radiance-eye-cream": {
-    nom: "Radiance Eye Cream",
-    sousTitre: "Acide hyaluronique · Complexe de 3 extraits végétaux bio",
-    details: ["15 ml", "Vegan"],
-    note: "une petite quantité suffit",
-    prix: "28,90€",
-    variantId: "59324162408793",
-    inci: "radiance-eye-cream",
-    avis: "Radiance Eye Cream",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Radiance Eye Cream
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-eye-cream-1-boite-flacon.png?v=1793375349",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-1-boite-flacon.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Votre_texte_de_paragraphe_2.jpg?v=1791055787",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Texture_creme.png?v=1791055980"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-2-flacon.jpg",
+        // 📷 3. TEXTURE (plus tard)
       ]
     },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Matin et/ou soir", soin: "radiance-eye-cream", texte: "Sur peau propre, prélevez une petite quantité de crème : sa texture douce, aux notes de coton et de fleurs, se pose délicatement sur le contour des yeux." },
-        { moment: "Matin et/ou soir", texte: "Tapotez du bout des doigts jusqu'à absorption, puis poursuivez avec votre routine habituelle." },
-        { moment: "1 à 2 fois par semaine", titre: "Lumi-Eyes Bright & Glow", texte: "Offrez à votre regard une pause fraîcheur de 15 minutes avec les patchs, comme un véritable masque du contour des yeux." }
+        { moment: "Le matin", soin: "cellular-renew", texte: "Sur peau propre, appliquez une pression de Cellular Renew sur le visage et le cou." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50." },
+        { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez Cellular Reveal." },
+        { moment: "Le soir", soin: "cellular-renew", texte: "Puis appliquez Cellular Renew pour prolonger son action et hydrater la peau." }
       ]
     },
-
     sections: [
       { titre: "L'expérience",
-        texte: "Un soin quotidien ciblé pour réveiller les regards fatigués. Radiance Eye Cream hydrate la zone délicate du contour de l'œil, aide à atténuer l'apparence des poches et des cernes et lisse visiblement les ridules de déshydratation. Le regard paraît plus frais, reposé et lumineux." },
+        texte: "Et si atténuer vos rides devenait un geste de confort ? Sa texture crémeuse et légère fond instantanément sur la peau et laisse un fini lumineux, sans effet gras. À chaque application, la peau est hydratée, souple et confortable.\nAu fil des semaines, les rides et ridules paraissent moins marquées et la peau retrouve un aspect plus lisse et reposé." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Pour son action complète sur les principaux signes de fatigue du regard. Son complexe de 3 extraits végétaux biologiques, associé à l'acide hyaluronique de différents poids moléculaires, cible les poches, les cernes, les ridules et la déshydratation tout en préservant le confort du contour de l'œil." },
+        texte: "Parce que prendre soin des premiers signes de l'âge ne devrait jamais brusquer votre peau. Cellular Renew associe une alternative végétale et douce au rétinol, qui aide à atténuer les rides et ridules, à une hydratation intense. Ses ingrédients ont été choisis pour apporter à la peau souplesse et confort, sans jamais l'agresser.\nElle complète Cellular Reveal : le sérum lisse le grain de peau, la crème prolonge son action et hydrate." },
       { titre: "Bénéfices clés",
-        liste: [
-          "Aide à atténuer l'apparence des poches et des cernes",
-          "Aide à maintenir l'hydratation du contour de l'œil",
-          "Aide à lisser l'apparence des ridules de déshydratation",
-          "Apporte confort et souplesse au contour de l'œil",
-          "Dévoile un regard plus frais et moins marqué par les signes de fatigue"
-        ] },
+        liste: ["Rides et ridules visiblement atténuées au fil des semaines", "Peau plus lisse et plus uniforme", "Hydratation légère et durable", "Confort et souplesse, sans effet gras", "Fini frais et lumineux"] },
       { titre: "Pensé pour",
-        texte: "Les contours des yeux présentant cernes, poches, ridules ou signes de déshydratation, ainsi que les regards fatigués en quête de fraîcheur et de confort." },
+        texte: "Tous les types de peau qui voient apparaître les premières rides et ridules et souhaitent une alternative douce au rétinol. Idéal pour commencer avec les alternatives au rétinol, en crème, ou pour accompagner Cellular Reveal. Convient aussi aux peaux sensibles, et aux peaux sujettes aux imperfections grâce à sa texture légère.\nPour commencer en douceur : si vous n'avez jamais utilisé d'alternative au rétinol, commencez par Cellular Renew seule pendant deux semaines, puis ajoutez Cellular Reveal le soir. Évitez le contour des yeux : pour le regard, découvrez Cellular Eye Restore." },
       { titre: "Texture & sensorialité",
-        texte: "Une texture crème douce et confortable qui enveloppe délicatement le contour des yeux. Son parfum délicat aux notes de coton doux et de fleurs accompagne le geste de soin." },
+        texte: "Une crème légère et fondante, qui pénètre rapidement et laisse un fini lumineux. Son parfum dévoile une rose légèrement sucrée et une touche délicate de géranium rouge, sur un fond vert et fruité." },
       { titre: "Engagement ELKHA.B",
-        texte: "Une formule 100% d'origine naturelle, dont 10% issus de l'agriculture biologique, certifiée COSMOS Natural par ECOCERT Greenlife. Un soin qui s'inscrit dans l'engagement ELKHA.B pour des formules ciblées, sensorielles et respectueuses de la peau." }
+        texte: "• Ingrédients issus de l'agriculture biologique : aloe vera, jojoba, argousier, beurre de mangue\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Cellular Renew en est la preuve : une alternative végétale au rétinol, dans une crème qui hydrate avant tout." }
     ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT (sélecteur des 3 patchs)                   │
-    // └─────────────────────────────────────────────────────────────────┘
     accord: {
-      fiche: "bright-glow-decongestionnant",   // « Découvrir » suit la formule choisie
-      nom: "Lumi-Eyes Bright & Glow",
+      fiche: "cellular-reveal",
+      nom: "Cellular Reveal",
+      texte: "Le duo Cellular.\nCellular Reveal lisse le grain de peau et unifie le teint.\nCellular Renew prolonge cette action et apporte à la peau l'hydratation et le confort dont elle a besoin.",
+      prix: "37,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
 
-      // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Trio_Bright_Glow.png?v=1791272097",
-
-      texte: "Deux gestes complémentaires pour réveiller le regard.\nRadiance Eye Cream accompagne le contour de l'œil au quotidien, tandis que Lumi-Eyes Bright & Glow lui offre un boost de fraîcheur et d'hydratation.\nUn duo complice pour un contour des yeux visiblement plus lisse, lumineux et un regard qui paraît moins marqué par la fatigue.",
+  // =====================================================================
+  // BHA BALANCE
+  // =====================================================================
+  "bha-balance": {
+    nom: "BHA Balance",
+    sousTitre: "Lotion tonique purifiante · Acide salicylique · Excès de sébum",
+    details: ["200 ml", "Vegan"],
+    note: "quelques gouttes suffisent",
+    prix: "24,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "bha-balance",
+    avis: "BHA Balance",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-miniature.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-1-flacon.jpg",
+        // 📷 2. DOS DU FLACON (composition)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-2-dos.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser." },
+        { moment: "Matin et/ou soir", soin: "bha-balance", texte: "Versez quelques gouttes de BHA Balance dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." },
+        { moment: "Matin et/ou soir", soin: "hydra-balance", texte: "Poursuivez avec Hydra Balance, puis votre crème : Luminescence Jour le matin, Luminescence Nuit le soir. Si votre peau est sensible ou sensibilisée, préférez Calm Balance Jour et Calm Balance Nuit." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez toujours par Radiance Protect SPF 50." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Et si vos pores retrouvaient enfin leur légèreté ? Sur les peaux mixtes à grasses, l'excès de sébum et les impuretés s'accumulent dans les pores et font briller la peau. Après le nettoyage, BHA Balance prolonge la purification : l'acide salicylique travaille au cœur des pores, tandis que l'eau florale de lavande et le concombre rafraîchissent la peau.\nJour après jour, la peau paraît plus nette, les pores moins encombrés, et le teint plus frais." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau grasse a besoin d'un actif ciblé, pas d'un soin agressif. BHA Balance associe l'acide salicylique, un BHA reconnu pour sa capacité à pénétrer dans les pores, à des actifs hydratants comme la glycérine et la bétaïne. Elle purifie efficacement tout en préservant le pH naturel de la peau.\nSans parfum ajouté et vegan, elle complète Glyco Balance et AHA Balance Peel : les AHA pour l'éclat et le grain de peau, le BHA pour les pores et l'excès de sébum." },
+      { titre: "Bénéfices clés",
+        liste: ["Contribue à désobstruer les pores", "Élimine les impuretés et l'excès de sébum", "Purifie sans déséquilibrer le pH naturel de la peau", "Aide à maintenir l'hydratation et la souplesse", "Fraîcheur immédiate à chaque application"] },
+      { titre: "Pensé pour",
+        texte: "Les peaux mixtes à grasses, sujettes à l'excès de sébum, aux pores visibles et aux brillances. Idéal pour intégrer un actif purifiant à sa routine, après le nettoyage. Convient aussi aux peaux normales.\nPour commencer en douceur : les deux premières semaines, utilisez BHA Balance un jour sur deux, puis chaque jour si votre peau est à l'aise. Jamais le même soir que Glyco Balance ou AHA Balance Peel." },
+      { titre: "Texture & sensorialité",
+        texte: "Une lotion fluide et fraîche, qui s'applique directement avec les mains et pénètre instantanément, sans laisser de film. Sans parfum ajouté, elle dévoile la senteur naturelle de ses eaux florales : une infusion de plantes aux notes de fruits secs et de rose." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99 % d'ingrédients d'origine naturelle\n• 7 % d'ingrédients issus de l'agriculture biologique\n• Sans parfum ajouté · Vegan\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. BHA Balance associe l'efficacité de l'acide salicylique à des ingrédients hydratants, pour purifier la peau sans la brusquer." }
+    ],
+    accord: {
+      fiche: "hydra-balance",
+      nom: "Hydra Balance",
+      texte: "Le duo peau nette et hydratée.\nBHA Balance purifie les pores et élimine l'excès de sébum.\nHydra Balance offre à la peau un bain d'hydratation et la garde souple et confortable.",
       prix: "28,90€",
-      choixLabel: "Choisissez vos patchs",
-      variantes: [
-        // 📷 image : petite photo de rappel de chaque formule
-        { label: "CAFÉINE + VITAMINE C",             variantId: "59565820182873", fiche: "bright-glow-decongestionnant", image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367" },
-        { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59565819887961", fiche: "bright-glow-anti-fatigue",     image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367" },
-        { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59565820412249", fiche: "bright-glow-patch",            image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518" }
-      ]
-    }
-  },
-
-  // =====================================================================
-  // LUMI-EYES BRIGHT & GLOW — Niacinamide + Acide hyaluronique
-  // =====================================================================
-  "bright-glow-patch": {
-    nom: "Lumi-Eyes Bright & Glow",
-    sousTitre: "Patchs éclaircissants & lissants",
-    actifs: "Niacinamide · Acide hyaluronique",
-    details: [["Cernes", "Ridules"], ["7 paires", "Vegan"]],
-    note: "",
-    prix: "28,90€",
-    variantId: "59565820412249",
-    inci: "bright-glow-patch",
-    avis: "Lumi-Eyes Bright & Glow Niacinamide + Acide hyaluronique",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Lumi-Eyes Bright & Glow Niacinamide + Acide hyaluronique
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000018cc82108970f45b4b30dfff.png?v=1792225964",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000018cc82108970f45b4b30dfff.png?v=1792225964",
-        // 📷 3. PATCHS SEULS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_dore.png?v=1791273110",
-        // 📷 4. MANNEQUIN
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_dore.png?v=1791273035"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "1 à 2 fois par semaine", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre et sèche, déposez un patch sous chaque œil : l'hydrogel frais et enveloppant épouse délicatement le contour de l'œil." },
-        { moment: "1 à 2 fois par semaine", texte: "Laissez poser 15 minutes, le temps d'une vraie pause pour votre regard." },
-        { moment: "1 à 2 fois par semaine", texte: "Retirez les patchs, puis faites pénétrer l'excédent de sérum par légers tapotements. Ne pas rincer." },
-        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Prolongez l'effet fraîcheur avec Radiance Eye Cream, matin et/ou soir." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Un véritable masque hydrogel pour offrir au contour des yeux 15 minutes de fraîcheur et de soin. Lumi-Eyes Bright & Glow hydrate, aide à lisser l'apparence des ridules de déshydratation et à raviver l'éclat du regard. À retirer après la pose pour découvrir un contour des yeux visiblement plus frais, doux et reposé." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Pour son effet coup de frais express et sa formule associant niacinamide, acide hyaluronique, glycérine, aloe vera et panthénol. Un concentré d'actifs hydratants et réconfortants qui prend soin de la zone délicate du contour des yeux tout en aidant à révéler un regard plus lumineux et uniforme." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Aide à illuminer et unifier le contour des yeux",
-          "Apporte une hydratation multi-niveaux",
-          "Aide à repulper l'apparence des ridules liées à la sécheresse",
-          "Aide à apaiser et adoucir le contour des yeux",
-          "Dévoile un regard plus frais et moins marqué par la fatigue"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Tous les types de peau, y compris les peaux sèches, sensibles et matures. Idéal lorsque le contour des yeux paraît fatigué, déshydraté, terne ou marqué par de fines ridules." },
-      { titre: "Texture & sensorialité",
-        texte: "Des patchs hydrogel frais et enveloppants, inspirés des rituels K-beauty, qui épousent délicatement le contour de l'œil pendant la pose. Sans parfum." },
-      { titre: "Engagement ELKHA.B",
-        texte: "Une formule sans parfum et testée sous contrôle dermatologique, pensée pour convenir également aux peaux sensibles. Des patchs conçus selon des procédés respectueux de l'environnement et des ressources naturelles, dans une démarche de formulation responsable." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "radiance-eye-cream",
-      nom: "Radiance Eye Cream",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Prolongez l'effet fraîcheur au quotidien.\nAprès la parenthèse express des patchs Lumi-Eyes Bright & Glow, Radiance Eye Cream prend le relais jour après jour pour hydrater, lisser et illuminer le contour de l'œil.\nLe duo idéal pour préserver un regard frais, lumineux et visiblement moins marqué par les signes de fatigue.",
-      prix: "28,90€",
-      variantId: "59324162408793"
-    }
-  },
-
-  // =====================================================================
-  // LUMI-EYES BRIGHT & GLOW — Caféine + Vitamine C
-  // =====================================================================
-  "bright-glow-decongestionnant": {
-    nom: "Lumi-Eyes Bright & Glow",
-    sousTitre: "Patchs éclat décongestionnants",
-    actifs: "Caféine · Vitamine C",
-    details: [["Poches", "Teint terne"], ["7 paires", "Vegan"]],
-    note: "",
-    prix: "28,90€",
-    variantId: "59565820182873",
-    inci: "bright-glow-decongestionnant",
-    avis: "Lumi-Eyes Bright & Glow Caféine + Vitamine C",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Lumi-Eyes Bright & Glow Caféine + Vitamine C
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000426481f48f8efd886f65ba45.png?v=1792225964",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000426481f48f8efd886f65ba45.png?v=1792225964",
-        // 📷 3. PATCHS SEULS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_gris.png?v=1791273110",
-        // 📷 4. MANNEQUIN
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_gris.png?v=1791273034"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Selon vos besoins", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre et sèche, déposez un patch sous chaque œil : l'hydrogel frais, sans parfum, épouse le contour de l'œil et apporte une sensation immédiate de fraîcheur." },
-        { moment: "Selon vos besoins", texte: "Laissez poser 15 minutes, le temps d'une vraie pause pour votre regard." },
-        { moment: "Selon vos besoins", texte: "Retirez les patchs, puis faites pénétrer l'excédent de sérum par légers tapotements. Ne pas rincer." },
-        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Prolongez l'effet fraîcheur avec Radiance Eye Cream, matin et/ou soir." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Offrez à votre regard une pause fraîcheur. Ces patchs hydrogel légers épousent délicatement le contour des yeux pour apporter une sensation immédiate de confort. Leur texture rafraîchissante accompagne un véritable moment de détente, tandis que leur formule aide à revitaliser le regard fatigué." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que le contour des yeux mérite lui aussi un soin ciblé. L'association de la caféine et de la vitamine C aide à décongestionner et à raviver l'éclat du regard, tandis que le panthénol et la glycérine contribuent à maintenir la peau hydratée et apaisée. Un geste simple pour retrouver un regard visiblement plus frais, sans multiplier les étapes." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Décongestionne le regard fatigué — la caféine aide à réduire l'apparence des poches",
-          "Ravive l'éclat — la vitamine C contribue à illuminer le contour des yeux et atténuer le teint terne",
-          "Hydrate et apaise — le panthénol et la glycérine maintiennent l'hydratation et le confort"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Les regards fatigués, les poches et les contours des yeux en manque d'éclat. Idéal pour celles et ceux qui recherchent un soin ponctuel rafraîchissant, hydratant et facile à intégrer à leur routine." },
-      { titre: "Texture & sensorialité",
-        texte: "Une texture hydrogel fraîche, légère et souple, qui épouse le contour des yeux. Sans parfum, elle offre une sensation de fraîcheur et de confort pendant la pose, sans nécessiter de rinçage." },
-      { titre: "Engagement ELKHA.B",
-        texte: "• Testé dermatologiquement\n• Végan\n• Sans parfum\nChez ELKHA.B, nous privilégions des formules ciblées qui associent performance et confort, sans superflu. Ces patchs sont formulés avec de la caféine, de la vitamine C, du panthénol et de la glycérine pour répondre aux besoins du contour des yeux." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "radiance-eye-cream",
-      nom: "Radiance Eye Cream",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Prolongez l'effet fraîcheur au quotidien.\nAprès la parenthèse express des patchs Lumi-Eyes Bright & Glow, Radiance Eye Cream prend le relais jour après jour pour hydrater, lisser et illuminer le contour de l'œil.\nLe duo idéal pour préserver un regard frais, lumineux et visiblement moins marqué par les signes de fatigue.",
-      prix: "28,90€",
-      variantId: "59324162408793"
-    }
-  },
-
-  // =====================================================================
-  // LUMI-EYES BRIGHT & GLOW — Antioxydants + Provitamine B5
-  // =====================================================================
-  "bright-glow-anti-fatigue": {
-    nom: "Lumi-Eyes Bright & Glow",
-    sousTitre: "Patchs anti-fatigue réconfortants",
-    actifs: "Antioxydants · Provitamine B5",
-    details: [["Fatigue", "Sécheresse", "Inconfort"], ["7 paires", "Vegan"]],
-    note: "",
-    prix: "28,90€",
-    variantId: "59565819887961",
-    inci: "bright-glow-anti-fatigue",
-    avis: "Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000027bc81f4ab57858a2c77cf29.png?v=1792225964",   // 📷 petite photo (routines, accord parfait) : flacon seul
-      type: "diaporama",
-      images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000027bc81f4ab57858a2c77cf29.png?v=1792225964",
-        // 📷 3. PATCHS SEULS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_orange.png?v=1791273110",
-        // 📷 4. MANNEQUIN
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_orange.png?v=1791273034"
-      ]
-    },
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      etapes: [
-        { moment: "Selon vos besoins", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre et sèche, déposez un patch sous chaque œil : l'hydrogel frais épouse le contour de l'œil, porté par un parfum floral léger aux notes végétales." },
-        { moment: "Selon vos besoins", texte: "Laissez poser 15 minutes, le temps d'une vraie pause pour votre regard." },
-        { moment: "Selon vos besoins", texte: "Retirez les patchs, puis faites pénétrer l'excédent de sérum par légers tapotements. Ne pas rincer." },
-        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Prolongez l'effet fraîcheur avec Radiance Eye Cream, matin et/ou soir." }
-      ]
-    },
-
-    sections: [
-      { titre: "L'expérience",
-        texte: "Offrez à votre regard un moment de fraîcheur et de détente. Ces patchs hydrogel épousent délicatement le contour des yeux pour apporter une sensation de confort et de légèreté. Leur formule associe des antioxydants et des actifs hydratants pour revitaliser cette zone délicate et lui donner un aspect plus reposé." },
-      { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce qu'un regard fatigué mérite un soin ciblé, sans multiplier les étapes. Ces patchs associent des antioxydants, du panthénol et de la glycérine dans une formule hydrogel rafraîchissante. En 15 minutes, ils offrent une pause hydratante et réconfortante, idéale pour retrouver un contour des yeux frais et confortable." },
-      { titre: "Bénéfices clés",
-        liste: [
-          "Rafraîchit le regard fatigué — la texture hydrogel aide à retrouver un regard visiblement plus reposé",
-          "Hydrate et apaise — le panthénol et la glycérine maintiennent l'hydratation et le confort",
-          "Aide à préserver la peau — les antioxydants protègent du stress oxydatif"
-        ] },
-      { titre: "Pensé pour",
-        texte: "Les contours des yeux fatigués, en manque de fraîcheur ou de confort. Idéal pour celles et ceux qui recherchent un soin ponctuel hydratant et revitalisant, à intégrer facilement à leur routine." },
-      { titre: "Texture & sensorialité",
-        texte: "Une texture hydrogel fraîche, souple et légère, qui épouse délicatement le contour des yeux. Son parfum floral frais et léger, aux subtiles notes végétales, accompagne ce moment de détente." },
-      { titre: "Engagement ELKHA.B",
-        texte: "• Testé dermatologiquement\n• Végan\n• Sans noix\nChez ELKHA.B, nous privilégions des formules ciblées qui associent performance et confort, sans superflu. Ces patchs réunissent des antioxydants et des actifs hydratants dans un soin pensé pour revitaliser le contour des yeux tout en respectant sa délicatesse." }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🤝  L'ACCORD PARFAIT                                            │
-    // └─────────────────────────────────────────────────────────────────┘
-    accord: {
-      fiche: "radiance-eye-cream",
-      nom: "Radiance Eye Cream",
-
-      // 📷 PHOTO DE L'ACCORD PARFAIT : la 1re photo de la fiche associée est utilisée automatiquement
-
-      texte: "Prolongez l'effet fraîcheur au quotidien.\nAprès la parenthèse express des patchs Lumi-Eyes Bright & Glow, Radiance Eye Cream prend le relais jour après jour pour hydrater, lisser et illuminer le contour de l'œil.\nLe duo idéal pour préserver un regard frais, lumineux et visiblement moins marqué par les signes de fatigue.",
-      prix: "28,90€",
-      variantId: "59324162408793"
-    }
-  },
-
-  // =====================================================================
-  // ROUTINE HYDRATATION
-  // =====================================================================
-  "routine-hydratation": {
-    nom: "Routine Hydratation",
-    sousTitre: "Gelée Lumi-Bloom · Luminescence Jour",
-    details: ["2 soins", "Vegan"],
-    note: "",
-    prix: "63€",
-    variantId: "59358151344473",
-    avis: "Routine hydratation",
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Hydratation
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
-      images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-carrousel.png?v=1793385822"
-      ]
-    },
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  CONTENU DE LA ROUTINE                                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      intro: "Deux soins complémentaires pour renforcer l'hydratation et préserver le confort de la peau au quotidien.\nLa Gelée Lumi-Bloom aux prébiotiques aide à soutenir l'équilibre de la peau tout en lui apportant une première dose d'hydratation, tandis que Luminescence Jour complète le rituel en aidant à maintenir une peau souple et confortable.\nUn rituel simple pour une peau hydratée, équilibrée et confortable.",
-      soins: ["gelee-lumibloom", "luminescence-jour"],
-      moment: "Le matin",
-      etapes: [
-        { soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom sur le visage et le cou." },
-        { soin: "luminescence-jour", texte: "Laissez pénétrer quelques instants, puis appliquez Luminescence Jour pour compléter l'hydratation." }
-      ],
-      conclusion: "L'essentiel, simplement.\nDeux gestes complémentaires pour accompagner l'équilibre et le confort de la peau jour après jour."
-    }
-  },
-
-  // =====================================================================
-  // ROUTINE FERMETÉ (anciennement « Routine Anti-âge » — l'identifiant routine-anti-age reste le même)
-  // =====================================================================
-  "routine-anti-age": {
-    nom: "Routine Fermeté",
-    sousTitre: "Luminescence Jour · Radiance Protect SPF 50 · Luminescence Nuit",
-    details: ["3 soins", "Vegan"],
-    note: "",
-    prix: "93€",
-    avis: "Routine fermeté",
-
-    choixLabel: "Choisissez votre protection",
-    photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
-    variantes: [
-      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
-      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886" }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Fermeté 
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
-      images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-fermete-carrousel-v2.png?v=1793386032"
-      ]
-    },
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  CONTENU DE LA ROUTINE                                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      intro: "Une routine complète pour agir au quotidien sur les signes du vieillissement cutané.\nLuminescence Jour, avec son acide hyaluronique multimoléculaire, agit à différents niveaux de la peau pour la repulper.\nRadiance Protect SPF 50 offre une protection à large spectre contre les UVA et les UVB, responsables du photovieillissement.\nLuminescence Nuit, enrichie en collagène et en plancton marin, accompagne la peau durant sa régénération nocturne pour lui offrir un aspect plus lisse au réveil.\nJour après jour, la peau paraît plus rebondie, repulpée et visiblement plus lisse.",
-      soins: ["luminescence-jour", "radiance-protect", "luminescence-nuit"],
-      etapes: [
-        { moment: "Le matin", soin: "luminescence-jour", texte: "Sur peau propre, appliquez une pression de Luminescence Jour sur le visage et le cou." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50, en dernière étape de votre routine." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Sur peau propre, appliquez une pression de Luminescence Nuit." }
-      ],
-      conclusion: "Prendre soin aujourd'hui, préserver demain.\nUn rituel quotidien qui accompagne la peau à chaque moment clé, du matin jusqu'à la nuit."
-    }
-  },
-
-  // =====================================================================
-  // ROUTINE ÉQUILIBRE
-  // =====================================================================
-  "routine-equilibre": {
-    nom: "Routine Équilibre",
-    sousTitre: "Lumi-Bloom Niacinamide 5 · Gelée Lumi-Bloom · Lumi-Veil CC Cream",
-    details: ["3 soins", "Vegan"],
-    note: "",
-    prix: "90€",
-    avis: "Routine équilibre",
-
-    choixLabel: "Choisissez votre teinte",
-    photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
-    variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
-      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
-      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Équilibre
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
-      images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-carrousel.png?v=1793385932"
-      ]
-    },
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  CONTENU DE LA ROUTINE                                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      intro: "Trois soins complémentaires pour retrouver une peau plus équilibrée, apaisée et confortable.\nLumi-Bloom Niacinamide 5 aide à réguler l'excès de sébum, à améliorer l'apparence des pores et à uniformiser le teint.\nLa Gelée Lumi-Bloom aux prébiotiques soutient l'équilibre de la barrière cutanée, hydrate et aide à apaiser les sensations d'inconfort.\nLumi-Veil CC Cream SPF 30 complète la routine en unifiant naturellement le teint tout en apportant confort et protection au quotidien.\nJour après jour, la peau paraît plus nette, apaisée et équilibrée, le teint plus uniforme.",
-      soins: ["lumibloom-niac-5", "gelee-lumibloom", "lumiveil-cc-cream"],
-      etapes: [
-        { moment: "Le matin", soin: "lumibloom-niac-5", texte: "Sur peau propre, appliquez une pression sur le visage et laissez pénétrer 1 à 2 minutes." },
-        { moment: "Le matin", soin: "lumiveil-cc-cream", texte: "Poursuivez avec votre crème de jour, puis terminez par Lumi-Veil CC Cream SPF 30." },
-        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom sur le visage et laissez pénétrer quelques minutes avant votre crème de nuit." }
-      ],
-      conclusion: "L'équilibre, jour après jour.\nUn rituel du matin au soir pour une peau plus nette, apaisée et un teint plus uniforme."
-    }
-  },
-
-  // =====================================================================
-  // ROUTINE TEINT & PROTECTION
-  // =====================================================================
-  "routine-teint-protection": {
-    nom: "Routine Teint & Protection",
-    sousTitre: "Radiance C Serum · Lumi-Veil CC Cream",
-    details: ["2 soins", "Vegan"],
-    note: "",
-    prix: "61€",
-    avis: "Routine teint & protection",
-
-    choixLabel: "Choisissez votre teinte",
-    photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
-    variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
-      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
-      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Teint & Protection
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
-      images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-teint-protection-carrousel.png?v=1793385991"
-      ]
-    },
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  CONTENU DE LA ROUTINE                                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      intro: "Deux soins complémentaires pour protéger la peau et préserver un teint lumineux au quotidien.\nRadiance C Serum, grâce à l'action antioxydante de la vitamine C, aide à protéger la peau du stress oxydatif lié aux agressions extérieures et à raviver son éclat.\nLumi-Veil CC Cream SPF 30 renforce la protection quotidienne face aux UVA et aux UVB, tout en soutenant la barrière cutanée et en unifiant naturellement le teint.\nUne peau mieux protégée, un teint plus uniforme et un glow naturellement lumineux.",
-      soins: ["radiance-serum", "lumiveil-cc-cream"],
-      moment: "Le matin",
-      etapes: [
-        { soin: "radiance-serum", texte: "Sur peau propre, appliquez une pression de Radiance C Serum et laissez pénétrer 1 à 2 minutes. Utilisez-le seul ou complétez avec une crème de jour." },
-        { soin: "lumiveil-cc-cream", texte: "Terminez avec Lumi-Veil CC Cream SPF 30 : appliquez-la localement pour estomper les petites imperfections, ou sur l'ensemble du visage pour unifier le teint et révéler un fini naturellement lumineux. Elle peut également servir de base de maquillage." }
-      ],
-      conclusion: "L'éclat commence par une peau bien protégée.\nUn teint lumineux, uniforme et naturellement sublimé."
-    }
-  },
-
-  // =====================================================================
-  // ROUTINE REGARD
-  // =====================================================================
-  "routine-regard": {
-    nom: "Routine Regard",
-    sousTitre: "Radiance Eye Cream · Lumi-Eyes Bright & Glow",
-    details: ["2 soins", "Vegan"],
-    note: "",
-    prix: "57€",
-    avis: "Routine regard",
-
-    choixLabel: "Choisissez votre formule",
-    variantes: [
-      { label: "CAFÉINE + VITAMINE C",             variantId: "59358402216281", fiche: "bright-glow-decongestionnant", image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367" },
-      { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59358466703705", fiche: "bright-glow-anti-fatigue",     image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367" },
-      { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59358466736473", fiche: "bright-glow-patch",            image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518" }
-    ],
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 📷  DIAPORAMA DE LA FICHE — Routine Regard
-    // └─────────────────────────────────────────────────────────────────┘
-    media: {
-      type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
-      images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-regard-carrousel.png?v=1793385845"
-      ]
-    },
-
-    // ┌─────────────────────────────────────────────────────────────────┐
-    // │ 🌿  CONTENU DE LA ROUTINE                                       │
-    // └─────────────────────────────────────────────────────────────────┘
-    routine: {
-      intro: "Deux soins complémentaires pour réveiller le regard et prendre soin du contour de l'œil au quotidien.\nLumi-Eyes Bright & Glow apporte un véritable coup de frais au regard : les patchs hydratent, aident à atténuer les signes de fatigue et redonnent de l'éclat au contour de l'œil.\nRadiance Eye Cream prend le relais au quotidien pour hydrater, lisser l'apparence des ridules et préserver un regard lumineux.\nUn duo ciblé pour un contour des yeux hydraté, défatigué et visiblement plus lumineux.",
-      soins: ["radiance-eye-cream", "bright-glow-decongestionnant"],
-      soinSelonChoix: 1,   // cette vignette suit la formule choisie
-      etapes: [
-        { moment: "Au quotidien", soin: "radiance-eye-cream", texte: "Appliquez une petite quantité sur le contour des yeux et tapotez délicatement jusqu'à absorption. Utilisez-la comme un sérum regard, avant votre crème de jour et les étapes suivantes de votre routine." },
-        { moment: "1 à 2 fois par semaine", titre: "Lumi-Eyes Bright & Glow", texte: "Sur peau propre, appliquez les patchs et laissez poser 15 minutes, comme un véritable masque du contour de l'œil. Retirez-les, puis faites pénétrer délicatement l'excédent de sérum." }
-      ],
-      conclusion: "Réveiller le regard, révéler sa lumière.\nUn regard frais, reposé et naturellement lumineux, jour après jour."
+      variantId: ""   // 🛒 à compléter
     }
   }
-
 };
+for(var k in BALANCE){ window.EB_PRODUITS[k] = BALANCE[k]; }
+var INCI = {
+  "calm-balance-jour": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil¹, Pentylene Glycol, Polyglyceryl-3 Stearate, Cetearyl Alcohol, Sodium PCA, Coco-Caprylate, Isoamyl Laurate, Caprylic/Capric Triglyceride, Aqua/Water, Hydrolyzed Rhodophyceae Extract, Octyldodecanol, Xanthan Gum, Cellulose, Irvingia Gabonensis Kernel Butter, Potassium Hydroxide, Sodium Hyaluronate, Hydrogenated Coco-Glycerides, Tocopherol, Ascorbyl Palmitate, Sodium Phytate, Hydrolyzed Hyaluronic Acid.\n¹ Ingrédients issus de l'agriculture biologique.",
+    "natural": "100",
+    "organic": "22"
+  },
+  "calm-balance-nuit": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Simmondsia Chinensis (Jojoba) Seed Oil¹, Glycerin, Pentylene Glycol, Polyglyceryl-3 Stearate, Cetearyl Alcohol, Coco-Caprylate, Dicaprylyl Carbonate, Isoamyl Laurate, Aqua/Water, Hydrolyzed Rhodophyceae Extract, Mangifera Indica (Mango) Seed Butter¹, Cellulose, Caprylic/Capric Triglyceride, Xanthan Gum, Octyldodecanol, Potassium Hydroxide, Sodium Hyaluronate, Palmitic Acid, Stearic Acid, Tocopherol, Ascorbyl Palmitate, Sodium Phytate, Hydrolyzed Hyaluronic Acid.\n¹ Ingrédients issus de l'agriculture biologique.",
+    "natural": "99",
+    "organic": "42"
+  },
+  "hydra-balance": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Pentylene Glycol, Butylene Glycol, Glycerin², Sodium PCA, Aqua/Water, Propanediol, Cellulose Gum, Parfum/Fragrance, Algin, Camellia Sinensis (White Tea) Leaf Extract¹, Salvia Officinalis (Sage) Leaf Extract¹, Hydrolyzed Hyaluronic Acid, Lactic Acid, Sodium Hyaluronate, Sodium Phytate, Rhamnose, Glucose, Glucuronic Acid.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques.",
+    "natural": "99",
+    "organic": "11"
+  },
+  "ceramide-night-restore": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Theobroma Cacao (Cocoa) Seed Butter¹, Simmondsia Chinensis (Jojoba) Seed Oil¹, Helianthus Annuus (Sunflower) Seed Oil¹, Dicaprylyl Carbonate, Pentylene Glycol, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Glycerin², Helianthus Annuus (Sunflower) Seed Cera, Butyrospermum Parkii (Shea) Butter¹, Olea Europaea (Olive) Oil Unsaponifiables, Sodium PCA, Palmitic Acid, Stearic Acid, Polyglyceryl-6 Behenate, Parfum, Cellulose, Rhus Verniciflua Peel Cera / Rhus Succedanea Fruit Cera, Shorea Robusta Resin, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract¹, Xanthan Gum, Paeonia Lactiflora (Peony) Root Extract, Sambucus Nigra (Elder) Fruit Extract¹, Vaccinium Macrocarpon (Cranberry) Seed Oil¹, Glycosphingolipids, Glycolipids, Aqua, Sodium Phytate, Ascorbyl Palmitate, Tocopherol, Lactic Acid, Sodium Hyaluronate, Linalool³, Limonene³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles.",
+    "natural": "99",
+    "organic": "27"
+  },
+  "cellular-reveal": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin², Simmondsia Chinensis (Jojoba) Seed Oil¹, Pentylene Glycol, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Propanediol, Dicaprylyl Carbonate, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Isoamyl Laurate, Bidens Pilosa Extract, Polyglyceryl-6 Behenate, Linum Usitatissimum Seed Oil, Parfum/Fragrance, Cellulose, Aqua/Water, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract¹, Lactic Acid, Xanthan Gum, Rhodomyrtus Tomentosa (Rose Myrtle) Fruit Extract, Caprylic/Capric Triglyceride, Rosa Canina (Rosehip) Fruit Oil¹, Mangifera Indica (Mango) Seed Butter¹, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Phytate, Octyldodecanol, Tocopherol, Geraniol³, Citronellol³, Pelargonium Graveolens Flower Oil, Linalool³, Citral³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles.",
+    "natural": "99",
+    "organic": "24"
+  },
+  "cellular-eye-restore": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin², Coconut Alkanes, Pentylene Glycol, Aqua/Water, Simmondsia Chinensis (Jojoba) Seed Oil¹, Sodium PCA, Polyglyceryl-6 Stearate, Glyceryl Stearate Citrate, Borago Officinalis (Borage) Seed Oil¹, Caprylic/Capric Triglyceride, Dipalmitoyl Hydroxyproline, Ricinus Communis (Castor) Seed Oil, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Bidens Pilosa Extract, Linum Usitatissimum Seed Oil, Parfum/Fragrance, CI 77163 (Bismuth Chloride Oxide)⁴, Polyglyceryl-6 Behenate, Rhus Verniciflua Peel Cera/Rhus Succedanea Fruit Cera, Xanthan Gum, Aesculus Hippocastanum (Horse Chestnut) Seed Extract, Cellulose, Tocopherol, Ascorbyl Palmitate, Potassium Hydroxide, Mangifera Indica (Mango) Seed Butter¹, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Phytate, Octyldodecanol, Alteromonas Ferment Extract, Phenethyl Alcohol, Escin, Geraniol³, Citronellol³, Pelargonium Graveolens Flower Oil, Linalool³, Citral³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles. ⁴ Pigments minéraux purs.",
+    "natural": "100",
+    "organic": "22"
+  },
+  "age-lift": {
+    "ingredients": "Aqua/Water, Simmondsia Chinensis (Jojoba) Seed Oil¹, Glycerin, Pentylene Glycol, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Sodium PCA, Dipalmitoyl Hydroxyproline, Propanediol, Aroma/Fragrance, Dicaprylyl Carbonate, Polyglyceryl-6 Behenate, Mangifera Indica (Mango) Seed Butter¹, Caprylic/Capric Triglyceride, Coco-Caprylate, Fragaria Ananassa (Strawberry) Seed Oil, Vaccinium Myrtillus (Blueberry) Seed Oil¹, Xanthan Gum, Hexapeptide-11, Phytosterols, Octyldodecanol, Palmitic Acid, Stearic Acid, Tocopherol, Ascorbyl Palmitate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Phytate, Potassium Hydroxide, Leuconostoc/Radish Root Ferment Filtrate, Ginkgo Biloba (Ginkgo) Leaf Extract¹, Citric Acid, Sodium Benzoate, Potassium Sorbate, CI 77491 (Iron Oxides)³, Linalyl Acetate², Geranyl Acetate², Linalool², Geraniol², Citronellol².\n¹ Ingrédients issus de l'agriculture biologique. ² Constituants d'huiles essentielles naturelles. ³ Pigments minéraux purs.",
+    "natural": "99",
+    "organic": "9"
+  },
+  "eye-lift": {
+    "ingredients": "Aqua/Water, Glycerin, Coconut Alkanes, Pentylene Glycol, Simmondsia Chinensis (Jojoba) Seed Oil¹, Sodium PCA, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Borago Officinalis (Borage) Seed Oil¹, Caprylic/Capric Triglyceride, Dipalmitoyl Hydroxyproline, Ricinus Communis (Castor) Seed Oil, Propanediol, Aroma/Fragrance, Polyglyceryl-6 Behenate, Xanthan Gum, Fragaria Ananassa (Strawberry) Seed Oil, Rhus Verniciflua Peel Cera/Rhus Succedanea Fruit Cera, Vaccinium Myrtillus (Blueberry) Seed Oil¹, Cellulose, Hexapeptide-11, Phytosterols, Ascorbyl Palmitate, Tocopherol, Mangifera Indica (Mango) Seed Butter¹, Sodium Phytate, Potassium Hydroxide, Leuconostoc/Radish Root Ferment Filtrate, Octyldodecanol, Ginkgo Biloba (Ginkgo) Leaf Extract¹, Citric Acid, Sodium Benzoate, Potassium Sorbate, CI 77491 (Iron Oxides)³, Linalyl Acetate², Geranyl Acetate², Linalool², Geraniol², Citronellol².\n¹ Ingrédients issus de l'agriculture biologique. ² Constituants d'huiles essentielles naturelles. ³ Pigments minéraux purs.",
+    "natural": "99",
+    "organic": "8"
+  },
+  "bakuchiol-elixir": {
+    "ingredients": "Simmondsia Chinensis (Jojoba) Seed Oil¹, Decyl Cocoate, Dicaprylyl Carbonate, Coco-Caprylate/Caprate, Oenothera Biennis (Evening Primrose) Oil¹, Rosa Canina (Rosehip) Fruit Oil¹, Tocopherol, Fragaria Ananassa (Strawberry) Seed Oil, Rubus Idaeus (Raspberry) Seed Oil¹, Undecane, Bakuchiol, Parfum, Tridecane, Vaccinium Myrtillus (Blueberry) Seed Oil¹, Geraniol, Citronellol, Linalool, Limonene.\n¹ Ingrédients issus de l'agriculture biologique.",
+    "natural": "99",
+    "organic": "61"
+  },
+  "bright-control": {
+    "ingredients": "Aqua/Water, Glycerin², Simmondsia Chinensis (Jojoba) Seed Oil¹, Pentylene Glycol, Polyglyceryl-3 Stearate, Cetearyl Alcohol, Betaine, Sodium PCA, Coco-Caprylate, Isoamyl Laurate, Caprylic/Capric Triglyceride, Kojic Acid, Xanthan Gum, Parfum/Fragrance, Cellulose, Hippophae Rhamnoides (Sea Buckthorn) Fruit Oil¹, Tocopherol, Ascorbyl Palmitate, Sodium Phytate, Capsicum Annuum (Paprika) Fruit Extract¹, Potassium Hydroxide, Helianthus Annuus (Sunflower) Seed Oil¹, Rosmarinus Officinalis (Rosemary) Leaf Extract¹, Limonene³, Citrus Limon Peel Oil, Benzyl Salicylate³, Citral³, Pogostemon Cablin Oil, Citrus Aurantium Peel Oil, Juniperus Virginiana Oil, Linalool³, Cedrus Atlantica Oil/Extract, Pinene³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles.",
+    "natural": "100",
+    "organic": "8"
+  },
+  "spot-control": {
+    "ingredients": "Aqua/Water, Simmondsia Chinensis (Jojoba) Seed Oil¹, Glycerin², Pentylene Glycol, Betaine, Isoamyl Laurate, Sodium PCA, Glyceryl Stearate Citrate, Kojic Acid, Sclerotium Gum, Parfum/Fragrance, Xanthan Gum, Hippophae Rhamnoides (Sea Buckthorn) Fruit Oil¹, Ascorbyl Palmitate, Tocopherol, Sodium Phytate, Capsicum Annuum (Paprika) Fruit Extract¹, Potassium Hydroxide, Helianthus Annuus (Sunflower) Seed Oil¹, Rosmarinus Officinalis (Rosemary) Leaf Extract¹, Limonene³, Citrus Limon Peel Oil, Benzyl Salicylate³, Citral³, Pogostemon Cablin Oil, Citrus Aurantium Peel Oil, Juniperus Virginiana Oil, Linalool³, Cedrus Atlantica Oil/Extract, Pinene³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles.",
+    "natural": "100",
+    "organic": "8"
+  },
+  "glyco-balance": {
+    "ingredients": "Aqua, Glycolic Acid, Glycerin, Potassium Hydroxide, Betaine, Sodium PCA, Sodium Levulinate, Phenethyl Alcohol, Sodium Benzoate, Vaccinium Macrocarpon (Cranberry) Fruit Extract¹, Vaccinium Vitis-Idaea (Lingonberry) Fruit Extract¹, Alcohol.\n¹ Ingrédients issus de l'agriculture biologique.",
+    "natural": "",
+    "organic": ""
+  },
+  "aha-balance-peel": {
+    "ingredients": "Aqua/Water, Lactic Acid, Pentylene Glycol, Potassium Hydroxide, Butylene Glycol, Glycerin², Sodium Hyaluronate, Camellia Sinensis (White Tea) Leaf Extract¹, Salvia Officinalis (Sage) Leaf Extract¹.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques.",
+    "natural": "100",
+    "organic": "2"
+  },
+  "cellular-renew": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Simmondsia Chinensis (Jojoba) Seed Oil¹, Glycerin², Pentylene Glycol, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Aqua/Water, Sodium PCA, Dipalmitoyl Hydroxyproline, Astrocaryum Murumuru Seed Butter, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract¹, Gossypium Herbaceum Seed Oil, Propanediol, Bidens Pilosa Extract, Dicaprylyl Carbonate, Polyglyceryl-6 Behenate, Parfum/Fragrance, Linum Usitatissimum Seed Oil, Mangifera Indica (Mango) Seed Butter¹, Caprylic/Capric Triglyceride, Coco-Caprylate, Xanthan Gum, Octyldodecanol, Palmitic Acid, Stearic Acid, Tocopherol, Ascorbyl Palmitate, Potassium Hydroxide, Rhodomyrtus Tomentosa (Rose Myrtle) Fruit Extract, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Phytate, Alteromonas Ferment Extract, Phenethyl Alcohol, Geraniol³, Citronellol³, Pelargonium Graveolens Flower Oil, Linalool³, Citral³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Issus d'huiles essentielles naturelles.",
+    "natural": "",
+    "organic": ""
+  },
+  "bha-balance": {
+    "ingredients": "Aqua, Alcohol, Lavandula Angustifolia (Lavender) Flower Water¹, Glycerin², Betaine, Propanediol, Acorus Calamus (Sweet Flag) Root Extract¹, Cucumis Sativus (Cucumber) Fruit Extract¹, Salicylic Acid, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Rhamnose, Glucose, Glucuronic Acid.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques.",
+    "natural": "99",
+    "organic": "7"
+  }
+};
+for(var i in INCI){ window.EB_INCI_PLUS[i] = INCI[i]; }
+})();
