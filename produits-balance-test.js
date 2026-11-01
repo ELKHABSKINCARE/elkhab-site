@@ -3,7 +3,6 @@
 // ELKHA.B — FICHES BALANCE — VERSION TEST (à charger après produits-data-test.js)
 // Ajoute les soins Balance au catalogue des fiches (window.EB_PRODUITS).
 // À compléter depuis Shopify : 🛒 variantId et 📷 photos de chaque soin.
-// Active Lift : fiche à écrire (fiche Selfnamed à recevoir).
 // =====================================================================
 // Bloc « Vos expériences » des fiches en dégradé (vert sur le site Balance)
 window.EB_AVIS_DEGRADE = true;
@@ -24,13 +23,13 @@ var BALANCE = {
     inci: "calm-balance-jour",
     avis: "Calm Balance Jour",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -77,13 +76,13 @@ var BALANCE = {
     inci: "calm-balance-nuit",
     avis: "Calm Balance Nuit",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -129,13 +128,13 @@ var BALANCE = {
     inci: "hydra-balance",
     avis: "Hydra Balance",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -182,13 +181,13 @@ var BALANCE = {
     inci: "ceramide-night-restore",
     avis: "Ceramide Night Restore",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -234,13 +233,13 @@ var BALANCE = {
     inci: "cellular-reveal",
     avis: "Cellular Reveal",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -287,13 +286,13 @@ var BALANCE = {
     inci: "cellular-eye-restore",
     avis: "Cellular Eye Restore",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -327,6 +326,59 @@ var BALANCE = {
   },
 
   // =====================================================================
+  // ACTIVE LIFT
+  // =====================================================================
+  "active-lift": {
+    nom: "Active Lift",
+    sousTitre: "Sérum visage lissant & raffermissant\nLissant · Raffermissant · Repulpant",
+    details: ["30 ml", "Vegan"],
+    note: "une pression suffit",
+    prix: "32,90€",
+    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    inci: "active-lift",
+    avis: "Active Lift",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-1-boite-flacon-v6.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-2-flacon-v6.jpg",
+        // 📷 3. TEXTURE (plus tard)
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Matin et/ou soir", soin: "active-lift", texte: "Sur peau propre, appliquez une pression de Active Lift sur le visage et le cou, en lissant du centre vers l'extérieur." },
+        { moment: "Matin et/ou soir", soin: "age-lift", texte: "Poursuivez avec une pression de Age Lift pour prolonger l'action des peptides et garder la peau souple et repulpée." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez par Radiance Protect SPF 50 : le soleil est le premier accélérateur des signes de l'âge." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Un concentré de soin aux peptides pour une peau visiblement plus lisse, plus ferme et rebondie. Une nouvelle expression de la jeunesse, entre performance et sensorialité.\nRetrouvez le plaisir d'une peau qui paraît plus ferme, plus souple et naturellement rebondie.\nActive Lift accompagne votre peau dans sa quête de fermeté et de douceur. Sa formule associe des peptides, de l'acide hyaluronique et des extraits végétaux antioxydants pour atténuer l'apparence des rides et ridules, améliorer l'élasticité cutanée et révéler un grain de peau visiblement plus lisse.\nUn geste de soin raffiné pour retrouver une peau à l'apparence plus tonique, jour après jour." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'une peau visiblement plus jeune ne se résume pas à l'apparence des rides.\nActive Lift agit sur plusieurs dimensions essentielles de la qualité de la peau : fermeté, élasticité, hydratation et confort.\nAu cœur de sa formule, l'hexapeptide-11 accompagne l'action lissante du soin, tandis que l'extrait de ginkgo biloba et l'huile de graines de myrtille apportent leurs propriétés antioxydantes. L'acide hyaluronique complète cette synergie en contribuant à l'hydratation et à l'aspect repulpé de la peau.\nUne formule experte qui conjugue efficacité ciblée et plaisir d'utilisation." },
+      { titre: "Bénéfices clés",
+        liste: ["Rides & ridules : aide à atténuer leur apparence pour une peau visiblement plus lisse.", "Fermeté & élasticité : contribue à améliorer l'aspect tonique et rebondi de la peau.", "Hydratation & confort : aide à préserver l'hydratation et à soutenir la barrière cutanée.", "Protection antioxydante : associe ginkgo biloba et huile de graines de myrtille pour aider à protéger la peau du stress oxydatif.", "Grain de peau : favorise une apparence plus uniforme et affinée."] },
+      { titre: "Pensé pour",
+        texte: "Les peaux qui souhaitent prévenir ou atténuer les premiers signes visibles de l'âge, retrouver de la fermeté et améliorer leur élasticité.\nParticulièrement intéressant lorsque la peau présente des ridules, une perte de rebond ou un manque de souplesse." },
+      { titre: "Texture & sensorialité",
+        texte: "Un soin qui transforme votre routine en une parenthèse délicate.\nActive Lift enveloppe votre rituel d'un parfum floral subtil, réchauffé par des notes d'ambre et prolongé par un fond doux et poudré.\nUne signature olfactive élégante, pour un moment de soin aussi agréable que précieux." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 20% d'ingrédients issus de l'agriculture biologique\n• Certifié COSMOS NATURAL par ECOCERT\n• Formule végane\n• Sans gluten et sans noix, selon les informations du fabricant" }
+    ],
+    accord: {
+      fiche: "age-lift",
+      nom: "Age Lift",
+      texte: "Le duo lissant et raffermissant.\nActive Lift concentre les peptides pour lisser et raffermir.\nAge Lift prolonge cette action et garde la peau souple et repulpée, matin et soir.",
+      prix: "37,90€",
+      variantId: ""   // 🛒 à compléter
+    }
+  },
+
+  // =====================================================================
   // AGE LIFT
   // =====================================================================
   "age-lift": {
@@ -339,13 +391,13 @@ var BALANCE = {
     inci: "age-lift",
     avis: "Age Lift",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -392,13 +444,13 @@ var BALANCE = {
     inci: "eye-lift",
     avis: "Eye Lift",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -444,13 +496,13 @@ var BALANCE = {
     inci: "bakuchiol-elixir",
     avis: "Bakuchiol Elixir",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -497,13 +549,13 @@ var BALANCE = {
     inci: "bright-control",
     avis: "Bright Control",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -550,13 +602,13 @@ var BALANCE = {
     inci: "spot-control",
     avis: "Spot Control",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -603,13 +655,13 @@ var BALANCE = {
     inci: "glyco-balance",
     avis: "Glyco Balance",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-1-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-1-flacon-v6.jpg",
         // 📷 2. DOS DU FLACON (composition)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-2-dos-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-2-dos-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -656,13 +708,13 @@ var BALANCE = {
     inci: "aha-balance-peel",
     avis: "AHA Balance Peel",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -709,13 +761,13 @@ var BALANCE = {
     inci: "cellular-renew",
     avis: "Cellular Renew",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-1-boite-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-2-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-2-flacon-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -763,13 +815,13 @@ var BALANCE = {
     inci: "bha-balance",
     avis: "BHA Balance",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-miniature-v5.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-1-flacon-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-1-flacon-v6.jpg",
         // 📷 2. DOS DU FLACON (composition)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-2-dos-v5.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-2-dos-v6.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -804,7 +856,7 @@ var BALANCE = {
     }
   }
 };
-for(var k in BALANCE){ window.EB_PRODUITS[k] = BALANCE[k]; }
+for(var k in BALANCE){ BALANCE[k].gamme = 'balance'; window.EB_PRODUITS[k] = BALANCE[k]; }   // gamme : bloc « Vos expériences » vert partout
 var INCI = {
   "calm-balance-jour": {
     "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil¹, Pentylene Glycol, Polyglyceryl-3 Stearate, Cetearyl Alcohol, Sodium PCA, Coco-Caprylate, Isoamyl Laurate, Caprylic/Capric Triglyceride, Aqua/Water, Hydrolyzed Rhodophyceae Extract, Octyldodecanol, Xanthan Gum, Cellulose, Irvingia Gabonensis Kernel Butter, Potassium Hydroxide, Sodium Hyaluronate, Hydrogenated Coco-Glycerides, Tocopherol, Ascorbyl Palmitate, Sodium Phytate, Hydrolyzed Hyaluronic Acid.\n¹ Ingrédients issus de l'agriculture biologique.",
@@ -835,6 +887,11 @@ var INCI = {
     "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin², Coconut Alkanes, Pentylene Glycol, Aqua/Water, Simmondsia Chinensis (Jojoba) Seed Oil¹, Sodium PCA, Polyglyceryl-6 Stearate, Glyceryl Stearate Citrate, Borago Officinalis (Borage) Seed Oil¹, Caprylic/Capric Triglyceride, Dipalmitoyl Hydroxyproline, Ricinus Communis (Castor) Seed Oil, Astrocaryum Murumuru Seed Butter, Gossypium Herbaceum Seed Oil, Bidens Pilosa Extract, Linum Usitatissimum Seed Oil, Parfum/Fragrance, CI 77163 (Bismuth Chloride Oxide)⁴, Polyglyceryl-6 Behenate, Rhus Verniciflua Peel Cera/Rhus Succedanea Fruit Cera, Xanthan Gum, Aesculus Hippocastanum (Horse Chestnut) Seed Extract, Cellulose, Tocopherol, Ascorbyl Palmitate, Potassium Hydroxide, Mangifera Indica (Mango) Seed Butter¹, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Phytate, Octyldodecanol, Alteromonas Ferment Extract, Phenethyl Alcohol, Escin, Geraniol³, Citronellol³, Pelargonium Graveolens Flower Oil, Linalool³, Citral³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles. ⁴ Pigments minéraux purs.",
     "natural": "100",
     "organic": "22"
+  },
+  "active-lift": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Aqua/Water, Pentylene Glycol, Cetearyl Alcohol, Sodium PCA, Isoamyl Laurate, Glyceryl Stearate Citrate, Dipalmitoyl Hydroxyproline, Propanediol, Parfum/Fragrance, Caprylic/Capric Triglyceride, Fragaria Ananassa (Strawberry) Seed Oil, Vaccinium Myrtillus (Blueberry) Seed Oil, Xanthan Gum, Hexapeptide-11, Phytosterols, Ricinus Communis (Castor) Seed Oil, Ascorbyl Palmitate, Hydrolyzed Hyaluronic Acid, Potassium Hydroxide, Sodium Hyaluronate, Sodium Phytate, Tocopherol, Leuconostoc/Radish Root Ferment Filtrate, Ginkgo Biloba Leaf Extract, CI 77491 (Iron Oxides), Citric Acid, Sodium Benzoate, Potassium Sorbate, Glycolipids, Linalool, Geraniol, Citronellol.",
+    "natural": "99",
+    "organic": "20"
   },
   "age-lift": {
     "ingredients": "Aqua/Water, Simmondsia Chinensis (Jojoba) Seed Oil¹, Glycerin, Pentylene Glycol, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Sodium PCA, Dipalmitoyl Hydroxyproline, Propanediol, Aroma/Fragrance, Dicaprylyl Carbonate, Polyglyceryl-6 Behenate, Mangifera Indica (Mango) Seed Butter¹, Caprylic/Capric Triglyceride, Coco-Caprylate, Fragaria Ananassa (Strawberry) Seed Oil, Vaccinium Myrtillus (Blueberry) Seed Oil¹, Xanthan Gum, Hexapeptide-11, Phytosterols, Octyldodecanol, Palmitic Acid, Stearic Acid, Tocopherol, Ascorbyl Palmitate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Phytate, Potassium Hydroxide, Leuconostoc/Radish Root Ferment Filtrate, Ginkgo Biloba (Ginkgo) Leaf Extract¹, Citric Acid, Sodium Benzoate, Potassium Sorbate, CI 77491 (Iron Oxides)³, Linalyl Acetate², Geranyl Acetate², Linalool², Geraniol², Citronellol².\n¹ Ingrédients issus de l'agriculture biologique. ² Constituants d'huiles essentielles naturelles. ³ Pigments minéraux purs.",
