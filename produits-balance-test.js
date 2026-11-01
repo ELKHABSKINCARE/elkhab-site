@@ -856,6 +856,158 @@ var BALANCE = {
       prix: "28,90€",
       variantId: ""   // 🛒 à compléter
     }
+  },
+
+  // =====================================================================
+  // ROUTINE ANTI-ÂGE (Balance) — identifiant à part : « routine-anti-age » est la Routine Fermeté de Bloom
+  // =====================================================================
+  "routine-anti-age-balance": {
+    nom: "Routine Anti-âge",
+    sousTitre: "Active Lift · Age Lift · Eye Lift",
+    details: ["3 soins", "Vegan"],
+    note: "",
+    prix: "95€",
+    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    avis: "Routine anti-âge",
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. PHOTO DE LA ROUTINE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-carrousel.png"
+      ]
+    },
+    routine: {
+      intro: "Une routine aux peptides qui cible les rides, les ridules et la perte de fermeté, et prend soin de tout le visage, regard compris.\nActive Lift concentre les peptides pour lisser les traits et améliorer l'élasticité de la peau. Age Lift prolonge leur action et, grâce à l'acide hyaluronique, repulpe la peau et maintient son hydratation. Eye Lift veille sur le contour des yeux, plus fin et plus fragile, là où ridules et pattes-d'oie apparaissent en premier.",
+      soins: ["active-lift", "age-lift", "eye-lift"],
+      moment: "Matin et soir",
+      etapes: [
+        { soin: "active-lift", texte: "Sur peau propre, appliquez une pression d'Active Lift sur le visage et le cou." },
+        { soin: "eye-lift", texte: "Déposez une petite quantité d'Eye Lift sur le contour des yeux et faites-la pénétrer en tapotant du bout des doigts." },
+        { soin: "age-lift", texte: "Terminez par une pression d'Age Lift sur le visage et le cou, en remontant vers les tempes." }
+      ],
+      conclusion: "Trois soins aux peptides qui se complètent, du sérum à la crème.\nLe matin, terminez par une protection solaire : les UV sont le premier accélérateur du relâchement cutané."
+    }
+  },
+
+  // =====================================================================
+  // ROUTINE ESSENTIELLE (Balance)
+  // =====================================================================
+  "routine-essentielle": {
+    nom: "Routine Essentielle",
+    sousTitre: "Cellular Reveal · Cellular Renew · Cellular Eye Restore",
+    details: ["3 soins", "Vegan"],
+    note: "",
+    prix: "99€",
+    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    avis: "Routine essentielle",
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. PHOTO DE LA ROUTINE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-essentielle-carrousel.png"
+      ]
+    },
+    routine: {
+      intro: "La routine express, simple et rapide, pour les journées où le temps manque : elle cible les premiers signes de l'âge et aide à maintenir une peau saine et équilibrée.\nCellular Reveal, au Bidens pilosa, une alternative végétale au rétinol, affine le grain de peau et atténue l'apparence des ridules. Cellular Renew prolonge son action, lisse et hydrate la peau. Cellular Eye Restore veille sur le contour des yeux, là où les premières ridules s'installent.",
+      soins: ["cellular-reveal", "cellular-renew", "cellular-eye-restore"],
+      etapes: [
+        { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
+        { moment: "Le soir", soin: "cellular-eye-restore", texte: "Déposez une petite quantité de Cellular Eye Restore sur le contour des yeux et faites-la pénétrer en tapotant du bout des doigts." },
+        { moment: "Le soir", soin: "cellular-renew", texte: "Terminez par une pression de Cellular Renew pour prolonger l'action lissante et hydrater la peau." },
+        { moment: "Le matin", soin: "cellular-renew", texte: "Le matin, une pression de Cellular Renew sur le visage et le cou suffit à hydrater et lisser la peau." }
+      ],
+      conclusion: "Trois soins d'une même famille, construits autour d'une alternative végétale au rétinol, bien tolérée au quotidien.\nLe matin, terminez par une protection solaire pour préserver les résultats."
+    }
+  },
+
+  // =====================================================================
+  // ROUTINE ANTI-TACHES (Balance)
+  // =====================================================================
+  "routine-anti-taches": {
+    nom: "Routine Anti-taches",
+    sousTitre: "AHA Balance Peel · Bright Control · Spot Control",
+    details: ["3 soins", "Vegan"],
+    note: "",
+    prix: "91€",
+    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    avis: "Routine anti-taches",
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. PHOTO DE LA ROUTINE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-carrousel.png"
+      ]
+    },
+    routine: {
+      intro: "Une routine complète pour unifier le teint et atténuer l'apparence des taches brunes.\nSpot Control cible les taches une à une avec l'acide kojique et la vitamine C. Bright Control unifie l'ensemble du teint et lisse la peau pendant la nuit. Une à deux fois par semaine, AHA Balance Peel élimine les cellules mortes pour révéler un teint plus frais et aider les autres soins à mieux agir.",
+      soins: ["aha-balance-peel", "bright-control", "spot-control"],
+      etapes: [
+        { moment: "Le matin", soin: "spot-control", texte: "Sur peau propre, appliquez Spot Control uniquement sur les taches, en tapotant légèrement." },
+        { moment: "Le soir", soin: "bright-control", texte: "Sur peau propre, appliquez une pression de Bright Control sur tout le visage pour unifier le teint." },
+        { moment: "1 à 2 soirs par semaine", soin: "aha-balance-peel", texte: "Sur peau propre et sèche, appliquez quelques gouttes d'AHA Balance Peel en évitant le contour des yeux, puis poursuivez avec Bright Control." }
+      ],
+      conclusion: "Les taches se travaillent dans la durée : c'est la régularité qui fait la différence.\nChaque matin, terminez par une protection solaire : sans elle, les taches reviennent plus vite."
+    }
+  },
+
+  // =====================================================================
+  // ROUTINE APAISANTE (Balance)
+  // =====================================================================
+  "routine-apaisante": {
+    nom: "Routine Apaisante",
+    sousTitre: "Hydra Balance · Calm Balance Jour · Calm Balance Nuit",
+    details: ["3 soins", "Vegan"],
+    note: "",
+    prix: "95€",
+    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    avis: "Routine apaisante",
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. PHOTO DE LA ROUTINE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-apaisante-carrousel.png"
+      ]
+    },
+    routine: {
+      intro: "Une routine pensée pour les peaux sensibles, qui rougissent et tiraillent facilement.\nHydra Balance gorge la peau d'eau grâce à son acide hyaluronique multi-poids moléculaire. Calm Balance Jour apaise les rougeurs et préserve le confort de la peau toute la journée, et Calm Balance Nuit prend le relais pendant le sommeil pour apaiser et réparer.",
+      soins: ["hydra-balance", "calm-balance-jour", "calm-balance-nuit"],
+      etapes: [
+        { moment: "Le matin", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance sur le visage et le cou." },
+        { moment: "Le matin", soin: "calm-balance-jour", texte: "Poursuivez avec une pression de Calm Balance Jour, lissée du centre vers l'extérieur du visage." },
+        { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance." },
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Calm Balance Nuit pour apaiser et hydrater la peau toute la nuit." }
+      ],
+      conclusion: "Une peau bien hydratée est une peau qui réagit moins.\nLe matin, terminez par une protection solaire minérale : les UV accentuent les rougeurs et l'inconfort."
+    }
+  },
+
+  // =====================================================================
+  // ROUTINE RENOUVELLEMENT (Balance)
+  // =====================================================================
+  "routine-renouvellement": {
+    nom: "Routine Renouvellement",
+    sousTitre: "Bakuchiol Elixir · Ceramide Night Restore",
+    details: ["2 soins", "Vegan"],
+    note: "",
+    prix: "73€",
+    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    avis: "Routine renouvellement",
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. PHOTO DE LA ROUTINE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-renouvellement-carrousel.png"
+      ]
+    },
+    routine: {
+      intro: "Une routine du soir pour les rides installées et le grain de peau irrégulier.\nBakuchiol Elixir, au bakuchiol, une alternative végétale au rétinol, accompagne le renouvellement de la peau pour atténuer l'apparence des rides et affiner sa texture. Ceramide Night Restore renforce la barrière cutanée grâce à ses céramides végétaux et nourrit la peau pendant le sommeil.",
+      soins: ["bakuchiol-elixir", "ceramide-night-restore"],
+      etapes: [
+        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Sur peau propre, réchauffez une pression de Bakuchiol Elixir entre vos paumes et pressez-la délicatement sur le visage et le cou." },
+        { moment: "Le soir", soin: "ceramide-night-restore", texte: "Terminez par une pression de Ceramide Night Restore pour nourrir la peau et renforcer sa barrière pendant la nuit." }
+      ],
+      conclusion: "Deux soins du soir qui travaillent pendant que la peau se régénère.\nLe matin, une protection solaire préserve les résultats."
+    }
   }
 };
 for(var k in BALANCE){
