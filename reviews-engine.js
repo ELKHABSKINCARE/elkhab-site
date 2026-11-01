@@ -126,6 +126,12 @@
       }
 
       let html = '';
+      // Résumé : note moyenne + nombre d'avis (affiché seulement par la nouvelle présentation des avis)
+      const notes = matches.map(function(r){ return parseFloat(String(r[idx.note] || '').replace(',', '.')); }).filter(function(n){ return n > 0; });
+      if(notes.length){
+        const moy = notes.reduce(function(a, b){ return a + b; }, 0) / notes.length;
+        html += '<div class="eb-review-resume" style="display:none"><b>' + moy.toFixed(1).replace('.', ',') + '</b><span class="eb-review-stars">' + starsHTML(Math.round(moy)) + '</span><span>' + matches.length + ' avis</span></div>';
+      }
       matches.forEach(function(r){
         const dateFormatee = formatDate(r[idx.horodateur]);
         html += '<div class="eb-review">';
