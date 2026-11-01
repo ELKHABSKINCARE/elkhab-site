@@ -23,6 +23,8 @@
     'Lumi-Eyes Bright & Glow Caféine + Vitamine C','Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5',
     'Routine éclat','Routine hydratation','Routine fermeté','Routine équilibre',
     'Routine teint & protection','Routine regard',
+    // Bloom, nouveaux soins (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
+    'Lumi-Bloom Arbutin','Milky Bloom','Lumi-Pure','Radiance Cleanser','Luminescence Boost',
     // Balance (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
     'Hydra Balance','Calm Balance Jour','Calm Balance Nuit','Ceramide Night Restore','Cellular Renew','Cellular Eye Restore','Active Lift',
     'Age Lift','Eye Lift','Cellular Reveal','Bakuchiol Elixir','Spot Control','Bright Control','BHA Balance','Glyco Balance','AHA Balance Peel',
@@ -316,7 +318,7 @@
       var P = window.EB_PRODUITS || {}, fiche = null;
       for(var k in P){ if(P[k] && (P[k].avis === reconnus[0].n || P[k].nom === reconnus[0].n)){ fiche = P[k]; break; } }
       var m = (fiche && fiche.media) || {};
-      var photo = safeImg(m.accord || m.miniature || reconnus[0].i || '');
+      var photo = safeImg(m.accord || m.miniature || (m.images && m.images[0]) || reconnus[0].i || '');   // routines : leur photo carrousel
       titre.textContent = 'Votre avis sur ' + ((fiche && fiche.nom) || reconnus[0].d || reconnus[0].n);
       if(photo){ hero.src = photo + (photo.indexOf('?') < 0 ? '?' : '&') + 'width=600'; overlay.classList.add('eb-av-un'); }
     }
