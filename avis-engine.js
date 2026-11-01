@@ -230,9 +230,17 @@
   // ------------------------------------------------------------------ OUVERTURE / FERMETURE
   // items : [{ n: 'Nom du formulaire', d: 'Nom affiché', i: 'photo' }, ...]
   // Gamme de la page : Balance sur le site Balance, Bloom partout ailleurs (tous les soins notés sont Bloom)
-  function themeGamme(){
+  // Soin Balance (gamme: 'balance' dans les fiches) : vert aussi en dehors du site Balance
+  function estBalance(items){
+    var P = window.EB_PRODUITS || {};
+    return (items || []).some(function(it){
+      for(var k in P){ if(P[k] && P[k].gamme === 'balance' && (P[k].avis === it.n || P[k].nom === it.n)) return true; }
+      return false;
+    });
+  }
+  function themeGamme(items){
     if(!window.EB_AVIS_DEGRADE) return '';
-    return /balance/i.test(window.location.hostname) ? 'eb-av-balance' : 'eb-av-bloom';
+    return (/balance/i.test(window.location.hostname) || estBalance(items)) ? 'eb-av-balance' : 'eb-av-bloom';
   }
   // Le fond de la bande prend exactement le noir de la bannière (lu dans un coin de l'image)
   var noirLu = false;
@@ -252,7 +260,7 @@
   function ebAvisOpen(items){
     build();
     overlay.classList.remove('eb-av-theme', 'eb-av-bloom', 'eb-av-balance');
-    var t = themeGamme();
+    var t = themeGamme(items);
     if(t) overlay.classList.add('eb-av-theme', t);
     if(t) noirBanniere();
     list.innerHTML = '';
