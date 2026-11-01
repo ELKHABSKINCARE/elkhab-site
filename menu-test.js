@@ -81,9 +81,16 @@ var CSS = ""
 + ".ebm-soins a{display:block;font-size:14px;font-weight:300;padding:6px 0;color:#000;text-decoration:none}"
 + ".ebm-soins a:hover{opacity:.6}"
 + ".ebm-soins a.ebm-avenir,.ebm-sous a.ebm-avenir{cursor:default}"
-+ ".ebm-tout{background:rgba(236,234,227,.7);display:flex;flex-direction:column;justify-content:flex-end;padding:22px}"
-+ ".ebm-tout p{margin:0 0 10px;font-size:12.5px;font-weight:300;line-height:1.6;color:#4d4a44}"
-+ ".ebm-tout span{font-size:9.5px;letter-spacing:.22em;font-weight:600;border-bottom:1px solid #000;align-self:flex-start;padding-bottom:3px;text-transform:uppercase}"
+/* carte Skin ID (piste C) : petite, au centre de la place libre du panneau */
++ ".ebm-skin-zone{display:flex;align-items:center;justify-content:center}"
++ ".ebm-soins a.ebm-skin{position:relative;display:block;width:100%;max-width:280px;box-sizing:border-box;padding:18px 18px 16px;cursor:pointer;text-decoration:none;color:#111;border:1px solid #e4e1d8;background:radial-gradient(260px 180px at 100% 0%,rgba(230,203,189,.45),rgba(230,203,189,0) 70%),radial-gradient(260px 180px at 0% 100%,rgba(195,204,143,.35),rgba(195,204,143,0) 70%),#faf9f6;transition:transform .3s ease,box-shadow .3s ease}"
++ ".ebm-soins a.ebm-skin:hover{opacity:1;transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.06)}"
++ ".ebm-skin .ebm-sceau{position:absolute;top:14px;right:14px;padding:5px 10px 4px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:2px;background:rgba(255,255,255,.4);font-size:11px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
++ ".ebm-skin .ebm-sk{margin:2px 0 14px;font-size:8.5px;letter-spacing:.3em;font-weight:600;color:#8a8580;text-transform:uppercase}"
++ ".ebm-skin .ebm-code{display:block;font-size:17px;font-weight:300;letter-spacing:.14em;white-space:nowrap;color:#1f241c;margin:0 0 8px;transition:opacity .4s ease}"
++ ".ebm-skin .ebm-code b{font-weight:600}"
++ ".ebm-skin p{margin:0 0 12px;font-size:11.5px;font-weight:300;line-height:1.6;color:#4d4a44}"
++ ".ebm-skin .ebm-cta{display:inline-block;font-size:9px;letter-spacing:.22em;font-weight:600;border-bottom:1px solid #000;padding-bottom:3px;text-transform:uppercase}"
 + "@media (min-width:1000px){"
 + ".eb-navbar{padding:0 40px}"
 + ".ebm-g,.ebm-d{display:flex}"
@@ -140,7 +147,13 @@ function construire(){
   var p=el('div','ebm-soins'); var pin=el('div','ebm-soins-in');
   var c1=el('div','','<h4>Par type de soin</h4>'); PAR_TYPE.forEach(function(x){ c1.appendChild(lien(x[0],x[1])); });
   var c2=el('div','','<h4>Par besoin</h4>'); PAR_BESOIN.forEach(function(x){ c2.appendChild(lien(x[0],x[1])); });
-  var c3=el('div','ebm-tout','<p>Les deux gammes réunies sur une seule page, rangées par type de soin.</p><span>Voir tous les soins</span>');
+  var c3=el('div','ebm-skin-zone');
+  var carte=el('a','ebm-skin','<span class="ebm-sceau">E.B</span><p class="ebm-sk">Skin ID</p><span class="ebm-code"><b>BL</b> · N1 · DOUCEUR</span><p>Votre peau a un code. 2 minutes pour découvrir le vôtre et le rituel qui lui correspond.</p><span class="ebm-cta">Faire mon Skin ID</span>');
+  carte.href='#'; carte.setAttribute('aria-label','Faire mon Skin ID');
+  carte.addEventListener('click',function(e){ e.preventDefault(); fermerTout(); if(typeof window.ebDiagOpen==='function') window.ebDiagOpen(); });
+  c3.appendChild(carte);
+  var CODES=['<b>BL</b> · N1 · DOUCEUR','<b>BA</b> · N2/3 · RÉGÉNÉRATION','<b>B</b> · N2 · ÉCLAT','<b>BA</b> · N4 · CLARTÉ','<b>BL</b> · N1 · ÉQUILIBRE'], iCode=0, codeEl=carte.querySelector('.ebm-code');
+  setInterval(function(){ if(!p.classList.contains('on')) return; codeEl.style.opacity=0; setTimeout(function(){ iCode=(iCode+1)%CODES.length; codeEl.innerHTML=CODES[iCode]; codeEl.style.opacity=1; },400); },2600);
   [c1,c2,c3].forEach(function(x){ pin.appendChild(x); }); p.appendChild(pin); document.body.appendChild(p);
 
   // ── Liste du téléphone (remplace l'ancien contenu du menu)
