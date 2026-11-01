@@ -22,7 +22,11 @@
     'Radiance Eye Cream','Lumi-Eyes Bright & Glow Niacinamide + Acide hyaluronique',
     'Lumi-Eyes Bright & Glow Caféine + Vitamine C','Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5',
     'Routine éclat','Routine hydratation','Routine fermeté','Routine équilibre',
-    'Routine teint & protection','Routine regard'
+    'Routine teint & protection','Routine regard',
+    // Balance (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
+    'Hydra Balance','Calm Balance Jour','Calm Balance Nuit','Ceramide Night Restore','Cellular Renew','Cellular Eye Restore','Active Lift',
+    'Age Lift','Eye Lift','Cellular Reveal','Bakuchiol Elixir','Spot Control','Bright Control','BHA Balance','Glyco Balance','AHA Balance Peel',
+    'Routine essentielle','Routine anti-âge','Routine anti-taches','Routine apaisante','Routine renouvellement'
   ];
   var BANNIERE = 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200';
 
@@ -85,7 +89,44 @@
   + ".eb-av-overlay.eb-av-theme{overflow-x:hidden}"
   + ".eb-av-overlay.eb-av-theme .eb-av-inner{padding-top:0}"
   + ".eb-av-overlay.eb-av-theme .eb-av-bandeau{background:#000;margin:0 calc(50% - 50vw) 34px}"
-  + ".eb-av-overlay.eb-av-theme .eb-av-bandeau .eb-av-banner{max-width:760px;margin:0 auto}";
+  + ".eb-av-overlay.eb-av-theme .eb-av-bandeau .eb-av-banner{max-width:760px;margin:0 auto}"
+  // ---- Nouvelle DA (en test sur Balance) : fond du site, halos très pâles, sceau E.B embossé, flacon fondu dans le fond
+  + ".eb-av-tete,.eb-av-filet{display:none}"
+  + ".eb-av-overlay.eb-av-doux{background:radial-gradient(620px 520px at 100% 0%,rgba(195,204,143,.34),rgba(195,204,143,0) 70%),radial-gradient(680px 560px at 0% 100%,rgba(180,192,159,.26),rgba(180,192,159,0) 70%),#f5f4f0;background-attachment:fixed;color:#1f241c}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-bandeau{display:none}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-inner{padding-top:64px}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-tete{display:flex;flex-direction:column;align-items:center}"
+  + ".eb-av-overlay.eb-av-doux .eb-sceau{display:inline-block;margin:0 0 16px;padding:8px 15px 7px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:3px;background:rgba(255,255,255,.4);font-size:16px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-hero{display:none;margin:0 0 6px}"
+  + ".eb-av-overlay.eb-av-doux.eb-av-un .eb-av-hero{display:block}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-hero img{display:block;height:170px;width:auto;mix-blend-mode:multiply;-webkit-mask-image:radial-gradient(closest-side,#000 58%,transparent 100%);mask-image:radial-gradient(closest-side,#000 58%,transparent 100%)}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-kicker{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#777;margin:4px 0 8px}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-title{font-size:24px;font-weight:600;letter-spacing:.01em;text-transform:none;color:#111;margin:0}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-filet{display:block;width:56px;height:2px;margin:12px auto 0;background:linear-gradient(90deg,#ebecdb,#c3cc8f,#85a33a,#2b3826)}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-intro{font-size:13px;font-weight:300;color:#444;opacity:1;margin:18px 0 22px}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-form{display:flex !important;flex-direction:column}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-form > *{order:5}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-products{order:1}.eb-av-overlay.eb-av-doux .eb-av-add{order:2;align-self:flex-start}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-lbl-soins{display:none}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-label{font-size:10px;font-weight:400;letter-spacing:.22em;color:#555;margin:26px 0 4px}"
+  + ".eb-av-overlay.eb-av-doux input,.eb-av-overlay.eb-av-doux select{color:#1f241c;font-size:14px;font-weight:300;border-bottom:1px solid #cfccc2}"
+  + ".eb-av-overlay.eb-av-doux input::placeholder,.eb-av-overlay.eb-av-doux textarea::placeholder{color:#999;opacity:1}"
+  + ".eb-av-overlay.eb-av-doux select{background-image:linear-gradient(45deg,transparent 50%,#555 50%),linear-gradient(135deg,#555 50%,transparent 50%)}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-card{background:none;border:none;padding:0;margin:0 0 14px}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-card + .eb-av-card{background:#faf9f6;border:1px solid #e4e1d8;padding:14px 16px}"
+  + ".eb-av-overlay.eb-av-doux.eb-av-un .eb-av-card-head{display:none}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-card-img{width:52px;height:64px;object-fit:contain;background:none;mix-blend-mode:multiply}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-card-name{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#111}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-stars{justify-content:center;margin:2px 0 10px}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-star{color:#d8d6cc;font-size:28px}.eb-av-overlay.eb-av-doux .eb-av-star.on{color:#7d8f66}"
+  + ".eb-av-overlay.eb-av-doux textarea{color:#1f241c;font-weight:300;background:rgba(255,255,255,.5);border:1px solid #e4e1d8;padding:12px 14px;min-height:110px;margin:0}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-link,.eb-av-overlay.eb-av-doux .eb-av-remove{color:#444}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-error{color:#a3242c}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-send,.eb-av-overlay.eb-av-doux .eb-av-thanks button{background:#111;color:#fff;font-size:11px;font-weight:600;letter-spacing:.2em}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-note{color:#888;opacity:1;font-weight:300}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-thanks-title{color:#111;text-transform:none;font-size:22px;font-weight:600;letter-spacing:.01em}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-thanks p{color:#444;opacity:1;font-weight:300}"
+  + ".eb-av-overlay.eb-av-doux ~ .eb-av-close,.eb-av-close.eb-av-close-doux{background:#fff;border-color:#e4e1d8;color:#111}";
 
   // ------------------------------------------------------------------ STRUCTURE
   var overlay, list, errorEl, sendBtn, formEl, thanksEl, closeBtn;
@@ -107,7 +148,8 @@
     overlay.innerHTML = ''
       + '<div class="eb-av-inner">'
       +   '<div class="eb-av-bandeau"><img class="eb-av-banner" src="' + BANNIERE + '" alt="ELKHA.B Paris"></div>'
-      +   '<h2 class="eb-av-title">Votre avis compte</h2>'
+      +   '<div class="eb-av-tete"><div class="eb-sceau">E.B</div><div class="eb-av-hero"><img alt=""></div><p class="eb-av-kicker">La parole aux B.</p></div>'
+      +   '<h2 class="eb-av-title">Votre avis compte</h2><div class="eb-av-filet"></div>'
       +   '<p class="eb-av-intro">Texture, sensations, évolution de votre peau… Partagez votre expérience, simplement et sincèrement. Votre avis aidera d’autres peaux à trouver les soins qui leur correspondent.</p>'
       +   '<div class="eb-av-form">'
       +     '<div class="eb-av-label">Vous</div>'
@@ -124,9 +166,9 @@
       +         '<option value="Peau acnéique">Peau acnéique</option>'
       +       '</select>'
       +     '</div>'
-      +     '<div class="eb-av-label">Vos soins</div>'
+      +     '<div class="eb-av-label eb-av-lbl-soins">Vos soins</div>'
       +     '<div class="eb-av-products"></div>'
-      +     '<button type="button" class="eb-av-link eb-av-add">+ Ajouter un autre soin</button>'
+      +     '<button type="button" class="eb-av-link eb-av-add">+ Donner aussi mon avis sur un autre soin</button>'
       +     '<input type="text" class="eb-av-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">'
       +     '<div class="eb-av-error" role="alert"></div>'
       +     '<button type="button" class="eb-av-send">Envoyer mes avis</button>'
@@ -259,16 +301,29 @@
   }
   function ebAvisOpen(items){
     build();
-    overlay.classList.remove('eb-av-theme', 'eb-av-bloom', 'eb-av-balance');
+    overlay.classList.remove('eb-av-theme', 'eb-av-bloom', 'eb-av-balance', 'eb-av-doux', 'eb-av-un');
     var t = themeGamme(items);
+    var doux = t === 'eb-av-balance';   // nouvelle DA (en test sur Balance)
     if(t) overlay.classList.add('eb-av-theme', t);
-    if(t) noirBanniere();
+    if(doux) overlay.classList.add('eb-av-doux'); else if(t) noirBanniere();
+    if(closeBtn) closeBtn.classList.toggle('eb-av-close-doux', doux);
+    var titre = overlay.querySelector('.eb-av-title'), hero = overlay.querySelector('.eb-av-hero img');
+    titre.textContent = 'Votre avis compte';
+    var reconnus = (items || []).filter(function(it){ return it && it.n && PRODUITS.indexOf(it.n) !== -1; });
+    if(doux && reconnus.length === 1){
+      var P = window.EB_PRODUITS || {}, fiche = null;
+      for(var k in P){ if(P[k] && (P[k].avis === reconnus[0].n || P[k].nom === reconnus[0].n)){ fiche = P[k]; break; } }
+      var m = (fiche && fiche.media) || {};
+      var photo = safeImg(m.accord || m.miniature || reconnus[0].i || '');
+      titre.textContent = 'Votre avis sur ' + ((fiche && fiche.nom) || reconnus[0].d || reconnus[0].n);
+      if(photo){ hero.src = photo + (photo.indexOf('?') < 0 ? '?' : '&') + 'width=600'; overlay.classList.add('eb-av-un'); }
+    }
     list.innerHTML = '';
     errorEl.textContent = '';
     formEl.style.display = 'block';
     thanksEl.style.display = 'none';
     sendBtn.disabled = false;
-    sendBtn.textContent = 'Envoyer mes avis';
+    sendBtn.textContent = doux ? 'Envoyer mon avis' : 'Envoyer mes avis';
 
     var seen = {};
     (items || []).forEach(function(it){
@@ -341,7 +396,7 @@
       console.error('ELKHA.B avis — envoi impossible', err);
       errorEl.textContent = 'L’envoi n’a pas fonctionné. Vérifiez votre connexion et réessayez.';
       sendBtn.disabled = false;
-      sendBtn.textContent = 'Envoyer mes avis';
+      sendBtn.textContent = overlay.classList.contains('eb-av-doux') ? 'Envoyer mon avis' : 'Envoyer mes avis';
     }
   }
 
