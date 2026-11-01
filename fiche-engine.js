@@ -139,11 +139,11 @@
   + ".eb-fp-exp.eb-fp-degrade .eb-review{border-bottom:1px solid rgba(58,26,18,.16) !important}"
   + ".eb-fp-exp.eb-fp-degrade .eb-fp-avis{background:#5a1823;color:#fbf6f1}"
   // Site Balance : même bloc, dans le dégradé vert de la gamme (comme la fenêtre « Laisser un avis »)
-  + ".eb-fp-exp.eb-fp-degrade.eb-fp-balance{background:linear-gradient(150deg,#f5f4ef 0%,#eef0ea 5%,#e7ece6 10%,#e2e8e2 15%,#dee5de 20%,#d9e2d9 25%,#d4ded4 30%,#cdd8ce 35%,#c5d2c6 40%,#bdcbbe 45%,#b4c4b6 50%,#acbeae 55%,#a3b7a7 60%,#9ab09f 65%,#91a998 70%,#89a290 75%,#829a8a 80%,#7a9284 85%,#71887d 90%,#677b72 95%,#5c6b66 100%);color:#18302a}"
-  + ".eb-fp-exp.eb-fp-balance .eb-fp-h2{color:#18302a}"
-  + ".eb-fp-exp.eb-fp-balance .eb-reviews,.eb-fp-exp.eb-fp-balance .eb-reviews *{color:#18302a !important}"
-  + ".eb-fp-exp.eb-fp-balance .eb-review{border-bottom:1px solid rgba(24,48,42,.16) !important}"
-  + ".eb-fp-exp.eb-fp-balance .eb-fp-avis{background:#18302a;color:#f5f4ef}"
+  + ".eb-fp-exp.eb-fp-degrade.eb-fp-balance{background:linear-gradient(150deg,rgb(245,244,240) 0%,rgb(245,244,240) 5%,rgb(244,243,239) 10%,rgb(244,243,238) 15%,rgb(243,242,237) 20%,rgb(242,242,235) 25%,rgb(240,241,232) 30%,rgb(238,239,229) 35%,rgb(236,238,226) 40%,rgb(233,236,223) 45%,rgb(230,234,219) 50%,rgb(226,232,214) 55%,rgb(222,228,209) 60%,rgb(217,225,203) 65%,rgb(210,219,195) 70%,rgb(202,212,185) 75%,rgb(191,203,172) 80%,rgb(174,189,151) 85%,rgb(147,166,121) 90%,rgb(100,122,78) 95%,rgb(43,56,38) 100%);color:#2b3826;padding-bottom:64px}"
+  + ".eb-fp-exp.eb-fp-balance .eb-fp-h2{color:#2b3826}"
+  + ".eb-fp-exp.eb-fp-balance .eb-reviews,.eb-fp-exp.eb-fp-balance .eb-reviews *{color:#2b3826 !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review{border-bottom:1px solid rgba(43,56,38,.16) !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-fp-avis{background:#2b3826;color:#f6f3ea}"
   // Pour aller plus loin / L'accord parfait
   + ".eb-fp-sep{border:none;border-top:1px solid rgba(0,0,0,.15);width:60%;margin:56px auto 30px}"
   + ".eb-fp-exp + .eb-fp-sep{border-top:none;margin-top:30px}"
@@ -687,7 +687,7 @@
 
     // Vos expériences
     if(data.avis){
-      h += '<div class="eb-fp-exp' + (window.EB_AVIS_DEGRADE ? ' eb-fp-degrade' + (/balance/i.test(window.location.hostname) ? ' eb-fp-balance' : '') : '') + '"><h2 class="eb-fp-h2">Vos expériences</h2>';
+      h += '<div class="eb-fp-exp' + (window.EB_AVIS_DEGRADE ? ' eb-fp-degrade' + ((/balance/i.test(window.location.hostname) || data.gamme === 'balance') ? ' eb-fp-balance' : '') : '') + '"><h2 class="eb-fp-h2">Vos expériences</h2>';
       h += '<div class="eb-reviews" data-produit="' + esc(data.avis) + '"><div class="eb-review-status">Aucun avis pour le moment.</div></div>';
       h += '<button type="button" class="eb-fp-avis" data-avis="' + esc(data.avis) + '">Laisser un avis</button></div>';
     }
