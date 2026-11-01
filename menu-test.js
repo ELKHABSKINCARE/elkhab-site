@@ -186,6 +186,12 @@ function construire(){
   });
   ov.addEventListener('click',function(e){ var a=e.target.closest && e.target.closest('a'); if(a && !a.classList.contains('ebm-avenir')) fermerTout(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') fermerTout(); });
+  // Dès que la cliente fait défiler la page (molette, pavé tactile, doigt), le menu remonte tout seul
+  function ouvertQuelquePart(){ return ov.classList.contains('open') || p.classList.contains('on'); }
+  voile.addEventListener('wheel',function(){ fermerTout(); },{passive:true});
+  var yOuverture = 0;
+  [bMenu,bSoins].forEach(function(b){ b.addEventListener('click',function(){ yOuverture = window.scrollY; }); });
+  window.addEventListener('scroll',function(){ if(ouvertQuelquePart() && Math.abs(window.scrollY - yOuverture) > 8) fermerTout(); },{passive:true});
   return true;
 }
 (function attendre(n){ if(construire()) return; if(n>0) setTimeout(function(){ attendre(n-1); },200); })(40);
