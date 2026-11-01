@@ -109,6 +109,7 @@
   + ".eb-fp-soin{background:none;border:none;padding:0;margin:0;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;color:#000}"
   + ".eb-fp-soin-img{display:block;aspect-ratio:3/4;overflow:hidden;background:#F6F4F0}"
   + ".eb-fp-soin-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}"
+  + ".eb-fp-soin-img.eb-fp-soin-flacon img{object-fit:contain;object-position:50% 100%;height:92%;margin-top:8%}"
   + ".eb-fp-soin:hover .eb-fp-soin-img img{transform:scale(1.05)}"
   + ".eb-fp-soin-name{display:block;margin-top:9px;font-size:9.5px;font-weight:400;letter-spacing:.14em;line-height:1.5;text-transform:uppercase}"
   + ".eb-fp-soin-voir{display:block;margin-top:3px;font-size:10px;letter-spacing:.04em;text-decoration:underline;text-underline-offset:3px;opacity:.55}"
@@ -622,9 +623,9 @@
         h += '<div class="eb-fp-soins" style="grid-template-columns:repeat(' + Math.min(soins.length, 3) + ',1fr)">';
         soins.forEach(function(sid, k){
           var sp = window.EB_PRODUITS[sid], m = sp.media || {};
-          var img = m.miniature || (m.images && m.images[0]) || m.image || '';
+          var img = m.accord || m.miniature || (m.images && m.images[0]) || m.image || '';   // Balance : flacon bien cadré (bien visible)
           h += '<button type="button" class="eb-fp-soin"' + (r.soinSelonChoix === k ? ' data-selon-choix="1"' : '') + ' data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
-          h += '<span class="eb-fp-soin-img">' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
+          h += '<span class="eb-fp-soin-img' + (m.accord ? ' eb-fp-soin-flacon' : '') + '">' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
           h += '<span class="eb-fp-soin-name">' + esc(sp.nom) + '</span><span class="eb-fp-soin-voir">Voir la fiche</span></button>';
         });
         h += '</div>';
