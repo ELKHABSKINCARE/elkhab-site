@@ -5,6 +5,8 @@
 // À compléter depuis Shopify : 🛒 variantId et 📷 photos de chaque soin.
 // =====================================================================
 // Bloc « Vos expériences » des fiches en dégradé (vert sur le site Balance)
+// Typo : Montserrat fine chargée par le code lui-même (le site Balance ne la charge pas en 300/400 → textes trop gras)
+(function(){ if(document.getElementById('eb-montserrat')) return; var l = document.createElement('link'); l.id = 'eb-montserrat'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap'; document.head.appendChild(l); })();
 window.EB_AVIS_DEGRADE = true;
 window.EB_PRODUITS = window.EB_PRODUITS || {};
 window.EB_INCI_PLUS = window.EB_INCI_PLUS || {};
@@ -856,7 +858,12 @@ var BALANCE = {
     }
   }
 };
-for(var k in BALANCE){ BALANCE[k].gamme = 'balance'; window.EB_PRODUITS[k] = BALANCE[k]; }   // gamme : bloc « Vos expériences » vert partout
+for(var k in BALANCE){
+  BALANCE[k].gamme = 'balance';
+  // accord parfait : flacon bien cadré, bien visible (photo de la page des soins)
+  var mm = BALANCE[k].media; if(mm && mm.miniature) mm.accord = mm.miniature.replace('-miniature-', '-flacon-site-').replace(/\.jpg$/, '.png');
+  window.EB_PRODUITS[k] = BALANCE[k];
+}   // gamme : bloc « Vos expériences » vert partout
 var INCI = {
   "calm-balance-jour": {
     "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil¹, Pentylene Glycol, Polyglyceryl-3 Stearate, Cetearyl Alcohol, Sodium PCA, Coco-Caprylate, Isoamyl Laurate, Caprylic/Capric Triglyceride, Aqua/Water, Hydrolyzed Rhodophyceae Extract, Octyldodecanol, Xanthan Gum, Cellulose, Irvingia Gabonensis Kernel Butter, Potassium Hydroxide, Sodium Hyaluronate, Hydrogenated Coco-Glycerides, Tocopherol, Ascorbyl Palmitate, Sodium Phytate, Hydrolyzed Hyaluronic Acid.\n¹ Ingrédients issus de l'agriculture biologique.",
