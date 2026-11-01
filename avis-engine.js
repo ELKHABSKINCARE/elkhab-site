@@ -92,7 +92,9 @@
   + ".eb-av-overlay.eb-av-theme .eb-av-bandeau .eb-av-banner{max-width:760px;margin:0 auto}"
   // ---- Nouvelle DA (en test sur Balance) : fond du site, halos très pâles, sceau E.B embossé, flacon fondu dans le fond
   + ".eb-av-tete,.eb-av-filet{display:none}"
-  + ".eb-av-overlay.eb-av-doux{background:radial-gradient(620px 520px at 100% 0%,rgba(195,204,143,.34),rgba(195,204,143,0) 70%),radial-gradient(680px 560px at 0% 100%,rgba(180,192,159,.26),rgba(180,192,159,0) 70%),#f5f4f0;background-attachment:fixed;color:#1f241c}"
+  + ".eb-av-overlay.eb-av-doux.eb-av-balance{--h1:rgba(195,204,143,.34);--h1z:rgba(195,204,143,0);--h2:rgba(180,192,159,.26);--h2z:rgba(180,192,159,0);--etoile:#7d8f66;--filet:linear-gradient(90deg,#ebecdb,#c3cc8f,#85a33a,#2b3826)}"
+  + ".eb-av-overlay.eb-av-doux.eb-av-bloom{--h1:rgba(230,203,189,.45);--h1z:rgba(230,203,189,0);--h2:rgba(211,155,130,.22);--h2z:rgba(211,155,130,0);--etoile:#c58b74;--filet:linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)}"
+  + ".eb-av-overlay.eb-av-doux{background:radial-gradient(620px 520px at 100% 0%,var(--h1),var(--h1z) 70%),radial-gradient(680px 560px at 0% 100%,var(--h2),var(--h2z) 70%),#f5f4f0;background-attachment:fixed;color:#1f241c}"
   + ".eb-av-overlay.eb-av-doux .eb-av-bandeau{display:none}"
   + ".eb-av-overlay.eb-av-doux .eb-av-inner{padding-top:64px}"
   + ".eb-av-overlay.eb-av-doux .eb-av-tete{display:flex;flex-direction:column;align-items:center}"
@@ -102,7 +104,7 @@
   + ".eb-av-overlay.eb-av-doux .eb-av-hero img{display:block;height:170px;width:auto;filter:brightness(1.06);mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent),linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent),linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}"
   + ".eb-av-overlay.eb-av-doux .eb-av-kicker{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#777;margin:4px 0 8px}"
   + ".eb-av-overlay.eb-av-doux .eb-av-title{font-size:24px;font-weight:600;letter-spacing:.01em;text-transform:none;color:#111;margin:0}"
-  + ".eb-av-overlay.eb-av-doux .eb-av-filet{display:block;width:56px;height:2px;margin:12px auto 0;background:linear-gradient(90deg,#ebecdb,#c3cc8f,#85a33a,#2b3826)}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-filet{display:block;width:56px;height:2px;margin:12px auto 0;background:var(--filet)}"
   + ".eb-av-overlay.eb-av-doux .eb-av-intro{font-size:13px;font-weight:300;color:#444;opacity:1;margin:18px 0 22px}"
   + ".eb-av-overlay.eb-av-doux .eb-av-form{display:flex !important;flex-direction:column}"
   + ".eb-av-overlay.eb-av-doux .eb-av-form > *{order:5}"
@@ -118,7 +120,7 @@
   + ".eb-av-overlay.eb-av-doux .eb-av-card-img{width:52px;height:64px;object-fit:contain;background:none;mix-blend-mode:multiply}"
   + ".eb-av-overlay.eb-av-doux .eb-av-card-name{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#111}"
   + ".eb-av-overlay.eb-av-doux .eb-av-stars{justify-content:center;margin:2px 0 10px}"
-  + ".eb-av-overlay.eb-av-doux .eb-av-star{color:#d8d6cc;font-size:28px}.eb-av-overlay.eb-av-doux .eb-av-star.on{color:#7d8f66}"
+  + ".eb-av-overlay.eb-av-doux .eb-av-star{color:#d8d6cc;font-size:28px}.eb-av-overlay.eb-av-doux .eb-av-star.on{color:var(--etoile)}"
   + ".eb-av-overlay.eb-av-doux textarea{color:#1f241c;font-weight:300;background:rgba(255,255,255,.5);border:1px solid #e4e1d8;padding:12px 14px;min-height:110px;margin:0}"
   + ".eb-av-overlay.eb-av-doux .eb-av-link,.eb-av-overlay.eb-av-doux .eb-av-remove{color:#444}"
   + ".eb-av-overlay.eb-av-doux .eb-av-error{color:#a3242c}"
@@ -303,9 +305,9 @@
     build();
     overlay.classList.remove('eb-av-theme', 'eb-av-bloom', 'eb-av-balance', 'eb-av-doux', 'eb-av-un');
     var t = themeGamme(items);
-    var doux = t === 'eb-av-balance';   // nouvelle DA (en test sur Balance)
+    var doux = !!t;   // nouvelle DA (Bloom et Balance, quand le site de test l'active)
     if(t) overlay.classList.add('eb-av-theme', t);
-    if(doux) overlay.classList.add('eb-av-doux'); else if(t) noirBanniere();
+    if(doux) overlay.classList.add('eb-av-doux');
     if(closeBtn) closeBtn.classList.toggle('eb-av-close-doux', doux);
     var titre = overlay.querySelector('.eb-av-title'), hero = overlay.querySelector('.eb-av-hero img');
     titre.textContent = 'Votre avis compte';
