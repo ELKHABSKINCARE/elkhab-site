@@ -140,11 +140,26 @@
   + ".eb-fp-exp.eb-fp-degrade .eb-review{border-bottom:1px solid rgba(58,26,18,.16) !important}"
   + ".eb-fp-exp.eb-fp-degrade .eb-fp-avis{background:#5a1823;color:#fbf6f1}"
   // Site Balance : même bloc, dans le dégradé vert de la gamme (comme la fenêtre « Laisser un avis »)
-  + ".eb-fp-exp.eb-fp-degrade.eb-fp-balance{background:linear-gradient(150deg,rgb(245,244,240) 0%,rgb(245,244,240) 5%,rgb(244,243,239) 10%,rgb(244,243,238) 15%,rgb(243,242,237) 20%,rgb(242,242,235) 25%,rgb(240,241,232) 30%,rgb(238,239,229) 35%,rgb(236,238,226) 40%,rgb(233,236,223) 45%,rgb(230,234,219) 50%,rgb(226,232,214) 55%,rgb(222,228,209) 60%,rgb(217,225,203) 65%,rgb(210,219,195) 70%,rgb(202,212,185) 75%,rgb(191,203,172) 80%,rgb(174,189,151) 85%,rgb(147,166,121) 90%,rgb(100,122,78) 95%,rgb(43,56,38) 100%);color:#2b3826;padding-bottom:64px}"
-  + ".eb-fp-exp.eb-fp-balance .eb-fp-h2{color:#2b3826}"
-  + ".eb-fp-exp.eb-fp-balance .eb-reviews,.eb-fp-exp.eb-fp-balance .eb-reviews *{color:#2b3826 !important}"
-  + ".eb-fp-exp.eb-fp-balance .eb-review{border-bottom:1px solid rgba(43,56,38,.16) !important}"
-  + ".eb-fp-exp.eb-fp-balance .eb-fp-avis{background:#2b3826;color:#f6f3ea}"
+  // Nouvelle DA (Balance, en test) : fond du site + halo de la gamme très pâle, sceau E.B embossé, avis en cartes
+  + ".eb-fp-exp.eb-fp-degrade.eb-fp-balance{background:radial-gradient(560px 420px at 100% 0%,rgba(195,204,143,.30),rgba(195,204,143,0) 72%),radial-gradient(600px 460px at 0% 100%,rgba(180,192,159,.24),rgba(180,192,159,0) 72%),#f5f4f0;color:#1f241c;text-align:left}"
+  + ".eb-fp-exp.eb-fp-balance .eb-sceau{display:inline-block;margin:0 0 20px;padding:8px 15px 7px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:3px;background:rgba(255,255,255,.4);font-size:16px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
+  + ".eb-fp-exp.eb-fp-balance .eb-fp-exp-k{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#777;margin:0 0 8px}"
+  + ".eb-fp-exp.eb-fp-balance .eb-fp-h2{color:#111;margin:0}"
+  + ".eb-fp-exp.eb-fp-balance .eb-fp-exp-filet{width:56px;height:2px;margin:12px 0 18px;background:linear-gradient(90deg,#ebecdb,#c3cc8f,#85a33a,#2b3826)}"
+  + ".eb-fp-exp.eb-fp-balance .eb-reviews{padding:0 !important;max-width:none !important;margin:0 !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-reviews,.eb-fp-exp.eb-fp-balance .eb-reviews *{color:#222 !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-resume{display:flex !important;align-items:center;gap:10px;margin:0 0 18px;font-size:12px}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-resume b{font-size:22px;font-weight:300}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-resume .eb-review-stars{margin:0 !important;font-size:12px !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review{position:relative;background:#faf9f6;border:1px solid #e4e1d8 !important;padding:18px 18px 16px !important;margin:0 0 10px}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review::after{content:'E.B';position:absolute;top:12px;right:14px;font-size:12px;font-weight:700;letter-spacing:.08em;color:#e9e6dd !important;text-shadow:0 1px 0 #fff,0 -1px 0 #d9d5ca}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-stars{color:#7d8f66 !important;font-size:13px !important;letter-spacing:2px}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-meta{order:3;font-size:9.5px !important;font-weight:400 !important;letter-spacing:.18em !important;color:#555 !important;opacity:1 !important;margin:12px 0 0 !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review{display:flex;flex-direction:column}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-text{order:2;font-size:13px !important;line-height:1.75 !important;font-weight:300;margin-top:8px}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-ambassadrice{order:4;margin:4px 0 0 !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-review-status{font-style:normal !important;font-weight:300;color:#666 !important;opacity:1 !important;padding:0 0 4px !important}"
+  + ".eb-fp-exp.eb-fp-balance .eb-fp-avis{background:#111;color:#fff;margin-top:22px}"
   // Pour aller plus loin / L'accord parfait
   + ".eb-fp-sep{border:none;border-top:1px solid rgba(0,0,0,.15);width:60%;margin:56px auto 30px}"
   + ".eb-fp-exp + .eb-fp-sep{border-top:none;margin-top:30px}"
@@ -690,7 +705,10 @@
 
     // Vos expériences
     if(data.avis){
-      h += '<div class="eb-fp-exp' + (window.EB_AVIS_DEGRADE ? ' eb-fp-degrade' + ((/balance/i.test(window.location.hostname) || data.gamme === 'balance') ? ' eb-fp-balance' : '') : '') + '"><h2 class="eb-fp-h2">Vos expériences</h2>';
+      var avisDoux = window.EB_AVIS_DEGRADE && (/balance/i.test(window.location.hostname) || data.gamme === 'balance');   // nouvelle DA (en test sur Balance)
+      h += '<div class="eb-fp-exp' + (window.EB_AVIS_DEGRADE ? ' eb-fp-degrade' + (avisDoux ? ' eb-fp-balance' : '') : '') + '">'
+        + (avisDoux ? '<div class="eb-sceau">E.B</div><p class="eb-fp-exp-k">La parole aux B.</p>' : '')
+        + '<h2 class="eb-fp-h2">Vos expériences</h2>' + (avisDoux ? '<div class="eb-fp-exp-filet"></div>' : '');
       h += '<div class="eb-reviews" data-produit="' + esc(data.avis) + '"><div class="eb-review-status">Aucun avis pour le moment.</div></div>';
       h += '<button type="button" class="eb-fp-avis" data-avis="' + esc(data.avis) + '">Laisser un avis</button></div>';
     }
