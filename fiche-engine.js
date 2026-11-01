@@ -149,6 +149,7 @@
   + ".eb-fp-exp + .eb-fp-sep{border-top:none;margin-top:30px}"
   + ".eb-fp-kicker{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-align:center;margin:0 0 10px}"
   + ".eb-fp-accord-img{display:block;width:calc(100% + 48px);max-width:none;height:auto;margin:22px -24px 22px}"
+  + ".eb-fp-accord-img.eb-fp-accord-flacon{width:auto;max-width:100%;height:320px;object-fit:contain;margin:26px auto 26px}"
   + ".eb-fp-accord-nom{font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;text-align:center;color:#000;margin:-8px 0 4px}"
   + ".eb-fp-accord-sous{font-size:12px;font-weight:300;line-height:1.6;text-align:center;color:#666;margin:0 0 18px}"
   + ".eb-fp-accord-text{font-size:14px;line-height:1.8;color:#222;text-align:center}"
@@ -184,6 +185,7 @@
   +   ".eb-fp-exp > .eb-fp-avis{max-width:320px}"
   // Accord parfait : photo à taille raisonnable, centrée
   +   ".eb-fp-accord-img{width:100%;max-width:380px !important;margin:26px auto 26px !important}"
+  +   ".eb-fp-accord-img.eb-fp-accord-flacon{width:auto !important;max-width:100% !important;height:340px;object-fit:contain}"
   + "}";
 
   var overlay, closeBtn, cartBtn, backBtn, pile = [], courant = null, built = false, observer = null, slideTimer = null, choixManuel = false;
@@ -700,8 +702,9 @@
       h += '<h2 class="eb-fp-h2" style="margin-top:6px">L\'accord parfait</h2>';
       var ficheA = a.fiche && window.EB_PRODUITS[a.fiche];
       var mA = (ficheA && ficheA.media) || {};
-      var imgA = a.image || mA.miniature || (mA.images && mA.images[0]) || mA.image;
-      if(imgA) h += '<img class="eb-fp-accord-img" src="' + esc(hd(imgA, 1600)) + '" alt="' + esc(a.nom || '') + '">';
+      var imgA = a.image || mA.accord || mA.miniature || (mA.images && mA.images[0]) || mA.image;
+      var cadreA = (!a.image && mA.accord) ? ' eb-fp-accord-flacon' : '';   // photo du flacon cadrée serré (Balance)
+      if(imgA) h += '<img class="eb-fp-accord-img' + cadreA + '" src="' + esc(hd(imgA, 1600)) + '" alt="' + esc(a.nom || '') + '">';
       var nomA = (ficheA && !a.image) ? ficheA.nom : a.nom;
       var sousA = a.sousTitre || (ficheA && !a.image ? ficheA.sousTitre : '');
       if(nomA) h += '<p class="eb-fp-accord-nom">' + esc(nomA) + '</p>';
