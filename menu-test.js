@@ -81,8 +81,11 @@ var CSS = ""
 + ".ebm-soins a{display:block;font-size:14px;font-weight:300;padding:6px 0;color:#000;text-decoration:none}"
 + ".ebm-soins a:hover{opacity:.6}"
 + ".ebm-soins a.ebm-avenir,.ebm-sous a.ebm-avenir{cursor:default}"
+/* panier en verre dépoli (niveau 2) : on devine le site derrière, le flou garde le texte lisible */
++ "html body .eb-cart-panel,html body #ebCartPanel{background:rgba(246,244,240,.5) !important;-webkit-backdrop-filter:blur(24px) saturate(1.1) !important;backdrop-filter:blur(24px) saturate(1.1) !important}"
++ "html body .eb-cart-backdrop{background:rgba(0,0,0,.12) !important}"
 /* carte Skin ID (piste C) : petite, au centre de la place libre du panneau */
-+ ".ebm-skin-zone{display:flex;align-items:center;justify-content:center}"
++ ".ebm-skin-zone{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center}"
 + ".ebm-soins a.ebm-skin{position:relative;display:block;width:100%;max-width:280px;box-sizing:border-box;padding:18px 18px 16px;cursor:pointer;text-decoration:none;color:#111;border:1px solid #e4e1d8;background:radial-gradient(260px 180px at 100% 0%,rgba(230,203,189,.45),rgba(230,203,189,0) 70%),radial-gradient(260px 180px at 0% 100%,rgba(195,204,143,.35),rgba(195,204,143,0) 70%),#faf9f6;transition:transform .3s ease,box-shadow .3s ease}"
 + ".ebm-soins a.ebm-skin:hover{opacity:1;transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.06)}"
 + ".ebm-skin .ebm-sceau{position:absolute;top:14px;right:14px;padding:5px 10px 4px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:2px;background:rgba(255,255,255,.4);font-size:11px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
@@ -195,8 +198,15 @@ function construire(){
     e.stopPropagation();
     var o=!p.classList.contains('on');
     fermerTout();
-    if(o){ p.classList.add('on'); nav.classList.add('ebm-soins-ouvert'); bSoins.setAttribute('aria-expanded','true'); voile.classList.add('on'); }
+    if(o){ p.classList.add('on'); nav.classList.add('ebm-soins-ouvert'); bSoins.setAttribute('aria-expanded','true'); voile.classList.add('on'); placerCarte(); }
   });
+  // Carte Skin ID : juste sous les liens de droite (Skin ID, Journal, Leur expérience), entre la loupe et le panier
+  function placerCarte(){
+    var r=d.getBoundingClientRect(), lw=Math.min(280, Math.max(220, r.width));
+    c3.style.width=lw+'px';
+    c3.style.left=Math.max(16, Math.min(window.innerWidth-lw-16, r.left + r.width/2 - lw/2))+'px';
+  }
+  window.addEventListener('resize',function(){ if(p.classList.contains('on')) placerCarte(); });
   ov.addEventListener('click',function(e){ var a=e.target.closest && e.target.closest('a'); if(a && !a.classList.contains('ebm-avenir')) fermerTout(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') fermerTout(); });
   // Dès que la cliente fait défiler la page (molette, pavé tactile, doigt), le menu remonte tout seul
