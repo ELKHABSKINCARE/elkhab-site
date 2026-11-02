@@ -118,7 +118,7 @@
     "radiance-eye-cream": {
       nom: "Radiance Eye Cream", actifs: "Acide hyaluronique · Ginkgo biloba · Beurre de karité",
       ligne: "Cernes · Poches · Ridules",
-      besoins: ["regard"], prix: "28,90€", taille: "15 ml", hauteur: 10.5,
+      besoins: ["regard"], prix: "28,90€", taille: "15 ml", hauteur: 8.5,
       // 📷 Radiance Eye Cream
       photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",
       alt: "Radiance Eye Cream ELKHA.B, crème contour des yeux cernes et poches, 15 ml"
@@ -144,7 +144,7 @@
       ligne: "Teint unifié · SPF 30 · Barrière cutanée · Apaisement · Peaux sensibles",
       besoins: ["anti-taches","solaire","apaisement","sensibles"], prix: "26,90€", taille: "12 g", hauteur: 9.5,
       // 📷 Lumi-Veil (les 4 teintes)
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_4_teintes_flacons.png?v=1793378803",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_4_teintes_flacons.png?v=1793619234",
       alt: "Lumi-Veil CC Cream SPF 30 ELKHA.B, stick teinté en 4 teintes"
     },
     "luminescence-boost": {
