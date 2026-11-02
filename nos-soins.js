@@ -13,7 +13,7 @@
   var REGLAGES = {
     espaceMenu: 64,          // hauteur du menu fixe : la bande des types se colle juste dessous
     fondSite: "#f5f4f0",     // couleur exacte du fond du site
-    versionPhotos: 2,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
+    versionPhotos: 3,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
     typeParDefaut: "nettoyants",
     // Fond de la bande des types (calme, dans les beiges du site)
     bande: "linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#d6cdbf)",
