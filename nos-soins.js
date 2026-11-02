@@ -13,6 +13,7 @@
   var REGLAGES = {
     espaceMenu: 64,          // hauteur du menu fixe : la bande des types se colle juste dessous
     fondSite: "#f5f4f0",     // couleur exacte du fond du site
+    photoTelephoneHaut: "-10%",   // téléphone : remonte la photo de la bannière (les flacons au-dessus du texte, comme Balance)
     versionPhotos: 3,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
     typeParDefaut: "nettoyants",
     // Fond de la bande des types (calme, dans les beiges du site)
@@ -35,6 +36,9 @@
 
   function demarrer(){
   if(!root || root.getAttribute('data-pret')) return; root.setAttribute('data-pret', '1');
+  // même moteur pour la page « Nos soins » (?type=) et la page « Vos besoins » (?besoin=) : réglages lus sur l'embed
+  var PARAM = root.getAttribute('data-param') || 'type', LIBELLE = root.getAttribute('data-choix') || 'Type de soin';
+  var DEFAUT = root.getAttribute('data-defaut') || REGLAGES.typeParDefaut;
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
   function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; u = u.split('?')[0];   // l'ancien numéro « ?v= » de Shopify est retiré : on reçoit toujours la photo du jour
     return u + '?width=' + w + '&eb=' + REGLAGES.versionPhotos; }
@@ -68,13 +72,22 @@
   + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:" + REGLAGES.espaceMenu + "px 5% 0}"
   // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
   + ".ens-psb:before,.ens-psa:after{display:none !important}.ens-sansfond{background-image:none !important}.ens-sanspad{padding-top:0 !important}.ens-cache{display:none !important}"
-  + "#eb-ns .ens-bk{font-size:10px;letter-spacing:.5em;font-weight:500;color:#3d3632;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
-  + ".ens-bn{font-size:30px;letter-spacing:.2em;font-weight:400;line-height:1.3;margin:0;padding-left:.2em;color:#111;text-transform:uppercase;transition:opacity .35s ease,transform .35s ease}"
-  + ".ens-bg{width:84px;height:2px;margin:20px auto;background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
-  + ".ens-bm{font-size:13.5px;font-weight:300;line-height:1.7;color:#2f2a27;max-width:420px;margin:0;transition:opacity .35s ease,transform .35s ease}"
+  // mêmes tailles d'écriture que la bannière et le titre de la page Balance (« LES SOINS » / « BALANCE »)
+  + "#eb-ns .ens-bk{font-size:11px;letter-spacing:.5em;font-weight:500;color:#555;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
+  + ".ens-bn{font-size:46px;letter-spacing:.38em;font-weight:400;line-height:1.2;margin:0;padding-left:.38em;color:#000;text-transform:uppercase;transition:opacity .35s ease,transform .35s ease}"
+  + ".ens-bg{width:120px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
+  + ".ens-bm{font-size:15px;font-weight:300;line-height:1.65;color:#333;max-width:520px;margin:24px auto 0;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
-  + "@media(max-width:1099px){.ens-bn{font-size:25px;letter-spacing:.16em}}"
-  + "@media(max-width:699px){.ens-ban{display:block;height:100svh;min-height:620px;max-height:980px;background:" + REGLAGES.fondSite + "}.ens-bimg{position:absolute;left:0;top:0;width:100%;height:calc(100% - 170px);object-fit:cover;object-position:50% 60%;-webkit-mask-image:linear-gradient(180deg,#000 66%,transparent 98%);mask-image:linear-gradient(180deg,#000 66%,transparent 98%)}.ens-bt{position:absolute;left:0;right:0;bottom:5%;max-width:none;margin:0;padding:0 28px}#eb-ns .ens-bk{margin-bottom:18px}.ens-bn{font-size:21px;letter-spacing:.14em;line-height:1.45}.ens-bg{margin:20px auto}.ens-bm{font-size:13px;line-height:1.75}.ens-bar{margin-top:44px}}"
+  + ".ens-bar{margin-top:64px !important}"
+  // téléphone : exactement comme la bannière Balance — photo sur toute la hauteur, fondu beige en bas (sans voile en haut : la photo garde ses couleurs), texte posé dessus
+  + "@media(max-width:699px){.ens-ban{display:block;height:calc(100svh - 64px);min-height:660px;max-height:900px;background:" + REGLAGES.fondSite + "}"
+  +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
+  +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
+  +   ".ens-bt{position:absolute;left:0;right:0;bottom:1.6%;max-width:none;margin:0;padding:0 32px;z-index:2}"
+  +   "#eb-ns .ens-bk{font-size:9px;color:#555;margin:0 0 11px}"
+  +   ".ens-bn{font-size:34px;line-height:1.15}"
+  +   ".ens-bg{width:84px;margin:15px auto 18px}"
+  +   ".ens-bm{font-size:13px;line-height:1.6;max-width:320px;margin:0 auto}}"
   // le titre et le texte du type sont dans la bannière : dans la section, ils restent pour Google mais ne s'affichent pas en double
   + ".ens-s>h2,.ens-s>.ens-txt{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}"
   + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:0;background:" + REGLAGES.bande + ";box-shadow:0 10px 24px rgba(40,30,20,.06)}"
@@ -140,6 +153,24 @@
   + ".ens-jt{font-size:21px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;margin:0 0 10px}"
   + ".ens-ja{font-size:13.5px;font-weight:300;line-height:1.7;color:#3d3a35;margin:0 0 22px}"
   + ".ens-jl{align-self:flex-start;font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
+  // Page « Vos besoins » : les routines qui correspondent (Bloom et Balance côte à côte) et le petit bloc Skin ID
+  + ".ens-rts{max-width:860px;margin:76px auto 0}"
+  + ".ens-rts>.ens-ck{text-align:center;margin-bottom:22px}"
+  + ".ens-rtl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}"
+  + ".ens-rc{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;color:#111;padding:26px 22px 30px;background:" + REGLAGES.fondSite + ";border:1px solid #e3dccf;transition:transform .35s ease}"
+  + ".ens-rc:hover{transform:translateY(-3px)}"
+  + ".ens-rph{display:block;width:100%;max-width:300px;aspect-ratio:4 / 3;margin:0 0 18px}"
+  + ".ens-rph img{width:100%;height:100%;object-fit:contain;display:block}"
+  + ".ens-rc .ens-g{margin:0 0 6px}"
+  + ".ens-rc h3{margin:0 0 8px !important}"
+  + ".ens-rcs{font-size:12px;font-weight:300;line-height:1.6;color:#4d4a44;margin:0 0 8px}"
+  + ".ens-rc .ens-p{margin:0 0 16px}"
+  + ".ens-rcl{font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
+  + ".ens-sk{max-width:560px;margin:80px auto 0;text-align:center}"
+  + ".ens-sk h3{font-size:19px !important;letter-spacing:.02em !important;text-transform:none !important;font-weight:500 !important;margin:0 0 10px !important}"
+  + ".ens-sk p:not(.ens-ck){font-size:13.5px;font-weight:300;line-height:1.7;color:#4d4a44;margin:0 0 22px}"
+  + ".ens-skb{display:inline-block;background:#111;color:#f5f4f0;font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;padding:15px 26px;text-decoration:none;cursor:pointer;border:0;font-family:inherit}"
+  + "@media(max-width:699px){.ens-rts{margin-top:60px}.ens-rtl{gap:12px}.ens-rph{max-width:230px}.ens-sk{margin-top:60px;padding:0 14px}}"
   + "@media(max-width:699px){.ens-cons{margin-top:60px;padding:34px 24px 36px}.ens-cons h3{font-size:17px !important}.ens-cons p:last-child{font-size:13.5px}.ens-jr{grid-template-columns:1fr;margin-top:30px}.ens-jph{min-height:200px}.ens-jg{padding:28px 24px 30px}.ens-jt{font-size:18px}}";
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
 
@@ -211,7 +242,7 @@
   // ── Prix toujours à jour (ceux des fiches, quand elles sont chargées) ──
   function majPrix(){
     var P = window.EB_PRODUITS || {};
-    root.querySelectorAll('.ens-c').forEach(function(c){
+    root.querySelectorAll('.ens-c,.ens-rc').forEach(function(c){
       var d = P[c.getAttribute('data-fiche')], el = c.querySelector('.ens-prix');
       if(d && d.prix && el) el.textContent = d.prix.replace(/\s*€/, ' €');
     });
@@ -242,6 +273,19 @@
     });
   }
 
+  // Titre du type : même taille que « BALANCE » ; un mot trop long pour la largeur (DÉMAQUILLANTS…) est réduit juste ce qu'il faut
+  function ajusterTitre(){
+    var bn = ban && ban.querySelector('.ens-bn'); if(!bn) return;
+    bn.style.fontSize = '';
+    var cs = getComputedStyle(bn), base = parseFloat(cs.fontSize);
+    var pc = getComputedStyle(bn.parentNode), W = bn.parentNode.clientWidth - parseFloat(pc.paddingLeft) - parseFloat(pc.paddingRight) - parseFloat(cs.paddingLeft) - 2; if(W <= 0) return;
+    var m = document.createElement('span'); m.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:0;top:0';
+    bn.appendChild(m); var max = 0;
+    bn.firstChild.textContent.split(/\s+/).forEach(function(w){ m.textContent = w; max = Math.max(max, m.getBoundingClientRect().width); });
+    bn.removeChild(m);
+    if(max > W) bn.style.fontSize = Math.max(18, Math.floor(base * W / max * 10) / 10) + 'px';
+  }
+
   // ── Un type à la fois, comme une page à part ──
   var bar = root.querySelector('.ens-bar'), actuel = '';
   var choix = document.createElement('button'); choix.type = 'button'; choix.className = 'ens-choix'; choix.setAttribute('aria-expanded', 'false');
@@ -251,7 +295,7 @@
   function ouvrirListe(o){ bar.classList.toggle('ouvert', o); choix.setAttribute('aria-expanded', o ? 'true' : 'false'); var i = choix.querySelector('i'); if(i) i.textContent = o ? '−' : '+'; }
   choix.addEventListener('click', function(){ ouvrirListe(!bar.classList.contains('ouvert')); });
   document.addEventListener('click', function(e){ if(bar && !bar.contains(e.target)) ouvrirListe(false); });
-  drop.addEventListener('click', function(e){ var a = e.target.closest('a'); if(!a) return; e.preventDefault(); ouvrirListe(false); var t = a.getAttribute('data-type'); afficher(t, true); try { history.replaceState(null, '', '?type=' + t); } catch(err){} });
+  drop.addEventListener('click', function(e){ var a = e.target.closest('a'); if(!a) return; e.preventDefault(); ouvrirListe(false); var t = a.getAttribute('data-type'); afficher(t, true); try { history.replaceState(null, '', '?' + PARAM + '=' + t); } catch(err){} });
   // chaque onglet prend la couleur lisible sur sa partie de la bande (noir sur le clair, beige sur le foncé)
   function colorer(){
     if(!bar) return; root.querySelectorAll('.ens-tabs a').forEach(function(a){ a.classList.remove('clair'); }); choix.style.color = ''; return;   // bande claire : texte noir partout
@@ -275,10 +319,10 @@
       var bn = ban.querySelector('.ens-bn'), bm = ban.querySelector('.ens-bm'), txt = (s.querySelector('.ens-txt') || {}).textContent || '';
       if(bn && bn.textContent !== nomT){
         ban.classList.add('change');
-        setTimeout(function(){ bn.textContent = nomT; if(bm) bm.textContent = txt; ban.classList.remove('change'); }, bn.textContent ? 300 : 0);
+        setTimeout(function(){ bn.textContent = nomT; ajusterTitre(); if(bm) bm.textContent = txt; ban.classList.remove('change'); }, bn.textContent ? 300 : 0);
       }
     }
-    choix.innerHTML = 'Type de soin : <b>' + esc(nomT) + '</b><i>+</i>';
+    choix.innerHTML = esc(LIBELLE) + ' : <b>' + esc(nomT) + '</b><i>+</i>';
     drop.querySelectorAll('a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-type') === type); var o = root.querySelector('.ens-tabs a[data-type="' + a.getAttribute('data-type') + '"]'); a.classList.toggle('vide', !!(o && o.classList.contains('vide'))); });
     colorer();
     s.querySelectorAll('.ens-ph img').forEach(function(im){ if(!im.getAttribute('data-vu')){ im.setAttribute('data-vu', '1'); retravailler(im); } });
@@ -291,7 +335,7 @@
   root.querySelectorAll('.ens-tabs a').forEach(function(a){
     a.addEventListener('click', function(e){
       e.preventDefault(); var t = a.getAttribute('data-type'); afficher(t, true);
-      try { history.replaceState(null, '', '?type=' + t); } catch(err){}
+      try { history.replaceState(null, '', '?' + PARAM + '=' + t); } catch(err){}
     });
   });
 
@@ -307,17 +351,23 @@
 
   // ── Menu « Nos soins » : déjà sur cette page, « Sérums »… change de type sans recharger ──
   document.addEventListener('click', function(e){
-    var a = e.target.closest && e.target.closest('a[href*="?type="]'); if(!a || root.contains(a)) return;
+    var a = e.target.closest && e.target.closest('a[href*="?' + PARAM + '="]'); if(!a || root.contains(a)) return;
     try { var u = new URL(a.href, location.href); } catch(err){ return; }
     if(u.hostname !== location.hostname) return;
-    var t = u.searchParams.get('type'); if(!t || !document.getElementById('ens-' + t)) return;
+    var t = u.searchParams.get(PARAM); if(!t || !document.getElementById('ens-' + t)) return;
     e.preventDefault(); afficher(t, true);
-    try { history.replaceState(null, '', '?type=' + t); } catch(err){}
+    try { history.replaceState(null, '', '?' + PARAM + '=' + t); } catch(err){}
   }, true);
+
+  // ── Bouton Skin ID ──
+  root.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ens-skb'); if(!b) return;
+    if(typeof window.ebDiagOpen === 'function'){ e.preventDefault(); window.ebDiagOpen(); }
+  });
 
   // ── Fiches : elles s'ouvrent ici même ──
   root.addEventListener('click', function(e){
-    var c = e.target.closest && e.target.closest('.ens-c'); if(!c) return;
+    var c = e.target.closest && e.target.closest('.ens-c,.ens-rc'); if(!c) return;
     var id = c.getAttribute('data-fiche');
     if(typeof window.ebFicheOpen === 'function' && window.EB_PRODUITS && window.EB_PRODUITS[id]){ e.preventDefault(); window.ebFicheOpen(id); }
   });
@@ -466,16 +516,17 @@
         offers: { "@type": "Offer", price: prixTxt.replace(/[^0-9,]/g, '').replace(',', '.'), priceCurrency: "EUR", availability: "https://schema.org/InStock", url: c.href } } };
     });
     var ld = document.createElement('script'); ld.type = 'application/ld+json';
-    ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "Nos soins ELKHA.B", itemListElement: items });
+    ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: root.getAttribute("data-liste") || "Nos soins ELKHA.B", itemListElement: items });
     document.head.appendChild(ld);
   } catch(err){}
 
   // ── Démarrage ──
   majPrix(); barres();
-  var demande = (location.search.match(/[?&]type=([a-z-]+)/) || [])[1];
-  afficher(demande || REGLAGES.typeParDefaut, false);
+  var demande = (location.search.match(new RegExp('[?&]' + PARAM + '=([a-z-]+)')) || [])[1];
+  afficher(demande || DEFAUT, false);
   var largeur = window.innerWidth;
-  window.addEventListener('resize', function(){ colorer(); bordABord(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
+  window.addEventListener('resize', function(){ colorer(); bordABord(); ajusterTitre(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
+  ajusterTitre(); setTimeout(ajusterTitre, 500); if(document.fonts && document.fonts.ready) document.fonts.ready.then(ajusterTitre);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(colorer);
   }
 })();
