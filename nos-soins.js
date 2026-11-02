@@ -112,6 +112,8 @@
   + ".ens-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto}"
   + ".ens-ph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 93%;opacity:0;transition:opacity .6s ease,transform .4s ease}"
   + ".ens-ph img.pret{opacity:1}"
+  // bords toujours fondus : même si un écran affiche le fond de la photo un rien différent du site, aucun cadre n'apparaît
+  + ".ens-ph img.pret{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 6%,#000 95%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 6%,#000 95%,transparent);mask-composite:intersect}"
   + ".ens-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
   + ".ens-c:hover .ens-ph img{transform:translateY(-3px)}"
   + ".ens-g{font-size:8.5px;letter-spacing:.28em;font-weight:600;margin:10px 0 6px;text-transform:uppercase}"
@@ -336,7 +338,7 @@
   function retravailler(img){
     var s = { hauteur: parseFloat(img.getAttribute('data-h')) || 0 }, url = src(brute(img), 700), bloom = img.getAttribute('data-g') === 'bloom';
     var FOND = couleur(img.getAttribute('data-fond')) || FONDSITE;
-    var secours = setTimeout(function(){ img.classList.add('brut'); }, 6000);
+    var secours = setTimeout(function(){ img.classList.add('brut'); }, 12000);
     fetch(url, { mode: 'cors' }).then(function(r){ if(!r.ok) throw 0; return r.blob(); })
     .then(function(b){ return createImageBitmap(b); })
     .then(function(bmp){
@@ -402,7 +404,7 @@
       var sc, dx, dy;
       if(y0 >= 0 && s.hauteur && (y1 - y0) > h * .2){
         sc = s.hauteur * PXCM / (y1 - y0);
-        if((x1 - x0) * sc > CW * .9) sc = CW * .9 / (x1 - x0);
+        if((x1 - x0) * sc > CW * .8) sc = CW * .8 / (x1 - x0);
         dx = CW / 2 - (x0 + x1) / 2 * sc; dy = SOL - y1 * sc;
       } else { sc = Math.min(CW / w, CH / h); dx = (CW - w * sc) / 2; dy = CH - h * sc; }
       ox.drawImage(c, dx, dy, w * sc, h * sc);
