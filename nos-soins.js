@@ -382,12 +382,12 @@
       if(y0 >= 0){ fh = Math.min(.08, Math.max(0, (y0 - 3) / h)); fb = Math.max(.92, Math.min(1, (y1 + 3) / h)); }
       // photos Bloom (cadrées serré, fond moins régulier) : bords toujours fondus, comme sur la page Bloom
       // les ombres touchent parfois le bord de la photo : on fond le plus loin possible, jusqu'au flacon
-      if(bloom){
+      if(true){   // toutes les photos : l'ombre s'efface progressivement jusqu'au flacon, jamais coupée net
         var mb = x0 >= 0 ? (x1 - x0) * .06 + 4 : 0;
-        fg = x0 >= 0 ? Math.min(.42, Math.max(.02, (x0 - mb) / w)) : .14;
-        fd = x0 >= 0 ? Math.max(.58, Math.min(.98, (x1 + mb) / w)) : .86;
+        fg = x0 >= 0 ? Math.min(.45, Math.max(.02, (x0 - mb) / w)) : .14;
+        fd = x0 >= 0 ? Math.max(.55, Math.min(.98, (x1 + mb) / w)) : .86;
         fh = y0 >= 0 ? Math.min(.3, Math.max(.02, (y0 - 6) / h)) : .08;
-        fb = .94;
+        fb = y1 >= 0 ? Math.min(1, Math.max((y1 + 3) / h, .9, Math.min(.97, (y1 + (h - y1) * .25) / h))) : .92;
       }
       var g = x.createLinearGradient(0, 0, w, 0);
       g.addColorStop(0, fg > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fg, '#000'); g.addColorStop(fd, '#000'); g.addColorStop(1, fd < .999 ? 'rgba(0,0,0,0)' : '#000');
