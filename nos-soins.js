@@ -60,7 +60,20 @@
   + "#eb-ns h1{font-size:30px;font-weight:600;letter-spacing:.02em;margin:0 0 22px;line-height:1.2}"
   + ".ens-in{font-size:13px;font-weight:300;line-height:1.75;color:#4d4a44;margin:0 auto}"
   // la bande des types, en dégradé Bloom → Balance, collée sous le menu
-  + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:64px 0 0;background:" + REGLAGES.bande + ";box-shadow:0 10px 24px rgba(40,30,20,.06)}"
+  // Bannière : la photo à droite, le texte à gauche sur la couleur du mur de la photo (sans couture)
+  + ".ens-ban{position:relative;height:540px;display:flex;overflow:hidden;background:linear-gradient(180deg,#e2c4b7 0%,#d6b5a7 35%,#d1b0a2 62%,#cfae9f 80%,#c8a794 100%)}"
+  + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:58%;object-fit:cover;object-position:50% 74%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}"
+  + ".ens-bt{position:relative;z-index:2;flex:0 0 48%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%}"
+  + "#eb-ns .ens-bk{font-size:10px;letter-spacing:.5em;font-weight:500;color:#3d3632;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
+  + ".ens-bn{font-size:30px;letter-spacing:.2em;font-weight:400;line-height:1.3;margin:0;padding-left:.2em;color:#111;text-transform:uppercase;transition:opacity .35s ease,transform .35s ease}"
+  + ".ens-bg{width:84px;height:2px;margin:20px auto;background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
+  + ".ens-bm{font-size:13.5px;font-weight:300;line-height:1.7;color:#2f2a27;max-width:420px;margin:0;transition:opacity .35s ease,transform .35s ease}"
+  + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
+  + "@media(max-width:1099px){.ens-bn{font-size:25px;letter-spacing:.16em}}"
+  + "@media(max-width:699px){.ens-ban{height:auto;flex-direction:column;background:" + REGLAGES.fondSite + "}.ens-bimg{position:relative;width:100%;height:440px;object-position:50% 76%;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}.ens-bt{padding:0 28px 6px;margin-top:-34px}.ens-bn{font-size:21px;letter-spacing:.14em}.ens-bm{font-size:13px}}"
+  // le titre et le texte du type sont dans la bannière : dans la section, ils restent pour Google mais ne s'affichent pas en double
+  + ".ens-s>h2,.ens-s>.ens-txt{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}"
+  + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:0;background:" + REGLAGES.bande + ";box-shadow:0 10px 24px rgba(40,30,20,.06)}"
   + ".ens-tabs{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:center;padding:17px 24px 15px;white-space:nowrap}"
   + ".ens-tabs::-webkit-scrollbar{display:none}"
   + ".ens-tabs a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#111;opacity:.72;padding-bottom:5px;border-bottom:1px solid transparent;font-weight:500;text-decoration:none;flex:0 0 auto;transition:opacity .25s ease,border-color .25s ease}"
@@ -79,17 +92,17 @@
   + ".ens-gm{display:flex;gap:18px;justify-content:center;margin:28px 0 0}"
   + ".ens-gm button{background:none;border:0;padding:0 0 3px;font-family:inherit;font-size:11px;font-weight:300;color:#8a8580;cursor:pointer;border-bottom:1px solid transparent}"
   + ".ens-gm button.on{color:#111;font-weight:500;border-bottom-color:#111}"
-  + ".ens-s{display:none;padding:84px 24px 0;max-width:1130px;margin:0 auto}"
+  + ".ens-s{display:none;position:relative;padding:40px 24px 0;max-width:1130px;margin:0 auto}"
   + ".ens-s.on{display:block;animation:ensEntre .45s ease}"
   + "@keyframes ensEntre{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}"
   + "#eb-ns h2{font-size:26px;font-weight:600;letter-spacing:.02em;margin:0 0 12px}"
   + ".ens-txt{font-size:13px;font-weight:300;line-height:1.75;color:#4d4a44;max-width:560px;margin:0 auto}"
-  + ".ens-phr{font-size:13px;font-weight:400;color:#111;margin:22px 0 0}"
+  + ".ens-phr{font-size:13px;font-weight:400;color:#111;margin:0}"
   + ".ens-vide{display:none;font-size:13px;font-weight:300;color:#4d4a44;margin:40px 0 0}"
   + ".ens-grid{--col:4;--gap:30px;display:flex;flex-wrap:wrap;justify-content:center;gap:44px var(--gap);margin:36px auto 0;max-width:1080px}"
   + ".ens-grid>.ens-c{flex:0 0 calc((100% - (var(--col) - 1) * var(--gap)) / var(--col));min-width:0}"
   + "@media(max-width:899px){.ens-grid{--col:3}}"
-  + "@media(max-width:599px){.ens-hd{padding-top:50px}.ens-bar{margin-top:46px}.ens-gm{margin-top:22px}.ens-grid{--col:2;--gap:8px;row-gap:34px}.ens-s{padding:60px 10px 0}#eb-ns h1{font-size:25px}#eb-ns h2{font-size:22px}.ens-in,.ens-txt{font-size:12.5px}}"
+  + "@media(max-width:599px){.ens-gm{margin-top:22px}.ens-grid{--col:2;--gap:8px;row-gap:34px}.ens-s{padding:60px 10px 0}#eb-ns h1{font-size:25px}#eb-ns h2{font-size:22px}.ens-in,.ens-txt{font-size:12.5px}}"
   + ".ens-c{display:block;text-decoration:none;color:#111;cursor:pointer}"
   + ".ens-c.off{display:none}"
   + ".ens-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto}"
@@ -124,6 +137,14 @@
   + "@media(max-width:699px){.ens-cons{margin-top:60px;padding:34px 24px 36px}.ens-cons h3{font-size:17px !important}.ens-cons p:last-child{font-size:13.5px}.ens-jr{grid-template-columns:1fr;margin-top:30px}.ens-jph{min-height:200px}.ens-jg{padding:28px 24px 30px}.ens-jt{font-size:18px}}";
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
 
+  var ban = root.querySelector('.ens-ban');
+  function bordABord(){
+    [ban, root.querySelector('.ens-bar')].forEach(function(el){
+      if(!el) return; el.style.width = ''; el.style.marginLeft = '';
+      var g = el.getBoundingClientRect().left; el.style.width = document.documentElement.clientWidth + 'px'; el.style.marginLeft = (-g) + 'px';
+    });
+  }
+  bordABord(); setTimeout(bordABord, 400);
   var secs = [].slice.call(root.querySelectorAll('.ens-s'));
   secs.forEach(function(s){ s.querySelectorAll('.ens-c').forEach(function(c){ var im = c.querySelector('img'); if(im) im.setAttribute('data-g', c.getAttribute('data-gamme')); }); });
 
@@ -190,14 +211,21 @@
     });
     barres();
     var nomT = (root.querySelector('.ens-tabs a[data-type="' + type + '"]') || {}).textContent || '';
+    if(ban){
+      var bn = ban.querySelector('.ens-bn'), bm = ban.querySelector('.ens-bm'), txt = (s.querySelector('.ens-txt') || {}).textContent || '';
+      if(bn && bn.textContent !== nomT){
+        ban.classList.add('change');
+        setTimeout(function(){ bn.textContent = nomT; if(bm) bm.textContent = txt; ban.classList.remove('change'); }, bn.textContent ? 300 : 0);
+      }
+    }
     choix.innerHTML = 'Type de soin : <b>' + esc(nomT) + '</b><i>+</i>';
     drop.querySelectorAll('a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-type') === type); var o = root.querySelector('.ens-tabs a[data-type="' + a.getAttribute('data-type') + '"]'); a.classList.toggle('vide', !!(o && o.classList.contains('vide'))); });
     colorer();
     s.querySelectorAll('.ens-ph img').forEach(function(im){ if(!im.getAttribute('data-vu')){ im.setAttribute('data-vu', '1'); retravailler(im); } });
-    if(defiler && bar){
-      // la bande reste juste sous le menu : on voit le titre du type, rien du type précédent
-      var y = window.scrollY + bar.getBoundingClientRect().top - REGLAGES.espaceMenu;
-      if(window.scrollY > y + 2 || bar.getBoundingClientRect().top > window.innerHeight * .5) window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+    // nouveau type = comme une nouvelle page : on remonte en douceur jusqu'à la bannière, qui affiche le nouveau titre
+    if(defiler){
+      var haut = ban ? window.scrollY + ban.getBoundingClientRect().top - REGLAGES.espaceMenu : 0;
+      if(Math.abs(window.scrollY - haut) > 4) window.scrollTo({ top: Math.max(0, haut), behavior: 'smooth' });
     }
   }
   root.querySelectorAll('.ens-tabs a').forEach(function(a){
@@ -347,9 +375,8 @@
   majPrix(); barres();
   var demande = (location.search.match(/[?&]type=([a-z-]+)/) || [])[1];
   afficher(demande || REGLAGES.typeParDefaut, false);
-  if(demande) setTimeout(function(){ afficher(demande, true); }, 300);
   var largeur = window.innerWidth;
-  window.addEventListener('resize', function(){ colorer(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
+  window.addEventListener('resize', function(){ colorer(); bordABord(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(colorer);
   }
 })();
