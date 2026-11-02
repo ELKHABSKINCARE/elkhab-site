@@ -399,7 +399,8 @@
   if(!document.getElementById('ebs-style')){ var st = document.createElement('style'); st.id = 'ebs-style'; st.textContent = css; document.head.appendChild(st); }
 
   function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w + '&eb=' + REGLAGES.versionPhotos; }
+  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; u = u.split('?')[0];   // l'ancien numéro « ?v= » de Shopify est retiré : on reçoit toujours la photo du jour
+    return u + '?width=' + w + '&eb=' + REGLAGES.versionPhotos; }
   function prix(id){ var p = window.EB_PRODUITS && window.EB_PRODUITS[id]; return (p && p.prix) || SOINS[id].prix; }
 
   // Nom du soin : les mots à tiret (Lumi-Bloom) ne se coupent pas, un chiffre ou « & » reste collé au mot voisin
