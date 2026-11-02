@@ -105,7 +105,24 @@
   + ".ens-p{font-size:11px;font-weight:400;margin:0}"
   + ".ens-sep{flex:0 0 100%;display:flex;align-items:center;gap:12px;margin:-14px 0 -6px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:#111}"
   + ".ens-sep i{flex:1;height:4px;display:block}"
-  + ".ens-sep span:empty{display:none}";
+  + ".ens-sep span:empty{display:none}"
+  // Le conseil ELKHA.B : dans le même dégradé que la bande des types
+  + ".ens-cons{max-width:860px;margin:76px auto 0;padding:44px 52px 46px;background:" + REGLAGES.bande + ";text-align:center}"
+  + ".ens-ck{font-size:9.5px;letter-spacing:.3em;font-weight:600;text-transform:uppercase;color:#7a746a;margin:0 0 14px}"
+  + ".ens-cons h3{font-size:20px !important;letter-spacing:.02em !important;text-transform:none !important;font-weight:600 !important;margin:0 0 16px !important;line-height:1.35 !important}"
+  + ".ens-cons p:last-child{font-size:14px;font-weight:300;line-height:1.8;color:#2f2c28;margin:0}"
+  // La carte du Journal : toute la carte mène à l'article
+  + ".ens-jr{display:grid;grid-template-columns:1fr 1fr;max-width:860px;margin:44px auto 0;background:#ece5db;text-align:left;text-decoration:none;color:#111;transition:transform .35s ease,box-shadow .35s ease}"
+  + ".ens-jr:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(40,30,20,.08)}"
+  + ".ens-jph{display:block;position:relative;min-height:260px;overflow:hidden}"
+  + ".ens-jph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}"
+  + ".ens-jr:hover .ens-jph img{transform:scale(1.03)}"
+  + ".ens-jg{display:flex;flex-direction:column;justify-content:center;padding:40px 38px}"
+  + ".ens-jk{font-size:9.5px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7a746a;margin:0 0 12px}"
+  + ".ens-jt{font-size:21px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;margin:0 0 10px}"
+  + ".ens-ja{font-size:13.5px;font-weight:300;line-height:1.7;color:#3d3a35;margin:0 0 22px}"
+  + ".ens-jl{align-self:flex-start;font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
+  + "@media(max-width:699px){.ens-cons{margin-top:60px;padding:34px 24px 36px}.ens-cons h3{font-size:17px !important}.ens-cons p:last-child{font-size:13.5px}.ens-jr{grid-template-columns:1fr;margin-top:30px}.ens-jph{min-height:200px}.ens-jg{padding:28px 24px 30px}.ens-jt{font-size:18px}}";
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
 
   var secs = [].slice.call(root.querySelectorAll('.ens-s'));
