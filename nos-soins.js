@@ -23,7 +23,11 @@
   };
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
 
-  var root = document.getElementById('eb-ns'); if(!root) return;
+  var root = document.getElementById('eb-ns');
+  if(!root){ var essais = 0, t = setInterval(function(){ if(document.getElementById('eb-ns') || ++essais > 100){ clearInterval(t); if(document.getElementById('eb-ns')){ window.ebNosSoins = false; demarrer(); } } }, 100); return; }
+  demarrer();
+  function demarrer(){
+  root = document.getElementById('eb-ns'); if(!root || root.getAttribute('data-pret')) return; root.setAttribute('data-pret', '1');
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
   function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w + '&eb=' + REGLAGES.versionPhotos; }
 
@@ -250,4 +254,27 @@
   var demande = (location.search.match(/[?&]type=([a-z-]+)/) || [])[1];
   if(demande){ marquer(demande); setTimeout(function(){ aller(demande, false); }, 60); window.addEventListener('load', function(){ aller(demande, false); }); }
   else suivre();
+
+  // ── Menu « Nos soins » : déjà sur cette page, un lien « Sérums »… fait glisser au lieu de recharger ──
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href*="?type="]'); if(!a || root.contains(a)) return;
+    try { var u = new URL(a.href, location.href); } catch(err){ return; }
+    if(u.hostname !== location.hostname) return;
+    var t = u.searchParams.get('type'); if(!t || !document.getElementById('ens-' + t)) return;
+    e.preventDefault(); aller(t, true); marquer(t);
+    try { history.replaceState(null, '', '?type=' + t); } catch(err){}
+  }, true);
+
+  // ── Pour Google : la liste des soins (nom, photo, prix, marque) ──
+  try {
+    var items = [].map.call(root.querySelectorAll('.ens-c'), function(c, i){
+      var im = c.querySelector('img'), prixTxt = (c.querySelector('.ens-prix') || {}).textContent || '';
+      return { "@type": "ListItem", position: i + 1, item: { "@type": "Product", name: c.querySelector('h3').textContent, description: im ? im.alt : '', image: im ? (im.getAttribute('data-src') || '').split('?')[0] : '', category: c.getAttribute('data-cat') || '', brand: { "@type": "Brand", name: "ELKHA.B" }, url: c.href,
+        offers: { "@type": "Offer", price: prixTxt.replace(/[^0-9,]/g, '').replace(',', '.'), priceCurrency: "EUR", availability: "https://schema.org/InStock", url: c.href } } };
+    });
+    var ld = document.createElement('script'); ld.type = 'application/ld+json';
+    ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@type": "ItemList", name: "Nos soins ELKHA.B", itemListElement: items });
+    document.head.appendChild(ld);
+  } catch(err){}
+  }
 })();
