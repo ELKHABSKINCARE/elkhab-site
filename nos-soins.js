@@ -18,8 +18,8 @@
     // Fond de la bande des types (calme, dans les beiges du site)
     bande: "linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#d6cdbf)",
     // Barre de texture (du plus léger au plus riche)
-    barreDebut: [247, 246, 243],
-    barreFin:   [17, 17, 17],
+    barreDebut: [240, 235, 226],   // même famille que la bande des types, en plus marqué
+    barreFin:   [138, 118, 92],
     base: "https://elkhabskincare.github.io/elkhab-site/",
     fichiers: ["produits-data-test.js", "produits-balance-test.js", "avis-engine.js", "fiche-engine.js"]
   };
