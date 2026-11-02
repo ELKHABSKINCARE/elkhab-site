@@ -32,7 +32,7 @@
     fondCoffret: "#ece5db",
     // Si une photo remplacée dans Shopify s'affiche tantôt l'ancienne, tantôt la nouvelle :
     // augmenter ce chiffre de 1 (oblige téléphones et serveurs à reprendre la photo du jour)
-    versionPhotos: 7,
+    versionPhotos: 8,
     lienBalance: "https://balance.elkhab.com/"
   };
 
