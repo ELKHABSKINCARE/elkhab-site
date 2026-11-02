@@ -15,6 +15,8 @@
     fondSite: "#f5f4f0",     // couleur exacte du fond du site
     versionPhotos: 1,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
     typeParDefaut: "nettoyants",
+    // Fond de la bande des types (calme, dans les beiges du site)
+    bande: "linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#d6cdbf)",
     // Barre de texture (du plus léger au plus riche)
     barreDebut: [247, 246, 243],
     barreFin:   [17, 17, 17],
@@ -58,16 +60,15 @@
   + "#eb-ns h1{font-size:30px;font-weight:600;letter-spacing:.02em;margin:0 0 12px;line-height:1.2}"
   + ".ens-in{font-size:13px;font-weight:300;line-height:1.75;color:#4d4a44;margin:0 auto}"
   // la bande des types, en dégradé Bloom → Balance, collée sous le menu
-  + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:30px 0 0;background:linear-gradient(90deg," + teinte(0) + "," + teinte(1) + ");box-shadow:0 10px 24px rgba(40,30,20,.06)}"
-  + ".ens-tabs{display:flex;gap:30px;justify-content:center;padding:17px 24px 15px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}"
+  + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:30px 0 0;background:" + REGLAGES.bande + ";box-shadow:0 10px 24px rgba(40,30,20,.06)}"
+  + ".ens-tabs{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:center;padding:17px 24px 15px;white-space:nowrap}"
   + ".ens-tabs::-webkit-scrollbar{display:none}"
   + ".ens-tabs a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#111;opacity:.72;padding-bottom:5px;border-bottom:1px solid transparent;font-weight:500;text-decoration:none;flex:0 0 auto;transition:opacity .25s ease,border-color .25s ease}"
   + ".ens-tabs a.clair{color:#f5f4f0}"
   + ".ens-tabs a:hover{opacity:1}"
   + ".ens-tabs a.on{opacity:1;border-bottom-color:currentColor;font-weight:700}"
   + ".ens-tabs a.vide{opacity:.3;pointer-events:none}"
-  + "@media(max-width:1250px){.ens-tabs{gap:20px}.ens-tabs a{letter-spacing:.12em}}"
-  + "@media(max-width:1020px){.ens-tabs{justify-content:flex-start}}"
+  + "@media(max-width:1250px){.ens-tabs{column-gap:22px}.ens-tabs a{letter-spacing:.12em}}"
   + ".ens-choix{display:none;width:100%;border:0;background:none;margin:0;padding:17px 18px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:300;color:#111;text-align:center}"
   + ".ens-choix b{font-weight:600}.ens-choix i{font-style:normal;margin-left:10px;font-weight:300}"
   + ".ens-drop{display:none;position:absolute;left:0;right:0;top:100%;background:" + REGLAGES.fondSite + ";padding:6px 22px 18px;box-shadow:0 18px 30px rgba(0,0,0,.1);text-align:left}"
@@ -156,7 +157,8 @@
   drop.addEventListener('click', function(e){ var a = e.target.closest('a'); if(!a) return; e.preventDefault(); ouvrirListe(false); var t = a.getAttribute('data-type'); afficher(t, true); try { history.replaceState(null, '', '?type=' + t); } catch(err){} });
   // chaque onglet prend la couleur lisible sur sa partie de la bande (noir sur le clair, beige sur le foncé)
   function colorer(){
-    if(!bar) return; var W = bar.clientWidth || 1, nav = root.querySelector('.ens-tabs');
+    if(!bar) return; root.querySelectorAll('.ens-tabs a').forEach(function(a){ a.classList.remove('clair'); }); choix.style.color = ''; return;   // bande claire : texte noir partout
+ var W = bar.clientWidth || 1, nav = root.querySelector('.ens-tabs');
     root.querySelectorAll('.ens-tabs a').forEach(function(a){ var x = a.offsetLeft - (nav ? nav.scrollLeft : 0) + a.offsetWidth / 2; a.classList.toggle('clair', sombre(tBande(Math.max(0, Math.min(1, x / W))))); });
     if(sombre(tBande(.5))){ choix.style.color = REGLAGES.fondSite; } else choix.style.color = '';
   }
@@ -278,7 +280,14 @@
       if(x0 >= 0){ var mg = (x1 - x0) * .1 + 4; fg = Math.min(.14, Math.max(0, (x0 - mg) / w)); fd = Math.max(.86, Math.min(1, (x1 + mg) / w)); }
       if(y0 >= 0){ fh = Math.min(.08, Math.max(0, (y0 - 3) / h)); fb = Math.max(.92, Math.min(1, (y1 + 3) / h)); }
       // photos Bloom (cadrées serré, fond moins régulier) : bords toujours fondus, comme sur la page Bloom
-      if(bloom){ fg = .14; fd = .86; fh = .08; fb = .92; }
+      // les ombres touchent parfois le bord de la photo : on fond le plus loin possible, jusqu'au flacon
+      if(bloom){
+        var mb = x0 >= 0 ? (x1 - x0) * .06 + 4 : 0;
+        fg = x0 >= 0 ? Math.min(.42, Math.max(.02, (x0 - mb) / w)) : .14;
+        fd = x0 >= 0 ? Math.max(.58, Math.min(.98, (x1 + mb) / w)) : .86;
+        fh = y0 >= 0 ? Math.min(.3, Math.max(.02, (y0 - 6) / h)) : .08;
+        fb = .94;
+      }
       var g = x.createLinearGradient(0, 0, w, 0);
       g.addColorStop(0, fg > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fg, '#000'); g.addColorStop(fd, '#000'); g.addColorStop(1, fd < .999 ? 'rgba(0,0,0,0)' : '#000');
       x.fillStyle = g; x.fillRect(0, 0, w, h);
