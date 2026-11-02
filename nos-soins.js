@@ -335,6 +335,42 @@
   var FONDSITE = (function(c){ c = c.replace('#', ''); return [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }); })(REGLAGES.fondSite);
   var CW = 600, CH = 800, SOL = CH * .93, PXCM = CH * .84 / 16;
   function couleur(c){ c = (c || '').replace('#', ''); return c.length === 6 ? [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }) : null; }
+  // Modèle du fond (polynôme de degré 3 en x et y, par couleur), mesuré sur les points de fond uniquement
+  function aplanir(p, w, h, FOND){
+    var pas = Math.max(4, Math.round(Math.min(w, h) / 90)), T = [], V = [[], [], []];
+    function termes(u, v){ return [1, u, v, u * u, u * v, v * v, u * u * u, u * u * v, u * v * v, v * v * v]; }
+    for(var y = 0; y < h; y += pas) for(var xx = 0; xx < w; xx += pas){
+      var i = (y * w + xx) * 4;
+      if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 16) continue;   // flacon, ombre : ignorés
+      T.push(termes(xx / w * 2 - 1, y / h * 2 - 1)); V[0].push(p[i]); V[1].push(p[i + 1]); V[2].push(p[i + 2]);
+    }
+    if(T.length < 60) return;
+    var n = 10, coefs = [];
+    for(var c = 0; c < 3; c++){
+      var A = [], k, j, l;
+      for(k = 0; k < n; k++){ A.push(new Array(n + 1).fill(0)); }
+      for(var t = 0; t < T.length; t++){ var r = T[t]; for(k = 0; k < n; k++){ for(j = 0; j < n; j++) A[k][j] += r[k] * r[j]; A[k][n] += r[k] * V[c][t]; } }
+      for(k = 0; k < n; k++) A[k][k] += 1e-6;
+      for(k = 0; k < n; k++){   // élimination de Gauss
+        var piv = k; for(j = k + 1; j < n; j++) if(Math.abs(A[j][k]) > Math.abs(A[piv][k])) piv = j;
+        var tmp = A[k]; A[k] = A[piv]; A[piv] = tmp; if(Math.abs(A[k][k]) < 1e-12) return;
+        for(j = k + 1; j < n; j++){ var f = A[j][k] / A[k][k]; for(l = k; l <= n; l++) A[j][l] -= f * A[k][l]; }
+      }
+      var x0 = new Array(n).fill(0);
+      for(k = n - 1; k >= 0; k--){ var sm = A[k][n]; for(j = k + 1; j < n; j++) sm -= A[k][j] * x0[j]; x0[k] = sm / A[k][k]; }
+      coefs.push(x0);
+    }
+    for(var y2 = 0; y2 < h; y2++){
+      var v2 = y2 / h * 2 - 1;
+      for(var x2 = 0; x2 < w; x2++){
+        var tt = termes(x2 / w * 2 - 1, v2), i2 = (y2 * w + x2) * 4;
+        for(var c2 = 0; c2 < 3; c2++){
+          var fond = 0, cf = coefs[c2]; for(var q = 0; q < n; q++) fond += cf[q] * tt[q];
+          if(fond > 40) p[i2 + c2] = Math.max(0, Math.min(255, p[i2 + c2] * FOND[c2] / fond));
+        }
+      }
+    }
+  }
   function retravailler(img){
     var s = { hauteur: parseFloat(img.getAttribute('data-h')) || 0 }, url = src(brute(img), 700), bloom = img.getAttribute('data-g') === 'bloom';
     var FOND = couleur(img.getAttribute('data-fond')) || FONDSITE;
@@ -353,6 +389,9 @@
       var F = ech.map(function(a, n){ a.sort(function(u, v){ return u - v; }); return FOND[n] / (a[a.length >> 1] || 255); });
       // 2. le fond de la photo devient exactement celui du site
       for(i = 0; i < p.length; i += 4){ p[i] = Math.min(255, p[i] * F[0]); p[i + 1] = Math.min(255, p[i + 1] * F[1]); p[i + 2] = Math.min(255, p[i + 2] * F[2]); }
+      // 2 bis. fond uniforme : les photos de studio ont souvent un halo plus clair ou un dégradé derrière le flacon.
+      //        On mesure ce fond partout (hors flacon et ombre), on le modélise, puis on le ramène partout au beige exact du site.
+      aplanir(p, w, h, FOND);
       x.putImageData(d, 0, 0);
       // 3. repérer le soin (colonnes hautes ; l'ombre au sol, plate, est ignorée)
       var col = new Uint32Array(w), dif = new Uint8Array(w * h);
