@@ -205,6 +205,17 @@ function construire(){
     var r=d.getBoundingClientRect(), lw=Math.min(280, Math.max(220, r.width));
     c3.style.width=lw+'px';
     c3.style.left=Math.max(16, Math.min(window.innerWidth-lw-16, r.left + r.width/2 - lw/2))+'px';
+    ajusterCode();
+  }
+  // Le code Skin ID tient toujours dans la carte : une seule taille, calculée sur le code le plus long
+  function ajusterCode(){
+    var garde=codeEl.innerHTML, fs=17;
+    codeEl.style.fontSize=fs+'px';
+    CODES.forEach(function(c){
+      codeEl.innerHTML=c;
+      while(codeEl.scrollWidth>codeEl.clientWidth-8 && fs>11){ fs-=.5; codeEl.style.fontSize=fs+'px'; }
+    });
+    codeEl.innerHTML=garde;
   }
   window.addEventListener('resize',function(){ if(p.classList.contains('on')) placerCarte(); });
   ov.addEventListener('click',function(e){ var a=e.target.closest && e.target.closest('a'); if(a && !a.classList.contains('ebm-avenir')) fermerTout(); });
