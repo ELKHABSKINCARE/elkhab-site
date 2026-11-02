@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 1,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 2,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -48,6 +48,7 @@
     boite.innerHTML = '<div class="eb-sid-att" aria-hidden="true"><b>SKIN ID</b><i></i></div><button type="button" class="eb-sid-x" aria-label="Fermer le Skin ID">&times;</button>';
     cadre = document.createElement('iframe');
     cadre.title = 'Skin ID ELKHA.B';
+    cadre.addEventListener('load', ouvrirCanal);
     cadre.src = REGLAGES.page + '?v=' + REGLAGES.version;
     boite.appendChild(cadre);
     boite.querySelector('.eb-sid-x').addEventListener('click', fermer);
@@ -91,16 +92,22 @@
     })();
   }
 
-  window.addEventListener('message', function(e){
-    if(e.origin !== ORIGINE || !cadre || e.source !== cadre.contentWindow) return;
-    var d = e.data || {}; if(d.eb !== 'skin-id') return;
+  // ── Échanges avec le Skin ID : un canal privé (aucun message envoyé à la page elle-même)
+  var canal = null;
+  function recevoir(ev){
+    var d = ev.data || {}; if(d.eb !== 'skin-id') return;
     if(d.type === 'pret'){ pret = true; boite.classList.add('pret'); }
     else if(d.type === 'fermer') fermer();
     else if(d.type === 'fiche' && d.id) fiche(String(d.id));
     else if(d.type === 'panier' && d.variantes) panier(d.variantes.map(String), function(ok){
-      cadre.contentWindow.postMessage({ eb: 'skin-id', type: 'panier-ok', id: d.id, ok: ok }, ORIGINE);
+      if(canal) canal.postMessage({ eb: 'skin-id', type: 'panier-ok', id: d.id, ok: ok });
     });
-  });
+  }
+  function ouvrirCanal(){
+    if(!window.MessageChannel || !cadre.contentWindow) return;
+    var ch = new MessageChannel(); canal = ch.port1; canal.onmessage = recevoir;
+    cadre.contentWindow.postMessage({ eb: 'skin-id', type: 'canal' }, ORIGINE, [ch.port2]);
+  }
 
   // ── Ouvertures : liens « #skin-id », éléments data-skin-id, adresse ?skinid
   document.addEventListener('click', function(e){
