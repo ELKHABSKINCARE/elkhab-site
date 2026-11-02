@@ -24,7 +24,7 @@ var LIENS = {
 var PAGE_SOINS = "https://soins-balance-test.carrd.co/";
 var PAR_TYPE = [
   ["Nettoyants & démaquillants",PAGE_SOINS+"?type=nettoyants"],["Lotions & exfoliants",PAGE_SOINS+"?type=lotions"],["Sérums",PAGE_SOINS+"?type=serums"],["Crèmes & gels",PAGE_SOINS+"?type=cremes"],
-  ["Contour des yeux",PAGE_SOINS+"?type=yeux"],["Masques & patchs",PAGE_SOINS+"?type=masques"],["Protection & teint",PAGE_SOINS+"?type=protection"]
+  ["Contour des yeux",PAGE_SOINS+"?type=yeux"],["Masques & patchs",PAGE_SOINS+"?type=masques"],["Protections solaires & CC crèmes",PAGE_SOINS+"?type=protection"]
 ];
 var PAR_BESOIN = [
   ["Peaux sensibles",""],["Hydratation",""],["Éclat",""],["Taches & teint unifié",""],
