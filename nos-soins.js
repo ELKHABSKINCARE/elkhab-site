@@ -64,7 +64,7 @@
   // photo entière (pas de zoom), à droite ; à gauche, le dégradé reprend exactement les couleurs du bord de la photo
   + ".ens-ban{position:relative;height:clamp(560px,44vw,740px);display:flex;overflow:hidden;background:linear-gradient(180deg,rgb(229,198,188) 0%,rgb(213,179,167) 10%,rgb(213,180,165) 20%,rgb(212,178,166) 30%,rgb(210,178,165) 40%,rgb(209,177,164) 50%,rgb(206,172,160) 60%,rgb(219,192,182) 70%,rgb(221,192,180) 80%,rgb(209,178,164) 90%,rgb(191,161,150) 100%)}"
   + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
-  + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%}"
+  + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:" + REGLAGES.espaceMenu + "px 5% 0}"
   // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
   + ".ens-psb:before,.ens-psa:after{display:none !important}.ens-sansfond{background-image:none !important}.ens-sanspad{padding-top:0 !important}.ens-cache{display:none !important}"
   + "#eb-ns .ens-bk{font-size:10px;letter-spacing:.5em;font-weight:500;color:#3d3632;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
@@ -141,11 +141,11 @@
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
 
   var ban = root.querySelector('.ens-ban');
+  // toute la page « Nos soins » prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
   function bordABord(){
-    [ban, root.querySelector('.ens-bar')].forEach(function(el){
-      if(!el) return; el.style.width = ''; el.style.marginLeft = '';
-      var g = el.getBoundingClientRect().left; el.style.width = document.documentElement.clientWidth + 'px'; el.style.marginLeft = (-g) + 'px';
-    });
+    root.style.width = ''; root.style.marginLeft = ''; root.style.maxWidth = 'none';
+    var g = root.getBoundingClientRect().left;
+    root.style.width = document.documentElement.clientWidth + 'px'; root.style.marginLeft = (-g) + 'px';
   }
   bordABord(); setTimeout(bordABord, 400);
 
@@ -183,9 +183,10 @@
     // il reste un vide entre le menu et la bannière ? la bannière remonte
     if(!ban) return;
     var bloc = ban; bloc.style.marginTop = '';
-    var ecart = ban.getBoundingClientRect().top + window.scrollY - REGLAGES.espaceMenu;
+    // la bannière monte tout en haut, derrière le menu transparent (comme sur les autres sites)
+    var ecart = ban.getBoundingClientRect().top + window.scrollY;
     if(ecart > 4 && ecart < window.innerHeight * .8 && !quelqueChoseAuDessus()) bloc.style.marginTop = (-ecart) + 'px';
-    else if(ecart < -1) bloc.style.marginTop = (-ecart) + 'px';   // jamais caché sous le menu
+
   }
   function quelqueChoseAuDessus(){
     var tous = document.body.querySelectorAll('img, video, p, h1, h2, h3, a, button, iframe');
