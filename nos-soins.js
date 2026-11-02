@@ -73,7 +73,7 @@
   + ".ens-bm{font-size:13.5px;font-weight:300;line-height:1.7;color:#2f2a27;max-width:420px;margin:0;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
   + "@media(max-width:1099px){.ens-bn{font-size:25px;letter-spacing:.16em}}"
-  + "@media(max-width:699px){.ens-ban{height:auto;flex-direction:column;background:" + REGLAGES.fondSite + "}.ens-bimg{position:relative;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,#000 74%,transparent);mask-image:linear-gradient(180deg,#000 74%,transparent)}.ens-bt{max-width:none;padding:0 28px 46px;margin-top:-14px}#eb-ns .ens-bk{margin-bottom:22px}.ens-bn{font-size:21px;letter-spacing:.14em;line-height:1.45}.ens-bg{margin:26px auto}.ens-bm{font-size:13px;line-height:1.8}}"
+  + "@media(max-width:699px){.ens-ban{height:auto;flex-direction:column;background:" + REGLAGES.fondSite + "}.ens-bimg{position:relative;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,#000 74%,transparent);mask-image:linear-gradient(180deg,#000 74%,transparent)}.ens-bt{max-width:none;padding:0 28px 46px;margin-top:18px}#eb-ns .ens-bk{margin-bottom:22px}.ens-bn{font-size:21px;letter-spacing:.14em;line-height:1.45}.ens-bg{margin:26px auto}.ens-bm{font-size:13px;line-height:1.8}}"
   // le titre et le texte du type sont dans la bannière : dans la section, ils restent pour Google mais ne s'affichent pas en double
   + ".ens-s>h2,.ens-s>.ens-txt{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}"
   + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:0;background:" + REGLAGES.bande + ";box-shadow:0 10px 24px rgba(40,30,20,.06)}"
@@ -164,6 +164,22 @@
       var cs = getComputedStyle(el);
       if((cs.position === 'fixed' || cs.position === 'absolute') && url.test(cs.backgroundImage) && el.offsetWidth > window.innerWidth * .6) el.classList.add('ens-cache');
     });
+    // mise en page Carrd « en deux colonnes » (contenu d'un côté, image de l'autre) : le contenu reprend toute la largeur
+    var W = document.documentElement.clientWidth;
+    for(var c = root.parentElement; c && c !== document.body; c = c.parentElement){
+      var parent = c.parentElement; if(!parent) break;
+      var autre = false;
+      [].forEach.call(parent.children, function(f){
+        if(f === c || /^(SCRIPT|STYLE|LINK|NOSCRIPT)$/.test(f.tagName) || f.classList.contains('ens-cache')) return;
+        var vide = !f.textContent.trim() && !f.querySelector('img,video,iframe,svg,canvas');
+        var r = f.getBoundingClientRect();
+        if(vide && r.width > W * .2 && r.height > window.innerHeight * .3){ f.classList.add('ens-cache'); autre = true; }
+      });
+      if(autre){
+        c.style.setProperty('width', '100%', 'important'); c.style.setProperty('max-width', 'none', 'important');
+        c.style.setProperty('flex', '1 1 100%', 'important'); c.style.setProperty('margin-left', '0', 'important'); c.style.setProperty('margin-right', '0', 'important');
+      }
+    }
     // il reste un vide entre le menu et la bannière ? la bannière remonte
     if(!ban) return;
     var bloc = ban; bloc.style.marginTop = '';
