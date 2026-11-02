@@ -262,9 +262,9 @@
   + ".ebs-rail.lb .lab{opacity:1;transform:none}"
   + ".ebs-rail.glisse .lab{transition:opacity .35s ease,transform .35s ease}"
   // Barre des besoins
-  + ".ebs-cap{font-size:9.5px;font-weight:600;letter-spacing:.22em;opacity:.55;margin:0 0 10px}"
+  + ".ebs-cap{font-size:9.5px;font-weight:600;letter-spacing:.22em;opacity:.78;margin:0 0 10px}"
   + ".ebs-sq{display:block;width:18px;height:18px}"
-  + ".ebs-txt{font-family:'Montserrat',sans-serif;font-weight:300;font-size:14.5px;line-height:1.9;color:rgba(0,0,0,.7);text-align:center;max-width:760px;margin:0 auto}"
+  + ".ebs-txt{font-family:'Montserrat',sans-serif;font-weight:400;font-size:14.5px;line-height:1.9;color:rgba(0,0,0,.86);text-align:center;max-width:760px;margin:0 auto}"
   + ".ebs-txt p{margin:0 0 12px}"
   + ".ebs-bloom{padding:46px 22px 10px;text-align:center}"
   + "#eb-soins .ebs-bloom h2{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#000;margin:0 0 16px}"
@@ -277,7 +277,7 @@
   // La phrase-filtre, sur le dégradé Bloom (du fond du site vers le rosé poudré des packagings)
   + ".ebs-bar{position:relative;z-index:9000}"
   + ".ebs-bar.fixe{position:fixed;left:0;right:0}"
-  + ".ebs-phrase{display:block;width:100%;border:0;margin:0;padding:17px 18px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:300;color:#000;background:linear-gradient(90deg," + REGLAGES.fondSite + " 0%,#f3e3d8 30%,#ecc9b9 62%,#e6b9a6 100%)}"
+  + ".ebs-phrase{display:block;width:100%;border:0;margin:0;padding:17px 18px;cursor:pointer;text-align:center;font-family:'Montserrat',sans-serif;font-size:15px;font-weight:400;color:#000;background:linear-gradient(90deg," + REGLAGES.fondSite + " 0%,#f3e3d8 30%,#ecc9b9 62%,#e6b9a6 100%)}"
   + ".ebs-phrase b{font-weight:500;border-bottom:1px solid #000;padding-bottom:1px}"
   + ".ebs-phrase i{font-style:normal;font-weight:400;font-size:18px;margin-left:7px;display:inline-block;min-width:10px}"
   + ".ebs-phrase .court{display:none}"
@@ -315,12 +315,12 @@
   // mobile : même marge à gauche et à droite des vignettes (avant, tout était décalé vers la gauche à cause de l'échelle)
   + "@media (max-width:899px){#eb-soins .ebs-flow{padding-left:20px;padding-right:20px}#eb-soins .ebs-tx{padding-left:4px;padding-right:4px}#eb-soins .ebs-amb{width:calc(100% + 40px) !important;margin-left:-20px !important;margin-right:-20px !important}#eb-soins .ebs-cof{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}}"
   + "@media (max-width:899px){#eb-soins .ebs-tx h3{-webkit-hyphens:none;hyphens:none;overflow-wrap:normal;word-break:normal}#eb-soins .ebs-tx h3 .nb{white-space:nowrap}}"
-  + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.75}"
+  + ".ebs-num{position:absolute;top:10px;left:10px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.88}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
   + ".ebs-tx h3{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.45;margin:0;color:#000;overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}"
   + ".ebs-tx .a{display:block;font-size:10.5px;font-weight:400;letter-spacing:.05em;line-height:1.55;margin-top:6px;opacity:.85}"
-  + ".ebs-tx .l{display:block;font-size:9.5px;font-weight:300;font-style:italic;line-height:1.5;margin-top:7px;opacity:.55}"
+  + ".ebs-tx .l{display:block;font-size:9.5px;font-weight:400;font-style:italic;line-height:1.5;margin-top:7px;opacity:.78}"
   + ".ebs-tx .p{display:block;font-size:9.5px;font-weight:400;margin-top:3px;opacity:.85}"
   // Titres d'étape : cachés, révélés par un filtre
   + ".ebs-h{display:block;width:100%;padding:0 18px;margin:0 0 30px}"
@@ -331,7 +331,7 @@
   + ".ebs-h div{display:flex;align-items:baseline;gap:12px;border-top:1px solid " + LIGNE + ";padding-top:16px}"
   + ".ebs-h .ebs-sq{width:12px;height:12px;align-self:center}"
   + ".ebs-h h2{font-family:'Montserrat',sans-serif;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin:0;color:#000}"
-  + ".ebs-h p{font-size:12px;font-weight:300;line-height:1.5;opacity:.7;margin:6px 0 0 24px}"
+  + ".ebs-h p{font-size:12px;font-weight:400;line-height:1.5;opacity:.85;margin:6px 0 0 24px}"
   + ".filtre .ebs-h{display:block;margin:6px 0 18px}"
   + ".filtre .ebs-h div{padding-top:16px}"
   + ".filtre .ebs-h div > *{display:block;animation:ebsIn .6s ease both}"
@@ -344,7 +344,7 @@
   + ".filtre .ebs-amb{display:none}"
   + ".avec-amb .ebs-amb{order:2}"
   // Pont Balance
-  + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:10px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:300;line-height:1.55}"
+  + ".ebs-pont{display:none;width:100%;margin:0 18px 36px;padding:10px 0;border-top:1px solid " + LIGNE + ";border-bottom:1px solid " + LIGNE + ";font-size:12.5px;font-weight:400;line-height:1.55}"
   // Pont vers Balance : bande fine en dégradé blanc → sauge → eucalyptus → vert sapin ; texte sur le clair, bouton beige dans le vert
   //   téléphone : bande de bout en bout de l'écran, texte sur toute la largeur, bouton en bas à droite
   //   ordinateur : une seule bande, texte à gauche (2 lignes maximum), bouton à droite
@@ -361,16 +361,16 @@
   + ".ebs-cof.eteint{display:none}"
   + "#eb-soins .ebs-coft{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:#000;text-align:center;margin:0 0 12px;line-height:1.2}"
   + "@media (min-width:900px){#eb-soins .ebs-coft{font-size:23px}#eb-soins .ebs-bloom h2{font-size:17px}}"
-  + ".ebs-cof p.ebs-cofp{font-size:12.5px;font-weight:300;line-height:1.6;opacity:.75;text-align:center;margin:0 0 18px;max-width:420px}"
+  + ".ebs-cof p.ebs-cofp{font-size:12.5px;font-weight:400;line-height:1.6;opacity:.88;text-align:center;margin:0 0 18px;max-width:420px}"
   + ".ebs-cof .ebs-card{width:100%;max-width:600px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center;padding:0}"
   + ".ebs-cof .ebs-tx{text-align:left;padding:0 4px}"
   + ".ebs-cof .ebs-tx h3{justify-content:flex-start}"
-  + ".ebs-sur{display:block;text-align:center;font-size:9.5px;font-weight:600;letter-spacing:.22em;opacity:.55;margin:0 0 14px}"
+  + ".ebs-sur{display:block;text-align:center;font-size:9.5px;font-weight:600;letter-spacing:.22em;opacity:.78;margin:0 0 14px}"
   // Patchs (même style que les titres de section du site)
   + ".ebs-cib{width:100%;text-align:center;padding:44px 18px 22px}"
   + ".ebs-cib h2{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;margin:0;color:#000}"
   + ".ebs-cib span{display:block;font-size:11px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;margin-top:10px}"
-  + ".ebs-cib p{font-size:12.5px;font-weight:300;opacity:.7;margin:10px 0 0}"
+  + ".ebs-cib p{font-size:12.5px;font-weight:400;opacity:.85;margin:10px 0 0}"
   // Ordinateur
   + "@media (min-width:900px){"
   +   ".ebs-in{max-width:1080px;margin:0 auto}"
