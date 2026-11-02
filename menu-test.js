@@ -26,9 +26,11 @@ var PAR_TYPE = [
   ["Nettoyants & démaquillants",PAGE_SOINS+"?type=nettoyants"],["Lotions & exfoliants",PAGE_SOINS+"?type=lotions"],["Sérums",PAGE_SOINS+"?type=serums"],["Crèmes & gels",PAGE_SOINS+"?type=cremes"],
   ["Contour des yeux",PAGE_SOINS+"?type=yeux"],["Masques & patchs",PAGE_SOINS+"?type=masques"],["Protections solaires & CC crèmes",PAGE_SOINS+"?type=protection"]
 ];
+// Page « Vos besoins » (site de test pour l'instant ; au lancement : https://besoins.elkhab.com/)
+var PAGE_BESOINS = "https://besoins-balance-test.carrd.co/";
 var PAR_BESOIN = [
-  ["Peaux sensibles",""],["Hydratation",""],["Éclat",""],["Taches & teint unifié",""],
-  ["Rides & fermeté",""],["Pores & imperfections",""],["Regard",""]
+  ["Peaux sensibles",PAGE_BESOINS+"?besoin=sensibles"],["Hydratation",PAGE_BESOINS+"?besoin=hydratation"],["Éclat",PAGE_BESOINS+"?besoin=eclat"],
+  ["Taches & teint unifié",PAGE_BESOINS+"?besoin=taches"],["Rides & fermeté",PAGE_BESOINS+"?besoin=fermete"],["Pores & imperfections",PAGE_BESOINS+"?besoin=pores"]
 ];
 
 /* ┌─────────────────────────────────────────────────────────────────────┐
@@ -39,7 +41,7 @@ if(window.ebMenuTest) return; window.ebMenuTest = true;
 var BLOOM_DEG = "linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)";
 var BAL_DEG   = "linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)";
 var h = location.hostname;
-var ICI = /soins/.test(h) ? "soins" : /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
+var ICI = /soins|besoins/.test(h) ? "soins" : /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
 
 var CSS = ""
 + ".eb-navbar{height:64px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
