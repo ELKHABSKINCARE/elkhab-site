@@ -20,9 +20,11 @@ var LIENS = {
   accueil:    "https://elkhab.com/"
 };
 // « Nos soins » : les pages par type et par besoin arriveront après le lancement ("" = pas encore de page)
+// Page « Nos soins » (site de test pour l'instant ; au lancement : https://soins.elkhab.com/)
+var PAGE_SOINS = "https://soins-balance-test.carrd.co/";
 var PAR_TYPE = [
-  ["Nettoyants & démaquillants",""],["Lotions & exfoliants",""],["Sérums",""],["Crèmes & gels",""],
-  ["Contour des yeux",""],["Masques & patchs",""],["Protection & teint",""]
+  ["Nettoyants & démaquillants",PAGE_SOINS+"?type=nettoyants"],["Lotions & exfoliants",PAGE_SOINS+"?type=lotions"],["Sérums",PAGE_SOINS+"?type=serums"],["Crèmes & gels",PAGE_SOINS+"?type=cremes"],
+  ["Contour des yeux",PAGE_SOINS+"?type=yeux"],["Masques & patchs",PAGE_SOINS+"?type=masques"],["Protection & teint",PAGE_SOINS+"?type=protection"]
 ];
 var PAR_BESOIN = [
   ["Peaux sensibles",""],["Hydratation",""],["Éclat",""],["Taches & teint unifié",""],
@@ -37,7 +39,7 @@ if(window.ebMenuTest) return; window.ebMenuTest = true;
 var BLOOM_DEG = "linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)";
 var BAL_DEG   = "linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)";
 var h = location.hostname;
-var ICI = /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
+var ICI = /soins/.test(h) ? "soins" : /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
 
 var CSS = ""
 + ".eb-navbar{height:64px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
@@ -130,7 +132,7 @@ function construire(){
   var g=el('div','ebm-g');
   var aBloom=lien('Bloom',LIENS.bloom,'ebm-t ebm-bloom'+(ICI==='bloom'?' ebm-ici':''));
   var aBal=lien('Balance',LIENS.balance,'ebm-t ebm-balance'+(ICI==='balance'?' ebm-ici':''));
-  var bSoins=el('button','ebm-t','Nos soins'); bSoins.type='button'; bSoins.setAttribute('aria-expanded','false');
+  var bSoins=el('button','ebm-t'+(ICI==='soins'?' ebm-ici':''),'Nos soins'); bSoins.type='button'; bSoins.setAttribute('aria-expanded','false');
   var aRout=lien('Routines',LIENS.routines,'ebm-t');
   [aBloom,aBal,bSoins,aRout].forEach(function(x){ g.appendChild(x); });
   gauche.appendChild(g);
