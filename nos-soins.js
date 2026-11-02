@@ -17,7 +17,7 @@
     versionPhotos: 3,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
     typeParDefaut: "nettoyants",
     // Fond de la bande des types (calme, dans les beiges du site)
-    bande: "linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#d6cdbf)",
+    bande: "linear-gradient(90deg,#f8f6f1,#e2d9ca 55%,#c9bca7)",
     // Barre de texture (du plus léger au plus riche)
     barreDebut: [240, 235, 226],   // même famille que la bande des types, en plus marqué
     barreFin:   [138, 118, 92],
@@ -61,9 +61,9 @@
   + "#eb-ns{animation:none;opacity:1 !important;font-family:'Montserrat',sans-serif;color:#111;max-width:none;margin:0 auto;padding:0 0 70px;text-align:center}"
   + "#eb-ns *{box-sizing:border-box}"
   + ".ens-hd{padding:72px 20px 0;max-width:760px;margin:0 auto}"
-  + ".ens-k{font-size:9.5px;letter-spacing:.3em;color:#8a8580;font-weight:600;margin:0 0 20px;text-transform:uppercase}"
+  + ".ens-k{font-size:9.5px;letter-spacing:.3em;color:#5f5a53;font-weight:600;margin:0 0 20px;text-transform:uppercase}"
   + "#eb-ns h1{font-size:30px;font-weight:600;letter-spacing:.02em;margin:0 0 22px;line-height:1.2}"
-  + ".ens-in{font-size:13px;font-weight:300;line-height:1.75;color:#4d4a44;margin:0 auto}"
+  + ".ens-in{font-size:13px;font-weight:400;line-height:1.75;color:#2a2723;margin:0 auto}"
   // la bande des types, en dégradé Bloom → Balance, collée sous le menu
   // Bannière : la photo à droite, le texte à gauche sur la couleur du mur de la photo (sans couture)
   // photo entière (pas de zoom), à droite ; à gauche, le dégradé reprend exactement les couleurs du bord de la photo
@@ -73,10 +73,10 @@
   // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
   + ".ens-psb:before,.ens-psa:after{display:none !important}.ens-sansfond{background-image:none !important}.ens-sanspad{padding-top:0 !important}.ens-cache{display:none !important}"
   // mêmes tailles d'écriture que la bannière et le titre de la page Balance (« LES SOINS » / « BALANCE »)
-  + "#eb-ns .ens-bk{font-size:11px;letter-spacing:.5em;font-weight:500;color:#555;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
+  + "#eb-ns .ens-bk{font-size:11px;letter-spacing:.5em;font-weight:500;color:#2a2723;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
   + ".ens-bn{font-size:46px;letter-spacing:.38em;font-weight:400;line-height:1.2;margin:0;padding-left:.38em;color:#000;text-transform:uppercase;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-bg{width:120px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
-  + ".ens-bm{font-size:15px;font-weight:300;line-height:1.65;color:#333;max-width:520px;margin:24px auto 0;transition:opacity .35s ease,transform .35s ease}"
+  + ".ens-bm{font-size:15px;font-weight:400;line-height:1.65;color:#1f1d1a;max-width:520px;margin:24px auto 0;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
   + ".ens-bar{margin-top:64px !important}"
   // téléphone : exactement comme la bannière Balance — photo sur toute la hauteur, fondu beige en bas (sans voile en haut : la photo garde ses couleurs), texte posé dessus
@@ -84,7 +84,7 @@
   +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
   +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
   +   ".ens-bt{position:absolute;left:0;right:0;bottom:1.6%;max-width:none;margin:0;padding:0 32px;z-index:2}"
-  +   "#eb-ns .ens-bk{font-size:9px;color:#555;margin:0 0 11px}"
+  +   "#eb-ns .ens-bk{font-size:9px;color:#2a2723;margin:0 0 11px}"
   +   ".ens-bn{font-size:24px;letter-spacing:.28em;padding-left:.28em;line-height:1.3}"
   +   ".ens-bg{width:84px;margin:15px auto 18px}"
   +   ".ens-bm{font-size:13px;line-height:1.6;max-width:320px;margin:0 auto}}"
@@ -99,23 +99,23 @@
   + ".ens-tabs a.on{opacity:1;border-bottom-color:currentColor;font-weight:700}"
   + ".ens-tabs a.vide{opacity:.3;pointer-events:none}"
   + "@media(max-width:1250px){.ens-tabs{column-gap:22px}.ens-tabs a{letter-spacing:.12em}}"
-  + ".ens-choix{display:none;width:100%;border:0;background:none;margin:0;padding:17px 18px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:300;color:#111;text-align:center}"
-  + ".ens-choix b{font-weight:600}.ens-choix i{font-style:normal;margin-left:10px;font-weight:300}"
+  + ".ens-choix{display:none;width:100%;border:0;background:none;margin:0;padding:17px 18px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:400;color:#111;text-align:center}"
+  + ".ens-choix b{font-weight:600}.ens-choix i{font-style:normal;margin-left:10px;font-weight:400}"
   + ".ens-drop{display:none;position:absolute;left:0;right:0;top:100%;background:" + REGLAGES.fondSite + ";padding:6px 22px 18px;box-shadow:0 18px 30px rgba(0,0,0,.1);text-align:left}"
-  + ".ens-drop a{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:13px;font-weight:300;color:#111;text-decoration:none}"
+  + ".ens-drop a{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:13px;font-weight:400;color:#111;text-decoration:none}"
   + ".ens-drop a.on{font-weight:600}.ens-drop a.vide{opacity:.3;pointer-events:none}"
   + ".ens-bar.ouvert .ens-drop{display:block}"
   + "@media(max-width:699px){.ens-tabs{display:none}.ens-choix{display:block}}"
   + ".ens-gm{display:flex;gap:18px;justify-content:center;margin:28px 0 0}"
-  + ".ens-gm button{background:none;border:0;padding:0 0 3px;font-family:inherit;font-size:11px;font-weight:300;color:#8a8580;cursor:pointer;border-bottom:1px solid transparent}"
+  + ".ens-gm button{background:none;border:0;padding:0 0 3px;font-family:inherit;font-size:11px;font-weight:400;color:#5f5a53;cursor:pointer;border-bottom:1px solid transparent}"
   + ".ens-gm button.on{color:#111;font-weight:500;border-bottom-color:#111}"
   + ".ens-s{display:none;position:relative;padding:40px 24px 0;max-width:1130px;margin:0 auto}"
   + ".ens-s.on{display:block;animation:ensEntre .45s ease}"
   + "@keyframes ensEntre{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}"
   + "#eb-ns h2{font-size:26px;font-weight:600;letter-spacing:.02em;margin:0 0 12px}"
-  + ".ens-txt{font-size:13px;font-weight:300;line-height:1.75;color:#4d4a44;max-width:560px;margin:0 auto}"
+  + ".ens-txt{font-size:13px;font-weight:400;line-height:1.75;color:#2a2723;max-width:560px;margin:0 auto}"
   + ".ens-phr{font-size:13px;font-weight:400;color:#111;margin:0}"
-  + ".ens-vide{display:none;font-size:13px;font-weight:300;color:#4d4a44;margin:40px 0 0}"
+  + ".ens-vide{display:none;font-size:13px;font-weight:400;color:#2a2723;margin:40px 0 0}"
   + ".ens-grid{--col:4;--gap:30px;display:flex;flex-wrap:wrap;justify-content:center;gap:44px var(--gap);margin:36px auto 0;max-width:1080px}"
   + ".ens-grid>.ens-c{flex:0 0 calc((100% - (var(--col) - 1) * var(--gap)) / var(--col));min-width:0}"
   + "@media(max-width:899px){.ens-grid{--col:3}}"
@@ -132,16 +132,16 @@
   + ".ens-g{font-size:8.5px;letter-spacing:.28em;font-weight:600;margin:10px 0 6px;text-transform:uppercase}"
   + ".ens-g.bloom{color:#c58b74}.ens-g.balance{color:#7d8f66}"
   + "#eb-ns h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 6px;line-height:1.35}"
-  + ".ens-a{font-size:11px;font-weight:300;color:#4d4a44;margin:0 0 6px;line-height:1.5}"
+  + ".ens-a{font-size:11px;font-weight:400;color:#2a2723;margin:0 0 6px;line-height:1.5}"
   + ".ens-p{font-size:11px;font-weight:400;margin:0}"
   + ".ens-sep{flex:0 0 100%;display:flex;align-items:center;gap:12px;margin:-14px 0 -6px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:#111}"
   + ".ens-sep i{flex:1;height:4px;display:block}"
   + ".ens-sep span:empty{display:none}"
   // Le conseil ELKHA.B : dans le même dégradé que la bande des types
   + ".ens-cons{max-width:860px;margin:76px auto 0;padding:44px 52px 46px;background:" + REGLAGES.bande + ";text-align:center}"
-  + ".ens-ck{font-size:9.5px;letter-spacing:.3em;font-weight:600;text-transform:uppercase;color:#7a746a;margin:0 0 14px}"
+  + ".ens-ck{font-size:9.5px;letter-spacing:.3em;font-weight:600;text-transform:uppercase;color:#4d4943;margin:0 0 14px}"
   + ".ens-cons h3{font-size:20px !important;letter-spacing:.02em !important;text-transform:none !important;font-weight:600 !important;margin:0 0 16px !important;line-height:1.35 !important}"
-  + ".ens-cons p:last-child{font-size:14px;font-weight:300;line-height:1.8;color:#2f2c28;margin:0}"
+  + ".ens-cons p:last-child{font-size:14px;font-weight:400;line-height:1.8;color:#1f1d1a;margin:0}"
   // La carte du Journal : toute la carte mène à l'article
   + ".ens-jr{display:grid;grid-template-columns:1fr 1fr;max-width:860px;margin:44px auto 0;background:#ece5db;text-align:left;text-decoration:none;color:#111;transition:transform .35s ease,box-shadow .35s ease}"
   + ".ens-jr:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(40,30,20,.08)}"
@@ -149,9 +149,9 @@
   + ".ens-jph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s ease}"
   + ".ens-jr:hover .ens-jph img{transform:scale(1.03)}"
   + ".ens-jg{display:flex;flex-direction:column;justify-content:center;padding:40px 38px}"
-  + ".ens-jk{font-size:9.5px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7a746a;margin:0 0 12px}"
+  + ".ens-jk{font-size:9.5px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#4d4943;margin:0 0 12px}"
   + ".ens-jt{font-size:21px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;margin:0 0 10px}"
-  + ".ens-ja{font-size:13.5px;font-weight:300;line-height:1.7;color:#3d3a35;margin:0 0 22px}"
+  + ".ens-ja{font-size:13.5px;font-weight:400;line-height:1.7;color:#1f1d1a;margin:0 0 22px}"
   + ".ens-jl{align-self:flex-start;font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
   // Page « Vos besoins » : les routines qui correspondent (Bloom et Balance côte à côte) et le petit bloc Skin ID
   + ".ens-rts{max-width:860px;margin:76px auto 0}"
@@ -163,12 +163,12 @@
   + ".ens-rph img{width:100%;height:100%;object-fit:contain;display:block}"
   + ".ens-rc .ens-g{margin:0 0 6px}"
   + ".ens-rc h3{margin:0 0 8px !important}"
-  + ".ens-rcs{font-size:12px;font-weight:300;line-height:1.6;color:#4d4a44;margin:0 0 8px}"
+  + ".ens-rcs{font-size:12px;font-weight:400;line-height:1.6;color:#2a2723;margin:0 0 8px}"
   + ".ens-rc .ens-p{margin:0 0 16px}"
   + ".ens-rcl{font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
   + ".ens-sk{max-width:560px;margin:80px auto 0;text-align:center}"
   + ".ens-sk h3{font-size:19px !important;letter-spacing:.02em !important;text-transform:none !important;font-weight:500 !important;margin:0 0 10px !important}"
-  + ".ens-sk p:not(.ens-ck){font-size:13.5px;font-weight:300;line-height:1.7;color:#4d4a44;margin:0 0 22px}"
+  + ".ens-sk p:not(.ens-ck){font-size:13.5px;font-weight:400;line-height:1.7;color:#2a2723;margin:0 0 22px}"
   + ".ens-skb{display:inline-block;background:#111;color:#f5f4f0;font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;padding:15px 26px;text-decoration:none;cursor:pointer;border:0;font-family:inherit}"
   + "@media(max-width:699px){.ens-rts{margin-top:60px}.ens-rtl{gap:12px}.ens-rph{max-width:230px}.ens-sk{margin-top:60px;padding:0 14px}}"
   + "@media(max-width:699px){.ens-cons{margin-top:60px;padding:34px 24px 36px}.ens-cons h3{font-size:17px !important}.ens-cons p:last-child{font-size:13.5px}.ens-jr{grid-template-columns:1fr;margin-top:30px}.ens-jph{min-height:200px}.ens-jg{padding:28px 24px 30px}.ens-jt{font-size:18px}}";
