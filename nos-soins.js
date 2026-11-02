@@ -61,16 +61,19 @@
   + ".ens-in{font-size:13px;font-weight:300;line-height:1.75;color:#4d4a44;margin:0 auto}"
   // la bande des types, en dégradé Bloom → Balance, collée sous le menu
   // Bannière : la photo à droite, le texte à gauche sur la couleur du mur de la photo (sans couture)
-  + ".ens-ban{position:relative;height:540px;display:flex;overflow:hidden;background:linear-gradient(180deg,#e2c4b7 0%,#d6b5a7 35%,#d1b0a2 62%,#cfae9f 80%,#c8a794 100%)}"
-  + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:58%;object-fit:cover;object-position:50% 74%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 22%);mask-image:linear-gradient(90deg,transparent 0,#000 22%)}"
-  + ".ens-bt{position:relative;z-index:2;flex:0 0 48%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%}"
+  // photo entière (pas de zoom), à droite ; à gauche, le dégradé reprend exactement les couleurs du bord de la photo
+  + ".ens-ban{position:relative;height:clamp(560px,44vw,740px);display:flex;overflow:hidden;background:linear-gradient(180deg,rgb(229,198,188) 0%,rgb(213,179,167) 10%,rgb(213,180,165) 20%,rgb(212,178,166) 30%,rgb(210,178,165) 40%,rgb(209,177,164) 50%,rgb(206,172,160) 60%,rgb(219,192,182) 70%,rgb(221,192,180) 80%,rgb(209,178,164) 90%,rgb(191,161,150) 100%)}"
+  + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
+  + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%}"
+  // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
+  + ".ens-psb:before,.ens-psa:after{display:none !important}.ens-sansfond{background-image:none !important}.ens-sanspad{padding-top:0 !important}.ens-cache{display:none !important}"
   + "#eb-ns .ens-bk{font-size:10px;letter-spacing:.5em;font-weight:500;color:#3d3632;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
   + ".ens-bn{font-size:30px;letter-spacing:.2em;font-weight:400;line-height:1.3;margin:0;padding-left:.2em;color:#111;text-transform:uppercase;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-bg{width:84px;height:2px;margin:20px auto;background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
   + ".ens-bm{font-size:13.5px;font-weight:300;line-height:1.7;color:#2f2a27;max-width:420px;margin:0;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
   + "@media(max-width:1099px){.ens-bn{font-size:25px;letter-spacing:.16em}}"
-  + "@media(max-width:699px){.ens-ban{height:auto;flex-direction:column;background:" + REGLAGES.fondSite + "}.ens-bimg{position:relative;width:100%;height:440px;object-position:50% 76%;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}.ens-bt{padding:0 28px 6px;margin-top:-34px}.ens-bn{font-size:21px;letter-spacing:.14em}.ens-bm{font-size:13px}}"
+  + "@media(max-width:699px){.ens-ban{height:auto;flex-direction:column;background:" + REGLAGES.fondSite + "}.ens-bimg{position:relative;width:100%;height:auto;-webkit-mask-image:linear-gradient(180deg,#000 74%,transparent);mask-image:linear-gradient(180deg,#000 74%,transparent)}.ens-bt{max-width:none;padding:0 28px 46px;margin-top:-14px}#eb-ns .ens-bk{margin-bottom:22px}.ens-bn{font-size:21px;letter-spacing:.14em;line-height:1.45}.ens-bg{margin:26px auto}.ens-bm{font-size:13px;line-height:1.8}}"
   // le titre et le texte du type sont dans la bannière : dans la section, ils restent pour Google mais ne s'affichent pas en double
   + ".ens-s>h2,.ens-s>.ens-txt{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}"
   + ".ens-bar{position:sticky;top:" + REGLAGES.espaceMenu + "px;z-index:50;margin:0;background:" + REGLAGES.bande + ";box-shadow:0 10px 24px rgba(40,30,20,.06)}"
@@ -145,6 +148,43 @@
     });
   }
   bordABord(); setTimeout(bordABord, 400);
+
+  // Carrd : on retire l'ancienne bannière en fond de site et l'espace qu'elle réservait, la bannière monte sous le menu
+  function nettoyerFond(){
+    var url = /url\(/, anc = [document.documentElement, document.body];
+    for(var e = root.parentElement; e && e !== document.body; e = e.parentElement) anc.push(e);
+    anc.forEach(function(el){
+      ['::before', '::after'].forEach(function(ps, k){ var cs = getComputedStyle(el, ps); if(cs.content !== 'none' && url.test(cs.backgroundImage)) el.classList.add(k ? 'ens-psa' : 'ens-psb'); });
+      if(url.test(getComputedStyle(el).backgroundImage)) el.classList.add('ens-sansfond');
+      if(el !== document.documentElement && el !== document.body && parseFloat(getComputedStyle(el).paddingTop) > window.innerHeight * .12) el.classList.add('ens-sanspad');
+    });
+    // une grande image de fond posée à part (calque fixe de Carrd)
+    document.querySelectorAll('body > *').forEach(function(el){
+      if(el.contains(root) || el.id === 'eb-ns') return;
+      var cs = getComputedStyle(el);
+      if((cs.position === 'fixed' || cs.position === 'absolute') && url.test(cs.backgroundImage) && el.offsetWidth > window.innerWidth * .6) el.classList.add('ens-cache');
+    });
+    // il reste un vide entre le menu et la bannière ? la bannière remonte
+    if(!ban) return;
+    var bloc = ban; bloc.style.marginTop = '';
+    var ecart = ban.getBoundingClientRect().top + window.scrollY - REGLAGES.espaceMenu;
+    if(ecart > 4 && ecart < window.innerHeight * .8 && !quelqueChoseAuDessus()) bloc.style.marginTop = (-ecart) + 'px';
+    else if(ecart < -1) bloc.style.marginTop = (-ecart) + 'px';   // jamais caché sous le menu
+  }
+  function quelqueChoseAuDessus(){
+    var tous = document.body.querySelectorAll('img, video, p, h1, h2, h3, a, button, iframe');
+    for(var i = 0; i < tous.length; i++){
+      var el = tous[i]; if(root.contains(el)) continue;
+      if(!(el.compareDocumentPosition(root) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
+      var cs = getComputedStyle(el); if(cs.position === 'fixed' || cs.display === 'none' || cs.visibility === 'hidden') continue;
+      var f = el; while(f && f !== document.body){ if(getComputedStyle(f).position === 'fixed') break; f = f.parentElement; } if(f && f !== document.body) continue;
+      var r = el.getBoundingClientRect(); if(r.width > 2 && r.height > 2 && r.bottom + window.scrollY <= ban.getBoundingClientRect().top + window.scrollY + 2) return true;
+    }
+    return false;
+  }
+  try { nettoyerFond(); } catch(err){}
+  setTimeout(function(){ try { nettoyerFond(); bordABord(); } catch(err){} }, 500);
+  window.addEventListener('load', function(){ try { nettoyerFond(); bordABord(); } catch(err){} });
   var secs = [].slice.call(root.querySelectorAll('.ens-s'));
   secs.forEach(function(s){ s.querySelectorAll('.ens-c').forEach(function(c){ var im = c.querySelector('img'); if(im) im.setAttribute('data-g', c.getAttribute('data-gamme')); }); });
 
