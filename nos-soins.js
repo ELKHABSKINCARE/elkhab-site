@@ -85,7 +85,7 @@
   +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
   +   ".ens-bt{position:absolute;left:0;right:0;bottom:1.6%;max-width:none;margin:0;padding:0 32px;z-index:2}"
   +   "#eb-ns .ens-bk{font-size:9px;color:#555;margin:0 0 11px}"
-  +   ".ens-bn{font-size:34px;line-height:1.15}"
+  +   ".ens-bn{font-size:24px;letter-spacing:.28em;padding-left:.28em;line-height:1.3}"
   +   ".ens-bg{width:84px;margin:15px auto 18px}"
   +   ".ens-bm{font-size:13px;line-height:1.6;max-width:320px;margin:0 auto}}"
   // le titre et le texte du type sont dans la bannière : dans la section, ils restent pour Google mais ne s'affichent pas en double
