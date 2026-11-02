@@ -36,7 +36,8 @@
   function demarrer(){
   if(!root || root.getAttribute('data-pret')) return; root.setAttribute('data-pret', '1');
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
-  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w + '&eb=' + REGLAGES.versionPhotos; }
+  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; u = u.split('?')[0];   // l'ancien numéro « ?v= » de Shopify est retiré : on reçoit toujours la photo du jour
+    return u + '?width=' + w + '&eb=' + REGLAGES.versionPhotos; }
   function brute(img){ return (img.getAttribute('data-src') || img.getAttribute('src') || '').replace(/([?&])width=\d+&?/, '$1').replace(/[?&]$/, ''); }
 
   // Les types du 2e embed rejoignent le 1er (une seule page pour la cliente)
