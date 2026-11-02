@@ -2,7 +2,7 @@
 // =====================================================================
 // ELKHA.B — FICHES BALANCE — VERSION TEST (à charger après produits-data-test.js)
 // Ajoute les soins Balance au catalogue des fiches (window.EB_PRODUITS).
-// À compléter depuis Shopify : 🛒 variantId et 📷 photos de chaque soin.
+// Codes panier Shopify (variantId) complétés le 2 nov. 2026.
 // =====================================================================
 // Bloc « Vos expériences » des fiches en dégradé (vert sur le site Balance)
 // Typo : Montserrat fine chargée par le code lui-même (le site Balance ne la charge pas en 300/400 → textes trop gras)
@@ -21,7 +21,7 @@ var BALANCE = {
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321020051801",
     inci: "calm-balance-jour",
     avis: "Calm Balance Jour",
     media: {
@@ -61,7 +61,7 @@ var BALANCE = {
       nom: "Calm Balance Nuit",
       texte: "Le duo apaisant, du matin au soir.\nCalm Balance Jour apaise et hydrate la peau tout au long de la journée.\nCalm Balance Nuit prend le relais pendant le sommeil, pour une peau calme, confortable et reposée au réveil.",
       prix: "36,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321802289497"
     }
   },
 
@@ -74,7 +74,7 @@ var BALANCE = {
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "36,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321802289497",
     inci: "calm-balance-nuit",
     avis: "Calm Balance Nuit",
     media: {
@@ -113,7 +113,7 @@ var BALANCE = {
       nom: "Calm Balance Jour",
       texte: "Le duo apaisant, du matin au soir.\nCalm Balance Jour apaise et hydrate la peau tout au long de la journée.\nCalm Balance Nuit prend le relais pendant le sommeil, pour une peau calme et reposée au réveil.",
       prix: "34,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321020051801"
     }
   },
 
@@ -126,7 +126,7 @@ var BALANCE = {
     details: ["30 ml", "Vegan"],
     note: "une pression suffit",
     prix: "28,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60320959398233",
     inci: "hydra-balance",
     avis: "Hydra Balance",
     media: {
@@ -166,7 +166,7 @@ var BALANCE = {
       nom: "Calm Balance Jour",
       texte: "Le duo fraîcheur et confort.\nHydra Balance gorge la peau d'eau et la prépare en douceur.\nCalm Balance Jour scelle cette hydratation et apaise la peau tout au long de la journée.",
       prix: "34,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321020051801"
     }
   },
 
@@ -179,7 +179,7 @@ var BALANCE = {
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "38,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60320949469529",
     inci: "ceramide-night-restore",
     avis: "Ceramide Night Restore",
     media: {
@@ -218,7 +218,7 @@ var BALANCE = {
       nom: "Glyco Balance",
       texte: "Le duo peau neuve, en douceur.\nGlyco Balance affine le grain de peau et ravive l'éclat.\nCeramide Night Restore réconforte aussitôt la peau et renforce sa barrière pendant la nuit.",
       prix: "29,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60320884687193"
     }
   },
 
@@ -231,7 +231,7 @@ var BALANCE = {
     details: ["30 ml", "Vegan"],
     note: "une pression suffit",
     prix: "37,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321040269657",
     inci: "cellular-reveal",
     avis: "Cellular Reveal",
     media: {
@@ -271,7 +271,7 @@ var BALANCE = {
       nom: "Cellular Eye Restore",
       texte: "Le duo lissant visage et regard.\nCellular Reveal lisse le grain de peau et unifie le teint.\nCellular Eye Restore prolonge cette action sur la zone délicate du contour des yeux.",
       prix: "32,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60320878526809"
     }
   },
 
@@ -284,7 +284,7 @@ var BALANCE = {
     details: ["15 ml", "Vegan"],
     note: "une petite quantité suffit",
     prix: "32,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60320878526809",
     inci: "cellular-eye-restore",
     avis: "Cellular Eye Restore",
     media: {
@@ -323,7 +323,7 @@ var BALANCE = {
       nom: "Cellular Reveal",
       texte: "Le duo lissant visage et regard.\nCellular Reveal lisse le grain de peau et unifie le teint.\nCellular Eye Restore prolonge cette action sur le contour des yeux.",
       prix: "37,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321040269657"
     }
   },
 
@@ -336,7 +336,7 @@ var BALANCE = {
     details: ["30 ml", "Vegan"],
     note: "une pression suffit",
     prix: "32,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321025392985",
     inci: "active-lift",
     avis: "Active Lift",
     media: {
@@ -376,7 +376,7 @@ var BALANCE = {
       nom: "Age Lift",
       texte: "Le duo lissant et raffermissant.\nActive Lift concentre les peptides pour lisser et raffermir.\nAge Lift prolonge cette action et garde la peau souple et repulpée, matin et soir.",
       prix: "37,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321069629785"
     }
   },
 
@@ -389,7 +389,7 @@ var BALANCE = {
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "37,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321069629785",
     inci: "age-lift",
     avis: "Age Lift",
     media: {
@@ -429,7 +429,7 @@ var BALANCE = {
       nom: "Eye Lift",
       texte: "Le duo lissant visage et regard.\nAge Lift lisse et repulpe la peau du visage.\nEye Lift prolonge cette action sur le contour des yeux, pour un regard visiblement plus lisse.",
       prix: "29,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321061273945"
     }
   },
 
@@ -442,7 +442,7 @@ var BALANCE = {
     details: ["15 ml", "Vegan"],
     note: "une petite quantité suffit",
     prix: "29,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321061273945",
     inci: "eye-lift",
     avis: "Eye Lift",
     media: {
@@ -481,7 +481,7 @@ var BALANCE = {
       nom: "Age Lift",
       texte: "Le duo lissant visage et regard.\nEye Lift lisse et raffermit le contour des yeux.\nAge Lift prolonge cette action sur tout le visage.",
       prix: "37,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321069629785"
     }
   },
 
@@ -494,7 +494,7 @@ var BALANCE = {
     details: ["30 ml", "Vegan"],
     note: "une pression suffit",
     prix: "39,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321254375769",
     inci: "bakuchiol-elixir",
     avis: "Bakuchiol Elixir",
     media: {
@@ -534,7 +534,7 @@ var BALANCE = {
       nom: "Age Lift",
       texte: "Le duo fermeté jour et nuit.\nBakuchiol Elixir lisse et raffermit la peau pendant la nuit.\nAge Lift hydrate et repulpe la peau, matin et soir.",
       prix: "37,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321069629785"
     }
   },
 
@@ -547,7 +547,7 @@ var BALANCE = {
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321297727833",
     inci: "bright-control",
     avis: "Bright Control",
     media: {
@@ -587,7 +587,7 @@ var BALANCE = {
       nom: "Spot Control",
       texte: "Le duo teint unifié.\nBright Control unifie le teint sur tout le visage.\nSpot Control agit en ciblé sur les taches les plus marquées.",
       prix: "28,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60320817447257"
     }
   },
 
@@ -600,7 +600,7 @@ var BALANCE = {
     details: ["15 ml", "Vegan"],
     note: "une pression suffit",
     prix: "28,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60320817447257",
     inci: "spot-control",
     avis: "Spot Control",
     media: {
@@ -640,7 +640,7 @@ var BALANCE = {
       nom: "Bright Control",
       texte: "Le duo teint unifié.\nSpot Control agit en ciblé sur les taches les plus marquées.\nBright Control unifie le teint sur tout le visage.",
       prix: "34,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321297727833"
     }
   },
 
@@ -653,7 +653,7 @@ var BALANCE = {
     details: ["250 ml", "Vegan"],
     note: "une pression suffit",
     prix: "29,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60320884687193",
     inci: "glyco-balance",
     avis: "Glyco Balance",
     media: {
@@ -693,7 +693,7 @@ var BALANCE = {
       nom: "Ceramide Night Restore",
       texte: "Le duo peau neuve, en douceur.\nGlyco Balance affine le grain de peau et ravive l'éclat.\nCeramide Night Restore réconforte aussitôt la peau et renforce sa barrière pendant la nuit.",
       prix: "38,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60320949469529"
     }
   },
 
@@ -706,7 +706,7 @@ var BALANCE = {
     details: ["30 ml", "Vegan"],
     note: "une pression suffit",
     prix: "32,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60320901398873",
     inci: "aha-balance-peel",
     avis: "AHA Balance Peel",
     media: {
@@ -746,7 +746,7 @@ var BALANCE = {
       nom: "Hydra Balance",
       texte: "Le duo éclat et hydratation.\nAHA Balance Peel renouvelle la surface de la peau et ravive son éclat.\nHydra Balance la réhydrate intensément les jours suivants.",
       prix: "28,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60320959398233"
     }
   },
 
@@ -759,7 +759,7 @@ var BALANCE = {
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321030734169",
     inci: "cellular-renew",
     avis: "Cellular Renew",
     media: {
@@ -800,7 +800,7 @@ var BALANCE = {
       nom: "Cellular Reveal",
       texte: "Le duo Cellular.\nCellular Reveal lisse le grain de peau et unifie le teint.\nCellular Renew prolonge cette action et apporte à la peau l'hydratation et le confort dont elle a besoin.",
       prix: "37,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60321040269657"
     }
   },
 
@@ -813,7 +813,7 @@ var BALANCE = {
     details: ["200 ml", "Vegan"],
     note: "quelques gouttes suffisent",
     prix: "24,90€",
-    variantId: "",   // 🛒 numéro de variante Shopify (à compléter)
+    variantId: "60321077199193",
     inci: "bha-balance",
     avis: "BHA Balance",
     media: {
@@ -854,7 +854,7 @@ var BALANCE = {
       nom: "Hydra Balance",
       texte: "Le duo peau nette et hydratée.\nBHA Balance purifie les pores et élimine l'excès de sébum.\nHydra Balance offre à la peau un bain d'hydratation et la garde souple et confortable.",
       prix: "28,90€",
-      variantId: ""   // 🛒 à compléter
+      variantId: "60320959398233"
     }
   },
 
@@ -867,7 +867,7 @@ var BALANCE = {
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "95€",
-    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    variantId: "60321991131481",
     avis: "Routine anti-âge",
     media: {
       type: "diaporama",
@@ -898,7 +898,7 @@ var BALANCE = {
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "99€",
-    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    variantId: "60321834402137",
     avis: "Routine essentielle",
     media: {
       type: "diaporama",
@@ -929,7 +929,7 @@ var BALANCE = {
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "91€",
-    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    variantId: "60322009776473",
     avis: "Routine anti-taches",
     media: {
       type: "diaporama",
@@ -959,7 +959,7 @@ var BALANCE = {
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "95€",
-    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    variantId: "60322013479257",
     avis: "Routine apaisante",
     media: {
       type: "diaporama",
@@ -990,7 +990,7 @@ var BALANCE = {
     details: ["2 soins", "Vegan"],
     note: "",
     prix: "73€",
-    variantId: "",   // 🛒 numéro de variante Shopify de la routine (à compléter)
+    variantId: "60322017608025",
     avis: "Routine renouvellement",
     media: {
       type: "diaporama",
