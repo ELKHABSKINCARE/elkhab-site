@@ -22,7 +22,7 @@
   + "#eb-acc{font-family:'Montserrat',sans-serif;color:#111;text-align:center;width:100%;-webkit-tap-highlight-color:transparent}"
   + "html,body{overflow-x:clip}"
   // la page reste cachée le temps que sa mise en forme arrive (pas de grandes photos en vrac au chargement)
-  + "html #eb-acc.eba-pret{opacity:1;animation:none;transition:opacity .45s ease}"
+  + "html #eb-acc.eba-pret{opacity:1;animation:none;transition:opacity .45s ease}html .eb-acc-suite{display:none}"
   + "#eb-acc *{box-sizing:border-box}#eb-acc a{color:inherit;text-decoration:none}"
   + "#eb-acc h1,#eb-acc h2,#eb-acc h3,#eb-acc p{margin:0;font-family:'Montserrat',sans-serif}"
   // ── 1. Bannière : photos en fondu, texte à gauche sur un voile du fond du site
@@ -199,14 +199,17 @@
 
   var st = document.createElement('style'); st.id = 'eb-accueil-css'; st.textContent = CSS; document.head.appendChild(st);
 
+  // la page est écrite dans 2 embeds Carrd (un embed est limité en longueur) : on attend les deux
   (function attendre(n){
-    var root = document.getElementById('eb-acc');
-    if(root) return demarrer(root);
+    var root = document.getElementById('eb-acc'), suite = document.querySelector('.eb-acc-suite');
+    if(root && (suite || document.readyState === 'complete' || n <= 0)) return demarrer(root);
     if(n > 0) setTimeout(function(){ attendre(n - 1); }, 100);
-  })(50);
+  })(60);
 
   function demarrer(root){
     if(root.getAttribute('data-pret')) return; root.setAttribute('data-pret', '1');
+    // la suite de la page (2e embed) rejoint la première partie
+    document.querySelectorAll('.eb-acc-suite').forEach(function(su){ while(su.firstChild) root.appendChild(su.firstChild); su.style.display = 'none'; });
     var tel = window.matchMedia('(max-width:699px)');
     var ban = root.querySelector('.eba-ban');
   // toute la page d'accueil prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
