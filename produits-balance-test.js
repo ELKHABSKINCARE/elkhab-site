@@ -395,13 +395,13 @@ var BALANCE = {
     inci: "active-lift",
     avis: "Active Lift",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-2-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-2-flacon-v7.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
