@@ -21,6 +21,8 @@
   var CSS = ""
   + "#eb-acc{font-family:'Montserrat',sans-serif;color:#111;text-align:center;width:100%;-webkit-tap-highlight-color:transparent}"
   + "html,body{overflow-x:clip}"
+  // la page reste cachée le temps que sa mise en forme arrive (pas de grandes photos en vrac au chargement)
+  + "html #eb-acc.eba-pret{opacity:1;animation:none;transition:opacity .45s ease}"
   + "#eb-acc *{box-sizing:border-box}#eb-acc a{color:inherit;text-decoration:none}"
   + "#eb-acc h1,#eb-acc h2,#eb-acc h3,#eb-acc p{margin:0;font-family:'Montserrat',sans-serif}"
   // ── 1. Bannière : photos en fondu, texte à gauche sur un voile du fond du site
@@ -278,6 +280,7 @@
     }
     root.querySelectorAll('img[data-zoom]').forEach(function(im){ var z = parseFloat(im.getAttribute('data-zoom')) || 1; if(z !== 1) im.style.transform = 'scale(' + z + ')'; });
     cadrer(); if(tel.addEventListener) tel.addEventListener('change', cadrer);
+    requestAnimationFrame(function(){ root.classList.add('eba-pret'); });
 
     // ── Bannière : une photo après l'autre, en fondu
     if(ban){
