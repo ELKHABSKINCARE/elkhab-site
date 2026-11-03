@@ -90,15 +90,15 @@
     "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", hauteur: 11, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png", alt: "AHA Balance Peel ELKHA.B Balance" }
   };
 
-  // 🎬 VIDÉOS au milieu des soins
-  //    lien    = le lien Shopify de la vidéo (entre guillemets)
+  // 🎬 VIDÉOS ET PHOTOS au milieu des soins
+  //    lien    = le lien Shopify d'une vidéo   (ou photo = le lien Shopify d'une photo)
   //    avant   = la vidéo se place juste AVANT ce soin  (ou apres = juste APRÈS ce soin)
   //    format  = "carre" (prend la place d'un soin) ou "large" (16/9, prend la place de deux soins)
   //    Pour retirer une vidéo : supprimer sa ligne entière.
   var VIDEOS = [
     { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
     { lien: "https://cdn.shopify.com/videos/c/o/v/52f23379a6b1413d8cce9388c42a0139.mp4", apres: "active-lift", format: "carre", alt: "Soin Balance ELKHA.B en vidéo" },
-    { lien: "https://cdn.shopify.com/videos/c/o/v/e59d73e8897e4128b77de49dd5f26f46.mp4", avant: "bha-balance", format: "large", alt: "Les soins Balance ELKHA.B en vidéo" }
+    { photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Pipette_elixir_bakuchiol.png", avant: "bakuchiol-elixir", format: "large", alt: "Pipette de Bakuchiol Elixir ELKHA.B, huile au bakuchiol, sur fond de feuillage" }
   ];
 
   // Les 5 niveaux d’intensité (du plus doux au plus fort)
@@ -106,7 +106,7 @@
     { num: "1", titre: "Doux", texte: "Pour commencer, ou pour les peaux réactives.", couleur: "#cfd5a3", soins: ["fusion-balance", "hydra-balance", "calm-balance-jour", "calm-balance-nuit"] },
     { num: "2", titre: "Modéré", texte: "Des actifs réguliers, bien tolérés.", couleur: "#b6c27a", soins: ["ceramide-night-restore", "cellular-eye-restore", "cellular-renew", "active-lift"] },
     { num: "3", titre: "Actif", texte: "Des actifs qui corrigent, sur une peau habituée.", couleur: "#9cb054", soins: ["age-lift", "eye-lift", "cellular-reveal"] },
-    { num: "4", titre: "Concentré", texte: "Des actifs concentrés, pour un besoin précis.", couleur: "#7e9a33", soins: ["bakuchiol-elixir", "spot-control", "bright-control", "bha-balance"] },
+    { num: "4", titre: "Concentré", texte: "Des actifs concentrés, pour un besoin précis.", couleur: "#7e9a33", soins: ["bha-balance", "spot-control", "bright-control", "bakuchiol-elixir"] },
     { num: "5", titre: "Intensif", texte: "Les exfoliants : quelques soirs par semaine.", couleur: "#2b3826", soins: ["glyco-balance", "aha-balance-peel"] }
   ];
 
@@ -242,7 +242,7 @@
   + ".ebs-vid{position:relative;display:block;width:100%;margin:0;padding:0 0 34px;order:1}"
   + ".ebs-vbox{position:relative;width:100%;overflow:hidden;aspect-ratio:1 / 1;background:" + REGLAGES.fondSite + "}"
   + ".ebs-vid-large .ebs-vbox{aspect-ratio:16 / 9}"
-  + ".ebs-vbox video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}"
+  + ".ebs-vbox video,.ebs-vbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}"
   + ".filtre .ebs-vid{display:none}"
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;max-height:1400px;}"
   + ".ebs-amb img,.ebs-amb video{display:block;width:100%;height:auto}"
@@ -328,8 +328,11 @@
   }
 
   function videosPres(id, cote){
-    return VIDEOS.filter(function(v){ return v[cote] === id && v.lien; }).map(function(v){
-      return '<figure class="ebs-vid ebs-vid-' + (v.format === 'large' ? 'large' : 'carre') + '"><div class="ebs-vbox"><video muted loop playsinline preload="none" data-src="' + esc(v.lien) + '" aria-label="' + esc(v.alt || '') + '"></video></div></figure>';
+    return VIDEOS.filter(function(v){ return v[cote] === id && (v.lien || v.photo); }).map(function(v){
+      var media = v.lien
+        ? '<video muted loop playsinline preload="none" data-src="' + esc(v.lien) + '" aria-label="' + esc(v.alt || '') + '"></video>'
+        : '<img src="' + esc(src(v.photo, 1400)) + '" alt="' + esc(v.alt || '') + '" loading="lazy" decoding="async">';
+      return '<figure class="ebs-vid ebs-vid-' + (v.format === 'large' ? 'large' : 'carre') + '"><div class="ebs-vbox">' + media + '</div></figure>';
     }).join('');
   }
 
