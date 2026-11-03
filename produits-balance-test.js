@@ -928,7 +928,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-carrousel.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v7.png"
       ]
     },
     routine: {
@@ -959,7 +959,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-essentielle-carrousel.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-essentielle-v7.png"
       ]
     },
     routine: {
@@ -1020,7 +1020,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-apaisante-carrousel.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-apaisante-v7.png"
       ]
     },
     routine: {
@@ -1051,7 +1051,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-renouvellement-carrousel.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-renouvellement-v7.png"
       ]
     },
     routine: {
@@ -1068,7 +1068,7 @@ var BALANCE = {
 for(var k in BALANCE){
   BALANCE[k].gamme = 'balance';
   // accord parfait : flacon bien cadré, bien visible (photo de la page des soins)
-  var mm = BALANCE[k].media; if(mm && mm.miniature) mm.accord = mm.miniature.replace('-miniature-', '-flacon-site-').replace(/\.jpg$/, '.png');
+  var mm = BALANCE[k].media; if(mm && mm.miniature) mm.accord = mm.miniature.replace('-miniature-', '-flacon-site-').replace(/\.jpg(?=\?|$)/, '.png');   // (marche aussi quand le lien finit par ?v=…)
   window.EB_PRODUITS[k] = BALANCE[k];
 }   // gamme : bloc « Vos expériences » vert partout
 var INCI = {
