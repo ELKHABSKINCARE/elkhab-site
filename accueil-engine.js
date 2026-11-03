@@ -226,8 +226,10 @@
     var ban = root.querySelector('.eba-ban');
   // toute la page d'accueil prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
   function bordABord(){
-    root.style.width = ''; root.style.marginLeft = ''; root.style.maxWidth = 'none';
-    var g = root.getBoundingClientRect().left;
+    root.style.maxWidth = 'none';
+    // position du bord gauche du conteneur Carrd (on ne mesure pas la page elle-même : son style de départ la place déjà bord à bord)
+    var pa = root.parentElement, cs = getComputedStyle(pa);
+    var g = pa.getBoundingClientRect().left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
     root.style.width = document.documentElement.clientWidth + 'px'; root.style.marginLeft = (-g) + 'px';
   }
   bordABord(); setTimeout(bordABord, 400);
@@ -250,10 +252,10 @@
     // mise en page Carrd « en deux colonnes » (contenu d'un côté, image de l'autre) : le contenu reprend toute la largeur
     var W = document.documentElement.clientWidth;
     for(var c = root.parentElement; c && c !== document.body; c = c.parentElement){
-      var parent = c.parentElement; if(!parent) break;
+      var parent = c.parentElement; if(!parent || parent === document.body) break;
       var autre = false;
       [].forEach.call(parent.children, function(f){
-        if(f === c || /^(SCRIPT|STYLE|LINK|NOSCRIPT)$/.test(f.tagName) || f.classList.contains('eba-cache')) return;
+        if(f === c || /^(SCRIPT|STYLE|LINK|NOSCRIPT)$/.test(f.tagName) || f.classList.contains('eba-cache') || getComputedStyle(f).position === 'fixed') return;
         var vide = !f.textContent.trim() && !f.querySelector('img,video,iframe,svg,canvas');
         var r = f.getBoundingClientRect();
         if(vide && r.width > W * .2 && r.height > window.innerHeight * .3){ f.classList.add('eba-cache'); autre = true; }
@@ -282,7 +284,7 @@
     }
     return false;
   }
-  try { nettoyerFond(); } catch(err){}
+  try { nettoyerFond(); bordABord(); } catch(err){}
   setTimeout(function(){ try { nettoyerFond(); bordABord(); } catch(err){} }, 500);
   window.addEventListener('load', function(){ try { nettoyerFond(); bordABord(); } catch(err){} });
 
