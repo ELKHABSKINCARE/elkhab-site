@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 4,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 5,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -120,9 +120,13 @@
     new MutationObserver(majSac).observe(c, { childList: true, characterData: true, subtree: true });
   }
   // le sac affiche le nombre d'articles du panier du site (celui du menu)
+  // si la cliente retire des soins du panier, les boutons « Ajouté » du Skin ID redeviennent « Ajouter »
+  var dernierN = null;
   function majSac(){
     if(!boite) return;
     var src = document.getElementById('ebCartCount'), n = src ? (parseInt(src.textContent, 10) || 0) : 0;
+    if(dernierN !== null && n < dernierN && canal) canal.postMessage({ eb: 'skin-id', type: 'panier-moins', n: n });
+    dernierN = n;
     boite.querySelector('.eb-sid-sac span').textContent = n;
     boite.classList.toggle('plein', n > 0);
   }
