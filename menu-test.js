@@ -28,7 +28,7 @@ chargerSkinId();
 var LIENS = {
   bloom:      "https://bloom.elkhab.com/",
   balance:    "https://balance.elkhab.com/",
-  routines:   "",                          // page à venir
+  routines:   "https://routines.elkhab.com/",
   journal:    "https://journal.elkhab.com/",
   experience: "https://experience.elkhab.com/",
   accueil:    "https://elkhab.com/"
@@ -53,16 +53,17 @@ var PAR_BESOIN = [
 if(window.ebMenuTest) return; window.ebMenuTest = true;
 
 // Sur les sites de test, le menu mène aux autres sites de test
-var SITES_TEST = { "elkhab-test.carrd.co":1, "bloom-test.carrd.co":1, "testbloom.carrd.co":1, "balance-test.carrd.co":1, "journal-test.carrd.co":1, "leur-experience-test.carrd.co":1, "soins-balance-test.carrd.co":1, "besoins-balance-test.carrd.co":1 };
+var SITES_TEST = { "elkhab-test.carrd.co":1, "bloom-test.carrd.co":1, "testbloom.carrd.co":1, "balance-test.carrd.co":1, "journal-test.carrd.co":1, "leur-experience-test.carrd.co":1, "soins-balance-test.carrd.co":1, "besoins-balance-test.carrd.co":1, "routines-test.carrd.co":1 };
 if(SITES_TEST[location.hostname]){
   LIENS.accueil = "https://elkhab-test.carrd.co/"; LIENS.bloom = "https://bloom-test.carrd.co/"; LIENS.balance = "https://balance-test.carrd.co/";
   LIENS.journal = "https://journal-test.carrd.co/"; LIENS.experience = "https://leur-experience-test.carrd.co/";
+  LIENS.routines = "https://routines-test.carrd.co/";
 }
 
 var BLOOM_DEG = "linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)";
 var BAL_DEG   = "linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)";
 var h = location.hostname;
-var ICI = /soins|besoins/.test(h) ? "soins" : /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
+var ICI = /routines/.test(h) ? "routines" : /soins|besoins/.test(h) ? "soins" : /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
 
 var CSS = ""
 + ".eb-navbar{height:64px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
@@ -165,7 +166,7 @@ function construire(){
   var aBloom=lien('Bloom',LIENS.bloom,'ebm-t ebm-bloom'+(ICI==='bloom'?' ebm-ici':''));
   var aBal=lien('Balance',LIENS.balance,'ebm-t ebm-balance'+(ICI==='balance'?' ebm-ici':''));
   var bSoins=el('button','ebm-t'+(ICI==='soins'?' ebm-ici':''),'Nos soins'); bSoins.type='button'; bSoins.setAttribute('aria-expanded','false');
-  var aRout=lien('Routines',LIENS.routines,'ebm-t');
+  var aRout=lien('Routines',LIENS.routines,'ebm-t'+(ICI==='routines'?' ebm-ici':''));
   [aBloom,aBal,bSoins,aRout].forEach(function(x){ g.appendChild(x); });
   gauche.appendChild(g);
   // ── Ordinateur : liens à droite (avant le panier)
