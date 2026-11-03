@@ -1536,7 +1536,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-carrousel.png?v=1793385822"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-v2.png"
       ]
     },
 
@@ -1628,7 +1628,7 @@ window.EB_PRODUITS = {
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-carrousel.png?v=1793385932"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-v2.png"
       ]
     },
 
