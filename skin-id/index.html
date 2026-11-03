@@ -1841,7 +1841,7 @@ body{background:#141414;color:#f6f4f0}
     var RG=rep.regard||[], vuRegard=['des cernes','des poches','des ridules','des paupières moins fermes','de la sécheresse','un regard fatigué'];
     var regN=RG.filter(function(n){return n<6;}).sort(function(x,y){return ([2,4].indexOf(x)>=0)-([2,4].indexOf(y)>=0);}), regDit=regN.map(function(n){return vuRegard[n];}), regAutour=regN.length&&[2,4].indexOf(regN[regN.length-1])>=0; regDit=regDit.length>1?regDit.slice(0,-1).join(', ')+' et '+regDit[regDit.length-1]:regDit[0];
     var total=R.tout.reduce(function(t,x){return t+SOINS[x[0]].p;},0), px=R.routine?R.routine.prix:total;
-    RES={why:{},R:R}; if(window.parent!==window){try{sessionStorage.setItem('ebSkinIdRep',JSON.stringify(rep));}catch(e){}} R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1]; if(dem)RES.why[dem[0]]=dem[1];
+    RES={why:{},R:R}; if(window.parent!==window){try{sessionStorage.setItem('ebSkinIdRep',JSON.stringify(rep));}catch(e){} versSite({type:'bilan',rep:rep});} R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1]; if(dem)RES.why[dem[0]]=dem[1];
     var nb=R.tout.length;
     var carte='<div class="rc" id="rc"><div class="rc-h"><span>VOTRE RITUEL</span><span>'+nb+' SOIN'+(nb>1?'S':'')+'</span></div>'+(p0!=null?'<p class="rc-pr">Pensé pour votre priorité</p><p class="rc-t">'+PRIOS[p0]+'</p>':'')
       +'<div class="rang'+(nb>4?' defile':'')+'" style="--n:'+Math.min(nb,4)+'">'+parMoment(R).map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
@@ -1999,7 +1999,7 @@ body{background:#141414;color:#f6f4f0}
     if(t.dataset.ajoute){var ids=t.dataset.ajoute.split(','); auPanier(variantesDe(ids,t),t,'Ajouté');return;}
     if(t.id==='b-regard'||t.id==='b-net'){t.textContent='Ajouté au panier (page de test)';return;}
     if(t.id==='b-mail'){t.textContent='Sur le site, votre rituel partira par e-mail';return;}
-    if(t.id==='b-recommencer'||t.id==='b-refaire'){try{sessionStorage.removeItem('ebSkinIdRep');}catch(e){} rep={};dejaSouleve=false;aGlisseQuestion=false;accueil();return;}
+    if(t.id==='b-recommencer'||t.id==='b-refaire'){try{sessionStorage.removeItem('ebSkinIdRep');}catch(e){} if(window.parent!==window)versSite({type:'bilan',rep:null}); rep={};dejaSouleve=false;aGlisseQuestion=false;accueil();return;}
     if(t.hasAttribute('data-retour')){if(E_Q.classList.contains('on'))reculer(); else retour(); return;}
     if(t.hasAttribute('data-suite')){avancer();return;}
     if(t.dataset.pas!=null){regPlace(Q[i],regV+(+t.dataset.pas),true);return;}
@@ -2042,12 +2042,11 @@ body{background:#141414;color:#f6f4f0}
   var attente={}, nAtt=0;
   function auPanier(L,b,ok,voir){if(!SITE){b.textContent='Ajouté (page de test)';return;} if(!L.length)return; if(!b.dataset.orig)b.dataset.orig=b.textContent; var id=++nAtt; attente[id]={b:b,t:b.textContent,ok:ok,voir:voir}; b.disabled=true; b.textContent='Un instant…'; versSite({type:'panier',id:id,variantes:L});
     setTimeout(function(){var a=attente[id]; if(a){a.b.disabled=false; a.b.textContent=a.t; delete attente[id];}},15000);}
-  function duSite(d){d=d||{}; if(d.type==='panier-moins'){document.querySelectorAll('[data-orig]').forEach(function(b){b.textContent=b.dataset.orig; b.disabled=false; delete b.dataset.voir; delete b.dataset.orig;}); return;} if(d.type==='panier-ok'){var a=attente[d.id]; if(!a)return; delete attente[d.id]; a.b.disabled=false; a.b.textContent=d.ok?a.ok:'Réessayer'; if(d.ok&&a.voir)a.b.dataset.voir='1';}}
+  // le bilan déjà fait pendant cette visite (sur ce site ou un autre site ELKHA.B) : c'est le site qui le garde et le renvoie
+  function duSite(d){d=d||{}; if(d.type==='bilan'){if(!d.rep||typeof d.rep!=='object'){try{sessionStorage.removeItem('ebSkinIdRep');}catch(e){} return;} rep=d.rep; derive(); majPrio(); resultat(); return;} if(d.type==='panier-moins'){document.querySelectorAll('[data-orig]').forEach(function(b){b.textContent=b.dataset.orig; b.disabled=false; delete b.dataset.voir; delete b.dataset.orig;}); return;} if(d.type==='panier-ok'){var a=attente[d.id]; if(!a)return; delete attente[d.id]; a.b.disabled=false; a.b.textContent=d.ok?a.ok:'Réessayer'; if(d.ok&&a.voir)a.b.dataset.voir='1';}}
   window.addEventListener('message',function(e){var d=e.data||{}; if(e.source!==window.parent||d.eb!=='skin-id'||d.type!=='canal'||!e.ports||!e.ports[0])return;
     CANAL=e.ports[0]; CANAL.onmessage=function(ev){duSite(ev.data);}; enAttente.splice(0).forEach(function(m){CANAL.postMessage(m);});});
   if(SITE){var stS=document.createElement('style'); stS.textContent='#b-fermer{z-index:40}body.acc #b-fermer{background:rgba(20,20,20,.55);color:#f6f4f0;border-color:rgba(246,244,240,.28)}'; document.head.appendChild(stS); document.getElementById('b-fermer').classList.remove('cache'); versSite({type:'pret'});}
-  // le bilan déjà fait pendant cette visite est retrouvé tel quel (jusqu'à la fermeture du navigateur)
-  if(SITE){try{var dejaFait=sessionStorage.getItem('ebSkinIdRep'); if(dejaFait)setTimeout(function(){rep=JSON.parse(dejaFait); derive(); majPrio(); resultat();},0);}catch(e){}}
   accAnim();
   document.body.classList.add('acc');
   etape(-1);
