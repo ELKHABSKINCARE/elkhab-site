@@ -22,7 +22,7 @@
   + "#eb-acc{font-family:'Montserrat',sans-serif;color:#111;text-align:center;width:100%;-webkit-tap-highlight-color:transparent}"
   + "html,body{overflow-x:clip}"
   // la page reste cachée le temps que sa mise en forme arrive (pas de grandes photos en vrac au chargement)
-  + "html #eb-acc.eba-pret{opacity:1;animation:none;transition:opacity .45s ease}html .eb-acc-suite{display:none}"
+  + "html #eb-acc.eba-pret,html #eb-acc.eba-pret>*{opacity:1;animation:none;transition:opacity .45s ease}html .eb-acc-suite{display:none}"
   + "#eb-acc *{box-sizing:border-box}#eb-acc a{color:inherit;text-decoration:none}"
   + "#eb-acc h1,#eb-acc h2,#eb-acc h3,#eb-acc p{margin:0;font-family:'Montserrat',sans-serif}"
   // ── 1. Bannière : photos en fondu, texte à gauche sur un voile du fond du site
