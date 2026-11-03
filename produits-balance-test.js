@@ -171,6 +171,61 @@ var BALANCE = {
   },
 
   // =====================================================================
+  // FUSION BALANCE (démaquillant biphasé, 100 ml)
+  // =====================================================================
+  "fusion-balance": {
+    nom: "Fusion Balance",
+    sousTitre: "Démaquillant biphasé · Aloe vera · Sans parfum",
+    details: ["100 ml", "Vegan"],
+    note: "agitez avant emploi",
+    prix: "26,90€",
+    variantId: "60341364228441",
+    inci: "fusion-balance",
+    avis: "Fusion Balance",
+    media: {
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        // 📷 1. BOÎTE + FLACON
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-1-boite-flacon-v6.jpg",
+        // 📷 2. FLACON SEUL
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-2-flacon-v6.jpg",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_a83a3578-c07d-491a-8a83-e496c32dc0b0.png?v=1793697938",
+        // 📷 4. RENDU SELFNAMED
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Af8Csk4hrC3Wla3bLANbAUW9GeqcDU8w.jpg?v=1793698083"
+      ]
+    },
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." },
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Sur une peau nette, appliquez une pression de Calm Balance Nuit : elle apaise et nourrit la peau pendant votre sommeil." }
+      ]
+    },
+    sections: [
+      { titre: "L'expérience",
+        texte: "Un geste, et le maquillage s'efface. Fusion Balance réunit une phase huileuse et une phase aqueuse qui, mélangées d'un mouvement, dissolvent le maquillage des yeux et du visage, même waterproof ou longue tenue, en quelques secondes. Pas besoin de frotter : votre contour des yeux est préservé et vos cils ne sont pas malmenés.\nL'aloe vera, premier ingrédient de sa formule, associé à la glycérine, laisse une peau nette, souple et fraîche, jamais tiraillée. Sans parfum ajouté, il accompagne aussi bien les peaux sensibles que les démaquillages du quotidien." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Son secret tient dans ses deux phases. La phase huileuse capte les pigments et la texture du maquillage, même waterproof ou longue tenue. La phase aqueuse rince les impuretés et laisse une sensation de fraîcheur, sans film gras.\nLe choix des maquilleurs professionnels pour le démaquillage des yeux, il s'adapte à vos habitudes : seul pour un démaquillage complet, ou en première étape d'un double nettoyage, avant votre nettoyant. La peau garde ses huiles naturelles, celles qui protègent sa barrière." },
+      { titre: "Bénéfices clés",
+        liste: ["Yeux et visage en un geste : il dissout le maquillage, même waterproof, sans frotter", "Une peau qui ne tiraille pas : il nettoie sans retirer les huiles naturelles de la peau", "La fraîcheur de l'aloe vera, premier ingrédient de la formule", "Polyvalent : seul, ou en première étape du double nettoyage"] },
+      { titre: "Pensé pour",
+        texte: "Tous les types de peau, y compris sensibles, et toutes celles qui veulent un démaquillage efficace des yeux, sans parfum et sans frotter." },
+      { titre: "Texture & sensorialité",
+        texte: "Deux phases visibles dans le flacon, qui fusionnent dès qu'on l'agite. La texture glisse sur la peau, fond sur le maquillage puis disparaît, laissant une peau nette et fraîche. Sans parfum ajouté, pour un geste épuré." },
+      { titre: "Engagement ELKHA.B",
+        texte: "• 99% d'ingrédients d'origine naturelle\n• Sans parfum ajouté · Vegan\n• Extraits botaniques issus de l'agriculture biologique\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Fusion Balance ouvre le rituel du soir en respectant la barrière cutanée." }
+    ],
+    accord: {
+      fiche: "calm-balance-nuit",
+      nom: "Calm Balance Nuit",
+      texte: "Le rituel du soir des peaux sensibles.\nFusion Balance démaquille les yeux et le visage sans frotter.\nCalm Balance Nuit apaise et nourrit la peau pendant votre sommeil.",
+      prix: "36,90€",
+      variantId: "60321802289497"
+    }
+  },
+
+  // =====================================================================
   // CERAMIDE NIGHT RESTORE
   // =====================================================================
   "ceramide-night-restore": {
@@ -1031,6 +1086,10 @@ var INCI = {
     "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Pentylene Glycol, Butylene Glycol, Glycerin², Sodium PCA, Aqua/Water, Propanediol, Cellulose Gum, Parfum/Fragrance, Algin, Camellia Sinensis (White Tea) Leaf Extract¹, Salvia Officinalis (Sage) Leaf Extract¹, Hydrolyzed Hyaluronic Acid, Lactic Acid, Sodium Hyaluronate, Sodium Phytate, Rhamnose, Glucose, Glucuronic Acid.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques.",
     "natural": "99",
     "organic": "11"
+  },
+  "fusion-balance": {
+    "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Isoamyl Laurate, Coco-Caprylate/Caprate, Butylene Glycol, Glycerin², Coconut Alkanes, Sodium Chloride, Aqua, Sodium Levulinate, Tocopherol, Sodium Benzoate, Caprylyl/Capryl Glucoside, Lactic Acid, Sodium Phytate, Chamomilla Recutita (Camomile) Flower Extract¹, Hippophae Rhamnoides (Sea-Buckthorn) Fruit Extract¹, Rubus Idaeus (Raspberry) Fruit Extract¹, Capsicum Annuum (Paprika) Fruit Extract¹, Sodium Hyaluronate, Helianthus Annuus (Sunflower) Seed Oil¹, Citric Acid, Potassium Sorbate, Rosmarinus Officinalis (Rosemary) Leaf Extract¹.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques.",
+    "natural": "99"
   },
   "ceramide-night-restore": {
     "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Theobroma Cacao (Cocoa) Seed Butter¹, Simmondsia Chinensis (Jojoba) Seed Oil¹, Helianthus Annuus (Sunflower) Seed Oil¹, Dicaprylyl Carbonate, Pentylene Glycol, Polyglyceryl-6 Stearate, Cetearyl Alcohol, Glycerin², Helianthus Annuus (Sunflower) Seed Cera, Butyrospermum Parkii (Shea) Butter¹, Olea Europaea (Olive) Oil Unsaponifiables, Sodium PCA, Palmitic Acid, Stearic Acid, Polyglyceryl-6 Behenate, Parfum, Cellulose, Rhus Verniciflua Peel Cera / Rhus Succedanea Fruit Cera, Shorea Robusta Resin, Hippophae Rhamnoides (Sea Buckthorn) Fruit Extract¹, Xanthan Gum, Paeonia Lactiflora (Peony) Root Extract, Sambucus Nigra (Elder) Fruit Extract¹, Vaccinium Macrocarpon (Cranberry) Seed Oil¹, Glycosphingolipids, Glycolipids, Aqua, Sodium Phytate, Ascorbyl Palmitate, Tocopherol, Lactic Acid, Sodium Hyaluronate, Linalool³, Limonene³.\n¹ Ingrédients issus de l'agriculture biologique. ² Fabriqué à partir d'ingrédients biologiques. ³ Constituants d'huiles essentielles naturelles.",

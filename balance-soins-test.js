@@ -71,6 +71,7 @@
   // hauteur = hauteur réelle du soin en cm : toutes les photos sont remises à la même échelle,
   //           posées sur la même ligne (les petits soins restent petits)
   var SOINS = {
+    "fusion-balance": { nom: "Fusion Balance", actifs: "Démaquillant biphasé · Aloe vera", ligne: "Yeux & visage · Sans parfum", besoins: ["sensibles"], prix: "26,90€", taille: "100 ml", hauteur: 12.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-flacon-site-v6.png", alt: "Fusion Balance démaquillant biphasé ELKHA.B Balance" },
     "hydra-balance": { nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 10.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v6.png", alt: "Hydra Balance ELKHA.B Balance" },
     "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site-v6.png", alt: "Calm Balance Jour ELKHA.B Balance" },
     "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "36,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site-v6.png", alt: "Calm Balance Nuit ELKHA.B Balance" },
@@ -91,7 +92,7 @@
 
   // Les 5 niveaux d’intensité (du plus doux au plus fort)
   var ETAPES = [
-    { num: "1", titre: "Doux", texte: "Pour commencer, ou pour les peaux réactives.", couleur: "#cfd5a3", soins: ["hydra-balance", "calm-balance-jour", "calm-balance-nuit"] },
+    { num: "1", titre: "Doux", texte: "Pour commencer, ou pour les peaux réactives.", couleur: "#cfd5a3", soins: ["fusion-balance", "hydra-balance", "calm-balance-jour", "calm-balance-nuit"] },
     { num: "2", titre: "Modéré", texte: "Des actifs réguliers, bien tolérés.", couleur: "#b6c27a", soins: ["ceramide-night-restore", "cellular-eye-restore", "cellular-renew", "active-lift"] },
     { num: "3", titre: "Actif", texte: "Des actifs qui corrigent, sur une peau habituée.", couleur: "#9cb054", soins: ["age-lift", "eye-lift", "cellular-reveal"] },
     { num: "4", titre: "Concentré", texte: "Des actifs concentrés, pour un besoin précis.", couleur: "#7e9a33", soins: ["bakuchiol-elixir", "spot-control", "bright-control", "bha-balance"] },
