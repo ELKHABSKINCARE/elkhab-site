@@ -85,6 +85,7 @@ body.res .wm{opacity:0}
 .lettre h2{font-size:17px;font-weight:800;letter-spacing:.02em;margin:0 0 12px;color:var(--encre);text-align:center}
 .lettre h3{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;margin:22px 0 8px;color:var(--doux2)}
 .lettre p{margin:0 0 12px}.lettre .sign{font-style:italic;margin-top:16px}
+.refaire{display:block;margin:26px auto 0;padding:6px 0;border:0;border-bottom:1px solid rgba(246,244,240,.5);background:none;color:rgba(246,244,240,.8);font:500 10px Montserrat,sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
 .sec-r{margin:34px 0 4px;font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase}
 .mo{display:flex;align-items:baseline;justify-content:space-between;margin:20px 0 4px;text-align:left}.mo b{font-size:15px}.mo span{font-size:12px;color:var(--doux)}
 .soin-r{display:flex;gap:22px;align-items:center;justify-content:center;text-align:left;padding:14px 0;border-bottom:1px solid rgba(58,26,18,.08)}
@@ -571,6 +572,7 @@ body.res .contenu{max-width:none;padding:0}
 @keyframes hsArrive{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
 @keyframes hsPulse{0%{box-shadow:0 0 0 0 rgba(233,169,166,.75)}70%{box-shadow:0 0 0 9px rgba(233,169,166,0)}100%{box-shadow:0 0 0 0 rgba(233,169,166,0)}}
 .rc-b{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;padding-top:11px;border-top:1px solid rgba(255,255,255,.1)}
+.rc-dur{margin:12px 0 0;text-align:center;font-size:10.5px;font-weight:400;letter-spacing:.02em;line-height:1.5;color:rgba(246,244,240,.78)}
 .rc-b b{display:block;font-size:14px;font-weight:700}.rc-b span{font-size:9px;font-style:italic;color:rgba(246,244,240,.6)}
 .bt-c{border:1px solid #f6f4f0;background:transparent;color:#f6f4f0;border-radius:999px;padding:11px 16px;font:700 8.5px 'Montserrat',sans-serif;letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;cursor:pointer;transition:background .25s,color .25s,transform .2s}
 .bt-c:hover{background:#f6f4f0;color:#141414;transform:scale(1.03)}
@@ -598,6 +600,12 @@ body.res .contenu{max-width:none;padding:0}
 .sid-d .note{font-size:11.5px;font-style:italic;color:rgba(246,244,240,.6);text-align:left}
 .enc{margin:26px 0 0;border-radius:16px;padding:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04)}
 .enc .h{font-size:8px;font-weight:600;letter-spacing:.28em;color:#e9a9a6}.enc .t{font-size:12px;color:rgba(246,244,240,.75);margin:5px 0 10px}
+.enc .teintes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 10px}
+.enc .te{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px 7px;border:1px solid rgba(255,255,255,.14);background:none;color:rgba(246,244,240,.8);cursor:pointer;font:500 9.5px Montserrat,sans-serif;letter-spacing:.06em;transition:border-color .2s,background .2s}
+.enc .te i{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.enc .te.on{border-color:#f6f4f0;background:rgba(255,255,255,.08);color:#f6f4f0}
+.enc .pl-teinte{width:100%;justify-content:center}
+.enc .pl-teinte[disabled]{opacity:.5;cursor:default}
 .op{display:flex;gap:12px;align-items:center}
 .op-im{position:relative;flex:none;width:52px;height:64px;display:flex;align-items:flex-end;justify-content:center;padding:0 2px 5px;border-radius:10px;border:0;cursor:pointer;background:radial-gradient(ellipse at 50% 70%,#fbf7f2 0%,#efe6dd 100%)}
 .op-im img{max-height:52px!important;height:auto!important;max-width:100%}.op-im .fl-bal{transform:scale(.6);transform-origin:50% 100%}
@@ -870,9 +878,9 @@ body{background:#141414;color:#f6f4f0}
     {s:2,id:'apresnet',titre:'Après votre nettoyant, votre peau…',si:function(){return rep.routine===2||(rep.routine===3&&(rep.deja||[]).indexOf(0)>=0);},
       rep:['Est confortable, je l’adore','Tiraille un peu','Brille vite ou reste grasse','Je ne sais pas, je l’ai pris au hasard'],
       ph:['Votre nettoyant vous va bien : gardez-le précieusement !','Votre peau mérite un nettoyage plus nourrissant, qui préserve son confort.','Un nettoyant qui purifie sans dessécher pourrait faire toute la différence.','Nous vous proposerons le nettoyant idéal pour votre peau.']},
-    {s:2,id:'demaq',titre:'Le soir, comment vous démaquillez-vous ?',rep:['Avec des lingettes','À l’eau micellaire, sans rincer','Avec une huile, un baume ou un lait, puis un nettoyant','Avec mon nettoyant, directement','Je ne me maquille pas']},
+    {s:2,id:'demaq',titre:'Le soir, comment vous démaquillez-vous ?',rep:['Avec des lingettes','À l’eau micellaire, sans rincer','Avec une huile, un baume ou un lait, puis un nettoyant','Avec un seul produit, qui démaquille et nettoie à la fois','Je ne me maquille pas']},
     {s:2,id:'netfreq',titre:'Combien de fois nettoyez-vous votre visage dans la journée ?',rep:['Matin et soir','Le soir seulement','Le matin seulement']},
-    {s:2,id:'fini',si:function(){return rep.demaq!==4;},titre:'Quel fini aimez-vous pour votre teint au quotidien ?',rep:['J’aime me maquiller ou unifier mon teint','Je préfère un teint naturel, légèrement unifié','Je préfère ne pas utiliser de soin teinté']},
+    {s:2,id:'fini',si:function(){return rep.demaq!==4;},titre:'Quel fini aimez-vous pour votre teint au quotidien ?',rep:['J’aime me maquiller ou unifier mon teint','Je préfère un teint naturel, légèrement unifié']},
     // ÉTAPE 4 · VOS PRIORITÉS — la préoccupation principale, puis une secondaire facultative ; chacune ouvre son module
     {s:3,id:'p1',titre:'Quelle est votre préoccupation principale ?',rep:PRIOS},
     {s:3,id:'p2',titre:'Y a-t-il une autre préoccupation que vous aimeriez prendre en compte ?',aide:'Facultatif.',rep:PRIOS.concat(['Non, c’est tout']),cache:function(n){return n===rep.p1;}},
@@ -885,7 +893,7 @@ body{background:#141414;color:#f6f4f0}
     {s:3,id:'eclat',pr:0,titre:'Votre teint, en ce moment, est plutôt…',si:function(){return aPrio(0);},rep:['Un peu gris, fatigué','En manque de lumière','Inégal, avec des zones plus ternes'],nu:[-2,-3,1],
       ph:['Nous allons réveiller votre teint et lui redonner de l’énergie.','Nous allons rallumer la lumière de votre peau.','Nous allons aider votre teint à retrouver une belle harmonie.']},
     // Confort
-    {s:3,id:'confort',pr:1,titre:'Et côté confort, votre peau ressent parfois…',multi:true,seul:4,aide:'Plusieurs choix possibles.',si:function(){return aPrio(1);},rep:['Des tiraillements','Une peau qui pèle','Des rougeurs','Une sensation de chaleur','Rien de tout ça, j’aime simplement une peau bien hydratée'],
+    {s:3,id:'confort',pr:1,titre:'Et côté confort, votre peau ressent parfois…',multi:true,seul:4,max:2,aide:'Deux choix au maximum : ce qui vous gêne le plus.',si:function(){return aPrio(1);},rep:['Des tiraillements','Une peau qui pèle','Des rougeurs','Une sensation de chaleur','Rien de tout ça, j’aime simplement une peau bien hydratée'],
       phf:function(a){if(!a.length)return null; if(a.indexOf(4)>=0)return 'Une peau bien hydratée est une peau heureuse : nous allons lui apporter exactement ce qu’il lui faut.'; if(a.indexOf(2)>=0||a.indexOf(3)>=0)return 'Nous allons apaiser votre peau et lui offrir tout le confort qu’elle mérite.'; return 'Nous allons lui apporter l’hydratation et le confort qui lui manquent.';}},
     // Taches
     {s:3,id:'tachetype',pr:3,titre:'Vos taches sont plutôt…',si:function(){return aPrio(3);},rep:['Apparues après le soleil','Des marques après des boutons','De grandes zones sur les joues, le front ou au-dessus de la lèvre','Je ne sais pas'],nu:[6,4,8,5],
@@ -965,7 +973,7 @@ body{background:#141414;color:#f6f4f0}
   function etape(k){if(k>=0)vars(ETAPES[k]); else {root.style.removeProperty('--sel');root.style.removeProperty('--wme');root.style.removeProperty('--wmb');root.style.setProperty('--l1','#f6efe8');}
     if(etapeFond!==k){etapeFond=k; fond('#141414');} gauche(k);}
   function montre(id){ecrans.forEach(function(e){document.getElementById(e).classList.remove('on');});
-    var el=document.getElementById(id); void el.offsetWidth; el.classList.add('on'); window.scrollTo(0,0); document.body.classList.toggle('acc',id==='e-accueil'); document.body.classList.toggle('res',id==='e-fin'); document.getElementById('b-fermer').classList.toggle('cache',id==='e-accueil'&&window.parent===window);
+    var el=document.getElementById(id); void el.offsetWidth; el.classList.add('on'); window.scrollTo(0,0); document.body.classList.toggle('acc',id==='e-accueil'); document.body.classList.toggle('res',id==='e-fin'); document.getElementById('b-fermer').classList.toggle('cache',id==='e-accueil'&&window.parent===window); if(window.parent!==window)versSite({type:'ecran',fin:id==='e-fin'});
 }
 
   function hh(m){var h=Math.floor(m/60)%24,mn=m%60;return h+' h'+(mn?(' '+(mn<10?'0':'')+mn):'');}
@@ -1123,7 +1131,7 @@ body{background:#141414;color:#f6f4f0}
   function grVis(q){return q.groupes.filter(function(g){return !g.si||g.si();});}
   function doubleHTML(q){var G=grVis(q);
     return G.map(function(g){var deux=g.rep.length>=4||g.rep.every(function(x){return x.length<=22;});
-      return '<div class="gr-lab">'+g.lab+'</div><div class="pills liste'+(deux&&g.rep.length%2===0?' d2':'')+'" data-g="'+g.id+'">'+g.rep.map(function(x,n){var on=rep[g.id]===n;
+      return '<div class="gr-lab">'+g.lab+'</div><div class="pills liste'+(deux&&g.rep.length%2===0?' d2':'')+'" data-g="'+g.id+'">'+g.rep.map(function(x,n){if(g.id==='imperf'&&n===0&&aPrio(4)&&!aPrio(2))x='Aucun, juste des traces'; var on=rep[g.id]===n;
         return '<button type="button" class="pill'+(on?' on':'')+'" data-v="'+n+'" aria-pressed="'+on+'"><i>'+String.fromCharCode(65+n)+'</i><span>'+x+'</span></button>';}).join('')+'</div>';}).join('');}
   function listeHTML(q){var a=q.multi?(rep[q.id]||[]):null, num=0, vis=q.rep.filter(function(x,n){return !(q.cache&&q.cache(n));});
     var deux=vis.length>=4&&vis.every(function(x){return x.length<=28;});
@@ -1433,18 +1441,19 @@ body{background:#141414;color:#f6f4f0}
     var plusNet=demaqMal&&!tout.some(function(x){return x[0]==='milky';})?[['milky','Pour le double nettoyage du soir : cette huile-en-lait dissout le maquillage et la protection solaire, avant votre nettoyant.']]:[];
     // la protection solaire : dans le rituel s'il n'a que deux soins, sinon proposée à part
     var plus=[];
-    if(deja.indexOf(4)<0&&rep.soleil!==0){var spf=['protect','Chaque matin, en dernier geste : '+(P.indexOf(3)>=0||P.indexOf(4)>=0?'avec des soins contre les taches, c’est le geste indispensable.':'le plus beau geste pour votre peau, été comme hiver.')];
+    var naturel=rep.fini===1, dehors=(rep.env||[]).indexOf(2)>=0, soleilSoin=P.indexOf(3)>=0||P.indexOf(4)>=0, veilProtege=naturel&&!dehors&&!soleilSoin, spfTeinte=naturel&&!veilProtege;
+    if(deja.indexOf(4)<0&&rep.soleil!==0&&!veilProtege){var spf=['protect',spfTeinte?'Chaque matin, en dernier geste : sa version teintée protège votre peau avec un filtre minéral SPF 50, sans effet blanc, avant votre Lumi-Veil.':'Chaque matin, en dernier geste : '+(soleilSoin?'avec des soins contre les taches, c’est le geste indispensable.':'le plus beau geste pour votre peau, été comme hiver.')];
       var matins=tout.filter(function(x){var m=quand(x[0]); return m==='matin'||m==='les2';}).length;
       if(tout.length<=2&&!(rep.temps===0&&matins>=2))tout.push(spf); else plus.push(spf);}
     if(tout.some(function(x){return x[0]==='bright';})&&!tout.concat(second).some(function(x){return x[0]==='arbutin';})&&permis('arbutin',[]))plus.push(['arbutin','Si vous aimez superposer un sérum sous votre crème : chaque matin, son alpha-arbutine renforce l’action de Bright Control et aide votre teint à retrouver son homogénéité.']);
     if(pureOK&&!tout.concat(second).some(function(x){return x[0]==='pure';}))plus.push(['pure',pureCas?'Pour aller plus loin, une fois par semaine, un soir sans BHA : ce masque aux argiles et au charbon végétal absorbe l’excès de sébum et désincruste vos pores, en dix minutes.':'Votre peau brille'+(type===2?' sur la zone T':'')+' : une à deux fois par semaine, ce masque aux argiles et au charbon végétal absorbe l’excès de sébum et désincruste les pores, en dix minutes.']);
-    if(rep.fini===0||rep.fini===1)plus.push(['lumiveil','Vous aimez un teint '+(rep.fini===0?'unifié':'naturel, légèrement unifié')+' : Lumi-Veil CC Cream unifie et illumine votre peau tout en la soignant. Appliquez-la après votre protection solaire.']);
+    if(naturel)plus.push(['lumiveil',veilProtege?'Elle unifie et illumine votre teint tout en le soignant, et son SPF 30 le protège au quotidien : un seul geste, le matin.':'Elle unifie et illumine votre teint tout en le soignant : appliquez-la par-dessus votre protection solaire, elle apporte la couleur.']);
     var ordre=function(x){var s=SOINS[x[0]]; return (s.m==='express'?9:s.m==='semaine'?8:0)+parseInt(s.et,10);};
     tout.sort(function(x,y){return ordre(x)-ordre(y);});
     function chercheRoutine(L){var ids=L.map(function(x){return x[0];}).sort().join(','), r=null; ROUTINES.forEach(function(R){if(R.soins.slice().sort().join(',')===ids)r=R;}); return r;}
     var gammes=tout.filter(function(x){return x[0]!=='cleanser'&&x[0]!=='milky'&&x[0]!=='protect';}).map(function(c){return SOINS[c[0]].g;}), bloom=gammes.indexOf('Bloom')>=0, balance=gammes.indexOf('Balance')>=0;
     var nivMax=tout.reduce(function(n,x){return Math.max(n,SOINS[x[0]].N||0);},0);
-    return {tout:tout,routine:chercheRoutine(tout),theme:balance&&bloom?'mixte':balance?'balance':'bloom',niv:nivMax,balance:balance,plus:plus,debut:actifs===0,petite:!mature,
+    return {spfTeinte:spfTeinte,veilProtege:veilProtege,tout:tout,routine:chercheRoutine(tout),theme:balance&&bloom?'mixte':balance?'balance':'bloom',niv:nivMax,balance:balance,plus:plus,debut:actifs===0,petite:!mature,
       soirAussi:soirAussi,second:second,secondP:P[1],plusRegard:plusRegard,routineRegard:chercheRoutine(plusRegard),plusNet:plusNet};}
 
   // Le soin clé de chaque priorité, présenté dans la lettre : [« pensé à… », une ou deux phrases, version courte pour la 2e priorité]
@@ -1789,6 +1798,7 @@ body{background:#141414;color:#f6f4f0}
     (function pas(t){var k=Math.min(1,(t-t0)/ms), n=Math.floor(fin.length*k), out='';
       for(var j=0;j<fin.length;j++)out+=j<n||/[\s·—\/]/.test(fin[j])?fin[j]:A[Math.floor(Math.random()*A.length)];
       el.textContent=out; if(k<1)requestAnimationFrame(pas);})(t0);}
+  var TEINTES=[['B1 Clair','#d4bba4'],['B2 Moyen','#c2926d'],['B3 Hâlé','#8f5a3b'],['B4 Foncé','#55301c']];
   function resultat(){ecranEtape=null; var R=composer(), L=lettre(R), ID=skinId(R), P=rep.prio||[];
     function fr(t){return String(t).replace(/ ([:;!?])/g,' $1');}
     var A=ID.a||{code:'BL·N1',fam:'DOUCEUR',prom:PROMESSES[1],lab:'VISAGE'};
@@ -1798,19 +1808,19 @@ body{background:#141414;color:#f6f4f0}
     // les soins en plus : un seul pour compléter (celui de sa priorité), un seul pour le regard ; un seul encadré si le rituel a déjà 4 soins
     var comp=null, reg=null, ids=R.tout.map(function(x){return x[0];});
     var spf=R.plus.filter(function(x){return x[0]==='protect';})[0];
-    if(spf)comp=['protect',p0===3?'Le geste du matin qui empêche vos taches de revenir.':p0===4?'Pour que vos marques s’estompent plus vite : le soleil les fonce.':(p0===6||p0===7)?'Le geste anti-âge le plus efficace, chaque matin.':p0===2?'Une protection légère, qui évite l’effet rebond du soleil.':'Pour protéger chaque matin ce que votre rituel construit.'];
+    if(spf)comp=['protect',R.spfTeinte?'Sa version teintée : un filtre minéral SPF 50, sans effet blanc, à appliquer avant votre Lumi-Veil.':p0===3?'Le geste du matin qui empêche vos taches de revenir.':p0===4?'Pour que vos marques s’estompent plus vite : le soleil les fonce.':(p0===6||p0===7)?'Le geste anti-âge le plus efficace, chaque matin.':p0===2?'Une protection légère, qui évite l’effet rebond du soleil.':'Pour protéger chaque matin ce que votre rituel construit.'];
     else if(R.plusNet.length)comp=['milky','Votre peau tiraille après le nettoyage : il la nettoie sans la dessécher.'];
-    else{var lv=R.plus.filter(function(x){return x[0]==='lumiveil';})[0]; if(lv)comp=['lumiveil','Pour le teint '+(rep.fini===0?'unifié':'naturel, légèrement unifié')+' que vous aimez, tout en soignant votre peau.'];}
+
     if(P.indexOf(8)<0){var contour=R.plusRegard.filter(function(x){return ['eyecream','eyelift','eyerest'].indexOf(x[0])>=0;})[0]; if(contour&&ids.indexOf(contour[0])<0)reg=contour;}
     if(R.tout.length>=4&&comp&&reg)reg=null;
     var RG=rep.regard||[], vuRegard=['des cernes','des poches','des ridules autour des yeux','des paupières moins fermes','de la sécheresse autour des yeux','un regard fatigué'];
     var regDit=RG.filter(function(n){return n<6;}).map(function(n){return vuRegard[n];}); regDit=regDit.length>1?regDit.slice(0,-1).join(', ')+' et '+regDit[regDit.length-1]:regDit[0];
     var total=R.tout.reduce(function(t,x){return t+SOINS[x[0]].p;},0), px=R.routine?R.routine.prix:total;
-    RES={why:{},R:R}; R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1];
+    RES={why:{},R:R}; if(window.parent!==window){try{sessionStorage.setItem('ebSkinIdRep',JSON.stringify(rep));}catch(e){}} R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1];
     var nb=R.tout.length;
     var carte='<div class="rc" id="rc"><div class="rc-h"><span>VOTRE RITUEL</span><span>'+nb+' SOIN'+(nb>1?'S':'')+'</span></div>'
       +'<div class="rang'+(nb>4?' defile':'')+'" style="--n:'+Math.min(nb,4)+'">'+parMoment(R).map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
-      +'<div class="rc-b"><div><b>'+prix(px)+'</b><span>soit environ '+Math.round(px/3)+' € par mois</span></div><button type="button" class="bt-c" id="b-panier">Ajouter au panier</button></div></div>';
+      +'<div class="rc-b"><div><b>'+prix(px)+'</b></div><button type="button" class="bt-c" id="b-panier">Ajouter au panier</button></div><p class="rc-dur">Formules concentrées : une pression suffit, vos soins durent jusqu’à 3 mois.</p></div>';
     // la carte Skin ID : son dégradé et son motif suivent la gamme de son rituel (Bloom : le maillage, Balance : le guilloché, les deux : le sceau)
     var tete='<div class="idc '+R.theme+'" role="img" aria-label="Carte Skin ID '+A.code+' '+A.fam+'"><div class="idc-motif"></div><div class="idc-wm" aria-hidden="true">ELKHA.B</div>'
       +'<div class="idc-mono" aria-hidden="true"><span style="top:0">S</span><span style="top:9.4cqw">K</span><b style="top:16.6cqw">ID</b><span style="top:31cqw">N</span></div>'
@@ -1830,10 +1840,18 @@ body{background:#141414;color:#f6f4f0}
           +'<div class="rc2"><div class="rc-h"><span>RITUEL COMPLÉMENTAIRE</span><span>'+n2+' SOIN'+(n2>1?'S':'')+'</span></div><div class="rang" style="--n:'+n2+'">'+S.map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
           +'<div class="rc-b"><div><b>'+prix(px2)+'</b><span>À ajouter quand vous le souhaitez</span></div><button type="button" class="bt-c" data-ajoute="'+S.map(function(x){return x[0];}).join(',')+'">Ajouter</button></div></div>'
           +'<p class="ap">Vous retrouverez ce rituel dans l’e-mail de votre Skin ID.</p>');})();
+    // Lumi-Veil : la cliente choisit sa teinte, c'est elle qui part au panier
+    function encTeint(x){var s=SOINS.lumiveil;
+      return '<div class="enc teint"><div class="h">POUR VOTRE TEINT</div><div class="t">'+fr('Vous aimez un teint naturel, légèrement unifié.')+'</div><div class="op"><button type="button" class="op-im" data-produit="lumiveil" aria-label="Voir '+esc(s.nom)+'">'+visuel('lumiveil')+'<i class="hs" aria-hidden="true"></i></button>'
+        +'<div class="tx"><b>'+s.nom+'</b>'+fr(x[1])+'</div></div><div class="teintes" role="group" aria-label="Choisissez votre teinte">'
+        +TEINTES.map(function(c,k){return '<button type="button" class="te" data-teinte="'+k+'" aria-pressed="false"><i style="background:'+c[1]+'"></i><span>'+c[0]+'</span></button>';}).join('')
+        +'</div><button type="button" class="pl pl-teinte" data-ajoute="lumiveil" disabled>Choisissez votre teinte</button></div>';}
     function enc(h,t,x){var s=SOINS[x[0]]; return '<div class="enc"><div class="h">'+h+'</div><div class="t">'+fr(t)+'</div><div class="op"><button type="button" class="op-im" data-produit="'+x[0]+'" aria-label="Voir '+esc(s.nom)+'">'+visuel(x[0])+'<i class="hs" aria-hidden="true"></i></button>'
       +'<div class="tx"><b>'+s.nom+'</b>'+fr(x[1])+'</div><button type="button" class="pl" data-ajoute="'+x[0]+'">+ '+prix(s.p)+'</button></div></div>';}
+    var veil=R.plus.filter(function(x){return x[0]==='lumiveil';})[0];
     var fin=(comp?enc('POUR COMPLÉTER VOTRE RITUEL','Votre priorité : '+(p0!=null?PRIOS[p0].toLowerCase():'votre peau')+'.',comp):'')
       +(reg?enc('POUR VOTRE REGARD','Vous avez remarqué '+regDit+'.',reg):'')
+      +(veil?encTeint(veil):'')
       +sec('VOTRE CARTE B','Rejoignez les B.','<p>'+fr('Recevez votre carte membre par e-mail, avec votre Skin ID et votre rituel : elle vous offre 10 % sur votre première commande.')+'</p>'
         +'<div class="mbw"><div class="mb" role="img" aria-label="Carte membre B : moins 10 % sur votre première commande, code envoyé par e-mail"><div class="mo"></div><div class="wm" aria-hidden="true">ELKHA.B</div><div class="k">ELKHA.B · CARTE MEMBRE</div>'
         +'<div class="b" aria-hidden="true">B<i>.</i></div><div class="bvm">Bienvenue parmi les B.</div><div class="mot">Beauté, bien-être, et surtout bien dans sa peau. Votre rituel commence ici.</div>'
@@ -1841,7 +1859,8 @@ body{background:#141414;color:#f6f4f0}
       +'<div class="mail carteb"><label for="m-mail">RECEVOIR MA CARTE ET MON SKIN ID</label><div class="m-l"><input type="email" id="m-mail" placeholder="Votre adresse e-mail" autocomplete="email"><button type="button" class="bt-c" id="b-mail">Envoyer</button></div>'
       +'<label class="ck"><input type="checkbox"> Recevoir un e-mail dans 6 semaines pour faire le point sur ma peau</label></div>'
       +'<p class="leg">Ce bilan vous guide dans le choix de vos soins ; il ne remplace pas l’avis d’un dermatologue. Vos réponses de santé ne sont ni envoyées ni enregistrées.</p>'
-      +'<p class="sign">Avec soin, la fondatrice d’ELKHA.B</p>';
+      +'<p class="sign">Avec soin, la fondatrice d’ELKHA.B</p>'
+      +'<button type="button" class="refaire" id="b-refaire">Refaire mon Skin ID</button>';
     var bande='<div class="bande" id="bande" aria-hidden="true"><div class="bd-c"><small>SKIN ID</small>'+A.code+'<br>'+A.fam+'</div><div class="bd-m">'+parMoment(R).slice(0,5).map(function(x){return '<span data-produit="'+x[0]+'">'+mini(x[0])+'</span>';}).join('')+'</div><button type="button" class="bt-c" data-panier tabindex="-1">Ajouter · '+prix(px)+'</button></div>';
     var h='<div class="sid">'+bande+'<aside class="sid-g"><div class="sid-fond" aria-hidden="true"></div><div class="sid-in">'+tete+carte+'</div></aside>'
       +'<div class="sid-d" lang="fr">'+lec+fin+'<div class="pied"><div class="actions"><button type="button" class="retour" data-retour aria-label="Question précédente">&larr;</button></div></div></div></div>';
@@ -1949,11 +1968,12 @@ body{background:#141414;color:#f6f4f0}
     if(t.classList.contains('voir-fiche')){ if(SITE){ev.preventDefault(); ev.stopPropagation(); fermeFiche(); versSite({type:'fiche',id:t.dataset.fiche}); return;} if(window.ebFicheOpen&&window.EB_PRODUITS&&window.EB_PRODUITS[t.dataset.fiche])return; // le site ouvre lui-même la vraie fiche
       ev.preventDefault(); ev.stopPropagation(); apercuFiche(t.dataset.soin); return;}
     if(t.hasAttribute('data-fermer-fiche')){fermeFiche();return;}
-    if(t.id==='b-panier'||t.hasAttribute('data-panier')){auPanier(variantesRituel(RES.R),t,'Ajouté au panier');return;}
-    if(t.dataset.ajoute){var ids=t.dataset.ajoute.split(','); if(SITE&&ids.length===1&&ids[0]==='lumiveil'){versSite({type:'fiche',id:BOUTIQUE.lumiveil.f});return;} auPanier(variantesDe(ids),t,'Ajouté');return;}
+    if(t.dataset.voir){versSite({type:'voir-panier'});return;} if(t.id==='b-panier'||t.hasAttribute('data-panier')){auPanier(variantesRituel(RES.R),t,'Ajouté · Voir mon panier',true);return;}
+    if(t.dataset.teinte!=null&&t.classList.contains('te')){var bx=t.closest('.enc'); bx.querySelectorAll('.te').forEach(function(z){z.classList.toggle('on',z===t); z.setAttribute('aria-pressed',String(z===t));}); var bt=bx.querySelector('.pl-teinte'); bt.disabled=false; bt.dataset.teinte=t.dataset.teinte; bt.textContent='Ajouter '+TEINTES[+t.dataset.teinte][0]+' · '+prix(SOINS.lumiveil.p); delete bt.dataset.fait; return;}
+    if(t.dataset.ajoute){var ids=t.dataset.ajoute.split(','); auPanier(variantesDe(ids,t),t,'Ajouté');return;}
     if(t.id==='b-regard'||t.id==='b-net'){t.textContent='Ajouté au panier (page de test)';return;}
     if(t.id==='b-mail'){t.textContent='Sur le site, votre rituel partira par e-mail';return;}
-    if(t.id==='b-recommencer'){rep={};dejaSouleve=false;aGlisseQuestion=false;accueil();return;}
+    if(t.id==='b-recommencer'||t.id==='b-refaire'){try{sessionStorage.removeItem('ebSkinIdRep');}catch(e){} rep={};dejaSouleve=false;aGlisseQuestion=false;accueil();return;}
     if(t.hasAttribute('data-retour')){if(E_Q.classList.contains('on'))reculer(); else retour(); return;}
     if(t.hasAttribute('data-suite')){avancer();return;}
     if(t.dataset.pas!=null){regPlace(Q[i],regV+(+t.dataset.pas),true);return;}
@@ -1983,19 +2003,25 @@ body{background:#141414;color:#f6f4f0}
   // ================= SUR LE SITE : le Skin ID s'ouvre par-dessus la page (skin-id-engine.js) =================
   // le panier et les fiches sont ceux du site : on lui envoie un message, il répond quand c'est fait
   var SITE=window.parent!==window;
-  var BOUTIQUE={"milky": {"f": "milky-bloom", "v": "60079562817881"}, "cleanser": {"f": "radiance-cleanser", "v": "60079861465433"}, "gelee": {"f": "gelee-lumibloom", "v": "59324234891609"}, "serum": {"f": "radiance-serum", "v": "59324259434841"}, "niac": {"f": "lumibloom-niac-5", "v": "59324243411289"}, "arbutin": {"f": "lumibloom-arbutin", "v": "60077870678361"}, "boost": {"f": "luminescence-boost", "v": "60291035627865"}, "eyecream": {"f": "radiance-eye-cream", "v": "59324162408793"}, "jour": {"f": "luminescence-jour", "v": "59324221129049"}, "nuit": {"f": "luminescence-nuit", "v": "59324229943641"}, "patchs": {"f": "bright-glow-decongestionnant", "v": "59565820182873"}, "patchsCafe": {"f": "bright-glow-decongestionnant", "v": "59565820182873"}, "patchsNiac": {"f": "bright-glow-patch", "v": "59565820412249"}, "patchsB5": {"f": "bright-glow-anti-fatigue", "v": "59565819887961"}, "pure": {"f": "lumi-pure", "v": "60254749819225"}, "protect": {"f": "radiance-protect", "v": "59547107950937"}, "lumiveil": {"f": "lumiveil-cc-cream", "v": null}, "hydra": {"f": "hydra-balance", "v": "60320959398233"}, "calmj": {"f": "calm-balance-jour", "v": "60321020051801"}, "calmn": {"f": "calm-balance-nuit", "v": "60321802289497"}, "ceramide": {"f": "ceramide-night-restore", "v": "60320949469529"}, "renew": {"f": "cellular-renew", "v": "60321030734169"}, "reveal": {"f": "cellular-reveal", "v": "60321040269657"}, "eyerest": {"f": "cellular-eye-restore", "v": "60320878526809"}, "agelift": {"f": "age-lift", "v": "60321069629785"}, "activelift": {"f": "active-lift", "v": "60321025392985"}, "eyelift": {"f": "eye-lift", "v": "60321061273945"}, "bakuchiol": {"f": "bakuchiol-elixir", "v": "60321254375769"}, "bright": {"f": "bright-control", "v": "60321297727833"}, "spot": {"f": "spot-control", "v": "60320817447257"}, "bha": {"f": "bha-balance", "v": "60321077199193"}, "glyco": {"f": "glyco-balance", "v": "60320884687193"}, "aha": {"f": "aha-balance-peel", "v": "60320901398873"}};
+  var BOUTIQUE={"milky": {"f": "milky-bloom", "v": "60079562817881"}, "cleanser": {"f": "radiance-cleanser", "v": "60079861465433"}, "gelee": {"f": "gelee-lumibloom", "v": "59324234891609"}, "serum": {"f": "radiance-serum", "v": "59324259434841"}, "niac": {"f": "lumibloom-niac-5", "v": "59324243411289"}, "arbutin": {"f": "lumibloom-arbutin", "v": "60077870678361"}, "boost": {"f": "luminescence-boost", "v": "60291035627865"}, "eyecream": {"f": "radiance-eye-cream", "v": "59324162408793"}, "jour": {"f": "luminescence-jour", "v": "59324221129049"}, "nuit": {"f": "luminescence-nuit", "v": "59324229943641"}, "patchs": {"f": "bright-glow-decongestionnant", "v": "59565820182873"}, "patchsCafe": {"f": "bright-glow-decongestionnant", "v": "59565820182873"}, "patchsNiac": {"f": "bright-glow-patch", "v": "59565820412249"}, "patchsB5": {"f": "bright-glow-anti-fatigue", "v": "59565819887961"}, "pure": {"f": "lumi-pure", "v": "60254749819225"}, "protect": {"f": "radiance-protect", "v": "59547107950937", "vt": "59547107983705"}, "lumiveil": {"f": "lumiveil-cc-cream", "v": null, "vs": ["59361531560281", "59361531593049", "59361531625817", "59361531658585"]}, "hydra": {"f": "hydra-balance", "v": "60320959398233"}, "calmj": {"f": "calm-balance-jour", "v": "60321020051801"}, "calmn": {"f": "calm-balance-nuit", "v": "60321802289497"}, "ceramide": {"f": "ceramide-night-restore", "v": "60320949469529"}, "renew": {"f": "cellular-renew", "v": "60321030734169"}, "reveal": {"f": "cellular-reveal", "v": "60321040269657"}, "eyerest": {"f": "cellular-eye-restore", "v": "60320878526809"}, "agelift": {"f": "age-lift", "v": "60321069629785"}, "activelift": {"f": "active-lift", "v": "60321025392985"}, "eyelift": {"f": "eye-lift", "v": "60321061273945"}, "bakuchiol": {"f": "bakuchiol-elixir", "v": "60321254375769"}, "bright": {"f": "bright-control", "v": "60321297727833"}, "spot": {"f": "spot-control", "v": "60320817447257"}, "bha": {"f": "bha-balance", "v": "60321077199193"}, "glyco": {"f": "glyco-balance", "v": "60320884687193"}, "aha": {"f": "aha-balance-peel", "v": "60320901398873"}};
   // on ne parle jamais à la page du site directement (ses autres outils écoutent ses messages) : un canal privé, ouvert par le site
-  var CANAL=null, enAttente=[];
-  function versSite(m){m.eb='skin-id'; if(CANAL)CANAL.postMessage(m); else enAttente.push(m);}
-  function variantesDe(ids){var L=[]; ids.forEach(function(id){var b=BOUTIQUE[id]; if(b&&b.v)L.push(b.v);}); return L;}
-  function variantesRituel(R){if(!R)return []; if(R.routine&&R.routine.v)return [R.routine.v]; return variantesDe(R.tout.map(function(x){return x[0];}));}
+  var CANAL=CANAL||null, enAttente=enAttente||[];
+  function versSite(m){m.eb='skin-id'; if(CANAL)CANAL.postMessage(m); else (enAttente=enAttente||[]).push(m);}
+  // Lumi-Veil : la teinte choisie ; Radiance Protect : la version teintée pour un teint naturel
+  function variantesDe(ids,bt){var L=[], R=RES&&RES.R; ids.forEach(function(id){var b=BOUTIQUE[id]; if(!b)return;
+      if(id==='lumiveil'){if(bt&&bt.dataset.teinte!=null)L.push(b.vs[+bt.dataset.teinte]); return;}
+      if(id==='protect'&&R&&R.spfTeinte){L.push(b.vt);return;}
+      if(b.v)L.push(b.v);}); return L;}
+  function variantesRituel(R){if(!R)return []; if(R.routine&&R.routine.v)return [R.routine.nom==='Routine Fermeté'&&R.spfTeinte?'59547258650969':R.routine.v]; return variantesDe(R.tout.map(function(x){return x[0];}));}
   var attente={}, nAtt=0;
-  function auPanier(L,b,ok){if(!SITE){b.textContent='Ajouté (page de test)';return;} if(!L.length)return; var id=++nAtt; attente[id]={b:b,t:b.textContent,ok:ok}; b.disabled=true; b.textContent='Un instant…'; versSite({type:'panier',id:id,variantes:L});
+  function auPanier(L,b,ok,voir){if(!SITE){b.textContent='Ajouté (page de test)';return;} if(!L.length)return; var id=++nAtt; attente[id]={b:b,t:b.textContent,ok:ok,voir:voir}; b.disabled=true; b.textContent='Un instant…'; versSite({type:'panier',id:id,variantes:L});
     setTimeout(function(){var a=attente[id]; if(a){a.b.disabled=false; a.b.textContent=a.t; delete attente[id];}},15000);}
-  function duSite(d){d=d||{}; if(d.type==='panier-ok'){var a=attente[d.id]; if(!a)return; delete attente[d.id]; a.b.disabled=false; a.b.textContent=d.ok?a.ok:'Réessayer';}}
+  function duSite(d){d=d||{}; if(d.type==='panier-ok'){var a=attente[d.id]; if(!a)return; delete attente[d.id]; a.b.disabled=false; a.b.textContent=d.ok?a.ok:'Réessayer'; if(d.ok&&a.voir)a.b.dataset.voir='1';}}
   window.addEventListener('message',function(e){var d=e.data||{}; if(e.source!==window.parent||d.eb!=='skin-id'||d.type!=='canal'||!e.ports||!e.ports[0])return;
     CANAL=e.ports[0]; CANAL.onmessage=function(ev){duSite(ev.data);}; enAttente.splice(0).forEach(function(m){CANAL.postMessage(m);});});
   if(SITE){var stS=document.createElement('style'); stS.textContent='#b-fermer{z-index:40}body.acc #b-fermer{background:rgba(20,20,20,.55);color:#f6f4f0;border-color:rgba(246,244,240,.28)}'; document.head.appendChild(stS); document.getElementById('b-fermer').classList.remove('cache'); versSite({type:'pret'});}
+  // le bilan déjà fait pendant cette visite est retrouvé tel quel (jusqu'à la fermeture du navigateur)
+  if(SITE){try{var dejaFait=sessionStorage.getItem('ebSkinIdRep'); if(dejaFait)setTimeout(function(){rep=JSON.parse(dejaFait); derive(); majPrio(); resultat();},0);}catch(e){}}
   accAnim();
   document.body.classList.add('acc');
   etape(-1);

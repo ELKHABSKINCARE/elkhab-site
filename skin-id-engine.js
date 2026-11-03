@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 2,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 3,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -37,6 +37,12 @@
     + '@keyframes ebSidCharge{to{left:100%}}'
     + '#eb-sid .eb-sid-x{position:absolute;top:19px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);color:#f6f4f0;font-size:20px;line-height:1;cursor:pointer;transition:opacity .3s}'
     + '#eb-sid.pret .eb-sid-x{opacity:0;pointer-events:none}'
+    // le sac du panier : sur le bilan, dès qu'il y a quelque chose dedans
+    + '#eb-sid .eb-sid-sac{position:absolute;z-index:2;top:19px;right:64px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s linear .35s}'
+    + '#eb-sid.fin.plein .eb-sid-sac{opacity:1;visibility:visible;transition:opacity .35s}'
+    + '#eb-sid .eb-sid-sac svg{width:20px;height:20px;display:block}'
+    + '#eb-sid .eb-sid-sac span{position:absolute;top:-4px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:20px;background:#f6f4f0;color:#141414;font:600 9.5px Montserrat,sans-serif;display:flex;align-items:center;justify-content:center;box-sizing:border-box}'
+    + '@media (min-width:900px){#eb-sid .eb-sid-sac{top:22px;right:78px}}'
     + 'html.eb-sid-ouvert,html.eb-sid-ouvert body{overflow:hidden!important}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
@@ -45,13 +51,16 @@
     if(boite) return;
     boite = document.createElement('div'); boite.id = 'eb-sid';
     boite.setAttribute('role', 'dialog'); boite.setAttribute('aria-modal', 'true'); boite.setAttribute('aria-label', 'Skin ID ELKHA.B');
-    boite.innerHTML = '<div class="eb-sid-att" aria-hidden="true"><b>SKIN ID</b><i></i></div><button type="button" class="eb-sid-x" aria-label="Fermer le Skin ID">&times;</button>';
+    boite.innerHTML = '<div class="eb-sid-att" aria-hidden="true"><b>SKIN ID</b><i></i></div><button type="button" class="eb-sid-x" aria-label="Fermer le Skin ID">&times;</button>'
+      + '<button type="button" class="eb-sid-sac" aria-label="Voir mon panier"><svg viewBox="0 0 24 24" fill="none" stroke="#f6f4f0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg><span>0</span></button>';
     cadre = document.createElement('iframe');
     cadre.title = 'Skin ID ELKHA.B';
     cadre.addEventListener('load', ouvrirCanal);
     cadre.src = REGLAGES.page + '?v=' + REGLAGES.version;
     boite.appendChild(cadre);
     boite.querySelector('.eb-sid-x').addEventListener('click', fermer);
+    boite.querySelector('.eb-sid-sac').addEventListener('click', voirPanier);
+    majSac();
     document.body.appendChild(boite);
   }
   function ouvrir(){
@@ -92,15 +101,32 @@
     })();
   }
 
+  // ── Le panier du site : le Skin ID se referme et le panier s'ouvre
+  function voirPanier(){
+    fermer();
+    var panel = document.getElementById('ebCartPanel'), fond = document.getElementById('ebCartBackdrop');
+    setTimeout(function(){ if(panel) panel.classList.add('open'); if(fond) fond.classList.add('open'); }, 250);
+  }
+  // le sac affiche le nombre d'articles du panier du site (celui du menu)
+  function majSac(){
+    if(!boite) return;
+    var src = document.getElementById('ebCartCount'), n = src ? (parseInt(src.textContent, 10) || 0) : 0;
+    boite.querySelector('.eb-sid-sac span').textContent = n;
+    boite.classList.toggle('plein', n > 0);
+  }
+
   // ── Échanges avec le Skin ID : un canal privé (aucun message envoyé à la page elle-même)
   var canal = null;
   function recevoir(ev){
     var d = ev.data || {}; if(d.eb !== 'skin-id') return;
     if(d.type === 'pret'){ pret = true; boite.classList.add('pret'); }
     else if(d.type === 'fermer') fermer();
+    else if(d.type === 'ecran'){ boite.classList.toggle('fin', !!d.fin); majSac(); }
+    else if(d.type === 'voir-panier') voirPanier();
     else if(d.type === 'fiche' && d.id) fiche(String(d.id));
     else if(d.type === 'panier' && d.variantes) panier(d.variantes.map(String), function(ok){
       if(canal) canal.postMessage({ eb: 'skin-id', type: 'panier-ok', id: d.id, ok: ok });
+      majSac(); setTimeout(majSac, 600);
     });
   }
   function ouvrirCanal(){
