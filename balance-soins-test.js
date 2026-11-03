@@ -434,7 +434,30 @@
       f.style.setProperty('transform', 'translateX(' + (L - f.getBoundingClientRect().left) + 'px)');
     });
   }
-  largeurBloc(); window.addEventListener('resize', largeurBloc);
+  // Vidéos et photos du milieu : collées au bord de l'écran, de leur côté (comme la bannière) ; sur téléphone, d'un bord à l'autre
+  function auBord(){
+    var cw = document.documentElement.clientWidth, col = colonne(), rc = col ? col.getBoundingClientRect() : null;
+    var L = rc ? Math.max(0, rc.left) : 0, R = rc ? Math.min(cw, rc.right) : cw;
+    root.querySelectorAll('.ebs-vid').forEach(function(f){
+      var b = f.querySelector('.ebs-vbox'); if(!b) return;
+      ['width', 'height', 'margin-left', 'aspect-ratio'].forEach(function(p){ b.style.removeProperty(p); });
+      if(getComputedStyle(f).display === 'none') return;
+      var r = b.getBoundingClientRect(); if(!r.width) return;
+      var h = r.height, g = r.left, d = r.right;
+      if(window.innerWidth < 900){ g = L; d = R; }
+      else {
+        var grp = f.parentElement.getBoundingClientRect();
+        if(r.left + r.width / 2 < grp.left + grp.width / 2) g = L; else d = R;
+      }
+      b.style.setProperty('aspect-ratio', 'auto');
+      b.style.setProperty('height', (window.innerWidth < 900 ? (d - g) * r.height / r.width : h) + 'px');
+      b.style.setProperty('width', (d - g) + 'px');
+      b.style.setProperty('margin-left', (g - r.left) + 'px');
+    });
+  }
+  function largeurs(){ largeurBloc(); auBord(); }
+  largeurs(); window.addEventListener('resize', largeurs); window.addEventListener('load', largeurs);
+  setTimeout(auBord, 600);
   window.addEventListener('load', largeurBloc);
 
   // ── Photos : fondues dans le fond du site, même échelle, même ligne de sol ──
