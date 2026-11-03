@@ -74,8 +74,16 @@ var CSS = ""
 + ".ebm-icone{width:18px;height:18px;cursor:pointer;display:flex}.ebm-icone svg{width:100%;height:100%}"
 /* téléphone : MENU / PANIER en texte */
 + ".ebm-menu,.ebm-panier{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:#000;cursor:pointer;background:none;border:0;padding:8px 0}"
-+ ".eb-navbar #ebBurger{width:24px !important;height:17px !important}.eb-navbar #ebBurger span{height:2.4px !important;background:#000 !important;border-radius:1px}"
-+ ".eb-navbar #ebCartButton svg,.eb-navbar .ebm-mloupe svg,.ebm-icone svg{stroke-width:2.1 !important}"
++ ".eb-navbar #ebBurger{width:24px !important;height:16.5px !important}.eb-navbar #ebBurger span{height:1.5px !important;background:#000 !important;border-radius:0}"
++ ".eb-navbar #ebCartButton svg,.eb-navbar #ebCartButton svg *,.eb-navbar .ebm-mloupe svg,.eb-navbar .ebm-mloupe svg *,.ebm-icone svg,.ebm-icone svg *{stroke-width:1.2 !important}"
+/* téléphone : la carte Skin ID en miniature, entre le logo et le panier (même fond, même sceau, même code que la carte du menu) */
++ ".ebm-mini{position:relative;display:block;width:60px;height:38px;box-sizing:border-box;padding:6px 5px 5px 6px;border:1px solid #e4e1d8;background:radial-gradient(70px 46px at 100% 0%,rgba(230,203,189,.55),rgba(230,203,189,0) 70%),radial-gradient(70px 46px at 0% 100%,rgba(195,204,143,.45),rgba(195,204,143,0) 70%),#faf9f6;text-decoration:none;color:#111;font-family:'Montserrat',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:0 0 auto}"
++ ".ebm-mini .ebm-msceau{position:absolute;top:4px;right:4px;padding:1.5px 1.5px 1px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:1px;background:rgba(255,255,255,.4);font-size:5px;font-weight:800;letter-spacing:.1em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
++ ".ebm-mini .ebm-msk{display:block;font-size:5.5px;letter-spacing:.16em;font-weight:600;color:#5f5a53;margin-top:1px;line-height:1}"
++ ".ebm-mini .ebm-mcode{display:block;font-size:8.5px;font-weight:300;letter-spacing:.08em;color:#1f241c;margin-top:8px;white-space:nowrap;line-height:1;transition:opacity .4s ease}"
++ ".ebm-mini .ebm-mcode b{font-weight:600}"
++ ".eb-navbar .ebm-droite{gap:10px !important}"
++ "@media (max-width:350px){.ebm-mini{width:44px;padding:0;display:flex;align-items:center;justify-content:center}.ebm-mini .ebm-msceau,.ebm-mini .ebm-mcode{display:none}.eb-navbar .ebm-droite{gap:8px !important}.ebm-mini .ebm-msk{margin:0;font-size:6px;letter-spacing:.15em;text-align:center;line-height:1.5;white-space:normal;width:24px}}"
 /* liste du téléphone */
 + "html body .eb-navbar.eb-menu-open,html body .eb-navbar.ebm-soins-ouvert{box-shadow:none !important}"
 + "#ebOverlay.ebm-liste{top:64px !important;background:rgba(245,244,240,.88) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;padding:4px max(22px,env(safe-area-inset-left,0px)) 22px !important;max-height:calc(100dvh - 140px);overflow-y:auto;box-shadow:0 14px 24px rgba(40,30,20,.08);z-index:9999}"
@@ -115,7 +123,8 @@ var CSS = ""
 + "@media (min-width:1000px){"
 + ".eb-navbar{padding:0 40px}"
 + ".ebm-g,.ebm-d{display:flex}"
-+ ".eb-navbar #ebBurger,.ebm-mloupe{display:none !important}"
++ ".eb-navbar #ebBurger,.ebm-mloupe,.ebm-mini{display:none !important}"
++ ".eb-navbar .ebm-droite{gap:24px !important}"
 + ".eb-navbar .eb-navbar-brand{font-size:22px !important}"
 + ".eb-navbar .eb-navbar-brand span{font-size:6.5px !important;margin-top:8px !important}"
 + ".eb-navbar .eb-navbar-brand span:before,.eb-navbar .eb-navbar-brand span:after{width:20px}"
@@ -162,7 +171,14 @@ function construire(){
   loupe.addEventListener('click',function(){ if(typeof window.ebSearchOpen==='function') window.ebSearchOpen(); });
   [loupe,aSkin,aJour,aExp].forEach(function(x){ d.appendChild(x); });
   droite.insertBefore(d, droite.firstChild);
-  droite.style.gap='24px';
+  droite.style.gap='24px'; droite.classList.add('ebm-droite');
+  // ── Téléphone : la mini carte Skin ID, juste avant le panier
+  var mini=el('a','ebm-mini','<span class="ebm-msceau">E.B</span><span class="ebm-msk">SKIN ID</span><span class="ebm-mcode"><b>BL</b> · N1</span>');
+  enBouton(mini); mini.setAttribute('aria-label','Faire mon Skin ID');
+  mini.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); fermerTout(); ouvrirSkinId(); });
+  var panierBtn=droite.querySelector('#ebCartButton'); droite.insertBefore(mini, panierBtn && panierBtn.parentNode===droite ? panierBtn : null);
+  var MCODES=['<b>BL</b> · N1','<b>BA</b> · N2/3','<b>B</b> · N2','<b>BA</b> · N4','<b>BL</b> · N1'], iM=0, mCode=mini.querySelector('.ebm-mcode');
+  setInterval(function(){ if(!mini.offsetParent) return; mCode.style.opacity=0; setTimeout(function(){ iM=(iM+1)%MCODES.length; mCode.innerHTML=MCODES[iM]; mCode.style.opacity=1; },400); },2600);
 
   // ── Panneau « Nos soins » (ordinateur)
   var p=el('div','ebm-soins'); var pin=el('div','ebm-soins-in');
