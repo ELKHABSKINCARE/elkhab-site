@@ -204,6 +204,7 @@ function construire(){
   ov.classList.add('ebm-liste'); ov.innerHTML='';
   var L=el('div','ebm-l');
   function ligne(txt,href,extra){ var a=lien(txt,href); a.innerHTML='<span'+(extra||'')+'>'+esc(txt)+'</span><span class="ebm-fl">›</span>'; return a; }
+  L.appendChild(ligne('Accueil',LIENS.accueil));
   L.appendChild(ligne('Bloom',LIENS.bloom));
   L.appendChild(ligne('Balance',LIENS.balance));
   var ouvre=el('button','ebm-ouvre','<span>Nos soins</span><span class="ebm-fl">+</span>'); ouvre.type='button';
