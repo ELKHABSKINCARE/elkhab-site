@@ -268,6 +268,8 @@ function construire(){
   var yOuverture = 0;
   [bMenu,bSoins].forEach(function(b){ b.addEventListener('click',function(){ yOuverture = window.scrollY; }); });
   window.addEventListener('scroll',function(){ if(ouvertQuelquePart() && Math.abs(window.scrollY - yOuverture) > 8) fermerTout(); },{passive:true});
+  // le menu est prêt : la barre apparaît (elle restait invisible pour ne pas montrer l'ancien logo)
+  document.documentElement.classList.add('ebm-pret');
   return true;
 }
 (function attendre(n){ if(construire()) return; if(n>0) setTimeout(function(){ attendre(n-1); },200); })(40);
