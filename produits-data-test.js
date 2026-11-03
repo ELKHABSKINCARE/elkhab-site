@@ -314,7 +314,15 @@ window.EB_PRODUITS = {
         // 📷 3. B3 HÂLÉ · BOÎTE + STICK
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b3-hale-1-boite-flacon_-_Copie.png?v=1793375478",
         // 📷 4. B4 FONCÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1793375415"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1793375415",
+        // 📷 5. B1 CLAIR · TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948",
+        // 📷 6. B2 MOYEN · TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962",
+        // 📷 7. B3 HÂLÉ · TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743",
+        // 📷 8. B4 FONCÉ · TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1072,7 +1080,11 @@ window.EB_PRODUITS = {
         // 📷 2. SANS TEINTE · BOÎTE + STICK
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-sans-teinte-1-boite.png?v=1793376672",
         // 📷 3. PHOTO D'AMBIANCE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207",
+        // 📷 TEXTURE TEINTÉE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291",
+        // 📷 TEXTURE SANS TEINTE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
