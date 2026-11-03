@@ -64,7 +64,7 @@
       ligne: "Démaquillage · Douceur · Peaux sensibles et sèches",
       besoins: ["sensibles","apaisement","hydratation"], prix: "29,90€", taille: "150 ml", hauteur: 14.5,
       // 📷 Milky Bloom
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site-v4.png",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site-v5.png",
       alt: "Milky Bloom ELKHA.B, nettoyant huile-en-lait démaquillant pour peaux sensibles et sèches, flacon pompe 150 ml"
     },
     "radiance-cleanser": {
@@ -112,7 +112,7 @@
       ligne: "Anti-taches · Teint unifié · Éclat",
       besoins: ["anti-taches","eclat"], prix: "29,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Lumi-Bloom Arbutin
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=2026110320",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-flacon-pompe-v7.png",
       alt: "Lumi-Bloom Arbutin ELKHA.B, sérum anti-taches à l'alpha-arbutine, flacon verre 30 ml"
     },
     "radiance-eye-cream": {
@@ -152,7 +152,7 @@
       ligne: "Rides & fermeté · Rebond · Hydratation",
       besoins: ["fermete","hydratation"], prix: "31,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Luminescence Boost
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=2026110320",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-flacon-pompe-v7.png",
       alt: "Luminescence Boost ELKHA.B, sérum booster de fermeté, 30 ml"
     },
     "luminescence-nuit": {
