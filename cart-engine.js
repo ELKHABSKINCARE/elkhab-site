@@ -22,10 +22,29 @@ const EB_SITES = {
 };
 window.EB_SITES = EB_SITES;
 
+// SITES DE TEST : sur une copie de test, tous les liens (menu, boutons, fiches…)
+// mènent aux autres copies de test, et le panier suit. Sur les vrais sites, rien ne change.
+const EB_TEST_SITES = {
+  accueil:    'https://elkhab-test.carrd.co/',
+  bloom:      'https://bloom-test.carrd.co/',
+  balance:    'https://balance-test.carrd.co/',
+  journal:    'https://journal-test.carrd.co/',
+  experience: 'https://leur-experience-test.carrd.co/',
+  soins:      'https://soins-balance-test.carrd.co/',
+  besoins:    'https://besoins-balance-test.carrd.co/'
+};
+const EB_TEST_HOTES = {};
+Object.keys(EB_TEST_SITES).forEach(function(k){ EB_TEST_HOTES[new URL(EB_TEST_SITES[k]).hostname] = k; });
+EB_TEST_HOTES['testbloom.carrd.co'] = 'bloom';
+const EB_EST_TEST = !!EB_TEST_HOTES[location.hostname.toLowerCase()];
+window.EB_EST_TEST = EB_EST_TEST;
+if(EB_EST_TEST){ Object.keys(EB_TEST_SITES).forEach(function(k){ EB_SITES[k] = EB_TEST_SITES[k]; }); }
+
 // Reconnaît un site ELKHA.B à partir d'un nom de domaine
 // (nouvelles adresses, et anciennes en carrd.co par sécurité)
 function ebSiteFromHost(host){
   host = (host || '').toLowerCase();
+  if(EB_TEST_HOTES[host]) return EB_TEST_HOTES[host];
   if(host === 'elkhab.com' || host === 'www.elkhab.com') return 'accueil';
   let m = host.match(/^(bloom|balance|journal|experience|soins|avis)\.elkhab\.com$/);
   if(m) return m[1];
@@ -38,6 +57,28 @@ window.ebSiteFromHost = ebSiteFromHost;
 // Nom du site actuel (accueil, bloom, balance, journal, experience ou soins)
 const EB_SITE_NAME = ebSiteFromHost(window.location.hostname);
 window.EB_SITE_NAME = EB_SITE_NAME;
+
+// Sur un site de test : un lien vers un vrai site ELKHA.B est remplacé par sa copie de test
+// (au survol, au toucher, au clic, et une fois au chargement de la page)
+function ebLienVersTest(a){
+  if(!EB_EST_TEST || !a || !a.getAttribute) return;
+  const href = a.getAttribute('href');
+  if(!href || !/^https?:\/\//i.test(href)) return;
+  let url; try { url = new URL(href); } catch(err){ return; }
+  if(EB_TEST_HOTES[url.hostname.toLowerCase()]) return;
+  const site = ebSiteFromHost(url.hostname);
+  if(!site || !EB_TEST_SITES[site]) return;
+  url.protocol = 'https:'; url.host = new URL(EB_TEST_SITES[site]).host;
+  a.setAttribute('href', url.toString());
+}
+if(EB_EST_TEST){
+  ['pointerdown','mouseover','focusin','touchstart','click','auxclick','contextmenu'].forEach(function(t){
+    document.addEventListener(t, function(e){ ebLienVersTest(e.target && e.target.closest && e.target.closest('a[href]')); }, {capture:true, passive:true});
+  });
+  const tous = function(){ document.querySelectorAll('a[href]').forEach(ebLienVersTest); };
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tous); else tous();
+  window.addEventListener('load', tous);
+}
 
 // =====================================================================
 // INFORMATIONS TRANSPORTÉES DANS LES LIENS
