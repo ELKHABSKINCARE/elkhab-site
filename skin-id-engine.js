@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 5,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 6,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -131,12 +131,31 @@
     boite.classList.toggle('plein', n > 0);
   }
 
+  // ── Le bilan reste d'un site ELKHA.B à l'autre, jusqu'à la fermeture du navigateur
+  // (mémoire de l'onglet, cookie partagé par tous les sites elkhab.com, ou lien d'un site de test à l'autre)
+  var CLE = 'ebSkinIdRep';
+  function surElkhab(){ return /(^|\.)elkhab\.com$/.test(location.hostname); }
+  // sur elkhab.com : un cookie partagé par tous les sites, effacé à la fermeture du navigateur
+  // ailleurs (sites de test) : la mémoire de l'onglet, que les liens emportent d'un site à l'autre (« x » = bilan effacé)
+  function garderBilan(r){
+    var t = r ? JSON.stringify(r) : '';
+    if(surElkhab()){ document.cookie = 'eb_skinid=' + encodeURIComponent(t) + '; path=/; domain=.elkhab.com; SameSite=Lax' + (r ? '' : '; max-age=0'); }
+    else { try{ sessionStorage.setItem(CLE, r ? t : 'x'); }catch(e){} }
+  }
+  function lireBilan(){
+    var t = null;
+    if(surElkhab()){ var m = document.cookie.match(/(?:^|; )eb_skinid=([^;]+)/); if(m){ try{ t = decodeURIComponent(m[1]); }catch(e){} } }
+    else { try{ t = sessionStorage.getItem(CLE); }catch(e){} }
+    try{ var r = t ? JSON.parse(t) : null; return (r && typeof r === 'object') ? r : null; }catch(e){ return null; }
+  }
+
   // ── Échanges avec le Skin ID : un canal privé (aucun message envoyé à la page elle-même)
   var canal = null;
   function recevoir(ev){
     var d = ev.data || {}; if(d.eb !== 'skin-id') return;
     if(d.type === 'pret'){ pret = true; boite.classList.add('pret'); }
     else if(d.type === 'fermer') fermer();
+    else if(d.type === 'bilan') garderBilan(d.rep || null);
     else if(d.type === 'ecran'){ boite.classList.toggle('fin', !!d.fin); majSac(); }
     else if(d.type === 'voir-panier') voirPanier();
     else if(d.type === 'fiche' && d.id) fiche(String(d.id));
@@ -149,6 +168,7 @@
     if(!window.MessageChannel || !cadre.contentWindow) return;
     var ch = new MessageChannel(); canal = ch.port1; canal.onmessage = recevoir;
     cadre.contentWindow.postMessage({ eb: 'skin-id', type: 'canal' }, ORIGINE, [ch.port2]);
+    canal.postMessage({ eb: 'skin-id', type: 'bilan', rep: lireBilan() });
   }
 
   // ── Ouvertures : liens « #skin-id », éléments data-skin-id, adresse ?skinid
