@@ -990,7 +990,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-carrousel.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-v7.png"
       ]
     },
     routine: {
