@@ -112,7 +112,7 @@
       ligne: "Anti-taches · Teint unifié · Éclat",
       besoins: ["anti-taches","eclat"], prix: "29,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Lumi-Bloom Arbutin
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=1793380817",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/serum_Lumi-Bloom_arbtutin_flacon.png?v=20261103",
       alt: "Lumi-Bloom Arbutin ELKHA.B, sérum anti-taches à l'alpha-arbutine, flacon verre 30 ml"
     },
     "radiance-eye-cream": {
@@ -152,7 +152,7 @@
       ligne: "Rides & fermeté · Rebond · Hydratation",
       besoins: ["fermete","hydratation"], prix: "31,90€", taille: "30 ml", hauteur: 10.5,
       // 📷 Luminescence Boost
-      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=1793380782",
+      photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-2-flacon.png?v=20261103",
       alt: "Luminescence Boost ELKHA.B, sérum booster de fermeté, 30 ml"
     },
     "luminescence-nuit": {
