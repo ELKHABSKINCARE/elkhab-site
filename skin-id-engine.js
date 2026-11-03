@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 3,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 4,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -43,7 +43,9 @@
     + '#eb-sid .eb-sid-sac svg{width:20px;height:20px;display:block}'
     + '#eb-sid .eb-sid-sac span{position:absolute;top:-4px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:20px;background:#f6f4f0;color:#141414;font:600 9.5px Montserrat,sans-serif;display:flex;align-items:center;justify-content:center;box-sizing:border-box}'
     + '@media (min-width:900px){#eb-sid .eb-sid-sac{top:22px;right:78px}}'
-    + 'html.eb-sid-ouvert,html.eb-sid-ouvert body{overflow:hidden!important}';
+    + 'html.eb-sid-ouvert,html.eb-sid-ouvert body{overflow:hidden!important}'
+    // le panier du site s'ouvre par-dessus le Skin ID (comme au-dessus des fiches) : fond plus opaque sur le fond sombre
+    + 'html.eb-sid-ouvert #ebCartPanel{background:rgba(246,244,240,.96)!important}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
   var boite = null, cadre = null, pret = false;
@@ -60,7 +62,7 @@
     boite.appendChild(cadre);
     boite.querySelector('.eb-sid-x').addEventListener('click', fermer);
     boite.querySelector('.eb-sid-sac').addEventListener('click', voirPanier);
-    majSac();
+    majSac(); suivreCompteur();
     document.body.appendChild(boite);
   }
   function ouvrir(){
@@ -101,11 +103,21 @@
     })();
   }
 
-  // ── Le panier du site : le Skin ID se referme et le panier s'ouvre
+  // ── Le panier du site s'ouvre par-dessus le Skin ID : en le refermant, la cliente retrouve son bilan
   function voirPanier(){
-    fermer();
     var panel = document.getElementById('ebCartPanel'), fond = document.getElementById('ebCartBackdrop');
-    setTimeout(function(){ if(panel) panel.classList.add('open'); if(fond) fond.classList.add('open'); }, 250);
+    if(!panel){ fermer(); return; }
+    panel.classList.add('open'); if(fond) fond.classList.add('open');
+  }
+  function panierOuvert(){ var p = document.getElementById('ebCartPanel'); return !!(p && p.classList.contains('open')); }
+  function fermerPanier(){
+    ['ebCartPanel','ebCartBackdrop'].forEach(function(id){ var x = document.getElementById(id); if(x) x.classList.remove('open'); });
+  }
+  // le sac suit le panier, même quand la cliente retire un soin depuis le panier
+  function suivreCompteur(){
+    var c = document.getElementById('ebCartCount');
+    if(!c || !window.MutationObserver){ return setTimeout(suivreCompteur, 1500); }
+    new MutationObserver(majSac).observe(c, { childList: true, characterData: true, subtree: true });
   }
   // le sac affiche le nombre d'articles du panier du site (celui du menu)
   function majSac(){
@@ -145,7 +157,10 @@
   document.addEventListener('pointerover', function(e){
     if(e.target.closest && e.target.closest('a[href$="#skin-id"],[data-skin-id],.ebm-skin')) creer();
   }, { passive: true });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && boite && boite.classList.contains('on')) fermer(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape' || !boite || !boite.classList.contains('on')) return;
+    if(panierOuvert()) fermerPanier(); else fermer();
+  });
 
   window.ebSkinIdOpen = ouvrir;
   window.ebSkinIdClose = fermer;

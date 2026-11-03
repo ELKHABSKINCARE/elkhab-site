@@ -554,6 +554,8 @@ body.res .contenu{max-width:none;padding:0}
 .rc2 .rc-b span{font-style:normal}
 .lec .ap{font-size:12px;color:rgba(246,244,240,.62);margin-top:10px}
 .rc-h{display:flex;justify-content:space-between;font-size:8px;font-weight:600;letter-spacing:.3em;color:rgba(246,244,240,.6)}
+.rc-pr,.sid-d .rc-pr{margin:11px 0 2px;text-align:left;font-size:11px;font-weight:400;letter-spacing:.02em;color:rgba(246,244,240,.62)}
+.rc-t,.sid-d .rc-t{margin:0;text-align:left;font-size:18px;font-weight:700;line-height:1.25;letter-spacing:.005em;color:#f6f4f0}
 .rang{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:6px;margin-top:10px}
 .rang.defile{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-right:-14px;padding-right:14px}
 .rang.defile::-webkit-scrollbar{display:none}.rang.defile .tu{flex:0 0 calc((100% - 18px) / 3.5);scroll-snap-align:start}
@@ -629,6 +631,7 @@ body.res .contenu{max-width:none;padding:0}
   .sid{display:grid;grid-template-columns:minmax(380px,40%) 1fr}
   .sid-g{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:40px clamp(28px,3.5vw,56px);border-right:1px solid rgba(255,255,255,.07)}
   .sid-in{width:100%;max-width:470px}
+  @media (max-height:780px){.sid-in{max-width:min(470px,58vh)}.sid-g{align-items:safe center;overflow-y:auto;scrollbar-width:none}}
   .sid-code{font-size:58px}
   .tu-im{height:112px}.tu-im img{max-height:94px!important}
   .tu-im img.reel{height:calc(var(--h) * 5.7px)!important}
@@ -1820,7 +1823,7 @@ body{background:#141414;color:#f6f4f0}
     var total=R.tout.reduce(function(t,x){return t+SOINS[x[0]].p;},0), px=R.routine?R.routine.prix:total;
     RES={why:{},R:R}; if(window.parent!==window){try{sessionStorage.setItem('ebSkinIdRep',JSON.stringify(rep));}catch(e){}} R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1];
     var nb=R.tout.length;
-    var carte='<div class="rc" id="rc"><div class="rc-h"><span>VOTRE RITUEL</span><span>'+nb+' SOIN'+(nb>1?'S':'')+'</span></div>'
+    var carte='<div class="rc" id="rc"><div class="rc-h"><span>VOTRE RITUEL</span><span>'+nb+' SOIN'+(nb>1?'S':'')+'</span></div>'+(p0!=null?'<p class="rc-pr">Pensé pour votre priorité</p><p class="rc-t">'+PRIOS[p0]+'</p>':'')
       +'<div class="rang'+(nb>4?' defile':'')+'" style="--n:'+Math.min(nb,4)+'">'+parMoment(R).map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
       +'<div class="rc-b"><div><b>'+prix(px)+'</b></div><button type="button" class="bt-c" id="b-panier">Ajouter au panier</button></div><p class="rc-dur">Formules concentrées : une pression suffit, vos soins durent jusqu’à 3 mois.</p></div>';
     // la carte Skin ID : son dégradé et son motif suivent la gamme de son rituel (Bloom : le maillage, Balance : le guilloché, les deux : le sceau)
@@ -1839,7 +1842,7 @@ body{background:#141414;color:#f6f4f0}
       +(function(){var S=R.second||[]; if(!S.length||p1==null)return ''; var n2=S.length, px2=S.reduce(function(t,x){return t+SOINS[x[0]].p;},0);
         return sec('EN COMPLÉMENT','Votre rituel complémentaire, pour '+NOMS_COURTS[p1],
           '<p>'+fr('Votre rituel principal se concentre sur '+NOMS_COURTS[p0]+', votre priorité. Quand votre peau s’y sera habituée, d’ici quatre à six semaines, '+(n2>1?'ces soins prendront':'ce soin prendra')+' le relais pour '+NOMS_COURTS[p1]+'.')+'</p>'
-          +'<div class="rc2"><div class="rc-h"><span>RITUEL COMPLÉMENTAIRE</span><span>'+n2+' SOIN'+(n2>1?'S':'')+'</span></div><div class="rang" style="--n:'+n2+'">'+S.map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
+          +'<div class="rc2"><div class="rc-h"><span>RITUEL COMPLÉMENTAIRE</span><span>'+n2+' SOIN'+(n2>1?'S':'')+'</span></div><p class="rc-pr">Pensé aussi pour</p><p class="rc-t">'+PRIOS[p1]+'</p><div class="rang" style="--n:'+n2+'">'+S.map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
           +'<div class="rc-b"><div><b>'+prix(px2)+'</b><span>À ajouter quand vous le souhaitez</span></div><button type="button" class="bt-c" data-ajoute="'+S.map(function(x){return x[0];}).join(',')+'">Ajouter</button></div></div>'
           +'<p class="ap">Vous retrouverez ce rituel dans l’e-mail de votre Skin ID.</p>');})();
     // Lumi-Veil : la cliente choisit sa teinte, c'est elle qui part au panier
