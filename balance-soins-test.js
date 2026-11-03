@@ -244,6 +244,10 @@
   + ".ebs-vid-large .ebs-vbox{aspect-ratio:16 / 9}"
   + ".ebs-vbox video,.ebs-vbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}"
   + ".filtre .ebs-vid{display:none}"
+  // la photo ou la vidéo sert de séparation : pas de trait juste en dessous
+  + ".avec-media + .ebs-h div{border-top:0 !important;padding-top:0 !important}.avec-media + .ebs-h:before{display:none !important}.avec-media + .ebs-h{margin-bottom:6px !important}"
+  // si une photo de soin ne se charge pas, son nom (texte caché) ne s'affiche pas sur le fond
+  + ".ebs-ph img{color:transparent}"
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;max-height:1400px;}"
   + ".ebs-amb img,.ebs-amb video{display:block;width:100%;height:auto}"
   + ".filtre .ebs-amb{display:none}"
@@ -294,7 +298,9 @@
   +   ".ebs-vid{order:0;width:25%;padding:0 9px 40px}"
   +   ".ebs-c2 .ebs-vid{width:50%}.ebs-c3 .ebs-vid{width:33.333%}"
   +   ".ebs-vid-large{width:50%}.ebs-c2 .ebs-vid-large{width:100%}.ebs-c3 .ebs-vid-large{width:66.666%}"
-  +   ".ebs-vid-carre .ebs-vbox{margin-top:16.667%}"
+  // la vidéo carrée prend la place de deux soins : une vraie respiration ; le soin voisin se centre à sa hauteur
+  +   ".ebs-vid-carre{width:50%}.ebs-c2 .ebs-vid-carre{width:100%}.ebs-c3 .ebs-vid-carre{width:66.666%}"
+  +   ".ebs-voisin{align-self:center}"
   +   ".ebs-vid-large .ebs-vbox{margin-top:calc(5.21% - 6px)}"
   // ordinateur : la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
   +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
@@ -351,7 +357,12 @@
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
     var ambCote = e.ambiance && e.ambiance.video;
-    h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + '">' + e.soins.map(function(id){ return videosPres(id, 'avant') + vignette(id, e) + videosPres(id, 'apres'); }).join('');
+    var avecMedia = e.soins.some(function(id){ return videosPres(id, 'avant') || videosPres(id, 'apres'); });
+    h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + (avecMedia ? ' avec-media' : '') + '">' + e.soins.map(function(id){
+      var av = videosPres(id, 'avant'), ap = videosPres(id, 'apres'), v = vignette(id, e);
+      if(av || ap) v = v.replace('<a class="ebs-card"', '<a class="ebs-card ebs-voisin"');
+      return av + v + ap;
+    }).join('');
     if(ambCote){
       // la vidéo est dans le même groupe que le soin : à gauche du soin sur ordinateur, en dessous sur mobile
       h += '<figure class="ebs-amb ebs-amb-cote"><video src="' + esc(e.ambiance.video) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(e.ambiance.alt) + '" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></video></figure>';
