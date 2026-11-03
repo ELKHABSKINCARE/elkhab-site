@@ -17,6 +17,9 @@ function chargerSkinId(fait){
   if(fait) s.addEventListener('load',function(){ if(typeof window.ebSkinIdOpen==='function') fait(); });
 }
 function ouvrirSkinId(){ chargerSkinId(function(){ window.ebSkinIdOpen(); }); }
+// les accès au Skin ID ne sont pas des liens « # » : sur Carrd, un lien « # » fait recharger la page
+function enBouton(x){ x.removeAttribute('href'); x.setAttribute('role','button'); x.tabIndex=0; x.style.cursor='pointer';
+  x.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); x.click(); } }); }
 chargerSkinId();
 
 /* ┌─────────────────────────────────────────────────────────────────────┐
@@ -152,7 +155,7 @@ function construire(){
   // ── Ordinateur : liens à droite (avant le panier)
   var d=el('div','ebm-d');
   var aSkin=lien('Skin ID','', 'ebm-t'); aSkin.classList.remove('ebm-avenir'); aSkin.removeAttribute('title');
-  aSkin.addEventListener('click',function(e){ e.preventDefault(); ouvrirSkinId(); });
+  enBouton(aSkin); aSkin.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); ouvrirSkinId(); });
   var aJour=lien('Journal',LIENS.journal,'ebm-t'+(ICI==='journal'?' ebm-ici':''));
   var aExp=lien('Leur expérience',LIENS.experience,'ebm-t'+(ICI==='experience'?' ebm-ici':''));
   var loupe=el('div','ebm-icone',LOUPE); loupe.title='Rechercher';
@@ -167,7 +170,7 @@ function construire(){
   var c2=el('div','','<h4>Par besoin</h4>'); PAR_BESOIN.forEach(function(x){ c2.appendChild(lien(x[0],x[1])); });
   var c3=el('div','ebm-skin-zone');
   var carte=el('a','ebm-skin','<span class="ebm-sceau">E.B</span><p class="ebm-sk">Skin ID</p><span class="ebm-code"><b>BL</b> · N1 · DOUCEUR</span><p>Votre peau a un code. 2 minutes pour découvrir le vôtre et le rituel qui lui correspond.</p><span class="ebm-cta">Faire mon Skin ID</span>');
-  carte.href='#'; carte.setAttribute('aria-label','Faire mon Skin ID');
+  enBouton(carte); carte.setAttribute('aria-label','Faire mon Skin ID');
   carte.addEventListener('click',function(e){ e.preventDefault(); fermerTout(); ouvrirSkinId(); });
   c3.appendChild(carte);
   var CODES=['<b>BL</b> · N1 · DOUCEUR','<b>BA</b> · N2/3 · RÉGÉNÉRATION','<b>B</b> · N2 · ÉCLAT','<b>BA</b> · N4 · CLARTÉ','<b>BL</b> · N1 · ÉQUILIBRE'], iCode=0, codeEl=carte.querySelector('.ebm-code');
@@ -188,7 +191,7 @@ function construire(){
   L.appendChild(ouvre); L.appendChild(sous);
   L.appendChild(ligne('Routines',LIENS.routines));
   var lSkin=ligne('Skin ID',''); lSkin.classList.remove('ebm-avenir'); lSkin.removeAttribute('title');
-  lSkin.addEventListener('click',function(){ ouvrirSkinId(); });
+  enBouton(lSkin); lSkin.addEventListener('click',function(e){ e.preventDefault(); ouvrirSkinId(); });
   L.appendChild(lSkin);
   L.appendChild(ligne('Journal',LIENS.journal));
   L.appendChild(ligne('Leur expérience',LIENS.experience));
