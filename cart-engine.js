@@ -85,7 +85,7 @@ if(EB_EST_TEST){
 // On les mémorise au chargement, puis on les efface de la barre d'adresse
 // pour qu'elle reste propre. Les autres fichiers les lisent avec ebGetParam().
 // =====================================================================
-const EB_PARAM_KEYS = ['cart','connected','scrollTo','origin','pos','from','back','s','h','openDiag'];
+const EB_PARAM_KEYS = ['cart','connected','scrollTo','origin','pos','from','back','s','h','openDiag','sid'];
 // Celles qu'on garde en mémoire si la cliente actualise la page (pour que le bouton Fermer marche toujours)
 const EB_RETURN_KEYS = ['origin','pos','from','back','s','h'];
 
@@ -105,6 +105,14 @@ const EB_PARAMS = (function(){
   return snapshot;
 })();
 window.ebGetParam = function(name){ return EB_PARAMS.get(name); };
+
+// Bilan du Skin ID : sur les adresses qui ne partagent pas de cookie (sites de test),
+// il voyage dans le lien comme le panier, et l'onglet le garde jusqu'à la fermeture du navigateur
+function ebSkinIdAEmporter(){
+  if(/(^|\.)elkhab\.com$/.test(location.hostname)) return null;   // sur elkhab.com, le cookie s'en charge
+  try{ return sessionStorage.getItem('ebSkinIdRep'); }catch(e){ return null; }
+}
+if(EB_PARAMS.get('sid')){ try{ sessionStorage.setItem('ebSkinIdRep', EB_PARAMS.get('sid')); }catch(e){} }
 
 // Le panier est gardé 7 jours sur l'appareil (téléphone ou ordinateur), sur tous les sites elkhab.com,
 // même après la fermeture du navigateur. Chaque visite relance les 7 jours.
@@ -256,10 +264,12 @@ document.addEventListener('click', function(e){
   const goingToFiche = targetSite === 'soins' || targetSite === 'avis' || !!url.hash;
   const canTagOrigin = goingToFiche && !!EB_SITE_NAME;
 
-  if(!cartId && !isConnected && !canTagOrigin) return;
+  const sid = ebSkinIdAEmporter();
+  if(!cartId && !isConnected && !canTagOrigin && !sid) return;
 
   e.preventDefault();
   if(cartId){ url.searchParams.set('cart', cartId); }
+  if(sid){ url.searchParams.set('sid', sid); }
   if(isConnected){ url.searchParams.set('connected', '1'); }
   if(canTagOrigin){
     url.searchParams.set('origin', EB_SITE_NAME);
@@ -283,6 +293,7 @@ window.ebNavigate = function(siteName, params, hash){
   }
   if(cartId){ url.searchParams.set('cart', cartId); }
   if(sessionStorage.getItem('elkhab_connected') === '1'){ url.searchParams.set('connected', '1'); }
+  const sid = ebSkinIdAEmporter(); if(sid){ url.searchParams.set('sid', sid); }
   if(hash){ url.hash = hash; }
   window.location.href = url.toString();
 };
