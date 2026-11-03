@@ -171,6 +171,18 @@
   + "@keyframes ebaPouls{50%{box-shadow:0 0 0 7px rgba(201,163,155,.05)}}"
   + ".eba-cv{position:absolute;right:3%;top:6%;bottom:6%;writing-mode:vertical-rl;font-size:clamp(30px,4.2vw,58px);font-weight:800;letter-spacing:.06em;color:rgba(255,255,255,.55);text-shadow:0 1px 0 rgba(0,0,0,.06)}"
   + "@media (max-width:699px){.eba-sid{margin-top:84px}.eba-sin{grid-template-columns:1fr;padding:64px 26px 70px;gap:44px;text-align:center}.eba-sg{margin:22px auto 0}#eb-acc .eba-sp{margin:20px auto 0;font-size:13.5px}#eb-acc .eba-sh{font-size:28px}.eba-carte{width:92%}.eba-csk{font-size:7vw}.eba-ct{font-size:2vw}.eba-cc{font-size:9vw}.eba-cf{font-size:2.6vw}.eba-cl{font-size:2vw}.eba-cv{font-size:10vw}}"
+
+  // essais de fond pour la bande Skin ID (fond clair : textes foncés, carte avec une ombre douce, sans reflet)
+  + ".eba-sid.v-clair .eba-carte:after{display:none}"
+  + ".eba-sid.v-clair .eba-carte{box-shadow:0 26px 50px rgba(90,70,50,.18),0 0 0 1px rgba(255,255,255,.6) inset}"
+  + "#eb-acc .eba-sid.v-clair .eba-k{color:#5f5a53}#eb-acc .eba-sid.v-clair .eba-sh{color:#111}#eb-acc .eba-sid.v-clair .eba-sp{color:#2a2723;font-weight:400}#eb-acc .eba-sid.v-clair .eba-sr{color:#7a746a}"
+  + ".eba-sid.v-clair .eba-sg{background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
+  + ".eba-sid.v-clair .eba-sbtn{background:#111;color:" + F + "}.eba-sid.v-clair .eba-sbtn:hover{background:#3a3631}"
+  + ".eba-sid.v-beige{background:linear-gradient(90deg,#f8f6f1,#e2d9ca 55%,#c9bca7)}"
+  + ".eba-sid.v-peau{background:radial-gradient(700px 460px at 90% 0%,rgba(230,203,189,.55),rgba(230,203,189,0) 70%),radial-gradient(700px 460px at 10% 100%,rgba(195,204,143,.32),rgba(195,204,143,0) 70%),linear-gradient(135deg,#f6efe9,#efe9df 55%,#ebeee2)}"
+  + ".eba-sid.v-taupe{background:radial-gradient(700px 420px at 92% 10%,rgba(246,239,233,.25),rgba(246,239,233,0) 70%),linear-gradient(135deg,#b9ab9a,#a39482)}"
+  + ".eba-sid.v-taupe .eba-carte:after{display:none}#eb-acc .eba-sid.v-taupe .eba-k{color:#f1ebe2}#eb-acc .eba-sid.v-taupe .eba-sp{color:#fbf8f3;font-weight:400}#eb-acc .eba-sid.v-taupe .eba-sr{color:#efe8de}"
+  + ".eba-sid.v-taupe .eba-carte{box-shadow:0 26px 50px rgba(60,45,30,.28)}"
   + "@media (prefers-reduced-motion:reduce){.eba-carte,.eba-carte:after,.eba-cl:before{animation:none}}"
   // apparition douce des blocs quand on descend
   + ".eba-entre{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}.eba-entre.vu{opacity:1;transform:none}"
@@ -283,6 +295,8 @@
     }
     root.querySelectorAll('img[data-zoom]').forEach(function(im){ var z = parseFloat(im.getAttribute('data-zoom')) || 1; if(z !== 1) im.style.transform = 'scale(' + z + ')'; });
     cadrer(); if(tel.addEventListener) tel.addEventListener('change', cadrer);
+    // bande Skin ID : fond dégradé beige (choisi le 3 nov.)
+    var bandeSid = root.querySelector('.eba-sid'); if(bandeSid) bandeSid.classList.add('v-clair', 'v-beige');
     requestAnimationFrame(function(){ root.classList.add('eba-pret'); });
 
     // ── Bannière : une photo après l'autre, en fondu
