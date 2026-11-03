@@ -52,6 +52,13 @@ var PAR_BESOIN = [
    └─────────────────────────────────────────────────────────────────────┘ */
 if(window.ebMenuTest) return; window.ebMenuTest = true;
 
+// Sur les sites de test, le menu mène aux autres sites de test
+var SITES_TEST = { "elkhab-test.carrd.co":1, "bloom-test.carrd.co":1, "testbloom.carrd.co":1, "balance-test.carrd.co":1, "journal-test.carrd.co":1, "leur-experience-test.carrd.co":1, "soins-balance-test.carrd.co":1, "besoins-balance-test.carrd.co":1 };
+if(SITES_TEST[location.hostname]){
+  LIENS.accueil = "https://elkhab-test.carrd.co/"; LIENS.bloom = "https://bloom-test.carrd.co/"; LIENS.balance = "https://balance-test.carrd.co/";
+  LIENS.journal = "https://journal-test.carrd.co/"; LIENS.experience = "https://leur-experience-test.carrd.co/";
+}
+
 var BLOOM_DEG = "linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)";
 var BAL_DEG   = "linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)";
 var h = location.hostname;
