@@ -18,6 +18,7 @@ const EB_SITES = {
   journal:    'https://journal.elkhab.com/',
   experience: 'https://experience.elkhab.com/',
   soins:      'https://soins.elkhab.com/',
+  besoins:    'https://besoins.elkhab.com/',
   avis:       'https://avis.elkhab.com/'
 };
 window.EB_SITES = EB_SITES;
@@ -46,7 +47,7 @@ function ebSiteFromHost(host){
   host = (host || '').toLowerCase();
   if(EB_TEST_HOTES[host]) return EB_TEST_HOTES[host];
   if(host === 'elkhab.com' || host === 'www.elkhab.com') return 'accueil';
-  let m = host.match(/^(bloom|balance|journal|experience|soins|avis)\.elkhab\.com$/);
+  let m = host.match(/^(bloom|balance|journal|experience|soins|besoins|avis)\.elkhab\.com$/);
   if(m) return m[1];
   m = host.match(/^elkhab-(accueil|bloom|balance|journal|experience|soins)\.carrd\.co$/);
   if(m) return m[1];
