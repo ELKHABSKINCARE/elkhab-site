@@ -78,7 +78,7 @@
     "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides · Karité", ligne: "Barrière cutanée · Réparation", besoins: ["hydratation", "sensibles"], prix: "38,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site-v6.png", alt: "Ceramide Night Restore ELKHA.B Balance" },
     "cellular-eye-restore": { nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", hauteur: 8.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v6.png", alt: "Cellular Eye Restore ELKHA.B Balance" },
     "cellular-renew": { nom: "Cellular Renew", actifs: "Alternative végétale au rétinol", ligne: "Rides · Régénération", besoins: ["fermete"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site-v6.png", alt: "Cellular Renew ELKHA.B Balance" },
-    "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", hauteur: 9.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v6.png", alt: "Active Lift ELKHA.B Balance" },
+    "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", hauteur: 9.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v7.png", alt: "Active Lift ELKHA.B Balance" },
     "age-lift": { nom: "Age Lift", actifs: "Peptides", ligne: "Rides · Fermeté", besoins: ["fermete"], prix: "37,90€", taille: "50 ml", hauteur: 14.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site-v6.png", alt: "Age Lift ELKHA.B Balance" },
     "eye-lift": { nom: "Eye Lift", actifs: "Peptides", ligne: "Regard · Paupières", besoins: ["regard"], prix: "29,90€", taille: "15 ml", hauteur: 8.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site-v6.png", alt: "Eye Lift ELKHA.B Balance" },
     "cellular-reveal": { nom: "Cellular Reveal", actifs: "Bidens pilosa", ligne: "Ridules · Teint unifié", besoins: ["fermete", "texture"], prix: "37,90€", taille: "30 ml", hauteur: 10.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site-v6.png", alt: "Cellular Reveal ELKHA.B Balance" },
@@ -89,6 +89,17 @@
     "glyco-balance": { nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau", besoins: ["texture"], prix: "29,90€", taille: "250 ml", hauteur: 12.5, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v6.png", alt: "Glyco Balance ELKHA.B Balance" },
     "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", hauteur: 11, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png", alt: "AHA Balance Peel ELKHA.B Balance" }
   };
+
+  // 🎬 VIDÉOS au milieu des soins
+  //    lien    = le lien Shopify de la vidéo (entre guillemets)
+  //    avant   = la vidéo se place juste AVANT ce soin  (ou apres = juste APRÈS ce soin)
+  //    format  = "carre" (prend la place d'un soin) ou "large" (16/9, prend la place de deux soins)
+  //    Pour retirer une vidéo : supprimer sa ligne entière.
+  var VIDEOS = [
+    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
+    { lien: "https://cdn.shopify.com/videos/c/o/v/52f23379a6b1413d8cce9388c42a0139.mp4", apres: "active-lift", format: "carre", alt: "Soin Balance ELKHA.B en vidéo" },
+    { lien: "https://cdn.shopify.com/videos/c/o/v/e59d73e8897e4128b77de49dd5f26f46.mp4", avant: "bha-balance", format: "large", alt: "Les soins Balance ELKHA.B en vidéo" }
+  ];
 
   // Les 5 niveaux d’intensité (du plus doux au plus fort)
   var ETAPES = [
@@ -227,6 +238,12 @@
   + ".filtre .ebs-h.vide div > *,.filtre .ebs-h.vide p{animation:none;opacity:.3}"
   + "@keyframes ebsIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}"
   // Grandes photos
+  // vidéos au milieu des soins — téléphone : en pleine largeur, à la fin de leur niveau
+  + ".ebs-vid{position:relative;display:block;width:100%;margin:0;padding:0 0 34px;order:1}"
+  + ".ebs-vbox{position:relative;width:100%;overflow:hidden;aspect-ratio:1 / 1;background:" + REGLAGES.fondSite + "}"
+  + ".ebs-vid-large .ebs-vbox{aspect-ratio:16 / 9}"
+  + ".ebs-vbox video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}"
+  + ".filtre .ebs-vid{display:none}"
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;max-height:1400px;}"
   + ".ebs-amb img,.ebs-amb video{display:block;width:100%;height:auto}"
   + ".filtre .ebs-amb{display:none}"
@@ -273,6 +290,12 @@
   // pour que les photos soient nettement plus grandes que sur mobile
   +   ".ebs-c2 .ebs-card{width:50%}"
   +   ".ebs-c3 .ebs-card{width:33.333%}"
+  // ordinateur : la vidéo prend la place d'un soin (carrée) ou de deux (16/9), à la hauteur de la photo des soins
+  +   ".ebs-vid{order:0;width:25%;padding:0 9px 40px}"
+  +   ".ebs-c2 .ebs-vid{width:50%}.ebs-c3 .ebs-vid{width:33.333%}"
+  +   ".ebs-vid-large{width:50%}.ebs-c2 .ebs-vid-large{width:100%}.ebs-c3 .ebs-vid-large{width:66.666%}"
+  +   ".ebs-vid-carre .ebs-vbox{margin-top:16.667%}"
+  +   ".ebs-vid-large .ebs-vbox{margin-top:calc(5.21% - 6px)}"
   // ordinateur : la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
   +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
   +   ".avec-amb .ebs-amb{order:-1;flex:0 0 50%;width:50% !important;margin:0 0 40px !important}"
@@ -304,6 +327,12 @@
       + '</a>';
   }
 
+  function videosPres(id, cote){
+    return VIDEOS.filter(function(v){ return v[cote] === id && v.lien; }).map(function(v){
+      return '<figure class="ebs-vid ebs-vid-' + (v.format === 'large' ? 'large' : 'carre') + '"><div class="ebs-vbox"><video muted loop playsinline preload="none" data-src="' + esc(v.lien) + '" aria-label="' + esc(v.alt || '') + '"></video></div></figure>';
+    }).join('');
+  }
+
   // Texte d'introduction : écrit directement dans l'embed Carrd (lisible par Google), repris ici avec un « + »
   var intro = root.querySelector('.ebs-intro');
   var texteBloom = intro ? '<section class="ebs-bloom"><h2>' + esc(REGLAGES.titreTexte) + '</h2><div class="ebs-txt"><div class="ebs-plein">' + intro.innerHTML + '</div><p class="ebs-court"></p></div></section>' : '';
@@ -319,7 +348,7 @@
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
     var ambCote = e.ambiance && e.ambiance.video;
-    h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + '">' + e.soins.map(function(id){ return vignette(id, e); }).join('');
+    h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + '">' + e.soins.map(function(id){ return videosPres(id, 'avant') + vignette(id, e) + videosPres(id, 'apres'); }).join('');
     if(ambCote){
       // la vidéo est dans le même groupe que le soin : à gauche du soin sur ordinateur, en dessous sur mobile
       h += '<figure class="ebs-amb ebs-amb-cote"><video src="' + esc(e.ambiance.video) + '" autoplay muted loop playsinline preload="metadata" aria-label="' + esc(e.ambiance.alt) + '" style="object-position:' + esc(e.ambiance.cadrage || '50% 50%') + '"></video></figure>';
@@ -335,6 +364,15 @@
   h += CIBLES.soins.map(function(id){ return vignette(id, null); }).join('');
   h += '</div>' + texteBloom;
   root.innerHTML = h;
+
+  // Vidéos : elles ne se chargent qu'à l'approche (la page reste rapide), jouent quand on les voit, s'arrêtent sinon
+  (function(){
+    var vids = root.querySelectorAll('.ebs-vid video'); if(!vids.length) return;
+    function jouer(v){ if(!v.src) v.src = v.getAttribute('data-src'); var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+    if(!('IntersectionObserver' in window)){ vids.forEach(jouer); return; }
+    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting) jouer(e.target); else if(e.target.src) e.target.pause(); }); }, { rootMargin: '300px 0px' });
+    vids.forEach(function(v){ io.observe(v); });
+  })();
 
   var cards = root.querySelectorAll('.ebs-card');
   function largeurBloc(){
