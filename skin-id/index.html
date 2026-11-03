@@ -602,7 +602,9 @@ body.res .contenu{max-width:none;padding:0}
 .enc .h{font-size:8px;font-weight:600;letter-spacing:.28em;color:#e9a9a6}.enc .t{font-size:12px;color:rgba(246,244,240,.75);margin:5px 0 10px}
 .enc .teintes{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 10px}
 .enc .te{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px 7px;border:1px solid rgba(255,255,255,.14);background:none;color:rgba(246,244,240,.8);cursor:pointer;font:500 9.5px Montserrat,sans-serif;letter-spacing:.06em;transition:border-color .2s,background .2s}
-.enc .te i{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.enc .te i{position:relative;display:block;width:100%;aspect-ratio:1;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}
+.enc .te i img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.enc .te{padding:5px 5px 8px}
 .enc .te.on{border-color:#f6f4f0;background:rgba(255,255,255,.08);color:#f6f4f0}
 .enc .pl-teinte{width:100%;justify-content:center}
 .enc .pl-teinte[disabled]{opacity:.5;cursor:default}
@@ -1798,7 +1800,7 @@ body{background:#141414;color:#f6f4f0}
     (function pas(t){var k=Math.min(1,(t-t0)/ms), n=Math.floor(fin.length*k), out='';
       for(var j=0;j<fin.length;j++)out+=j<n||/[\s·—\/]/.test(fin[j])?fin[j]:A[Math.floor(Math.random()*A.length)];
       el.textContent=out; if(k<1)requestAnimationFrame(pas);})(t0);}
-  var TEINTES=[['B1 Clair','#d4bba4'],['B2 Moyen','#c2926d'],['B3 Hâlé','#8f5a3b'],['B4 Foncé','#55301c']];
+  var TEINTES=[['B1 Clair','#d4bba4','https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948'],['B2 Moyen','#c2926d','https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962'],['B3 Hâlé','#8f5a3b','https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743'],['B4 Foncé','#55301c','https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970']];
   function resultat(){ecranEtape=null; var R=composer(), L=lettre(R), ID=skinId(R), P=rep.prio||[];
     function fr(t){return String(t).replace(/ ([:;!?])/g,' $1');}
     var A=ID.a||{code:'BL·N1',fam:'DOUCEUR',prom:PROMESSES[1],lab:'VISAGE'};
@@ -1844,7 +1846,7 @@ body{background:#141414;color:#f6f4f0}
     function encTeint(x){var s=SOINS.lumiveil;
       return '<div class="enc teint"><div class="h">POUR VOTRE TEINT</div><div class="t">'+fr('Vous aimez un teint naturel, légèrement unifié.')+'</div><div class="op"><button type="button" class="op-im" data-produit="lumiveil" aria-label="Voir '+esc(s.nom)+'">'+visuel('lumiveil')+'<i class="hs" aria-hidden="true"></i></button>'
         +'<div class="tx"><b>'+s.nom+'</b>'+fr(x[1])+'</div></div><div class="teintes" role="group" aria-label="Choisissez votre teinte">'
-        +TEINTES.map(function(c,k){return '<button type="button" class="te" data-teinte="'+k+'" aria-pressed="false"><i style="background:'+c[1]+'"></i><span>'+c[0]+'</span></button>';}).join('')
+        +TEINTES.map(function(c,k){return '<button type="button" class="te" data-teinte="'+k+'" aria-pressed="false"><i style="background:'+c[1]+'"><img src="'+c[2]+'&width=240" alt="Texture '+c[0]+'" loading="lazy" onerror="this.remove()"></i><span>'+c[0]+'</span></button>';}).join('')
         +'</div><button type="button" class="pl pl-teinte" data-ajoute="lumiveil" disabled>Choisissez votre teinte</button></div>';}
     function enc(h,t,x){var s=SOINS[x[0]]; return '<div class="enc"><div class="h">'+h+'</div><div class="t">'+fr(t)+'</div><div class="op"><button type="button" class="op-im" data-produit="'+x[0]+'" aria-label="Voir '+esc(s.nom)+'">'+visuel(x[0])+'<i class="hs" aria-hidden="true"></i></button>'
       +'<div class="tx"><b>'+s.nom+'</b>'+fr(x[1])+'</div><button type="button" class="pl" data-ajoute="'+x[0]+'">+ '+prix(s.p)+'</button></div></div>';}
