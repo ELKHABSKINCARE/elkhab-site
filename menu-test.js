@@ -268,6 +268,19 @@ function construire(){
   var yOuverture = 0;
   [bMenu,bSoins].forEach(function(b){ b.addEventListener('click',function(){ yOuverture = window.scrollY; }); });
   window.addEventListener('scroll',function(){ if(ouvertQuelquePart() && Math.abs(window.scrollY - yOuverture) > 8) fermerTout(); },{passive:true});
+  // Téléphone : sur certains navigateurs (iPhone surtout), c'est la page elle-même qui défile et non la fenêtre ;
+  // la barre ne recevait alors jamais l'ordre de se cacher. On écoute donc aussi ce défilement-là.
+  var yDernier = 0;
+  document.addEventListener('scroll',function(e){
+    var t = e.target; if(t !== document.body && t !== document.scrollingElement) return;
+    if(t === document.scrollingElement && t === document.documentElement) return;   // défilement normal : déjà géré
+    var y = t.scrollTop, n = document.querySelector('.eb-navbar'); if(!n) return;
+    n.classList.toggle('eb-scrolled', y > 10);
+    if(y > yDernier + 6 && y > 90 && !n.classList.contains('eb-menu-open') && !ouvertQuelquePart()) n.classList.add('eb-hide');
+    else if(y < yDernier - 6 || y <= 90) n.classList.remove('eb-hide');
+    if(Math.abs(y - yDernier) > 6) yDernier = y;
+    if(ouvertQuelquePart() && Math.abs(y - yOuverture) > 8) fermerTout();
+  },{capture:true,passive:true});
   // le menu est prêt : la barre apparaît (elle restait invisible pour ne pas montrer l'ancien logo)
   document.documentElement.classList.add('ebm-pret');
   return true;
