@@ -928,7 +928,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v9.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v10.png"
       ]
     },
     routine: {
@@ -959,7 +959,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-essentielle-v7.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-essentielle-v8.png"
       ]
     },
     routine: {
@@ -990,7 +990,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-v8.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-v9.png"
       ]
     },
     routine: {
