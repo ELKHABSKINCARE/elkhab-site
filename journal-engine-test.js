@@ -1,8 +1,8 @@
 /* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 /* ═══════════════════════════════════════════════════════════════════════
-   ELKHA.B — JOURNAL (journal-engine-test.js : nouvelle version, cartes « fiches »)
-   • Page d'accueil du Journal : À la une, rubriques, cartes « fiches » beiges (monogramme E.B)
-   • Carte d'identité animée en haut de chaque article + fondu du texte
+   ELKHA.B — JOURNAL (journal-engine-test.js : version magazine)
+   • Page d'accueil du Journal : « À la une » en double page, rubriques, articles en grille de magazine (photos sans cadre)
+   • Ouverture de chaque article en double page (titre + photo), lettrine, citation mise en valeur, ligne de lecture
    • Temps de lecture calculé tout seul à partir du texte de l'article
    • Bouton Fermer des articles
    ───────────────────────────────────────────────────────────────────────
@@ -36,9 +36,11 @@ var SECTIONS = [
 //   section : actifs, besoins ou routine (ou "" pour ne pas l'afficher en carte)
 //   titre   : affiché en majuscules dans la bannière de l'article
 //   question: la phrase sous le titre
-//   photo   : 📷 lien de la photo de la carte, au format PORTRAIT (4:5, comme sur Instagram)
+//   photo   : 📷 lien de la photo de l'article, au format PORTRAIT (4:5, comme sur Instagram)
+//   intro   : (facultatif) deux lignes de présentation, affichées quand l'article est « À la une »
 //   gamme   : (facultatif) "bloom" ou "balance" si l'article parle d'abord d'une gamme
 //             → le petit point et le mot de la gamme prennent sa couleur sur la carte
+//   CITATION : dans ton texte Carrd, un paragraphe seul entre guillemets « … » est mis en valeur tout seul
 //   diagnostic : (facultatif) ajoute le bloc noir « diagnostic » à la fin de l'article
 //                diagnostic: true                → phrase standard
 //                diagnostic: "Ta question ici"   → ta question en grand, puis la phrase standard
@@ -48,6 +50,7 @@ var ARTICLES = [
   { id: "article-niacinamide",         section: "actifs",  gamme: "bloom", titre: "Niacinamide",                question: "Pourquoi tout le monde en parle ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gouttes_de_verre_sur_creme_pale.png?v=1791355188" },
   { id: "article-bakuchiol",           section: "actifs",  gamme: "balance", titre: "Bakuchiol",                question: "Le secret végétal d'une peau plus lisse et plus ferme",
+    intro: "Extrait des graines de Psoralea corylifolia, il agit sur les mêmes signes que le rétinol (rides, fermeté, grain de peau) avec une bien meilleure tolérance.",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elixir_Bakuchiol_sur_pierre_naturelle.png?v=1793807524" },
   { id: "article-acide-hyaluronique",  section: "actifs",  titre: "Acide hyaluronique",         question: "Hydrate-t-il vraiment ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_4.jpg?v=1791354662" },
@@ -82,85 +85,101 @@ var CSS = ""
 + ".ebj *{box-sizing:border-box}"
 + ".ebj a{color:#141414;text-decoration:none}"
 + ".ebj input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}"
-/* Carte « fiche » : beige nacré, vagues fines, monogramme E.B embossé */
-+ ".ebjc{position:relative;display:flex;flex-direction:column;border-radius:16px;overflow:hidden;padding:18px 20px 20px;background:linear-gradient(135deg,#faf8f4 0%,#f3eee6 40%,#e9e1d4 75%,#ddd2c1 100%);border:1px solid rgba(20,20,20,.1);box-shadow:0 16px 36px rgba(60,40,20,.14);transition:transform .35s ease,box-shadow .35s ease}"
-+ ".ebjc:after{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.5) 45%,transparent 58%);mix-blend-mode:soft-light;pointer-events:none}"
-+ ".ebj a.ebjc:hover{transform:translateY(-4px);box-shadow:0 22px 44px rgba(60,40,20,.18)}"
-+ ".ebjc-vg{position:absolute;left:0;right:0;width:100%;top:34px;height:90px;pointer-events:none;opacity:.55}"
-+ ".ebjc-top{position:relative;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}"
-+ ".ebjc-k{white-space:nowrap;font-size:8px;font-weight:700;letter-spacing:.34em;color:rgba(20,20,20,.55);padding-top:8px}"
-+ ".ebjc-mono{width:46px;height:58px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:2px;box-shadow:inset 1px 1px 0 rgba(110,85,60,.38),inset -1px -1px 0 rgba(255,255,255,.95),1px 1px 0 rgba(255,255,255,.95),-1px -1px 0 rgba(110,85,60,.25)}"
-+ ".ebjc-mono span,.ebjc-mono small{color:transparent;background-image:linear-gradient(180deg,#fbf9f5,#e9dfd0 55%,#d9cbb6);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(1px 1px 0 rgba(110,85,60,.42)) drop-shadow(-1px -1px 0 rgba(255,255,255,.95))}"
-+ ".ebjc-mono span{font-size:20px;font-weight:300;line-height:1}.ebjc-mono b{font-weight:800}"
-+ ".ebjc-mono small{font-size:4.5px;font-weight:700;letter-spacing:.5em;padding-left:.5em;margin-top:5px}"
-+ ".ebjc-ph{position:relative;aspect-ratio:4/5;border-radius:11px;overflow:hidden;background:#e6ddd0;box-shadow:0 8px 20px rgba(40,25,15,.14);margin-bottom:16px}"
-+ ".ebjc-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s ease}"
-+ ".ebj a.ebjc:hover .ebjc-ph img{transform:scale(1.04)}"
-+ ".ebjc-n{position:relative;font-size:8.5px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(20,20,20,.55);margin-bottom:6px}"
-+ ".ebjc-n em{font-style:normal}.ebjc-n em.bloom{color:#9a4a4c}.ebjc-n em.balance{color:#4f6b2a}"
-+ ".ebjc-t{position:relative;font-size:19px;font-weight:800;line-height:1.18;margin:0 0 6px;color:#141414}"
-+ ".ebjc-q{position:relative;font-size:12.5px;font-weight:400;line-height:1.5;color:rgba(20,20,20,.75);margin:0 0 16px}"
-+ ".ebjc-ok{white-space:nowrap;position:relative;margin-top:auto;display:flex;align-items:center;gap:8px;font-size:8.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#6e5f4e}"
-+ ".ebjc-ok i{width:6px;height:6px;border-radius:50%;background:#8a7762;box-shadow:0 0 0 3px rgba(138,119,98,.18);flex:none}"
-+ ".ebjc-ok.bloom i{background:#b0675e;box-shadow:0 0 0 3px rgba(176,103,94,.18)}.ebjc-ok.balance i{background:#6f8a2c;box-shadow:0 0 0 3px rgba(111,138,44,.18)}"
-/* À la une : la même carte, en grand */
-+ ".ebj-une{display:block;padding:0 16px;margin:0 0 40px}"
-+ ".ebj-une .ebjc{max-width:260px;margin:0 auto;padding:13px 14px 15px}"
-+ ".ebj-une .ebjc-t{font-size:17px}.ebj-une .ebjc-q{font-size:12px}"
-+ ".ebj-une .ebjc-ph{width:74%;margin:24px auto 14px}.ebj-une .ebjc-vg{top:34px;height:64px;opacity:.75}"
-+ ".ebj-une-tag{display:block;text-align:center;font-size:10px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:#8a8580;margin:0 0 16px}"
-/* Rubriques : texte fin souligné (pas de pastilles) */
-+ ".ebj-filtres{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;padding:0 16px;margin:0 0 34px}"
-+ ".ebj-filtres label{cursor:pointer;font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding-bottom:5px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;opacity:.6}"
-+ ".ebj-sec{margin:0 0 40px}"
-+ ".ebj-sec-titre{display:flex;align-items:center;gap:16px;font-size:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;margin:0 0 18px;padding:0 16px;color:#141414}"
-+ ".ebj-sec-titre:after{content:'';flex:1;height:1px;background:#141414;opacity:.25}"
+/* Article en vignette : la photo sans cadre, le numéro en grand chiffre fin, le texte dessous */
++ ".ebjm{display:block;position:relative}"
++ ".ebjm-ph{position:relative;aspect-ratio:4/5;overflow:visible;background:#e6ddd0}"
++ ".ebjm-ph i{position:absolute;inset:0;overflow:hidden;display:block}"
++ ".ebjm-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s ease}"
++ ".ebj a.ebjm:hover .ebjm-ph img{transform:scale(1.04)}"
++ ".ebjm-n{position:absolute;left:12px;bottom:-12px;font-size:56px;font-weight:200;line-height:1;color:#f5f4f0;letter-spacing:-.02em;z-index:2}"
++ ".ebjm-k{font-size:8.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#8a8478;margin:24px 0 9px}"
++ ".ebjm-k b{font-weight:600}.ebjm-k b.bloom{color:#9a4a4c}.ebjm-k b.balance{color:#4f6b2a}"
++ ".ebjm-t{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;margin:0 0 7px;color:#141414}"
++ ".ebjm-q{font-size:13px;line-height:1.6;margin:0;color:#4a453e}"
++ ".ebjm-m{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:#8a8478;margin:12px 0 0}"
+/* À la une : une double page de magazine */
++ ".ebj-une{display:grid;grid-template-columns:1fr;max-width:1240px;margin:0 auto 70px;align-items:center}"
++ ".ebj-une .ebjm-ph{aspect-ratio:4/5}.ebj-une .ebjm-n{display:none}"
++ ".ebj-une-tx{position:relative;padding:0 22px;margin-top:-56px;z-index:2}"
++ ".ebj-num{width:fit-content;font-size:96px;font-weight:200;line-height:.86;letter-spacing:-.02em;margin:0 0 8px -4px;padding-right:.04em;color:transparent;background:linear-gradient(165deg,#ece6dc 8%,#c9bfaf 45%,#8f8676 92%);-webkit-background-clip:text;background-clip:text}"
+/* signature : le grand numéro prend le dégradé du liseré de sa gamme */
++ ".ebj-num.bloom{background-image:linear-gradient(165deg,#f3dccf 8%,#e3b6a3 38%,#c98a78 66%,#8a3038 95%)}"
++ ".ebj-num.balance{background-image:linear-gradient(165deg,#e6e9cc 8%,#c3cc8f 38%,#a6b965 64%,#4f6b2a 95%)}"
++ ".ebj-une .ebjm-k{margin-top:0}"
++ ".ebj-une-h{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;margin:0;line-height:1.1;color:#141414}"
++ ".ebj-une-q{font-size:17px;font-weight:300;line-height:1.45;margin:14px 0 0;color:#2a2723}"
++ ".ebj-une-p{font-size:13.5px;line-height:1.85;margin:18px 0 0;color:#2a2723;max-width:430px}"
++ ".ebj-lire{display:inline-flex;align-items:center;gap:14px;margin-top:26px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600}"
++ ".ebj-lire:after{content:'';width:46px;height:1px;background:#141414;transition:width .3s ease}"
++ ".ebj a.ebj-une:hover .ebj-lire:after{width:70px}"
++ ".ebj-liser{display:block;width:70px;height:1px;margin:20px 0 0;background:linear-gradient(90deg,#efe9df,#cfc6b8 55%,#8f8676)}"
++ ".ebj-liser.bloom{background:linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)}.ebj-liser.balance{background:linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)}"
+/* Rubriques : texte fin souligné */
++ ".ebj-filtres{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:0 16px;margin:0 0 46px}"
++ ".ebj-filtres label{cursor:pointer;font-size:9.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;opacity:.55}"
++ ".ebj-sec{max-width:1240px;margin:0 auto 70px;padding:0 22px}"
++ ".ebj-sec-titre{display:flex;align-items:baseline;gap:16px;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;margin:0 0 30px;color:#141414}"
++ ".ebj-sec-titre small{font-size:9px;font-weight:500;letter-spacing:.3em;color:#8a8478}"
++ ".ebj-sec-titre:after{content:'';flex:1;height:1px;background:#141414;opacity:.2}"
 + "@keyframes ebjFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}"
-+ ".ebj-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:6px 16px 26px;scroll-padding:0 16px}"
-+ ".ebj-row::-webkit-scrollbar{display:none}"
-+ ".ebj-row .ebjc{flex:0 0 min(43%,190px);scroll-snap-align:start;padding:11px 12px 13px;border-radius:13px;box-shadow:0 10px 24px rgba(60,40,20,.13)}"
-+ ".ebj-row .ebjc-vg{top:30px;height:56px;opacity:.75}"
-+ ".ebj-row .ebjc-top{margin-bottom:10px}"
-+ ".ebj-row .ebjc-k{font-size:6px;letter-spacing:.22em;padding-top:5px}"
-+ ".ebjc-lire{font-weight:inherit}.ebj-row .ebjc-lire{display:none}"
-+ ".ebj-row .ebjc-mono{width:34px;height:43px}.ebj-row .ebjc-mono span{font-size:14.5px}.ebj-row .ebjc-mono small{font-size:3.4px;margin-top:4px}"
-+ ".ebj-row .ebjc-ph{width:72%;margin:22px auto 11px;border-radius:8px;box-shadow:0 6px 14px rgba(40,25,15,.12)}"
-+ ".ebj-row .ebjc-n{font-size:7px;letter-spacing:.22em;margin-bottom:5px}"
-+ ".ebj-row .ebjc-t{font-size:14px;margin-bottom:4px}"
-+ ".ebj-row .ebjc-q{font-size:11px;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}"
-+ ".ebj-row .ebjc-ok{font-size:7px;letter-spacing:.18em;gap:6px}.ebj-row .ebjc-ok i{width:5px;height:5px}"
-+ "@container (min-width:620px){"
-+ ".ebj-une{margin-bottom:56px;padding:0 24px}"
-+ ".ebj-une .ebjc{max-width:none;width:min(640px,100%);display:grid;grid-template-columns:minmax(180px,220px) 1fr;grid-template-rows:auto 1fr;column-gap:30px;padding:24px 28px 26px}"
-+ ".ebj-une .ebjc-top{grid-column:1 / -1}"
-+ ".ebj-une .ebjc-ph{grid-row:2;margin:0;width:auto}"
-+ ".ebj-une .ebjc-body{justify-content:center}"
-+ ".ebj-une .ebjc-t{font-size:24px}.ebj-une .ebjc-q{font-size:14px}"
-+ ".ebj-filtres{margin-bottom:46px;gap:30px}"
-+ ".ebj-sec{margin-bottom:56px}"
-+ ".ebj-sec-titre{padding:0 24px}"
-+ ".ebj-row{gap:22px;padding:6px 24px 26px;scroll-padding:0 24px}"
-+ ".ebj-row .ebjc{flex:0 0 190px}"
+/* téléphone : le premier article en grand, les suivants deux par deux */
++ ".ebj-row{display:grid;grid-template-columns:1fr 1fr;gap:42px 16px;align-items:start}"
++ ".ebj-row .ebjm:first-child{grid-column:1 / -1}"
++ ".ebj-row .ebjm:not(:first-child) .ebjm-t{font-size:12.5px;letter-spacing:.12em}.ebj-row .ebjm:not(:first-child) .ebjm-q{font-size:12px}.ebj-row .ebjm:not(:first-child) .ebjm-n{font-size:42px;bottom:-9px}"
++ "@container (min-width:900px){"
++ ".ebj-une{grid-template-columns:52% 48%;margin-bottom:110px}"
++ ".ebj-une-tx{padding:0 8% 0 9%;margin:0}"
++ ".ebj-num{font-size:150px;margin-left:-6px}.ebjm-k{font-size:9px}"
++ ".ebj-une-h{font-size:44px}.ebj-une-q{font-size:20px}.ebj-une-p{font-size:14px}"
++ ".ebj-filtres{gap:34px;margin-bottom:56px}.ebj-filtres label{font-size:10.5px;letter-spacing:.3em}"
++ ".ebj-sec{padding:0 40px;margin-bottom:110px}.ebj-sec-titre{font-size:28px;margin-bottom:40px}"
++ ".ebj-row{grid-template-columns:1.25fr 1fr 1fr;gap:56px 36px}"
++ ".ebj-row .ebjm:first-child{grid-column:auto;grid-row:span 2}"
++ ".ebj-row .ebjm:first-child .ebjm-t{font-size:21px}.ebj-row .ebjm:first-child .ebjm-n{font-size:90px;bottom:-20px}"
++ ".ebj-row .ebjm:nth-child(2),.ebj-row .ebjm:nth-child(3){margin-top:60px}"
++ ".ebj-row .ebjm:nth-child(2):last-child,.ebj-row .ebjm:nth-child(4):last-child{grid-column:2 / span 2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:1fr repeat(4,auto);column-gap:36px}"
++ ".ebj-row .ebjm:nth-child(2):last-child > *,.ebj-row .ebjm:nth-child(4):last-child > *{grid-column:2}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-ph,.ebj-row .ebjm:nth-child(4):last-child .ebjm-ph{grid-column:1;grid-row:1 / span 5;align-self:start}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-k,.ebj-row .ebjm:nth-child(4):last-child .ebjm-k{grid-row:2;margin-top:0}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-t,.ebj-row .ebjm:nth-child(4):last-child .ebjm-t{grid-row:3}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-q,.ebj-row .ebjm:nth-child(4):last-child .ebjm-q{grid-row:4}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-m,.ebj-row .ebjm:nth-child(4):last-child .ebjm-m{grid-row:5}"
++ ".ebj-row .ebjm:not(:first-child) .ebjm-t{font-size:15px;letter-spacing:.16em}.ebj-row .ebjm:not(:first-child) .ebjm-q{font-size:13px}.ebj-row .ebjm:not(:first-child) .ebjm-n{font-size:64px;bottom:-14px}"
 + "}"
-+ "@container (min-width:1000px){.ebj-sec-titre{padding:0 40px}.ebj-row{padding:6px 40px 26px;scroll-padding:0 40px}}"
-+ ".ebjc-body{position:relative;display:flex;flex-direction:column;flex:1}"
-/* Carte d'identité en haut des articles */
+/* Ouverture de l'article : une double page (le titre à gauche, la photo à droite) */
 + "html{overflow-x:clip}"
-+ ".ebja{position:relative;width:100vw;margin-left:calc(50% - 50vw);background:#f5f4f0;overflow:hidden;font-family:'Montserrat',sans-serif;color:#141414;padding:44px 16px 40px;margin-bottom:30px;box-sizing:border-box}"
-+ ".ebja .ebjc{max-width:560px;margin:0 auto;aspect-ratio:1.586;justify-content:space-between;padding:20px 24px 22px}"
-+ ".ebja .ebjc-mid{position:relative;text-align:center}"
-+ ".ebja .ebjc-n{margin-bottom:8px}"
-+ ".ebja-titre{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;line-height:1.15;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px;color:#141414}"
-+ ".ebja-q{font-size:13.5px;font-weight:400;line-height:1.5;margin:0;color:rgba(20,20,20,.75)}"
-+ ".ebja .ebjc-ok{margin:0}"
-+ "@media (max-width:420px){.ebja .ebjc{aspect-ratio:auto;min-height:230px;gap:16px}.ebja-titre{font-size:20px}}"
-+ "@media (min-width:900px){.ebja{padding:80px 40px 70px}.ebja .ebjc{padding:28px 34px 30px}.ebja-titre{font-size:32px}.ebja-q{font-size:16px}}"
++ ".ebja{position:relative;display:flex;flex-direction:column;width:100vw;margin-left:calc(50% - 50vw);background:#f5f4f0;font-family:'Montserrat',sans-serif;color:#141414;margin-bottom:56px;box-sizing:border-box;text-align:left}"
++ ".ebja-ph{position:relative;order:-1;aspect-ratio:4/5;overflow:hidden;background:#e6ddd0}"
++ ".ebja-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}"
++ ".ebja-tx{position:relative;padding:0 22px;margin-top:-64px;z-index:2}"
++ ".ebja .ebj-num{font-size:84px;margin-bottom:10px}"
++ ".ebja-k{font-size:9px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8a8478;margin:0 0 14px}"
++ ".ebja-k b{font-weight:600}.ebja-k b.bloom{color:#9a4a4c}.ebja-k b.balance{color:#4f6b2a}"
++ ".ebja-titre{font-family:'Montserrat',sans-serif;font-size:31px;font-weight:300;line-height:1.1;letter-spacing:.14em;text-transform:uppercase;margin:0;color:#141414}"
++ ".ebja-q{font-size:17px;font-weight:300;line-height:1.45;margin:14px 0 0;color:#2a2723;max-width:460px}"
++ ".ebja-m{display:flex;gap:22px;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#8a8478;margin:22px 0 0}"
++ "@media (min-width:900px){"
++ ".ebja{display:grid;grid-template-columns:46% 54%;height:min(86vh,760px);min-height:560px;margin-bottom:90px}"
++ ".ebja-tx{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;margin:0;padding:0 8% 0 10%;background:linear-gradient(160deg,#f8f6f1,#eee7db)}"
++ ".ebja-ph{grid-column:2;grid-row:1;aspect-ratio:auto;height:100%}"
++ ".ebja .ebj-num{font-size:120px}"
++ ".ebja-titre{font-size:48px}.ebja-q{font-size:21px}.ebja-m{margin-top:34px}"
++ "}"
+/* Le texte de l'article : lettrine, citation */
++ ".ebj-lettrine:first-letter{float:left;font-size:4.4em;line-height:.85;font-weight:200;margin:.1em .16em 0 -.03em;color:#141414}"
++ ".ebj-cit{margin:46px auto !important;max-width:640px;font-size:22px !important;font-weight:300 !important;line-height:1.45 !important;text-align:center !important;color:#141414 !important}"
++ ".ebj-cit:before,.ebj-cit:after{content:'';display:block;width:60px;height:1px;background:#8f8676;margin:0 auto 26px}"
++ ".ebj-cit:after{margin:26px auto 0}"
++ "@media (min-width:900px){.ebj-cit{font-size:26px !important;margin:56px auto !important}}"
+/* La ligne de lecture, tout en haut de l'écran */
++ ".ebj-prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#efe9df,#cfc6b8 55%,#8f8676);z-index:10000;transition:width .15s linear;pointer-events:none}"
++ ".ebj-prog.bloom{background:linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)}.ebj-prog.balance{background:linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)}"
 /* Animations, rejouées à chaque ouverture d'article */
-+ ".ebja.go .ebjc{animation:ebjaCarte .9s cubic-bezier(.22,.8,.24,1) both}"
-+ ".ebja.go .ebjc-mid{animation:ebjaUp .8s ease .5s both}"
-+ ".ebja.go .ebjc-ok{animation:ebjaUp .7s ease .75s both}"
-+ ".ebja.go ~ *{animation:ebjaFade .9s ease .9s both}"
-+ "@keyframes ebjaCarte{from{opacity:0;transform:translateY(30px) rotate(-2deg)}to{opacity:1;transform:none}}"
++ ".ebja.go .ebja-ph img{animation:ebjaZoom 14s ease-out both}"
++ ".ebja.go .ebja-tx > *{animation:ebjaUp .8s ease both}"
++ ".ebja.go .ebja-tx > *:nth-child(2){animation-delay:.12s}.ebja.go .ebja-tx > *:nth-child(3){animation-delay:.24s}.ebja.go .ebja-tx > *:nth-child(4){animation-delay:.36s}.ebja.go .ebja-tx > *:nth-child(5){animation-delay:.48s}"
++ ".ebja.go ~ *{animation:ebjaFade .9s ease .5s both}"
++ "@keyframes ebjaZoom{from{transform:scale(1.08)}to{transform:none}}"
 + "@keyframes ebjaUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}"
 + "@keyframes ebjaFade{from{opacity:0}to{opacity:1}}"
 /* Bloc diagnostic en fin d'article */
@@ -172,7 +191,7 @@ var CSS = ""
 + ".ebjd-btn{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#000;border:none;border-radius:0;padding:16px 26px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".ebjd-btn:hover{transform:scale(1.03)}"
 + "@media (min-width:900px){.ebjd{padding:84px 40px}.ebjd-q{font-size:28px}}"
-+ "@media (prefers-reduced-motion:reduce){.ebja.go *,.ebja.go ~ *,.ebjc,.ebjc-ph img{animation:none !important;transition:none !important}}"
++ "@media (prefers-reduced-motion:reduce){.ebja.go *,.ebja.go ~ *,.ebjm-ph img{animation:none !important;transition:none !important}}"
 /* Bouton Fermer des articles */
 + ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:#f5f4f0;border:1px solid rgba(20,20,20,.35);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-journal-close.visible{display:flex}"
@@ -200,21 +219,10 @@ function q(t){ return esc(t).replace(/ ([?!:;])/g, '&nbsp;$1'); }
 function nomSection(cle){ for(var i = 0; i < SECTIONS.length; i++){ if(SECTIONS[i].cle === cle) return SECTIONS[i].nom; } return ''; }
 function etiquette(a){ return a.etiquette || nomSection(a.section); }
 function trouverArticle(id){ for(var i = 0; i < ARTICLES.length; i++){ if(ARTICLES[i].id === id) return ARTICLES[i]; } return null; }
-// Vagues fines (comme la carte membre), dessinées une seule fois
-var VAGUES = (function(){
-  var p = '';
-  for(var k = 0; k < 22; k++){
-    var amp = -24 + k * 48 / 21, pts = [];
-    for(var x = -5; x <= 305; x += 6){ pts.push(x + ',' + (45 + amp * Math.sin(2 * Math.PI * x / 300)).toFixed(1)); }
-    p += '<polyline points="' + pts.join(' ') + '" fill="none" stroke="#b9a68c" stroke-width=".5"/>';
-  }
-  return '<svg class="ebjc-vg" viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true">' + p + '</svg>';
-})();
-var MONO = '<div class="ebjc-mono" aria-hidden="true"><span><b>E</b>.B</span><small>PARIS</small></div>';
 function numero(a){
   var n = 0;
   for(var i = 0; i < ARTICLES.length; i++){ n++; if(ARTICLES[i] === a) break; }
-  return 'N° ' + (n < 10 ? '0' : '') + n;
+  return (n < 10 ? '0' : '') + n;
 }
 // Temps de lecture : environ 200 mots par minute, calculé sur le texte de l'article
 function lecture(a){
@@ -224,23 +232,33 @@ function lecture(a){
   return 'Lecture ' + m + ' min';
 }
 function gamme(a){ return (a.gamme === 'bloom' || a.gamme === 'balance') ? a.gamme : ''; }
-function ligneN(a){
+function rub(a){
   var g = gamme(a), et = etiquette(a);
-  return '<span class="ebjc-n">' + numero(a) + (et ? ' · ' + esc(et) : '') + (g ? '<em class="' + g + '"> · ' + (g === 'bloom' ? 'Bloom' : 'Balance') + '</em>' : '') + '</span>';
+  return (et ? esc(et) : '') + (g ? (et ? ' · ' : '') + '<b class="' + g + '">' + (g === 'bloom' ? 'Bloom' : 'Balance') + '</b>' : '');
 }
-function ligneOk(a, lien){
+function photo(a, cls){ return a.photo ? '<img src="' + esc(a.photo) + '" alt="' + esc(a.titre + (a.question ? ' : ' + a.question : '')) + '" loading="' + (cls || 'lazy') + '">' : ''; }
+// Un article en vignette (grille de magazine)
+function vignette(a){
   var l = lecture(a);
-  var txt = esc(l) + (lien ? '<b class="ebjc-lire">' + (l ? ' · ' : '') + esc(lien) + '</b>' : '');
-  return '<span class="ebjc-ok ' + gamme(a) + '"><i></i>' + txt + '</span>';
+  return '<a class="ebjm" href="#' + a.id + '">'
+    + '<div class="ebjm-ph"><i>' + photo(a) + '</i><span class="ebjm-n" aria-hidden="true">' + numero(a) + '</span></div>'
+    + '<p class="ebjm-k">' + rub(a) + '</p>'
+    + '<h4 class="ebjm-t">' + esc(a.titre) + '</h4>'
+    + '<p class="ebjm-q">' + q(a.question) + '</p>'
+    + (l ? '<p class="ebjm-m">' + esc(l) + '</p>' : '') + '</a>';
 }
-function carte(a, tag){
-  return '<' + tag + ' class="ebjc" href="#' + a.id + '">' + VAGUES
-    + '<div class="ebjc-top"><span class="ebjc-k">ELKHA.B · JOURNAL</span>' + MONO + '</div>'
-    + '<div class="ebjc-ph">' + (a.photo ? '<img src="' + esc(a.photo) + '" alt="' + esc(a.titre) + '" loading="lazy">' : '') + '</div>'
-    + '<div class="ebjc-body">' + ligneN(a)
-    + '<h4 class="ebjc-t">' + esc(a.titre) + '</h4>'
-    + '<p class="ebjc-q">' + q(a.question) + '</p>'
-    + ligneOk(a, 'Lire la fiche') + '</div></' + tag + '>';
+// À la une : double page
+function une(a){
+  var l = lecture(a);
+  return '<a class="ebj-une" href="#' + a.id + '">'
+    + '<div class="ebjm-ph"><i>' + photo(a, 'eager') + '</i></div>'
+    + '<div class="ebj-une-tx"><div class="ebj-num ' + gamme(a) + '" aria-hidden="true">' + numero(a) + '</div>'
+    + '<p class="ebjm-k">À la une' + (rub(a) ? ' · ' + rub(a) : '') + '</p>'
+    + '<h2 class="ebj-une-h">' + esc(a.titre) + '</h2>'
+    + '<p class="ebj-une-q">' + q(a.question) + '</p>'
+    + (a.intro ? '<p class="ebj-une-p">' + q(a.intro) + '</p>' : '')
+    + '<span class="ebj-lire">Lire l\'article</span>'
+    + (l ? '<p class="ebjm-m">' + esc(l) + '</p>' : '') + '</div></a>';
 }
 
 /* ─── PAGE D'ACCUEIL DU JOURNAL ─── */
@@ -248,8 +266,8 @@ function construireAccueil(){
   var cibles = document.querySelectorAll('#eb-journal');
   if(!cibles.length) return;
   var html = '<div class="ebj">';
-  var une = trouverArticle(A_LA_UNE);
-  if(une){ html += '<div class="ebj-une"><span class="ebj-une-tag">À la une</span>' + carte(une, 'a') + '</div>'; }
+  var alaune = trouverArticle(A_LA_UNE);
+  if(alaune){ html += une(alaune); }
   html += '<input type="radio" name="ebj-f" id="ebj-f-tout" checked>';
   SECTIONS.forEach(function(s){ html += '<input type="radio" name="ebj-f" id="ebj-f-' + s.cle + '">'; });
   html += '<div class="ebj-filtres"><label for="ebj-f-tout">Tout</label>';
@@ -258,8 +276,8 @@ function construireAccueil(){
   SECTIONS.forEach(function(s){
     var liste = ARTICLES.filter(function(a){ return a.section === s.cle; });
     if(!liste.length) return;
-    html += '<div class="ebj-sec c-' + s.cle + '"><h3 class="ebj-sec-titre">' + esc(s.nom) + '</h3><div class="ebj-row">';
-    liste.forEach(function(a){ html += carte(a, 'a'); });
+    html += '<div class="ebj-sec c-' + s.cle + '"><h3 class="ebj-sec-titre">' + esc(s.nom) + '<small>' + liste.length + ' article' + (liste.length > 1 ? 's' : '') + '</small></h3><div class="ebj-row">';
+    liste.forEach(function(a){ html += vignette(a); });
     html += '</div></div>';
   });
   html += '</div></div>';
@@ -275,13 +293,15 @@ function construireBannieres(){
     var b = document.createElement('div');
     b.className = 'ebja';
     b.setAttribute('data-article', a.id);
-    b.innerHTML = '<div class="ebjc">' + VAGUES
-      + '<div class="ebjc-top"><span class="ebjc-k">ELKHA.B · JOURNAL</span>' + MONO + '</div>'
-      + '<div class="ebjc-mid">' + ligneN(a)
+    var l = lecture(a), g = gamme(a);
+    b.innerHTML = '<div class="ebja-tx"><div class="ebj-num ' + g + '" aria-hidden="true">' + numero(a) + '</div>'
+      + '<p class="ebja-k">' + rub(a) + '</p>'
       + '<h1 class="ebja-titre">' + esc(a.titre) + '</h1>'
-      + '<p class="ebja-q">' + q(a.question) + '</p></div>'
-      + ligneOk(a, '') + '</div>';
+      + '<p class="ebja-q">' + q(a.question) + '</p>'
+      + '<div class="ebja-m">' + (l ? '<span>' + esc(l) + '</span>' : '') + '<span>ELKHA.B Journal</span></div></div>'
+      + '<div class="ebja-ph">' + photo(a, 'eager') + '</div>';
     sec.insertBefore(b, sec.firstChild);
+    mettreEnPage(sec);
     if(a.diagnostic && !sec.querySelector('.ebjd')){
       var d = document.createElement('div');
       d.className = 'ebjd';
@@ -296,6 +316,30 @@ function construireBannieres(){
     }
   });
 }
+// Le texte de l'article : lettrine sur le premier vrai paragraphe, citations « … » mises en valeur
+function mettreEnPage(sec){
+  var ps = sec.querySelectorAll('p'), premier = false;
+  for(var i = 0; i < ps.length; i++){
+    var p = ps[i];
+    if(p.closest('.ebja, .ebjd')) continue;
+    var t = (p.textContent || '').trim();
+    if(/^[«"“].{10,}[»"”]$/.test(t)){ p.classList.add('ebj-cit'); continue; }
+    if(!premier && t.length > 80 && /^[A-Za-zÀ-ÿ]/.test(t)){ p.classList.add('ebj-lettrine'); premier = true; }
+  }
+}
+// La ligne de lecture : elle avance au fil de l'article ouvert
+var prog = null;
+function ligneLecture(){
+  if(!prog){ prog = document.createElement('div'); prog.className = 'ebj-prog'; document.body.appendChild(prog);
+    window.addEventListener('scroll', ligneLecture, { passive: true }); }
+  var h = location.hash.replace('#', ''), a = trouverArticle(h), sec = a && sectionDe(h);
+  if(!sec || !sec.offsetParent){ prog.style.width = '0'; return; }
+  prog.classList.toggle('bloom', gamme(a) === 'bloom'); prog.classList.toggle('balance', gamme(a) === 'balance');
+  var r = sec.getBoundingClientRect(), tot = r.height - window.innerHeight;
+  var p = tot > 0 ? Math.min(1, Math.max(0, -r.top / tot)) : 1;
+  prog.style.width = (p * 100).toFixed(1) + '%';
+}
+
 // Repère automatiquement la bannière du haut du Journal :
 // les éléments Carrd placés au-dessus de la première section (communs à toutes les sections)
 var hautMarque = false;
@@ -385,6 +429,7 @@ function animer(){
   document.documentElement.classList.toggle('eb-article-ouvert', estArticle);
   masquerAuDessus(estArticle ? h : null);
   if(estArticle){ window.scrollTo(0, 0); ajusterLargeur(); setTimeout(ajusterLargeur, 80); setTimeout(ajusterLargeur, 400); }
+  ligneLecture();
   var b = document.querySelector('.ebja[data-article="' + h + '"]');
   if(!b) return;
   rejouer(b);
