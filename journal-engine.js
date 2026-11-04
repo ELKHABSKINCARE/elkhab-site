@@ -1,7 +1,9 @@
+/* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 /* ═══════════════════════════════════════════════════════════════════════
-   ELKHA.B — JOURNAL (journal-engine.js, chargé par le menu du Journal)
-   • Page d'accueil du Journal : À la une, filtres, cartes des articles
-   • Bannière animée en haut de chaque article + fondu du texte
+   ELKHA.B — JOURNAL (journal-engine.js, chargé par le menu du Journal) — version magazine
+   • Page d'accueil du Journal : « À la une » en double page, rubriques, articles en grille de magazine (photos sans cadre)
+   • Ouverture de chaque article en double page (titre + photo), lettrine, citation mise en valeur, ligne de lecture
+   • Temps de lecture calculé tout seul à partir du texte de l'article
    • Bouton Fermer des articles
    ───────────────────────────────────────────────────────────────────────
    ✏️ POUR MODIFIER LE JOURNAL, ON NE TOUCHE QU'À LA PARTIE « RÉGLAGES »
@@ -34,15 +36,22 @@ var SECTIONS = [
 //   section : actifs, besoins ou routine (ou "" pour ne pas l'afficher en carte)
 //   titre   : affiché en majuscules dans la bannière de l'article
 //   question: la phrase sous le titre
-//   photo   : 📷 lien de la photo de la carte (laisse "" pour la vignette beige)
+//   photo   : 📷 lien de la photo de l'article, au format PORTRAIT (4:5, comme sur Instagram)
+//   intro   : (facultatif) deux lignes de présentation, affichées quand l'article est « À la une »
+//   gamme   : (facultatif) "bloom" ou "balance" si l'article parle d'abord d'une gamme
+//             → le petit point et le mot de la gamme prennent sa couleur sur la carte
+//   CITATION : dans ton texte Carrd, un paragraphe seul entre guillemets « … » est mis en valeur tout seul
 //   diagnostic : (facultatif) ajoute le bloc noir « diagnostic » à la fin de l'article
 //                diagnostic: true                → phrase standard
 //                diagnostic: "Ta question ici"   → ta question en grand, puis la phrase standard
 var ARTICLES = [
-  { id: "article-vitaminec",           section: "actifs",  titre: "Vitamine C",                 question: "Pourquoi est-elle devenue incontournable en skincare ?",
+  { id: "article-vitaminec",           section: "actifs",  gamme: "bloom", titre: "Vitamine C",                 question: "Pourquoi est-elle devenue incontournable en skincare ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-cerise-fond-site.png?v=1793617062" },
-  { id: "article-niacinamide",         section: "actifs",  titre: "Niacinamide",                question: "Pourquoi tout le monde en parle ?",
+  { id: "article-niacinamide",         section: "actifs",  gamme: "bloom", titre: "Niacinamide",                question: "Pourquoi tout le monde en parle ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gouttes_de_verre_sur_creme_pale.png?v=1791355188" },
+  { id: "article-bakuchiol",           section: "actifs",  gamme: "balance", titre: "Bakuchiol",                question: "Le secret végétal d'une peau plus lisse et plus ferme",
+    intro: "Extrait des graines de Psoralea corylifolia, il agit sur les mêmes signes que le rétinol (rides, fermeté, grain de peau) avec une bien meilleure tolérance.",
+    photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elixir_Bakuchiol_sur_pierre_naturelle.png?v=1793807524" },
   { id: "article-acide-hyaluronique",  section: "actifs",  titre: "Acide hyaluronique",         question: "Hydrate-t-il vraiment ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_4.jpg?v=1791354662" },
   { id: "article-peau-qui-tiraille",   section: "besoins", titre: "Peau qui tiraille",          question: "Manque de nutrition ou d'hydratation ?",
@@ -72,78 +81,107 @@ window.ebJournalCharge = true;
 
 var CSS = ""
 /* Accueil du Journal */
-+ ".ebj{font-family:'Montserrat',sans-serif;color:#000;width:100vw;max-width:none;margin:0 0 0 calc(50% - 50vw);padding:0 0 30px;box-sizing:border-box;-webkit-tap-highlight-color:transparent;text-align:left}"
++ ".ebj{container-type:inline-size;font-family:'Montserrat',sans-serif;color:#141414;width:100vw;max-width:none;margin:0 0 0 calc(50% - 50vw);padding:0 0 30px;box-sizing:border-box;-webkit-tap-highlight-color:transparent;text-align:left}"
 + ".ebj *{box-sizing:border-box}"
-+ ".ebj a{color:#000;text-decoration:none}"
++ ".ebj a{color:#141414;text-decoration:none}"
 + ".ebj input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}"
-+ ".ebj-tag{display:block;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.55;margin-bottom:8px}"
-+ ".ebj-img{position:relative;overflow:hidden;background:#EBE5DB}"
-+ ".ebj-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}"
-+ ".ebj-img .ebj-num{position:absolute;left:18px;bottom:14px;font-size:44px;font-weight:200;letter-spacing:.02em;opacity:.35}"
-+ ".ebj a:hover .ebj-img img{transform:scale(1.04)}"
-+ ".ebj-une{display:block;margin:0 0 44px}"
-+ ".ebj-une .ebj-img{aspect-ratio:4/5}"
-+ ".ebj-une-txt{padding:18px 20px 0}"
-+ ".ebj-une-titre{font-size:21px;font-weight:600;line-height:1.3;letter-spacing:.05em;text-transform:uppercase;margin:0 0 8px}"
-+ ".ebj-une-q{font-size:15px;font-weight:300;line-height:1.55;margin:0 0 14px}"
-+ ".ebj-lire{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:3px;transition:opacity .2s ease}"
-+ ".ebj a:hover .ebj-lire{opacity:.6}"
-+ ".ebj-filtres{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:0 20px 4px;margin:0 0 30px}"
-+ ".ebj-filtres::-webkit-scrollbar{display:none}"
-+ ".ebj-filtres label{flex:0 0 auto;cursor:pointer;border:1px solid #000;border-radius:999px;padding:9px 12px;font-size:10.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;transition:background .25s ease,color .25s ease,transform .2s ease}"
-+ ".ebj-filtres label:active{transform:scale(.96)}"
-+ ".ebj-sec{margin:0 0 40px}"
-+ ".ebj-sec-titre{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin:0 0 16px;padding:0 20px}"
+/* Article en vignette : la photo sans cadre, le numéro en grand chiffre fin, le texte dessous */
++ ".ebjm{display:block;position:relative}"
++ ".ebjm-ph{position:relative;aspect-ratio:4/5;overflow:visible;background:#e6ddd0}"
++ ".ebjm-ph i{position:absolute;inset:0;overflow:hidden;display:block}"
++ ".ebjm-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s ease}"
++ ".ebj a.ebjm:hover .ebjm-ph img{transform:scale(1.04)}"
++ ".ebjm-n{position:absolute;left:12px;bottom:-12px;font-size:56px;font-weight:200;line-height:1;color:#f5f4f0;letter-spacing:-.02em;z-index:2}"
++ ".ebjm-k{font-size:8.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#8a8478;margin:24px 0 9px}"
++ ".ebjm-k b{font-weight:600}.ebjm-k b.bloom{color:#9a4a4c}.ebjm-k b.balance{color:#4f6b2a}"
++ ".ebjm-t{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;margin:0 0 7px;color:#141414}"
++ ".ebjm-q{font-size:13px;line-height:1.6;margin:0;color:#4a453e}"
++ ".ebjm-m{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:#8a8478;margin:12px 0 0}"
+/* À la une : une double page de magazine */
++ ".ebj-une{display:grid;grid-template-columns:1fr;max-width:1240px;margin:0 auto 70px;align-items:center}"
++ ".ebj-une .ebjm-ph{aspect-ratio:4/5}.ebj-une .ebjm-n{display:none}"
++ ".ebj-une-tx{position:relative;padding:0 22px;margin-top:-56px;z-index:2}"
++ ".ebj-num{width:fit-content;font-size:96px;font-weight:200;line-height:.86;letter-spacing:-.02em;margin:0 0 8px -4px;padding-right:.04em;color:transparent;background:linear-gradient(165deg,#ece6dc 8%,#c9bfaf 45%,#8f8676 92%);-webkit-background-clip:text;background-clip:text}"
+/* signature : le grand numéro prend le dégradé du liseré de sa gamme */
++ ".ebj-num.bloom{background-image:linear-gradient(165deg,#f3dccf 8%,#e3b6a3 38%,#c98a78 66%,#8a3038 95%)}"
++ ".ebj-num.balance{background-image:linear-gradient(165deg,#e6e9cc 8%,#c3cc8f 38%,#a6b965 64%,#4f6b2a 95%)}"
++ ".ebj-une .ebjm-k{margin-top:0}"
++ ".ebj-une-h{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;margin:0;line-height:1.1;color:#141414}"
++ ".ebj-une-q{font-size:17px;font-weight:300;line-height:1.45;margin:14px 0 0;color:#2a2723}"
++ ".ebj-une-p{font-size:13.5px;line-height:1.85;margin:18px 0 0;color:#2a2723;max-width:430px}"
++ ".ebj-lire{display:inline-flex;align-items:center;gap:14px;margin-top:26px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600}"
++ ".ebj-lire:after{content:'';width:46px;height:1px;background:#141414;transition:width .3s ease}"
++ ".ebj a.ebj-une:hover .ebj-lire:after{width:70px}"
++ ".ebj-liser{display:block;width:70px;height:1px;margin:20px 0 0;background:linear-gradient(90deg,#efe9df,#cfc6b8 55%,#8f8676)}"
++ ".ebj-liser.bloom{background:linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)}.ebj-liser.balance{background:linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)}"
+/* Rubriques : texte fin souligné */
++ ".ebj-filtres{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:0 16px;margin:0 0 46px}"
++ ".ebj-filtres label{cursor:pointer;font-size:9.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;opacity:.55}"
++ ".ebj-sec{max-width:1240px;margin:0 auto 70px;padding:0 22px}"
++ ".ebj-sec-titre{display:flex;align-items:baseline;gap:16px;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;margin:0 0 30px;color:#141414}"
++ ".ebj-sec-titre small{font-size:9px;font-weight:500;letter-spacing:.3em;color:#8a8478}"
++ ".ebj-sec-titre:after{content:'';flex:1;height:1px;background:#141414;opacity:.2}"
 + "@keyframes ebjFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}"
-+ ".ebj-row{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 20px 6px;scroll-padding:0 20px}"
-+ ".ebj-row::-webkit-scrollbar{display:none}"
-+ ".ebj-card{flex:0 0 72%;scroll-snap-align:start;display:block}"
-+ ".ebj-card .ebj-img{aspect-ratio:4/5;margin-bottom:12px}"
-+ ".ebj-card-titre{font-size:15px;font-weight:600;margin:0 0 4px}"
-+ ".ebj-card-q{font-size:13px;font-weight:300;line-height:1.55;margin:0}"
-+ "@media (min-width:900px){"
-+ ".ebj-une{margin-bottom:56px}"
-+ ".ebj-une .ebj-img{aspect-ratio:16/10}"
-+ ".ebj-une-txt{padding:24px 22px 0}"
-+ ".ebj-une-titre{font-size:25px}"
-+ ".ebj-une-q{font-size:16px}"
-+ ".ebj-filtres{justify-content:center;gap:8px;padding:0 22px;margin-bottom:46px}"
-+ ".ebj-filtres label{padding:10px 18px;font-size:11.5px;letter-spacing:.08em}"
-+ ".ebj-sec{margin-bottom:60px}"
-+ ".ebj-sec-titre{padding:0 22px}"
-+ ".ebj-row{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;overflow:visible;padding:0}"
-+ ".ebj-card > :not(.ebj-img){padding-left:22px;padding-right:22px}"
-+ ".ebj-card{flex:none}"
+/* téléphone : le premier article en grand, les suivants deux par deux */
++ ".ebj-row{display:grid;grid-template-columns:1fr 1fr;gap:42px 16px;align-items:start}"
++ ".ebj-row .ebjm:first-child{grid-column:1 / -1}"
++ ".ebj-row .ebjm:not(:first-child) .ebjm-t{font-size:12.5px;letter-spacing:.12em}.ebj-row .ebjm:not(:first-child) .ebjm-q{font-size:12px}.ebj-row .ebjm:not(:first-child) .ebjm-n{font-size:42px;bottom:-9px}"
++ "@container (min-width:900px){"
++ ".ebj-une{grid-template-columns:52% 48%;margin-bottom:110px}"
++ ".ebj-une-tx{padding:0 8% 0 9%;margin:0}"
++ ".ebj-num{font-size:150px;margin-left:-6px}.ebjm-k{font-size:9px}"
++ ".ebj-une-h{font-size:44px}.ebj-une-q{font-size:20px}.ebj-une-p{font-size:14px}"
++ ".ebj-filtres{gap:34px;margin-bottom:56px}.ebj-filtres label{font-size:10.5px;letter-spacing:.3em}"
++ ".ebj-sec{padding:0 40px;margin-bottom:110px}.ebj-sec-titre{font-size:28px;margin-bottom:40px}"
++ ".ebj-row{grid-template-columns:1.25fr 1fr 1fr;gap:56px 36px}"
++ ".ebj-row .ebjm:first-child{grid-column:auto;grid-row:span 2}"
++ ".ebj-row .ebjm:first-child .ebjm-t{font-size:21px}.ebj-row .ebjm:first-child .ebjm-n{font-size:90px;bottom:-20px}"
++ ".ebj-row .ebjm:nth-child(2),.ebj-row .ebjm:nth-child(3){margin-top:60px}"
++ ".ebj-row .ebjm:nth-child(2):last-child,.ebj-row .ebjm:nth-child(4):last-child{grid-column:2 / span 2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:1fr repeat(4,auto);column-gap:36px}"
++ ".ebj-row .ebjm:nth-child(2):last-child > *,.ebj-row .ebjm:nth-child(4):last-child > *{grid-column:2}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-ph,.ebj-row .ebjm:nth-child(4):last-child .ebjm-ph{grid-column:1;grid-row:1 / span 5;align-self:start}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-k,.ebj-row .ebjm:nth-child(4):last-child .ebjm-k{grid-row:2;margin-top:0}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-t,.ebj-row .ebjm:nth-child(4):last-child .ebjm-t{grid-row:3}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-q,.ebj-row .ebjm:nth-child(4):last-child .ebjm-q{grid-row:4}"
++ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-m,.ebj-row .ebjm:nth-child(4):last-child .ebjm-m{grid-row:5}"
++ ".ebj-row .ebjm:not(:first-child) .ebjm-t{font-size:15px;letter-spacing:.16em}.ebj-row .ebjm:not(:first-child) .ebjm-q{font-size:13px}.ebj-row .ebjm:not(:first-child) .ebjm-n{font-size:64px;bottom:-14px}"
 + "}"
-/* Grand écran sans image à droite : photo à la une à gauche, texte à droite */
-+ ".ebj{container-type:inline-size}"
-+ "@container (min-width:1000px){"
-+ ".ebj-une{display:grid;grid-template-columns:58% 1fr;align-items:center;gap:48px;padding:0 40px 0 0;margin-bottom:64px}"
-+ ".ebj-une .ebj-img{aspect-ratio:4/3}"
-+ ".ebj-une-txt{padding:0}"
-+ ".ebj-une-titre{font-size:28px}"
-+ ".ebj-une-q{font-size:17px}"
-+ "}"
-/* Bannière des articles */
+/* Ouverture de l'article : une double page (le titre à gauche, la photo à droite) */
 + "html{overflow-x:clip}"
-+ ".ebja{position:relative;width:100vw;margin-left:calc(50% - 50vw);background:#EBE5DB;overflow:hidden;font-family:'Montserrat',sans-serif;color:#000;text-align:center;padding:64px 28px 54px;margin-bottom:30px;box-sizing:border-box}"
-+ ".ebja-in{max-width:720px;margin:0 auto}"
-+ ".ebja-tag{display:block;font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}"
-+ ".ebja-titre{font-family:'Montserrat',sans-serif;font-size:25px;font-weight:600;line-height:1.25;letter-spacing:.05em;text-transform:uppercase;margin:0 0 12px;color:#000}"
-+ ".ebja-q{font-size:15px;font-weight:300;line-height:1.6;margin:0}"
-+ ".ebja-trait{display:block;width:46px;height:1px;background:#000;margin:26px auto 0;opacity:.6}"
++ ".ebja{position:relative;display:flex;flex-direction:column;width:100vw;margin-left:calc(50% - 50vw);background:#f5f4f0;font-family:'Montserrat',sans-serif;color:#141414;margin-bottom:56px;box-sizing:border-box;text-align:left}"
++ ".ebja-ph{position:relative;order:-1;aspect-ratio:4/5;overflow:hidden;background:#e6ddd0}"
++ ".ebja-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}"
++ ".ebja-tx{position:relative;padding:0 22px;margin-top:-64px;z-index:2}"
++ ".ebja .ebj-num{font-size:84px;margin-bottom:10px}"
++ ".ebja-k{font-size:9px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8a8478;margin:0 0 14px}"
++ ".ebja-k b{font-weight:600}.ebja-k b.bloom{color:#9a4a4c}.ebja-k b.balance{color:#4f6b2a}"
++ ".ebja-titre{font-family:'Montserrat',sans-serif;font-size:31px;font-weight:300;line-height:1.1;letter-spacing:.14em;text-transform:uppercase;margin:0;color:#141414}"
++ ".ebja-q{font-size:17px;font-weight:300;line-height:1.45;margin:14px 0 0;color:#2a2723;max-width:460px}"
++ ".ebja-m{display:flex;gap:22px;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:#8a8478;margin:22px 0 0}"
++ "@media (min-width:900px){"
++ ".ebja{display:grid;grid-template-columns:46% 54%;height:min(86vh,760px);min-height:560px;margin-bottom:90px}"
++ ".ebja-tx{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;margin:0;padding:0 8% 0 10%;background:linear-gradient(160deg,#f8f6f1,#eee7db)}"
++ ".ebja-ph{grid-column:2;grid-row:1;aspect-ratio:auto;height:100%}"
++ ".ebja .ebj-num{font-size:120px}"
++ ".ebja-titre{font-size:48px}.ebja-q{font-size:21px}.ebja-m{margin-top:34px}"
++ "}"
+/* Le texte de l'article : lettrine, citation */
++ ".ebj-lettrine:first-letter{float:left;font-size:4.4em;line-height:.85;font-weight:200;margin:.1em .16em 0 -.03em;color:#141414}"
++ ".ebj-cit{margin:46px auto !important;max-width:640px;font-size:22px !important;font-weight:300 !important;line-height:1.45 !important;text-align:center !important;color:#141414 !important}"
++ ".ebj-cit:before,.ebj-cit:after{content:'';display:block;width:60px;height:1px;background:#8f8676;margin:0 auto 26px}"
++ ".ebj-cit:after{margin:26px auto 0}"
++ "@media (min-width:900px){.ebj-cit{font-size:26px !important;margin:56px auto !important}}"
+/* La ligne de lecture, tout en haut de l'écran */
++ ".ebj-prog{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#efe9df,#cfc6b8 55%,#8f8676);z-index:10000;transition:width .15s linear;pointer-events:none}"
++ ".ebj-prog.bloom{background:linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)}.ebj-prog.balance{background:linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)}"
 /* Animations, rejouées à chaque ouverture d'article */
-+ ".ebja.go{animation:ebjaSlide .9s cubic-bezier(.22,.8,.24,1) both}"
-+ ".ebja.go .ebja-tag{animation:ebjaUp .7s ease .45s both}"
-+ ".ebja.go .ebja-titre{animation:ebjaUp .8s ease .6s both}"
-+ ".ebja.go .ebja-q{animation:ebjaUp .8s ease .75s both}"
-+ ".ebja.go .ebja-trait{animation:ebjaTrait .8s ease 1s both}"
-+ ".ebja.go ~ *{animation:ebjaFade .9s ease 1s both}"
-+ "@keyframes ebjaSlide{from{transform:translateX(100%)}to{transform:none}}"
++ ".ebja.go .ebja-ph img{animation:ebjaZoom 14s ease-out both}"
++ ".ebja.go .ebja-tx > *{animation:ebjaUp .8s ease both}"
++ ".ebja.go .ebja-tx > *:nth-child(2){animation-delay:.12s}.ebja.go .ebja-tx > *:nth-child(3){animation-delay:.24s}.ebja.go .ebja-tx > *:nth-child(4){animation-delay:.36s}.ebja.go .ebja-tx > *:nth-child(5){animation-delay:.48s}"
++ ".ebja.go ~ *{animation:ebjaFade .9s ease .5s both}"
++ "@keyframes ebjaZoom{from{transform:scale(1.08)}to{transform:none}}"
 + "@keyframes ebjaUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}"
-+ "@keyframes ebjaTrait{from{width:0}to{width:46px}}"
 + "@keyframes ebjaFade{from{opacity:0}to{opacity:1}}"
-+ "@media (min-width:900px){.ebja{padding:100px 40px 84px}.ebja-titre{font-size:38px}.ebja-q{font-size:18px}}"
 /* Bloc diagnostic en fin d'article */
 + ".ebjd{position:relative;width:100vw;margin:44px 0 10px calc(50% - 50vw);background:#141414;color:#fff;text-align:center;font-family:'Montserrat',sans-serif;padding:60px 28px;box-sizing:border-box}"
 + ".ebjd-in{max-width:620px;margin:0 auto}"
@@ -153,9 +191,9 @@ var CSS = ""
 + ".ebjd-btn{display:inline-flex;align-items:center;justify-content:center;background:#fff;color:#000;border:none;border-radius:0;padding:16px 26px;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".ebjd-btn:hover{transform:scale(1.03)}"
 + "@media (min-width:900px){.ebjd{padding:84px 40px}.ebjd-q{font-size:28px}}"
-+ "@media (prefers-reduced-motion:reduce){.ebja.go,.ebja.go *,.ebja.go ~ *{animation:none !important}}"
++ "@media (prefers-reduced-motion:reduce){.ebja.go *,.ebja.go ~ *,.ebjm-ph img{animation:none !important;transition:none !important}}"
 /* Bouton Fermer des articles */
-+ ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.5);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
++ ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:#f5f4f0;border:1px solid rgba(20,20,20,.35);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-journal-close.visible{display:flex}"
 + ".eb-journal-close:hover{transform:scale(1.1)}"
 + ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal,.eb-article-ouvert .eb-cache-article{display:none !important}"
@@ -164,11 +202,11 @@ var CSS = ""
 
 /* Filtres : une règle par section */
 SECTIONS.forEach(function(s){
-  CSS += "#ebj-f-" + s.cle + ":checked ~ .ebj-filtres label[for='ebj-f-" + s.cle + "']{background:#000;color:#fff}"
+  CSS += "#ebj-f-" + s.cle + ":checked ~ .ebj-filtres label[for='ebj-f-" + s.cle + "']{border-bottom-color:#141414;opacity:1}"
       +  "#ebj-f-" + s.cle + ":checked ~ .ebj-secs .ebj-sec:not(.c-" + s.cle + "){display:none}"
       +  "#ebj-f-" + s.cle + ":checked ~ .ebj-secs .c-" + s.cle + "{animation:ebjFade .5s ease both}";
 });
-CSS += "#ebj-f-tout:checked ~ .ebj-filtres label[for='ebj-f-tout']{background:#000;color:#fff}"
+CSS += "#ebj-f-tout:checked ~ .ebj-filtres label[for='ebj-f-tout']{border-bottom-color:#141414;opacity:1}"
     +  "#ebj-f-tout:checked ~ .ebj-secs .ebj-sec{animation:ebjFade .5s ease both}";
 
 var st = document.createElement('style');
@@ -181,8 +219,46 @@ function q(t){ return esc(t).replace(/ ([?!:;])/g, '&nbsp;$1'); }
 function nomSection(cle){ for(var i = 0; i < SECTIONS.length; i++){ if(SECTIONS[i].cle === cle) return SECTIONS[i].nom; } return ''; }
 function etiquette(a){ return a.etiquette || nomSection(a.section); }
 function trouverArticle(id){ for(var i = 0; i < ARTICLES.length; i++){ if(ARTICLES[i].id === id) return ARTICLES[i]; } return null; }
-function vignette(photo, num, alt){
-  return '<div class="ebj-img">' + (photo ? '<img src="' + esc(photo) + '" alt="' + esc(alt) + '" loading="lazy">' : '<span class="ebj-num">' + num + '</span>') + '</div>';
+function numero(a){
+  var n = 0;
+  for(var i = 0; i < ARTICLES.length; i++){ n++; if(ARTICLES[i] === a) break; }
+  return (n < 10 ? '0' : '') + n;
+}
+// Temps de lecture : environ 200 mots par minute, calculé sur le texte de l'article
+function lecture(a){
+  var sec = sectionDe(a.id); if(!sec) return '';
+  var t = (sec.textContent || '').replace(/\s+/g, ' ').trim(); if(!t) return '';
+  var m = Math.max(1, Math.round(t.split(' ').length / 200));
+  return 'Lecture ' + m + ' min';
+}
+function gamme(a){ return (a.gamme === 'bloom' || a.gamme === 'balance') ? a.gamme : ''; }
+function rub(a){
+  var g = gamme(a), et = etiquette(a);
+  return (et ? esc(et) : '') + (g ? (et ? ' · ' : '') + '<b class="' + g + '">' + (g === 'bloom' ? 'Bloom' : 'Balance') + '</b>' : '');
+}
+function photo(a, cls){ return a.photo ? '<img src="' + esc(a.photo) + '" alt="' + esc(a.titre + (a.question ? ' : ' + a.question : '')) + '" loading="' + (cls || 'lazy') + '">' : ''; }
+// Un article en vignette (grille de magazine)
+function vignette(a){
+  var l = lecture(a);
+  return '<a class="ebjm" href="#' + a.id + '">'
+    + '<div class="ebjm-ph"><i>' + photo(a) + '</i><span class="ebjm-n" aria-hidden="true">' + numero(a) + '</span></div>'
+    + '<p class="ebjm-k">' + rub(a) + '</p>'
+    + '<h4 class="ebjm-t">' + esc(a.titre) + '</h4>'
+    + '<p class="ebjm-q">' + q(a.question) + '</p>'
+    + (l ? '<p class="ebjm-m">' + esc(l) + '</p>' : '') + '</a>';
+}
+// À la une : double page
+function une(a){
+  var l = lecture(a);
+  return '<a class="ebj-une" href="#' + a.id + '">'
+    + '<div class="ebjm-ph"><i>' + photo(a, 'eager') + '</i></div>'
+    + '<div class="ebj-une-tx"><div class="ebj-num ' + gamme(a) + '" aria-hidden="true">' + numero(a) + '</div>'
+    + '<p class="ebjm-k">À la une' + (rub(a) ? ' · ' + rub(a) : '') + '</p>'
+    + '<h2 class="ebj-une-h">' + esc(a.titre) + '</h2>'
+    + '<p class="ebj-une-q">' + q(a.question) + '</p>'
+    + (a.intro ? '<p class="ebj-une-p">' + q(a.intro) + '</p>' : '')
+    + '<span class="ebj-lire">Lire l\'article</span>'
+    + (l ? '<p class="ebjm-m">' + esc(l) + '</p>' : '') + '</div></a>';
 }
 
 /* ─── PAGE D'ACCUEIL DU JOURNAL ─── */
@@ -190,40 +266,25 @@ function construireAccueil(){
   var cibles = document.querySelectorAll('#eb-journal');
   if(!cibles.length) return;
   var html = '<div class="ebj">';
-  var une = trouverArticle(A_LA_UNE);
-  if(une){
-    html += '<a class="ebj-une" href="#' + une.id + '">'
-         +  vignette(une.photo, '', une.titre)
-         +  '<div class="ebj-une-txt"><span class="ebj-tag">À la une' + (etiquette(une) ? ' · ' + esc(etiquette(une)) : '') + '</span>'
-         +  '<h2 class="ebj-une-titre">' + esc(une.titre) + '</h2>'
-         +  '<p class="ebj-une-q">' + q(une.question) + '</p>'
-         +  '<span class="ebj-lire">Lire l\'article →</span></div></a>';
-  }
+  var alaune = trouverArticle(A_LA_UNE);
+  if(alaune){ html += une(alaune); }
   html += '<input type="radio" name="ebj-f" id="ebj-f-tout" checked>';
   SECTIONS.forEach(function(s){ html += '<input type="radio" name="ebj-f" id="ebj-f-' + s.cle + '">'; });
   html += '<div class="ebj-filtres"><label for="ebj-f-tout">Tout</label>';
   SECTIONS.forEach(function(s){ html += '<label for="ebj-f-' + s.cle + '">' + esc(s.nom) + '</label>'; });
   html += '</div><div class="ebj-secs">';
-  var n = 0;
   SECTIONS.forEach(function(s){
     var liste = ARTICLES.filter(function(a){ return a.section === s.cle; });
     if(!liste.length) return;
-    html += '<div class="ebj-sec c-' + s.cle + '"><h3 class="ebj-sec-titre">' + esc(s.nom) + '</h3><div class="ebj-row">';
-    liste.forEach(function(a){
-      n++;
-      html += '<a class="ebj-card" href="#' + a.id + '">'
-           +  vignette(a.photo, 'N°' + (n < 10 ? '0' : '') + n, a.titre)
-           +  '<span class="ebj-tag">' + esc(s.nom) + '</span>'
-           +  '<h4 class="ebj-card-titre">' + esc(a.titre) + '</h4>'
-           +  '<p class="ebj-card-q">' + q(a.question) + '</p></a>';
-    });
+    html += '<div class="ebj-sec c-' + s.cle + '"><h3 class="ebj-sec-titre">' + esc(s.nom) + '<small>' + liste.length + ' article' + (liste.length > 1 ? 's' : '') + '</small></h3><div class="ebj-row">';
+    liste.forEach(function(a){ html += vignette(a); });
     html += '</div></div>';
   });
   html += '</div></div>';
   for(var i = 0; i < cibles.length; i++){ cibles[i].innerHTML = html; }
 }
 
-/* ─── BANNIÈRES DES ARTICLES ─── */
+/* ─── CARTES D'IDENTITÉ DES ARTICLES ─── */
 function sectionDe(id){ return document.getElementById(id + '-section') || document.querySelector('section#' + id); }
 function construireBannieres(){
   ARTICLES.forEach(function(a){
@@ -232,19 +293,22 @@ function construireBannieres(){
     var b = document.createElement('div');
     b.className = 'ebja';
     b.setAttribute('data-article', a.id);
-    b.innerHTML = '<div class="ebja-in">'
-      + (etiquette(a) ? '<span class="ebja-tag">' + esc(etiquette(a)) + '</span>' : '')
+    var l = lecture(a), g = gamme(a);
+    b.innerHTML = '<div class="ebja-tx"><div class="ebj-num ' + g + '" aria-hidden="true">' + numero(a) + '</div>'
+      + '<p class="ebja-k">' + rub(a) + '</p>'
       + '<h1 class="ebja-titre">' + esc(a.titre) + '</h1>'
       + '<p class="ebja-q">' + q(a.question) + '</p>'
-      + '<span class="ebja-trait"></span></div>';
+      + '<div class="ebja-m">' + (l ? '<span>' + esc(l) + '</span>' : '') + '<span>ELKHA.B Journal</span></div></div>'
+      + '<div class="ebja-ph">' + photo(a, 'eager') + '</div>';
     sec.insertBefore(b, sec.firstChild);
+    mettreEnPage(sec);
     if(a.diagnostic && !sec.querySelector('.ebjd')){
       var d = document.createElement('div');
       d.className = 'ebjd';
-      d.innerHTML = '<div class="ebjd-in"><span class="ebjd-tag">Diagnostic de peau</span>'
+      d.innerHTML = '<div class="ebjd-in"><span class="ebjd-tag">Skin ID — ELKHA.B</span>'
         + (typeof a.diagnostic === 'string' ? '<p class="ebjd-q">' + q(a.diagnostic) + '</p><p class="ebjd-p">Votre peau a des choses à vous dire.</p>'
                                              : '<p class="ebjd-q">Votre peau a des choses à vous dire.</p><p class="ebjd-p"></p>')
-        + '<button type="button" class="ebjd-btn">2 minutes pour l\'écouter</button></div>';
+        + '<button type="button" class="ebjd-btn">Découvrir mon Skin ID</button></div>';
       d.querySelector('.ebjd-btn').addEventListener('click', function(){
         if(typeof window.ebDiagOpen === 'function'){ window.ebDiagOpen(); }
       });
@@ -252,6 +316,30 @@ function construireBannieres(){
     }
   });
 }
+// Le texte de l'article : lettrine sur le premier vrai paragraphe, citations « … » mises en valeur
+function mettreEnPage(sec){
+  var ps = sec.querySelectorAll('p'), premier = false;
+  for(var i = 0; i < ps.length; i++){
+    var p = ps[i];
+    if(p.closest('.ebja, .ebjd')) continue;
+    var t = (p.textContent || '').trim();
+    if(/^[«"“].{10,}[»"”]$/.test(t)){ p.classList.add('ebj-cit'); continue; }
+    if(!premier && t.length > 80 && /^[A-Za-zÀ-ÿ]/.test(t)){ p.classList.add('ebj-lettrine'); premier = true; }
+  }
+}
+// La ligne de lecture : elle avance au fil de l'article ouvert
+var prog = null;
+function ligneLecture(){
+  if(!prog){ prog = document.createElement('div'); prog.className = 'ebj-prog'; document.body.appendChild(prog);
+    window.addEventListener('scroll', ligneLecture, { passive: true }); }
+  var h = location.hash.replace('#', ''), a = trouverArticle(h), sec = a && sectionDe(h);
+  if(!sec || !sec.offsetParent){ prog.style.width = '0'; return; }
+  prog.classList.toggle('bloom', gamme(a) === 'bloom'); prog.classList.toggle('balance', gamme(a) === 'balance');
+  var r = sec.getBoundingClientRect(), tot = r.height - window.innerHeight;
+  var p = tot > 0 ? Math.min(1, Math.max(0, -r.top / tot)) : 1;
+  prog.style.width = (p * 100).toFixed(1) + '%';
+}
+
 // Repère automatiquement la bannière du haut du Journal :
 // les éléments Carrd placés au-dessus de la première section (communs à toutes les sections)
 var hautMarque = false;
@@ -341,6 +429,7 @@ function animer(){
   document.documentElement.classList.toggle('eb-article-ouvert', estArticle);
   masquerAuDessus(estArticle ? h : null);
   if(estArticle){ window.scrollTo(0, 0); ajusterLargeur(); setTimeout(ajusterLargeur, 80); setTimeout(ajusterLargeur, 400); }
+  ligneLecture();
   var b = document.querySelector('.ebja[data-article="' + h + '"]');
   if(!b) return;
   rejouer(b);
