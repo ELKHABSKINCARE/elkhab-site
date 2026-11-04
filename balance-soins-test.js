@@ -94,11 +94,18 @@
   //    lien    = le lien Shopify d'une vidéo   (ou photo = le lien Shopify d'une photo)
   //    avant   = la vidéo se place juste AVANT ce soin  (ou apres = juste APRÈS ce soin)
   //    format  = "carre" (prend la place d'un soin) ou "large" (16/9, prend la place de deux soins)
+  //    carte   = "gauche" ou "droite" : sur ordinateur, la photo devient un bandeau d'un bord à l'autre de l'écran,
+  //              et le soin (avant / apres) est présenté sur une carte beige posée dessus, de ce côté
+  //    texte   = (facultatif) un texte posé sur la vidéo : { k: petit titre, t: titre, p: texte, soin: soin du lien entre [crochets] }
   //    Pour retirer une vidéo : supprimer sa ligne entière.
   var VIDEOS = [
-    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
-    { lien: "https://cdn.shopify.com/videos/c/o/v/52f23379a6b1413d8cce9388c42a0139.mp4", apres: "active-lift", format: "carre", alt: "Soin Balance ELKHA.B en vidéo" },
-    { photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Pipette_elixir_bakuchiol.png", avant: "bakuchiol-elixir", format: "large", alt: "Pipette de Bakuchiol Elixir ELKHA.B, huile au bakuchiol, sur fond de feuillage" }
+    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", carte: "droite", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
+    { lien: "https://cdn.shopify.com/videos/c/o/v/9e337d160bbb42caa508774899eeb9a8.mp4", apres: "active-lift", carte: "droite", format: "carre", alt: "Active Lift ELKHA.B Balance, sérum aux peptides, en vidéo",
+      // ✏️ texte posé sur la vidéo (facultatif) : petit titre, titre, texte ; [Active Lift] devient un lien vers la fiche du soin
+      texte: { k: "Zoom sur un actif", t: "Les peptides, alliés de la fermeté.",
+               p: "Au cœur des soins dédiés aux signes de l'âge, les peptides accompagnent la peau pour améliorer visiblement son aspect lisse et ferme. Découvrez [Active Lift], notre sérum pensé pour cibler les premiers signes de perte de fermeté.",
+               soin: "active-lift" } },
+    { photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Pipette_elixir_bakuchiol.png", avant: "bakuchiol-elixir", carte: "gauche", format: "large", alt: "Pipette de Bakuchiol Elixir ELKHA.B, huile au bakuchiol, sur fond de feuillage" }
   ];
 
   // Les 5 niveaux d’intensité (du plus doux au plus fort)
@@ -244,6 +251,17 @@
   + ".ebs-vid-large .ebs-vbox{aspect-ratio:16 / 9}"
   + ".ebs-vbox video,.ebs-vbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}"
   + ".filtre .ebs-vid{display:none}"
+  + ".ebs-bc{display:none}"
+  // texte posé sur la vidéo : beige, sans encadré, sur un léger voile sombre venu du bas (pour rester lisible)
+  + ".ebs-vid-texte .ebs-vbox{aspect-ratio:4 / 5}"
+  + ".ebs-vbox:has(.ebs-vtx):after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(18,24,16,.66) 0%,rgba(18,24,16,.38) 34%,rgba(18,24,16,0) 62%);pointer-events:none}"
+  + ".ebs-vtx{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:0 22px 24px;font-family:'Montserrat',sans-serif;color:#f6f1e7;text-align:left;opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}"
+  + ".ebs-vtx.vu{opacity:1;transform:none}"
+  + ".ebs-vtx .k{display:block;font-size:9px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;margin:0 0 10px;color:rgba(246,241,231,.85)}"
+  + ".ebs-vtx strong{display:block;font-size:21px;font-weight:400;line-height:1.25;letter-spacing:.01em;margin:0 0 10px;color:#fff}"
+  + ".ebs-vtx .p{display:block;font-size:12.5px;font-weight:400;line-height:1.6;max-width:430px;color:rgba(246,241,231,.94)}"
+  + ".ebs-vtx a{color:#fff;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;font-weight:500}"
+  + "@media (prefers-reduced-motion:reduce){.ebs-vtx{opacity:1;transform:none;transition:none}}"
   // la photo ou la vidéo sert de séparation : pas de trait juste en dessous
   + ".avec-media + .ebs-h div{border-top:0 !important;padding-top:0 !important}.avec-media + .ebs-h:before{display:none !important}.avec-media + .ebs-h{margin-bottom:6px !important}"
   // si une photo de soin ne se charge pas, son nom (texte caché) ne s'affiche pas sur le fond
@@ -299,9 +317,26 @@
   +   ".ebs-c2 .ebs-vid{width:50%}.ebs-c3 .ebs-vid{width:33.333%}"
   +   ".ebs-vid-large{width:50%}.ebs-c2 .ebs-vid-large{width:100%}.ebs-c3 .ebs-vid-large{width:66.666%}"
   // la vidéo carrée prend la place de deux soins : une vraie respiration ; le soin voisin se centre à sa hauteur
-  +   ".ebs-vid-carre{width:50%}.ebs-c2 .ebs-vid-carre{width:100%}.ebs-c3 .ebs-vid-carre{width:66.666%}"
-  +   ".ebs-voisin{align-self:center}"
-  +   ".ebs-vid-large .ebs-vbox{margin-top:calc(5.21% - 6px)}"
+  +   ".ebs-vid-carre{width:50%}.ebs-c2 .ebs-vid-carre{width:50%}.ebs-c3 .ebs-vid-carre{width:50%}"
+  // même taille que la vidéo de Bloom : la moitié de la largeur, 520 px de haut ; le soin d'en face est agrandi et centré
+  +   ".ebs-vid-large,.ebs-c2 .ebs-vid-large,.ebs-c3 .ebs-vid-large{width:50%}"
+  +   ".ebs-vbox,.ebs-vid-large .ebs-vbox,.ebs-vid-texte .ebs-vbox{aspect-ratio:auto;height:520px}"
+  +   ".ebs-vid-large .ebs-vbox{margin-top:0}"
+  +   ".ebs-voisin,.ebs-c2 .ebs-voisin,.ebs-c3 .ebs-voisin{align-self:center;width:50%}"
+  +   ".ebs-voisin .ebs-ph{width:min(430px,100%);margin:0 auto}"
+  +   ".ebs-vtx{padding:0 40px 38px}.ebs-vtx strong{font-size:26px}.ebs-vtx .p{font-size:13.5px}"
+  +   ".ebs-vid.ebs-bande,.ebs-c2 .ebs-vid.ebs-bande,.ebs-c3 .ebs-vid.ebs-bande{width:100%;flex:0 0 100%;padding:0 0 84px}"
+  +   ".ebs-bande .ebs-vbox{height:520px}"
+  +   ".ebs-bande .ebs-vtx{right:auto;width:46%;padding:0 0 44px}"
+  +   ".ebs-bande .ebs-vbox:has(.ebs-vtx):after{background:linear-gradient(90deg,rgba(18,24,16,.62) 0%,rgba(18,24,16,.42) 32%,rgba(18,24,16,0) 58%)}"
+  +   ".ebs-bc{display:block;position:absolute;z-index:2;top:86px;width:360px;box-sizing:border-box;padding:20px 24px 26px;background:" + REGLAGES.fondSite + ";border:1px solid #ddd7cb;text-align:center;text-decoration:none;color:#111;font-family:'Montserrat',sans-serif}"
+  +   ".ebs-bc img{display:block;width:100%;height:330px;object-fit:contain;object-position:50% 88%;margin:0 0 18px}"
+  +   ".ebs-bc .n{display:block;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}"
+  +   ".ebs-bc .a{display:block;font-size:11px;margin-top:7px;opacity:.85}"
+  +   ".ebs-bc .p{display:block;font-size:10.5px;margin-top:4px;opacity:.85}"
+  +   ".ebs-bc .d{display:inline-block;margin-top:16px;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
+  +   ".ebs-bc:hover .d{opacity:.6}"
+  +   ".ebs-voisin{display:none}.filtre .ebs-voisin{display:block}"
   // ordinateur : la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
   +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
   +   ".avec-amb .ebs-amb{order:-1;flex:0 0 50%;width:50% !important;margin:0 0 40px !important}"
@@ -338,7 +373,18 @@
       var media = v.lien
         ? '<video muted loop playsinline preload="none" data-src="' + esc(v.lien) + '" aria-label="' + esc(v.alt || '') + '"></video>'
         : '<img src="' + esc(src(v.photo, 1400)) + '" alt="' + esc(v.alt || '') + '" loading="lazy" decoding="async">';
-      return '<figure class="ebs-vid ebs-vid-' + (v.format === 'large' ? 'large' : 'carre') + '"><div class="ebs-vbox">' + media + '</div></figure>';
+      var tx = '';
+      if(v.texte){
+        var T = v.texte, para = esc(T.p || '').replace(/\[([^\]]+)\]/g, function(m, nom){ return T.soin ? '<a href="' + esc(REGLAGES.lienFiche + T.soin) + '" data-fiche="' + esc(T.soin) + '">' + nom + '</a>' : nom; });
+        tx = '<figcaption class="ebs-vtx">' + (T.k ? '<span class="k">' + esc(T.k) + '</span>' : '') + (T.t ? '<strong>' + esc(T.t) + '</strong>' : '') + (para ? '<span class="p">' + para + '</span>' : '') + '</figcaption>';
+      }
+      var carte = '', s = SOINS[id];
+      if(v.carte && s){
+        carte = '<a class="ebs-bc" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" aria-label="' + esc(s.nom) + '">'
+          + '<img src="' + esc(src(s.photo, 700)) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
+          + '<span class="n">' + esc(s.nom) + '</span><span class="a">' + esc(s.actifs) + '</span><span class="p">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span><span class="d">Découvrir</span></a>';
+      }
+      return '<figure class="ebs-vid ebs-vid-' + (v.format === 'large' ? 'large' : 'carre') + (tx ? ' ebs-vid-texte' : '') + (carte ? ' ebs-bande ebs-carte-' + (v.carte === 'gauche' ? 'g' : 'd') : '') + '"><div class="ebs-vbox">' + media + tx + '</div>' + carte + '</figure>';
     }).join('');
   }
 
@@ -382,7 +428,7 @@
   // Vidéos : elles ne se chargent qu'à l'approche (la page reste rapide), jouent quand on les voit, s'arrêtent sinon
   (function(){
     var vids = root.querySelectorAll('.ebs-vid video'); if(!vids.length) return;
-    function jouer(v){ if(!v.src) v.src = v.getAttribute('data-src'); var p = v.play(); if(p && p.catch) p.catch(function(){}); }
+    function jouer(v){ if(!v.src) v.src = v.getAttribute('data-src'); var p = v.play(); if(p && p.catch) p.catch(function(){}); var t = v.parentNode.querySelector('.ebs-vtx'); if(t) setTimeout(function(){ t.classList.add('vu'); }, 400); }
     if(!('IntersectionObserver' in window)){ vids.forEach(jouer); return; }
     var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting) jouer(e.target); else if(e.target.src) e.target.pause(); }); }, { rootMargin: '300px 0px' });
     vids.forEach(function(v){ io.observe(v); });
@@ -444,7 +490,7 @@
       if(getComputedStyle(f).display === 'none') return;
       var r = b.getBoundingClientRect(); if(!r.width) return;
       var h = r.height, g = r.left, d = r.right;
-      if(window.innerWidth < 900){ g = L; d = R; }
+      if(window.innerWidth < 900 || f.classList.contains('ebs-bande')){ g = L; d = R; }
       else {
         var grp = f.parentElement.getBoundingClientRect();
         if(r.left + r.width / 2 < grp.left + grp.width / 2) g = L; else d = R;
@@ -453,6 +499,11 @@
       b.style.setProperty('height', (window.innerWidth < 900 ? (d - g) * r.height / r.width : h) + 'px');
       b.style.setProperty('width', (d - g) + 'px');
       b.style.setProperty('margin-left', (g - r.left) + 'px');
+      if(f.classList.contains('ebs-bande') && window.innerWidth >= 900){
+        var fl = root.querySelector('.ebs-flow').getBoundingClientRect(), fr = f.getBoundingClientRect(), bc = f.querySelector('.ebs-bc'), tx = f.querySelector('.ebs-vtx'), m = 24;
+        if(bc){ bc.style.left = f.classList.contains('ebs-carte-g') ? (fl.left + m - fr.left) + 'px' : ''; bc.style.right = f.classList.contains('ebs-carte-d') ? (fr.right - fl.right + m) + 'px' : ''; }
+        if(tx){ if(f.classList.contains('ebs-carte-g')){ tx.style.left = 'auto'; tx.style.right = (R - fl.right + m) + 'px'; } else { tx.style.right = 'auto'; tx.style.left = (fl.left - g + m) + 'px'; } }
+      }
     });
   }
   function largeurs(){ largeurBloc(); auBord(); }
