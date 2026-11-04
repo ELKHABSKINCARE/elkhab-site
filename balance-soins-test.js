@@ -99,8 +99,8 @@
   //    texte   = (facultatif) un texte posé sur la vidéo : { k: petit titre, t: titre, p: texte, soin: soin du lien entre [crochets] }
   //    Pour retirer une vidéo : supprimer sa ligne entière.
   var VIDEOS = [
-    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", carte: "droite", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
-    { lien: "https://cdn.shopify.com/videos/c/o/v/9e337d160bbb42caa508774899eeb9a8.mp4", apres: "active-lift", carte: "droite", format: "carre", alt: "Active Lift ELKHA.B Balance, sérum aux peptides, en vidéo",
+    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
+    { lien: "https://cdn.shopify.com/videos/c/o/v/9e337d160bbb42caa508774899eeb9a8.mp4", apres: "active-lift", format: "carre", alt: "Active Lift ELKHA.B Balance, sérum aux peptides, en vidéo",
       // ✏️ texte posé sur la vidéo (facultatif) : petit titre, titre, texte ; [Active Lift] devient un lien vers la fiche du soin
       texte: { k: "Zoom sur un actif", t: "Les peptides, alliés de la fermeté.",
                p: "Au cœur des soins dédiés aux signes de l'âge, les peptides accompagnent la peau pour améliorer visiblement son aspect lisse et ferme. Découvrez [Active Lift], notre sérum pensé pour cibler les premiers signes de perte de fermeté.",
@@ -320,9 +320,11 @@
   +   ".ebs-vid-carre{width:50%}.ebs-c2 .ebs-vid-carre{width:50%}.ebs-c3 .ebs-vid-carre{width:50%}"
   // même taille que la vidéo de Bloom : la moitié de la largeur, 520 px de haut ; le soin d'en face est agrandi et centré
   +   ".ebs-vid-large,.ebs-c2 .ebs-vid-large,.ebs-c3 .ebs-vid-large{width:50%}"
-  +   ".ebs-vbox,.ebs-vid-large .ebs-vbox,.ebs-vid-texte .ebs-vbox{aspect-ratio:auto;height:520px}"
+  +   ".ebs-vid-carre:not(.ebs-bande),.ebs-c2 .ebs-vid-carre:not(.ebs-bande),.ebs-c3 .ebs-vid-carre:not(.ebs-bande){width:40%}"
+  +   ".ebs-vid-carre:not(.ebs-bande) .ebs-vbox{aspect-ratio:1 / 1;height:auto}"
+  +   ".ebs-vid-large:not(.ebs-bande) .ebs-vbox{aspect-ratio:16 / 9;height:auto}"
   +   ".ebs-vid-large .ebs-vbox{margin-top:0}"
-  +   ".ebs-voisin,.ebs-c2 .ebs-voisin,.ebs-c3 .ebs-voisin{align-self:center;width:50%}"
+  +   ".ebs-voisin,.ebs-c2 .ebs-voisin,.ebs-c3 .ebs-voisin{align-self:center;width:60%}"
   +   ".ebs-voisin .ebs-ph{width:min(430px,100%);margin:0 auto}"
   +   ".ebs-vtx{padding:0 40px 38px}.ebs-vtx strong{font-size:26px}.ebs-vtx .p{font-size:13.5px}"
   +   ".ebs-vid.ebs-bande,.ebs-c2 .ebs-vid.ebs-bande,.ebs-c3 .ebs-vid.ebs-bande{width:100%;flex:0 0 100%;padding:0 0 84px}"
@@ -336,7 +338,7 @@
   +   ".ebs-bc .p{display:block;font-size:10.5px;margin-top:4px;opacity:.85}"
   +   ".ebs-bc .d{display:inline-block;margin-top:16px;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
   +   ".ebs-bc:hover .d{opacity:.6}"
-  +   ".ebs-voisin{display:none}.filtre .ebs-voisin{display:block}"
+  +   ".ebs-voisin-bande{display:none}.filtre .ebs-voisin-bande{display:block}"
   // ordinateur : la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
   +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
   +   ".avec-amb .ebs-amb{order:-1;flex:0 0 50%;width:50% !important;margin:0 0 40px !important}"
@@ -406,7 +408,7 @@
     var avecMedia = e.soins.some(function(id){ return videosPres(id, 'avant') || videosPres(id, 'apres'); });
     h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + (avecMedia ? ' avec-media' : '') + '">' + e.soins.map(function(id){
       var av = videosPres(id, 'avant'), ap = videosPres(id, 'apres'), v = vignette(id, e);
-      if(av || ap) v = v.replace('<a class="ebs-card"', '<a class="ebs-card ebs-voisin"');
+      if(av || ap) v = v.replace('<a class="ebs-card"', '<a class="ebs-card ebs-voisin' + (/ebs-bande/.test(av + ap) ? ' ebs-voisin-bande' : '') + '"');
       return av + v + ap;
     }).join('');
     if(ambCote){
@@ -496,7 +498,7 @@
         if(r.left + r.width / 2 < grp.left + grp.width / 2) g = L; else d = R;
       }
       b.style.setProperty('aspect-ratio', 'auto');
-      b.style.setProperty('height', (window.innerWidth < 900 ? (d - g) * r.height / r.width : h) + 'px');
+      b.style.setProperty('height', (window.innerWidth < 900 || !f.classList.contains('ebs-bande') ? (d - g) * r.height / r.width : h) + 'px');
       b.style.setProperty('width', (d - g) + 'px');
       b.style.setProperty('margin-left', (g - r.left) + 'px');
       if(f.classList.contains('ebs-bande') && window.innerWidth >= 900){
