@@ -135,7 +135,7 @@
   + ".ebr-av>.ebr-g,.ebr-av>.ebr-f,.ebr-av>.ebr-h{max-width:1080px;margin-left:auto;margin-right:auto}"
   + ".ebr-av>.ebr-f{margin-bottom:44px}"
   + ".ebr-bande{position:absolute;left:44px;top:0;bottom:0;width:136px;pointer-events:none}"
-  + ".ebr-bande-in{position:sticky;top:88px;height:calc(100vh - 128px);overflow:hidden;border-radius:3px;background:#e7ddd1;box-shadow:0 24px 40px -26px rgba(70,55,35,.45)}"
+  + ".ebr-bande-in{position:absolute;left:0;right:0;top:0;height:calc(100vh - 100px);will-change:transform;overflow:hidden;border-radius:3px;background:#e7ddd1;box-shadow:0 24px 40px -26px rgba(70,55,35,.45)}"
   + ".ebr-bande video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}"
   + ".ebr-bande video.ok{opacity:1}"
   + ".ebr-vide{grid-column:1/-1;text-align:center;font-size:13px;color:#4a453e;padding:30px 0}"
@@ -155,7 +155,7 @@
   // avec la bande vidéo : une seule carte par rangée, un peu plus grande
   +   "#eb-routines.ebr-av{padding-left:calc(10px + 15vw + 14px);padding-right:14px}"
   +   ".ebr-bande{left:10px;width:15vw}"
-  +   ".ebr-bande-in{top:76px;height:calc(100vh - 100px);height:calc(100svh - 100px);border-radius:2px}"
+  +   ".ebr-bande-in{height:calc(100vh - 100px);height:calc(100svh - 100px);border-radius:2px}"
   +   "#eb-routines.ebr-av .ebr-h h2{font-size:17px;letter-spacing:.2em;padding-left:.2em}"
   +   ".ebr-av .ebr-f{gap:5px;margin-bottom:24px}"
   +   ".ebr-av .ebr-g{grid-template-columns:1fr;gap:16px}"
@@ -271,6 +271,12 @@
       // la bande et les cartes vont d'un bord à l'autre de l'écran, quel que soit l'écran
       function cale(){ root.style.marginLeft = ''; var l = root.getBoundingClientRect().left; if(Math.abs(l) > .5) root.style.marginLeft = (parseFloat(getComputedStyle(root).marginLeft) - l) + 'px'; cadre(); }
       cale(); addEventListener('resize', cale); addEventListener('load', cale);
+      // la règle accompagne la cliente tout le long des routines (Carrd empêche le « reste en place » classique, on le fait ici)
+      var bande = root.querySelector('.ebr-bande'), fen = root.querySelector('.ebr-bande-in'), att = false;
+      function suivre(){ att = false; var r = bande.getBoundingClientRect(), h = fen.offsetHeight, haut = tel() ? 76 : 76;
+        var y = Math.max(0, Math.min(haut - r.top, r.height - h)); fen.style.transform = 'translateY(' + Math.round(y) + 'px)'; }
+      function demander(){ if(!att){ att = true; requestAnimationFrame(suivre); } }
+      addEventListener('scroll', demander, { passive: true }); addEventListener('resize', demander); suivre();
       // la vidéo ne se charge qu'à l'approche des routines, pour garder la page rapide
       function montrer(){ vid.classList.add('ok'); }
       function jouer(){ var p = vid.play(); if(p && p.catch) p.catch(function(){ ['touchstart', 'scroll', 'click'].forEach(function(ev){ addEventListener(ev, function relance(){ removeEventListener(ev, relance); vid.play().catch(function(){}); }, { passive: true }); }); }); }
