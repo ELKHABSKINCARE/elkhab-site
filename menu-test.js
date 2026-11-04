@@ -153,6 +153,8 @@ var LOUPE='<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.4"
 function construire(){
   var nav=document.querySelector('.eb-navbar'), ov=document.getElementById('ebOverlay'), burger=document.getElementById('ebBurger');
   if(!nav || !ov || !burger){ return false; }
+  // la barre dessinée d'avance dans la page (liens, carte Skin ID) est remplacée à l'identique par la version cliquable
+  [].forEach.call(nav.querySelectorAll('.ebm-pre'),function(x){ x.parentNode.removeChild(x); });
   var st=document.createElement('style'); st.textContent=CSS; document.head.appendChild(st);
 
   var gauche=nav.children[0], droite=nav.children[2];
