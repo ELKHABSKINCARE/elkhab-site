@@ -13,7 +13,7 @@
     espaceMenu: 64,          // hauteur du menu fixe
     fondSite: "#f5f4f0",     // couleur exacte du fond du site
     dureePhoto: 5.5,         // secondes d'affichage de chaque photo de la bannière
-    dureeFondu: 1.6,         // secondes du fondu entre deux photos
+    dureeFondu: 1.0,         // secondes du fondu entre deux photos
     versionPhotos: 1         // +1 si une photo remplacée dans Shopify ne se met pas à jour
   };
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
@@ -22,13 +22,13 @@
   + "#eb-acc{font-family:'Montserrat',sans-serif;color:#111;text-align:center;width:100%;-webkit-tap-highlight-color:transparent}"
   + "html,body{overflow-x:clip}"
   // la page reste cachée le temps que sa mise en forme arrive (pas de grandes photos en vrac au chargement)
-  + "html #eb-acc.eba-pret,html #eb-acc.eba-pret>*{opacity:1;animation:none;transition:opacity .45s ease}html .eb-acc-suite{display:none}"
+  + "html #eb-acc.eba-pret,html #eb-acc.eba-pret>*{opacity:1;animation:none;transition:opacity .3s ease}html .eb-acc-suite{display:none}"
   + "#eb-acc *{box-sizing:border-box}#eb-acc a{color:inherit;text-decoration:none}"
   + "#eb-acc h1,#eb-acc h2,#eb-acc h3,#eb-acc p{margin:0;font-family:'Montserrat',sans-serif}"
   // ── 1. Bannière : photos en fondu, texte à gauche sur un voile du fond du site
   + ".eba-ban{position:relative;height:clamp(600px,100svh,860px);overflow:hidden;background:" + F + "}"
-  + ".eba-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity " + REGLAGES.dureeFondu + "s ease,transform " + (REGLAGES.dureePhoto + REGLAGES.dureeFondu * 2) + "s linear}"
-  + ".eba-slides img.on{opacity:1;transform:scale(1)}"
+  + ".eba-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity " + REGLAGES.dureeFondu + "s ease}"
+  + ".eba-slides img.on{opacity:1}"
   + ".eba-ban:after{content:'';position:absolute;z-index:1;top:0;bottom:0;left:0;width:56%;background:linear-gradient(90deg,rgba(" + FR + ",.8) 0%,rgba(" + FR + ",.62) 40%,rgba(" + FR + ",.22) 74%,rgba(" + FR + ",0) 100%);pointer-events:none}"
   + ".eba-ban:before{content:'';position:absolute;z-index:1;left:0;right:0;top:0;height:120px;background:linear-gradient(180deg,rgba(" + FR + ",.4),rgba(" + FR + ",0));pointer-events:none}"
   + ".eba-bt{position:absolute;z-index:2;left:0;top:0;bottom:0;width:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:" + REGLAGES.espaceMenu + "px 4% 0 6%}"
@@ -91,7 +91,7 @@
   + ".eba-rang::-webkit-scrollbar{display:none}"
   + ".eba-pc{display:block;scroll-snap-align:start;text-align:center;color:#111}"
   + ".eba-pph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto}"
-  + ".eba-pph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 93%;opacity:0;transition:opacity .6s ease,transform .4s ease}"
+  + ".eba-pph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 93%;opacity:0;transition:transform .4s ease}"
   + ".eba-pph img.pret{opacity:1}"
   + ".eba-pph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
   + ".eba-pc:hover .eba-pph img{transform:translateY(-3px)}"
@@ -154,7 +154,7 @@
   + ".eba-sbtn:hover{background:#e6e1d8}"
   + "#eb-acc .eba-sr{font-size:10.5px;font-weight:300;letter-spacing:.06em;color:#a9a294;margin:16px 0 0}"
   // la carte
-  + ".eba-carte{position:relative;display:block;width:min(470px,100%);aspect-ratio:700 / 442;margin:0 auto;border-radius:18px;overflow:hidden;color:#111;cursor:pointer;background:linear-gradient(135deg,#f6efe9 0%,#efe9df 50%,#e3e8da 100%);box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.25) inset;transform:rotate(-4deg);animation:ebaFlotte 7s ease-in-out infinite;transition:box-shadow .4s ease}"
+  + ".eba-carte{position:relative;display:block;width:min(470px,100%);aspect-ratio:700 / 442;margin:0 auto;border-radius:18px;overflow:hidden;color:#111;cursor:pointer;background:linear-gradient(135deg,#f6efe9 0%,#efe9df 50%,#e3e8da 100%);box-shadow:0 30px 60px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.25) inset;transform:rotate(-4deg);transform:rotate(-4deg);transition:box-shadow .4s ease}"
   + ".eba-carte:hover{box-shadow:0 36px 70px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.3) inset}"
   + "@keyframes ebaFlotte{0%,100%{transform:rotate(-4deg) translateY(0)}50%{transform:rotate(-3deg) translateY(-8px)}}"
   + ".eba-carte:before{content:'';position:absolute;inset:0;background:repeating-radial-gradient(ellipse at 50% -30%,rgba(140,120,110,0) 0 10px,rgba(140,120,110,.10) 10px 11px);opacity:.6}"
@@ -167,7 +167,7 @@
   + ".eba-cc i{font-style:normal;color:#c9c1b3}"
   + ".eba-cf{position:absolute;left:34%;top:56%;font-size:clamp(9px,1.05vw,15px);letter-spacing:.3em;font-weight:600}"
   + ".eba-cl{position:absolute;left:7%;bottom:11%;font-size:clamp(7px,.75vw,10.5px);letter-spacing:.24em;font-weight:600;color:#9b4a46}"
-  + ".eba-cl:before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:#c9a39b;margin-right:10px;box-shadow:0 0 0 4px rgba(201,163,155,.3);animation:ebaPouls 1.8s ease-in-out infinite}"
+  + ".eba-cl:before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:#c9a39b;margin-right:10px;box-shadow:0 0 0 4px rgba(201,163,155,.3)}"
   + "@keyframes ebaPouls{50%{box-shadow:0 0 0 7px rgba(201,163,155,.05)}}"
   + ".eba-cv{position:absolute;right:3%;top:6%;bottom:6%;writing-mode:vertical-rl;font-size:clamp(30px,4.2vw,58px);font-weight:800;letter-spacing:.06em;color:rgba(255,255,255,.55);text-shadow:0 1px 0 rgba(0,0,0,.06)}"
   + "@media (max-width:699px){.eba-sid{margin-top:84px}.eba-sin{grid-template-columns:1fr;padding:64px 26px 70px;gap:44px;text-align:center}.eba-sg{margin:22px auto 0}#eb-acc .eba-sp{margin:20px auto 0;font-size:13.5px}#eb-acc .eba-sh{font-size:28px}.eba-carte{width:92%}.eba-csk{font-size:7vw}.eba-ct{font-size:2vw}.eba-cc{font-size:9vw}.eba-cf{font-size:2.6vw}.eba-cl{font-size:2vw}.eba-cv{font-size:10vw}}"
@@ -453,7 +453,20 @@
       .catch(function(){ clearTimeout(secours); img.classList.add('brut'); });
     }
   
-    root.querySelectorAll('.eba-pph img[data-h]').forEach(retravailler);
+    // photos des soins phares déjà préparées (fond du site, même échelle) : elles s'affichent tout de suite, sans calcul
+    var PRETES = {
+      'file_000000000e1481f585b2ee37b40be0d3.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-radiance-c-serum.webp',
+      'Lumi-Veil_B2_Flacon.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-lumi-veil-b2.webp',
+      'file_00000000c27082109ec53e33d47ac1b1.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-luminescence-nuit.webp',
+      'balance-cellular-reveal-flacon-site-v6.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-cellular-reveal.webp',
+      'balance-bright-control-flacon-site-v6.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-bright-control.webp'
+    };
+    root.querySelectorAll('.eba-pph img[data-h]').forEach(function(img){
+      var nom = brute(img).split('/').pop(), prete = PRETES[nom];
+      if(!prete) return retravailler(img);   // une nouvelle photo : préparée sur place, comme avant
+      img.onerror = function(){ img.onerror = null; img.classList.remove('pret'); retravailler(img); };
+      img.loading = 'eager'; img.src = prete; img.classList.add('pret');
+    });
     // flèches des rangées qui défilent (routines sur ordinateur)
     root.querySelectorAll('.eba-fl').forEach(function(fl){
       var r = fl.previousElementSibling, g = fl.querySelector('[data-s="-1"]'), d = fl.querySelector('[data-s="1"]');
@@ -481,11 +494,6 @@
       }
     } catch(err){}
 
-    // ── Apparition douce des sections quand la cliente descend
-    var blocs = root.querySelectorAll('.eba-sec>.eba-k,.eba-sec>.eba-t,.eba-gc,.eba-une,.eba-sin>div,.eba-bes,.eba-rang,.eba-ugc,.eba-hi');
-    if('IntersectionObserver' in window){
-      var obs = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vu'); obs.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-      blocs.forEach(function(b, n){ b.classList.add('eba-entre'); if(b.classList.contains('eba-gc')) b.style.transitionDelay = (n % 2 ? .15 : 0) + 's'; obs.observe(b); });
-    }
+    // (pas d'apparition animée des sections : tout est là dès l'arrivée)
   }
 })();
