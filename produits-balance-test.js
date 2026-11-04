@@ -130,13 +130,13 @@ var BALANCE = {
     inci: "hydra-balance",
     avis: "Hydra Balance",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-miniature-v6.jpg?v=20261103",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon-v6.jpg?v=20261103",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon-v6.jpg?v=20261103",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon-v7.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -395,13 +395,13 @@ var BALANCE = {
     inci: "active-lift",
     avis: "Active Lift",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-miniature-v8.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-1-boite-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-1-boite-flacon-v8.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-2-flacon-v7.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-2-flacon-v8.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -928,7 +928,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v8.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v9.png"
       ]
     },
     routine: {
@@ -1020,7 +1020,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-apaisante-v7.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-apaisante-v8.png"
       ]
     },
     routine: {

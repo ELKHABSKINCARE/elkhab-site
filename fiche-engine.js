@@ -216,13 +216,13 @@
   //    [hauteur réelle en cm, photo du flacon sur le fond du site] — les petits soins restent petits
   var ECHELLE = {
     "fusion-balance": [12.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-flacon-site-v6.png"],
-    "hydra-balance": [10.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v6.png?v=20261103"],
+    "hydra-balance": [10.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v7.png"],
     "calm-balance-jour": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site-v6.png"],
     "calm-balance-nuit": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site-v6.png"],
     "ceramide-night-restore": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site-v6.png"],
     "cellular-eye-restore": [8.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v6.png"],
     "cellular-renew": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site-v6.png"],
-    "active-lift": [9.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v7.png"],
+    "active-lift": [9.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v8.png"],
     "age-lift": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site-v6.png"],
     "eye-lift": [8.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site-v7.png"],
     "cellular-reveal": [10.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site-v6.png"],
