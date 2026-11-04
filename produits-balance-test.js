@@ -32,7 +32,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_CALM_JOUR_3.png?v=1793810533",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_CALM_JOUR_4.png?v=1793810536"
       ]
     },
     routine: {
@@ -85,7 +88,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d91c1c53-6ad3-40e7-b6af-8bd6fc4320aa.png?v=1793810582"
       ]
     },
     routine: {
@@ -137,7 +141,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-2-flacon-v7.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_68d4e2b1-4b7a-408e-b982-bdd0859e8f36.png?v=1793813457"
       ]
     },
     routine: {
@@ -245,7 +250,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_89f24ff3-7586-4d35-b23e-1dc66528ab55.png?v=1793811289"
       ]
     },
     routine: {
@@ -297,7 +303,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_ed684b00-a269-4809-aa95-f2c2b730d913.png?v=1793811843",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Comparatif_peau_avant_et_apres.png?v=1793811844"
       ]
     },
     routine: {
@@ -350,7 +359,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_3f77e7a5-3a2d-4ba0-974e-7b4578b2cc9b.png?v=1793811380"
       ]
     },
     routine: {
@@ -455,7 +465,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Texture_rose_soyeuse_et_brillante.png?v=1793809129",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gros_plan_realiste_d_un_oeil_souriant.png?v=1793809130"
       ]
     },
     routine: {
@@ -508,7 +521,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v7.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_e85beec6-d44a-46d8-8f0d-f3c33891593d.png?v=1793812462",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_a609f46c-afd4-4fee-a227-53091d01d39d.png?v=1793812463"
       ]
     },
     routine: {
@@ -560,7 +576,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon-v7.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_BAKUCHIOL.png?v=1793809224",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_macro_realiste_au_septum_dore.png?v=1793809225"
       ]
     },
     routine: {
@@ -613,7 +632,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_78c56c59-cbdf-43d7-ab9e-6648bdb6ce80.png?v=1793814159",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_SOPT_CONTROL_2.png?v=1793813315"
       ]
     },
     routine: {
@@ -666,7 +688,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon-v7.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_SPOT_CONTROL_3.png?v=1793813315",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_SOPT_CONTROL_2.png?v=1793813315"
       ]
     },
     routine: {
@@ -719,7 +744,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-1-flacon-v6.jpg",
         // 📷 2. DOS DU FLACON (composition)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-2-dos-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_ef8e4805-83a7-4864-81ac-eb869d05f1d1.png?v=1793813096",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gros_plan_beaute_peau_radieuse.png?v=1793813098"
       ]
     },
     routine: {
@@ -772,7 +800,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_AHA_PEEL.png?v=1793809180"
       ]
     },
     routine: {
@@ -825,7 +854,10 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-2-flacon-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_cbb6f776-9ef2-4a7b-b89e-d6bf4745c47a.png?v=1793811094",
+        // 📷 4. VISAGE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Comparaison_avant-apres_du_front.png?v=1793811027"
       ]
     },
     routine: {
@@ -879,7 +911,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-1-flacon-v6.jpg",
         // 📷 2. DOS DU FLACON (composition)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-2-dos-v6.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_monochrome_d_un_visage_ruisselant.png?v=1793810187"
       ]
     },
     routine: {
