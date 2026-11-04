@@ -47,6 +47,8 @@ var ARTICLES = [
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-cerise-fond-site.png?v=1793617062" },
   { id: "article-niacinamide",         section: "actifs",  gamme: "bloom", titre: "Niacinamide",                question: "Pourquoi tout le monde en parle ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gouttes_de_verre_sur_creme_pale.png?v=1791355188" },
+  { id: "article-bakuchiol",           section: "actifs",  gamme: "balance", titre: "Bakuchiol",                question: "Le secret végétal d'une peau plus lisse et plus ferme",
+    photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Elixir_Bakuchiol_sur_pierre_naturelle.png?v=1793807524" },
   { id: "article-acide-hyaluronique",  section: "actifs",  titre: "Acide hyaluronique",         question: "Hydrate-t-il vraiment ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Design_sans_titre_4.jpg?v=1791354662" },
   { id: "article-peau-qui-tiraille",   section: "besoins", titre: "Peau qui tiraille",          question: "Manque de nutrition ou d'hydratation ?",
