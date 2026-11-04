@@ -44,12 +44,20 @@
     skinIdTitre: "Vous hésitez entre deux routines ?",
     skinIdTexte: "Le Skin ID analyse votre peau en quelques questions et vous indique la routine qui lui correspond.",
     // l'économie s'affiche au dos de la carte quand elle atteint au moins ce montant (en euros)
-    economieMini: 3
+    economieMini: 3,
+    // le texte « La routine juste pour votre peau » se place après cette carte, comme une respiration (0 = en bas de page)
+    respirationApres: 3,
+    // la bande vidéo à gauche des routines (laisser "" pour ne pas en mettre)
+    video: "https://cdn.shopify.com/videos/c/o/v/75987c1af93f418486a16e6b5ed2ba6e.mp4",
+    // cadrage de la vidéo dans la bande : "gauche-droite haut-bas" (50% = centre)
+    cadrageOrdi: "50% 40%",
+    cadrageTel: "50% 40%"
   };
   // ─────────────────────────── FIN DES RÉGLAGES ───────────────────────────
 
-  var COUL = { bloom: { k: "#a5604f", deg: "linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)" },
-               balance: { k: "#5f7444", deg: "linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)" } };
+  // les cartes sont toutes beige : la couleur vient des flacons ; la gamme est écrite en taupe
+  var NEUTRE = { k: "#8a8173", deg: "linear-gradient(90deg,#efe9df,#cfc6b8 55%,#8f8676)" };
+  var COUL = { bloom: NEUTRE, balance: NEUTRE };
 
   var CSS = ""
   + "#eb-routines{font-family:'Montserrat',sans-serif;color:#111;max-width:1080px;margin:0 auto;padding:64px 0 40px}"
@@ -65,10 +73,9 @@
   // grille
   + ".ebr-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px;align-items:stretch;text-align:left}"
   + ".ebr-c{position:relative;perspective:1600px}"
-  + ".ebr-c[hidden],.ebr-sid[hidden]{display:none}"
+  + ".ebr-c[hidden],.ebr-sid[hidden],.ebr-intro[hidden]{display:none}"
   + ".ebr-c{display:flex;flex-direction:column}.ebr-in{display:grid;flex:1}"
-  + ".ebr-fa{grid-area:1/1;position:relative;border-radius:20px;padding:24px 24px 22px;display:flex;flex-direction:column;background:linear-gradient(180deg,#f8f5ef 0%,#f4ede4 38%,#ebdccd 76%,#e2cab6 100%);box-shadow:0 28px 50px -28px rgba(70,55,35,.45),inset 0 1px 0 rgba(255,255,255,.8);backface-visibility:hidden}"
-  + ".ebr-c.balance .ebr-fa{background:linear-gradient(180deg,#f7f5ef 0%,#f0f0e6 38%,#e1e5d5 76%,#d1d9c2 100%)}"
+  + ".ebr-fa{grid-area:1/1;position:relative;border-radius:20px;padding:24px 24px 22px;display:flex;flex-direction:column;background:linear-gradient(180deg,#f9f7f2 0%,#f4f0e8 55%,#ede6db 100%);box-shadow:0 22px 44px -30px rgba(70,55,35,.38),inset 0 1px 0 rgba(255,255,255,.85);backface-visibility:hidden}"
   + ".ebr-dos{visibility:hidden}"
   + ".ebr-c.vue .ebr-dos{visibility:visible;animation:ebrTourne .5s ease}"
   + ".ebr-c.vue .ebr-rec{visibility:hidden}"
@@ -83,10 +90,10 @@
   + ".ebr-mono span{font-size:17px;font-weight:300;line-height:1}.ebr-mono b{font-weight:800}"
   + ".ebr-mono small{font-size:4px;font-weight:700;letter-spacing:.5em;padding-left:.5em;margin-top:4px}"
   // recto
-  + ".ebr-ph{aspect-ratio:1/1;margin:16px 0 18px;border-radius:12px;overflow:hidden;background:#f5f4f0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}"
+  + ".ebr-ph{aspect-ratio:1/1;margin:16px 0 18px;border-radius:12px;overflow:hidden;background:#f5f4f0}"
   + ".ebr-ph img{color:transparent;width:100%;height:100%;object-fit:cover;object-position:50% 54%;transform:scale(.9);display:block;transition:transform .8s ease}"
   + ".ebr-rec:hover .ebr-ph img{transform:scale(.94)}"
-  + ".ebr-k{font-size:9.5px;letter-spacing:.32em;font-weight:600;text-transform:uppercase}"
+  + ".ebr-k{font-size:9.5px;letter-spacing:.32em;font-weight:500;text-transform:uppercase}"
   + "#eb-routines h3.ebr-n{font-family:'Montserrat',sans-serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:8px 0 6px;line-height:1.35;color:#111}"
   + ".ebr-n .nb{white-space:nowrap}"
   + ".ebr-gl{height:2px;width:56px;margin:2px 0 12px}"
@@ -107,14 +114,30 @@
   + ".ebr-liens{display:flex;justify-content:space-between;margin-top:12px}"
   + ".ebr-liens button{font-family:'Montserrat',sans-serif;background:none;border:0;padding:4px 0;cursor:pointer;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#6b655c;text-decoration:underline;text-underline-offset:3px}"
   // rappel Skin ID
-  + ".ebr-sid{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:34px 40px;border-radius:20px;background:linear-gradient(120deg,#f2e6da,#f6f2ea 50%,#e3e7d8);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}"
-  + "#eb-routines .ebr-sid h3{font-family:'Montserrat',sans-serif;font-size:15px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin:0 0 8px;color:#111}"
-  + "#eb-routines .ebr-sid p{font-size:13px;line-height:1.6;color:#2a2723;margin:0;max-width:560px}"
-  + ".ebr-sid button{flex:none;font-family:'Montserrat',sans-serif;background:#111;color:#fff;border:0;padding:15px 22px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}"
+  // rappel Skin ID : posé directement sur le fond du site, entre deux rangées de cartes (effet de profondeur)
+  + ".ebr-sid{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;padding:46px 20px 50px}"
+  + ".ebr-sid-k{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#8a8173;margin:0 0 14px}"
+  + "#eb-routines .ebr-sid h3{font-family:'Montserrat',sans-serif;font-size:22px;letter-spacing:.06em;font-weight:300;margin:0;color:#111;line-height:1.3}"
+  + ".ebr-sid i{display:block;width:70px;height:1px;margin:18px auto 0;background:linear-gradient(90deg,#f5f4f0,#cfc6b8 50%,#8f8676)}"
+  + "#eb-routines .ebr-sid p{font-size:13.5px;line-height:1.7;color:#2a2723;margin:16px 0 0;max-width:520px}"
+  + ".ebr-sid button{margin-top:24px;flex:none;font-family:'Montserrat',sans-serif;background:#111;color:#fff;border:0;padding:15px 22px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}"
   // texte de présentation (écrit dans Carrd, lisible par Google)
   + ".ebr-intro{max-width:720px;margin:70px auto 0;text-align:center}"
   + "#eb-routines .ebr-intro h2{font-family:'Montserrat',sans-serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;font-weight:600;margin:0 0 16px;color:#111}"
   + "#eb-routines .ebr-intro p{font-size:13px;line-height:1.75;color:#2a2723;margin:0 0 12px}"
+  // … placé entre les cartes : une respiration, le titre au-dessus, les deux paragraphes côte à côte
+  + ".ebr-g>.ebr-intro{grid-column:1/-1;max-width:none;margin:0;padding:44px 0 46px;display:grid;grid-template-columns:1fr 1fr;column-gap:46px;text-align:left}"
+  + "#eb-routines .ebr-g>.ebr-intro h2{grid-column:1/-1;text-align:center;font-size:22px;letter-spacing:.06em;text-transform:none;font-weight:300;margin:0}"
+  + ".ebr-g>.ebr-intro:after{content:'';grid-row:2;grid-column:1/-1;display:block;width:70px;height:1px;margin:18px auto 26px;background:linear-gradient(90deg,#f5f4f0,#cfc6b8 50%,#8f8676)}"
+  + "#eb-routines .ebr-g>.ebr-intro p{grid-row:3;font-size:13.5px;line-height:1.85;margin:0}"
+  // la bande vidéo : collée au bord gauche de l'écran, elle reste en place pendant que les cartes défilent
+  + "#eb-routines.ebr-av{position:relative;box-sizing:border-box;max-width:none;width:100vw;padding-left:calc(25vw + 48px);padding-right:48px}"
+  + ".ebr-av>.ebr-g,.ebr-av>.ebr-f,.ebr-av>.ebr-h{max-width:1080px;margin-left:auto;margin-right:auto}"
+  + ".ebr-av>.ebr-f{margin-bottom:44px}"
+  + ".ebr-bande{position:absolute;left:0;top:0;bottom:0;width:25vw;pointer-events:none}"
+  + ".ebr-bande-in{position:sticky;top:0;height:100vh;overflow:hidden;background:#e7ddd1}"
+  + ".ebr-bande video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}"
+  + ".ebr-bande video.ok{opacity:1}"
   + ".ebr-vide{grid-column:1/-1;text-align:center;font-size:13px;color:#4a453e;padding:30px 0}"
   // téléphone : deux cartes par rangée ; la carte retournée prend toute la largeur
   + "@media (max-width:899px){"
@@ -129,6 +152,16 @@
   +   ".ebr-ph{margin:10px 0;border-radius:9px}"
   +   ".ebr-k{font-size:7px;letter-spacing:.2em}#eb-routines h3.ebr-n{font-size:9.5px;letter-spacing:.1em;margin:5px 0 4px}.ebr-gl{width:36px;margin:2px 0 8px}"
   +   ".ebr-pied{font-size:6.5px;letter-spacing:.18em}.ebr-pied b{font-size:9.5px}"
+  // avec la bande vidéo : une seule carte par rangée, un peu plus grande
+  +   "#eb-routines.ebr-av{padding-left:calc(20vw + 14px);padding-right:14px}"
+  +   ".ebr-bande{width:20vw}"
+  +   "#eb-routines.ebr-av .ebr-h h2{font-size:17px;letter-spacing:.2em;padding-left:.2em}"
+  +   ".ebr-av .ebr-f{gap:5px;margin-bottom:24px}"
+  +   ".ebr-av .ebr-g{grid-template-columns:1fr;gap:16px}"
+  +   ".ebr-av .ebr-fa{padding:16px 16px 14px}"
+  +   ".ebr-av .ebr-code{font-size:7.5px}.ebr-av .ebr-mono{width:34px;height:42px}.ebr-av .ebr-mono span{font-size:14px}.ebr-av .ebr-mono small{font-size:3.4px}"
+  +   ".ebr-av .ebr-k{font-size:8px;letter-spacing:.26em}#eb-routines.ebr-av h3.ebr-n{font-size:12px;letter-spacing:.12em}.ebr-av .ebr-gl{width:44px}"
+  +   ".ebr-av .ebr-pied{font-size:7.5px}.ebr-av .ebr-pied b{font-size:10.5px}"
   +   ".ebr-c.vue{grid-column:1/-1}"
   +   ".ebr-c.vue .ebr-rec{display:none}"
   +   ".ebr-c.vue .ebr-fa{padding:18px}"
@@ -136,7 +169,11 @@
   +   ".ebr-c.vue .ebr-k{font-size:8.5px}#eb-routines .ebr-c.vue h3.ebr-n{font-size:13px}"
   +   ".ebr-c.vue .ebr-mos{grid-template-columns:1fr 1fr;column-gap:14px}"
   +   ".ebr-dos{display:none}.ebr-c.vue .ebr-dos{display:flex}"
-  +   ".ebr-sid{flex-direction:column;align-items:flex-start;padding:24px 22px;gap:16px}"
+  +   ".ebr-sid-k{font-size:8px;letter-spacing:.22em}"
+  +   ".ebr-sid{padding:30px 6px 34px}#eb-routines .ebr-sid h3{font-size:17px}#eb-routines .ebr-sid p{font-size:12.5px}.ebr-sid button{margin-top:18px;padding:13px 18px;font-size:9.5px}"
+  +   ".ebr-g>.ebr-intro{grid-template-columns:1fr;padding:28px 4px 30px;text-align:center}"
+  +   "#eb-routines .ebr-g>.ebr-intro h2{font-size:17px}"
+  +   "#eb-routines .ebr-g>.ebr-intro p{grid-row:auto;font-size:12.5px;line-height:1.8;margin:0 0 10px}"
   +   ".ebr-intro{margin-top:50px}"
   + "}"
   + "@media (prefers-reduced-motion:reduce){.ebr-c .ebr-fa{animation:none!important}}";
@@ -210,7 +247,7 @@
     liste.forEach(function(x){
       n++; h += carte(P, x, n);
       if(REGLAGES.skinIdApres && n === REGLAGES.skinIdApres){
-        h += '<aside class="ebr-sid"><div><h3>' + esc(REGLAGES.skinIdTitre) + '</h3><p>' + esc(REGLAGES.skinIdTexte) + '</p></div><button type="button" class="ebr-sid-b">Faire mon Skin ID</button></aside>';
+        h += '<aside class="ebr-sid"><p class="ebr-sid-k">Skin ID · le diagnostic ELKHA.B</p><h3>' + esc(REGLAGES.skinIdTitre) + '</h3><i></i><p>' + esc(REGLAGES.skinIdTexte) + '</p><button type="button" class="ebr-sid-b">Faire mon Skin ID</button></aside>';
       }
     });
     var f = '<div class="ebr-f" role="group" aria-label="Choisir un besoin"><button type="button" class="on" data-id="">Toutes</button>'
@@ -219,7 +256,24 @@
     root.innerHTML = '';
     if(titre) root.appendChild(titre);
     root.insertAdjacentHTML('beforeend', f + '<div class="ebr-g">' + h + '</div>');
-    if(intro) root.appendChild(intro);
+    if(intro){
+      var apres = REGLAGES.respirationApres && root.querySelectorAll('.ebr-g > .ebr-c')[REGLAGES.respirationApres - 1];
+      if(apres) apres.parentNode.insertBefore(intro, apres.nextSibling); else root.appendChild(intro);
+    }
+    // la bande vidéo
+    if(REGLAGES.video){
+      root.classList.add('ebr-av');
+      root.insertAdjacentHTML('afterbegin', '<div class="ebr-bande" aria-hidden="true"><div class="ebr-bande-in"><video muted loop playsinline preload="none" disablepictureinpicture></video></div></div>');
+      var vid = root.querySelector('.ebr-bande video');
+      vid.muted = true;
+      function cadre(){ vid.style.objectPosition = tel() ? REGLAGES.cadrageTel : REGLAGES.cadrageOrdi; }
+      // la bande et les cartes vont d'un bord à l'autre de l'écran, quel que soit l'écran
+      function cale(){ root.style.marginLeft = ''; var l = root.getBoundingClientRect().left; if(Math.abs(l) > .5) root.style.marginLeft = (parseFloat(getComputedStyle(root).marginLeft) - l) + 'px'; cadre(); }
+      cale(); addEventListener('resize', cale); addEventListener('load', cale);
+      // la vidéo ne se charge qu'à l'approche des routines, pour garder la page rapide
+      function lancer(){ if(vid.src) return; vid.src = REGLAGES.video; vid.addEventListener('playing', function(){ vid.classList.add('ok'); }); var p = vid.play(); if(p && p.catch) p.catch(function(){}); }
+      if('IntersectionObserver' in window){ new IntersectionObserver(function(es, o){ if(es.some(function(e){ return e.isIntersecting; })){ lancer(); o.disconnect(); } }, { rootMargin: '600px 0px' }).observe(root); } else lancer();
+    }
 
     // Google : la liste des routines avec leur prix
     try {
@@ -262,6 +316,7 @@
       boutons.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-id') === id); });
       root.querySelectorAll('.ebr-c').forEach(function(c){ c.hidden = !!id && (' ' + c.getAttribute('data-b') + ' ').indexOf(' ' + id + ' ') < 0; if(c.hidden && c.classList.contains('vue')) retourner(c, false); });
       if(sid) sid.closest('.ebr-sid').hidden = !!id;
+      var resp = root.querySelector('.ebr-g > .ebr-intro'); if(resp) resp.hidden = !!id;
       if(!garderAdresse){ try { var u = new URL(location.href); if(id) u.searchParams.set('besoin', id); else u.searchParams.delete('besoin'); history.replaceState(null, '', u); } catch(e){} }
     }
     boutons.forEach(function(b){ b.addEventListener('click', function(){ filtrer(b.getAttribute('data-id'), false); }); });
