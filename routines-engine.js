@@ -135,7 +135,7 @@
   + ".ebr-av>.ebr-g,.ebr-av>.ebr-f,.ebr-av>.ebr-h{max-width:1080px;margin-left:auto;margin-right:auto}"
   + ".ebr-av>.ebr-f{margin-bottom:44px}"
   + ".ebr-bande{position:absolute;left:44px;top:0;bottom:0;width:136px;pointer-events:none}"
-  + ".ebr-bande-in{position:absolute;left:0;right:0;top:0;height:calc(100vh - 100px);will-change:transform;overflow:hidden;border-radius:3px;background:#e7ddd1;box-shadow:0 24px 40px -26px rgba(70,55,35,.45)}"
+  + ".ebr-bande-in{position:absolute;left:0;right:0;top:0;height:calc(100vh - 100px);overflow:hidden;border-radius:3px;background:#e7ddd1;box-shadow:0 24px 40px -26px rgba(70,55,35,.45)}"
   + ".ebr-bande video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}"
   + ".ebr-bande video.ok{opacity:1}"
   + ".ebr-vide{grid-column:1/-1;text-align:center;font-size:13px;color:#4a453e;padding:30px 0}"
@@ -271,12 +271,20 @@
       // la bande et les cartes vont d'un bord à l'autre de l'écran, quel que soit l'écran
       function cale(){ root.style.marginLeft = ''; var l = root.getBoundingClientRect().left; if(Math.abs(l) > .5) root.style.marginLeft = (parseFloat(getComputedStyle(root).marginLeft) - l) + 'px'; cadre(); }
       cale(); addEventListener('resize', cale); addEventListener('load', cale);
-      // la règle accompagne la cliente tout le long des routines (Carrd empêche le « reste en place » classique, on le fait ici)
-      var bande = root.querySelector('.ebr-bande'), fen = root.querySelector('.ebr-bande-in'), att = false;
-      function suivre(){ att = false; var r = bande.getBoundingClientRect(), h = fen.offsetHeight, haut = tel() ? 76 : 76;
-        var y = Math.max(0, Math.min(haut - r.top, r.height - h)); fen.style.transform = 'translateY(' + Math.round(y) + 'px)'; }
-      function demander(){ if(!att){ att = true; requestAnimationFrame(suivre); } }
-      addEventListener('scroll', demander, { passive: true }); addEventListener('resize', demander); suivre();
+      // la règle accompagne la cliente tout le long des routines : elle se fige à l'écran (comme un cadre)
+      // et c'est la page qui glisse ; elle ne reprend sa place qu'au début et à la fin des routines
+      var bande = root.querySelector('.ebr-bande'), fen = root.querySelector('.ebr-bande-in'), etat = '';
+      function suivre(force){
+        var r = bande.getBoundingClientRect(), h = fen.offsetHeight, haut = 76;
+        var e = r.top >= haut ? 'haut' : (r.bottom - h <= haut ? 'bas' : 'fixe');
+        if(e === etat && !force) return; etat = e;
+        var st = fen.style;
+        if(e === 'fixe'){ st.position = 'fixed'; st.top = haut + 'px'; st.bottom = 'auto'; st.left = r.left + 'px'; st.width = r.width + 'px'; }
+        else { st.position = 'absolute'; st.left = '0'; st.width = ''; if(e === 'haut'){ st.top = '0'; st.bottom = 'auto'; } else { st.top = 'auto'; st.bottom = '0'; } }
+      }
+      addEventListener('scroll', function(){ suivre(false); }, { passive: true });
+      addEventListener('resize', function(){ suivre(true); }); addEventListener('load', function(){ suivre(true); });
+      suivre(true);
       // la vidéo ne se charge qu'à l'approche des routines, pour garder la page rapide
       function montrer(){ vid.classList.add('ok'); }
       function jouer(){ var p = vid.play(); if(p && p.catch) p.catch(function(){ ['touchstart', 'scroll', 'click'].forEach(function(ev){ addEventListener(ev, function relance(){ removeEventListener(ev, relance); vid.play().catch(function(){}); }, { passive: true }); }); }); }
