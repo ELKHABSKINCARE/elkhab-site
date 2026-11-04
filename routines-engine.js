@@ -130,12 +130,12 @@
   + "#eb-routines .ebr-g>.ebr-intro h2{grid-column:1/-1;text-align:center;font-size:22px;letter-spacing:.06em;text-transform:none;font-weight:300;margin:0}"
   + ".ebr-g>.ebr-intro:after{content:'';grid-row:2;grid-column:1/-1;display:block;width:70px;height:1px;margin:18px auto 26px;background:linear-gradient(90deg,#f5f4f0,#cfc6b8 50%,#8f8676)}"
   + "#eb-routines .ebr-g>.ebr-intro p{grid-row:3;font-size:13.5px;line-height:1.85;margin:0}"
-  // la bande vidéo : collée au bord gauche de l'écran, elle reste en place pendant que les cartes défilent
-  + "#eb-routines.ebr-av{position:relative;box-sizing:border-box;max-width:none;width:100vw;padding-left:calc(25vw + 48px);padding-right:48px}"
+  // la bande vidéo : une longue règle étroite, détachée du bord, qui reste en place pendant que les cartes défilent
+  + "#eb-routines.ebr-av{position:relative;box-sizing:border-box;max-width:none;width:100vw;padding-left:236px;padding-right:48px}"
   + ".ebr-av>.ebr-g,.ebr-av>.ebr-f,.ebr-av>.ebr-h{max-width:1080px;margin-left:auto;margin-right:auto}"
   + ".ebr-av>.ebr-f{margin-bottom:44px}"
-  + ".ebr-bande{position:absolute;left:0;top:0;bottom:0;width:25vw;pointer-events:none}"
-  + ".ebr-bande-in{position:sticky;top:0;height:100vh;overflow:hidden;background:#e7ddd1}"
+  + ".ebr-bande{position:absolute;left:44px;top:0;bottom:0;width:136px;pointer-events:none}"
+  + ".ebr-bande-in{position:sticky;top:88px;height:calc(100vh - 128px);overflow:hidden;border-radius:3px;background:#e7ddd1;box-shadow:0 24px 40px -26px rgba(70,55,35,.45)}"
   + ".ebr-bande video{display:block;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s ease}"
   + ".ebr-bande video.ok{opacity:1}"
   + ".ebr-vide{grid-column:1/-1;text-align:center;font-size:13px;color:#4a453e;padding:30px 0}"
@@ -153,8 +153,9 @@
   +   ".ebr-k{font-size:7px;letter-spacing:.2em}#eb-routines h3.ebr-n{font-size:9.5px;letter-spacing:.1em;margin:5px 0 4px}.ebr-gl{width:36px;margin:2px 0 8px}"
   +   ".ebr-pied{font-size:6.5px;letter-spacing:.18em}.ebr-pied b{font-size:9.5px}"
   // avec la bande vidéo : une seule carte par rangée, un peu plus grande
-  +   "#eb-routines.ebr-av{padding-left:calc(20vw + 14px);padding-right:14px}"
-  +   ".ebr-bande{width:20vw}"
+  +   "#eb-routines.ebr-av{padding-left:calc(10px + 15vw + 14px);padding-right:14px}"
+  +   ".ebr-bande{left:10px;width:15vw}"
+  +   ".ebr-bande-in{top:76px;height:calc(100vh - 100px);height:calc(100svh - 100px);border-radius:2px}"
   +   "#eb-routines.ebr-av .ebr-h h2{font-size:17px;letter-spacing:.2em;padding-left:.2em}"
   +   ".ebr-av .ebr-f{gap:5px;margin-bottom:24px}"
   +   ".ebr-av .ebr-g{grid-template-columns:1fr;gap:16px}"
@@ -263,7 +264,7 @@
     // la bande vidéo
     if(REGLAGES.video){
       root.classList.add('ebr-av');
-      root.insertAdjacentHTML('afterbegin', '<div class="ebr-bande" aria-hidden="true"><div class="ebr-bande-in"><video muted loop playsinline preload="none" disablepictureinpicture></video></div></div>');
+      root.insertAdjacentHTML('afterbegin', '<div class="ebr-bande" aria-hidden="true"><div class="ebr-bande-in"><video muted autoplay loop playsinline webkit-playsinline preload="none" disablepictureinpicture></video></div></div>');
       var vid = root.querySelector('.ebr-bande video');
       vid.muted = true;
       function cadre(){ vid.style.objectPosition = tel() ? REGLAGES.cadrageTel : REGLAGES.cadrageOrdi; }
@@ -271,7 +272,9 @@
       function cale(){ root.style.marginLeft = ''; var l = root.getBoundingClientRect().left; if(Math.abs(l) > .5) root.style.marginLeft = (parseFloat(getComputedStyle(root).marginLeft) - l) + 'px'; cadre(); }
       cale(); addEventListener('resize', cale); addEventListener('load', cale);
       // la vidéo ne se charge qu'à l'approche des routines, pour garder la page rapide
-      function lancer(){ if(vid.src) return; vid.src = REGLAGES.video; vid.addEventListener('playing', function(){ vid.classList.add('ok'); }); var p = vid.play(); if(p && p.catch) p.catch(function(){}); }
+      function montrer(){ vid.classList.add('ok'); }
+      function jouer(){ var p = vid.play(); if(p && p.catch) p.catch(function(){ ['touchstart', 'scroll', 'click'].forEach(function(ev){ addEventListener(ev, function relance(){ removeEventListener(ev, relance); vid.play().catch(function(){}); }, { passive: true }); }); }); }
+      function lancer(){ if(vid.getAttribute('src')) return; vid.addEventListener('loadeddata', montrer); vid.addEventListener('playing', montrer); vid.setAttribute('src', REGLAGES.video); vid.load(); jouer(); }
       if('IntersectionObserver' in window){ new IntersectionObserver(function(es, o){ if(es.some(function(e){ return e.isIntersecting; })){ lancer(); o.disconnect(); } }, { rootMargin: '600px 0px' }).observe(root); } else lancer();
     }
 
