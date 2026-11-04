@@ -1,7 +1,7 @@
 /* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 /* ═══════════════════════════════════════════════════════════════════════
    ELKHA.B — JOURNAL (journal-engine.js, chargé par le menu du Journal) — version magazine
-   • Page d'accueil du Journal : « À la une » en double page, rubriques, articles en grille de magazine (photos sans cadre)
+   • Page d'accueil du Journal : « À la une » sur une bande beige, rubriques, articles en grille (photos en passe-partout)
    • Ouverture de chaque article en double page (titre + photo), lettrine, citation mise en valeur, ligne de lecture
    • Temps de lecture calculé tout seul à partir du texte de l'article
    • Bouton Fermer des articles
@@ -85,66 +85,56 @@ var CSS = ""
 + ".ebj *{box-sizing:border-box}"
 + ".ebj a{color:#141414;text-decoration:none}"
 + ".ebj input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}"
-/* Article en vignette : la photo sans cadre, le numéro en grand chiffre fin, le texte dessous */
+/* Article en vignette : la photo dans un passe-partout beige, le numéro en grand chiffre fin, le texte dessous */
 + ".ebjm{display:block;position:relative}"
-+ ".ebjm-ph{position:relative;aspect-ratio:4/5;overflow:visible;background:#e6ddd0}"
-+ ".ebjm-ph i{position:absolute;inset:0;overflow:hidden;display:block}"
++ ".ebjm-ph{position:relative;aspect-ratio:4/5;background:#ebe4d8}"
++ ".ebjm-ph i{position:absolute;inset:8px;overflow:hidden;display:block;background:#e2d9cc}"
 + ".ebjm-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s ease}"
 + ".ebj a.ebjm:hover .ebjm-ph img{transform:scale(1.04)}"
-+ ".ebjm-n{position:absolute;left:12px;bottom:-12px;font-size:56px;font-weight:200;line-height:1;color:#f5f4f0;letter-spacing:-.02em;z-index:2}"
-+ ".ebjm-k{font-size:8.5px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#8a8478;margin:24px 0 9px}"
++ ".ebjm-n{position:absolute;left:16px;bottom:4px;font-size:36px;font-weight:200;line-height:1;color:#f5f4f0;letter-spacing:-.02em;z-index:2}"
++ ".ebjm-k{font-size:8.5px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:#8a8478;margin:18px 0 8px}"
 + ".ebjm-k b{font-weight:600}.ebjm-k b.bloom{color:#9a4a4c}.ebjm-k b.balance{color:#4f6b2a}"
-+ ".ebjm-t{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.3;margin:0 0 7px;color:#141414}"
-+ ".ebjm-q{font-size:13px;line-height:1.6;margin:0;color:#4a453e}"
-+ ".ebjm-m{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:#8a8478;margin:12px 0 0}"
-/* À la une : une double page de magazine */
-+ ".ebj-une{display:grid;grid-template-columns:1fr;max-width:1240px;margin:0 auto 70px;align-items:center}"
-+ ".ebj-une .ebjm-ph{aspect-ratio:4/5}.ebj-une .ebjm-n{display:none}"
-+ ".ebj-une-tx{position:relative;padding:0 22px;margin-top:-56px;z-index:2}"
-+ ".ebj-num{width:fit-content;font-size:96px;font-weight:200;line-height:.86;letter-spacing:-.02em;margin:0 0 8px -4px;padding-right:.04em;color:transparent;background:linear-gradient(165deg,#ece6dc 8%,#c9bfaf 45%,#8f8676 92%);-webkit-background-clip:text;background-clip:text}"
++ ".ebjm-t{font-family:'Montserrat',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;line-height:1.35;margin:0 0 6px;color:#141414}"
++ ".ebjm-q{font-size:12px;line-height:1.6;margin:0;color:#4a453e}"
++ ".ebjm-m{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;color:#8a8478;margin:10px 0 0}"
+/* À la une : posé sur une bande beige, « À la une » écrit sur le côté, la photo dans un passe-partout clair */
++ ".ebj-une{position:relative;display:grid;grid-template-columns:1fr;max-width:1240px;margin:0 auto 64px;padding:58px 22px 44px;background:linear-gradient(165deg,#efe8dd,#e6ddcf);align-items:center}"
++ ".ebj-une:before{content:'À la une';position:absolute;left:0;right:0;top:24px;text-align:center;font-size:9px;font-weight:600;letter-spacing:.6em;padding-left:.6em;text-transform:uppercase;color:#8a7f6f}"
++ ".ebj-une .ebjm-ph{background:#f8f5f1}.ebj-une .ebjm-ph i{inset:10px}.ebj-une .ebjm-n{display:none}"
++ ".ebj-une-tx{position:relative;padding:0 4px;margin-top:-34px;z-index:2}"
++ ".ebj-num{width:fit-content;font-size:82px;font-weight:200;line-height:.86;letter-spacing:-.02em;margin:0 0 10px -4px;padding-right:.04em;color:transparent;background:linear-gradient(165deg,#ece6dc 8%,#c9bfaf 45%,#8f8676 92%);-webkit-background-clip:text;background-clip:text}"
 /* signature : le grand numéro prend le dégradé du liseré de sa gamme */
 + ".ebj-num.bloom{background-image:linear-gradient(165deg,#f3dccf 8%,#e3b6a3 38%,#c98a78 66%,#8a3038 95%)}"
 + ".ebj-num.balance{background-image:linear-gradient(165deg,#e6e9cc 8%,#c3cc8f 38%,#a6b965 64%,#4f6b2a 95%)}"
-+ ".ebj-une .ebjm-k{margin-top:0}"
-+ ".ebj-une-h{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;margin:0;line-height:1.1;color:#141414}"
-+ ".ebj-une-q{font-size:17px;font-weight:300;line-height:1.45;margin:14px 0 0;color:#2a2723}"
-+ ".ebj-une-p{font-size:13.5px;line-height:1.85;margin:18px 0 0;color:#2a2723;max-width:430px}"
-+ ".ebj-lire{display:inline-flex;align-items:center;gap:14px;margin-top:26px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600}"
++ ".ebj-une .ebj-num{text-shadow:none}"
++ ".ebj-une-h{font-family:'Montserrat',sans-serif;font-size:27px;font-weight:300;letter-spacing:.14em;text-transform:uppercase;margin:0;line-height:1.12;color:#141414}"
++ ".ebj-une-q{font-size:16px;font-weight:300;line-height:1.45;margin:12px 0 0;color:#2a2723}"
++ ".ebj-une-p{font-size:13px;line-height:1.85;margin:16px 0 0;color:#2a2723;max-width:430px}"
++ ".ebj-lire{display:inline-flex;align-items:center;gap:14px;margin-top:24px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:600}"
 + ".ebj-lire:after{content:'';width:46px;height:1px;background:#141414;transition:width .3s ease}"
 + ".ebj a.ebj-une:hover .ebj-lire:after{width:70px}"
-+ ".ebj-liser{display:block;width:70px;height:1px;margin:20px 0 0;background:linear-gradient(90deg,#efe9df,#cfc6b8 55%,#8f8676)}"
-+ ".ebj-liser.bloom{background:linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)}.ebj-liser.balance{background:linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)}"
 /* Rubriques : texte fin souligné */
 + ".ebj-filtres{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:0 16px;margin:0 0 46px}"
 + ".ebj-filtres label{cursor:pointer;font-size:9.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;padding-bottom:6px;border-bottom:1px solid transparent;transition:border-color .25s ease,opacity .25s ease;opacity:.55}"
-+ ".ebj-sec{max-width:1240px;margin:0 auto 70px;padding:0 22px}"
++ ".ebj-sec{max-width:1240px;margin:0 auto 80px;padding:0 22px}"
 + ".ebj-sec-titre{display:flex;align-items:baseline;gap:16px;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;letter-spacing:.24em;text-transform:uppercase;margin:0 0 30px;color:#141414}"
 + ".ebj-sec-titre small{font-size:9px;font-weight:500;letter-spacing:.3em;color:#8a8478}"
 + ".ebj-sec-titre:after{content:'';flex:1;height:1px;background:#141414;opacity:.2}"
 + "@keyframes ebjFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}"
-/* téléphone : le premier article en grand, les suivants deux par deux */
-+ ".ebj-row{display:grid;grid-template-columns:1fr 1fr;gap:42px 16px;align-items:start}"
-+ ".ebj-row .ebjm:first-child{grid-column:1 / -1}"
-+ ".ebj-row .ebjm:not(:first-child) .ebjm-t{font-size:12.5px;letter-spacing:.12em}.ebj-row .ebjm:not(:first-child) .ebjm-q{font-size:12px}.ebj-row .ebjm:not(:first-child) .ebjm-n{font-size:42px;bottom:-9px}"
+/* téléphone : les articles deux par deux, bien espacés */
++ ".ebj-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:48px 18px;align-items:start}"
 + "@container (min-width:900px){"
-+ ".ebj-une{grid-template-columns:52% 48%;margin-bottom:110px}"
-+ ".ebj-une-tx{padding:0 8% 0 9%;margin:0}"
-+ ".ebj-num{font-size:150px;margin-left:-6px}.ebjm-k{font-size:9px}"
-+ ".ebj-une-h{font-size:44px}.ebj-une-q{font-size:20px}.ebj-une-p{font-size:14px}"
++ ".ebj-une{grid-template-columns:46% 54%;margin-bottom:110px;padding:70px 60px 70px 92px}"
++ ".ebj-une:before{left:46px;right:auto;top:50%;transform:translate(-50%,-50%) rotate(-90deg);font-size:10px;white-space:nowrap}"
++ ".ebj-une .ebjm-ph i{inset:14px}"
++ ".ebj-une-tx{padding:0 0 0 9%;margin:0}"
++ ".ebj-num{font-size:130px;margin-left:-6px}.ebjm-k{font-size:9px}"
++ ".ebj-une-h{font-size:36px}.ebj-une-q{font-size:19px}.ebj-une-p{font-size:14px}"
 + ".ebj-filtres{gap:34px;margin-bottom:56px}.ebj-filtres label{font-size:10.5px;letter-spacing:.3em}"
-+ ".ebj-sec{padding:0 40px;margin-bottom:110px}.ebj-sec-titre{font-size:28px;margin-bottom:40px}"
-+ ".ebj-row{grid-template-columns:1.25fr 1fr 1fr;gap:56px 36px}"
-+ ".ebj-row .ebjm:first-child{grid-column:auto;grid-row:span 2}"
-+ ".ebj-row .ebjm:first-child .ebjm-t{font-size:21px}.ebj-row .ebjm:first-child .ebjm-n{font-size:90px;bottom:-20px}"
-+ ".ebj-row .ebjm:nth-child(2),.ebj-row .ebjm:nth-child(3){margin-top:60px}"
-+ ".ebj-row .ebjm:nth-child(2):last-child,.ebj-row .ebjm:nth-child(4):last-child{grid-column:2 / span 2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:1fr repeat(4,auto);column-gap:36px}"
-+ ".ebj-row .ebjm:nth-child(2):last-child > *,.ebj-row .ebjm:nth-child(4):last-child > *{grid-column:2}"
-+ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-ph,.ebj-row .ebjm:nth-child(4):last-child .ebjm-ph{grid-column:1;grid-row:1 / span 5;align-self:start}"
-+ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-k,.ebj-row .ebjm:nth-child(4):last-child .ebjm-k{grid-row:2;margin-top:0}"
-+ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-t,.ebj-row .ebjm:nth-child(4):last-child .ebjm-t{grid-row:3}"
-+ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-q,.ebj-row .ebjm:nth-child(4):last-child .ebjm-q{grid-row:4}"
-+ ".ebj-row .ebjm:nth-child(2):last-child .ebjm-m,.ebj-row .ebjm:nth-child(4):last-child .ebjm-m{grid-row:5}"
-+ ".ebj-row .ebjm:not(:first-child) .ebjm-t{font-size:15px;letter-spacing:.16em}.ebj-row .ebjm:not(:first-child) .ebjm-q{font-size:13px}.ebj-row .ebjm:not(:first-child) .ebjm-n{font-size:64px;bottom:-14px}"
++ ".ebj-sec{padding:0 40px;margin-bottom:120px}.ebj-sec-titre{font-size:28px;margin-bottom:40px}"
++ ".ebj-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:70px 40px}"
++ ".ebjm-ph i{inset:12px}.ebjm-n{left:24px;bottom:2px;font-size:46px}"
++ ".ebjm-k{margin-top:22px}.ebjm-t{font-size:14px;letter-spacing:.16em}.ebjm-q{font-size:12.5px}"
 + "}"
 /* Ouverture de l'article : une double page (le titre à gauche, la photo à droite) */
 + "html{overflow-x:clip}"
@@ -253,7 +243,7 @@ function une(a){
   return '<a class="ebj-une" href="#' + a.id + '">'
     + '<div class="ebjm-ph"><i>' + photo(a, 'eager') + '</i></div>'
     + '<div class="ebj-une-tx"><div class="ebj-num ' + gamme(a) + '" aria-hidden="true">' + numero(a) + '</div>'
-    + '<p class="ebjm-k">À la une' + (rub(a) ? ' · ' + rub(a) : '') + '</p>'
+    + (rub(a) ? '<p class="ebjm-k">' + rub(a) + '</p>' : '')
     + '<h2 class="ebj-une-h">' + esc(a.titre) + '</h2>'
     + '<p class="ebj-une-q">' + q(a.question) + '</p>'
     + (a.intro ? '<p class="ebj-une-p">' + q(a.intro) + '</p>' : '')
