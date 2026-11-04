@@ -501,13 +501,13 @@ var BALANCE = {
     inci: "eye-lift",
     avis: "Eye Lift",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v7.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -553,13 +553,13 @@ var BALANCE = {
     inci: "bakuchiol-elixir",
     avis: "Bakuchiol Elixir",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-2-flacon-v7.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -659,13 +659,13 @@ var BALANCE = {
     inci: "spot-control",
     avis: "Spot Control",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon-v6.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-2-flacon-v7.jpg",
         // 📷 3. TEXTURE (plus tard)
       ]
     },
@@ -928,7 +928,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v7.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-age-v8.png"
       ]
     },
     routine: {
@@ -990,7 +990,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-v7.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-anti-taches-v8.png"
       ]
     },
     routine: {
@@ -1051,7 +1051,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-renouvellement-v7.png"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-routine-renouvellement-v8.png"
       ]
     },
     routine: {

@@ -110,6 +110,10 @@
   + ".eb-fp-soin-img{display:block;aspect-ratio:3/4;overflow:hidden;background:#F6F4F0}"
   + ".eb-fp-soin-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}"
   + ".eb-fp-soin-img.eb-fp-soin-flacon img{object-fit:contain;object-position:50% 100%;height:92%;margin-top:8%}"
+  + ".eb-fp-soin-img.eb-fp-soin-reel{position:relative;background:#F5F4F0}"
+  // photo du flacon (le flacon occupe 5 % à 83 % de la hauteur de la photo) : le plus grand soin occupe ~70 % de la case, tous posés sur la même ligne
+  + ".eb-fp-soin-img.eb-fp-soin-reel img{position:absolute;left:50%;width:auto;max-width:none;height:calc(var(--eb-h) * 90%);top:calc(92% - var(--eb-h) * 90% * .83);transform:translateX(-50%);object-fit:contain}"
+  + ".eb-fp-soin:hover .eb-fp-soin-img.eb-fp-soin-reel img{transform:translateX(-50%) scale(1.04);transform-origin:50% 92%}"
   + ".eb-fp-soin:hover .eb-fp-soin-img img{transform:scale(1.05)}"
   + ".eb-fp-soin-name{display:block;margin-top:9px;font-size:9.5px;font-weight:400;letter-spacing:.14em;line-height:1.5;text-transform:uppercase}"
   + ".eb-fp-soin-voir{display:block;margin-top:3px;font-size:10px;letter-spacing:.04em;text-decoration:underline;text-underline-offset:3px;opacity:.55}"
@@ -208,6 +212,27 @@
 
   var overlay, closeBtn, cartBtn, backBtn, pile = [], courant = null, built = false, observer = null, slideTimer = null, choixManuel = false;
 
+  // ── Soins d'une routine à leur taille réelle (Balance) : même échelle, posés sur la même ligne ──
+  //    [hauteur réelle en cm, photo du flacon sur le fond du site] — les petits soins restent petits
+  var ECHELLE = {
+    "fusion-balance": [12.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-flacon-site-v6.png"],
+    "hydra-balance": [10.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v6.png?v=20261103"],
+    "calm-balance-jour": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site-v6.png"],
+    "calm-balance-nuit": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site-v6.png"],
+    "ceramide-night-restore": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site-v6.png"],
+    "cellular-eye-restore": [8.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v6.png"],
+    "cellular-renew": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site-v6.png"],
+    "active-lift": [9.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v7.png"],
+    "age-lift": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site-v6.png"],
+    "eye-lift": [8.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site-v7.png"],
+    "cellular-reveal": [10.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site-v6.png"],
+    "bakuchiol-elixir": [11, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-flacon-site-v7.png"],
+    "spot-control": [8.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-flacon-site-v7.png"],
+    "bright-control": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site-v6.png"],
+    "bha-balance": [16, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site-v6.png"],
+    "glyco-balance": [12.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v6.png"],
+    "aha-balance-peel": [11, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png"]
+  };
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
 
   // Images Shopify en haute résolution (écrans Retina), sans jamais les agrandir artificiellement
@@ -638,11 +663,16 @@
       if(soins.length){
         h += '<h3 class="eb-fp-h3">' + esc(r.titreSoins || 'Votre routine') + '</h3>';
         h += '<div class="eb-fp-soins" style="grid-template-columns:repeat(' + Math.min(soins.length, 3) + ',1fr)">';
+        // tous les soins connus à leur taille réelle ? on les montre à la même échelle, sur la même ligne
+        var reel = soins.every(function(sid){ return ECHELLE[sid]; });
+        var hmax = reel ? Math.max.apply(null, soins.map(function(sid){ return ECHELLE[sid][0]; })) : 0;
         soins.forEach(function(sid, k){
           var sp = window.EB_PRODUITS[sid], m = sp.media || {};
           var img = m.accord || m.miniature || (m.images && m.images[0]) || m.image || '';   // Balance : flacon bien cadré (bien visible)
+          var ech = reel ? ' style="--eb-h:' + (ECHELLE[sid][0] / hmax).toFixed(3) + '"' : '';
+          if(reel) img = ECHELLE[sid][1];
           h += '<button type="button" class="eb-fp-soin"' + (r.soinSelonChoix === k ? ' data-selon-choix="1"' : '') + ' data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
-          h += '<span class="eb-fp-soin-img' + (m.accord ? ' eb-fp-soin-flacon' : '') + '">' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
+          h += '<span class="eb-fp-soin-img' + (reel ? ' eb-fp-soin-reel' : (m.accord ? ' eb-fp-soin-flacon' : '')) + '"' + ech + '>' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
           h += '<span class="eb-fp-soin-name">' + esc(sp.nom) + '</span><span class="eb-fp-soin-voir">Voir la fiche</span></button>';
         });
         h += '</div>';
