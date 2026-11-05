@@ -26,7 +26,7 @@
     // Bloom, nouveaux soins (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
     'Lumi-Bloom Arbutin','Milky Bloom','Lumi-Pure','Radiance Cleanser','Luminescence Boost',
     // Balance (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
-    'Hydra Balance','Calm Balance Jour','Calm Balance Nuit','Ceramide Night Restore','Cellular Renew','Cellular Eye Restore','Active Lift',
+    'Hydra Balance','Fusion Balance','Calm Balance Jour','Calm Balance Nuit','Ceramide Night Restore','Cellular Renew','Cellular Eye Restore','Active Lift',
     'Age Lift','Eye Lift','Cellular Reveal','Bakuchiol Elixir','Spot Control','Bright Control','BHA Balance','Glyco Balance','AHA Balance Peel',
     'Routine essentielle','Routine anti-âge','Routine anti-taches','Routine apaisante','Routine renouvellement'
   ];
