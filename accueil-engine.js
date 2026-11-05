@@ -1,6 +1,6 @@
 // © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 // =====================================================================
-// ELKHA.B — Page d'accueil
+// ELKHA.B — Page d'accueil (mise à jour du 5 nov. 2026 : coffrets des fêtes)
 // Le contenu (titres, textes, photos) est écrit dans l'embed Carrd, pour que Google le lise.
 // Ce fichier fait la mise en forme et les animations (photos de la bannière en fondu…).
 // =====================================================================
