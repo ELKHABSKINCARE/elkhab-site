@@ -32,7 +32,8 @@
     { id: "routine-hydratation",      pour: "Pour une peau désaltérée et confortable",                besoins: ["hydratation"] },
     { id: "routine-anti-taches",      pour: "Pour unifier le teint et atténuer les taches",           besoins: ["taches"] },
     { id: "routine-teint-protection", pour: "Pour un teint unifié, protégé chaque jour",              besoins: ["eclat"] },
-    { id: "routine-anti-age-balance", pour: "Rides, ridules et fermeté, regard compris",              besoins: ["fermete", "regard"] },
+    // masquée pendant les fêtes (mêmes soins que le coffret Le Temps Suspendu) : enlever les deux barres // en janvier
+    // { id: "routine-anti-age-balance", pour: "Rides, ridules et fermeté, regard compris",              besoins: ["fermete", "regard"] },
     { id: "routine-anti-age",         pour: "Pour une peau plus ferme, protégée le jour",             besoins: ["fermete"] },
     { id: "routine-renouvellement",   pour: "Pour les rides installées et le grain de peau",          besoins: ["fermete"] },
     { id: "routine-equilibre",        pour: "Pour les peaux mixtes et les imperfections",             besoins: ["imperfections"] },
