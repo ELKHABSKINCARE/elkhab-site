@@ -1737,6 +1737,42 @@ window.EB_PRODUITS = {
       ],
       conclusion: "Réveiller le regard, révéler sa lumière.\nUn regard frais, reposé et naturellement lumineux, jour après jour."
     }
+  },
+
+  // =====================================================================
+  // COFFRET LUMIÈRE D'HIVER (Bloom) — édition limitée des fêtes 2026
+  // =====================================================================
+  "coffret-lumiere-dhiver": {
+    nom: "Lumière d'hiver",
+    sousTitre: "Coffret Rituel Éclat\nRadiance C Serum · Lumi-Bloom Arbutin",
+    details: ["Coffret · 2 soins", "Vegan"],
+    note: "Édition limitée des fêtes",
+    prix: "59€",
+    variantId: "60384070959449",
+    coffret: true,
+    carte: { position: "50% 75%", zoom: 1.2 },   // cadrage de la photo sur la carte de la page Routines
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. LE COFFRET DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-face-fond-site.jpg",
+        // 📷 2. LE DOS DU COFFRET
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-dos-fond-site.jpg"
+      ]
+    },
+    routine: {
+      titreSoins: "Dans le coffret",
+      intro: "Un coffret cadeau éclat pour garder un teint lumineux et unifié tout l'hiver.\nLe matin, Radiance C Serum, à la vitamine C stabilisée, réveille l'éclat du teint et aide la peau à se défendre contre les agressions extérieures. Le soir, Lumi-Bloom Arbutin, à l'alpha-arbutine, atténue l'apparence des taches pigmentaires et unifie le teint. Deux sérums Bloom réunis dans un écrin des fêtes, à offrir ou à s'offrir.",
+      soins: ["radiance-serum", "lumibloom-arbutin"],
+      etapes: [
+        { moment: "Le matin", soin: "radiance-serum", texte: "Sur peau propre, appliquez une pression de Radiance C Serum sur le visage et le cou, puis poursuivez avec votre crème habituelle." },
+        { moment: "Le soir", soin: "lumibloom-arbutin", texte: "Sur peau propre et sèche, appliquez une pression de Lumi-Bloom Arbutin sur le visage, en insistant sur les zones présentant des irrégularités pigmentaires, sans frotter." }
+      ],
+      conclusion: "Vitamine C le matin, alpha-arbutine le soir : deux actifs complémentaires pour un teint plus uniforme et plus lumineux.\nChaque matin, terminez par une protection solaire : sans elle, les taches reviennent plus vite."
+    },
+    sections: [
+      { titre: "Le coffret", texte: "Les deux sérums sont présentés dans le coffret Lumière d'hiver, une édition limitée des fêtes prête à être offerte.\nRadiance C Serum · 30 ml\nLumi-Bloom Arbutin · 30 ml" }
+    ]
   }
 
 };
