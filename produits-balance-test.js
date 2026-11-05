@@ -1099,6 +1099,81 @@ var BALANCE = {
   },
 
   // =====================================================================
+  // COFFRET LE TEMPS SUSPENDU (Balance) — édition limitée des fêtes 2026
+  // =====================================================================
+  "coffret-temps-suspendu": {
+    nom: "Le Temps Suspendu",
+    sousTitre: "Coffret Rituel Lift\nActive Lift · Age Lift · Eye Lift",
+    details: ["Coffret · 3 soins", "Vegan"],
+    note: "Édition limitée des fêtes",
+    prix: "92€",
+    variantId: "60381914235225",
+    coffret: true,
+    carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. LE COFFRET DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-face-photo_9ff122eb-accf-45cc-bb48-8e74c1ca5622.jpg?v=1793906221"
+      ]
+    },
+    routine: {
+      titreSoins: "Dans le coffret",
+      intro: "Un coffret cadeau aux peptides qui cible les rides, les ridules et la perte de fermeté, et prend soin de tout le visage, regard compris.\nActive Lift concentre les peptides pour lisser les traits et améliorer l'élasticité de la peau. Age Lift prolonge leur action et, grâce à l'acide hyaluronique, repulpe la peau et maintient son hydratation. Eye Lift veille sur le contour des yeux, plus fin et plus fragile, là où ridules et pattes-d'oie apparaissent en premier. Trois soins Balance réunis dans un écrin des fêtes, à offrir ou à s'offrir.",
+      soins: ["active-lift", "age-lift", "eye-lift"],
+      moment: "Matin et soir",
+      etapes: [
+        { soin: "active-lift", texte: "Sur peau propre, appliquez une pression d'Active Lift sur le visage et le cou." },
+        { soin: "eye-lift", texte: "Déposez une petite quantité d'Eye Lift sur le contour des yeux et faites-la pénétrer en tapotant du bout des doigts." },
+        { soin: "age-lift", texte: "Terminez par une pression d'Age Lift sur le visage et le cou, en remontant vers les tempes." }
+      ],
+      conclusion: "Trois soins aux peptides qui se complètent, du sérum à la crème.\nLe matin, terminez par une protection solaire : les UV sont le premier accélérateur du relâchement cutané."
+    },
+    sections: [
+      { titre: "Le coffret", texte: "Les trois soins sont présentés dans le coffret Le Temps Suspendu, une édition limitée des fêtes prête à être offerte.\nActive Lift · 30 ml\nAge Lift · 50 ml\nEye Lift · 15 ml" }
+    ]
+  },
+
+  // =====================================================================
+  // COFFRET RITUEL DE MINUIT (Bloom & Balance) — édition limitée des fêtes 2026
+  // =====================================================================
+  "coffret-rituel-de-minuit": {
+    nom: "Rituel de Minuit",
+    sousTitre: "Coffret Soin du Soir\nFusion Balance · Luminescence Boost · Radiance Eye Cream",
+    gammeLabel: "Bloom & Balance",
+    details: ["Coffret · 3 soins", "Vegan"],
+    note: "Édition limitée des fêtes",
+    prix: "87€",
+    variantId: "60387116646745",
+    coffret: true,
+    carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. LE COFFRET DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-de-minuit-face-fond-site.jpg",
+        // 📷 2. LE DOS DU COFFRET
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-de-minuit-dos-fond-site.jpg"
+      ]
+    },
+    routine: {
+      titreSoins: "Dans le coffret",
+      intro: "Un coffret cadeau pour le rituel du soir : démaquiller, raffermir, reposer le regard.\nFusion Balance, démaquillant biphasé sans parfum, dissout le maquillage du visage et des yeux, même waterproof, sans frotter. Luminescence Boost, aux extraits de cresson et de sureau, accompagne la peau face à la perte de fermeté pour un visage plus lisse et rebondi au réveil. Radiance Eye Cream, à l'acide hyaluronique, hydrate le contour des yeux et atténue l'apparence des poches et des cernes. Trois soins Bloom et Balance réunis dans un écrin des fêtes, à offrir ou à s'offrir.",
+      soins: ["fusion-balance", "luminescence-boost", "radiance-eye-cream"],
+      moment: "Le soir",
+      etapes: [
+        { soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." },
+        { soin: "luminescence-boost", texte: "Sur peau nette, appliquez une pression de Luminescence Boost sur le visage et le cou, en remontant du bas vers le haut." },
+        { soin: "radiance-eye-cream", texte: "Terminez par une petite quantité de Radiance Eye Cream sur le contour des yeux, en tapotant du bout des doigts jusqu'à absorption." }
+      ],
+      conclusion: "Un démaquillage soigneux, puis des actifs qui travaillent pendant le sommeil : c'est la nuit que la peau se régénère.\nLe matin, une protection solaire préserve les résultats."
+    },
+    sections: [
+      { titre: "Le coffret", texte: "Les trois soins sont présentés dans le coffret Rituel de Minuit, une édition limitée des fêtes prête à être offerte.\nFusion Balance · 100 ml\nLuminescence Boost · 30 ml\nRadiance Eye Cream · 15 ml" }
+    ]
+  },
+
+  // =====================================================================
   // COFFRET NOUVELLE AUBE (Balance) — édition limitée des fêtes 2026
   // =====================================================================
   "coffret-nouvelle-aube": {
