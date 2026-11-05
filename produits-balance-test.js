@@ -1109,7 +1109,7 @@ var BALANCE = {
     prix: "82€",
     variantId: "60387314205017",
     coffret: true,
-    carte: { position: "50% 87%", zoom: 1.6 },   // cadrage de la photo sur la carte de la page Routines
+    carte: { position: "50% 87%", zoom: 1.25 },   // cadrage de la photo sur la carte de la page Routines
     media: {
       type: "diaporama",
       images: [
