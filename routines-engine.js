@@ -40,7 +40,10 @@
   ];
   // Les coffrets « Édition limitée » : affichés tout en haut, avant les routines (même mode d'emploi que ROUTINES)
   var COFFRETS = [
-    { id: "coffret-nouvelle-aube",    pour: "Pour une peau neuve : exfolier, lisser, repulper",       besoins: ["eclat", "fermete", "hydratation"] }
+    { id: "coffret-temps-suspendu",   pour: "Rides, ridules et fermeté, regard compris",              besoins: ["fermete", "regard"] },
+    { id: "coffret-rituel-de-minuit", pour: "Le rituel du soir complet, regard compris",              besoins: ["fermete", "regard"] },
+    { id: "coffret-nouvelle-aube",    pour: "Pour une peau neuve : exfolier, lisser, repulper",       besoins: ["eclat", "fermete", "hydratation"] },
+    { id: "coffret-lumiere-dhiver",   pour: "Pour un teint lumineux et unifié tout l'hiver",          besoins: ["eclat", "taches"] }
   ];
   var EDITION = {
     surtitre: "Édition limitée",
@@ -130,6 +133,7 @@
   + ".ebr-ed-h i{display:block;width:70px;height:1px;margin:18px auto 0;background:linear-gradient(90deg,#f5f4f0,#cfc6b8 50%,#8f8676)}"
   + "#eb-routines .ebr-ed-h p{font-size:13.5px;line-height:1.7;color:#2a2723;margin:16px auto 0;max-width:520px}"
   + ".ebr-ed[hidden]{display:none}"
+  + "@media (min-width:900px){.ebr-ged{grid-template-columns:repeat(2,minmax(0,1fr));max-width:720px;margin:0 auto}}"
   + ".ebr-av>.ebr-ed{max-width:1080px;margin-left:auto;margin-right:auto}"
   // rappel Skin ID
   // rappel Skin ID : posé directement sur le fond du site, entre deux rangées de cartes (effet de profondeur)
