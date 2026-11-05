@@ -231,7 +231,11 @@
     "bright-control": [14.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site-v6.png"],
     "bha-balance": [16, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site-v6.png"],
     "glyco-balance": [12.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v6.png"],
-    "aha-balance-peel": [11, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png"]
+    "aha-balance-peel": [11, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png"],
+    // Bloom (coffrets qui mélangent Bloom et Balance, ex. Rituel de Minuit)
+    "luminescence-boost": [9.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/bloom-luminescence-boost-flacon-site-v1.png"],
+    "lumibloom-arbutin": [9.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/bloom-lumi-bloom-arbutin-flacon-site-v1.png"],
+    "radiance-eye-cream": [7.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/bloom-radiance-eye-cream-flacon-site-v1.png"]
   };
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
 
