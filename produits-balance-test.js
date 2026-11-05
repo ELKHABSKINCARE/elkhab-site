@@ -1096,6 +1096,43 @@ var BALANCE = {
       ],
       conclusion: "Deux soins du soir qui travaillent pendant que la peau se régénère.\nLe matin, une protection solaire préserve les résultats."
     }
+  },
+
+  // =====================================================================
+  // COFFRET NOUVELLE AUBE (Balance) — édition limitée des fêtes 2026
+  // =====================================================================
+  "coffret-nouvelle-aube": {
+    nom: "Nouvelle Aube",
+    sousTitre: "Coffret Peau Neuve\nAHA Balance Peel · Active Lift · Hydra Balance",
+    details: ["Coffret · 3 soins", "Vegan"],
+    note: "Édition limitée des fêtes",
+    prix: "82€",
+    variantId: "60387314205017",
+    coffret: true,
+    carte: { position: "50% 87%", zoom: 1.6 },   // cadrage de la photo sur la carte de la page Routines
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. LE COFFRET DE FACE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/nouvelle-aube-face-fond-site.jpg?v=1793908737",
+        // 📷 2. LE DOS DU COFFRET
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/nouvelle-aube-dos-fond-site.jpg"
+      ]
+    },
+    routine: {
+      titreSoins: "Dans le coffret",
+      intro: "Un coffret cadeau pour commencer l'année avec une peau neuve : exfolier, lisser, repulper.\nAHA Balance Peel, à 10 % d'acide lactique, élimine les cellules mortes et affine le grain de peau pour révéler un teint plus frais. Active Lift prend le relais avec ses peptides, qui lissent les traits et améliorent l'élasticité de la peau. Hydra Balance, à l'acide hyaluronique multi-poids moléculaire, hydrate en profondeur et repulpe. Trois soins Balance réunis dans un écrin des fêtes, à offrir ou à s'offrir.",
+      soins: ["aha-balance-peel", "active-lift", "hydra-balance"],
+      etapes: [
+        { moment: "Matin et soir", soin: "active-lift", texte: "Sur peau propre, appliquez une pression d'Active Lift sur le visage et le cou." },
+        { moment: "Matin et soir", soin: "hydra-balance", texte: "Poursuivez avec une pression de Hydra Balance pour hydrater et repulper la peau." },
+        { moment: "1 à 2 soirs par semaine", soin: "aha-balance-peel", texte: "Sur peau propre et sèche, appliquez quelques gouttes d'AHA Balance Peel en évitant le contour des yeux, puis terminez par Hydra Balance. Ces soirs-là, gardez Active Lift pour le matin." }
+      ],
+      conclusion: "Exfolier, lisser, repulper : trois gestes qui se complètent pour un grain de peau affiné et un teint lumineux.\nLe lendemain d'un soir d'AHA Balance Peel, une protection solaire est indispensable : une peau fraîchement exfoliée est plus sensible aux UV."
+    },
+    sections: [
+      { titre: "Le coffret", texte: "Les trois soins sont présentés dans le coffret Nouvelle Aube, une édition limitée des fêtes prête à être offerte.\nAHA Balance Peel · 30 ml\nActive Lift · 30 ml\nHydra Balance · 30 ml" }
+    ]
   }
 };
 for(var k in BALANCE){

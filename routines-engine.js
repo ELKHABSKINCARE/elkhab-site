@@ -38,6 +38,15 @@
     { id: "routine-equilibre",        pour: "Pour les peaux mixtes et les imperfections",             besoins: ["imperfections"] },
     { id: "routine-regard",           pour: "Pour un regard reposé et lumineux",                      besoins: ["regard"] }
   ];
+  // Les coffrets « Édition limitée » : affichés tout en haut, avant les routines (même mode d'emploi que ROUTINES)
+  var COFFRETS = [
+    { id: "coffret-nouvelle-aube",    pour: "Pour une peau neuve : exfolier, lisser, repulper",       besoins: ["eclat", "fermete", "hydratation"] }
+  ];
+  var EDITION = {
+    surtitre: "Édition limitée",
+    titre: "Les coffrets des fêtes",
+    texte: "Nos rituels réunis dans un écrin à offrir, en quantité limitée."
+  };
   var REGLAGES = {
     // le rappel du Skin ID se place après cette carte (0 = pas de rappel)
     skinIdApres: 6,
@@ -91,8 +100,8 @@
   + ".ebr-mono small{font-size:4px;font-weight:700;letter-spacing:.5em;padding-left:.5em;margin-top:4px}"
   // recto
   + ".ebr-ph{aspect-ratio:1/1;margin:16px 0 18px;border-radius:12px;overflow:hidden;background:#f5f4f0}"
-  + ".ebr-ph img{color:transparent;width:100%;height:100%;object-fit:cover;object-position:50% 54%;transform:scale(.9);display:block;transition:transform .8s ease}"
-  + ".ebr-rec:hover .ebr-ph img{transform:scale(.94)}"
+  + ".ebr-ph img{color:transparent;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 54%);transform:scale(var(--z,.9));display:block;transition:transform .8s ease}"
+  + ".ebr-rec:hover .ebr-ph img{transform:scale(calc(var(--z,.9) * 1.045))}"
   + ".ebr-k{font-size:9.5px;letter-spacing:.32em;font-weight:500;text-transform:uppercase}"
   + "#eb-routines h3.ebr-n{font-family:'Montserrat',sans-serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:8px 0 6px;line-height:1.35;color:#111}"
   + ".ebr-n .nb{white-space:nowrap}"
@@ -113,6 +122,15 @@
   + ".ebr-eco s{opacity:.6}"
   + ".ebr-liens{display:flex;justify-content:space-between;margin-top:12px}"
   + ".ebr-liens button{font-family:'Montserrat',sans-serif;background:none;border:0;padding:4px 0;cursor:pointer;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#6b655c;text-decoration:underline;text-underline-offset:3px}"
+  // section « Édition limitée » (coffrets), au-dessus des routines
+  + ".ebr-ed{margin:0 0 56px}"
+  + ".ebr-ed-h{text-align:center;margin:0 0 30px}"
+  + ".ebr-ed-k{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:#8a8173;margin:0 0 14px}"
+  + "#eb-routines .ebr-ed-h h2{font-family:'Montserrat',sans-serif;font-size:22px;letter-spacing:.06em;font-weight:300;margin:0;color:#111;line-height:1.3;text-transform:none}"
+  + ".ebr-ed-h i{display:block;width:70px;height:1px;margin:18px auto 0;background:linear-gradient(90deg,#f5f4f0,#cfc6b8 50%,#8f8676)}"
+  + "#eb-routines .ebr-ed-h p{font-size:13.5px;line-height:1.7;color:#2a2723;margin:16px auto 0;max-width:520px}"
+  + ".ebr-ed[hidden]{display:none}"
+  + ".ebr-av>.ebr-ed{max-width:1080px;margin-left:auto;margin-right:auto}"
   // rappel Skin ID
   // rappel Skin ID : posé directement sur le fond du site, entre deux rangées de cartes (effet de profondeur)
   + ".ebr-sid{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0;padding:46px 20px 50px}"
@@ -211,15 +229,15 @@
     var somme = (ro.soins || []).reduce(function(t, s){ return t + (P[s] ? nombre(P[s].prix) : 0); }, 0);
     var eco = somme - prix >= REGLAGES.economieMini ? '<p class="ebr-eco">Au lieu de <s>' + euros(somme) + '</s> pour les soins achetés séparément</p>' : '';
     var img = r.media && r.media.images && r.media.images[0];
-    var code = 'Routine · ' + (n < 10 ? '0' : '') + n;
-    var gamme = g === 'bloom' ? 'Bloom' : 'Balance';
+    var code = (r.coffret ? 'Coffret · ' : 'Routine · ') + (n < 10 ? '0' : '') + n;
+    var gamme = r.gammeLabel || (g === 'bloom' ? 'Bloom' : 'Balance');
     var achat = r.variantId
-      ? '<button type="button" class="ebr-btn eb-cart-add-btn" data-variant-id="' + esc(r.variantId) + '"><span>Ajouter la routine</span><span>' + euros(prix) + '</span></button>'
+      ? '<button type="button" class="ebr-btn eb-cart-add-btn" data-variant-id="' + esc(r.variantId) + '"><span>' + (r.coffret ? 'Ajouter le coffret' : 'Ajouter la routine') + '</span><span>' + euros(prix) + '</span></button>'
       : '<button type="button" class="ebr-btn" data-fiche="' + esc(cfg.id) + '"><span>' + esc(r.choixLabel ? 'Choisir ' + r.choixLabel.replace(/^Choisissez\s+/i, '').replace(/^Votre\s+/i, 'votre ') : 'Choisir ma version') + '</span><span>' + euros(prix) + '</span></button>';
     return '<article class="ebr-c ' + g + '" data-b="' + esc(cfg.besoins.join(' ')) + '" data-id="' + esc(cfg.id) + '"><div class="ebr-in">'
       + '<div class="ebr-fa ebr-rec" role="button" tabindex="0" aria-label="Retourner la carte ' + esc(r.nom) + ' pour découvrir son rituel">'
       +   '<div class="ebr-top"><span class="ebr-code">' + code + '</span>' + MONO + '</div>'
-      +   '<div class="ebr-ph"><img src="' + esc(photo(img, 700)) + '" alt="' + esc(r.nom + ' ' + gamme + ' ELKHA.B : ' + (r.sousTitre || '')) + '" loading="lazy" decoding="async"></div>'
+      +   '<div class="ebr-ph"><img' + (r.carte ? ' style="' + (r.carte.position ? '--pos:' + esc(r.carte.position) + ';' : '') + (r.carte.zoom ? '--z:' + esc(r.carte.zoom) : '') + '"' : '') + ' src="' + esc(photo(img, 700)) + '" alt=""' + esc(r.nom + ' ' + gamme + ' ELKHA.B : ' + (r.sousTitre || '')) + '" loading="lazy" decoding="async"></div>'
       +   '<div class="ebr-k" style="color:' + c.k + '">' + gamme + ' · ' + nb + ' soins</div>'
       +   '<h3 class="ebr-n">' + insecable(r.nom) + '</h3><div class="ebr-gl" style="background:' + c.deg + '"></div>'
       +   '<div class="ebr-pied"><span>Retourner</span><b>' + euros(prix) + '</b></div>'
@@ -231,7 +249,7 @@
       +   '<p class="ebr-pour">' + esc(cfg.pour) + '</p>'
       +   '<div class="ebr-mos">' + moments(P, r) + '</div>'
       +   '<div class="ebr-achat">' + achat + eco
-      +   '<div class="ebr-liens"><button type="button" class="ebr-retour">Retourner</button><button type="button" data-fiche="' + esc(cfg.id) + '">Voir la routine en détail</button></div></div>'
+      +   '<div class="ebr-liens"><button type="button" class="ebr-retour">Retourner</button><button type="button" data-fiche="' + esc(cfg.id) + '">' + (r.coffret ? 'Voir le coffret en détail' : 'Voir la routine en détail') + '</button></div></div>'
       + '</div>'
       + '</div></article>';
   }
@@ -244,6 +262,12 @@
 
     var titre = root.querySelector('.ebr-h'), intro = root.querySelector('.ebr-intro');
     var liste = ROUTINES.filter(function(x){ return P[x.id]; });
+    var coffrets = COFFRETS.filter(function(x){ return P[x.id]; });
+    var ed = '';
+    if(coffrets.length){
+      ed = '<section class="ebr-ed" aria-label="' + esc(EDITION.titre) + '"><div class="ebr-ed-h"><p class="ebr-ed-k">' + esc(EDITION.surtitre) + '</p><h2>' + esc(EDITION.titre) + '</h2><i></i>' + (EDITION.texte ? '<p>' + esc(EDITION.texte) + '</p>' : '') + '</div>'
+        + '<div class="ebr-g ebr-ged">' + coffrets.map(function(x, i){ return carte(P, x, i + 1); }).join('') + '</div></section>';
+    }
     var h = '', n = 0;
     liste.forEach(function(x){
       n++; h += carte(P, x, n);
@@ -252,13 +276,13 @@
       }
     });
     var f = '<div class="ebr-f" role="group" aria-label="Choisir un besoin"><button type="button" class="on" data-id="">Toutes</button>'
-      + BESOINS.filter(function(b){ return liste.some(function(x){ return x.besoins.indexOf(b.id) >= 0; }); })
+      + BESOINS.filter(function(b){ return liste.concat(coffrets).some(function(x){ return x.besoins.indexOf(b.id) >= 0; }); })
                .map(function(b){ return '<button type="button" data-id="' + b.id + '">' + esc(b.nom) + '</button>'; }).join('') + '</div>';
     root.innerHTML = '';
     if(titre) root.appendChild(titre);
-    root.insertAdjacentHTML('beforeend', f + '<div class="ebr-g">' + h + '</div>');
+    root.insertAdjacentHTML('beforeend', f + ed + '<div class="ebr-g">' + h + '</div>');
     if(intro){
-      var apres = REGLAGES.respirationApres && root.querySelectorAll('.ebr-g > .ebr-c')[REGLAGES.respirationApres - 1];
+      var apres = REGLAGES.respirationApres && root.querySelectorAll('.ebr-g:not(.ebr-ged) > .ebr-c')[REGLAGES.respirationApres - 1];
       if(apres) apres.parentNode.insertBefore(intro, apres.nextSibling); else root.appendChild(intro);
     }
     // la bande vidéo
@@ -294,7 +318,7 @@
 
     // Google : la liste des routines avec leur prix
     try {
-      var ld = { "@context": "https://schema.org", "@type": "ItemList", "name": "Routines soin visage ELKHA.B", "itemListElement": liste.map(function(x, i){
+      var ld = { "@context": "https://schema.org", "@type": "ItemList", "name": "Routines soin visage ELKHA.B", "itemListElement": coffrets.concat(liste).map(function(x, i){
         var r = P[x.id], img = r.media && r.media.images && r.media.images[0];
         return { "@type": "ListItem", "position": i + 1, "item": { "@type": "Product", "name": r.nom, "brand": { "@type": "Brand", "name": "ELKHA.B" }, "description": x.pour, "image": img || undefined,
           "offers": { "@type": "Offer", "price": nombre(r.prix).toFixed(2), "priceCurrency": "EUR", "availability": "https://schema.org/InStock" } } };
@@ -302,7 +326,7 @@
       var s = document.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(ld); document.head.appendChild(s);
     } catch(e){}
 
-    var grille = root.querySelector('.ebr-g');
+    var grille = root;   // les clics des cartes (coffrets et routines)
     function tel(){ return window.innerWidth < 900; }
     function retourner(c, voir){
       var d = c.querySelector('.ebr-dos'), r = c.querySelector('.ebr-rec');
@@ -333,6 +357,7 @@
       boutons.forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-id') === id); });
       root.querySelectorAll('.ebr-c').forEach(function(c){ c.hidden = !!id && (' ' + c.getAttribute('data-b') + ' ').indexOf(' ' + id + ' ') < 0; if(c.hidden && c.classList.contains('vue')) retourner(c, false); });
       if(sid) sid.closest('.ebr-sid').hidden = !!id;
+      var sec = root.querySelector('.ebr-ed'); if(sec) sec.hidden = !sec.querySelector('.ebr-c:not([hidden])');
       var resp = root.querySelector('.ebr-g > .ebr-intro'); if(resp) resp.hidden = !!id;
       if(!garderAdresse){ try { var u = new URL(location.href); if(id) u.searchParams.set('besoin', id); else u.searchParams.delete('besoin'); history.replaceState(null, '', u); } catch(e){} }
     }
