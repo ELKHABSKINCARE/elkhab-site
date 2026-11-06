@@ -44,21 +44,23 @@
     ,
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
-      photo: 'rituel-flacon-lumi-veil-b2.webp',
+      photo: 'rituel-flacon-lumi-veil-b1.webp',   // toujours le stick le plus clair en présentation
       eng: ['98 % d’origine naturelle', 'SPF 30', 'Vegan'],
       choix: 'Votre teinte', choisir: 'Choisissez votre teinte',
       // dans le même ordre que les variantes de la fiche (B1, B2, B3, B4)
       variantes: [
-        { cle: 'b1', label: 'B1 Clair', couleur: '#e5d1b9', photo: 'rituel-flacon-lumi-veil-b1.webp' },
-        { cle: 'b2', label: 'B2 Moyen', couleur: '#ddb38c', photo: 'rituel-flacon-lumi-veil-b2.webp' },
-        { cle: 'b3', label: 'B3 Hâlé',  couleur: '#9f633e', photo: 'rituel-flacon-lumi-veil-b3.webp' },
-        { cle: 'b4', label: 'B4 Foncé', couleur: '#5e351d', photo: 'rituel-flacon-lumi-veil-b4.webp' }
+        // les photos de texture de la fiche du site (Shopify)
+        { cle: 'b1', label: 'B1 Clair', texture: 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948' },
+        { cle: 'b2', label: 'B2 Moyen', texture: 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962' },
+        { cle: 'b3', label: 'B3 Hâlé',  texture: 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743' },
+        { cle: 'b4', label: 'B4 Foncé', texture: 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970' }
       ],
-      accroche: 'Un teint <b>unifié et protégé</b>, en un seul geste.',
+      accroche: 'Un teint <b>unifié</b>, une peau <b>soignée</b>.',
+      pour: 'Idéal pour les peaux sèches et sensibles qui ont besoin d’apaisement.',
       points: [
-        'Unifie visiblement le teint et atténue l’apparence des rougeurs, des pores et des petites imperfections, sans effet masque.',
-        'Le SPF 30 protège la peau des UV au quotidien.',
-        'Céramides, beurre de cacao et vitamine E préservent la barrière cutanée et l’hydratation toute la journée.'
+        'Une texture légère qui unifie le teint, floute les imperfections et donne à votre teint un effet glow naturel.',
+        'Les céramides protègent la barrière cutanée des agressions extérieures et maintiennent l’hydratation tout au long de la journée.',
+        'Un vrai soin, avec la protection SPF 30 au quotidien.'
       ],
       duree: 'Format stick : il se glisse dans votre sac pour des retouches à tout moment.'
     }
@@ -131,11 +133,11 @@
   + '#ebmf .mf-vgs{display:flex;gap:10px;margin-bottom:2px}'
   + '#ebmf .mf-vg{flex:1;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:6px;background:#f6f4f0;opacity:.55;cursor:pointer;transition:opacity .25s,border-color .25s}'
   + '#ebmf .mf-vg.on{border:1.5px solid #111;opacity:1}'
-  + '#ebmf .mf-vph{height:84px;border-radius:10px;background:#efece6;display:flex;align-items:center;justify-content:center;overflow:hidden}'
-  + '#ebmf .mf-vph img{height:88%;width:auto;object-fit:contain}'
+  + '#ebmf .mf-vph{height:84px;border-radius:10px;background:#f6f4f0;display:flex;align-items:center;justify-content:center;overflow:hidden}'
+  + '#ebmf .mf-vph img{height:88%;width:auto;object-fit:contain;mix-blend-mode:darken}'
   + '#ebmf .mf-haut{display:flex;gap:16px;align-items:center;margin-top:2px}'
-  + '#ebmf .mf-ph{width:112px;height:142px;border-radius:14px;background:#efece6;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}'
-  + '#ebmf .mf-ph img{height:92%;width:auto;object-fit:contain}'
+  + '#ebmf .mf-ph{width:112px;height:142px;border-radius:14px;background:#f6f4f0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}'
+  + '#ebmf .mf-ph img{height:92%;width:auto;object-fit:contain;mix-blend-mode:darken}'
   + '#ebmf .mf-g{font-size:8.5px;font-weight:600;letter-spacing:.34em;margin-top:14px}'
   + '#ebmf .mf-haut .mf-g{margin-top:0}'
   + '#ebmf .mf-n{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:16px;font-weight:700;letter-spacing:.06em;margin:5px 0 4px;line-height:1.25}'
@@ -160,18 +162,23 @@
   + '#ebmf button.mf-ch{display:flex;align-items:center;gap:8px;margin:0;padding:9px 10px;background:transparent;border:1px solid rgba(0,0,0,.18);border-radius:0;color:#111;font:600 9px Montserrat,sans-serif;letter-spacing:.16em;cursor:pointer;text-align:left;-webkit-appearance:none;appearance:none}'
   + '#ebmf button.mf-ch i{width:14px;height:14px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}'
   + '#ebmf button.mf-ch.on{background:#111;color:#fff;border-color:#111}'
+  + '#ebmf button.mf-ch b{font-weight:600}'
+  + '#ebmf .mf-chs.tx{grid-template-columns:repeat(4,1fr)}'
+  + '#ebmf .mf-chs.tx button.mf-ch{flex-direction:column;align-items:stretch;gap:7px;padding:5px 5px 8px;text-align:center;letter-spacing:.12em;font-size:8.5px}'
+  + '#ebmf .mf-tx{display:block;height:46px;background:#efece6 center/cover no-repeat}'
+  + '#ebmf .mf-pour{font-size:11.5px;font-style:italic;color:#6b645b;margin:-2px 0 10px;line-height:1.5}'
   + '#ebmf button.mf-b.off{background:#e4dfd7;border-color:#e4dfd7;color:#7a7268}'
   + '#ebmf button.mf-b1.off{border-color:rgba(0,0,0,.25);color:#7a7268}'
   + '@media (prefers-reduced-motion:reduce){#ebmf,#ebmf-v{transition:none}}';
 
   var voile, panneau, actif = 0, produits = [];
 
-  function photoDe(p){ var v = p.m.variantes; return BASE + (v && p.sel >= 0 ? v[p.sel].photo : p.m.photo); }
+  function photoDe(p){ var v = p.m.variantes; return BASE + (v && p.sel >= 0 && v[p.sel].photo ? v[p.sel].photo : p.m.photo); }
   function varianteId(p){ return p.m.variantes ? (p.sel >= 0 ? p.d.variantes[p.sel].variantId : null) : p.d.variantId; }
   function choixHTML(p){
     var v = p.m.variantes; if(!v) return '';
-    return '<div class="mf-tl">' + esc(p.m.choix.toUpperCase()) + '</div><div class="mf-chs">'
-      + v.map(function(x, i){ return '<button type="button" class="mf-ch' + (i === p.sel ? ' on' : '') + '" data-choix="' + p.i + ':' + i + '"><i style="background:' + x.couleur + '"></i>' + esc(x.label.toUpperCase()) + '</button>'; }).join('')
+    return '<div class="mf-tl">' + esc(p.m.choix.toUpperCase()) + '</div><div class="mf-chs' + (v[0].texture ? ' tx' : '') + '">'
+      + v.map(function(x, i){ return '<button type="button" class="mf-ch' + (i === p.sel ? ' on' : '') + '" data-choix="' + p.i + ':' + i + '">' + (x.texture ? '<span class="mf-tx" style="background-image:url(' + (/^https?:/.test(x.texture) ? x.texture + '&width=240' : BASE + x.texture) + ')"></span>' : '<i style="background:' + x.couleur + '"></i>') + '<b>' + esc(x.label.toUpperCase()) + '</b></button>'; }).join('')
       + '</div>';
   }
   function blocProduit(p, multi){
@@ -184,6 +191,7 @@
     h += '<div class="mf-eng">' + m.eng.map(function(e){ return '<span>' + insec(e) + '</span>'; }).join('') + '</div>'
       + choixHTML(p)
       + '<div class="mf-acc">' + m.accroche + '</div>'
+      + (m.pour ? '<div class="mf-pour">' + esc(m.pour) + '</div>' : '')
       + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + COULEUR[m.gamme] + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
       + '<div class="mf-dur">' + insec(m.duree) + '</div>';
     if(multi){
