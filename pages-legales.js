@@ -331,18 +331,21 @@ Assurer la livraison
 Répondre aux demandes via le formulaire de contact
 Respecter les obligations légales
 Améliorer le fonctionnement du site
+Mesurer l'efficacité de nos publicités, uniquement avec votre accord
 
 ## 4. Avec qui les partageons-nous ?
 Les données sont uniquement transmises aux prestataires nécessaires au fonctionnement de la boutique et aux autres prestataires techniques indispensables au fonctionnement du site, dans la limite de ce qui est nécessaire.
+Avec votre accord, certaines données sont aussi partagées avec TikTok (TikTok Technology Limited, Irlande) afin de mesurer l'efficacité de nos publicités : votre navigation sur le site (pages vues, soins consultés, ajouts au panier), les informations liées à vos commandes et, sous forme chiffrée (hachée), votre adresse e-mail et votre numéro de téléphone. TikTok peut traiter certaines de ces données hors de l'Union européenne, avec les garanties prévues par le RGPD. Le détail figure dans la Politique de cookies.
 
 ## 5. Combien de temps conservons-nous les données ?
 Les données sont conservées uniquement pendant la durée nécessaire à la gestion de la relation commerciale et au respect des obligations légales.
 
 ## 6. Vos droits
-Conformément au RGPD, chaque utilisateur peut demander l'accès, la rectification, l'effacement, la limitation ou la portabilité de ses données, ainsi que s'opposer à certains traitements lorsque la loi le permet.
+Conformément au RGPD, chaque utilisateur peut demander l'accès, la rectification, l'effacement, la limitation ou la portabilité de ses données, ainsi que s'opposer à certains traitements lorsque la loi le permet. Vous pouvez retirer votre accord au partage avec TikTok à tout moment, depuis le bouton « Gérer mes cookies » de la Politique de cookies.
+Si vous estimez que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (www.cnil.fr).
 
 ## 7. Cookies
-Le site utilise des cookies nécessaires à son fonctionnement. Les autres cookies, lorsqu'ils sont utilisés, sont soumis au consentement de l'utilisateur. Plus d'informations sont disponibles dans la Politique de cookies.
+Le site utilise des cookies nécessaires à son fonctionnement. Les cookies de mesure publicitaire (TikTok) ne sont déposés qu'avec votre accord. Plus d'informations sont disponibles dans la Politique de cookies.
 
 ## 8. Nous contacter
 Pour toute question concernant les données personnelles ou pour exercer vos droits, vous pouvez utiliser le formulaire de contact disponible sur le site.
@@ -356,17 +359,18 @@ Pour toute question concernant les données personnelles ou pour exercer vos dro
 Un cookie est un petit fichier enregistré sur votre appareil (ordinateur, tablette ou smartphone) lors de votre navigation sur le site. Il permet notamment d'assurer le bon fonctionnement du site, d'améliorer votre expérience utilisateur et, selon les cas, de réaliser des statistiques de fréquentation.
 
 ## 2. Quels cookies utilisons-nous ?
-Le site ELKHA.B utilise des cookies :
-nécessaires au bon fonctionnement du site et au traitement des commandes ;
-permettant de mesurer l'audience et d'améliorer les performances du site, lorsque ces outils sont utilisés ;
-éventuellement déposés par certains services tiers indispensables au fonctionnement du site.
-Les cookies non essentiels ne sont utilisés qu'après le consentement de l'utilisateur, lorsque celui-ci est requis par la réglementation.
+Cookies nécessaires : ils font fonctionner le site, par exemple pour mémoriser votre panier et votre choix concernant les cookies. Ils ne demandent pas votre accord.
+Cookies de mesure publicitaire (TikTok) : uniquement avec votre accord, le pixel TikTok, fourni par TikTok Technology Limited (Irlande), mesure l'efficacité de nos publicités et de nos vidéos (pages vues, soins consultés, ajouts au panier) et nous aide à présenter nos contenus aux personnes susceptibles de s'y intéresser.
+Lors du paiement, notre boutique Shopify transmet également à TikTok, de façon sécurisée, les informations liées à votre commande, pour mesurer ces mêmes résultats.
 
-## 3. Gérer vos préférences
-Lors de votre première visite, un bandeau d'information vous permet d'accepter, de refuser ou de personnaliser l'utilisation des cookies lorsque cela est nécessaire.
-Vous pouvez également modifier vos préférences à tout moment depuis les paramètres de votre navigateur ou via l'outil de gestion des cookies mis à disposition sur le site, lorsqu'il est disponible.
+## 3. Combien de temps ?
+Votre choix (accepter ou refuser) est conservé six mois : le bandeau vous est ensuite proposé de nouveau. Les cookies TikTok sont conservés au maximum treize mois.
 
-## 4. Nous contacter
+## 4. Gérer vos préférences
+Lors de votre première visite, un bandeau vous permet d'accepter ou de refuser ces cookies, aussi simplement l'un que l'autre. Refuser ne change rien à votre navigation ni à vos achats.
+Vous pouvez changer d'avis à tout moment grâce au bouton « Gérer mes cookies » ci-dessous, ou depuis les paramètres de votre navigateur.
+
+## 5. Nous contacter
 Pour toute question concernant l'utilisation des cookies, vous pouvez contacter ELKHA.B via le formulaire de contact disponible sur le site.
 `
   }
@@ -388,6 +392,7 @@ var css = ""
 + ".eb-legal-h1{font-size:13.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:44px 0 16px;padding-top:22px;border-top:1px solid rgba(0,0,0,.12)}"
 + ".eb-legal-trait + .eb-legal-h1{border-top:0;padding-top:0;margin-top:6px}"
 + ".eb-legal-h2{font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;margin:28px 0 10px}"
++ ".eb-legal-cookies{display:inline-block;margin:26px 0 10px;padding:0 26px;height:44px;background:#111;color:#fff;border:1px solid #111;border-radius:0;font:600 10px 'Montserrat',sans-serif;letter-spacing:.28em;cursor:pointer;-webkit-appearance:none;appearance:none}"
 + ".eb-legal-p{font-size:13px;font-weight:300;line-height:1.8;margin:0 0 8px;opacity:.85}"
 + ".eb-legal-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-legal-close.visible{display:flex}.eb-legal-close:hover{transform:scale(1.1)}"
@@ -419,6 +424,9 @@ function rendre(id){
     else if(l.indexOf('# ') === 0){ html += '<h3 class="eb-legal-h1">' + esc(l.slice(2)) + '</h3>'; }
     else { html += '<p class="eb-legal-p">' + esc(l).replace(/ ([?!:;»])/g, '&nbsp;$1').replace(/« /g, '«&nbsp;') + '</p>'; }
   });
+  if(id === 'politique-cookies' && typeof window.ebCookiesOpen === 'function'){
+    html += '<button type="button" class="eb-legal-cookies" onclick="if(window.ebCookiesOpen){window.ebCookiesOpen();}">GÉRER MES COOKIES</button>';
+  }
   return html;
 }
 

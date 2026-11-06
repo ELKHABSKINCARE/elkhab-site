@@ -871,6 +871,16 @@ document.addEventListener('click', function(e){
   (document.head || document.documentElement).appendChild(s);
 })();
 
+/* ─── Bandeau cookies + pixel TikTok (le pixel ne démarre qu'après « Accepter ») : chargé sur tous les sites ─── */
+(function(){
+  if(window.ebConsentCharge || document.querySelector('script[data-eb-consent]')) return;
+  var s = document.createElement('script');
+  s.src = 'https://elkhabskincare.github.io/elkhab-site/consentement-engine.js?v=1';
+  s.async = true;
+  s.setAttribute('data-eb-consent', '1');
+  (document.head || document.documentElement).appendChild(s);
+})();
+
 /* ─── Espace ambassadrice / collaborations (lien « #collaboration ») : chargé sur tous les sites ─── */
 (function(){
   if(window.ebCollabCharge || document.querySelector('script[data-eb-collab]')) return;
