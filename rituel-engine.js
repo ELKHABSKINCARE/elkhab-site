@@ -408,7 +408,7 @@
   + ".ebq-soins{display:grid;gap:6px;padding:0 14px;align-items:start}"
   + ".ebq-soin{display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0;font-family:inherit;color:inherit}"
   + ".ebq-fl{display:flex;align-items:flex-end;justify-content:center;height:146px;width:100%;margin-bottom:24px}"
-  + ".ebq-fl img{display:block;width:auto;max-width:100%;object-fit:contain;object-position:50% 100%}"
+  + ".ebq-fl img{display:block;flex:none;max-width:none;object-fit:contain;object-position:50% 100%}"
   + ".ebq-soin b{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-top:10px;line-height:1.35}"
   + ".ebq-soin span{font-size:10px;color:#5a544c;margin-top:4px;line-height:1.35}"
   + "#eb-rituel .ebq-mom{font-size:10px;letter-spacing:.28em;padding-left:.28em;text-transform:uppercase;font-weight:600;margin:26px 0 10px}"
@@ -525,9 +525,10 @@
     var hmax = Math.max.apply(null, reel.map(function(s){ return FLACONS[s][0]; }).concat([1]));
     return '<div class="ebq-soins" style="grid-template-columns:repeat(' + soins.length + ',1fr)">' + soins.map(function(s){
       var f = FLACONS[s], p = P[s] || {};
-      var h = f ? Math.round(138 * f[0] / hmax) : 120;
-      var img = f ? f[1] : ((p.media && (p.media.miniature || (p.media.images && p.media.images[0]))) || '');
-      return '<div class="ebq-soin"><span class="ebq-fl">' + (img ? '<img src="' + esc(img + (img.indexOf('cdn.shopify.com') < 0 ? '' : (img.indexOf('?') < 0 ? '?' : '&') + 'width=400')) + '" alt="' + esc((p.nom || '') + ' ELKHA.B') + '" style="height:' + h + 'px;margin-bottom:-' + Math.round(h * 0.172) + 'px" loading="lazy">' : '') + '</span>'
+      // photo cadrée (flacon centré, de 7 % à 87 % de sa hauteur) : même taille de flacon qu'avant, tous posés sur la même ligne
+      var h = f ? Math.round(138 * f[0] / hmax * 0.98) : 120;
+      var img = f ? photoRituel(f[1]) : ((p.media && (p.media.miniature || (p.media.images && p.media.images[0]))) || '');
+      return '<div class="ebq-soin"><span class="ebq-fl">' + (img ? '<img src="' + esc(img + (img.indexOf('cdn.shopify.com') < 0 ? '' : (img.indexOf('?') < 0 ? '?' : '&') + 'width=400')) + '" alt="' + esc((p.nom || '') + ' ELKHA.B') + '" style="height:' + h + 'px;width:' + Math.round(h * 2 / 3) + 'px;margin-bottom:-' + Math.round(h * 0.13) + 'px" loading="lazy">' : '') + '</span>'
         + '<b>' + esc(p.nom || '') + '</b>' + (sens[s] ? '<em>' + esc(sens[s]) + '</em>' : '<span>' + esc(f ? f[2] : '') + '</span>') + '</div>';
     }).join('') + '</div>';
   }

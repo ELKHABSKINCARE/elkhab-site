@@ -111,8 +111,8 @@
   + ".eb-fp-soin-img img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}"
   + ".eb-fp-soin-img.eb-fp-soin-flacon img{object-fit:contain;object-position:50% 100%;height:92%;margin-top:8%}"
   + ".eb-fp-soin-img.eb-fp-soin-reel{position:relative;background:#F5F4F0}"
-  // photo du flacon (le flacon occupe 5 % à 83 % de la hauteur de la photo) : le plus grand soin occupe ~70 % de la case, tous posés sur la même ligne
-  + ".eb-fp-soin-img.eb-fp-soin-reel img{position:absolute;left:50%;width:auto;max-width:none;height:calc(var(--eb-h) * 90%);top:calc(92% - var(--eb-h) * 90% * .83);transform:translateX(-50%);object-fit:contain}"
+  // photo cadrée du flacon (360×540, flacon centré, de 7 % à 87 % de la hauteur) : le plus grand soin occupe ~70 % de la case, tous posés sur la même ligne, rien n'est coupé
+  + ".eb-fp-soin-img.eb-fp-soin-reel img{position:absolute;left:50%;width:auto;max-width:none;height:calc(var(--eb-h) * 88.2%);top:calc(92% - var(--eb-h) * 88.2% * .87);transform:translateX(-50%);object-fit:contain}"
   + ".eb-fp-soin:hover .eb-fp-soin-img.eb-fp-soin-reel img{transform:translateX(-50%) scale(1.04);transform-origin:50% 92%}"
   + ".eb-fp-soin:hover .eb-fp-soin-img img{transform:scale(1.05)}"
   + ".eb-fp-soin-name{display:block;margin-top:9px;font-size:9.5px;font-weight:400;letter-spacing:.14em;line-height:1.5;text-transform:uppercase}"
@@ -237,6 +237,8 @@
     "lumibloom-arbutin": [9.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/bloom-lumi-bloom-arbutin-flacon-site-v1.png"],
     "radiance-eye-cream": [7.5, "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/bloom-radiance-eye-cream-flacon-site-v1.png"]
   };
+  // la même photo, cadrée pour les vignettes (flacon entier et centré, sur le fond du site) — mêmes photos que les fiches rituel
+  function photoCadree(u){ return 'https://elkhabskincare.github.io/elkhab-site/rituel-flacon-' + u.split('/').pop().replace(/^(balance|bloom)-|-flacon-site-v\d+\.png.*$/g, '') + '.webp'; }
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
 
   // Images Shopify en haute résolution (écrans Retina), sans jamais les agrandir artificiellement
@@ -674,7 +676,7 @@
           var sp = window.EB_PRODUITS[sid], m = sp.media || {};
           var img = m.accord || m.miniature || (m.images && m.images[0]) || m.image || '';   // Balance : flacon bien cadré (bien visible)
           var ech = reel ? ' style="--eb-h:' + (ECHELLE[sid][0] / hmax).toFixed(3) + '"' : '';
-          if(reel) img = ECHELLE[sid][1];
+          if(reel) img = photoCadree(ECHELLE[sid][1]);
           h += '<button type="button" class="eb-fp-soin"' + (r.soinSelonChoix === k ? ' data-selon-choix="1"' : '') + ' data-fiche="' + esc(sid) + '" data-depuis-routine="' + esc(id) + '">';
           h += '<span class="eb-fp-soin-img' + (reel ? ' eb-fp-soin-reel' : (m.accord ? ' eb-fp-soin-flacon' : '')) + '"' + ech + '>' + (img ? '<img src="' + esc(hd(img, 600)) + '" alt="' + esc(sp.nom) + '" loading="lazy">' : '') + '</span>';
           h += '<span class="eb-fp-soin-name">' + esc(sp.nom) + '</span><span class="eb-fp-soin-voir">Voir la fiche</span></button>';
