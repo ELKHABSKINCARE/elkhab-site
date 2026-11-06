@@ -45,6 +45,7 @@
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
+      cadrer: true,    // le stick est fin et la photo a beaucoup de vide autour : on l'agrandit pour qu'il remplisse le cadre
       eng: ['98 % d’origine naturelle', 'SPF 30', 'Vegan'],
       choix: 'Votre teinte', choisir: 'Choisissez votre teinte',
       // dans le même ordre que les variantes de la fiche (B1, B2, B3, B4)
@@ -69,7 +70,7 @@
   /* ─── L'édition des fêtes : ?mini=coffrets ou ?mini=coffrets:temps-suspendu ─── */
   var COFFRETS = [
     { id: 'coffret-temps-suspendu', cle: 'temps-suspendu', gamme: 'Balance', couleur: '#5f7149', type: 'Coffret Rituel Lift',
-      rangee: 'coffret-rangee-temps-suspendu.webp', contenu: [['Active Lift', '30 ml'], ['Age Lift', '50 ml'], ['Eye Lift', '15 ml']],
+      contenu: [['active-lift', 'Active Lift', '30 ml'], ['age-lift', 'Age Lift', '50 ml'], ['eye-lift', 'Eye Lift', '15 ml']],
       accroche: 'Le rituel <b>lift</b> complet, aux peptides.',
       points: [
         'Active Lift, le sérum aux peptides et à l’acide hyaluronique, aide à lisser les rides et redonne du rebond à la peau.',
@@ -77,7 +78,7 @@
         'Eye Lift prend soin du contour des yeux : ridules et pattes-d’oie paraissent lissées.'
       ] },
     { id: 'coffret-rituel-de-minuit', cle: 'rituel-de-minuit', gamme: 'Bloom & Balance', couleur: '#8c5a66', type: 'Coffret Soin du Soir',
-      rangee: 'coffret-rangee-rituel-de-minuit.webp', contenu: [['Luminescence Boost', '30 ml'], ['Fusion Balance', '100 ml'], ['Radiance Eye Cream', '15 ml']],
+      contenu: [['fusion-balance', 'Fusion Balance', '100 ml'], ['luminescence-boost', 'Luminescence Boost', '30 ml'], ['radiance-eye-cream', 'Radiance Eye Cream', '15 ml']],
       accroche: 'Un rituel du soir complet, <b>du démaquillage au regard</b>.',
       points: [
         'Fusion Balance, le démaquillant biphasé, dissout le maquillage, même waterproof, sans frotter ni tirailler.',
@@ -85,7 +86,7 @@
         'Radiance Eye Cream atténue l’apparence des poches et des cernes, pour un regard plus frais. Idéale sous le maquillage, elle ne file pas.'
       ] },
     { id: 'coffret-nouvelle-aube', cle: 'nouvelle-aube', gamme: 'Balance', couleur: '#5f7149', type: 'Coffret Peau Neuve',
-      rangee: 'coffret-rangee-nouvelle-aube.webp', contenu: [['Hydra Balance', '30 ml'], ['AHA Balance Peel', '30 ml'], ['Active Lift', '30 ml']],
+      contenu: [['aha-balance-peel', 'AHA Balance Peel', '30 ml'], ['active-lift', 'Active Lift', '30 ml'], ['hydra-balance', 'Hydra Balance', '30 ml']],
       accroche: 'Une peau <b>neuve</b>, lisse et lumineuse.',
       points: [
         'AHA Balance Peel exfolie sans agresser : il associe un AHA doux à l’acide hyaluronique et aux extraits de thé blanc et de sauge, pour lisser le grain de peau tout en préservant son hydratation.',
@@ -93,7 +94,7 @@
         'Hydra Balance, à l’acide hyaluronique multimoléculaire, hydrate à plusieurs niveaux de la peau : elle est repulpée, souple et confortable.'
       ] },
     { id: 'coffret-lumiere-dhiver', cle: 'lumiere-dhiver', gamme: 'Bloom', couleur: '#a65a63', type: 'Coffret Rituel Éclat',
-      rangee: 'coffret-rangee-lumiere-dhiver.webp', contenu: [['Radiance C Serum', '30 ml'], ['Lumi-Bloom Arbutin', '30 ml']],
+      contenu: [['radiance-serum', 'Radiance C Serum', '30 ml'], ['lumibloom-arbutin', 'Lumi-Bloom Arbutin', '30 ml']],
       accroche: 'L’<b>éclat</b> et un teint plus uniforme, tout l’hiver.',
       points: [
         'Radiance C Serum, l’antioxydant hydratant à la vitamine C stabilisée haute tolérance, aide la peau à se défendre contre le stress oxydatif.',
@@ -200,12 +201,14 @@
   + '#ebmf .mf-4 .mf-vph img{transform:none;object-fit:cover}'
   + '#ebmf .mf-ec{font-size:10.5px;color:#8a8278;margin:0 0 12px}'
   + '#ebmf .mf-ec s{color:#8a8278}'
-  + '#ebmf .mf-rg{border-radius:12px;background:#efece6;overflow:hidden}'
-  + '#ebmf .mf-rg img{display:block;width:100%;height:auto}'
-  + '#ebmf .mf-rn{display:grid;text-align:center;font-size:9px;font-weight:600;letter-spacing:.14em;margin-top:8px}'
-  + '#ebmf .mf-rn>div{display:flex;flex-direction:column;justify-content:space-between;padding:0 3px}'
+  + '#ebmf .mf-cs{display:grid;gap:10px;grid-template-columns:repeat(3,1fr)}'
+  + '#ebmf .mf-cs2{grid-template-columns:repeat(2,calc((100% - 20px) / 3));justify-content:center}'   // 2 soins : mêmes vignettes que les autres, centrées
+  + '#ebmf .mf-ci{display:flex;flex-direction:column;text-align:center}'
+  + '#ebmf .mf-cph{aspect-ratio:3/4;border-radius:12px;overflow:hidden;background:#f5f4f0;border:1px solid rgba(0,0,0,.08)}'
+  + '#ebmf .mf-cph img{display:block;width:100%;height:100%;object-fit:cover}'
+  + '#ebmf .mf-cn{flex:1;font-size:9px;font-weight:600;letter-spacing:.14em;line-height:1.35;margin-top:8px}'
+  + '#ebmf .mf-ci em{display:block;font-style:normal;font-size:9px;color:#8a8278;margin-top:2px;letter-spacing:.08em}'
   + '#ebmf .mf-off2{margin:12px 0 16px}'
-  + '#ebmf .mf-rn em{display:block;font-style:normal;font-weight:400;color:#8a8278;margin-top:2px;letter-spacing:.08em}'
   + '#ebmf .mf-tl{font-size:8px;font-weight:600;letter-spacing:.32em;color:#7a7268;margin:16px 0 8px}'
   + '#ebmf .mf-chs{display:grid;grid-template-columns:1fr 1fr;gap:6px}'
   + '#ebmf button.mf-ch{display:flex;align-items:center;gap:8px;margin:0;padding:9px 10px;background:transparent;border:1px solid rgba(0,0,0,.18);border-radius:0;color:#111;font:600 9px Montserrat,sans-serif;letter-spacing:.16em;cursor:pointer;text-align:left;-webkit-appearance:none;appearance:none}'
@@ -228,6 +231,49 @@
     if(p.m.photo === 'site'){ var u = (p.d.media && p.d.media.miniature) || ''; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=500'; }
     return BASE + p.m.photo;
   }
+  /* ─── Agrandir un soin trop petit dans sa photo (ex. Lumi-Veil) ───
+     On repère où est le soin dans la photo (zone qui n'est pas du fond),
+     puis on l'agrandit pour qu'il occupe 90 % de la hauteur du cadre.
+     Si la photo ne peut pas être analysée, elle reste affichée comme avant. */
+  var zones = {};
+  function zoneDe(src, fin){
+    if(zones[src] !== undefined) return fin(zones[src]);
+    var im = new Image(); im.crossOrigin = 'anonymous';
+    im.onload = function(){
+      try {
+        var k = Math.min(1, 240 / Math.max(im.naturalWidth, im.naturalHeight));
+        var w = Math.max(1, Math.round(im.naturalWidth * k)), h = Math.max(1, Math.round(im.naturalHeight * k));
+        var c = document.createElement('canvas'); c.width = w; c.height = h;
+        var x = c.getContext('2d'); x.drawImage(im, 0, 0, w, h);
+        var px = x.getImageData(0, 0, w, h).data;
+        var f = [px[0], px[1], px[2]], transparent = px[3] < 250;
+        var x0 = w, x1 = -1, y0 = h, y1 = -1;
+        for(var y = 0; y < h; y++) for(var i = 0; i < w; i++){
+          var o = (y * w + i) * 4;
+          var plein = transparent ? px[o + 3] > 24 : (Math.abs(px[o] - f[0]) + Math.abs(px[o + 1] - f[1]) + Math.abs(px[o + 2] - f[2])) > 24;
+          if(plein){ if(i < x0) x0 = i; if(i > x1) x1 = i; if(y < y0) y0 = y; if(y > y1) y1 = y; }
+        }
+        zones[src] = x1 < 0 ? null : { x: x0 / w, y: y0 / h, w: (x1 - x0 + 1) / w, h: (y1 - y0 + 1) / h, r: im.naturalWidth / im.naturalHeight };
+      } catch(e){ zones[src] = null; }
+      fin(zones[src]);
+    };
+    im.onerror = function(){ zones[src] = null; fin(null); };
+    im.src = src;
+  }
+  function cadrer(){
+    if(!panneau) return;
+    [].forEach.call(panneau.querySelectorAll('img[data-cadrer]'), function(img){
+      zoneDe(img.src, function(z){
+        var cadre = img.parentNode; if(!z || !cadre || !cadre.isConnected) return;
+        var b = cadre.getBoundingClientRect(); if(!b.width || !b.height) return;
+        var hImg = Math.min(b.height * .9 / z.h, b.width * .9 / (z.w * z.r));   // hauteur de la photo entière
+        var wImg = hImg * z.r;
+        cadre.style.position = 'relative';
+        img.style.cssText = 'position:absolute;max-width:none;object-fit:fill;transform:none;width:' + wImg + 'px;height:' + hImg + 'px;'
+          + 'left:' + (b.width / 2 - (z.x + z.w / 2) * wImg) + 'px;top:' + (b.height / 2 - (z.y + z.h / 2) * hImg) + 'px';
+      });
+    });
+  }
   function varianteId(p){ return p.m.variantes ? (p.sel >= 0 ? p.d.variantes[p.sel].variantId : null) : p.d.variantId; }
   function choixHTML(p){
     var v = p.m.variantes; if(!v) return '';
@@ -241,7 +287,7 @@
       + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span>' + (multi ? '<span class="mf-np">' + euros(nb(d.prix)) + '</span>' : '') + '</div>'
       + '<div class="mf-s">' + esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '') + '</div>';
     var h = multi ? tete
-      : '<div class="mf-haut"><div class="mf-ph"><img src="' + photoDe(p) + '" alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
+      : '<div class="mf-haut"><div class="mf-ph"><img src="' + photoDe(p) + '"' + (p.m.cadrer ? ' data-cadrer="1"' : '') + ' alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
     h += '<div class="mf-eng">' + m.eng.map(function(e){ return '<span>' + insec(e) + '</span>'; }).join('') + '</div>'
       + choixHTML(p)
       + '<div class="mf-acc">' + m.accroche + '</div>'
@@ -266,8 +312,11 @@
       + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span><span class="mf-np">' + euros(prix) + '</span></div>'
       + (somme - prix >= 3 ? '<div class="mf-ec">Au lieu de <s>' + euros(somme) + '</s> pour les ' + NOMBRES[soins.length] + ' soins achetés séparément</div>' : '')
       + '<div class="mf-tl">DANS VOTRE COFFRET</div>'
-      + '<div class="mf-rg"><img src="' + BASE + m.rangee + '" alt="' + esc(m.contenu.map(function(c){ return c[0]; }).join(', ')) + ', coffret ' + esc(d.nom) + ' ELKHA.B"></div>'
-      + '<div class="mf-rn" style="grid-template-columns:repeat(' + m.contenu.length + ',1fr)">' + m.contenu.map(function(c){ return '<div>' + esc(c[0].toUpperCase()) + '<em>' + esc(c[1]) + '</em></div>'; }).join('') + '</div>'
+      + '<div class="mf-cs' + (m.contenu.length < 3 ? ' mf-cs2' : '') + '">' + m.contenu.map(function(c){
+          // photo du site, à la taille réelle : tous les soins à la même échelle (Age Lift 50 ml = le plus grand)
+          return '<div class="mf-ci"><div class="mf-cph"><img src="' + BASE + 'coffret-' + m.cle + '-' + c[0] + '.webp" alt="' + esc(c[1]) + ' ELKHA.B, ' + esc(c[2]) + '" loading="lazy"></div>'
+            + '<div class="mf-cn">' + esc(c[1].toUpperCase()) + '</div><em>' + esc(c[2]) + '</em></div>';
+        }).join('') + '</div>'
       + '<div class="mf-acc">' + m.accroche + '</div>'
       + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + m.couleur + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
       + '<div class="mf-dur">Prêt à offrir, dans son écrin des fêtes. Quantités limitées.</div>'
@@ -303,6 +352,7 @@
       h += '<div class="mf-off">Livraison offerte dès ' + SEUIL_LIVRAISON + ' € d’achat</div>' + blocProduit(produits[0], false);
     }
     panneau.innerHTML = h;
+    cadrer();
   }
 
   function ouvrirPanier(){
