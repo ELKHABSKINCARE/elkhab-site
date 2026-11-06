@@ -25,7 +25,7 @@
     ts: {
       fiche: 'coffret-temps-suspendu', nom: 'Le Temps Suspendu', sous: 'Coffret Rituel Lift', couleur: '#8a6a22',
       bande: BASE + 'rituel-bande-ts.webp', motif: BASE + 'rituel-motif-ts.webp',
-      voile: 'rgba(16,24,14,.5)', encre: '#e9c979', nuit: '#1f2a1b', or: '#e9c979',
+      voile: 'rgba(16,24,14,.5)', base: '#2c3826', encre: '#e9c979', nuit: '#1f2a1b', or: '#e9c979',
       sens: {
         'active-lift': "Un sérum au parfum floral, réchauffé de notes d'ambre et de poudre.",
         'age-lift': "Une crème légère et nourrissante, au fini souple et au délicat parfum floral.",
@@ -41,7 +41,7 @@
     lh: {
       fiche: 'coffret-lumiere-dhiver', nom: "Lumière d'hiver", sous: 'Coffret Rituel Éclat', couleur: '#7d1f2b',
       bande: BASE + 'rituel-bande-lh.webp', motif: BASE + 'rituel-motif-lh.webp',
-      voile: 'rgba(40,6,12,.55)', encre: '#e9c979', nuit: '#3d0d15', or: '#e9c979',
+      voile: 'rgba(40,6,12,.55)', base: '#4a1219', encre: '#e9c979', nuit: '#3d0d15', or: '#e9c979',
       sens: {
         'radiance-serum': "Une texture sorbet jaune soleil, fondante et douce, au parfum d'agrumes.",
         'lumibloom-arbutin': "Un sérum léger et soyeux, aux notes de vétiver, de cèdre et de vanille."
@@ -54,7 +54,7 @@
     rm: {
       fiche: 'coffret-rituel-de-minuit', nom: 'Rituel de Minuit', sous: 'Coffret Soin du Soir', couleur: '#9b2f62',
       bande: BASE + 'rituel-bande-rm.webp', motif: BASE + 'rituel-motif-rm.webp',
-      voile: 'rgba(36,8,22,.55)', encre: '#ffffff', nuit: '#33111f', or: '#f0b8d2',
+      voile: 'rgba(36,8,22,.55)', base: '#3a1a2c', encre: '#ffffff', nuit: '#33111f', or: '#f0b8d2',
       sens: {
         'fusion-balance': "Deux phases qui fusionnent quand on l'agite, une texture qui fond sur le maquillage. Sans parfum.",
         'luminescence-boost': "Une texture fondante et fraîche, aux notes poudrées d'iris et de violette.",
@@ -70,7 +70,7 @@
     na: {
       fiche: 'coffret-nouvelle-aube', nom: 'Nouvelle Aube', sous: 'Coffret Peau Neuve', couleur: '#7a4900',
       bande: BASE + 'rituel-bande-na.webp', motif: BASE + 'rituel-motif-na.webp',
-      voile: 'rgba(246,244,240,.3)', encre: '#7a4900', nuit: '#2b3424', or: '#d9b27a',
+      voile: 'rgba(246,244,240,.3)', base: '#cdd8c0', encre: '#7a4900', nuit: '#2b3424', or: '#d9b27a',
       sens: {
         'aha-balance-peel': "Une texture liquide et légère, à la senteur discrète, légèrement sucrée.",
         'active-lift': "Un sérum au parfum floral, réchauffé de notes d'ambre et de poudre.",
@@ -175,7 +175,7 @@
   + "#ebq-ouv .ebq-c{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;transition:opacity .45s ease}"
   + "#ebq-ouv .ebq-ol{font-size:22px;letter-spacing:.45em;padding-left:.45em}"
   + "#ebq-ouv .ebq-op{font-size:7.5px;letter-spacing:.7em;padding-left:.7em;margin-top:5px;opacity:.85;display:flex;align-items:center;justify-content:center;gap:10px}"
-  + "#ebq-ouv{animation:ebqApparait .6s ease}@keyframes ebqApparait{from{opacity:0}}"
+  + "#ebq-ouv{visibility:hidden}#ebq-ouv.ebq-vis{visibility:visible;animation:ebqApparait .6s ease}@keyframes ebqApparait{from{opacity:0}}"
   + "#ebq-ouv button.ebq-att{opacity:.55}"
   + "#ebq-ouv .ebq-ok{font-size:9.5px;letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;margin-top:16vh;opacity:.9}"
   + "#ebq-ouv .ebq-on{font-size:27px;letter-spacing:.16em;padding-left:.16em;font-weight:500;text-transform:uppercase;margin-top:14px;line-height:1.3}"
@@ -235,12 +235,16 @@
   function ouverture(C){
     styles();
     var o = document.createElement('div'); o.id = 'ebq-ouv'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Votre rituel ' + C.nom);
-    var pan = function(c){ return '<div class="ebq-p ' + c + '"><i style="background-image:url(' + esc(C.motif) + ')"></i><b style="background:' + C.voile + '"></b></div>'; };
+    var pan = function(c){ return '<div class="ebq-p ' + c + '" style="background:' + (C.base || '#111') + '"><i style="background-image:url(' + esc(C.motif) + ')"></i><b style="background:' + C.voile + '"></b></div>'; };
     o.innerHTML = pan('ebq-pg') + pan('ebq-pd')
       + '<div class="ebq-c" style="color:' + C.encre + '"><div class="ebq-ol">ELKHA.B</div><div class="ebq-op">PARIS</div>'
       + '<div class="ebq-ok">Votre rituel</div><div class="ebq-on">' + esc(C.nom) + '</div><div class="ebq-os">' + esc(C.sous) + '</div>'
       + '<button type="button">Ouvrir mon rituel</button><div class="ebq-of">Édition des fêtes</div></div>';
     document.body.appendChild(o);
+    // l'écran reste caché (le logo de chargement reste visible) tant que l'image des motifs n'est pas arrivée
+    var vu = false, montrer = function(){ if(vu) return; vu = true; o.classList.add('ebq-vis'); };
+    var im = new Image(); im.onload = im.onerror = montrer; im.src = C.motif; if(im.complete) montrer();
+    setTimeout(montrer, 4000);
     var html = document.documentElement, avant = [html.style.overflow, document.body.style.overflow];
     html.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
     var fini = false, pret = false, demande = false, btn = o.querySelector('button');
@@ -249,8 +253,8 @@
       html.style.overflow = avant[0]; document.body.style.overflow = avant[1];
       if(o.parentNode) o.parentNode.removeChild(o);
     }
-    function ouvrir(){ window.scrollTo(0, 0); o.className = 'ebq-ouvert'; setTimeout(fermer, 1700); }
-    btn.addEventListener('click', function(){ if(pret) ouvrir(); else { demande = true; btn.className = 'ebq-att'; } });
+    function ouvrir(){ window.scrollTo(0, 0); o.classList.add('ebq-ouvert'); setTimeout(fermer, 1700); }
+    btn.addEventListener('click', function(){ if(pret) ouvrir(); else { demande = true; btn.classList.add('ebq-att'); } });
     return { pret: function(){ pret = true; if(demande) ouvrir(); }, fermer: fermer };
   }
 
