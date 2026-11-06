@@ -92,7 +92,7 @@
   var SOINS = {
     // ── BLOOM ──
     mb: {
-      fiche: 'milky-bloom', nom: 'Milky Bloom', gamme: 'Bloom', sous: "Nettoyant huile-en-lait", couleur: '#8a6f5c', clair: '#efe2d6',
+      geste: 'une noisette suffit', fiche: 'milky-bloom', nom: 'Milky Bloom', gamme: 'Bloom', sous: "Nettoyant huile-en-lait", couleur: '#8a6f5c', clair: '#efe2d6',
       role: "Il démaquille, même un maquillage épais, et nettoie la peau en la nourrissant, sans tiraillement ni sensation de film.",
       sens: "Un gel huileux rosé et nacré qui devient lait soyeux au contact de l'eau, aux notes de fleurs blanches, de jasmin et de bois de santal crémeux.",
       etapes: [
@@ -103,7 +103,7 @@
       conseil: "Le soir, massez toujours sur peau sèche : l'eau ajoutée trop tôt empêche l'huile de dissoudre le maquillage. Le matin, un passage rapide suffit, la peau a seulement besoin d'être rafraîchie."
     },
     rc: {
-      fiche: 'radiance-cleanser', nom: 'Radiance Cleanser', gamme: 'Bloom', sous: 'Gel nettoyant éclat', couleur: '#8a6f5c', clair: '#efe2d6',
+      geste: 'une noisette suffit', fiche: 'radiance-cleanser', nom: 'Radiance Cleanser', gamme: 'Bloom', sous: 'Gel nettoyant éclat', couleur: '#8a6f5c', clair: '#efe2d6',
       role: "Il élimine l'excès de sébum, les impuretés et les traces de maquillage qui ternissent le teint, sans dessécher ni tirailler.",
       sens: "Un gel fluide et frais qui devient une mousse légère au contact de l'eau, au parfum léger.",
       etapes: [{ moment: 'Matin et soir', texte: "Faites mousser une noisette entre vos mains humides, massez le visage en petits cercles pendant une trentaine de secondes, puis rincez abondamment." }],
@@ -111,7 +111,7 @@
       conseil: "Rincez à l'eau tiède : l'eau chaude dessèche et sensibilise la peau. Une légère séparation dans le flacon est normale avec une formule d'origine naturelle."
     },
     lp: {
-      fiche: 'lumi-pure', nom: 'Lumi-Pure', gamme: 'Bloom', sous: "Masque purifiant", couleur: '#8a6f5c', clair: '#efe2d6',
+      geste: '', fiche: 'lumi-pure', nom: 'Lumi-Pure', gamme: 'Bloom', sous: "Masque purifiant", couleur: '#8a6f5c', clair: '#efe2d6',
       role: "Ce masque aux argiles et au charbon végétal absorbe l'excès de sébum, désincruste les pores et affine le grain de peau des peaux mixtes à grasses.",
       sens: "Une texture d'argile enveloppante, facile à répartir, au parfum discret aux nuances minérales.",
       etapes: [{ moment: 'Le soir, une à deux fois par semaine', texte: "Sur peau propre, appliquez une couche uniforme en évitant le contour des yeux et des lèvres. Laissez poser 5 à 10 minutes, puis rincez abondamment à l'eau tiède." }],
@@ -119,7 +119,7 @@
       conseil: "Rincez avant que le masque ne sèche complètement : une argile qui craquelle tire l'eau de la peau. Une légère rougeur juste après est normale et disparaît vite. Lumi-Pure ne convient pas aux peaux sensibles."
     },
     gl: {
-      fiche: 'gelee-lumibloom', nom: 'Gelée Lumi-Bloom', gamme: 'Bloom', sous: 'Soin équilibrant aux prébiotiques', couleur: '#8a6f5c', clair: '#efe2d6',
+      geste: 'quelques gouttes suffisent', fiche: 'gelee-lumibloom', nom: 'Gelée Lumi-Bloom', gamme: 'Bloom', sous: 'Soin équilibrant aux prébiotiques', couleur: '#8a6f5c', clair: '#efe2d6',
       role: "Première étape d'une peau éclatante, elle hydrate instantanément, rééquilibre le microbiome et renforce la barrière cutanée, pour préparer la peau aux soins suivants.",
       sens: "Une gelée fraîche qui se pose comme une eau sur la peau, sans effet collant.",
       etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, déposez quelques gouttes de gelée dans le creux de la main et appliquez-la sur le visage et le cou, avant vos sérums et votre crème." }],
@@ -175,7 +175,7 @@
       conseil: "Utilisez-le chaque soir avant Luminescence Nuit : le sérum apporte les actifs, la crème les nourrit et les garde au contact de la peau toute la nuit. La peau paraît plus rebondie en quelques semaines."
     },
     ec: {
-      fiche: 'radiance-eye-cream', nom: 'Radiance Eye Cream', gamme: 'Bloom', sous: 'Soin contour des yeux', couleur: '#8e5a4c', clair: '#e9d6cc',
+      geste: 'une petite quantité suffit', fiche: 'radiance-eye-cream', nom: 'Radiance Eye Cream', gamme: 'Bloom', sous: 'Soin contour des yeux', couleur: '#8e5a4c', clair: '#e9d6cc',
       role: "Elle hydrate le contour des yeux, aide à atténuer poches et cernes et lisse les ridules de déshydratation, pour un regard frais et reposé.",
       sens: "Une crème douce et confortable, aux notes de coton et de fleurs.",
       etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, déposez une petite quantité sous l'œil et sur la paupière, puis faites-la pénétrer en tapotant du bout de l'annulaire, de l'intérieur vers l'extérieur." }],
@@ -208,7 +208,7 @@
       conseil: "Le soir, évitez les nettoyants trop moussants et l'eau très chaude, qui fragilisent la barrière. Calm Balance Jour prend le relais le matin pour garder la peau apaisée toute la journée."
     },
     fb: {
-      fiche: 'fusion-balance', nom: 'Fusion Balance', gamme: 'Balance', sous: "Démaquillant biphasé", couleur: '#6e7f58', clair: '#e1e6d6',
+      geste: '', fiche: 'fusion-balance', nom: 'Fusion Balance', gamme: 'Balance', sous: "Démaquillant biphasé", couleur: '#6e7f58', clair: '#e1e6d6',
       role: "Il dissout le maquillage des yeux et du visage, même waterproof, sans frotter et sans laisser de film gras.",
       sens: "Deux phases qui fusionnent d'un geste, une texture qui fond sur le maquillage puis disparaît, sans parfum ajouté.",
       etapes: [{ moment: 'Le soir', texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." }],
@@ -224,7 +224,7 @@
       conseil: "C'est le soin idéal après une exfoliation : appliquez-la les soirs d'AHA ou de Glyco, sur une peau bien sèche. Une peau qui tiraille retrouve son confort en quelques nuits."
     },
     ce: {
-      fiche: 'cellular-eye-restore', nom: 'Cellular Eye Restore', gamme: 'Balance', sous: "Sérum lissant regard", couleur: '#5f7149', clair: '#d9dfcd',
+      geste: 'une petite quantité suffit', fiche: 'cellular-eye-restore', nom: 'Cellular Eye Restore', gamme: 'Balance', sous: "Sérum lissant regard", couleur: '#5f7149', clair: '#d9dfcd',
       role: "Ce sérum à l'alternative végétale au rétinol atténue les ridules, les pattes-d'oie et les signes de fatigue, tout en hydratant le contour des yeux.",
       sens: "Une texture légère pensée pour la peau fine du regard, au parfum de rose légèrement sucré, relevé de géranium rouge.",
       etapes: [{ moment: 'Le soir', texte: "Déposez une petite quantité sur le contour des yeux et faites-la pénétrer en tapotant du bout de l'annulaire, de l'intérieur vers l'extérieur." }],
@@ -259,7 +259,7 @@
       conseil: "Sur une peau légèrement humide, la crème repulpe davantage. Pour un effet lift complet, appliquez Active Lift juste avant : le sérum concentre les peptides, la crème prolonge leur action."
     },
     el: {
-      fiche: 'eye-lift', nom: 'Eye Lift', gamme: 'Balance', sous: 'Contour des yeux aux peptides', couleur: '#4f6a3d', clair: '#d0d9c4',
+      geste: 'une petite quantité suffit', fiche: 'eye-lift', nom: 'Eye Lift', gamme: 'Balance', sous: 'Contour des yeux aux peptides', couleur: '#4f6a3d', clair: '#d0d9c4',
       role: "Cette crème aux peptides lisse les ridules et les pattes-d'oie et raffermit la peau du contour des yeux, pour un regard visiblement plus lisse.",
       sens: "Une texture légère, sans film gras, au parfum de rose légèrement sucré relevé de géranium rouge.",
       etapes: [{ moment: 'Matin et soir', texte: "Sur peau propre, déposez une petite quantité sur le contour des yeux et faites-la pénétrer en tapotant du bout de l'annulaire, de l'intérieur vers l'extérieur." }],
@@ -275,7 +275,7 @@
       conseil: "Si c'est votre premier soin de ce type, commencez un soir sur deux pendant deux semaines, puis chaque soir. Évitez le contour des yeux : pour le regard, il y a Cellular Eye Restore."
     },
     bk: {
-      fiche: 'bakuchiol-elixir', nom: 'Bakuchiol Elixir', gamme: 'Balance', sous: 'Élixir lissant au bakuchiol', couleur: '#3b5b2a', clair: '#c9d4bd',
+      geste: 'quelques gouttes suffisent', fiche: 'bakuchiol-elixir', nom: 'Bakuchiol Elixir', gamme: 'Balance', sous: 'Élixir lissant au bakuchiol', couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Cet élixir au bakuchiol lisse l'apparence des rides, améliore la fermeté et aide à unifier le teint, dans un soin nourrissant aux huiles précieuses.",
       sens: "Une texture soyeuse aux huiles de jojoba, de rose musquée et d'onagre, au parfum de rose aux notes chaleureuses, épicées et boisées.",
       etapes: [{ moment: 'Le soir', texte: "Réchauffez quelques gouttes entre vos paumes et pressez-les délicatement sur le visage, puis sur le cou en descendant. Les soirs d'exfoliation, sautez cette étape." }],
@@ -283,7 +283,7 @@
       conseil: "Si votre peau découvre les actifs anti-âge, commencez deux à trois soirs par semaine, puis augmentez. Jamais le même soir que Glyco Balance ou AHA Balance Peel."
     },
     sc: {
-      fiche: 'spot-control', nom: 'Spot Control', gamme: 'Balance', sous: "Sérum anti-taches ciblé", couleur: '#3b5b2a', clair: '#c9d4bd',
+      geste: 'une petite quantité suffit', fiche: 'spot-control', nom: 'Spot Control', gamme: 'Balance', sous: "Sérum anti-taches ciblé", couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Ce sérum ciblé agit précisément sur les taches brunes et les marques laissées par les imperfections, pour un teint plus uniforme et lumineux.",
       sens: "Un sérum précis, au parfum d'agrumes, de gingembre et de concombre sur un fond boisé de vétiver et de cèdre.",
       etapes: [{ moment: 'Matin et soir', texte: "Sur peau propre, appliquez Spot Control uniquement sur les taches, en tapotant légèrement, puis poursuivez avec votre crème." }],
@@ -299,7 +299,7 @@
       conseil: "Choisissez le moment qui vous convient, le matin ou le soir, et gardez-le chaque jour. Dans tous les cas, une protection solaire comme Radiance Protect SPF 50 chaque matin est indispensable : c'est elle qui préserve les résultats. Pour une tache précise, ajoutez Spot Control en touche avant la crème."
     },
     bh: {
-      fiche: 'bha-balance', nom: 'BHA Balance', gamme: 'Balance', sous: "Lotion purifiante au BHA", couleur: '#3b5b2a', clair: '#c9d4bd',
+      geste: 'quelques gouttes suffisent', fiche: 'bha-balance', nom: 'BHA Balance', gamme: 'Balance', sous: "Lotion purifiante au BHA", couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Cette lotion à l'acide salicylique désobstrue les pores, élimine l'excès de sébum et les impuretés, sans déséquilibrer la peau.",
       sens: "Une lotion fluide et fraîche qui pénètre instantanément, sans film, à la senteur naturelle d'eaux florales, de fruits secs et de rose.",
       etapes: [{ moment: 'Le soir', texte: "Après le nettoyage, versez quelques gouttes dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." }],
@@ -307,7 +307,7 @@
       conseil: "Les deux premières semaines, utilisez-la un soir sur deux, puis chaque soir si votre peau est à l'aise. Jamais le même soir que Glyco Balance ou AHA Balance Peel, et le matin, une protection solaire."
     },
     gb: {
-      fiche: 'glyco-balance', nom: 'Glyco Balance', gamme: 'Balance', sous: "Lotion resurfaçante", couleur: '#2b3826', clair: '#c2cab7',
+      geste: '', fiche: 'glyco-balance', nom: 'Glyco Balance', gamme: 'Balance', sous: "Lotion resurfaçante", couleur: '#2b3826', clair: '#c2cab7',
       role: "Cette lotion à l'acide glycolique élimine les cellules mortes qui ternissent le teint et affine le grain de peau, pour une peau plus lisse et lumineuse.",
       sens: "Une lotion liquide et légère, à appliquer au coton, sans parfum ajouté.",
       etapes: [{ moment: 'Le soir, 2 à 3 fois par semaine', texte: "Sur peau propre et sèche, passez un coton imbibé de Glyco Balance sur le visage, en évitant le contour des yeux. Ne rincez pas, puis appliquez votre crème." }],
@@ -315,7 +315,7 @@
       conseil: "Les soirs d'exfoliation, terminez par Ceramide Night Restore pour réconforter la peau. Le lendemain matin, la protection solaire est indispensable : les AHA rendent la peau plus sensible au soleil. Jamais le même soir qu'AHA Balance Peel ou BHA Balance."
     },
     ah: {
-      fiche: 'aha-balance-peel', nom: 'AHA Balance Peel', gamme: 'Balance', sous: "Peeling hydratant", couleur: '#2b3826', clair: '#c2cab7',
+      geste: 'quelques gouttes suffisent', fiche: 'aha-balance-peel', nom: 'AHA Balance Peel', gamme: 'Balance', sous: "Peeling hydratant", couleur: '#2b3826', clair: '#c2cab7',
       role: "Ce peeling à l'acide lactique affine le grain de peau, lisse les ridules et illumine le teint, en préservant l'hydratation.",
       sens: "Un liquide léger qui s'étale facilement, à la senteur discrète et légèrement sucrée.",
       etapes: [{ moment: 'Le soir, 1 à 2 fois par semaine', texte: "Sur peau propre et sèche, déposez quelques gouttes sur le visage et répartissez-les en fine couche, en évitant le contour des yeux. Ne rincez pas." }],
@@ -389,6 +389,8 @@
   + "#eb-rituel{font-family:'Montserrat',sans-serif;color:#1d1b18;background:#f5f4f0;text-align:center;-webkit-font-smoothing:antialiased;width:100vw;margin-left:calc(50% - 50vw);overflow-x:hidden}"
   + "#eb-rituel *{box-sizing:border-box}"
   + "#eb-rituel h1,#eb-rituel h2,#eb-rituel p{margin:0;font-family:'Montserrat',sans-serif}"
+  + ".ebq-conc{margin:18px 34px 0;text-align:center}.ebq-conc i{display:block;width:26px;height:1px;background:var(--c);margin:0 auto 12px}.ebq-conc i+p+i{margin:12px auto 0}"
+  + "#eb-rituel .ebq-conc p{margin:0;font-size:11.5px;line-height:1.7;letter-spacing:.02em;color:#2a2723;font-weight:500;text-wrap:balance}"
   + ".ebq-bande{height:74px;background-size:cover;background-position:center}"
   + ".ebq-in{max-width:520px;margin:0 auto;padding:0 0 10px}"
   + ".ebq-logo{font-size:20px;letter-spacing:.42em;padding-left:.42em;font-weight:400;margin-top:26px;color:#111}"
@@ -607,6 +609,18 @@
     return { pret: function(){ pret = true; if(demande) ouvrir(); }, fermer: fermer };
   }
 
+  // la promesse des formules concentrées, entre deux filets (couleur du soin ou du coffret)
+  function concentre(geste, coffret){
+    var t = geste === '' ? (coffret ? 'Des formules concentrées, pensées pour durer jusqu\'à trois mois.' : 'Une formule concentrée, pensée pour durer jusqu\'à trois mois.')
+      : 'Des formules concentrées : ' + (geste || 'une pression suffit') + ', et ' + (coffret ? 'vos soins vous accompagnent' : 'votre soin vous accompagne') + ' jusqu\'à trois mois.';
+    return '<div class="ebq-conc"><i></i><p>' + esc(t) + '</p><i></i></div>';
+  }
+  // la newsletter du site (« Le cercle ELKHA.B ») : même panneau qui remonte en bas de page ;
+  // une cliente déjà inscrite sur n'importe quel site elkhab.com ne la revoit jamais
+  function newsletter(){
+    if(!window.ebSiteFromHost) window.ebSiteFromHost = function(h){ return /^rituel\.elkhab\.com$/.test(h || '') ? 'rituel' : null; };
+    if(!document.querySelector('script[data-eb-newsletter]')){ var s = document.createElement('script'); s.src = BASE + 'newsletter-engine.js'; s.defer = true; s.setAttribute('data-eb-newsletter', '1'); document.head.appendChild(s); }
+  }
   function apparitions(root){
     if(!('IntersectionObserver' in window)) return;
     root.classList.add('ebq-js');
@@ -636,7 +650,7 @@
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
       + '<p class="ebq-bien2">Bienvenue parmi les B.</p>'
       + '<p class="ebq-univ">' + esc(UNIVERS) + '</p>'
-      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>'
+      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>' + concentre(S.geste, false)
       + '<p class="ebq-mot ebq-rv">' + esc(MOT_SOIN) + '</p>'
       + '<div class="ebq-rv"><h2>Votre soin</h2><div class="ebq-soin1">'
       +   (f ? '<span><img src="' + esc(f[1] + '?width=500') + '" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '" style="transform:translateX(' + (50 - (CENTRE[S.fiche] || 50)) + '%)"></span>' : '')
@@ -652,7 +666,7 @@
       + '<a class="ebq-lien" href="' + LIENS.site + '">Découvrir ELKHA.B</a>'
       + '<p class="ebq-fin">Bienvenue parmi les B. : beauté, bien-être, et surtout bien dans sa peau.</p>'
       + '</div>';
-    apparitions(root);
+    apparitions(root); newsletter();
     if(OUV) OUV.pret();
     root.addEventListener('click', function(ev){
       var b = ev.target.closest && ev.target.closest('[data-a],[data-fiche]'); if(!b) return;
@@ -701,7 +715,7 @@
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
       + '<p class="ebq-bien2">Bienvenue parmi les B.</p>'
       + '<p class="ebq-univ">' + esc(UNIVERS) + '</p>'
-      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>'
+      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>' + concentre('une petite quantité suffit', true)
       + '<p class="ebq-mot ebq-rv">' + esc(MOT) + '</p>'
       + '<div class="ebq-rv"><h2>Dans votre coffret</h2>' + soinsHTML(P, soins, C.sens) + '</div>'
       + '<h2 style="margin-bottom:0">Votre rituel</h2>'
@@ -714,7 +728,7 @@
       + '<p class="ebq-fin">Bienvenue parmi les B. : beauté, bien-être, et surtout bien dans sa peau.</p>'
       + '</div><div class="ebq-bande" style="background-image:url(' + esc(C.bande) + ')"></div>';
     bandes(root, C);
-    apparitions(root);
+    apparitions(root); newsletter();
     if(OUV) OUV.pret();
 
     root.addEventListener('click', function(ev){

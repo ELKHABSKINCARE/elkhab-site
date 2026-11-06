@@ -16,8 +16,8 @@
    │ ✏️ RÉGLAGES                                                          │
    └─────────────────────────────────────────────────────────────────────┘ */
 
-// Sites où le panneau apparaît : "accueil", "bloom", "balance", "journal", "experience"
-var SITES = ["accueil", "bloom", "balance", "journal", "experience"];
+// Sites où le panneau apparaît : "accueil", "bloom", "balance", "journal", "experience", "rituel" (pages des QR codes)
+var SITES = ["accueil", "bloom", "balance", "journal", "experience", "rituel"];
 
 // Après fermeture avec la croix : nombre de jours avant de le proposer à nouveau
 var JOURS_APRES_FERMETURE = 7;
