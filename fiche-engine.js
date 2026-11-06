@@ -475,7 +475,8 @@
               ecart += Math.max(Math.abs(d[o] - 246), Math.abs(d[o + 1] - 244), Math.abs(d[o + 2] - 240)); k++;
             });
           }
-          if(ecart / k > 1.5) img.classList.add('eb-remplir');
+          // (tolérance de 4 : les flacons posés sur le beige du site, même en JPG, ne sont jamais recadrés)
+          if(ecart / k > 4) img.classList.add('eb-remplir');
         } catch(e){}
       };
       t.src = img.currentSrc || img.src;

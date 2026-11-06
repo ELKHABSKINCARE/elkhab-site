@@ -8,6 +8,8 @@
 // Typo : Montserrat fine chargée par le code lui-même (le site Balance ne la charge pas en 300/400 → textes trop gras)
 (function(){ if(document.getElementById('eb-montserrat')) return; var l = document.createElement('link'); l.id = 'eb-montserrat'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap'; document.head.appendChild(l); })();
 window.EB_AVIS_DEGRADE = true;
+// Fiches sur ordinateur : les photos qui ont leur propre fond (texture, visage) remplissent toute la colonne, comme sur Bloom
+window.EB_MEDIA_PLEIN = true;
 window.EB_PRODUITS = window.EB_PRODUITS || {};
 window.EB_INCI_PLUS = window.EB_INCI_PLUS || {};
 (function(){
