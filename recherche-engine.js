@@ -47,8 +47,8 @@
     "cellular-eye-restore": ["contour des yeux","yeux","ridules","pattes d oie","cernes","retinol","anti-age","regard"],
     "cellular-renew": ["creme","rides","regenerante","alternative au retinol","retinol","anti-age"],
     "active-lift": ["serum","peptides","fermete","rides","raffermissant","repulpant","anti-age","lift"],
-    "age-lift": ["creme","peptides","vitamine c","liftante","fermete","rides","anti-age","lift"],
-    "eye-lift": ["contour des yeux","yeux","peptides","paupieres","liftante","regard","lift"],
+    "age-lift": ["creme","peptides","liftante","fermete","rides","anti-age","lift"],
+    "eye-lift": ["contour des yeux","yeux","peptides","vitamine c","vitamine e","paupieres","liftante","regard","lift"],
     "bakuchiol-elixir": ["bakuchiol","huile","elixir","retinol vegetal","retinol","rides","fermete","anti-age"],
     "spot-control": ["taches","acide kojique","kojique","vitamine c","hyperpigmentation","anti-taches","serum"],
     "bright-control": ["taches","anti-taches","correctrice","teint","unifier","creme","hyperpigmentation"],
@@ -110,48 +110,48 @@
 
   var CSS = ''
   // même panneau que le panier : glisse depuis la droite, fond beige voilé, voile léger derrière
-  + '.ebr-fond{position:fixed;inset:0;z-index:999997;background:rgba(0,0,0,.12);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s}'
-  + '.ebr-fond.open{opacity:1;visibility:visible;transition:opacity .3s ease}'
-  + '.ebr{position:fixed;top:0;right:0;width:min(420px,92vw);height:100vh;height:100dvh;z-index:999998;box-sizing:border-box;padding:26px 22px 0;display:flex;flex-direction:column;'
+  + '.ebrech-fond{position:fixed;inset:0;z-index:999997;background:rgba(0,0,0,.12);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s linear .3s}'
+  + '.ebrech-fond.open{opacity:1;visibility:visible;transition:opacity .3s ease}'
+  + '.ebrech{position:fixed;top:0;right:0;width:min(420px,92vw);height:100vh;height:100dvh;z-index:999998;box-sizing:border-box;padding:26px 22px 0;display:flex;flex-direction:column;'
   +   'font-family:Montserrat,sans-serif;color:#111;-webkit-font-smoothing:antialiased;background:rgba(246,244,240,.5);-webkit-backdrop-filter:blur(24px) saturate(1.1);backdrop-filter:blur(24px) saturate(1.1);'
   +   'transform:translateX(105%);transition:transform .3s ease}'
-  + '.ebr.open{transform:translateX(0)}'
-  + '.ebr *{box-sizing:border-box}'
+  + '.ebrech.open{transform:translateX(0)}'
+  + '.ebrech *{box-sizing:border-box}'
   // en-tête : la griffe ELKHA.B · PARIS, la croix comme celle du panier
-  + '.ebr-tete{position:relative;display:flex;flex-direction:column;align-items:center;padding:4px 0 20px;border-bottom:1px solid #e5e5e5}'
-  + '.ebr-tete svg{display:block;height:30px;width:auto}'
-  + '.ebr-tete i{display:block;width:18px;height:1px;background:currentColor;opacity:.45;margin:10px 0 9px}'
-  + '.ebr-logo{font-size:13px;letter-spacing:.42em;padding-left:.42em}'
-  + '.ebr-paris{display:flex;align-items:center;gap:7px;margin-top:4px;font-size:5.5px;letter-spacing:.6em;padding-left:.6em;color:#555}.ebr-paris b{display:block;width:12px;height:1px;background:#555;opacity:.7}'
-  + '.ebr-x{position:absolute;top:-4px;right:0;border:0;background:none;font-size:28px;line-height:1;cursor:pointer;padding:0;color:#111;font-family:inherit}'
+  + '.ebrech-tete{position:relative;display:flex;flex-direction:column;align-items:center;padding:4px 0 20px;border-bottom:1px solid #e5e5e5}'
+  + '.ebrech-tete svg{display:block;height:30px;width:auto}'
+  + '.ebrech-tete i{display:block;width:18px;height:1px;background:currentColor;opacity:.45;margin:10px 0 9px}'
+  + '.ebrech-logo{font-size:13px;letter-spacing:.42em;padding-left:.42em}'
+  + '.ebrech-paris{display:flex;align-items:center;gap:7px;margin-top:4px;font-size:5.5px;letter-spacing:.6em;padding-left:.6em;color:#555}.ebrech-paris b{display:block;width:12px;height:1px;background:#555;opacity:.7}'
+  + '.ebrech-x{position:absolute;top:-4px;right:0;border:0;background:none;font-size:28px;line-height:1;cursor:pointer;padding:0;color:#111;font-family:inherit}'
   // le champ
-  + '.ebr-k{font-size:9px;letter-spacing:.32em;color:#6b665e;font-weight:600;text-transform:uppercase;margin:24px 0 10px}'
-  + '.ebr-champ{display:flex;align-items:center;gap:12px;border-bottom:1px solid #111;padding-bottom:10px}'
-  + '.ebr-champ svg{width:18px;height:18px;flex:none}'
-  + '.ebr-champ input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-family:inherit;font-size:20px;font-weight:300;letter-spacing:.01em;color:#111;padding:0;border-radius:0}'
-  + '.ebr-champ input::placeholder{color:#111;opacity:.35}'
+  + '.ebrech-k{font-size:9px;letter-spacing:.32em;color:#6b665e;font-weight:600;text-transform:uppercase;margin:24px 0 10px}'
+  + '.ebrech-champ{display:flex;align-items:center;gap:12px;border-bottom:1px solid #111;padding-bottom:10px}'
+  + '.ebrech-champ svg{width:18px;height:18px;flex:none}'
+  + '.ebrech-champ input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-family:inherit;font-size:20px;font-weight:300;letter-spacing:.01em;color:#111;padding:0;border-radius:0}'
+  + '.ebrech-champ input::placeholder{color:#111;opacity:.35}'
   // les résultats défilent sous le champ
-  + '.ebr-res{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:0 -22px;padding:0 22px 30px}'
-  + '.ebr-sugg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px}'
-  + '.ebr-sugg button{border:0;background:none;padding:0 0 3px;font-family:inherit;font-size:12px;color:#111;border-bottom:1px solid rgba(0,0,0,.25);cursor:pointer}'
-  + '.ebr-g{font-size:9px;letter-spacing:.32em;color:#6b665e;font-weight:600;text-transform:uppercase;margin:28px 0 2px;display:flex;align-items:center;gap:12px}.ebr-g:after{content:"";flex:1;height:1px;background:rgba(0,0,0,.1)}'
-  + '.ebr-p{display:flex;align-items:center;gap:14px;width:100%;padding:12px 0;border:0;border-bottom:1px solid rgba(0,0,0,.08);background:none;text-align:left;font-family:inherit;color:#111;cursor:pointer;-webkit-tap-highlight-color:transparent}'
-  + '.ebr-p:hover .ebr-n{text-decoration:underline;text-underline-offset:3px}'
-  + '.ebr-ph{flex:none;width:50px;height:64px;display:flex;align-items:center;justify-content:center;overflow:hidden}'
-  + '.ebr-ph img{max-width:100%;max-height:100%;display:block;mix-blend-mode:multiply}'
-  + '.ebr-t{flex:1;min-width:0}'
-  + '.ebr-gm{display:block;font-size:8px;letter-spacing:.3em;font-weight:600;text-transform:uppercase;color:#6b665e}.ebr-gm.bl{color:#a65a63}.ebr-gm.ba{color:#5f7149}'
-  + '.ebr-n{display:block;font-size:14px;font-weight:600;margin-top:3px;letter-spacing:.01em}'
-  + '.ebr-s{display:block;font-size:11.5px;color:#5f5a53;margin-top:3px;line-height:1.45}'
-  + '.ebr-a{display:block;width:100%;padding:12px 0;border:0;border-bottom:1px solid rgba(0,0,0,.08);background:none;text-align:left;font-family:inherit;color:#111;cursor:pointer}'
-  + '.ebr-a b{display:block;font-size:13.5px;font-weight:600}.ebr-a span{display:block;font-size:11.5px;color:#5f5a53;margin-top:2px;line-height:1.45}'
-  + '.ebr-a:hover b{text-decoration:underline;text-underline-offset:3px}'
-  + '.ebr-vide{font-size:12.5px;line-height:1.7;color:#5f5a53;margin:26px 0 0}'
+  + '.ebrech-res{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;margin:0 -22px;padding:0 22px 30px}'
+  + '.ebrech-sugg{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px}'
+  + '.ebrech-sugg button{border:0;background:none;padding:0 0 3px;font-family:inherit;font-size:12px;color:#111;border-bottom:1px solid rgba(0,0,0,.25);cursor:pointer}'
+  + '.ebrech-g{font-size:9px;letter-spacing:.32em;color:#6b665e;font-weight:600;text-transform:uppercase;margin:28px 0 2px;display:flex;align-items:center;gap:12px}.ebrech-g:after{content:"";flex:1;height:1px;background:rgba(0,0,0,.1)}'
+  + '.ebrech-p{display:flex;align-items:center;gap:14px;width:100%;padding:12px 0;border:0;border-bottom:1px solid rgba(0,0,0,.08);background:none;text-align:left;font-family:inherit;color:#111;cursor:pointer;-webkit-tap-highlight-color:transparent}'
+  + '.ebrech-p:hover .ebrech-n{text-decoration:underline;text-underline-offset:3px}'
+  + '.ebrech-ph{flex:none;width:60px;height:60px;border-radius:10px;overflow:hidden;background:#f5f4f0}'
+  + '.ebrech-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 54%;transform:scale(.9);display:block;color:transparent}'
+  + '.ebrech-t{flex:1;min-width:0}'
+  + '.ebrech-gm{display:block;font-size:8px;letter-spacing:.3em;font-weight:600;text-transform:uppercase;color:#6b665e}.ebrech-gm.bl{color:#a65a63}.ebrech-gm.ba{color:#5f7149}'
+  + '.ebrech-n{display:block;font-size:14px;font-weight:600;margin-top:3px;letter-spacing:.01em}'
+  + '.ebrech-s{display:block;font-size:11.5px;color:#5f5a53;margin-top:3px;line-height:1.45}'
+  + '.ebrech-a{display:block;width:100%;padding:12px 0;border:0;border-bottom:1px solid rgba(0,0,0,.08);background:none;text-align:left;font-family:inherit;color:#111;cursor:pointer}'
+  + '.ebrech-a b{display:block;font-size:13.5px;font-weight:600}.ebrech-a span{display:block;font-size:11.5px;color:#5f5a53;margin-top:2px;line-height:1.45}'
+  + '.ebrech-a:hover b{text-decoration:underline;text-underline-offset:3px}'
+  + '.ebrech-vide{font-size:12.5px;line-height:1.7;color:#5f5a53;margin:26px 0 0}'
   // l'encart Skin ID
-  + '.ebr-sk{margin-top:30px;background:#111;color:#f5f4f0;padding:20px}'
-  + '.ebr-sk b{display:block;font-size:9.5px;letter-spacing:.3em}.ebr-sk p{margin:8px 0 14px;font-size:12px;line-height:1.6;color:rgba(245,244,240,.8)}'
-  + '.ebr-sk button{border:1px solid #f5f4f0;background:none;color:#f5f4f0;font-family:inherit;font-size:9.5px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;padding:11px 16px;cursor:pointer}'
-  + 'html.ebr-ouvert,html.ebr-ouvert body{overflow:hidden}';
+  + '.ebrech-sk{margin-top:30px;background:#111;color:#f5f4f0;padding:20px}'
+  + '.ebrech-sk b{display:block;font-size:9.5px;letter-spacing:.3em}.ebrech-sk p{margin:8px 0 14px;font-size:12px;line-height:1.6;color:rgba(245,244,240,.8)}'
+  + '.ebrech-sk button{border:1px solid #f5f4f0;background:none;color:#f5f4f0;font-family:inherit;font-size:9.5px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;padding:11px 16px;cursor:pointer}'
+  + 'html.ebrech-ouvert,html.ebrech-ouvert body{overflow:hidden}';
 
   var fond, panneau, champ, zone, ACTIONS = {};
 
@@ -188,7 +188,7 @@
       var gamme = BALANCE.indexOf(id) >= 0 ? 'ba' : 'bl';
       liste.push({ id: id, name: p.nom, hint: String(p.sousTitre || '').split('\n')[0], type: type, gamme: gamme,
         img: p.media && (p.media.miniature || (p.media.images && p.media.images[type === 'coffret' ? 2 : 0]) || p.media.image) || '',
-        keywords: (MOTS[id] || []).concat([p.sousTitre || '', p.actifs || '', [].concat(p.details || []).join(' ')]) });
+        keywords: (MOTS[id] || []).concat([p.sousTitre || '']) });
     });
     return liste;
   }
@@ -203,20 +203,20 @@
   }
 
   function skinIdHTML(){
-    return '<div class="ebr-sk"><b>SKIN ID</b><p>Pas sûre de ce qu\'il faut à votre peau ? Quelques questions, et nous composons votre rituel.</p><button type="button" data-skin>Faire mon Skin ID</button></div>';
+    return '<div class="ebrech-sk"><b>SKIN ID</b><p>Pas sûre de ce qu\'il faut à votre peau ? Quelques questions, et nous composons votre rituel.</p><button type="button" data-skin>Faire mon Skin ID</button></div>';
   }
   function suggestionsHTML(){
-    return '<div class="ebr-sugg">' + SUGGESTIONS.map(function(s){ return '<button type="button" data-s="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>';
+    return '<div class="ebrech-sugg">' + SUGGESTIONS.map(function(s){ return '<button type="button" data-s="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>';
   }
   function produitHTML(r, cle){
-    var gm = r.type === 'coffret' ? '<span class="ebr-gm ' + r.gamme + '">Coffret des fêtes</span>'
-      : r.type === 'routine' ? '<span class="ebr-gm ' + r.gamme + '">Routine ' + (r.gamme === 'ba' ? 'Balance' : 'Bloom') + '</span>'
-      : '<span class="ebr-gm ' + r.gamme + '">' + (r.gamme === 'ba' ? 'Balance' : 'Bloom') + '</span>';
-    return '<button type="button" class="ebr-p" data-k="' + cle + '"><span class="ebr-ph">' + (r.img ? '<img src="' + esc(photo(r.img)) + '" alt="" loading="lazy">' : '') + '</span>'
-      + '<span class="ebr-t">' + gm + '<span class="ebr-n">' + esc(r.name) + '</span>' + (r.hint ? '<span class="ebr-s">' + esc(r.hint) + '</span>' : '') + '</span></button>';
+    var gm = r.type === 'coffret' ? '<span class="ebrech-gm ' + r.gamme + '">Coffret des fêtes</span>'
+      : r.type === 'routine' ? '<span class="ebrech-gm ' + r.gamme + '">Routine ' + (r.gamme === 'ba' ? 'Balance' : 'Bloom') + '</span>'
+      : '<span class="ebrech-gm ' + r.gamme + '">' + (r.gamme === 'ba' ? 'Balance' : 'Bloom') + '</span>';
+    return '<button type="button" class="ebrech-p" data-k="' + cle + '"><span class="ebrech-ph">' + (r.img ? '<img src="' + esc(photo(r.img)) + '" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '') + '</span>'
+      + '<span class="ebrech-t">' + gm + '<span class="ebrech-n">' + esc(r.name) + '</span>' + (r.hint ? '<span class="ebrech-s">' + esc(r.hint) + '</span>' : '') + '</span></button>';
   }
   function texteHTML(r, cle){
-    return '<button type="button" class="ebr-a" data-k="' + cle + '"><b>' + esc(r.name) + '</b>' + (r.hint ? '<span>' + esc(r.hint) + '</span>' : '') + '</button>';
+    return '<button type="button" class="ebrech-a" data-k="' + cle + '"><b>' + esc(r.name) + '</b>' + (r.hint ? '<span>' + esc(r.hint) + '</span>' : '') + '</button>';
   }
 
   function chercher(valeur){
@@ -224,6 +224,7 @@
     var q = norm(valeur); ACTIONS = {};
     if(q.length < 2){ zone.innerHTML = suggestionsHTML() + skinIdHTML(); return; }
     // une lettre seule reste attachée au mot d'avant : « vitamine c » cherche « vitamine c », pas toutes les vitamines
+    if(/^vitamines?$/.test(q)) q = 'vitamine c';   // « vitamine » seule : la vitamine C, la plus recherchée
     var mots = []; q.split(' ').forEach(function(m){ if(m.length > 1 || /\d/.test(m)) mots.push(m); else if(mots.length) mots[mots.length - 1] += ' ' + m; });
     if(!mots.length){ zone.innerHTML = suggestionsHTML() + skinIdHTML(); return; }
     var S = soins();
@@ -238,11 +239,11 @@
     groupes.forEach(function(g){
       var tr = g.items.map(function(r){ return { r: r, s: score(r, mots) }; }).filter(function(x){ return x.s > 0; }).sort(function(a, b){ return b.s - a.s; });
       if(!tr.length) return;
-      html += '<div class="ebr-g">' + esc(g.label) + ' · ' + tr.length + '</div>';
+      html += '<div class="ebrech-g">' + esc(g.label) + ' · ' + tr.length + '</div>';
       tr.forEach(function(x){ var cle = 'r' + (n++); ACTIONS[cle] = { r: x.r, type: g.type }; html += g.type === 'fiche' ? produitHTML(x.r, cle) : texteHTML(x.r, cle); });
     });
     if(!html){
-      zone.innerHTML = '<p class="ebr-vide">Aucun résultat pour « ' + esc(valeur) + ' ». Essayez un actif, un besoin de peau ou le nom d\'un soin.</p>' + suggestionsHTML() + skinIdHTML();
+      zone.innerHTML = '<p class="ebrech-vide">Aucun résultat pour « ' + esc(valeur) + ' ». Essayez un actif, un besoin de peau ou le nom d\'un soin.</p>' + suggestionsHTML() + skinIdHTML();
       return;
     }
     zone.innerHTML = html + skinIdHTML();
@@ -276,18 +277,18 @@
   function construire(){
     if(panneau) return;
     var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
-    fond = document.createElement('div'); fond.className = 'ebr-fond';
-    panneau = document.createElement('div'); panneau.className = 'ebr'; panneau.setAttribute('role', 'dialog'); panneau.setAttribute('aria-label', 'Rechercher sur ELKHA.B');
-    panneau.innerHTML = '<div class="ebr-tete">' + GRIFFE + '<i></i><div class="ebr-logo">ELKHA.B</div><div class="ebr-paris"><b></b>PARIS<b></b></div>'
-      + '<button type="button" class="ebr-x" aria-label="Fermer la recherche">&times;</button></div>'
-      + '<p class="ebr-k">Rechercher</p>'
-      + '<label class="ebr-champ">' + LOUPE + '<input type="text" inputmode="search" placeholder="Soin, actif, besoin…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search"></label>'
-      + '<div class="ebr-res"></div>';
+    fond = document.createElement('div'); fond.className = 'ebrech-fond';
+    panneau = document.createElement('div'); panneau.className = 'ebrech'; panneau.setAttribute('role', 'dialog'); panneau.setAttribute('aria-label', 'Rechercher sur ELKHA.B');
+    panneau.innerHTML = '<div class="ebrech-tete">' + GRIFFE + '<i></i><div class="ebrech-logo">ELKHA.B</div><div class="ebrech-paris"><b></b>PARIS<b></b></div>'
+      + '<button type="button" class="ebrech-x" aria-label="Fermer la recherche">&times;</button></div>'
+      + '<p class="ebrech-k">Rechercher</p>'
+      + '<label class="ebrech-champ">' + LOUPE + '<input type="text" inputmode="search" placeholder="Soin, actif, besoin…" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search"></label>'
+      + '<div class="ebrech-res"></div>';
     document.body.appendChild(fond); document.body.appendChild(panneau);
-    champ = panneau.querySelector('input'); zone = panneau.querySelector('.ebr-res');
+    champ = panneau.querySelector('input'); zone = panneau.querySelector('.ebrech-res');
     champ.addEventListener('input', function(){ chercher(champ.value); });
     champ.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ var p = zone.querySelector('[data-k]'); if(p){ e.preventDefault(); p.click(); } } });
-    panneau.querySelector('.ebr-x').addEventListener('click', fermer);
+    panneau.querySelector('.ebrech-x').addEventListener('click', fermer);
     fond.addEventListener('click', fermer);
     zone.addEventListener('click', function(e){
       var s = e.target.closest('[data-s]'); if(s){ champ.value = s.getAttribute('data-s'); chercher(champ.value); champ.focus(); return; }
@@ -300,14 +301,14 @@
     construire();
     chercher(champ.value);
     chargerFiches(function(){ if(panneau.classList.contains('open')) chercher(champ.value); });
-    document.documentElement.classList.add('ebr-ouvert');
+    document.documentElement.classList.add('ebrech-ouvert');
     fond.classList.add('open'); panneau.classList.add('open');
     setTimeout(function(){ champ.focus(); }, 320);
   }
   function fermer(){
     if(!panneau || !panneau.classList.contains('open')) return;
     panneau.classList.remove('open'); fond.classList.remove('open');
-    document.documentElement.classList.remove('ebr-ouvert');
+    document.documentElement.classList.remove('ebrech-ouvert');
     champ.blur();
   }
 
