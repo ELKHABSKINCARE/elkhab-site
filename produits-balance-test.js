@@ -401,7 +401,7 @@ var BALANCE = {
   // =====================================================================
   "active-lift": {
     nom: "Active Lift",
-    sousTitre: "Sérum visage lissant & raffermissant\nLissant · Raffermissant · Repulpant",
+    sousTitre: "Sérum visage lissant & raffermissant · Peptides · Acide hyaluronique",
     details: ["30 ml", "Vegan"],
     note: "une pression suffit",
     prix: "32,90€",
@@ -455,7 +455,7 @@ var BALANCE = {
   // =====================================================================
   "age-lift": {
     nom: "Age Lift",
-    sousTitre: "Crème raffermissante · Peptides · Acide hyaluronique",
+    sousTitre: "Crème raffermissante · Peptides · Vitamine C · Acide hyaluronique",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "37,90€",

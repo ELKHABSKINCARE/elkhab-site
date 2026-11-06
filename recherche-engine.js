@@ -47,7 +47,7 @@
     "cellular-eye-restore": ["contour des yeux","yeux","ridules","pattes d oie","cernes","retinol","anti-age","regard"],
     "cellular-renew": ["creme","rides","regenerante","alternative au retinol","retinol","anti-age"],
     "active-lift": ["serum","peptides","fermete","rides","raffermissant","repulpant","anti-age","lift"],
-    "age-lift": ["creme","peptides","liftante","fermete","rides","anti-age","lift"],
+    "age-lift": ["creme","peptides","vitamine c","liftante","fermete","rides","anti-age","lift"],
     "eye-lift": ["contour des yeux","yeux","peptides","vitamine c","vitamine e","paupieres","liftante","regard","lift"],
     "bakuchiol-elixir": ["bakuchiol","huile","elixir","retinol vegetal","retinol","rides","fermete","anti-age"],
     "spot-control": ["taches","acide kojique","kojique","vitamine c","hyperpigmentation","anti-taches","serum"],
@@ -101,6 +101,12 @@
     {groupe:"Informations", name:"Politique de cookies", legal:"politique-cookies", keywords:["cookies","cookie","traceurs"]}
   ];
 
+  // ACTIFS : un soin ne remonte pour un de ces actifs que s'il est écrit dans son nom ou sa description (ce que la cliente voit) ;
+  // les besoins (taches, rides, pores…) restent des mots-clés libres
+  var ACTIFS = ["vitamine c","vitamine e","niacinamide","acide hyaluronique","hyaluronique","peptides","collagene","ceramides","bakuchiol",
+    "acide salicylique","bha","aha","acide glycolique","acide lactique","acide kojique","kojique","arbutine","alpha arbutine","cafeine",
+    "prebiotique","argile","bisabolol","plancton marin","karite","aloe vera","bidens pilosa","beurre de cacao","charbon","camomille","provitamine b5"];
+
   var SUGGESTIONS = ["Taches", "Rides", "Contour des yeux", "Peau sensible", "Coffrets", "Livraison"];
 
   /* ⛔ NE RIEN MODIFIER EN DESSOUS ─────────────────────────────────────── */
@@ -138,7 +144,7 @@
   + '.ebrech-p{display:flex;align-items:center;gap:14px;width:100%;padding:12px 0;border:0;border-bottom:1px solid rgba(0,0,0,.08);background:none;text-align:left;font-family:inherit;color:#111;cursor:pointer;-webkit-tap-highlight-color:transparent}'
   + '.ebrech-p:hover .ebrech-n{text-decoration:underline;text-underline-offset:3px}'
   + '.ebrech-ph{flex:none;width:60px;height:60px;border-radius:10px;overflow:hidden;background:#f5f4f0}'
-  + '.ebrech-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 54%;transform:scale(.9);display:block;color:transparent}'
+  + '.ebrech-ph img{width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88);display:block;color:transparent}'   // le flacon entier, jamais coupé par le cadre
   + '.ebrech-t{flex:1;min-width:0}'
   + '.ebrech-gm{display:block;font-size:8px;letter-spacing:.3em;font-weight:600;text-transform:uppercase;color:#6b665e}.ebrech-gm.bl{color:#a65a63}.ebrech-gm.ba{color:#5f7149}'
   + '.ebrech-n{display:block;font-size:14px;font-weight:600;margin-top:3px;letter-spacing:.01em}'
@@ -186,9 +192,12 @@
       var p = cat[id] || {}; if(!p.nom) return;
       var type = id.indexOf('coffret-') === 0 ? 'coffret' : (id.indexOf('routine-') === 0 || id === 'rituel-luminescence' ? 'routine' : 'soin');
       var gamme = BALANCE.indexOf(id) >= 0 ? 'ba' : 'bl';
-      liste.push({ id: id, name: p.nom, hint: String(p.sousTitre || '').split('\n')[0], type: type, gamme: gamme,
+      var vu = norm(p.nom + ' ' + (p.sousTitre || '') + ' ' + (p.actifs || '')).replace(/vitamines (\w) et (\w)/g, 'vitamine $1 vitamine $2');
+      var mots = (MOTS[id] || []).filter(function(m){ return type !== 'soin' || ACTIFS.indexOf(m) < 0 || vu.indexOf(norm(m)) >= 0; });
+      var hint = String(p.sousTitre || '').split('\n')[0] + (p.actifs ? ' · ' + p.actifs : '');
+      liste.push({ id: id, name: p.nom, hint: hint, type: type, gamme: gamme,
         img: p.media && (p.media.miniature || (p.media.images && p.media.images[type === 'coffret' ? 2 : 0]) || p.media.image) || '',
-        keywords: (MOTS[id] || []).concat([p.sousTitre || '']) });
+        keywords: mots.concat([p.sousTitre || '', p.actifs || '']) });
     });
     return liste;
   }
