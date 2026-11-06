@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 6,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 7,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -25,9 +25,9 @@
   var BALANCE = ['hydra-balance','calm-balance-jour','calm-balance-nuit','ceramide-night-restore','cellular-reveal','cellular-eye-restore','cellular-renew','active-lift','age-lift','eye-lift','bakuchiol-elixir','bright-control','spot-control','glyco-balance','aha-balance-peel','bha-balance'];
 
   var css = ''
-    + '#eb-sid{position:fixed;inset:0;z-index:99980;background:#141414;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}'
+    + '#eb-sid{position:fixed;inset:0;z-index:99980;background:#000;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}'
     + '#eb-sid.on{opacity:1;visibility:visible;transition:opacity .45s ease}'
-    + '#eb-sid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#141414;opacity:0;transition:opacity .5s ease}'
+    + '#eb-sid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000;opacity:0;transition:opacity .5s ease}'
     + '#eb-sid.pret iframe{opacity:1}'
     + '#eb-sid .eb-sid-att{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#f6f4f0;font-family:Montserrat,sans-serif;pointer-events:none;transition:opacity .4s}'
     + '#eb-sid.pret .eb-sid-att{opacity:0}'
@@ -41,7 +41,7 @@
     + '#eb-sid .eb-sid-sac{position:absolute;z-index:2;top:19px;right:64px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s linear .35s}'
     + '#eb-sid.fin.plein .eb-sid-sac{opacity:1;visibility:visible;transition:opacity .35s}'
     + '#eb-sid .eb-sid-sac svg{width:20px;height:20px;display:block}'
-    + '#eb-sid .eb-sid-sac span{position:absolute;top:-4px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:20px;background:#f6f4f0;color:#141414;font:600 9.5px Montserrat,sans-serif;display:flex;align-items:center;justify-content:center;box-sizing:border-box}'
+    + '#eb-sid .eb-sid-sac span{position:absolute;top:-4px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:20px;background:#f6f4f0;color:#000;font:600 9.5px Montserrat,sans-serif;display:flex;align-items:center;justify-content:center;box-sizing:border-box}'
     + '@media (min-width:900px){#eb-sid .eb-sid-sac{top:22px;right:78px}}'
     + 'html.eb-sid-ouvert,html.eb-sid-ouvert body{overflow:hidden!important}'
     // le panier du site s'ouvre par-dessus le Skin ID (comme au-dessus des fiches) : fond plus opaque sur le fond sombre
