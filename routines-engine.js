@@ -193,6 +193,10 @@
   +   ".ebr-c.vue .ebr-k{font-size:8.5px}#eb-routines .ebr-c.vue h3.ebr-n{font-size:13px}"
   +   ".ebr-c.vue .ebr-mos{grid-template-columns:1fr 1fr;column-gap:14px}"
   +   ".ebr-dos{display:none}.ebr-c.vue .ebr-dos{display:flex}"
+  // verso : « Voir … en détail » devient un vrai bouton, « Retourner » passe dessous, centré
+  +   ".ebr-liens{flex-direction:column;align-items:center;gap:6px;margin-top:10px}"
+  +   ".ebr-liens button[data-fiche]{order:-1;width:100%;border:1px solid #111;color:#111;text-decoration:none;padding:13px 10px;font-size:9.5px;letter-spacing:.2em;text-align:center}"
+  +   ".ebr-liens .ebr-retour{padding:10px 16px}"
   +   ".ebr-sid-k{font-size:8px;letter-spacing:.22em}"
   +   ".ebr-sid{padding:30px 6px 34px}#eb-routines .ebr-sid h3{font-size:17px}#eb-routines .ebr-sid p{font-size:12.5px}.ebr-sid button{margin-top:18px;padding:13px 18px;font-size:9.5px}"
   +   ".ebr-g>.ebr-intro{grid-template-columns:1fr;padding:28px 4px 30px;text-align:center}"
