@@ -1114,9 +1114,9 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-face-fond-site.jpg",
-        // 📷 2. LE COFFRET OUVERT AVEC SES SOINS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-ouvert-fond-site.jpg"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-face-fond-site-v2.jpg",
+        // 📷 2. LE DOS DU COFFRET
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-dos-fond-site-v2.jpg"
       ]
     },
     routine: {
