@@ -1762,7 +1762,7 @@ window.EB_PRODUITS = {
     },
     routine: {
       titreSoins: "Dans le coffret",
-      intro: "Un coffret cadeau éclat pour garder un teint lumineux et unifié tout l'hiver.\nLe matin, Radiance C Serum, à la vitamine C stabilisée, réveille l'éclat du teint et aide la peau à se défendre contre les agressions extérieures. Le soir, Lumi-Bloom Arbutin, à l'alpha-arbutine, atténue l'apparence des taches pigmentaires et unifie le teint. Deux sérums Bloom réunis dans un écrin des fêtes, à offrir ou à s'offrir.",
+      intro: "Offrez à votre peau un duo lumineux pour révéler tout son éclat et atténuer l'apparence des taches pigmentaires.\nSuccombez à la texture sorbet onctueuse du Radiance C Serum, à la vitamine C, qui enveloppe la peau de douceur et d'un parfum envoûtant aux agrumes.\nÀ ses côtés, le Lumi-Bloom Arbutin, sérum à l'alpha-arbutine, aide à atténuer visiblement les taches et à unifier le teint pour une peau plus harmonieuse.\nDeux soins complémentaires réunis dans un coffret cadeau de Noël, à offrir ou à s'offrir, pour une peau lumineuse et un teint sublimé.",
       soins: ["radiance-serum", "lumibloom-arbutin"],
       etapes: [
         { moment: "Le matin", soin: "radiance-serum", texte: "Sur peau propre, appliquez une pression de Radiance C Serum sur le visage et le cou, puis poursuivez avec votre crème habituelle." },
