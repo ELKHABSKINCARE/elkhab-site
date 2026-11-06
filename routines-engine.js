@@ -99,6 +99,7 @@
   + ".ebr-code{font-size:9px;letter-spacing:.3em;color:#7a7368;padding-top:6px;text-transform:uppercase}"
   // monogramme embossé
   + ".ebr-mono{width:40px;height:50px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:2px;box-shadow:inset 1px 1px 0 rgba(90,70,50,.30),inset -1px -1px 0 rgba(255,255,255,.9),1px 1px 0 rgba(255,255,255,.9),-1px -1px 0 rgba(90,70,50,.18)}"
+  + ".ebr-mono .ebr-g{display:block;width:auto;height:19px;color:rgba(255,255,255,.7);filter:drop-shadow(1px 1px 0 rgba(90,70,50,.45)) drop-shadow(-1px -1px 0 rgba(255,255,255,.95))}"
   + ".ebr-mono span,.ebr-mono small{color:transparent;background-image:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.35) 55%,rgba(0,0,0,.04));-webkit-background-clip:text;background-clip:text;filter:drop-shadow(1px 1px 0 rgba(90,70,50,.38)) drop-shadow(-1px -1px 0 rgba(255,255,255,.95))}"
   + ".ebr-mono span{font-size:17px;font-weight:300;line-height:1}.ebr-mono b{font-weight:800}"
   + ".ebr-mono small{font-size:4px;font-weight:700;letter-spacing:.5em;padding-left:.5em;margin-top:4px}"
@@ -171,7 +172,7 @@
   +   ".ebr-g{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;grid-auto-flow:row dense}"
   +   ".ebr-fa{padding:13px;border-radius:14px}"
   +   ".ebr-code{font-size:6.5px;padding-top:4px}"
-  +   ".ebr-mono{width:28px;height:35px}.ebr-mono span{font-size:12px}.ebr-mono small{font-size:3px;margin-top:3px}"
+  +   ".ebr-mono{width:28px;height:35px}.ebr-mono span{font-size:12px}.ebr-mono .ebr-g{height:13.5px}.ebr-mono small{font-size:3px;margin-top:3px}"
   +   ".ebr-ph{margin:10px 0;border-radius:9px}"
   +   ".ebr-k{font-size:7px;letter-spacing:.2em}#eb-routines h3.ebr-n{font-size:9.5px;letter-spacing:.1em;margin:5px 0 4px}.ebr-gl{width:36px;margin:2px 0 8px}"
   +   ".ebr-pied{font-size:6.5px;letter-spacing:.18em}.ebr-pied b{font-size:9.5px}"
@@ -183,13 +184,13 @@
   +   ".ebr-av .ebr-f{gap:5px;margin-bottom:24px}"
   +   ".ebr-av .ebr-g{grid-template-columns:1fr;gap:16px}"
   +   ".ebr-av .ebr-fa{padding:16px 16px 14px}"
-  +   ".ebr-av .ebr-code{font-size:7.5px}.ebr-av .ebr-mono{width:34px;height:42px}.ebr-av .ebr-mono span{font-size:14px}.ebr-av .ebr-mono small{font-size:3.4px}"
+  +   ".ebr-av .ebr-code{font-size:7.5px}.ebr-av .ebr-mono{width:34px;height:42px}.ebr-av .ebr-mono span{font-size:14px}.ebr-av .ebr-mono .ebr-g{height:15.5px}.ebr-av .ebr-mono small{font-size:3.4px}"
   +   ".ebr-av .ebr-k{font-size:8px;letter-spacing:.26em}#eb-routines.ebr-av h3.ebr-n{font-size:12px;letter-spacing:.12em}.ebr-av .ebr-gl{width:44px}"
   +   ".ebr-av .ebr-pied{font-size:7.5px}.ebr-av .ebr-pied b{font-size:10.5px}"
   +   ".ebr-c.vue{grid-column:1/-1}"
   +   ".ebr-c.vue .ebr-rec{display:none}"
   +   ".ebr-c.vue .ebr-fa{padding:18px}"
-  +   ".ebr-c.vue .ebr-code{font-size:8px}.ebr-c.vue .ebr-mono{width:36px;height:45px}.ebr-c.vue .ebr-mono span{font-size:15px}.ebr-c.vue .ebr-mono small{font-size:3.6px}"
+  +   ".ebr-c.vue .ebr-code{font-size:8px}.ebr-c.vue .ebr-mono{width:36px;height:45px}.ebr-c.vue .ebr-mono span{font-size:15px}.ebr-c.vue .ebr-mono .ebr-g{height:17px}.ebr-c.vue .ebr-mono small{font-size:3.6px}"
   +   ".ebr-c.vue .ebr-k{font-size:8.5px}#eb-routines .ebr-c.vue h3.ebr-n{font-size:13px}"
   +   ".ebr-c.vue .ebr-mos{grid-template-columns:1fr 1fr;column-gap:14px}"
   +   ".ebr-dos{display:none}.ebr-c.vue .ebr-dos{display:flex}"
@@ -211,7 +212,7 @@
   function euros(n){ var s = (Math.round(n * 100) / 100).toFixed(2).replace('.', ','); return s.replace(/,00$/, '') + ' €'; }
   function photo(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=' + w; }
   function insecable(nom){ return esc(nom).replace(/(\S+-\S+)/g, '<span class="nb">$1</span>').replace(/ &amp; /g, '&nbsp;&amp; '); }
-  var MONO = '<div class="ebr-mono" aria-hidden="true"><span><b>E</b>.B</span><small>PARIS</small></div>';
+  var MONO = '<div class="ebr-mono" aria-hidden="true"><svg class="ebr-g" viewBox="18 7 72 90" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="3" stroke-linejoin="miter"><rect x="48" y="10" width="7" height="84"/><rect x="21" y="10" width="27" height="2.4"/><rect x="28" y="49.12" width="20" height="2.4"/><rect x="21" y="91.60" width="27" height="2.4"/><path d="M55 10H65A16.5 20.16 0 0 1 65 50.32H55ZM55 12.4H64.5A10.8 18.36 0 0 1 64.5 49.12H55Z"/><path d="M55 50.32H68A19 21.84 0 0 1 68 94H55ZM55 51.52H67.5A12.6 20.04 0 0 1 67.5 91.60H55Z"/></g></svg><small>PARIS</small></div>';
 
   // les étapes regroupées par moment (le matin d'abord, puis le soir, puis le reste)
   function moments(P, r){
