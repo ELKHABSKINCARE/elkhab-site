@@ -881,6 +881,17 @@ document.addEventListener('click', function(e){
   (document.head || document.documentElement).appendChild(s);
 })();
 
+/* ─── Mini-fiches TikTok (lien « ?mini=soin » ou « ?mini=soin1,soin2 ») : chargées seulement quand le lien le demande ─── */
+(function(){
+  if(!/[?&]mini=/.test(location.search)) return;
+  if(window.ebMiniCharge || document.querySelector('script[data-eb-mini]')) return;
+  var s = document.createElement('script');
+  s.src = 'https://elkhabskincare.github.io/elkhab-site/mini-fiche-engine.js?v=1';
+  s.async = true;
+  s.setAttribute('data-eb-mini', '1');
+  (document.head || document.documentElement).appendChild(s);
+})();
+
 /* ─── Espace ambassadrice / collaborations (lien « #collaboration ») : chargé sur tous les sites ─── */
 (function(){
   if(window.ebCollabCharge || document.querySelector('script[data-eb-collab]')) return;
