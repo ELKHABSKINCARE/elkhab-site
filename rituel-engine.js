@@ -18,13 +18,15 @@
   // ───────────────────────────── RÉGLAGES ─────────────────────────────
   var BASE = 'https://elkhabskincare.github.io/elkhab-site/';
   var SHOP = 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/';
+  // grille : [colonnes, rangées de carreaux entiers de l'image des motifs, rangée de la bande du haut, rangée de la bande du bas]
+  //   (les motifs tombent toujours sur un bord de carreau : jamais de motif coupé sur les côtés)
   // motif : l'écran d'ouverture (motifs de la boîte) · voile / encre : couleur posée sur le motif et couleur du texte
   // nuit / or : fond des moments du soir et couleur des titres sur ce fond
   // sens : la texture et le parfum de chaque soin · savoir : les « Le saviez-vous ? », rangés par moment du rituel
   var COFFRETS = {
     ts: {
       fiche: 'coffret-temps-suspendu', nom: 'Le Temps Suspendu', sous: 'Coffret Rituel Lift', couleur: '#8a6a22',
-      bande: BASE + 'rituel-bande-ts.webp', motif: BASE + 'rituel-motif-ts.webp',
+      bande: BASE + 'rituel-grille-ts.webp', motif: BASE + 'rituel-grille-ts.webp', grille: [3, 5, 3, 4],
       voile: 'rgba(16,24,14,.5)', base: '#2c3826', encre: '#e9c979', nuit: '#1f2a1b', or: '#e9c979',
       sens: {
         'active-lift': "Un sérum au parfum floral, réchauffé de notes d'ambre et de poudre.",
@@ -40,7 +42,7 @@
     },
     lh: {
       fiche: 'coffret-lumiere-dhiver', nom: "Lumière d'hiver", sous: 'Coffret Rituel Éclat', couleur: '#7d1f2b',
-      bande: BASE + 'rituel-bande-lh.webp', motif: BASE + 'rituel-motif-lh.webp',
+      bande: BASE + 'rituel-grille-lh.webp', motif: BASE + 'rituel-grille-lh.webp', grille: [4, 8, 1, 6],
       voile: 'rgba(40,6,12,.55)', base: '#4a1219', encre: '#e9c979', nuit: '#3d0d15', or: '#e9c979',
       sens: {
         'radiance-serum': "Une texture sorbet jaune soleil, fondante et douce, au parfum d'agrumes.",
@@ -53,7 +55,7 @@
     },
     rm: {
       fiche: 'coffret-rituel-de-minuit', nom: 'Rituel de Minuit', sous: 'Coffret Soin du Soir', couleur: '#9b2f62',
-      bande: BASE + 'rituel-bande-rm.webp', motif: BASE + 'rituel-motif-rm.webp',
+      bande: BASE + 'rituel-grille-rm.webp', motif: BASE + 'rituel-grille-rm.webp', grille: [4, 7, 0, 5],
       voile: 'rgba(36,8,22,.55)', base: '#3a1a2c', encre: '#ffffff', nuit: '#33111f', or: '#f0b8d2',
       sens: {
         'fusion-balance': "Deux phases qui fusionnent quand on l'agite, une texture qui fond sur le maquillage. Sans parfum.",
@@ -69,7 +71,7 @@
     },
     na: {
       fiche: 'coffret-nouvelle-aube', nom: 'Nouvelle Aube', sous: 'Coffret Peau Neuve', couleur: '#7a4900',
-      bande: BASE + 'rituel-bande-na.webp', motif: BASE + 'rituel-motif-na.webp',
+      bande: BASE + 'rituel-grille-na.webp', motif: BASE + 'rituel-grille-na.webp', grille: [4, 6, 0, 5],
       voile: 'rgba(246,244,240,.3)', base: '#cdd8c0', encre: '#7a4900', nuit: '#2b3424', or: '#d9b27a',
       sens: {
         'aha-balance-peel': "Une texture liquide et légère, à la senteur discrète, légèrement sucrée.",
@@ -549,6 +551,25 @@
   // les motifs de la boîte s'écartent ensuite comme un couvercle qu'on soulève
   var OUV = null;
   function styles(){ if(document.getElementById('ebq-css')) return; var st = document.createElement('style'); st.id = 'ebq-css'; st.textContent = CSS; document.head.appendChild(st); }
+  // cadre les motifs sur leurs carreaux : un nombre entier de carreaux sur la largeur (et la hauteur)
+  function carreaux(el, G, larg, haut, cible, rang){
+    var n = Math.max(1, Math.round(larg / cible)), tx = larg / n, ty = tx;
+    if(haut){ var m = Math.max(1, Math.round(haut / tx)); ty = haut / m; }
+    el.style.backgroundSize = (G[0] * tx) + 'px ' + (G[1] * ty) + 'px';
+    el.style.backgroundRepeat = rang == null ? 'repeat' : 'repeat-x';
+    el.style.backgroundPosition = (Math.floor((n - G[0]) / 2) * tx) + 'px ' + (rang == null ? 0 : -rang * ty) + 'px';
+    return tx;
+  }
+  function bandes(root, C){
+    if(!C.grille) return;
+    var bs = root.querySelectorAll('.ebq-bande');
+    var go = function(){ [].forEach.call(bs, function(b, i){
+      var w = b.clientWidth || root.clientWidth; if(!w) return;
+      var t = carreaux(b, C.grille, w, 0, w < 700 ? 82 : 120, i ? C.grille[3] : C.grille[2]);
+      b.style.height = t + 'px';
+    }); };
+    go(); window.addEventListener('resize', go);
+  }
   function ouverture(C){
     styles();
     var o = document.createElement('div'); o.id = 'ebq-ouv'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Votre rituel ' + C.nom);
@@ -563,6 +584,12 @@
       + (soin ? '<img class="ebq-fl0" src="' + esc(C.flacon) + '" alt="" style="transform:translateX(' + (50 - (C.centre || 50)) + '%)">' : '')
       + '<button type="button">Ouvrir mon rituel</button><div class="ebq-of"' + (soin ? ' style="color:#fff"' : '') + '>' + (soin ? esc(C.gamme) : 'Édition des fêtes') + '</div></div>';
     document.body.appendChild(o);
+    if(!soin && C.grille){
+      var cadre = function(){ var w = window.innerWidth, h = window.innerHeight, cible = w < 700 ? 98 : 170;
+        cible = w / (2 * Math.max(1, Math.round(w / (2 * cible))));
+        [].forEach.call(o.querySelectorAll('.ebq-p i'), function(i){ carreaux(i, C.grille, w, h, cible); }); };
+      cadre(); window.addEventListener('resize', cadre);
+    }
     // l'écran reste caché (le logo de chargement reste visible) tant que l'image des motifs n'est pas arrivée
     var vu = false, montrer = function(){ if(vu) return; vu = true; o.classList.add('ebq-vis'); };
     var im = new Image(); im.onload = im.onerror = montrer; im.src = C.motif || C.flacon; if(im.complete) montrer();
@@ -654,7 +681,7 @@
           return '<a href="' + esc(lien) + '"><span><img src="' + esc(BASE + VIGNETTES[id] + '.webp') + '" alt="' + esc(x.nom + ' ELKHA.B') + '" loading="lazy"></span><b>' + esc(x.nom) + '</b>' + (x.sousTitre ? '<i>' + esc(String(x.sousTitre).split(/\n| · /)[0]) + '</i>' : '') + '</a>';
         }).join('') + '</div>';
       };
-      root.innerHTML = '<div class="ebq-in"><div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div>'
+      root.innerHTML = '<div class="ebq-in">' + '<div class="ebq-griffe">' + MONO + '<i class="ebq-filet"></i><div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div></div>'
         + '<p class="ebq-k" style="color:#8f8676">ELKHA.B</p><h1>Votre rituel</h1><i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,#8f8676)"></i><p class="ebq-bien2">Bienvenue parmi les B.</p>'
         + '<p class="ebq-univ">Touchez votre soin pour découvrir son rituel : comment l\'appliquer, ce qu\'il fait pour votre peau et nos conseils pour en tirer le meilleur.</p>'
         + '<h2>Coffrets des fêtes</h2><div class="ebq-liste" style="margin-top:0">'
@@ -668,7 +695,7 @@
     root.style.setProperty('--c', coul); root.style.setProperty('--o', C.or || coul);
     root.innerHTML = '<div class="ebq-bande" style="background-image:url(' + esc(C.bande) + ')"></div>'
       + '<div class="ebq-in">'
-      + '<div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div>'
+      + '<div class="ebq-griffe">' + MONO + '<i class="ebq-filet"></i><div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div></div>'
       + '<p class="ebq-k" style="color:' + coul + '">Votre rituel</p>'
       + '<h1>' + esc(r.nom) + '</h1><p class="ebq-sous">' + esc(C.sous) + '</p>'
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
@@ -686,6 +713,7 @@
       + '<a class="ebq-lien" href="' + LIENS.site + '">Découvrir ELKHA.B</a>'
       + '<p class="ebq-fin">Bienvenue parmi les B. : beauté, bien-être, et surtout bien dans sa peau.</p>'
       + '</div><div class="ebq-bande" style="background-image:url(' + esc(C.bande) + ')"></div>';
+    bandes(root, C);
     apparitions(root);
     if(OUV) OUV.pret();
 
