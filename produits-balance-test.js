@@ -199,8 +199,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-2-flacon-v6.jpg",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_a83a3578-c07d-491a-8a83-e496c32dc0b0.png?v=1793697938",
-        // 📷 4. RENDU SELFNAMED
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Af8Csk4hrC3Wla3bLANbAUW9GeqcDU8w.jpg?v=1793698083"
+        // 📷 4. YEUX
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/IMAGE_YEUX.png?v=1793697938"
       ]
     },
     routine: {
@@ -361,7 +361,9 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-1-boite-flacon-v6.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-2-flacon-v6.jpg",
-        // 📷 3. VISAGE
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Sculpture_cremeuse_ivoire_sur_fond_peche.png?v=1793974940",
+        // 📷 4. VISAGE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_3f77e7a5-3a2d-4ba0-974e-7b4578b2cc9b.png?v=1793811380"
       ]
     },
@@ -414,7 +416,8 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-1-boite-flacon-v8.jpg",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-2-flacon-v8.jpg",
-        // 📷 3. TEXTURE (plus tard)
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_06a1d45e-98c6-4973-aec6-fb156d56eb71.png?v=1793974534"
       ]
     },
     routine: {

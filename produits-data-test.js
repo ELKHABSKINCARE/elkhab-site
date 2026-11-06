@@ -834,8 +834,9 @@ window.EB_PRODUITS = {
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-1-boite-flacon.png?v=1793376159",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-flacon-pompe-v7.png"
-        // 📷 3. TEXTURE (à ajouter plus tard : une virgule après le lien du dessus, puis le nouveau lien)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-flacon-pompe-v7.png",
+        // 📷 3. TEXTURE
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Swoosh_cremeux_blanc_nacre.png?v=1793974858"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
