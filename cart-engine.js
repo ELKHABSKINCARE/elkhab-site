@@ -564,12 +564,18 @@ function ebCartEchantillonZone(cart){
   const footer = document.querySelector('#ebCartPanel .eb-cart-footer');
   if(!footer) return;
   let zone = document.getElementById('ebCartEchantillon');
-  if(!zone){ zone = document.createElement('div'); zone.id = 'ebCartEchantillon'; zone.className = 'eb-cart-echantillon'; footer.insertBefore(zone, footer.firstChild); }
+  if(!zone){ zone = document.createElement('div'); zone.id = 'ebCartEchantillon'; zone.className = 'eb-cart-echantillon'; }
+  const avant = document.getElementById('ebCartPromo') || footer.querySelector('.eb-cart-total');
+  if(zone.parentNode !== footer || zone.nextSibling !== avant) footer.insertBefore(zone, avant || null);
   const e = ebEchantillonEtat(cart);
   if(!e.nb || !e.cle){ zone.style.display = 'none'; return; }
-  zone.style.display = 'block';
-  const nom = '<strong>' + EB_ECHANTILLONS[e.cle].nom + '</strong>';
-  zone.innerHTML = e.nb >= 2 ? 'Votre échantillon ' + nom + ' est offert avec votre commande.' : 'Un échantillon ' + nom + ' vous attend dès votre deuxième soin.';
+  zone.style.display = 'flex';
+  const nom = EB_ECHANTILLONS[e.cle].nom, offert = e.nb >= 2;
+  zone.classList.toggle('eb-ech-attente', !offert);
+  zone.innerHTML = '<span class="eb-ech-mini"><img src="https://elkhabskincare.github.io/elkhab-site/echantillon-mini-' + e.cle + '.webp" alt="Échantillon ' + nom + ' ELKHA.B" loading="lazy"></span>'
+    + '<span class="eb-ech-txt">' + (offert
+      ? '<b>Échantillon offert</b>' + nom + ' est ajouté à votre commande.'
+      : '<b>Un échantillon vous attend</b>' + nom + ' vous est offert dès votre deuxième soin.') + '</span>';
 }
 let ebEchEnCours = false;
 async function ebEchantillonSync(cart){
@@ -667,7 +673,10 @@ function ebCartStylePhotos(){
     + '.eb-cart-thumb{flex:0 0 64px;width:64px;height:64px;background:#EBE5DB;overflow:hidden}'
     + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:cover}'
     + '.eb-cart-info{flex:1;min-width:0}'
-    + '.eb-cart-echantillon{font-family:Montserrat,sans-serif;font-size:11.5px;letter-spacing:.02em;line-height:1.6;text-align:center;margin:0 0 14px;color:#4a453e}.eb-cart-echantillon strong{font-weight:600;color:#1d1b18}'
+    + '.eb-cart-echantillon{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:12px 0;border-bottom:1px solid #EBE5DB;font-family:Montserrat,sans-serif;text-align:left}'
+    + '.eb-ech-mini{flex:0 0 48px;width:48px;height:64px;background:#f5f4f0;overflow:hidden}.eb-ech-mini img{display:block;width:100%;height:100%;object-fit:cover}'
+    + '.eb-cart-echantillon.eb-ech-attente .eb-ech-mini{opacity:.55}'
+    + '.eb-ech-txt{font-size:11.5px;line-height:1.55;letter-spacing:.02em;color:#4a453e}.eb-ech-txt b{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#1d1b18;margin-bottom:3px}'
     + '.eb-cart-livraison{margin:0 0 16px}'
     + '.eb-cart-livraison-txt{font-family:Montserrat,sans-serif;font-size:11.5px;font-weight:400;letter-spacing:.02em;margin-bottom:8px;text-align:center}'
     + '.eb-cart-livraison-txt strong{font-weight:600}'
@@ -706,17 +715,18 @@ function ebRenderCart(cart, attemptsLeft){
     return;
   }
 
-  const qty = cart ? cart.totalQuantity : 0;
+  const qty = cart ? cart.lines.edges.reduce(function(n, e){ return n + (ebEchEstEchantillon(e.node.merchandise) ? 0 : e.node.quantity); }, 0) : 0;
   countEl.textContent = qty;
   countEl.style.display = qty > 0 ? 'flex' : 'none';
 
-  if(!cart || cart.lines.edges.length === 0){
+  if(!cart || qty === 0){
     itemsEl.innerHTML = '<div class="eb-cart-empty">Votre panier est vide.</div>';
     totalEl.textContent = ebFormatPrice(0);
     ebCartCodeActif = '';
     ebCartLivraison(0);
     ebCartPromoZone(null, 0);
     ebCartEchantillonZone(null);
+    if(cart) ebEchantillonSync(cart);
     return;
   }
 
@@ -725,6 +735,7 @@ function ebRenderCart(cart, attemptsLeft){
   cart.lines.edges.forEach(function(edge){
     const line = edge.node;
     const m = line.merchandise;
+    if(ebEchEstEchantillon(m)) return;   // l'échantillon s'affiche à part, sous la liste
     // Miniature : photo de la variante (teinte, formule…), sinon photo principale du produit
     const imgUrl = (m.image && m.image.url) || (m.product.featuredImage && m.product.featuredImage.url) || '';
     html += '<div class="eb-cart-item eb-cart-item-photo">';
@@ -736,7 +747,6 @@ function ebRenderCart(cart, attemptsLeft){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
     html += '<div class="eb-cart-item-bottom">';
-    if(ebEchEstEchantillon(m)){ html += '<span class="eb-cart-item-price">Échantillon offert</span></div></div></div>'; return; }
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
     html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
     html += '</div></div></div>';
