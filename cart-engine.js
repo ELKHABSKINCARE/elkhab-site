@@ -511,6 +511,86 @@ function ebCartLivraison(sousTotal){
   zone.querySelector('.eb-cart-livraison-barre span').style.width = Math.min(100, Math.round(sousTotal / EB_SEUIL_LIVRAISON * 100)) + '%';
 }
 
+// ── Échantillon offert dès 2 soins (un coffret compte pour 2) ──
+// ✏️ Mettre ici l'identifiant de variante Shopify de chaque produit « échantillon » (prix 0,00 €).
+//    Tant qu'un identifiant est vide, le panier affiche la phrase mais n'ajoute pas l'échantillon.
+const EB_ECHANTILLONS = {
+  'radiance-c-serum':       { nom: 'Radiance C Serum',       variant: '60394275504473' },
+  'milky-bloom':            { nom: 'Milky Bloom',            variant: '60394246472025' },
+  'lumi-bloom-arbutin':     { nom: 'Lumi-Bloom Arbutin',     variant: '60394255909209' },
+  'age-lift':               { nom: 'Age Lift',               variant: '60394220781913' },
+  'active-lift':            { nom: 'Active Lift',            variant: '60394293625177' },
+  'ceramide-night-restore': { nom: 'Ceramide Night Restore', variant: '60394236084569' }
+};
+// Quel échantillon pour quel soin : le soin principal (le plus cher) décide ; jamais un soin déjà dans la commande
+const EB_ECH_REGLES = [
+  ['lumiere d', 'milky-bloom'], ['temps suspendu', 'ceramide-night-restore'], ['rituel de minuit', 'age-lift'], ['nouvelle aube', 'ceramide-night-restore'],
+  ['radiance c serum', 'milky-bloom'], ['milky bloom', 'radiance-c-serum'], ['radiance cleanser', 'radiance-c-serum'], ['lumi-pure', 'radiance-c-serum'], ['gelee', 'radiance-c-serum'],
+  ['arbutin', 'radiance-c-serum'], ['niacinamide', 'radiance-c-serum'], ['spot control', 'radiance-c-serum'], ['bright control', 'radiance-c-serum'],
+  ['luminescence', 'lumi-bloom-arbutin'], ['radiance eye cream', 'lumi-bloom-arbutin'],
+  ['hydra balance', 'ceramide-night-restore'], ['calm balance', 'ceramide-night-restore'], ['fusion balance', 'ceramide-night-restore'],
+  ['glyco', 'ceramide-night-restore'], ['aha', 'ceramide-night-restore'], ['bha', 'ceramide-night-restore'],
+  ['cellular', 'active-lift'], ['bakuchiol', 'active-lift'], ['eye lift', 'active-lift'], ['age lift', 'active-lift'],
+  ['active lift', 'age-lift'], ['ceramide', 'age-lift']
+];
+const EB_ECH_SECOURS = { bloom: ['radiance-c-serum', 'milky-bloom', 'lumi-bloom-arbutin'], balance: ['active-lift', 'age-lift', 'ceramide-night-restore'] };
+function ebEchNorm(t){ return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+function ebEchEstEchantillon(m){
+  const v = String(m.id || '').split('/').pop();
+  return Object.keys(EB_ECHANTILLONS).some(function(k){ return EB_ECHANTILLONS[k].variant && EB_ECHANTILLONS[k].variant === v; })
+    || /^echantillon/.test(ebEchNorm(m.product && m.product.title));
+}
+function ebEchCle(titre){ const t = ebEchNorm(titre); for(const r of EB_ECH_REGLES){ if(t.indexOf(r[0]) > -1) return r[1]; } return 'radiance-c-serum'; }
+function ebEchantillonEtat(cart){
+  const lignes = cart ? cart.lines.edges.map(function(e){ return e.node; }) : [];
+  const soins = lignes.filter(function(l){ return !ebEchEstEchantillon(l.merchandise); });
+  let nb = 0, principal = null;
+  soins.forEach(function(l){
+    const t = ebEchNorm(l.merchandise.product.title);
+    nb += l.quantity * (t.indexOf('coffret') > -1 ? 2 : 1);
+    if(!principal || parseFloat(l.merchandise.price.amount) > parseFloat(principal.merchandise.price.amount)) principal = l;
+  });
+  if(!principal) return { nb: 0, cle: null, lignes: lignes };
+  const achetes = soins.map(function(l){ return ebEchNorm(l.merchandise.product.title); });
+  const deja = function(k){ const n = ebEchNorm(EB_ECHANTILLONS[k].nom); return achetes.some(function(t){ return t.indexOf(n) > -1; }); };
+  let cle = ebEchCle(principal.merchandise.product.title);
+  if(deja(cle)){
+    const balance = ['age-lift', 'active-lift', 'ceramide-night-restore'].indexOf(cle) > -1;
+    cle = (balance ? EB_ECH_SECOURS.balance : EB_ECH_SECOURS.bloom).concat(balance ? EB_ECH_SECOURS.bloom : EB_ECH_SECOURS.balance).filter(function(k){ return !deja(k); })[0] || null;
+  }
+  return { nb: nb, cle: cle, lignes: lignes };
+}
+function ebCartEchantillonZone(cart){
+  const footer = document.querySelector('#ebCartPanel .eb-cart-footer');
+  if(!footer) return;
+  let zone = document.getElementById('ebCartEchantillon');
+  if(!zone){ zone = document.createElement('div'); zone.id = 'ebCartEchantillon'; zone.className = 'eb-cart-echantillon'; footer.insertBefore(zone, footer.firstChild); }
+  const e = ebEchantillonEtat(cart);
+  if(!e.nb || !e.cle){ zone.style.display = 'none'; return; }
+  zone.style.display = 'block';
+  const nom = '<strong>' + EB_ECHANTILLONS[e.cle].nom + '</strong>';
+  zone.innerHTML = e.nb >= 2 ? 'Votre échantillon ' + nom + ' est offert avec votre commande.' : 'Un échantillon ' + nom + ' vous attend dès votre deuxième soin.';
+}
+let ebEchEnCours = false;
+async function ebEchantillonSync(cart){
+  if(ebEchEnCours || !cart) return;
+  const e = ebEchantillonEtat(cart);
+  const voulu = e.nb >= 2 && e.cle && EB_ECHANTILLONS[e.cle].variant ? EB_ECHANTILLONS[e.cle].variant : '';
+  const presents = e.lignes.filter(function(l){ return ebEchEstEchantillon(l.merchandise); });
+  const bon = presents.filter(function(l){ return voulu && String(l.merchandise.id).split('/').pop() === voulu; });
+  const aRetirer = presents.filter(function(l){ return bon.indexOf(l) < 0; });
+  if(!aRetirer.length && (voulu ? (bon.length === 1 && bon[0].quantity === 1) : true)) return;
+  ebEchEnCours = true;
+  try {
+    let c = cart;
+    for(const l of aRetirer){ c = (await ebCartRemoveLine(l.id)) || c; }
+    if(voulu && !bon.length) c = (await ebCartAddLine(voulu, 1)) || c;
+    else if(voulu && bon[0].quantity !== 1) c = (await ebCartUpdateLineQuantity(bon[0].id, 1)) || c;
+    ebEchEnCours = false;
+    ebRenderCart(c);
+  } catch(err){ ebEchEnCours = false; console.error('ELKHA.B panier — échantillon :', err); }
+}
+
 // ── Champ « Code promo » dans le panier ──
 let ebCartCodeActif = '';
 function ebCartPromoZone(cart, reduction){
@@ -587,6 +667,7 @@ function ebCartStylePhotos(){
     + '.eb-cart-thumb{flex:0 0 64px;width:64px;height:64px;background:#EBE5DB;overflow:hidden}'
     + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:cover}'
     + '.eb-cart-info{flex:1;min-width:0}'
+    + '.eb-cart-echantillon{font-family:Montserrat,sans-serif;font-size:11.5px;letter-spacing:.02em;line-height:1.6;text-align:center;margin:0 0 14px;color:#4a453e}.eb-cart-echantillon strong{font-weight:600;color:#1d1b18}'
     + '.eb-cart-livraison{margin:0 0 16px}'
     + '.eb-cart-livraison-txt{font-family:Montserrat,sans-serif;font-size:11.5px;font-weight:400;letter-spacing:.02em;margin-bottom:8px;text-align:center}'
     + '.eb-cart-livraison-txt strong{font-weight:600}'
@@ -635,6 +716,7 @@ function ebRenderCart(cart, attemptsLeft){
     ebCartCodeActif = '';
     ebCartLivraison(0);
     ebCartPromoZone(null, 0);
+    ebCartEchantillonZone(null);
     return;
   }
 
@@ -654,6 +736,7 @@ function ebRenderCart(cart, attemptsLeft){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
     html += '<div class="eb-cart-item-bottom">';
+    if(ebEchEstEchantillon(m)){ html += '<span class="eb-cart-item-price">Échantillon offert</span></div></div></div>'; return; }
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
     html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
     html += '</div></div></div>';
@@ -673,6 +756,8 @@ function ebRenderCart(cart, attemptsLeft){
   if(libelle && libelle !== totalEl) libelle.textContent = reduction > 0 ? 'Total' : 'Sous-total';
   ebCartPromoZone(cart, reduction);
   ebCartLivraison(aPayer);
+  ebCartEchantillonZone(cart);
+  ebEchantillonSync(cart);
 }
 
 window.ebCartRemoveClick = async function(lineId, currentQuantity){
