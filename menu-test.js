@@ -9,7 +9,9 @@
 (function(){
 
 /* ─── Skin ID : le nouveau diagnostic s'ouvre par-dessus la page (skin-id-engine.js) ─── */
-var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=6";
+var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=7";
+/* ─── Recherche : la nouvelle version (même panneau que le panier) remplace l'ancienne ─── */
+(function(){ if(document.querySelector('script[data-eb-recherche]')) return; var s=document.createElement('script'); s.src="https://elkhabskincare.github.io/elkhab-site/recherche-engine.js?v=1"; s.async=true; s.setAttribute('data-eb-recherche','1'); (document.head||document.documentElement).appendChild(s); })();
 function chargerSkinId(fait){
   if(typeof window.ebSkinIdOpen==='function'){ if(fait) fait(); return; }
   var s=document.querySelector('script[data-eb-skinid]');
@@ -182,13 +184,7 @@ function construire(){
   [loupe,aSkin,aJour,aExp].forEach(function(x){ d.appendChild(x); });
   droite.insertBefore(d, droite.firstChild);
   droite.style.gap='24px'; droite.classList.add('ebm-droite');
-  // ── Téléphone : la mini carte Skin ID, juste avant le panier
-  var mini=el('a','ebm-mini','<span class="ebm-msceau">E.B</span><span class="ebm-msk">SKIN ID</span><span class="ebm-mcode"><b>BL</b> · N1</span>');
-  enBouton(mini); mini.setAttribute('aria-label','Faire mon Skin ID');
-  mini.addEventListener('click',function(e){ e.preventDefault(); e.stopPropagation(); fermerTout(); ouvrirSkinId(); });
-  var panierBtn=droite.querySelector('#ebCartButton'); droite.insertBefore(mini, panierBtn && panierBtn.parentNode===droite ? panierBtn : null);
-  var MCODES=['<b>BL</b> · N1','<b>BA</b> · N2/3','<b>B</b> · N2','<b>BA</b> · N4','<b>BL</b> · N1'], iM=0, mCode=mini.querySelector('.ebm-mcode');
-  setInterval(function(){ if(!mini.offsetParent) return; mCode.style.opacity=0; setTimeout(function(){ iM=(iM+1)%MCODES.length; mCode.innerHTML=MCODES[iM]; mCode.style.opacity=1; },400); },2600);
+  // (la mini carte Skin ID du téléphone a été retirée le 6 nov. 2026 : pas harmonieuse ; le Skin ID reste dans le menu)
 
   // ── Panneau « Nos soins » (ordinateur)
   var p=el('div','ebm-soins'); var pin=el('div','ebm-soins-in');
