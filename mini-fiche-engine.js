@@ -79,7 +79,7 @@
       ] },
     { id: 'coffret-rituel-de-minuit', cle: 'rituel-de-minuit', gamme: 'Bloom & Balance', couleur: '#8c5a66', type: 'Coffret Soin du Soir',
       contenu: [['fusion-balance', 'Fusion Balance', '100 ml'], ['luminescence-boost', 'Luminescence Boost', '30 ml'], ['radiance-eye-cream', 'Radiance Eye Cream', '15 ml']],
-      accroche: 'Un rituel du soir complet, <b>du démaquillage au regard</b>.',
+      accroche: 'Ce que votre peau fait de mieux, elle le fait <b>la nuit</b>.',
       points: [
         'Fusion Balance, le démaquillant biphasé, dissout le maquillage, même waterproof, sans frotter ni tirailler.',
         'Luminescence Boost, au cresson et au sureau, travaille la fermeté et l’éclat : il donne à la peau plus de souplesse et de rebond.',
