@@ -539,3 +539,39 @@
     // (pas d'apparition animée des sections : tout est là dès l'arrivée)
   }
 })();
+
+// ── Fiches produits : elles s'ouvrent ici même, sur l'accueil ──
+// (avant, le lien passait par le site de la gamme ou des routines, et en fermant la fiche
+//  la cliente restait sur ce site au lieu de revenir à l'accueil)
+(function(){
+  if(window.ebAccueilFiches) return; window.ebAccueilFiches = true;
+  var BASE = 'https://elkhabskincare.github.io/elkhab-site/';
+  var FICHIERS = ['produits-data-test.js', 'produits-balance-test.js', 'avis-engine.js', 'fiche-engine.js'];
+  var pret = false, attente = null;
+  function ouvrir(id){
+    if(typeof window.ebFicheOpen === 'function' && window.EB_PRODUITS && window.EB_PRODUITS[id]){ window.ebFicheOpen(id); return true; }
+    return false;
+  }
+  function charger(i){
+    if(i >= FICHIERS.length){
+      pret = true;
+      if(attente){ var a = attente; attente = null; if(!ouvrir(a.id)) location.href = a.href; }
+      return;
+    }
+    if(document.querySelector('script[src*="' + FICHIERS[i] + '"]')) return charger(i + 1);
+    var s = document.createElement('script'); s.src = BASE + FICHIERS[i];
+    s.onload = s.onerror = function(){ charger(i + 1); };
+    document.body.appendChild(s);
+  }
+  function ficheDe(a){ try { return new URL(a.href, location.href).searchParams.get('fiche'); } catch(e){ return null; } }
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href*="fiche="]'); if(!a) return;
+    if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || (e.button && e.button !== 0)) return;   // ouverture dans un nouvel onglet : on laisse faire
+    var id = ficheDe(a); if(!id) return;
+    if(pret){ if(ouvrir(id)) e.preventDefault(); return; }   // produit inconnu : le lien fonctionne comme avant
+    // les fiches finissent d'arriver : la fiche s'ouvre dès qu'elles sont là (au pire, le lien d'origine après 5 s)
+    e.preventDefault(); attente = { id: id, href: a.href };
+    setTimeout(function(){ if(attente && attente.id === id){ attente = null; location.href = a.href; } }, 5000);
+  }, true);
+  if(document.readyState === 'complete') charger(0); else window.addEventListener('load', function(){ charger(0); });
+})();
