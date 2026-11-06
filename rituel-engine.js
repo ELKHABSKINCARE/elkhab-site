@@ -408,7 +408,7 @@
   + ".ebq-soins{display:grid;gap:6px;padding:0 14px;align-items:start}"
   + ".ebq-soin{display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0;font-family:inherit;color:inherit}"
   + ".ebq-fl{display:flex;align-items:flex-end;justify-content:center;height:146px;width:100%;margin-bottom:24px}"
-  + ".ebq-fl img{display:block;width:auto;max-width:100%}"
+  + ".ebq-fl img{display:block;width:auto;max-width:100%;object-fit:contain;object-position:50% 100%}"
   + ".ebq-soin b{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-top:10px;line-height:1.35}"
   + ".ebq-soin span{font-size:10px;color:#5a544c;margin-top:4px;line-height:1.35}"
   + "#eb-rituel .ebq-mom{font-size:10px;letter-spacing:.28em;padding-left:.28em;text-transform:uppercase;font-weight:600;margin:26px 0 10px}"
@@ -466,8 +466,8 @@
   // ── page d'un soin
   + ".ebq-bande2{height:46px}"
   + ".ebq-soin1{display:flex;align-items:flex-end;gap:16px;margin:0 22px;text-align:left}"
-  + ".ebq-soin1 span{flex:none;width:112px;display:flex;justify-content:center;overflow:hidden}"
-  + ".ebq-soin1 img{display:block;height:190px;width:auto;margin-bottom:-28px}"
+  + ".ebq-soin1 span{flex:none;width:116px}"
+  + ".ebq-soin1 img{display:block;width:116px;height:174px;margin-bottom:-20px}"
   + ".ebq-soin1 div{padding-bottom:6px}"
   + ".ebq-soin1 b{display:block;font-size:9px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;margin-bottom:8px;color:var(--c)}"
   + "#eb-rituel .ebq-soin1 p{font-size:13px;line-height:1.7}"
@@ -532,6 +532,8 @@
     }).join('') + '</div>';
   }
 
+  // photo du flacon cadrée pour la fiche (360×540, flacon centré, rien de coupé)
+  function photoRituel(u){ return BASE + 'rituel-flacon-' + u.split('/').pop().replace(/^(balance|bloom)-|-flacon-site-v\d+\.png.*$/g, '') + '.webp'; }
   function estNuit(m){ return /soir/i.test(m) && !/matin/i.test(m); }
   function momentsHTML(P, ro, C){
     var groupes = [], g = null;
@@ -651,7 +653,7 @@
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
       + '<p class="ebq-mot ebq-rv">' + esc(MOT_SOIN) + '</p>'
       + '<div class="ebq-rv"><h2>Votre soin</h2><div class="ebq-soin1">'
-      +   (f ? '<span><img src="' + esc(f[1] + '?width=500') + '" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '" style="transform:translateX(' + (50 - (CENTRE[S.fiche] || 50)) + '%)"></span>' : '')
+      +   (f ? '<span><img src="' + esc(photoRituel(f[1])) + '" width="360" height="540" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '"></span>' : '')
       +   '<div><b>Ce qu\'il fait</b><p>' + esc(S.role) + '</p></div></div>'
       +   (S.sens ? '<p class="ebq-sens">' + esc(S.sens) + '</p>' : '') + concentre(S.geste, false) + '</div>'
       + '<h2 style="margin-bottom:0">Votre rituel</h2>'
