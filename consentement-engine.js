@@ -20,7 +20,7 @@
 
   // PHASE DE TEST : le bandeau ne s'affiche que sur ces sites.
   // Mettre TEST_SEULEMENT = [] pour l'activer partout.
-  var TEST_SEULEMENT = ['bloom-test.carrd.co'];
+  var TEST_SEULEMENT = [];
   var hote = location.hostname;
   var forcer = /[?&]cookies=test/.test(location.search);
   if(TEST_SEULEMENT.length && TEST_SEULEMENT.indexOf(hote) < 0 && !forcer) return;
