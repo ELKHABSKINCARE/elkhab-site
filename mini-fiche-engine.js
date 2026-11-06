@@ -44,7 +44,7 @@
     ,
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
-      photo: 'rituel-flacon-lumi-veil-b1.webp',   // toujours le stick le plus clair en présentation
+      photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
       eng: ['98 % d’origine naturelle', 'SPF 30', 'Vegan'],
       choix: 'Votre teinte', choisir: 'Choisissez votre teinte',
       // dans le même ordre que les variantes de la fiche (B1, B2, B3, B4)
@@ -133,11 +133,11 @@
   + '#ebmf .mf-vgs{display:flex;gap:10px;margin-bottom:2px}'
   + '#ebmf .mf-vg{flex:1;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:6px;background:#f6f4f0;opacity:.55;cursor:pointer;transition:opacity .25s,border-color .25s}'
   + '#ebmf .mf-vg.on{border:1.5px solid #111;opacity:1}'
-  + '#ebmf .mf-vph{height:84px;border-radius:10px;background:#f6f4f0;display:flex;align-items:center;justify-content:center;overflow:hidden}'
-  + '#ebmf .mf-vph img{height:88%;width:auto;object-fit:contain;mix-blend-mode:darken}'
+  + '#ebmf .mf-vph{height:84px;border-radius:10px;background:#efece6;display:flex;align-items:center;justify-content:center;overflow:hidden}'
+  + '#ebmf .mf-vph img{width:100%;height:100%;object-fit:contain;transform:scale(.88);mix-blend-mode:darken}'
   + '#ebmf .mf-haut{display:flex;gap:16px;align-items:center;margin-top:2px}'
-  + '#ebmf .mf-ph{width:112px;height:142px;border-radius:14px;background:#f6f4f0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}'
-  + '#ebmf .mf-ph img{height:92%;width:auto;object-fit:contain;mix-blend-mode:darken}'
+  + '#ebmf .mf-ph{width:112px;height:142px;border-radius:14px;background:#efece6;display:flex;align-items:center;justify-content:center;flex:none;overflow:hidden}'
+  + '#ebmf .mf-ph img{width:100%;height:100%;object-fit:contain;transform:scale(.88);mix-blend-mode:darken}'
   + '#ebmf .mf-g{font-size:8.5px;font-weight:600;letter-spacing:.34em;margin-top:14px}'
   + '#ebmf .mf-haut .mf-g{margin-top:0}'
   + '#ebmf .mf-n{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:16px;font-weight:700;letter-spacing:.06em;margin:5px 0 4px;line-height:1.25}'
@@ -165,7 +165,7 @@
   + '#ebmf button.mf-ch b{font-weight:600}'
   + '#ebmf .mf-chs.tx{grid-template-columns:repeat(4,1fr)}'
   + '#ebmf .mf-chs.tx button.mf-ch{flex-direction:column;align-items:stretch;gap:7px;padding:5px 5px 8px;text-align:center;letter-spacing:.12em;font-size:8.5px}'
-  + '#ebmf .mf-tx{display:block;height:46px;background:#efece6 center/cover no-repeat}'
+  + '#ebmf .mf-tx{display:block;width:100%;aspect-ratio:1/1;background:#efece6 center/cover no-repeat}'
   + '#ebmf .mf-pour{font-size:11.5px;font-style:italic;color:#6b645b;margin:-2px 0 10px;line-height:1.5}'
   + '#ebmf button.mf-b.off{background:#e4dfd7;border-color:#e4dfd7;color:#7a7268}'
   + '#ebmf button.mf-b1.off{border-color:rgba(0,0,0,.25);color:#7a7268}'
@@ -173,7 +173,12 @@
 
   var voile, panneau, actif = 0, produits = [];
 
-  function photoDe(p){ var v = p.m.variantes; return BASE + (v && p.sel >= 0 && v[p.sel].photo ? v[p.sel].photo : p.m.photo); }
+  function photoDe(p){
+    var v = p.m.variantes;
+    if(v && p.sel >= 0 && v[p.sel].photo) return BASE + v[p.sel].photo;
+    if(p.m.photo === 'site'){ var u = (p.d.media && p.d.media.miniature) || ''; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=500'; }
+    return BASE + p.m.photo;
+  }
   function varianteId(p){ return p.m.variantes ? (p.sel >= 0 ? p.d.variantes[p.sel].variantId : null) : p.d.variantId; }
   function choixHTML(p){
     var v = p.m.variantes; if(!v) return '';
