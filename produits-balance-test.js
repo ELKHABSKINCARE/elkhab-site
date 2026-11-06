@@ -1204,7 +1204,7 @@ var BALANCE = {
         // 📷 2. LE DOS DU COFFRET
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/nouvelle-aube-dos-fond-site.jpg",
         // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-nouvelle-aube-soins-v1.jpg"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-nouvelle-aube-soins-v2.jpg"
       ]
     },
     routine: {
