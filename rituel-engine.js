@@ -23,7 +23,7 @@
   // sens : la texture et le parfum de chaque soin · savoir : les « Le saviez-vous ? », rangés par moment du rituel
   var COFFRETS = {
     ts: {
-      fiche: 'coffret-temps-suspendu', sous: 'Coffret Rituel Lift', couleur: '#8a6a22',
+      fiche: 'coffret-temps-suspendu', nom: 'Le Temps Suspendu', sous: 'Coffret Rituel Lift', couleur: '#8a6a22',
       bande: BASE + 'rituel-bande-ts.webp', motif: BASE + 'rituel-motif-ts.webp',
       voile: 'rgba(16,24,14,.5)', encre: '#e9c979', nuit: '#1f2a1b', or: '#e9c979',
       sens: {
@@ -39,7 +39,7 @@
       }
     },
     lh: {
-      fiche: 'coffret-lumiere-dhiver', sous: 'Coffret Rituel Éclat', couleur: '#7d1f2b',
+      fiche: 'coffret-lumiere-dhiver', nom: "Lumière d'hiver", sous: 'Coffret Rituel Éclat', couleur: '#7d1f2b',
       bande: BASE + 'rituel-bande-lh.webp', motif: BASE + 'rituel-motif-lh.webp',
       voile: 'rgba(40,6,12,.55)', encre: '#e9c979', nuit: '#3d0d15', or: '#e9c979',
       sens: {
@@ -52,7 +52,7 @@
       }
     },
     rm: {
-      fiche: 'coffret-rituel-de-minuit', sous: 'Coffret Soin du Soir', couleur: '#9b2f62',
+      fiche: 'coffret-rituel-de-minuit', nom: 'Rituel de Minuit', sous: 'Coffret Soin du Soir', couleur: '#9b2f62',
       bande: BASE + 'rituel-bande-rm.webp', motif: BASE + 'rituel-motif-rm.webp',
       voile: 'rgba(36,8,22,.55)', encre: '#ffffff', nuit: '#33111f', or: '#f0b8d2',
       sens: {
@@ -68,7 +68,7 @@
       }
     },
     na: {
-      fiche: 'coffret-nouvelle-aube', sous: 'Coffret Peau Neuve', couleur: '#7a4900',
+      fiche: 'coffret-nouvelle-aube', nom: 'Nouvelle Aube', sous: 'Coffret Peau Neuve', couleur: '#7a4900',
       bande: BASE + 'rituel-bande-na.webp', motif: BASE + 'rituel-motif-na.webp',
       voile: 'rgba(246,244,240,.3)', encre: '#7a4900', nuit: '#2b3424', or: '#d9b27a',
       sens: {
@@ -113,7 +113,8 @@
   + ".ebq-bande{height:74px;background-size:cover;background-position:center}"
   + ".ebq-in{max-width:520px;margin:0 auto;padding:0 0 10px}"
   + ".ebq-logo{font-size:20px;letter-spacing:.42em;padding-left:.42em;font-weight:400;margin-top:26px;color:#111}"
-  + ".ebq-paris{font-size:7px;letter-spacing:.6em;padding-left:.6em;color:#555;margin-top:2px}"
+  + ".ebq-paris{font-size:7px;letter-spacing:.6em;padding-left:.6em;color:#555;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:9px}"
+  + ".ebq-paris:before,.ebq-paris:after,#ebq-ouv .ebq-op:before,#ebq-ouv .ebq-op:after{content:'';display:block;width:18px;height:1px;background:currentColor;opacity:.7}"
   + "#eb-rituel .ebq-k{font-size:9.5px;letter-spacing:.32em;padding-left:.32em;text-transform:uppercase;font-weight:600;margin:30px 0 10px}"
   + "#eb-rituel h1{font-size:23px;letter-spacing:.2em;padding-left:.2em;font-weight:500;text-transform:uppercase;line-height:1.3;color:#111}"
   + "#eb-rituel .ebq-sous{font-size:11px;letter-spacing:.24em;padding-left:.24em;text-transform:uppercase;color:#4a453e;margin-top:8px}"
@@ -173,7 +174,9 @@
   + "#ebq-ouv .ebq-p b{position:absolute;top:0;left:0;right:0;bottom:0}"
   + "#ebq-ouv .ebq-c{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;transition:opacity .45s ease}"
   + "#ebq-ouv .ebq-ol{font-size:22px;letter-spacing:.45em;padding-left:.45em}"
-  + "#ebq-ouv .ebq-op{font-size:7.5px;letter-spacing:.7em;padding-left:.7em;margin-top:3px;opacity:.85}"
+  + "#ebq-ouv .ebq-op{font-size:7.5px;letter-spacing:.7em;padding-left:.7em;margin-top:5px;opacity:.85;display:flex;align-items:center;justify-content:center;gap:10px}"
+  + "#ebq-ouv{animation:ebqApparait .6s ease}@keyframes ebqApparait{from{opacity:0}}"
+  + "#ebq-ouv button.ebq-att{opacity:.55}"
   + "#ebq-ouv .ebq-ok{font-size:9.5px;letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;margin-top:16vh;opacity:.9}"
   + "#ebq-ouv .ebq-on{font-size:27px;letter-spacing:.16em;padding-left:.16em;font-weight:500;text-transform:uppercase;margin-top:14px;line-height:1.3}"
   + "#ebq-ouv .ebq-os{font-size:10.5px;letter-spacing:.26em;padding-left:.26em;text-transform:uppercase;margin-top:10px;font-weight:500}"
@@ -225,28 +228,30 @@
     }).join('');
   }
 
-  // l'écran d'ouverture : les motifs de la boîte s'écartent comme un couvercle qu'on soulève
-  function ouverture(r, C){
-    var o = document.createElement('div'); o.id = 'ebq-ouv'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Votre rituel ' + r.nom);
+  // l'écran d'ouverture : affiché dès le scan, pendant que les fiches se chargent derrière ;
+  // les motifs de la boîte s'écartent ensuite comme un couvercle qu'on soulève
+  var OUV = null;
+  function styles(){ if(document.getElementById('ebq-css')) return; var st = document.createElement('style'); st.id = 'ebq-css'; st.textContent = CSS; document.head.appendChild(st); }
+  function ouverture(C){
+    styles();
+    var o = document.createElement('div'); o.id = 'ebq-ouv'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Votre rituel ' + C.nom);
     var pan = function(c){ return '<div class="ebq-p ' + c + '"><i style="background-image:url(' + esc(C.motif) + ')"></i><b style="background:' + C.voile + '"></b></div>'; };
     o.innerHTML = pan('ebq-pg') + pan('ebq-pd')
       + '<div class="ebq-c" style="color:' + C.encre + '"><div class="ebq-ol">ELKHA.B</div><div class="ebq-op">PARIS</div>'
-      + '<div class="ebq-ok">Votre rituel</div><div class="ebq-on">' + esc(r.nom) + '</div><div class="ebq-os">' + esc(C.sous) + '</div>'
+      + '<div class="ebq-ok">Votre rituel</div><div class="ebq-on">' + esc(C.nom) + '</div><div class="ebq-os">' + esc(C.sous) + '</div>'
       + '<button type="button">Ouvrir mon rituel</button><div class="ebq-of">Édition des fêtes</div></div>';
     document.body.appendChild(o);
     var html = document.documentElement, avant = [html.style.overflow, document.body.style.overflow];
     html.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
-    var fini = false;
+    var fini = false, pret = false, demande = false, btn = o.querySelector('button');
     function fermer(){
       if(fini) return; fini = true;
       html.style.overflow = avant[0]; document.body.style.overflow = avant[1];
       if(o.parentNode) o.parentNode.removeChild(o);
     }
-    o.querySelector('button').addEventListener('click', function(){
-      window.scrollTo(0, 0);
-      o.className = 'ebq-ouvert';
-      setTimeout(fermer, 1700);
-    });
+    function ouvrir(){ window.scrollTo(0, 0); o.className = 'ebq-ouvert'; setTimeout(fermer, 1700); }
+    btn.addEventListener('click', function(){ if(pret) ouvrir(); else { demande = true; btn.className = 'ebq-att'; } });
+    return { pret: function(){ pret = true; if(demande) ouvrir(); }, fermer: fermer };
   }
 
   function apparitions(root){
@@ -258,8 +263,9 @@
 
   function page(root){
     var P = window.EB_PRODUITS || {}, k = code(), C = COFFRETS[k];
-    var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+    styles();
     if(!C || !P[C.fiche]){
+      if(OUV){ OUV.fermer(); OUV = null; }
       // adresse sans coffret : on propose les quatre
       root.innerHTML = '<div class="ebq-in"><div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div>'
         + '<p class="ebq-k" style="color:#8f8676">Votre rituel</p><h1>Votre coffret</h1><i class="ebq-g" style="background:linear-gradient(90deg,#f6f4f0,#8f8676)"></i>'
@@ -292,7 +298,7 @@
       + '<p class="ebq-fin">Bienvenue parmi les B. : beauté, bien-être, et surtout bien dans sa peau.</p>'
       + '</div><div class="ebq-bande" style="background-image:url(' + esc(C.bande) + ')"></div>';
     apparitions(root);
-    if(C.motif) ouverture(r, C);
+    if(OUV) OUV.pret();
 
     root.addEventListener('click', function(ev){
       var b = ev.target.closest && ev.target.closest('[data-a]'); if(!b) return;
@@ -310,7 +316,7 @@
     if(!root){ root = document.createElement('div'); root.id = 'eb-rituel'; document.body.appendChild(root); }
     if(root.getAttribute('data-ok')) return; root.setAttribute('data-ok', '1');
     var C = COFFRETS[code()];
-    if(C && C.motif){ var l = document.createElement('link'); l.rel = 'preload'; l.as = 'image'; l.href = C.motif; document.head.appendChild(l); }
+    if(C && C.motif) OUV = ouverture(C);
     if(window.EB_PRODUITS && C && window.EB_PRODUITS[C.fiche]) return page(root);
     chargerTous(DONNEES, function(){ page(root); });
   }
