@@ -430,7 +430,8 @@
   + "#eb-rituel .ebq-univ{font-size:13.5px;line-height:1.8;margin:0 28px;color:#2a2723}"
   + ".ebq-val{display:flex;justify-content:center;flex-wrap:wrap;gap:4px 0;margin:22px 16px 0;font-size:7.5px;letter-spacing:.42em;text-transform:uppercase;font-weight:300;color:#2a2723}"
   + ".ebq-val span+span:before{content:'\\00B7';margin:0 10px;color:var(--c)}"
-  + "#eb-rituel .ebq-mot{margin:34px 40px 0;font-style:italic;font-weight:300;font-size:12px;line-height:1.8;letter-spacing:.02em;color:#5a544c;text-wrap:balance}"
+  + ".ebq-maison{padding:46px 0 8px}#eb-rituel .ebq-griffe{margin-bottom:40px}.ebq-sens+.ebq-conc,.ebq-soins+.ebq-conc{margin-top:26px}"
+  + "#eb-rituel .ebq-mot{margin:26px 40px 0;font-style:italic;font-weight:300;font-size:12px;line-height:1.8;letter-spacing:.02em;color:#5a544c;text-wrap:balance}"
   + ".ebq-soin em{display:block;font-size:11px;line-height:1.6;color:#5a544c;margin-top:6px;padding:0 2px}"
   + ".ebq-m{padding:40px 24px 42px;text-align:left}"
   + ".ebq-mi{max-width:480px;margin:0 auto}"
@@ -648,19 +649,16 @@
       + '<p class="ebq-k" style="color:' + coul + '">Votre rituel</p>'
       + '<h1>' + esc(r.nom) + '</h1><p class="ebq-sous">' + esc(S.gamme + ' · ' + S.sous) + '</p>'
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
-      + '<p class="ebq-bien2">Bienvenue parmi les B.</p>'
-      + '<p class="ebq-univ">' + esc(UNIVERS) + '</p>'
-      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>' + concentre(S.geste, false)
       + '<p class="ebq-mot ebq-rv">' + esc(MOT_SOIN) + '</p>'
       + '<div class="ebq-rv"><h2>Votre soin</h2><div class="ebq-soin1">'
       +   (f ? '<span><img src="' + esc(f[1] + '?width=500') + '" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '" style="transform:translateX(' + (50 - (CENTRE[S.fiche] || 50)) + '%)"></span>' : '')
       +   '<div><b>Ce qu\'il fait</b><p>' + esc(S.role) + '</p></div></div>'
-      +   (S.sens ? '<p class="ebq-sens">' + esc(S.sens) + '</p>' : '') + '</div>'
+      +   (S.sens ? '<p class="ebq-sens">' + esc(S.sens) + '</p>' : '') + concentre(S.geste, false) + '</div>'
       + '<h2 style="margin-bottom:0">Votre rituel</h2>'
       + '</div>'
       + momentsHTML(P, { etapes: etapes }, C2)
       + (S.conseil ? '<section class="ebq-cons2" style="background:' + coul + '"><div class="ebq-mi ebq-rv"><i>Pour bien commencer</i><p>' + esc(S.conseil) + '</p></div></section>' : '')
-      + '<div class="ebq-in">' + acc
+      + '<div class="ebq-in">' + '<div class="ebq-maison ebq-rv"><p class="ebq-bien2">L\'univers ELKHA.B</p><p class="ebq-univ">' + esc(UNIVERS) + '</p><div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div></div>' + acc
       + '<button type="button" class="ebq-btn" data-a="avis">Donner mon avis</button>'
       + '<button type="button" class="ebq-btn ebq-btn2" data-a="skinid">Faire mon Skin ID</button>'
       + '<a class="ebq-lien" href="' + LIENS.site + '">Découvrir ELKHA.B</a>'
@@ -713,15 +711,12 @@
       + '<p class="ebq-k" style="color:' + coul + '">Votre rituel</p>'
       + '<h1>' + esc(r.nom) + '</h1><p class="ebq-sous">' + esc(C.sous) + '</p>'
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
-      + '<p class="ebq-bien2">Bienvenue parmi les B.</p>'
-      + '<p class="ebq-univ">' + esc(UNIVERS) + '</p>'
-      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>' + concentre('une petite quantité suffit', true)
       + '<p class="ebq-mot ebq-rv">' + esc(MOT) + '</p>'
-      + '<div class="ebq-rv"><h2>Dans votre coffret</h2>' + soinsHTML(P, soins, C.sens) + '</div>'
+      + '<div class="ebq-rv"><h2>Dans votre coffret</h2>' + soinsHTML(P, soins, C.sens) + concentre('une petite quantité suffit', true) + '</div>'
       + '<h2 style="margin-bottom:0">Votre rituel</h2>'
       + '</div>'
       + momentsHTML(P, ro, C)
-      + '<div class="ebq-in">'
+      + '<div class="ebq-in">' + '<div class="ebq-maison ebq-rv"><p class="ebq-bien2">L\'univers ELKHA.B</p><p class="ebq-univ">' + esc(UNIVERS) + '</p><div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div></div>'
       + '<button type="button" class="ebq-btn" data-a="avis">Donner mon avis</button>'
       + '<button type="button" class="ebq-btn ebq-btn2" data-a="skinid">Faire mon Skin ID</button>'
       + '<a class="ebq-lien" href="' + LIENS.site + '">Découvrir ELKHA.B</a>'
