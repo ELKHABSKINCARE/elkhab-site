@@ -82,9 +82,40 @@
       }
     }
   };
+  // ───────────── LES SOINS (QR au dos des flacons : rituel.elkhab.com/?cs …) ─────────────
+  // couleur / clair : la couleur de l'étiquette (bas du dégradé) et sa version claire
+  // role : ce que fait le soin · sens : texture et parfum · etapes : son rituel (moment + geste)
+  // savoir : les « Le saviez-vous ? » rangés par moment · conseil : « Pour bien commencer »
+  // Le flacon (photo à l'échelle) vient de FLACONS ; l'accord parfait vient de la fiche du soin.
+  var SOINS = {
+    cs: {
+      fiche: 'radiance-serum', nom: 'Radiance C Serum', gamme: 'Bloom', sous: 'Sérum éclat à la vitamine C', couleur: '#8e5a4c', clair: '#e9d6cc',
+      role: "Il ravive l'éclat d'un teint terne, unifie peu à peu les taches et protège la peau des agressions du quotidien, sans jamais l'assécher grâce à l'acide hyaluronique.",
+      sens: "Une texture sorbet jaune soleil, fondante et douce, au parfum d'agrumes.",
+      etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, déposez une pression de sorbet sur le visage et le cou, puis appliquez votre crème." }],
+      savoir: { 'Matin et/ou soir': ["La vitamine C pure s'oxyde vite à l'air et à la lumière : elle perd son efficacité et peut irriter. Radiance C Serum contient une vitamine C stabilisée, qui se libère une fois dans la peau, épaulée par la vitamine E et l'acide férulique qui renforcent son action antioxydante. Elle reste efficace jusqu'à la dernière pression, même sur les peaux sensibles."] },
+      conseil: "Le matin, terminez toujours par une protection solaire : la vitamine C renforce la défense de votre peau contre les UV, mais ne remplace pas un SPF. Les premiers effets sur l'éclat se voient en quelques jours, ceux sur les taches en quelques semaines."
+    }
+  };
+  // la photo détourée de chaque soin (petite vignette de l'accord parfait) et la position du flacon dans sa photo
+  var VIGNETTES = {
+    'active-lift': 'soin-activelift', 'age-lift': 'soin-agelift', 'aha-balance-peel': 'soin-aha', 'lumibloom-arbutin': 'soin-arbutin',
+    'bakuchiol-elixir': 'soin-bakuchiol', 'bha-balance': 'soin-bha', 'luminescence-boost': 'soin-boost', 'bright-control': 'soin-bright',
+    'calm-balance-jour': 'soin-calmj', 'calm-balance-nuit': 'soin-calmn', 'ceramide-night-restore': 'soin-ceramide', 'radiance-cleanser': 'soin-cleanser',
+    'radiance-eye-cream': 'soin-eyecream', 'eye-lift': 'soin-eyelift', 'cellular-eye-restore': 'soin-eyerest', 'fusion-balance': 'soin-fusion',
+    'gelee-lumibloom': 'soin-gelee', 'glyco-balance': 'soin-glyco', 'hydra-balance': 'soin-hydra', 'luminescence-jour': 'soin-jour',
+    'lumiveil-cc-cream': 'soin-lumiveil', 'milky-bloom': 'soin-milky', 'lumibloom-niac-5': 'soin-niac', 'luminescence-nuit': 'soin-nuit',
+    'radiance-protect': 'soin-protect', 'lumi-pure': 'soin-pure', 'cellular-renew': 'soin-renew', 'cellular-reveal': 'soin-reveal',
+    'radiance-serum': 'soin-serum', 'spot-control': 'soin-spot'
+  };
+  var CENTRE = {   // milieu du flacon dans sa photo (en %), pour qu'il soit parfaitement centré
+    'active-lift': 50, 'age-lift': 49.9, 'aha-balance-peel': 50.1, 'eye-lift': 51.5, 'fusion-balance': 50.1, 'hydra-balance': 53.4,
+    'lumibloom-arbutin': 66.2, 'luminescence-boost': 65.6, 'radiance-serum': 51, 'radiance-eye-cream': 67.8
+  };
   // textes communs aux quatre coffrets
   var UNIVERS = "Chez ELKHA.B, chaque soin est formulé avec précision : des actifs choisis pour leur efficacité, dosés au juste nécessaire, dans des formules vegan et d'origine naturelle, certifiées COSMOS Natural.";
   var VALEURS = ['Vegan', 'COSMOS Natural', 'Marque française'];
+  var MOT_SOIN = "Merci de votre confiance. Voici tout ce qu'il faut savoir pour que votre soin donne le meilleur de lui-même.";
   var MOT = "Que ce coffret vous ait été offert ou que vous vous soyez fait plaisir, ce moment est pour vous.";
   // les soins à leur taille réelle : [hauteur en cm, photo du flacon sur le fond du site, ce qu'il fait]
   // (sur ces photos, le bas du flacon est toujours à 82,8 % de la hauteur : tous les flacons sont posés sur la même ligne)
@@ -107,7 +138,7 @@
   var AVIS = BASE + 'avis-engine.js', SKINID = BASE + 'skin-id-engine.js?v=6';
 
   var CSS = ""
-  + "#eb-rituel{font-family:'Montserrat',sans-serif;color:#1d1b18;background:#f6f4f0;text-align:center;-webkit-font-smoothing:antialiased;width:100vw;margin-left:calc(50% - 50vw);overflow-x:hidden}"
+  + "#eb-rituel{font-family:'Montserrat',sans-serif;color:#1d1b18;background:#f5f4f0;text-align:center;-webkit-font-smoothing:antialiased;width:100vw;margin-left:calc(50% - 50vw);overflow-x:hidden}"
   + "#eb-rituel *{box-sizing:border-box}"
   + "#eb-rituel h1,#eb-rituel h2,#eb-rituel p{margin:0;font-family:'Montserrat',sans-serif}"
   + ".ebq-bande{height:74px;background-size:cover;background-position:center}"
@@ -138,7 +169,7 @@
   + ".ebq-et li b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;margin-bottom:2px;color:#111}"
   + "#eb-rituel .ebq-cons{margin:30px 26px 0;font-size:13px;line-height:1.7;color:#2a2723}"
   + "#eb-rituel .ebq-cons b{display:block;font-size:9.5px;letter-spacing:.28em;padding-left:.28em;text-transform:uppercase;margin-bottom:10px}"
-  + ".ebq-btn{display:block;width:calc(100% - 44px);margin:28px 22px 0;background:#111;color:#f6f4f0;border:1px solid #111;font-family:'Montserrat',sans-serif;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:17px 10px;cursor:pointer;text-decoration:none}"
+  + ".ebq-btn{display:block;width:calc(100% - 44px);margin:28px 22px 0;background:#111;color:#f5f4f0;border:1px solid #111;font-family:'Montserrat',sans-serif;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;padding:17px 10px;cursor:pointer;text-decoration:none}"
   + ".ebq-btn2{margin-top:10px;background:transparent;color:#111}"
   + "#eb-rituel .ebq-lien{display:inline-block;margin:22px 0 0;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#111;text-decoration:none;border-bottom:1px solid #111;padding-bottom:3px}"
   + "#eb-rituel .ebq-fin{font-size:12.5px;font-style:italic;color:#4a453e;line-height:1.7;margin:34px 30px 34px}"
@@ -165,6 +196,29 @@
   + ".ebq-jour+.ebq-jour{padding-top:0}"
   + ".ebq-js .ebq-rv{opacity:0;transform:translateY(16px);transition:opacity .9s ease,transform .9s ease}"
   + ".ebq-js .ebq-rv.ebq-vu{opacity:1;transform:none}"
+  // ── page d'un soin
+  + ".ebq-bande2{height:46px}"
+  + ".ebq-soin1{display:flex;align-items:flex-end;gap:16px;margin:0 22px;text-align:left}"
+  + ".ebq-soin1 span{flex:none;width:112px;display:flex;justify-content:center}"
+  + ".ebq-soin1 img{display:block;height:190px;width:auto;margin-bottom:-28px}"
+  + ".ebq-soin1 div{padding-bottom:6px}"
+  + ".ebq-soin1 b{display:block;font-size:9px;letter-spacing:.26em;text-transform:uppercase;font-weight:600;margin-bottom:8px;color:var(--c)}"
+  + "#eb-rituel .ebq-soin1 p{font-size:13px;line-height:1.7}"
+  + "#eb-rituel .ebq-sens{margin:28px 30px 0;font-style:italic;font-size:13px;line-height:1.7;color:#5a544c}"
+  + ".ebq-cons2{padding:34px 24px 36px;text-align:left;color:#fbf6f2}"
+  + ".ebq-cons2 i{display:block;font-style:normal;font-size:9px;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;font-weight:600;margin-bottom:10px;text-align:center}"
+  + "#eb-rituel .ebq-cons2 p{font-size:13px;line-height:1.75;color:#fbf6f2}"
+  + ".ebq-acc{display:flex;align-items:center;gap:16px;margin:0 22px;padding:16px 18px;border:1px solid #e3dccf;text-align:left;color:inherit;text-decoration:none;background:transparent;font-family:inherit;cursor:pointer;width:calc(100% - 44px)}"
+  + ".ebq-acc img{height:104px;width:auto;flex:none}"
+  + ".ebq-acc b{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#111;margin-bottom:6px}"
+  + ".ebq-acc em{display:block;font-style:normal;font-size:12px;line-height:1.6;color:#4a453e}"
+  + ".ebq-acc u{display:inline-block;margin-top:10px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid #111;padding-bottom:2px;color:#111}"
+  // ouverture d'un soin : l'étiquette (fond du site, couleur du soin tout en bas) et le flacon
+  + "#ebq-ouv .ebq-fl0{display:block;height:min(36vh,280px);width:auto;margin:2vh auto 0}"
+  + "#ebq-ouv.ebq-soin .ebq-ok{margin-top:6vh;font-weight:600}"
+  + "#ebq-ouv.ebq-soin .ebq-on{font-size:25px}"
+  + "#ebq-ouv.ebq-soin button{margin-top:4vh}"
+  + "#ebq-ouv.ebq-soin .ebq-c{justify-content:flex-start;padding-top:9vh}"
   // ── écran d'ouverture (le couvercle)
   + "#ebq-ouv{position:fixed;top:0;left:0;right:0;bottom:0;z-index:2147483000;font-family:'Montserrat',sans-serif;text-align:center;-webkit-font-smoothing:antialiased;overflow:hidden}"
   + "#ebq-ouv .ebq-p{position:absolute;top:0;bottom:0;width:50.5%;overflow:hidden;transition:transform 1.2s cubic-bezier(.7,0,.25,1) .35s}"
@@ -192,7 +246,7 @@
 
   function code(){
     var q = location.search.replace(/^\?/, '').split('&')[0].toLowerCase();
-    if(COFFRETS[q]) return q;
+    if(COFFRETS[q] || SOINS[q]) return q;
     try { var c = new URL(location.href).searchParams.get('coffret'); if(c && COFFRETS[c]) return c; } catch(e){}
     return '';
   }
@@ -235,15 +289,20 @@
   function ouverture(C){
     styles();
     var o = document.createElement('div'); o.id = 'ebq-ouv'; o.setAttribute('role', 'dialog'); o.setAttribute('aria-label', 'Votre rituel ' + C.nom);
-    var pan = function(c){ return '<div class="ebq-p ' + c + '" style="background:' + (C.base || '#111') + '"><i style="background-image:url(' + esc(C.motif) + ')"></i><b style="background:' + C.voile + '"></b></div>'; };
+    var soin = !!C.flacon;   // un soin : l'étiquette du flacon ; un coffret : les motifs de sa boîte
+    var pan = function(c){ return soin
+      ? '<div class="ebq-p ' + c + '" style="background:linear-gradient(180deg,#f5f4f0 0%,#f5f4f0 72%,' + C.clair + ' 87%,' + C.couleur + ' 100%)"></div>'
+      : '<div class="ebq-p ' + c + '" style="background:' + (C.base || '#111') + '"><i style="background-image:url(' + esc(C.motif) + ')"></i><b style="background:' + C.voile + '"></b></div>'; };
+    if(soin) o.className = 'ebq-soin';
     o.innerHTML = pan('ebq-pg') + pan('ebq-pd')
-      + '<div class="ebq-c" style="color:' + C.encre + '"><div class="ebq-ol">ELKHA.B</div><div class="ebq-op">PARIS</div>'
-      + '<div class="ebq-ok">Votre rituel</div><div class="ebq-on">' + esc(C.nom) + '</div><div class="ebq-os">' + esc(C.sous) + '</div>'
-      + '<button type="button">Ouvrir mon rituel</button><div class="ebq-of">Édition des fêtes</div></div>';
+      + '<div class="ebq-c" style="color:' + (soin ? '#111' : C.encre) + '"><div class="ebq-ol">ELKHA.B</div><div class="ebq-op"' + (soin ? ' style="color:#555"' : '') + '>PARIS</div>'
+      + '<div class="ebq-ok"' + (soin ? ' style="color:' + C.couleur + '"' : '') + '>Votre rituel</div><div class="ebq-on">' + esc(C.nom) + '</div><div class="ebq-os"' + (soin ? ' style="color:#4a453e"' : '') + '>' + esc(C.sous) + '</div>'
+      + (soin ? '<img class="ebq-fl0" src="' + esc(C.flacon) + '" alt="" style="transform:translateX(' + (50 - (C.centre || 50)) + '%)">' : '')
+      + '<button type="button">Ouvrir mon rituel</button><div class="ebq-of"' + (soin ? ' style="color:#fff"' : '') + '>' + (soin ? esc(C.gamme) : 'Édition des fêtes') + '</div></div>';
     document.body.appendChild(o);
     // l'écran reste caché (le logo de chargement reste visible) tant que l'image des motifs n'est pas arrivée
     var vu = false, montrer = function(){ if(vu) return; vu = true; o.classList.add('ebq-vis'); };
-    var im = new Image(); im.onload = im.onerror = montrer; im.src = C.motif; if(im.complete) montrer();
+    var im = new Image(); im.onload = im.onerror = montrer; im.src = C.motif || C.flacon; if(im.complete) montrer();
     setTimeout(montrer, 4000);
     var html = document.documentElement, avant = [html.style.overflow, document.body.style.overflow];
     html.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
@@ -265,14 +324,69 @@
     [].forEach.call(root.querySelectorAll('.ebq-rv'), function(el){ io.observe(el); });
   }
 
+  function pageSoin(root, P, S){
+    var r = P[S.fiche], coul = S.couleur, f = FLACONS[S.fiche];
+    document.title = 'Votre rituel ' + r.nom + ' | ELKHA.B';
+    root.style.setProperty('--c', coul); root.style.setProperty('--o', S.clair);
+    // le rituel du soin, en moments (même présentation que les coffrets)
+    var C2 = { savoir: S.savoir || {}, nuit: S.nuit || coul };
+    var etapes = (S.etapes || []).map(function(e){ return { moment: e.moment, soin: S.fiche, texte: e.texte }; });
+    // l'accord parfait de la fiche
+    var a = r.accord && P[r.accord.fiche] ? r.accord : null, acc = '';
+    if(a){
+      var vig = VIGNETTES[a.fiche] ? BASE + VIGNETTES[a.fiche] + '.webp' : '';
+      var phr = String(a.texte || '').split('\n').filter(function(x){ return x.trim(); });
+      acc = '<h2>Pour aller plus loin</h2><button type="button" class="ebq-acc ebq-rv" data-fiche="' + esc(a.fiche) + '">' + (vig ? '<img src="' + esc(vig) + '" alt="' + esc(P[a.fiche].nom + ' ELKHA.B') + '" loading="lazy">' : '')
+        + '<span><b>' + esc(P[a.fiche].nom) + '</b><em>' + esc(phr.length > 1 ? phr[1] : (phr[0] || '')) + '</em><u>Découvrir</u></span></button>';
+    }
+    var bande = 'linear-gradient(180deg,' + S.clair + ',' + coul + ')';
+    root.innerHTML = '<div class="ebq-bande ebq-bande2" style="background:' + bande + '"></div>'
+      + '<div class="ebq-in">'
+      + '<div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div>'
+      + '<p class="ebq-k" style="color:' + coul + '">Votre rituel</p>'
+      + '<h1>' + esc(r.nom) + '</h1><p class="ebq-sous">' + esc(S.gamme + ' · ' + S.sous) + '</p>'
+      + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
+      + '<p class="ebq-bien2">Bienvenue parmi les B.</p>'
+      + '<p class="ebq-univ">' + esc(UNIVERS) + '</p>'
+      + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>'
+      + '<p class="ebq-mot ebq-rv">' + esc(MOT_SOIN) + '</p>'
+      + '<div class="ebq-rv"><h2>Votre soin</h2><div class="ebq-soin1">'
+      +   (f ? '<span><img src="' + esc(f[1] + '?width=500') + '" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '" style="transform:translateX(' + (50 - (CENTRE[S.fiche] || 50)) + '%)"></span>' : '')
+      +   '<div><b>Ce qu\'il fait</b><p>' + esc(S.role) + '</p></div></div>'
+      +   (S.sens ? '<p class="ebq-sens">' + esc(S.sens) + '</p>' : '') + '</div>'
+      + '<h2 style="margin-bottom:0">Votre rituel</h2>'
+      + '</div>'
+      + momentsHTML(P, { etapes: etapes }, C2)
+      + (S.conseil ? '<section class="ebq-cons2" style="background:' + coul + '"><div class="ebq-mi ebq-rv"><i>Pour bien commencer</i><p>' + esc(S.conseil) + '</p></div></section>' : '')
+      + '<div class="ebq-in">' + acc
+      + '<button type="button" class="ebq-btn" data-a="avis">Donner mon avis</button>'
+      + '<button type="button" class="ebq-btn ebq-btn2" data-a="skinid">Faire mon Skin ID</button>'
+      + '<a class="ebq-lien" href="' + LIENS.site + '">Découvrir ELKHA.B</a>'
+      + '<p class="ebq-fin">Bienvenue parmi les B. : beauté, bien-être, et surtout bien dans sa peau.</p>'
+      + '</div><div class="ebq-bande ebq-bande2" style="background:linear-gradient(0deg,' + S.clair + ',' + coul + ')"></div>';
+    apparitions(root);
+    if(OUV) OUV.pret();
+    root.addEventListener('click', function(ev){
+      var b = ev.target.closest && ev.target.closest('[data-a],[data-fiche]'); if(!b) return;
+      if(b.getAttribute('data-fiche')){ location.href = (P[b.getAttribute('data-fiche')].gamme === 'balance' ? 'https://balance.elkhab.com/' : 'https://bloom.elkhab.com/') + '?fiche=' + b.getAttribute('data-fiche'); return; }
+      if(b.getAttribute('data-a') === 'avis'){
+        var items = [{ n: r.avis || r.nom, d: r.nom, i: f ? f[1] : '' }];
+        if(typeof window.ebAvisOpen === 'function') window.ebAvisOpen(items); else charger(AVIS, function(){ if(window.ebAvisOpen) window.ebAvisOpen(items); });
+      } else {
+        if(typeof window.ebSkinIdOpen === 'function') window.ebSkinIdOpen(); else charger(SKINID, function(){ if(window.ebSkinIdOpen) window.ebSkinIdOpen(); });
+      }
+    });
+  }
+
   function page(root){
     var P = window.EB_PRODUITS || {}, k = code(), C = COFFRETS[k];
     styles();
+    if(SOINS[k] && P[SOINS[k].fiche]) return pageSoin(root, P, SOINS[k]);
     if(!C || !P[C.fiche]){
       if(OUV){ OUV.fermer(); OUV = null; }
       // adresse sans coffret : on propose les quatre
       root.innerHTML = '<div class="ebq-in"><div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div>'
-        + '<p class="ebq-k" style="color:#8f8676">Votre rituel</p><h1>Votre coffret</h1><i class="ebq-g" style="background:linear-gradient(90deg,#f6f4f0,#8f8676)"></i>'
+        + '<p class="ebq-k" style="color:#8f8676">Votre rituel</p><h1>Votre coffret</h1><i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,#8f8676)"></i>'
         + '<p class="ebq-bien"><b>Bienvenue parmi les B.</b>Choisissez votre coffret pour découvrir son rituel.</p><div class="ebq-liste">'
         + Object.keys(COFFRETS).map(function(c){ var f = P[COFFRETS[c].fiche]; return f ? '<a href="?' + c + '">' + esc(f.nom) + '</a>' : ''; }).join('')
         + '</div><a class="ebq-lien" href="' + LIENS.site + '">Découvrir ELKHA.B</a><p class="ebq-fin">Bienvenue parmi les B. : beauté, bien-être, et surtout bien dans sa peau.</p></div>';
@@ -286,7 +400,7 @@
       + '<div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div>'
       + '<p class="ebq-k" style="color:' + coul + '">Votre rituel</p>'
       + '<h1>' + esc(r.nom) + '</h1><p class="ebq-sous">' + esc(C.sous) + '</p>'
-      + '<i class="ebq-g" style="background:linear-gradient(90deg,#f6f4f0,' + coul + ')"></i>'
+      + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
       + '<p class="ebq-bien2">Bienvenue parmi les B.</p>'
       + '<p class="ebq-univ">' + esc(UNIVERS) + '</p>'
       + '<div class="ebq-val">' + VALEURS.map(function(v){ return '<span>' + esc(v) + '</span>'; }).join('') + '</div>'
@@ -319,9 +433,10 @@
     var root = document.getElementById('eb-rituel');
     if(!root){ root = document.createElement('div'); root.id = 'eb-rituel'; document.body.appendChild(root); }
     if(root.getAttribute('data-ok')) return; root.setAttribute('data-ok', '1');
-    var C = COFFRETS[code()];
+    var k = code(), C = COFFRETS[k], S = SOINS[k];
     if(C && C.motif) OUV = ouverture(C);
-    if(window.EB_PRODUITS && C && window.EB_PRODUITS[C.fiche]) return page(root);
+    else if(S && FLACONS[S.fiche]) OUV = ouverture({ nom: S.nom, sous: S.sous, gamme: S.gamme, couleur: S.couleur, clair: S.clair, flacon: FLACONS[S.fiche][1] + '?width=700', centre: CENTRE[S.fiche] });
+    if(window.EB_PRODUITS && (C || S) && window.EB_PRODUITS[(C || S).fiche]) return page(root);
     chargerTous(DONNEES, function(){ page(root); });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer); else demarrer();
