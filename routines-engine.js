@@ -263,6 +263,16 @@
       + '</div></article>';
   }
 
+  // typographie française : espace insécable devant « : ; ! ? » et à l'intérieur des guillemets,
+  // pour que la ponctuation ne parte jamais seule à la ligne
+  function typo(el){
+    var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false), t;
+    while((t = w.nextNode())){
+      var v = t.nodeValue, n = v.replace(/[ \u202F]+([:;!?»])/g, '\u00A0$1').replace(/«[ \u202F]+/g, '«\u00A0');
+      if(n !== v) t.nodeValue = n;
+    }
+  }
+
   function construire(){
     var root = document.getElementById('eb-routines'), P = window.EB_PRODUITS;
     if(!root || !P || !P['routine-apaisante'] || !P['routine-eclat']) return false;
@@ -294,6 +304,7 @@
       var apres = REGLAGES.respirationApres && root.querySelectorAll('.ebr-g:not(.ebr-ged) > .ebr-c')[REGLAGES.respirationApres - 1];
       if(apres) apres.parentNode.insertBefore(intro, apres.nextSibling); else root.appendChild(intro);
     }
+    typo(root);
     // la bande vidéo
     if(REGLAGES.video){
       root.classList.add('ebr-av');
