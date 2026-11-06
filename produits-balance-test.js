@@ -917,10 +917,10 @@ var BALANCE = {
     },
     routine: {
       etapes: [
-        { moment: "Matin et/ou soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser." },
-        { moment: "Matin et/ou soir", soin: "bha-balance", texte: "Versez quelques gouttes de BHA Balance dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." },
-        { moment: "Matin et/ou soir", soin: "hydra-balance", texte: "Poursuivez avec Hydra Balance, puis votre crème : Luminescence Jour le matin, Luminescence Nuit le soir. Si votre peau est sensible ou sensibilisée, préférez Calm Balance Jour et Calm Balance Nuit." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez toujours par Radiance Protect SPF 50." }
+        { moment: "Le soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser." },
+        { moment: "Le soir", soin: "bha-balance", texte: "Versez quelques gouttes de BHA Balance dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." },
+        { moment: "Le soir", soin: "hydra-balance", texte: "Poursuivez avec Hydra Balance, puis Luminescence Nuit. Si votre peau est sensible ou sensibilisée, préférez Calm Balance Nuit." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le lendemain matin, terminez toujours par Radiance Protect SPF 50." }
       ]
     },
     sections: [
@@ -931,7 +931,7 @@ var BALANCE = {
       { titre: "Bénéfices clés",
         liste: ["Contribue à désobstruer les pores", "Élimine les impuretés et l'excès de sébum", "Purifie sans déséquilibrer le pH naturel de la peau", "Aide à maintenir l'hydratation et la souplesse", "Fraîcheur immédiate à chaque application"] },
       { titre: "Pensé pour",
-        texte: "Les peaux mixtes à grasses, sujettes à l'excès de sébum, aux pores visibles et aux brillances. Idéal pour intégrer un actif purifiant à sa routine, après le nettoyage. Convient aussi aux peaux normales.\nPour commencer en douceur : les deux premières semaines, utilisez BHA Balance un jour sur deux, puis chaque jour si votre peau est à l'aise. Jamais le même soir que Glyco Balance ou AHA Balance Peel." },
+        texte: "Les peaux mixtes à grasses, sujettes à l'excès de sébum, aux pores visibles et aux brillances. Idéal pour intégrer un actif purifiant à sa routine, après le nettoyage. Convient aussi aux peaux normales.\nPour commencer en douceur : les deux premières semaines, utilisez BHA Balance un soir sur deux, puis chaque soir si votre peau est à l'aise. Jamais le même soir que Glyco Balance ou AHA Balance Peel." },
       { titre: "Texture & sensorialité",
         texte: "Une lotion fluide et fraîche, qui s'applique directement avec les mains et pénètre instantanément, sans laisser de film. Sans parfum ajouté, elle dévoile la senteur naturelle de ses eaux florales : une infusion de plantes aux notes de fruits secs et de rose." },
       { titre: "Engagement ELKHA.B",

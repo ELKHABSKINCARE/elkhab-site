@@ -292,9 +292,9 @@
       fiche: 'bright-control', nom: 'Bright Control', gamme: 'Balance', sous: "Crème correctrice anti-taches", couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Cette crème correctrice agit sur tout le visage : elle atténue l'apparence des taches brunes, unifie le teint et ravive l'éclat, tout en hydratant.",
       sens: "Une crème hydratante au parfum d'agrumes, de gingembre et de concombre sur un fond boisé de vétiver, de cèdre et de patchouli.",
-      etapes: [{ moment: 'Le matin', texte: "Appliquez une pression sur l'ensemble du visage et le cou, puis terminez par votre protection solaire." }],
-      savoir: { 'Le matin': ["Un teint irrégulier, ce sont des taches visibles, et d'autres encore invisibles, prêtes à apparaître. En traitant tout le visage, Bright Control agit sur les deux : l'acide kojique freine la production de mélanine, la vitamine C et l'extrait de romarin protègent la peau du stress oxydatif qui ternit le teint."] },
-      conseil: "Pour une tache précise, ajoutez Spot Control en touche avant la crème. La protection solaire du matin n'est pas une option : c'est elle qui préserve les résultats."
+      etapes: [{ moment: 'Matin ou soir', texte: "Sur peau propre, appliquez une pression sur l'ensemble du visage et le cou. Le matin, terminez toujours par votre protection solaire." }],
+      savoir: { 'Matin ou soir': ["Un teint irrégulier, ce sont des taches visibles, et d'autres encore invisibles, prêtes à apparaître. En traitant tout le visage, Bright Control agit sur les deux : l'acide kojique freine la production de mélanine, la vitamine C et l'extrait de romarin protègent la peau du stress oxydatif qui ternit le teint."] },
+      conseil: "Choisissez le moment qui vous convient, le matin ou le soir, et gardez-le chaque jour. Dans tous les cas, une protection solaire comme Radiance Protect SPF 50 chaque matin est indispensable : c'est elle qui préserve les résultats. Pour une tache précise, ajoutez Spot Control en touche avant la crème."
     },
     bh: {
       fiche: 'bha-balance', nom: 'BHA Balance', gamme: 'Balance', sous: "Lotion purifiante au BHA", couleur: '#3b5b2a', clair: '#c9d4bd',
