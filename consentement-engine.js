@@ -129,6 +129,13 @@
   + '#ebck button{flex:1;height:44px;margin:0;border-radius:0;font:600 10px Montserrat,sans-serif;letter-spacing:.28em;cursor:pointer;-webkit-appearance:none;appearance:none}'
   + '#ebck .ebck-r{background:transparent;border:1px solid #111;color:#111}'
   + '#ebck .ebck-a{background:#111;border:1px solid #111;color:#fff}'
+  // version compacte en haut de l'écran quand une mini-fiche TikTok est ouverte (le bouton d'achat reste visible)
+  + '#ebck.ebck-haut{top:calc(8px + env(safe-area-inset-top));bottom:auto;width:min(480px,calc(100vw - 20px));transform:translate(-50%,-20px);padding:11px 14px 12px;border-radius:14px}'
+  + '#ebck.ebck-haut.on{transform:translate(-50%,0)}'
+  + '#ebck.ebck-haut .ebck-k{margin:0 0 5px;font-size:7.5px}'
+  + '#ebck.ebck-haut p{font-size:11px;line-height:1.45}'
+  + '#ebck.ebck-haut .ebck-b{margin-top:9px;gap:8px}'
+  + '#ebck.ebck-haut button{height:30px;font-size:8.5px;letter-spacing:.24em}'
   + '@media (prefers-reduced-motion:reduce){#ebck{transition:none}}';
 
   var boite = null;
@@ -150,7 +157,7 @@
     document.body.appendChild(boite);
     return boite;
   }
-  function montrer(){ construire(); requestAnimationFrame(function(){ requestAnimationFrame(function(){ boite.classList.add('on'); }); }); }
+  function montrer(){ construire(); boite.classList.toggle('ebck-haut', /[?&]mini=/.test(location.search) || !!document.getElementById('ebmf')); requestAnimationFrame(function(){ requestAnimationFrame(function(){ boite.classList.add('on'); }); }); }
   function cacher(){ if(boite) boite.classList.remove('on'); }
 
   function choisir(v){
