@@ -1758,7 +1758,9 @@ window.EB_PRODUITS = {
         // 📷 1. LE COFFRET DE FACE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-face-fond-site-v2.jpg",
         // 📷 2. LE DOS DU COFFRET
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-dos-fond-site-v2.jpg"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-dos-fond-site-v2.jpg",
+        // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-lumiere-dhiver-soins-v2.jpg"
       ]
     },
     routine: {
