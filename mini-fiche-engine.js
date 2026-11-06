@@ -41,11 +41,34 @@
       ],
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
     }
+    ,
+    'lumiveil-cc-cream': {
+      gamme: 'bloom', type: 'CC crème SPF 30',
+      photo: 'rituel-flacon-lumi-veil-b2.webp',
+      eng: ['98 % d’origine naturelle', 'SPF 30', 'Vegan'],
+      choix: 'Votre teinte', choisir: 'Choisissez votre teinte',
+      // dans le même ordre que les variantes de la fiche (B1, B2, B3, B4)
+      variantes: [
+        { cle: 'b1', label: 'B1 Clair', couleur: '#e5d1b9', photo: 'rituel-flacon-lumi-veil-b1.webp' },
+        { cle: 'b2', label: 'B2 Moyen', couleur: '#ddb38c', photo: 'rituel-flacon-lumi-veil-b2.webp' },
+        { cle: 'b3', label: 'B3 Hâlé',  couleur: '#9f633e', photo: 'rituel-flacon-lumi-veil-b3.webp' },
+        { cle: 'b4', label: 'B4 Foncé', couleur: '#5e351d', photo: 'rituel-flacon-lumi-veil-b4.webp' }
+      ],
+      accroche: 'Un teint <b>unifié et protégé</b>, en un seul geste.',
+      points: [
+        'Unifie visiblement le teint et atténue l’apparence des rougeurs, des pores et des petites imperfections, sans effet masque.',
+        'Le SPF 30 protège la peau des UV au quotidien.',
+        'Céramides, beurre de cacao et vitamine E préservent la barrière cutanée et l’hydratation toute la journée.'
+      ],
+      duree: 'Format stick : il se glisse dans votre sac pour des retouches à tout moment.'
+    }
   };
 
   var ids = ((new URLSearchParams(location.search)).get('mini') || '').split(',')
     .map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 3);
   if(!ids.length) return;
+  var choixLien = {};   // ?mini=lumiveil-cc-cream:b2 → teinte B2 déjà choisie
+  ids = ids.map(function(x){ var k = x.split(':'); if(k[1]) choixLien[k[0]] = k[1].toLowerCase(); return k[0]; });
 
   /* ─── Outils ─── */
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -132,30 +155,47 @@
   + '#ebmf .mf-lien{display:inline-block;background:none;border:0;padding:0;font:600 9.5px Montserrat,sans-serif;letter-spacing:.24em;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer;white-space:nowrap}'
   + '#ebmf .mf-c{text-align:center;margin-top:16px}'
   + '#ebmf .mf-sep{height:1px;background:rgba(0,0,0,.1);margin:16px 0}'
+  + '#ebmf .mf-tl{font-size:8px;font-weight:600;letter-spacing:.32em;color:#7a7268;margin:16px 0 8px}'
+  + '#ebmf .mf-chs{display:grid;grid-template-columns:1fr 1fr;gap:6px}'
+  + '#ebmf button.mf-ch{display:flex;align-items:center;gap:8px;margin:0;padding:9px 10px;background:transparent;border:1px solid rgba(0,0,0,.18);border-radius:0;color:#111;font:600 9px Montserrat,sans-serif;letter-spacing:.16em;cursor:pointer;text-align:left;-webkit-appearance:none;appearance:none}'
+  + '#ebmf button.mf-ch i{width:14px;height:14px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}'
+  + '#ebmf button.mf-ch.on{background:#111;color:#fff;border-color:#111}'
+  + '#ebmf button.mf-b.off{background:#e4dfd7;border-color:#e4dfd7;color:#7a7268}'
+  + '#ebmf button.mf-b1.off{border-color:rgba(0,0,0,.25);color:#7a7268}'
   + '@media (prefers-reduced-motion:reduce){#ebmf,#ebmf-v{transition:none}}';
 
   var voile, panneau, actif = 0, produits = [];
 
+  function photoDe(p){ var v = p.m.variantes; return BASE + (v && p.sel >= 0 ? v[p.sel].photo : p.m.photo); }
+  function varianteId(p){ return p.m.variantes ? (p.sel >= 0 ? p.d.variantes[p.sel].variantId : null) : p.d.variantId; }
+  function choixHTML(p){
+    var v = p.m.variantes; if(!v) return '';
+    return '<div class="mf-tl">' + esc(p.m.choix.toUpperCase()) + '</div><div class="mf-chs">'
+      + v.map(function(x, i){ return '<button type="button" class="mf-ch' + (i === p.sel ? ' on' : '') + '" data-choix="' + p.i + ':' + i + '"><i style="background:' + x.couleur + '"></i>' + esc(x.label.toUpperCase()) + '</button>'; }).join('')
+      + '</div>';
+  }
   function blocProduit(p, multi){
     var m = p.m, d = p.d;
     var tete = '<div class="mf-g" style="color:' + COULEUR[m.gamme] + '">' + esc((m.gamme === 'balance' ? 'Balance' : 'Bloom').toUpperCase() + ' · ' + m.type.toUpperCase()) + '</div>'
       + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span>' + (multi ? '<span class="mf-np">' + euros(nb(d.prix)) + '</span>' : '') + '</div>'
       + '<div class="mf-s">' + esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '') + '</div>';
     var h = multi ? tete
-      : '<div class="mf-haut"><div class="mf-ph"><img src="' + BASE + m.photo + '" alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
+      : '<div class="mf-haut"><div class="mf-ph"><img src="' + photoDe(p) + '" alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
     h += '<div class="mf-eng">' + m.eng.map(function(e){ return '<span>' + insec(e) + '</span>'; }).join('') + '</div>'
+      + choixHTML(p)
       + '<div class="mf-acc">' + m.accroche + '</div>'
       + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + COULEUR[m.gamme] + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
       + '<div class="mf-dur">' + insec(m.duree) + '</div>';
     if(multi){
-      h += '<div class="mf-l2"><button type="button" class="mf-b1" data-ajout="' + p.i + '"><span>AJOUTER CE SOIN</span><span>' + euros(nb(d.prix)) + '</span></button><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">FICHE COMPLÈTE</button></div>';
+      h += '<div class="mf-l2"><button type="button" class="mf-b1' + (varianteId(p) ? '' : ' off') + '" data-ajout="' + p.i + '"><span>' + (varianteId(p) ? 'AJOUTER CE SOIN' : 'CHOISIR') + '</span><span>' + euros(nb(d.prix)) + '</span></button><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">FICHE COMPLÈTE</button></div>';
     } else {
-      h += '<button type="button" class="mf-b" data-ajout="' + p.i + '"><span>AJOUTER AU PANIER</span><span>' + euros(nb(d.prix)) + '</span></button>'
+      h += '<button type="button" class="mf-b' + (varianteId(p) ? '' : ' off') + '" data-ajout="' + p.i + '"><span>' + (varianteId(p) ? (p.m.variantes ? 'AJOUTER · ' + esc(p.m.variantes[p.sel].label.split(' ')[0]) : 'AJOUTER AU PANIER') : esc(p.m.choisir.toUpperCase())) + '</span><span>' + euros(nb(d.prix)) + '</span></button>'
         + '<div class="mf-c"><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">VOIR LA FICHE COMPLÈTE</button></div>';
     }
     return h;
   }
 
+  function manque(){ for(var i = 0; i < produits.length; i++){ if(!varianteId(produits[i])) return i; } return -1; }
   function dessiner(){
     var multi = produits.length > 1;
     var total = produits.reduce(function(t, p){ return t + nb(p.d.prix); }, 0);
@@ -164,10 +204,10 @@
       var n = NOMBRES[produits.length];
       h += '<div class="mf-k">LES ' + produits.length + ' SOINS DE LA VIDÉO</div>'
         + '<div class="mf-off">Avec les ' + n + ' soins : ' + (total >= SEUIL_LIVRAISON ? '<b>livraison offerte</b> et <b>un échantillon offert</b>' : '<b>un échantillon offert</b>') + '</div>'
-        + '<div class="mf-vgs">' + produits.map(function(p, i){ return '<div class="mf-vg' + (i === actif ? ' on' : '') + '" data-vg="' + i + '" role="button" tabindex="0" aria-label="' + esc(p.d.nom) + '"><div class="mf-vph"><img src="' + BASE + p.m.photo + '" alt="' + esc(p.d.nom) + ' ELKHA.B"></div></div>'; }).join('') + '</div>'
+        + '<div class="mf-vgs">' + produits.map(function(p, i){ return '<div class="mf-vg' + (i === actif ? ' on' : '') + '" data-vg="' + i + '" role="button" tabindex="0" aria-label="' + esc(p.d.nom) + '"><div class="mf-vph"><img src="' + photoDe(p) + '" alt="' + esc(p.d.nom) + ' ELKHA.B"></div></div>'; }).join('') + '</div>'
         + '<div class="mf-det">' + blocProduit(produits[actif], true) + '</div>'
         + '<div class="mf-sep"></div>'
-        + '<button type="button" class="mf-b" data-ajout="tout"><span>AJOUTER LES ' + n.toUpperCase() + ' SOINS</span><span>' + euros(total) + '</span></button>';
+        + '<button type="button" class="mf-b' + (manque() < 0 ? '' : ' off') + '" data-ajout="tout"><span>' + (manque() < 0 ? 'AJOUTER LES ' + n.toUpperCase() + ' SOINS' : esc(produits[manque()].m.choisir.toUpperCase())) + '</span><span>' + euros(total) + '</span></button>';
     } else {
       h += '<div class="mf-off">Livraison offerte dès ' + SEUIL_LIVRAISON + ' € d’achat</div>' + blocProduit(produits[0], false);
     }
@@ -184,7 +224,7 @@
     var texte = bouton.innerHTML;
     bouton.disabled = true;
     bouton.innerHTML = '<span>AJOUT EN COURS…</span>';
-    for(var i = 0; i < liste.length; i++){ await window.ebCartAddItem(liste[i].d.variantId, 1); }   // l'un après l'autre
+    for(var i = 0; i < liste.length; i++){ await window.ebCartAddItem(varianteId(liste[i]), 1); }   // l'un après l'autre
     bouton.innerHTML = '<span>AJOUTÉ</span>';
     setTimeout(function(){ fermer(); ouvrirPanier(); bouton.disabled = false; bouton.innerHTML = texte; }, 450);
   }
@@ -217,9 +257,22 @@
         return;
       }
       if(t.hasAttribute('data-fiche')){ var id = t.getAttribute('data-fiche'); fermer(); return ficheComplete(id); }
+      if(t.hasAttribute('data-choix')){
+        var c = t.getAttribute('data-choix').split(':');
+        produits[+c[0]].sel = +c[1];
+        var haut = panneau.scrollTop; dessiner(); panneau.scrollTop = haut;
+        return;
+      }
       var a = t.getAttribute('data-ajout');
-      if(a === 'tout') return ajouter(produits, t);
-      if(a !== null) return ajouter([produits[+a]], t);
+      if(a === 'tout'){
+        var q = manque();
+        if(q >= 0){ actif = q; dessiner(); var zone = panneau.querySelector('.mf-chs'); if(zone) zone.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        return ajouter(produits, t);
+      }
+      if(a !== null){
+        if(!varianteId(produits[+a])){ var z = panneau.querySelector('.mf-chs'); if(z) z.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+        return ajouter([produits[+a]], t);
+      }
     });
     document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); });
     dessiner();
@@ -238,7 +291,16 @@
         clearInterval(t);
         produits = [];
         ids.forEach(function(id){
-          if(MINI[id] && P[id] && P[id].variantId) produits.push({ id: id, m: MINI[id], d: P[id], i: produits.length });
+          var m = MINI[id], d = P[id];
+          if(!m || !d) return;
+          if(m.variantes){
+            if(!d.variantes || d.variantes.length !== m.variantes.length) return;
+            var sel = -1;
+            m.variantes.forEach(function(v, k){ if(v.cle === choixLien[id]) sel = k; });
+            produits.push({ id: id, m: m, d: d, i: produits.length, sel: sel });
+          } else if(d.variantId){
+            produits.push({ id: id, m: m, d: d, i: produits.length, sel: -1 });
+          }
         });
         if(!produits.length){ if(P[ids[0]]) ficheComplete(ids[0]); return; }
         construire();
