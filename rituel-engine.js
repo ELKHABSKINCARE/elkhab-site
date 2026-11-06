@@ -496,7 +496,7 @@
   + "#ebq-ouv .ebq-c{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 20px;transition:opacity .45s ease}"
   + "#ebq-ouv .ebq-ol{font-size:22px;letter-spacing:.45em;padding-left:.45em}"
   + "#ebq-ouv .ebq-op{font-size:7.5px;letter-spacing:.7em;padding-left:.7em;margin-top:5px;opacity:.85;display:flex;align-items:center;justify-content:center;gap:10px}"
-  + "#ebq-ouv{visibility:hidden}#ebq-ouv.ebq-vis{visibility:visible;animation:ebqApparait .6s ease}@keyframes ebqApparait{from{opacity:0}}"
+  + "#ebq-ouv .ebq-p i{opacity:0;transition:opacity .7s ease}#ebq-ouv.ebq-vis .ebq-p i{opacity:1}"
   + "#ebq-ouv button.ebq-att{opacity:.55}"
   + "#ebq-ouv .ebq-ok{font-size:9.5px;letter-spacing:.34em;padding-left:.34em;text-transform:uppercase;margin-top:16vh;opacity:.9}"
   + "#ebq-ouv .ebq-on{font-size:27px;letter-spacing:.16em;padding-left:.16em;font-weight:500;text-transform:uppercase;margin-top:14px;line-height:1.3}"
@@ -556,6 +556,7 @@
   // l'écran d'ouverture : affiché dès le scan, pendant que les fiches se chargent derrière ;
   // les motifs de la boîte s'écartent ensuite comme un couvercle qu'on soulève
   var OUV = null;
+  function montrerPage(){ var r = document.getElementById('eb-rituel'); if(r) r.style.visibility = ''; }
   function styles(){ if(document.getElementById('ebq-css')) return; var st = document.createElement('style'); st.id = 'ebq-css'; st.textContent = CSS; document.head.appendChild(st); }
   // cadre les motifs sur leurs carreaux : un nombre entier de carreaux sur la largeur (et la hauteur)
   function carreaux(el, G, larg, haut, cible, rang){
@@ -596,7 +597,7 @@
         [].forEach.call(o.querySelectorAll('.ebq-p i'), function(i){ carreaux(i, C.grille, w, h, cible); }); };
       cadre(); window.addEventListener('resize', cadre);
     }
-    // l'écran reste caché (le logo de chargement reste visible) tant que l'image des motifs n'est pas arrivée
+    // le coffret fermé s'affiche tout de suite (couleur de la boîte, nom, bouton) ; les motifs apparaissent en fondu dès que leur image est arrivée
     var vu = false, montrer = function(){ if(vu) return; vu = true; o.classList.add('ebq-vis'); };
     var im = new Image(); im.onload = im.onerror = montrer; im.src = C.motif || C.flacon; if(im.complete) montrer();
     setTimeout(montrer, 4000);
@@ -604,11 +605,11 @@
     html.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
     var fini = false, pret = false, demande = false, btn = o.querySelector('button');
     function fermer(){
-      if(fini) return; fini = true;
+      if(fini) return; fini = true; montrerPage();
       html.style.overflow = avant[0]; document.body.style.overflow = avant[1];
       if(o.parentNode) o.parentNode.removeChild(o);
     }
-    function ouvrir(){ window.scrollTo(0, 0); o.classList.add('ebq-ouvert'); setTimeout(fermer, 1700); }
+    function ouvrir(){ window.scrollTo(0, 0); montrerPage(); o.classList.add('ebq-ouvert'); setTimeout(fermer, 1700); }
     btn.addEventListener('click', function(){ if(pret) ouvrir(); else { demande = true; btn.classList.add('ebq-att'); } });
     return { pret: function(){ pret = true; if(demande) ouvrir(); }, fermer: fermer };
   }
@@ -745,7 +746,8 @@
     if(!root){ root = document.createElement('div'); root.id = 'eb-rituel'; document.body.appendChild(root); }
     if(root.getAttribute('data-ok')) return; root.setAttribute('data-ok', '1');
     var k = code(), C = COFFRETS[k], S = SOINS[k];
-    if(C && C.motif) OUV = ouverture(C);
+    // un coffret : la page du rituel reste invisible derrière le coffret fermé, jusqu'à l'ouverture des portes
+    if(C && C.motif){ root.style.visibility = 'hidden'; OUV = ouverture(C); }
     // les soins : pas d'écran d'ouverture, on arrive directement sur la page (l'ouverture reste pour les coffrets)
     if(window.EB_PRODUITS && (C || S) && window.EB_PRODUITS[(C || S).fiche]) return page(root);
     chargerTous(DONNEES, function(){ page(root); });
