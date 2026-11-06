@@ -514,13 +514,13 @@ var BALANCE = {
     inci: "eye-lift",
     avis: "Eye Lift",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature-v7.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-miniature-v8.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-1-boite-flacon-v7.jpg",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v7.jpg",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v8.jpg",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_e85beec6-d44a-46d8-8f0d-f3c33891593d.png?v=1793812462",
         // 📷 4. VISAGE
