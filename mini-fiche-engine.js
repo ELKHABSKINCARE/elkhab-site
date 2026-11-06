@@ -66,11 +66,48 @@
     }
   };
 
+  /* ─── L'édition des fêtes : ?mini=coffrets ou ?mini=coffrets:temps-suspendu ─── */
+  var COFFRETS = [
+    { id: 'coffret-temps-suspendu', cle: 'temps-suspendu', gamme: 'Balance', couleur: '#5f7149', type: 'Coffret Rituel Lift',
+      rangee: 'coffret-rangee-temps-suspendu.webp', contenu: [['Active Lift', '30 ml'], ['Age Lift', '50 ml'], ['Eye Lift', '15 ml']],
+      accroche: 'Le rituel <b>lift</b> complet, aux peptides.',
+      points: [
+        'Active Lift, le sérum aux peptides et à l’acide hyaluronique, aide à lisser les rides et redonne du rebond à la peau.',
+        'Age Lift, la crème aux peptides et à la vitamine C, hydrate, repulpe et améliore l’apparence de fermeté.',
+        'Eye Lift prend soin du contour des yeux : ridules et pattes-d’oie paraissent lissées.'
+      ] },
+    { id: 'coffret-rituel-de-minuit', cle: 'rituel-de-minuit', gamme: 'Bloom & Balance', couleur: '#8c5a66', type: 'Coffret Soin du Soir',
+      rangee: 'coffret-rangee-rituel-de-minuit.webp', contenu: [['Luminescence Boost', '30 ml'], ['Fusion Balance', '100 ml'], ['Radiance Eye Cream', '15 ml']],
+      accroche: 'Un rituel du soir complet, <b>du démaquillage au regard</b>.',
+      points: [
+        'Fusion Balance, le démaquillant biphasé, dissout le maquillage, même waterproof, sans frotter ni tirailler.',
+        'Luminescence Boost, au cresson et au sureau, travaille la fermeté et l’éclat : il donne à la peau plus de souplesse et de rebond.',
+        'Radiance Eye Cream atténue l’apparence des poches et des cernes, pour un regard plus frais. Idéale sous le maquillage, elle ne file pas.'
+      ] },
+    { id: 'coffret-nouvelle-aube', cle: 'nouvelle-aube', gamme: 'Balance', couleur: '#5f7149', type: 'Coffret Peau Neuve',
+      rangee: 'coffret-rangee-nouvelle-aube.webp', contenu: [['Hydra Balance', '30 ml'], ['AHA Balance Peel', '30 ml'], ['Active Lift', '30 ml']],
+      accroche: 'Une peau <b>neuve</b>, lisse et lumineuse.',
+      points: [
+        'AHA Balance Peel exfolie sans agresser : il associe un AHA doux à l’acide hyaluronique et aux extraits de thé blanc et de sauge, pour lisser le grain de peau tout en préservant son hydratation.',
+        'Active Lift, aux peptides, aide à lisser les ridules et redonne du rebond.',
+        'Hydra Balance, à l’acide hyaluronique multimoléculaire, hydrate à plusieurs niveaux de la peau : elle est repulpée, souple et confortable.'
+      ] },
+    { id: 'coffret-lumiere-dhiver', cle: 'lumiere-dhiver', gamme: 'Bloom', couleur: '#a65a63', type: 'Coffret Rituel Éclat',
+      rangee: 'coffret-rangee-lumiere-dhiver.webp', contenu: [['Radiance C Serum', '30 ml'], ['Lumi-Bloom Arbutin', '30 ml']],
+      accroche: 'L’<b>éclat</b> et un teint plus uniforme, tout l’hiver.',
+      points: [
+        'Radiance C Serum, l’antioxydant hydratant à la vitamine C stabilisée haute tolérance, aide la peau à se défendre contre le stress oxydatif.',
+        'Lumi-Bloom Arbutin, à l’alpha-arbutine, aide à atténuer l’apparence des taches brunes et révèle l’éclat.',
+        'Ensemble, ils unifient le teint et révèlent une peau plus lumineuse, tout en maintenant l’hydratation.'
+      ] }
+  ];
+
   var ids = ((new URLSearchParams(location.search)).get('mini') || '').split(',')
     .map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 3);
   if(!ids.length) return;
   var choixLien = {};   // ?mini=lumiveil-cc-cream:b2 → teinte B2 déjà choisie
   ids = ids.map(function(x){ var k = x.split(':'); if(k[1]) choixLien[k[0]] = k[1].toLowerCase(); return k[0]; });
+  var collection = ids[0] === 'coffrets';
 
   /* ─── Outils ─── */
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
@@ -157,6 +194,18 @@
   + '#ebmf .mf-lien{display:inline-block;background:none;border:0;padding:0;font:600 9.5px Montserrat,sans-serif;letter-spacing:.24em;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer;white-space:nowrap}'
   + '#ebmf .mf-c{text-align:center;margin-top:16px}'
   + '#ebmf .mf-sep{height:1px;background:rgba(0,0,0,.1);margin:16px 0}'
+  + '#ebmf .mf-vgs.mf-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}'
+  + '#ebmf .mf-4 .mf-vg{padding:4px;border-radius:12px}'
+  + '#ebmf .mf-4 .mf-vph{height:auto;aspect-ratio:3/4;border-radius:9px}'
+  + '#ebmf .mf-4 .mf-vph img{transform:none;object-fit:cover}'
+  + '#ebmf .mf-ec{font-size:10.5px;color:#8a8278;margin:0 0 12px}'
+  + '#ebmf .mf-ec s{color:#8a8278}'
+  + '#ebmf .mf-rg{border-radius:12px;background:#efece6;overflow:hidden}'
+  + '#ebmf .mf-rg img{display:block;width:100%;height:auto}'
+  + '#ebmf .mf-rn{display:grid;text-align:center;font-size:9px;font-weight:600;letter-spacing:.14em;margin-top:8px}'
+  + '#ebmf .mf-rn>div{display:flex;flex-direction:column;justify-content:space-between;padding:0 3px}'
+  + '#ebmf .mf-off2{margin:12px 0 16px}'
+  + '#ebmf .mf-rn em{display:block;font-style:normal;font-weight:400;color:#8a8278;margin-top:2px;letter-spacing:.08em}'
   + '#ebmf .mf-tl{font-size:8px;font-weight:600;letter-spacing:.32em;color:#7a7268;margin:16px 0 8px}'
   + '#ebmf .mf-chs{display:grid;grid-template-columns:1fr 1fr;gap:6px}'
   + '#ebmf button.mf-ch{display:flex;align-items:center;gap:8px;margin:0;padding:9px 10px;background:transparent;border:1px solid rgba(0,0,0,.18);border-radius:0;color:#111;font:600 9px Montserrat,sans-serif;letter-spacing:.16em;cursor:pointer;text-align:left;-webkit-appearance:none;appearance:none}'
@@ -208,11 +257,40 @@
     return h;
   }
 
+  function blocCoffret(p){
+    var m = p.m, d = p.d, P = window.EB_PRODUITS || {};
+    var soins = (d.routine && d.routine.soins) || [];
+    var somme = soins.reduce(function(t, s){ return t + (P[s] ? nb(P[s].prix) : 0); }, 0);
+    var prix = nb(d.prix);
+    var h = '<div class="mf-g" style="color:' + m.couleur + '">' + esc(m.gamme.toUpperCase() + ' · ' + m.type.toUpperCase()) + '</div>'
+      + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span><span class="mf-np">' + euros(prix) + '</span></div>'
+      + (somme - prix >= 3 ? '<div class="mf-ec">Au lieu de <s>' + euros(somme) + '</s> pour les ' + NOMBRES[soins.length] + ' soins achetés séparément</div>' : '')
+      + '<div class="mf-tl">DANS VOTRE COFFRET</div>'
+      + '<div class="mf-rg"><img src="' + BASE + m.rangee + '" alt="' + esc(m.contenu.map(function(c){ return c[0]; }).join(', ')) + ', coffret ' + esc(d.nom) + ' ELKHA.B"></div>'
+      + '<div class="mf-rn" style="grid-template-columns:repeat(' + m.contenu.length + ',1fr)">' + m.contenu.map(function(c){ return '<div>' + esc(c[0].toUpperCase()) + '<em>' + esc(c[1]) + '</em></div>'; }).join('') + '</div>'
+      + '<div class="mf-acc">' + m.accroche + '</div>'
+      + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + m.couleur + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
+      + '<div class="mf-dur">Prêt à offrir, dans son écrin des fêtes. Quantités limitées.</div>'
+      + '<button type="button" class="mf-b" data-ajout="' + p.i + '"><span>AJOUTER LE COFFRET</span><span>' + euros(prix) + '</span></button>'
+      + '<div class="mf-c"><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">VOIR LE COFFRET EN DÉTAIL</button></div>';
+    return h;
+  }
+  function photoCoffret(p){ var u = (p.d.media && (p.d.media.miniature || (p.d.media.images && p.d.media.images[0]))) || ''; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=300'; }
+
   function manque(){ for(var i = 0; i < produits.length; i++){ if(!varianteId(produits[i])) return i; } return -1; }
   function dessiner(){
     var multi = produits.length > 1;
     var total = produits.reduce(function(t, p){ return t + nb(p.d.prix); }, 0);
     var h = '<div class="mf-grip"></div><button type="button" class="mf-x" aria-label="Fermer">×</button>';
+    if(collection){
+      var pc = produits[actif];
+      h += '<div class="mf-k">L’ÉDITION DES FÊTES</div>'
+        + '<div class="mf-vgs mf-4">' + produits.map(function(p, i){ return '<div class="mf-vg' + (i === actif ? ' on' : '') + '" data-vg="' + i + '" role="button" tabindex="0" aria-label="' + esc(p.d.nom) + '"><div class="mf-vph"><img src="' + photoCoffret(p) + '" alt="Coffret ' + esc(p.d.nom) + ' ELKHA.B"></div></div>'; }).join('') + '</div>'
+        + '<div class="mf-off mf-off2">Édition limitée · ' + (nb(pc.d.prix) >= SEUIL_LIVRAISON ? '<b>livraison offerte</b> · <b>un échantillon offert</b>' : '<b>un échantillon offert</b> · livraison offerte dès ' + SEUIL_LIVRAISON + '\u00a0€') + '</div>'
+        + blocCoffret(pc);
+      panneau.innerHTML = h;
+      return;
+    }
     if(multi){
       var n = NOMBRES[produits.length];
       h += '<div class="mf-k">LES ' + produits.length + ' SOINS DE LA VIDÉO</div>'
@@ -257,7 +335,7 @@
     voile = document.createElement('div'); voile.id = 'ebmf-v';
     panneau = document.createElement('div'); panneau.id = 'ebmf';
     panneau.setAttribute('role', 'dialog'); panneau.setAttribute('aria-modal', 'true');
-    panneau.setAttribute('aria-label', produits.map(function(p){ return p.d.nom; }).join(' et '));
+    panneau.setAttribute('aria-label', collection ? 'L’édition des fêtes ELKHA.B' : produits.map(function(p){ return p.d.nom; }).join(' et '));
     document.body.appendChild(voile); document.body.appendChild(panneau);
     voile.addEventListener('click', fermer);
     panneau.addEventListener('click', function(e){
@@ -291,7 +369,7 @@
     dessiner();
     document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ voile.classList.add('on'); panneau.classList.add('on'); }); });
-    suivreVue(produits[0].id, produits[0].d);
+    suivreVue(produits[actif].id, produits[actif].d);
   }
 
   /* ─── Démarrage : on attend les données des soins, puis on ouvre ─── */
@@ -299,6 +377,18 @@
     charger(['produits-data-test.js', 'produits-balance-test.js'], function(){
       var essais = 0, t = setInterval(function(){
         var P = window.EB_PRODUITS || {};
+        if(collection){
+          var tous = COFFRETS.every(function(c){ return P[c.id]; });
+          if(!tous && ++essais < 60) return;
+          clearInterval(t);
+          produits = [];
+          COFFRETS.forEach(function(c){ if(P[c.id] && P[c.id].variantId) produits.push({ id: c.id, m: c, d: P[c.id], i: produits.length, sel: -1 }); });
+          if(!produits.length) return;
+          actif = 0;
+          produits.forEach(function(p, i){ if(p.m.cle === choixLien.coffrets) actif = i; });
+          construire();
+          return;
+        }
         var prets = ids.every(function(id){ return P[id] || !MINI[id]; });
         if(!prets && ++essais < 60) return;
         clearInterval(t);
