@@ -590,6 +590,8 @@
       + '<div class="ebq-ok"' + (soin ? ' style="color:' + C.couleur + '"' : '') + '>Votre rituel</div><div class="ebq-on">' + esc(C.nom) + '</div><div class="ebq-os"' + (soin ? ' style="color:#4a453e"' : '') + '>' + esc(C.sous) + '</div>'
       + (soin ? '<img class="ebq-fl0" src="' + esc(C.flacon) + '" alt="" style="transform:translateX(' + (50 - (C.centre || 50)) + '%)">' : '')
       + '<button type="button">Ouvrir mon rituel</button><div class="ebq-of"' + (soin ? ' style="color:#fff"' : '') + '>' + (soin ? esc(C.gamme) : 'Édition des fêtes') + '</div></div>';
+    // motifs déjà chargés (l'écran de chargement les affiche déjà) : ils sont là tout de suite, sans fondu
+    var deja = new Image(); deja.src = C.motif || C.flacon; if(deja.complete) o.classList.add('ebq-vis');
     document.body.appendChild(o);
     if(!soin && C.grille){
       var cadre = function(){ var w = window.innerWidth, h = window.innerHeight, cible = w < 700 ? 98 : 170;
