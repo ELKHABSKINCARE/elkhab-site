@@ -157,7 +157,7 @@
   + "#eb-acc .eba-jt{font-size:15px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;margin:9px 0 6px;padding-right:44px}"
   + ".eba-jq{display:block;font-size:12.5px;font-weight:400;color:#2a2723;line-height:1.6}"
   + ".eba-mono{position:absolute;top:18px;right:18px;font-size:13px;font-weight:800;letter-spacing:.08em;color:transparent;background-image:linear-gradient(180deg,#fbf9f5,#e9dfd0 55%,#d9cbb6);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(1px 1px 0 rgba(110,85,60,.25)) drop-shadow(-1px -1px 0 rgba(255,255,255,.8))}"
-  + "@media (max-width:699px){.eba-ugc{grid-template-columns:1fr 1fr;gap:8px;margin-top:28px}.eba-hi{grid-template-columns:1fr;gap:28px;text-align:center}.eba-gg{margin:18px auto 0}#eb-acc .eba-hp{font-size:13.5px;margin:18px auto 0}#eb-acc .eba-tg{font-size:19px;letter-spacing:.16em}.eba-eng{font-size:9.5px;letter-spacing:.22em;gap:8px 14px}.eba-eng span+span:before{margin-right:14px}.eba-jr{grid-auto-columns:76%}}"
+  + "@media (max-width:699px){.eba-ugc{grid-template-columns:1fr 1fr;gap:8px;margin-top:28px}.eba-hi{grid-template-columns:1fr;gap:28px;text-align:center}.eba-gg{margin:18px auto 0}#eb-acc .eba-hp{font-size:13.5px;margin:18px auto 0}#eb-acc .eba-tg{font-size:19px;letter-spacing:.16em}.eba-eng{font-size:9.5px;letter-spacing:.22em;gap:8px 14px}.eba-eng span+span:before{margin-right:14px}.eba-eng span:last-child{flex-basis:100%}.eba-eng span:last-child:before{display:none}.eba-jr{grid-auto-columns:76%}}"
   + ".eba-psb:before,.eba-psa:after{display:none !important}.eba-sansfond{background-image:none !important}.eba-sanspad{padding-top:0 !important}.eba-cache{display:none !important}"
   // ── 4. Skin ID : la seule bande sombre de la page, avec la carte qui attend son code
   + ".eba-sid{position:relative;overflow:hidden;margin-top:110px;background:radial-gradient(700px 420px at 92% 10%,rgba(230,203,189,.18),rgba(230,203,189,0) 70%),radial-gradient(700px 420px at 30% 110%,rgba(195,204,143,.13),rgba(195,204,143,0) 70%),#1b1a17;color:" + F + "}"
@@ -234,7 +234,7 @@
   +   ".eba-ln{width:44px;margin:11px auto}"
   +   ".eba-p{font-size:12px;line-height:1.55;margin:0 0 14px}"
   +   ".eba-lien{font-size:9px;letter-spacing:.2em}"
-  +   ".eba-fetes .eba-fph{margin:26px -16px 0}"
+  +   ".eba-fetes .eba-fph{margin:26px 0 0}"
   +   ".eba-f4{grid-template-columns:1fr 1fr}"
   +   "#eb-acc .eba-f4 h3{font-size:10px;letter-spacing:.12em}.eba-f4 span{font-size:10px}"
   +   ".eba-fetes .eba-btn{margin-top:26px}"
