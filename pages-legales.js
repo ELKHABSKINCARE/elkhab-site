@@ -27,7 +27,7 @@ var ENTREPRISE = {
   nom:       "Elkhansaa ZEMRANI",    // ton prénom et ton nom (n'apparaissent QUE dans les Mentions légales)
   adresse:   "Clermont-Ferrand (63000)", // ville seulement (n'apparaît QUE dans les Mentions légales)
   forme:     "entrepreneur individuel sous le régime de la micro-entreprise",
-  siret:     "en cours d'attribution",   // à remplacer par le numéro quand tu l'auras reçu
+  siret:     "750 972 614 00028 · RCS Clermont-Ferrand",
   tva:       "TVA non applicable, art. 293 B du CGI",
   email:     "contact@elkhab.com"    // adresse e-mail de contact
 };
