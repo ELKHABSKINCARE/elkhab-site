@@ -8,7 +8,7 @@
    • « Voir le soin » ouvre la fiche du soin sur place (ajout au panier possible)
    Dans Carrd, la page contient un seul embed :
      <div id="eb-elles"></div>
-     <script src="https://elkhabskincare.github.io/elkhab-site/elles-en-parlent-engine.js"></script>
+     <script src="https://elkhabskincare.github.io/elkhab-site/elles-en-parlent-engine.js?v=1"></script>
    ───────────────────────────────────────────────────────────────────────
    ✏️ POUR AJOUTER OU MODIFIER UNE COLLABORATRICE, ON NE TOUCHE QU'À LA PARTIE « RÉGLAGES »
    ═══════════════════════════════════════════════════════════════════════ */
@@ -25,6 +25,17 @@ var PAGE = {
   titre:    "",
   intro:    "",
   mention:  "Nos collaboratrices ont reçu les soins pour les tester. Elles ne sont pas rémunérées et leurs avis sont libres."
+};
+
+// SECTION « DEVENIR AMBASSADRICE » (en bas de page) — le bouton « code » ouvre l'espace ambassadrice
+var AMBASSADRICE = {
+  surtitre: "Vous aussi ?",
+  titre:    "Devenir ambassadrice",
+  texte:    "Vous créez du contenu autour du soin, de la beauté ou du bien-être, et l'univers ELKHA.B vous ressemble ? Présentez-vous et parlez-nous de votre peau.",
+  tiktok:   "https://www.tiktok.com/@elkha.b",
+  boutonTiktok: "Nous écrire sur TikTok",
+  boutonCode:   "J'ai reçu un code",
+  note:     "Votre espace ambassadrice s'ouvre avec votre code personnel."
 };
 
 // COLLABORATRICES — dans l'ordre d'affichage.
@@ -223,7 +234,20 @@ var css = ''
 +   '.ebe-ptxt{overflow-y:auto;padding:46px 46px 34px;display:flex;flex-direction:column}'
 +   '.ebe-nav{margin-top:auto}'
 + '}'
-+ 'html.ebe-bloque{overflow:hidden}';
++ 'html.ebe-bloque{overflow:hidden}'
+/* Devenir ambassadrice */
++ '.ebe-amb{background:#141414;color:#f5f4f0;text-align:center;margin:40px 0 0;padding:44px 26px 46px}'
++ '.ebe-amb .ebe-sur{opacity:.6}'
++ '.ebe-amb-t{font-weight:400;font-size:21px;letter-spacing:.3em;padding-left:.3em;text-transform:uppercase;margin:12px 0 0;line-height:1.25}'
++ '.ebe-amb-g{width:90px;height:2px;margin:18px auto 0;background:linear-gradient(90deg,#141414,#e9e3d9 50%,#141414)}'
++ '.ebe-amb-p{font-size:13.5px;font-weight:300;line-height:1.75;opacity:.85;max-width:520px;margin:18px auto 0}'
++ '.ebe-amb-b{display:flex;flex-direction:column;gap:12px;max-width:340px;margin:24px auto 0}'
++ '.ebe-amb-b a,.ebe-amb-b button{display:block;font:700 11px "Montserrat",sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:15px 22px;text-decoration:none;cursor:pointer;transition:transform .2s ease}'
++ '.ebe-amb-b a{background:#f5f4f0;color:#000;border:1px solid #f5f4f0}'
++ '.ebe-amb-b button{background:none;color:#f5f4f0;border:1px solid rgba(245,244,240,.5)}'
++ '.ebe-amb-b a:hover,.ebe-amb-b button:hover{transform:scale(1.03)}'
++ '.ebe-amb small{display:block;font-size:10.5px;font-weight:300;opacity:.55;margin-top:16px}'
++ '@media (min-width:900px){.ebe-amb{padding:64px 40px 66px}.ebe-amb-t{font-size:30px}.ebe-amb-p{font-size:14px}.ebe-amb-b{flex-direction:row;justify-content:center;max-width:none}}';
 var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
 /* ─── Données des fiches (pour les photos des soins et « Voir le soin ») ─── */
@@ -311,6 +335,14 @@ function construire(){
     if(rang.length) h += '<div class="ebe-rang">' + rang.map(function(i){ return carteHTML(liste[i], i); }).join('') + '</div>';
     if(v < vedettes.length){ h += vedetteHTML(liste[vedettes[v]], vedettes[v]); v++; }
   }
+  if(AMBASSADRICE && AMBASSADRICE.titre){
+    h += '<section class="ebe-amb" id="devenir-ambassadrice"><div class="ebe-sur">' + esc(AMBASSADRICE.surtitre) + '</div>'
+      + '<h2 class="ebe-amb-t">' + esc(AMBASSADRICE.titre) + '</h2><div class="ebe-amb-g"></div>'
+      + '<p class="ebe-amb-p">' + esc(AMBASSADRICE.texte) + '</p><div class="ebe-amb-b">'
+      + '<a href="' + esc(AMBASSADRICE.tiktok) + '" target="_blank" rel="noopener">' + esc(AMBASSADRICE.boutonTiktok) + '</a>'
+      + '<button type="button" data-collaboration data-ebe-collab>' + esc(AMBASSADRICE.boutonCode) + '</button></div>'
+      + (AMBASSADRICE.note ? '<small>' + esc(AMBASSADRICE.note) + '</small>' : '') + '</section>';
+  }
   racine.innerHTML = '<div class="ebe">' + h + '</div>';
   majSoins();
 }
@@ -380,6 +412,14 @@ function fermerPanneau(){
 }
 document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermerPanneau(); });
 
+/* ─── Espace ambassadrice (collab-engine.js, d'habitude déjà chargé par le panier) ─── */
+function ouvrirCollab(){
+  if(typeof window.ebCollabOpen === 'function') return window.ebCollabOpen();
+  var s = document.createElement('script'); s.src = BASE + 'collab-engine.js';
+  s.onload = function(){ if(typeof window.ebCollabOpen === 'function') window.ebCollabOpen(); };
+  document.body.appendChild(s);
+}
+
 /* ─── Démarrage ─── */
 function demarrer(){
   racine = document.getElementById('eb-elles');
@@ -392,6 +432,7 @@ function demarrer(){
     if((b = e.target.closest('[data-ebe-ved]'))) return jouerVedette(+b.getAttribute('data-ebe-ved'), +b.getAttribute('data-ebe-k'));
     if((b = e.target.closest('[data-ebe-jouer]'))){ var g = b.closest('[data-ebe-grand]'); return jouerVedette(+g.getAttribute('data-ebe-grand'), +b.getAttribute('data-ebe-jouer')); }
     if((b = e.target.closest('[data-ebe-fiche]'))) return ouvrirFiche(b.getAttribute('data-ebe-fiche'));
+    if((b = e.target.closest('[data-ebe-collab]'))) return ouvrirCollab();
   });
   if(document.readyState === 'complete') chargerFiches(); else window.addEventListener('load', chargerFiches);
 }
