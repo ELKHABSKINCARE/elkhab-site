@@ -1311,25 +1311,29 @@ body{background:#000;color:#f6f4f0}
   // puis hydrater (une crème matin et soir avant 35 ans, crème de jour et crème de nuit ensuite). Quatre soins au plus, tous pour sa priorité ;
   // si elle manque de temps, deux gestes au plus le matin et deux le soir. Sa préoccupation secondaire a son propre rituel complémentaire.
   function composer(){var actifs=rep.actifs==null?0:rep.actifs, precauDoux=rep.precau===0||rep.precau===1||(rep.precau===2&&rep.recup!==1), sens=rep.sensib||0;
-    var delicat=sens===2||precauDoux, a=rep.age==null?2:rep.age, mature=a>=3, P=rep.prio||[], p0=P[0], rides=P.indexOf(6)>=0||P.indexOf(7)>=0, deja=rep.deja||[], conf=rep.confort||[], type=rep.type==null?1:rep.type;
+    // une précaution (traitement, affection, intervention) ne change pas les soins proposés : la cliente reçoit ceux de sa préoccupation, avec un mot dans le bilan ;
+    // seule exception : jamais d'exfoliant sous traitement contre l'acné ni sur une affection cutanée
+    var delicat=sens===2, a=rep.age==null?2:rep.age, mature=a>=3, P=rep.prio||[], p0=P[0], rides=P.indexOf(6)>=0||P.indexOf(7)>=0, deja=rep.deja||[], conf=rep.confort||[], type=rep.type==null?1:rep.type;
     // elle a déjà une crème : on n'en propose pas d'autre, sauf si le confort fait partie de ses priorités
     var confortP=P.indexOf(1)>=0, aJour=deja.indexOf(2)>=0&&!confortP, aNuit=deja.indexOf(3)>=0&&!confortP;
     var rougeurs=conf.indexOf(2)>=0||conf.indexOf(3)>=0, tiraille=type===0||rep.apresnet===1||conf.indexOf(0)>=0;
     var niv=actifs===3?2:actifs===0?3:(mature&&sens===0&&actifs===1)?5:4; if(delicat)niv=Math.max(1,niv-1);
     // l'exfoliation chimique : jamais pour une peau réactive ou sous précaution ; douce (acide lactique, une fois par semaine) quand la peau marque ou découvre les actifs
     var exfoDeja=deja.indexOf(5)>=0&&rep.exfo!==0, exfoType=rep.exfo;   // un gommage à grains ne compte pas : il est à remplacer
-    var exfoOK=!delicat&&actifs!==3&&!exfoDeja, exfoDoux=sens===1||actifs===0||actifs===2||rep.photo>=2;
+    var exfoOK=!delicat&&actifs!==3&&!exfoDeja&&rep.precau!==0&&rep.precau!==1, exfoDoux=sens===1||actifs===0||actifs===2||rep.photo>=2;
     var freq=exfoDoux?'Une fois par semaine pour commencer.':type===0?'Une à deux fois par semaine.':'Un à trois soirs par semaine.', grains=rep.exfo===0?' Il remplace votre gommage à grains.':'';
     // l'alternative au rétinol : Cellular Reveal de 35 à 44 ans (et pour les peaux sensibles), le bakuchiol à partir de 45 ans
     // pressée, à partir de 35 ans, avec des rides ou des taches localisées : le rituel tourne autour de la gamme Cellular
     var presseeCell=rep.temps===0&&mature&&(rides||(p0===3&&rep.tachetype!==2));
-    var bakuOK=a>=4&&sens!==2&&actifs!==3&&rep.precau!==0&&rep.precau!==1&&!presseeCell;
+    var bakuOK=a>=4&&sens!==2&&actifs!==3&&!presseeCell;
+    // fermeté après 45 ans : Age Lift et Active Lift, même si la peau rougit ou se remet d'une intervention (le bilan lui dit d'attendre qu'elle soit apaisée)
+    var fermete45=a>=4&&p0===7&&sens!==2&&actifs!==3;
     // le masque aux argiles : peau mixte ou grasse, ni sensible ni sous traitement ; une à deux fois par semaine
     // Lumi-Glow PDRN : éclat et grain de peau jusqu'à 44 ans ; il remplace l'acide quand la peau est sensible ou découvre les actifs
     var glowOK=GLOW_EN_VENTE&&!delicat&&actifs!==3&&a<=3, glowDoux=sens===1||actifs!==1, glowGrain=glowOK&&p0===5&&glowDoux, glowEclat=glowOK&&p0===0;
-    var pureOK=type>=2&&sens===0&&!delicat&&actifs!==3, pureCas=p0===2||(p0===5&&(grainL().indexOf(3)>=0||rep.pores===1));
+    var pureOK=type>=2&&sens===0&&!delicat&&actifs!==3&&rep.precau!==0&&rep.precau!==1, pureCas=p0===2||(p0===5&&(grainL().indexOf(3)>=0||rep.pores===1));
     // Cellular Reveal convient à tous les types de peau, sensibles compris : à partir de 30 ans, pour les rides ou la fermeté (après 45 ans, quand le bakuchiol ne lui convient pas)
-    var revealSens=!precauDoux&&actifs!==3&&a>=2&&rides;
+    var revealSens=actifs!==3&&a>=2&&rides;
     function permis(id,choisis){var s=SOINS[id]; if(!s)return false;
       if((id==='eyelift'||id==='eyerest')&&a<3)return false;
       if(id==='activelift'&&a<2)return false;   // Active Lift : à partir de 30 ans   // les soins Balance du regard : à partir de 35 ans
@@ -1337,7 +1341,8 @@ body{background:#000;color:#f6f4f0}
       else if(id==='bakuchiol'){if(!bakuOK)return false;}
       else if(s.N&&s.N>niv&&!(id==='reveal'&&revealSens))return false;
       if(id==='reveal'&&(a<=1||(!mature&&!rides)||(a>=4&&bakuOK)))return false;
-      if(id==='agelift'&&(!mature||(delicat&&!mature)))return false;
+      if(id==='agelift'&&a<4)return false;   // Age Lift : à partir de 45 ans (de 35 à 44 ans, Cellular Renew en crème)
+      if(fermete45&&id==='reveal')return false;   // fermeté après 45 ans : Active Lift plutôt que Cellular Reveal (ils ne vont pas ensemble)
       if(aJour&&['jour','renew','agelift','calmj'].indexOf(id)>=0)return false;
       if(aNuit&&['nuit','ceramide','calmn','bright'].indexOf(id)>=0)return false;
       if(s.exfo&&choisis.some(function(c){return SOINS[c[0]].exfo;}))return false;
@@ -1398,9 +1403,10 @@ body{background:#000;color:#f6f4f0}
     var ridesInst=P.indexOf(6)>=0&&rep.ridestype>=1, ferme=P.indexOf(7)>=0, tenue30=a===2&&(ridesInst||ferme);   // 30-34 ans : rides installées ou fermeté
     var soirAussi=null, gel=a_('niac')||a_('hydra')||a_('bright')||a_('glow')||tenue30, serums=cand.filter(function(c){var s=SOINS[c[0]]; return !s.exfo&&s.et.indexOf('02')===0;}).length;
     if(!aJour&&!cand.some(function(c){return ['jour','renew','agelift','calmj'].indexOf(c[0])>=0;})){var cj;
-      if(delicat||rougeurs||(sens===1&&!rides))cj=['calmj','Pour apaiser votre peau et l’hydrater '+(mature?'toute la journée.':'matin et soir.')];
+      if(fermete45&&niv>=2)cj=['agelift','Aux peptides, pour raffermir et hydrater votre peau chaque matin.'];
+      else if(delicat||rougeurs||(sens===1&&!rides))cj=['calmj','Pour apaiser votre peau et l’hydrater '+(mature?'toute la journée.':'matin et soir.')];
       else if(presseeCell)cj=['renew',type===0?'Matin et soir, une seule crème qui hydrate et lisse votre peau.':'Pour hydrater et lisser votre peau chaque matin.'];
-      else if(mature)cj=(ferme||(ridesInst&&a===3))&&niv>=3?['agelift','Aux peptides, pour raffermir et hydrater votre peau chaque matin.']:(niv>=3?['renew','Pour hydrater votre peau, lisser ses traits et unifier son teint chaque matin.']:['jour','Pour repulper et hydrater votre peau chaque matin.']);
+      else if(mature)cj=a>=4&&ferme&&niv>=3?['agelift','Aux peptides, pour raffermir et hydrater votre peau chaque matin.']:(niv>=3?['renew','Pour hydrater votre peau, lisser ses traits et unifier son teint chaque matin.']:['jour','Pour repulper et hydrater votre peau chaque matin.']);
       else if(tenue30)cj=['jour',ferme?'Pour hydrater votre peau et lui garder tout son ressort, chaque matin.':'Pour hydrater votre peau et repulper vos traits, matin et soir.'];
       else if(type>=2&&!serums)cj=['gelee','Ses prébiotiques et son acide hyaluronique hydratent votre peau en légèreté, sans alourdir la zone qui brille.'];
       else cj=rides&&niv>=3&&a>=2?['renew','Pour hydrater et lisser votre peau, matin et soir.']:['jour',type>=2?'Une crème légère à l’acide hyaluronique, pour hydrater votre peau matin et soir sous vos soins.':'Pour une hydratation qui dure, matin et soir, et un teint lumineux.'];
@@ -1424,7 +1430,7 @@ body{background:#000;color:#f6f4f0}
     var tout=[], nM=0, nS=0;
     cand.forEach(function(c){if(tout.length>=4)return; var q=quand(c[0]), ex=SOINS[c[0]].exfo;
       if(rep.temps===0&&ex&&!(p0===2||p0===5||rep.exfo===0))return;
-      if(rep.temps===0&&!ex){var m2=nM+(q==='matin'||q==='les2'?1:0), s2=nS+(q==='soir'||q==='les2'?1:0); if(m2>2||s2>2)return; nM=m2; nS=s2;}
+      if(rep.temps===0&&!ex&&['fusion','milky','cleanser'].indexOf(c[0])<0){var m2=nM+(q==='matin'||q==='les2'?1:0), s2=nS+(q==='soir'||q==='les2'?1:0); if(m2>2||s2>2)return; nM=m2; nS=s2;}
       tout.push([c[0],c[1]]);});
     var crJ=['jour','renew','agelift','calmj','gelee'], crN=['nuit','ceramide','calmn','bright'];
     if(!tout.some(function(x){return crN.indexOf(x[0])>=0;})){var j=tout.filter(function(x){return ['jour','renew','agelift','calmj'].indexOf(x[0])>=0;})[0]||tout.filter(function(x){return x[0]==='gelee';})[0]; if(j)soirAussi=j[0];}
@@ -1439,7 +1445,7 @@ body{background:#000;color:#f6f4f0}
     tout.concat(second).forEach(function(x){if(x[0]==='bakuchiol'&&actifs!==1)x[1]+=' Deux soirs par semaine pour commencer, puis un soir sur deux, puis chaque soir.';});
     // le soir, elle oublie : deux gestes au maximum le soir
     if(tout.some(function(x){return x[0]==='agelift';})&&!tout.some(function(x){return x[0]==='activelift';})&&permis('activelift',tout.map(function(x){return [x[0]];}))){
-      var pid0=principal&&principal[0], mat=function(id){var m=quand(id); return m==='matin'||m==='les2';};
+      var pid0=principal&&principal[0], mat=function(id){var m=quand(id); return (m==='matin'||m==='les2')&&['fusion','milky','cleanser'].indexOf(id)<0;};
       var autres=tout.filter(function(x){return x[0]!==pid0&&x[0]!=='agelift';});
       if(rep.temps===0&&tout.filter(function(x){return mat(x[0]);}).length>=2)autres=autres.filter(function(x){return mat(x[0]);});
       if(tout.length>=4||rep.temps===0){var sort=autres[autres.length-1]; if(sort&&(tout.length>=4||rep.temps===0&&tout.filter(function(x){return mat(x[0]);}).length>=2))tout=tout.filter(function(x){return x!==sort;});}
@@ -1447,6 +1453,8 @@ body{background:#000;color:#f6f4f0}
     if(rep.regul===1){var pid=principal&&principal[0], soirs=function(){return tout.filter(function(x){var m=quand(x[0]); return (m==='soir'||m==='les2')&&!SOINS[x[0]].exfo;});};
       while(soirs().length>2){var ci=soirs().filter(function(x){return x[0]!==pid&&crN.indexOf(x[0])<0&&x[0]!=='cleanser'&&x[0]!=='milky'&&x[0]!=='fusion';})[0]||soirs().filter(function(x){return x[0]!==pid&&crN.indexOf(x[0])>=0;})[0]; if(!ci)break; tout=tout.filter(function(x){return x!==ci;});}
       soirAussi=null;}
+    // fermeté après 45 ans : Active Lift fait toujours partie du rituel (s'il reste une place après les ajustements)
+    if(p0===7&&a>=4&&tout.length<4&&!tout.some(function(x){return x[0]==='activelift';})&&permis('activelift',tout.map(function(x){return [x[0]];})))tout.push(['activelift','Aux peptides, chaque matin sous votre crème : ce sérum lisse et raffermit visiblement votre peau.']);
     // le regard, quand ce n'est pas une de ses priorités : proposé à part
     var plusRegard=P.indexOf(8)<0?regardSoins(niv,delicat).filter(function(x){return !tout.concat(second).some(function(t){return t[0]===x[0];});}):[];
     // double nettoyage : si elle se démaquille mal et que son rituel n'a pas de démaquillant
@@ -1463,7 +1471,7 @@ body{background:#000;color:#f6f4f0}
     var plus=[];
     var naturel=rep.fini===1, dehors=(rep.env||[]).indexOf(2)>=0, soleilSoin=P.indexOf(3)>=0||P.indexOf(4)>=0, veilProtege=naturel&&!dehors&&!soleilSoin, spfTeinte=naturel&&!veilProtege;
     if(deja.indexOf(4)<0&&rep.soleil!==0&&!veilProtege){var spf=['protect',spfTeinte?'Chaque matin, en dernier geste : sa version teintée protège votre peau avec un filtre minéral SPF 50, sans effet blanc, avant votre Lumi-Veil.':'Chaque matin, en dernier geste : '+(soleilSoin?'avec des soins contre les taches, c’est le geste indispensable.':'le plus beau geste pour votre peau, été comme hiver.')];
-      var matins=tout.filter(function(x){var m=quand(x[0]); return m==='matin'||m==='les2';}).length;
+      var matins=tout.filter(function(x){var m=quand(x[0]); return (m==='matin'||m==='les2')&&['fusion','milky','cleanser'].indexOf(x[0])<0;}).length;
       if(tout.length<=2&&!(rep.temps===0&&matins>=2))tout.push(spf); else plus.push(spf);}
     if(tout.some(function(x){return x[0]==='bright';})&&!tout.concat(second).some(function(x){return x[0]==='arbutin';})&&permis('arbutin',[]))plus.push(['arbutin','Si vous aimez superposer un sérum sous votre crème : chaque matin, son alpha-arbutine renforce l’action de Bright Control et aide votre teint à retrouver son homogénéité.']);
     if(pureOK&&!tout.concat(second).some(function(x){return x[0]==='pure';}))plus.push(['pure',pureCas?'Pour aller plus loin, une fois par semaine, un soir sans BHA : ce masque aux argiles et au charbon végétal absorbe l’excès de sébum et désincruste vos pores, en dix minutes.':'Votre peau brille'+(type===2?' sur la zone T':'')+' : une à deux fois par semaine, ce masque aux argiles et au charbon végétal absorbe l’excès de sébum et désincruste les pores, en dix minutes.']);
@@ -1680,8 +1688,10 @@ body{background:#000;color:#f6f4f0}
     var pr=[];
     if(rep.precau===0)pr.push('Pendant votre traitement contre l’acné, votre peau est plus sèche, plus sensible et plus photosensible. Les exfoliants sont donc écartés, et nous vous conseillons d’en parler à votre dermatologue avant de commencer.');
     if(sens===2)pr.push('Comme votre peau réagit souvent aux nouveaux soins, nous avons sélectionné pour elle les formules les plus douces de la gamme. Faites tout de même un test avant de les adopter : appliquez un peu de chaque soin sur une petite zone du cou et attendez 24 heures. Si votre peau reste calme, vous pouvez commencer votre rituel, en introduisant un soin à la fois.');
-    if(rep.precau===1)pr.push('Votre peau demande une attention particulière, c’est pourquoi les formules proposées sont simples et bien tolérées, à montrer à votre dermatologue avant de les adopter.');
+    if(rep.precau===1)pr.push('Votre peau demande une attention particulière : par précaution, votre rituel ne comporte pas d’exfoliant. Montrez-le à votre dermatologue, et entamez-le une fois votre peau apaisée.');
     if(rep.precau===2&&rep.recup!==1)pr.push('Votre peau se remet d’un soin esthétique : montrez votre rituel à votre dermatologue ou à votre praticien, et attendez son accord avant de commencer'+(ids.indexOf('bakuchiol')>=0?', en particulier le bakuchiol.':'.'));
+    var confB=rep.confort||[], attenteB=(rep.age||0)>=4&&(rep.prio||[]).indexOf(7)>=0&&(confB.indexOf(2)>=0||confB.indexOf(3)>=0||(rep.precau===2&&rep.recup!==1));
+    if(attenteB&&!(rep.precau===2&&rep.recup!==1))pr.push('Votre peau rougit en ce moment : une fois qu’elle sera apaisée, vous pourrez entamer votre rituel fermeté.');
     if(rep.precau===4)pr.push('Si votre peau suit un traitement ou demande une attention particulière, montrez votre rituel à votre dermatologue avant de commencer.');
     if(pr.length)paras.push(pr.join(' '));
 
