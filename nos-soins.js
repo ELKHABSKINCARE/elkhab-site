@@ -289,9 +289,18 @@
     setTimeout(montrer, 1500);   // sécurité : si la photo tarde (réseau lent), on n'attend pas plus
   }
   // toute la page « Nos soins » prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
+  // glissement en cours d'une animation Carrd (apparition qui glisse) : on le retire des mesures, sinon la page se cale de travers
+  function glissement(el){
+    var x = 0, y = 0;
+    for(var e = el.parentElement; e && e !== document.documentElement; e = e.parentElement){
+      var t = getComputedStyle(e).transform, m = t && t !== 'none' && t.match(/matrix\(([^)]+)\)/);
+      if(m){ var v = m[1].split(','); x += parseFloat(v[4]) || 0; y += parseFloat(v[5]) || 0; }
+    }
+    return { x: x, y: y };
+  }
   function bordABord(){
     root.style.width = ''; root.style.marginLeft = ''; root.style.maxWidth = 'none';
-    var g = root.getBoundingClientRect().left;
+    var g = root.getBoundingClientRect().left - glissement(root).x;
     root.style.width = document.documentElement.clientWidth + 'px'; root.style.marginLeft = (-g) + 'px';
   }
   bordABord(); setTimeout(bordABord, 400);
@@ -331,7 +340,7 @@
     if(!ban) return;
     var bloc = ban; bloc.style.marginTop = '';
     // la bannière monte tout en haut, derrière le menu transparent (comme sur les autres sites)
-    var ecart = ban.getBoundingClientRect().top + window.scrollY;
+    var ecart = ban.getBoundingClientRect().top - glissement(ban).y + window.scrollY;
     if(ecart > 4 && ecart < window.innerHeight * .8 && !quelqueChoseAuDessus()) bloc.style.marginTop = (-ecart) + 'px';
 
   }
@@ -349,6 +358,8 @@
   try { nettoyerFond(); } catch(err){}
   setTimeout(function(){ try { nettoyerFond(); bordABord(); } catch(err){} }, 500);
   window.addEventListener('load', function(){ try { nettoyerFond(); bordABord(); } catch(err){} });
+  // à la fin d'une animation Carrd sur un bloc qui contient la page : on recale (bord à bord, sous le menu)
+  ['animationend', 'transitionend'].forEach(function(ev){ document.addEventListener(ev, function(e){ var t = e.target; if(t && t.nodeType === 1 && t !== root && t.contains(root)){ try { nettoyerFond(); bordABord(); } catch(err){} } }, true); });
   var secs = [].slice.call(root.querySelectorAll('.ens-s'));
   secs.forEach(function(s){ s.querySelectorAll('.ens-c').forEach(function(c){ var im = c.querySelector('img'); if(im) im.setAttribute('data-g', c.getAttribute('data-gamme')); }); });
 
