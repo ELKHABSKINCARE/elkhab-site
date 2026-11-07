@@ -24,6 +24,12 @@
     base: "https://elkhabskincare.github.io/elkhab-site/",
     fichiers: ["produits-data-test.js", "produits-balance-test.js", "avis-engine.js", "fiche-engine.js"]
   };
+  // ── Photo de bannière propre à un type de soin (les types absents gardent la photo de l'embed)
+  //    photo : le lien de la photo ; cadrage : la partie de la photo à garder visible (ordinateur, puis téléphone)
+  var PHOTOS_TYPES = {
+    nettoyants: { photo: REGLAGES.base + "nos-soins-nettoyants.jpg", cadrage: "70% 50%", cadrageTel: "68% 50%",
+                  alt: "Mousse d'un nettoyant visage doux ELKHA.B : démaquillants et nettoyants" }
+  };
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
 
   var root;
@@ -69,6 +75,12 @@
   // photo entière (pas de zoom), à droite ; à gauche, le dégradé reprend exactement les couleurs du bord de la photo
   + ".ens-ban{position:relative;height:clamp(560px,44vw,740px);display:flex;overflow:hidden;background:linear-gradient(180deg,rgb(229,198,188) 0%,rgb(213,179,167) 10%,rgb(213,180,165) 20%,rgb(212,178,166) 30%,rgb(210,178,165) 40%,rgb(209,177,164) 50%,rgb(206,172,160) 60%,rgb(219,192,182) 70%,rgb(221,192,180) 80%,rgb(209,178,164) 90%,rgb(191,161,150) 100%)}"
   + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
+  + ".ens-plein{position:absolute;inset:0;z-index:1;background:" + REGLAGES.fondSite + ";opacity:0;transition:opacity .5s ease;pointer-events:none}"
+  + ".ens-plein img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0;transition:opacity .5s ease}"
+  + ".ens-plein img.ok{opacity:1}"
+  + ".ens-ban.ens-photo .ens-plein{opacity:1}"
+  + ".ens-ban.ens-direct .ens-plein,.ens-ban.ens-direct .ens-plein img{transition:none}"
+  + ".ens-ban.ens-photo .ens-bt{flex:0 0 48%;max-width:48%}"
   + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:" + REGLAGES.espaceMenu + "px 5% 0}"
   // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
   + ".ens-psb:before,.ens-psa:after{display:none !important}.ens-sansfond{background-image:none !important}.ens-sanspad{padding-top:0 !important}.ens-cache{display:none !important}"
@@ -84,6 +96,8 @@
   +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
   +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
   +   ".ens-bt{position:absolute;left:0;right:0;bottom:1.6%;max-width:none;margin:0;padding:0 32px;z-index:2}"
+  +   ".ens-plein img{height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
+  +   ".ens-ban.ens-photo .ens-bt{max-width:none}"
   +   "#eb-ns .ens-bk{font-size:9px;color:#2a2723;margin:0 0 11px}"
   +   ".ens-bn{font-size:24px;letter-spacing:.28em;padding-left:.28em;line-height:1.3}"
   +   ".ens-bg{width:84px;margin:15px auto 18px}"
@@ -184,6 +198,28 @@
   var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
 
   var ban = root.querySelector('.ens-ban');
+  // calque de la photo propre au type (posé au-dessus de la photo de l'embed, sous le texte)
+  var plein = null;
+  if(ban && Object.keys(PHOTOS_TYPES).length){
+    plein = document.createElement('div'); plein.className = 'ens-plein'; plein.innerHTML = '<img alt="" decoding="async">';
+    var bt0 = ban.querySelector('.ens-bt'); ban.insertBefore(plein, bt0 || null);
+    window.addEventListener('load', function(){ Object.keys(PHOTOS_TYPES).forEach(function(k){ var im = new Image(); im.src = PHOTOS_TYPES[k].photo; }); });
+  }
+  function photoType(type, direct){
+    if(!plein) return;
+    var p = PHOTOS_TYPES[type], img = plein.firstChild;
+    if(direct){ ban.classList.add('ens-direct'); setTimeout(function(){ ban.classList.remove('ens-direct'); }, 60); }
+    if(!p){ ban.classList.remove('ens-photo'); return; }
+    img.style.objectPosition = window.innerWidth < 700 ? (p.cadrageTel || p.cadrage || '50% 50%') : (p.cadrage || '50% 50%');
+    img.alt = p.alt || '';
+    if(img.getAttribute('data-u') !== p.photo){
+      img.classList.remove('ok'); img.setAttribute('data-u', p.photo);
+      img.onload = function(){ img.classList.add('ok'); };
+      img.src = p.photo;
+      if(img.complete && img.naturalWidth) img.classList.add('ok');
+    }
+    ban.classList.add('ens-photo');
+  }
   // toute la page « Nos soins » prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
   function bordABord(){
     root.style.width = ''; root.style.marginLeft = ''; root.style.maxWidth = 'none';
@@ -316,6 +352,7 @@
     });
     barres();
     var nomT = (root.querySelector('.ens-tabs a[data-type="' + type + '"]') || {}).textContent || '';
+    photoType(type, !defiler); ajusterTitre();
     if(ban){
       var bn = ban.querySelector('.ens-bn'), bm = ban.querySelector('.ens-bm'), txt = (s.querySelector('.ens-txt') || {}).textContent || '';
       if(bn && bn.textContent !== nomT){
