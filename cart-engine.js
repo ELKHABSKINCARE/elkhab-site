@@ -1,6 +1,27 @@
 /* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 (function(){
 
+// =====================================================================
+// SÉCURITÉ D'AFFICHAGE (nov. 2026) — panneaux qui glissent sur le côté
+// Sur les iPhone récents (Safari d'iOS 26), un panneau « rangé » sur le côté pouvait rester affiché
+// (panier qui ne se ferme pas, diagnostic bloqué). On le rend aussi invisible tant qu'il est fermé :
+// panier, recherche, fiches produits, avis, mini-fiches TikTok.
+// =====================================================================
+(function(){
+  if(document.getElementById('eb-panneaux-surs')) return;
+  var st = document.createElement('style'); st.id = 'eb-panneaux-surs';
+  st.textContent = ''
+    + '#ebCartPanel:not(.open),.eb-cart-panel:not(.open),.ebrech:not(.open){visibility:hidden;pointer-events:none;transition:transform .3s ease,visibility 0s linear .3s}'
+    + '#ebCartPanel.open,.eb-cart-panel.open,.ebrech.open{visibility:visible;pointer-events:auto}'
+    + '.eb-fp-overlay:not(.open),.eb-av-overlay:not(.open){visibility:hidden;pointer-events:none;transition:transform .5s cubic-bezier(.65,0,.35,1),visibility 0s linear .5s}'
+    + '.eb-fp-overlay.open,.eb-av-overlay.open{visibility:visible;pointer-events:auto}'
+    + '#ebmf:not(.on){visibility:hidden;pointer-events:none;transition:transform .5s cubic-bezier(.22,.8,.24,1),visibility 0s linear .5s}'
+    + '#ebmf.on{visibility:visible;pointer-events:auto}'
+    // la croix du panier reste sous la barre du haut des iPhone
+    + '#ebCartPanel,.eb-cart-panel{padding-top:max(26px,calc(env(safe-area-inset-top) + 16px)) !important}';
+  (document.head || document.documentElement).appendChild(st);
+})();
+
 const SHOPIFY_DOMAIN = 'fyjy1d-t8.myshopify.com';
 const STOREFRONT_TOKEN = 'd7b9bf173e3b947dc2bb10f375e14185';
 const API_VERSION = '2026-07';
