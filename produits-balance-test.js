@@ -1210,7 +1210,7 @@ var BALANCE = {
         // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-nouvelle-aube-soins-v2.jpg",
         // 📷 4. AMBIANCE DES FÊTES (aussi la photo montrée par Google)
-        "https://elkhabskincare.github.io/elkhab-site/coffret-nouvelle-aube-ambiance.jpg"
+        "https://elkhabskincare.github.io/elkhab-site/coffret-nouvelle-aube-ambiance-v2.jpg"
       ]
     },
     routine: {

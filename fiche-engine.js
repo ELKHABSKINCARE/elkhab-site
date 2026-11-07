@@ -196,9 +196,6 @@
   // jusqu'à la colonne de texte), sans bandes beiges. Les photos produits sur le beige du site ne bougent pas.
   // (actif seulement si le fichier produits contient window.EB_MEDIA_PLEIN = true)
   +   ".eb-fp-plein .eb-fp-left .eb-fp-media video,.eb-fp-plein .eb-fp-left .eb-fp-media img.eb-remplir{object-fit:cover !important;object-position:50% 30% !important}"
-  +   ".eb-fp-left .eb-fp-slide.eb-fp-amb{position:relative;overflow:hidden}"
-  +   ".eb-fp-left .eb-fp-slide.eb-fp-amb:before{content:\"\";position:absolute;inset:-60px;background:var(--eb-amb) center/cover no-repeat;filter:blur(30px)}"
-  +   ".eb-fp-left .eb-fp-media .eb-fp-slides .eb-fp-slide.eb-fp-amb img{position:relative;object-fit:contain !important;background:transparent !important}"
   // Colonne texte : toute la largeur, avec des marges confortables
   +   ".eb-fp-content{padding:90px 64px 80px;max-width:none}"
   +   ".eb-fp-content > *:not(.eb-fp-exp){max-width:640px;margin-left:auto;margin-right:auto}"
@@ -283,7 +280,7 @@
       var prix = String(data.prix || '').replace(/[^0-9,\.]/g, '').replace(',', '.');
       var images = ((data.media && data.media.images) || []).slice();
       // la photo d'ambiance (dernière de la fiche) passe en premier pour Google
-      var amb = images.filter(function(u){ return /-ambiance\.jpg/.test(u); });
+      var amb = images.filter(function(u){ return /-ambiance(-v\d+)?\.jpg/.test(u); });
       if(amb.length) images = amb.concat(images.filter(function(u){ return amb.indexOf(u) < 0; }));
       var produit = { '@context': 'https://schema.org', '@type': 'Product', name: s.nomProduit || data.nom, description: s.description,
         image: images, brand: { '@type': 'Brand', name: 'ELKHA.B' }, url: s.adresse };
@@ -535,10 +532,8 @@
       if(/\.mp4(\?|$)/i.test(src)){
         h += '<div class="eb-fp-slide"><video muted loop playsinline preload="metadata" src="' + esc(src) + '"></video></div>';
       } else {
-        // photo d'ambiance d'un coffret très large (Nouvelle Aube) : sur ordinateur, affichée en entier
-        // sur un fond flouté de la même photo, pour ne pas couper le coffret
-        var amb = /nouvelle-aube-ambiance\.jpg/.test(src);
-        h += '<div class="eb-fp-slide' + (amb ? ' eb-fp-amb' : '') + '"' + (amb ? ' style="--eb-amb:url(\'' + esc(src) + '\')"' : '') + '><img src="' + esc(hd(src, 1600)) + '" alt="' + esc(nom) + (amb ? ' – coffret cadeau des fêtes' : '') + '"></div>';
+        var amb = /-ambiance(-v\d+)?\.jpg/.test(src);   // photo d'ambiance des fêtes : texte alternatif plus précis pour Google
+        h += '<div class="eb-fp-slide"><img src="' + esc(hd(src, 1600)) + '" alt="' + esc(nom) + (amb ? ' – coffret cadeau des fêtes' : '') + '"></div>';
       }
     });
     h += '</div><div class="eb-fp-dots">';
@@ -550,7 +545,6 @@
   function remplirSiFond(){
     if(!window.EB_MEDIA_PLEIN || !window.matchMedia('(min-width:900px)').matches) return;
     overlay.querySelectorAll('.eb-fp-left .eb-fp-media img:not(.eb-fp-poster)').forEach(function(img){
-      if(img.closest('.eb-fp-amb')) return;   // photo d'ambiance : toujours entière
       var t = new Image(); t.crossOrigin = 'anonymous';
       t.onload = function(){
         try {
