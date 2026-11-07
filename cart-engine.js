@@ -379,6 +379,17 @@ const CART_FIELDS = `
   }
 `;
 
+// ── Une seule modification du panier à la fois ──
+// Shopify peut refuser deux changements simultanés sur le même panier (ex. le Skin ID ajoute ses soins
+// pendant que l'échantillon offert se met à jour) : chaque modification attend que la précédente soit finie.
+let ebCartFile = Promise.resolve();
+function ebEnFile(fn){
+  const p = ebCartFile.then(fn, fn);
+  ebCartFile = p.then(function(){}, function(){});
+  return p;
+}
+let ebDernierPanier = null;   // le panier le plus récent reçu de Shopify
+
 async function ebCartCreate(variantId, quantity){
   const mutation = `mutation cartCreate($input: CartInput!) {
     cartCreate(input: $input) { cart { ${CART_FIELDS} } userErrors { field message } }
@@ -414,8 +425,19 @@ async function ebCartAddLine(variantId, quantity){
   const cart = result && result.data && result.data.cartLinesAdd && result.data.cartLinesAdd.cart;
 
   if(!cart){
-    console.error('ELKHA.B panier — échec ajout à un panier existant, on en recrée un', result);
-    // Le panier stocké n'existe plus côté Shopify (expiré ou invalide) : on en recrée un
+    // Avant de repartir d'un panier neuf (ce qui ferait perdre les soins déjà ajoutés),
+    // on vérifie que le panier n'existe vraiment plus ; s'il existe, on réessaie l'ajout
+    const existe = await ebCartFetch();
+    if(existe){
+      if(ebCartAddLine.essai !== true){
+        ebCartAddLine.essai = true;
+        await new Promise(function(r){ setTimeout(r, 500); });
+        try { return await ebCartAddLine(variantId, quantity); } finally { ebCartAddLine.essai = false; }
+      }
+      console.error('ELKHA.B panier — Shopify a refusé l\'ajout deux fois', result);
+      return null;
+    }
+    console.error('ELKHA.B panier — le panier n\'existe plus, on en crée un nouveau', result);
     cartId = null;
     ebCartOublier();
     return ebCartCreate(variantId, quantity);
@@ -474,7 +496,8 @@ async function ebCartFetch(){
   return result.data && result.data.cart;
 }
 
-async function ebCartAddItem(variantId, quantity){
+function ebCartAddItem(variantId, quantity){ return ebEnFile(function(){ return ebCartAddItemDirect(variantId, quantity); }); }
+async function ebCartAddItemDirect(variantId, quantity){
   quantity = quantity || 1;
   try {
     let cart;
@@ -599,7 +622,12 @@ function ebCartEchantillonZone(cart){
       : '<b>Un échantillon vous attend</b>' + nom + ' vous est offert dès votre deuxième soin.') + '</span>';
 }
 let ebEchEnCours = false;
-async function ebEchantillonSync(cart){
+function ebEchantillonSync(cart){
+  if(ebEchEnCours || !cart) return;
+  ebEchEnCours = true;
+  ebEnFile(function(){ ebEchEnCours = false; return ebEchantillonSyncDirect(ebDernierPanier || cart); });
+}
+async function ebEchantillonSyncDirect(cart){
   if(ebEchEnCours || !cart) return;
   const e = ebEchantillonEtat(cart);
   const voulu = e.nb >= 2 && e.cle && EB_ECHANTILLONS[e.cle].variant ? EB_ECHANTILLONS[e.cle].variant : '';
@@ -651,13 +679,13 @@ function ebCartPromoZone(cart, reduction){
           btn.disabled = false; btn.textContent = 'Appliquer';
           return;
         }
-        const c = await ebCartSetCode([code]);
+        const c = await ebEnFile(function(){ return ebCartSetCode([code]); });
         const dc = c && (c.discountCodes || []).filter(function(d){ return d.code.toUpperCase() === code; })[0];
         if(c && dc && dc.applicable){
           champ.value = '';
           ebRenderCart(c);
         } else {
-          if(c){ const c2 = await ebCartSetCode([]); if(c2) ebRenderCart(c2); }
+          if(c){ const c2 = await ebEnFile(function(){ return ebCartSetCode([]); }); if(c2) ebRenderCart(c2); }
           err.textContent = 'Ce code n\'est pas valide ou ne s\'applique pas à votre panier.';
           err.style.display = 'block';
         }
@@ -670,7 +698,7 @@ function ebCartPromoZone(cart, reduction){
     btn.addEventListener('click', appliquer);
     champ.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); appliquer(); } });
     zone.querySelector('.eb-cart-promo-retirer').addEventListener('click', async function(){
-      const c = await ebCartSetCode([]);
+      const c = await ebEnFile(function(){ return ebCartSetCode([]); });
       if(c) ebRenderCart(c);
     });
   }
@@ -722,6 +750,7 @@ function ebCartStylePhotos(){
 
 function ebRenderCart(cart, attemptsLeft){
   attemptsLeft = attemptsLeft === undefined ? 15 : attemptsLeft;
+  if(cart) ebDernierPanier = cart;
   const countEl = document.getElementById('ebCartCount');
   const itemsEl = document.getElementById('ebCartItems');
   const totalEl = document.getElementById('ebCartTotal');
@@ -738,6 +767,7 @@ function ebRenderCart(cart, attemptsLeft){
 
   const qty = cart ? cart.lines.edges.reduce(function(n, e){ return n + (ebEchEstEchantillon(e.node.merchandise) ? 0 : e.node.quantity); }, 0) : 0;
   countEl.textContent = qty;
+  try { document.dispatchEvent(new CustomEvent('eb-panier', { detail: window.ebCartVariantes() })); } catch(e){}
   countEl.style.display = qty > 0 ? 'flex' : 'none';
 
   if(!cart || qty === 0){
@@ -791,14 +821,23 @@ function ebRenderCart(cart, attemptsLeft){
   ebEchantillonSync(cart);
 }
 
-window.ebCartRemoveClick = async function(lineId, currentQuantity){
-  const cart = currentQuantity > 1
-    ? await ebCartUpdateLineQuantity(lineId, currentQuantity - 1)
-    : await ebCartRemoveLine(lineId);
-  if(cart){ ebRenderCart(cart); }
+window.ebCartRemoveClick = function(lineId, currentQuantity){
+  return ebEnFile(async function(){
+    const cart = currentQuantity > 1
+      ? await ebCartUpdateLineQuantity(lineId, currentQuantity - 1)
+      : await ebCartRemoveLine(lineId);
+    if(cart){ ebRenderCart(cart); }
+  });
 };
 
 window.ebCartAddItem = ebCartAddItem;
+// les soins présents dans le panier (identifiants de variantes, sans l'échantillon offert)
+window.ebCartVariantes = function(){
+  const c = ebDernierPanier;
+  if(!c || !c.lines) return [];
+  return c.lines.edges.filter(function(e){ return !ebEchEstEchantillon(e.node.merchandise); })
+    .map(function(e){ return String(e.node.merchandise.id).split('/').pop(); });
+};
 
 function ebWaitForCartUI(callback, attemptsLeft){
   attemptsLeft = attemptsLeft === undefined ? 25 : attemptsLeft;

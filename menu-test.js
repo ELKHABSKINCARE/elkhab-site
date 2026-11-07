@@ -9,7 +9,7 @@
 (function(){
 
 /* ─── Skin ID : le nouveau diagnostic s'ouvre par-dessus la page (skin-id-engine.js) ─── */
-var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=7";
+var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=8";
 /* ─── Recherche : la nouvelle version (même panneau que le panier) remplace l'ancienne ─── */
 (function(){ if(document.querySelector('script[data-eb-recherche]')) return; var s=document.createElement('script'); s.src="https://elkhabskincare.github.io/elkhab-site/recherche-engine.js?v=3"; s.async=true; s.setAttribute('data-eb-recherche','1'); (document.head||document.documentElement).appendChild(s); })();
 function chargerSkinId(fait){

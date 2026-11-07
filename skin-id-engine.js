@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 7,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 8,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -29,20 +29,24 @@
     + '#eb-sid.on{opacity:1;visibility:visible;transition:opacity .45s ease}'
     + '#eb-sid iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:#000;opacity:0;transition:opacity .5s ease}'
     + '#eb-sid.pret iframe{opacity:1}'
+    // iPhone : le Skin ID commence sous la barre du haut (heure, encoche), sa croix reste toujours visible
+    + '#eb-sid iframe{top:env(safe-area-inset-top,0px);height:calc(100% - env(safe-area-inset-top,0px))}'
     + '#eb-sid .eb-sid-att{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#f6f4f0;font-family:Montserrat,sans-serif;pointer-events:none;transition:opacity .4s}'
     + '#eb-sid.pret .eb-sid-att{opacity:0}'
     + '#eb-sid .eb-sid-att b{font-size:30px;font-weight:800;letter-spacing:.18em;padding-left:.18em}'
     + '#eb-sid .eb-sid-att i{display:block;width:120px;height:1px;background:rgba(246,244,240,.18);position:relative;overflow:hidden}'
     + '#eb-sid .eb-sid-att i:after{content:"";position:absolute;top:0;left:-40%;width:40%;height:1px;background:#e9a9a6;animation:ebSidCharge 1.2s ease-in-out infinite}'
     + '@keyframes ebSidCharge{to{left:100%}}'
-    + '#eb-sid .eb-sid-x{position:absolute;top:19px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);color:#f6f4f0;font-size:20px;line-height:1;cursor:pointer;transition:opacity .3s}'
+    + '#eb-sid .eb-sid-x{position:absolute;top:calc(19px + env(safe-area-inset-top,0px));right:16px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);color:#f6f4f0;font-size:20px;line-height:1;cursor:pointer;transition:opacity .3s}'
     + '#eb-sid.pret .eb-sid-x{opacity:0;pointer-events:none}'
     // le sac du panier : sur le bilan, dès qu'il y a quelque chose dedans
-    + '#eb-sid .eb-sid-sac{position:absolute;z-index:2;top:19px;right:64px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s linear .35s}'
+    + '#eb-sid .eb-sid-sac{position:absolute;z-index:2;top:calc(19px + env(safe-area-inset-top,0px));right:64px;width:38px;height:38px;border-radius:50%;border:1px solid rgba(246,244,240,.28);background:rgba(20,20,20,.55);display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;opacity:0;visibility:hidden;transition:opacity .35s,visibility 0s linear .35s}'
     + '#eb-sid.fin.plein .eb-sid-sac{opacity:1;visibility:visible;transition:opacity .35s}'
+    // téléphone : quand le bilan défile, sa bande du rituel (avec son propre bouton panier) prend le haut de l'écran : le sac s'efface pour ne pas la recouvrir
+    + '#eb-sid.fin.plein.bande .eb-sid-sac{opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s linear .25s}'
     + '#eb-sid .eb-sid-sac svg{width:20px;height:20px;display:block}'
     + '#eb-sid .eb-sid-sac span{position:absolute;top:-4px;right:-5px;min-width:18px;height:18px;padding:0 4px;border-radius:20px;background:#f6f4f0;color:#000;font:600 9.5px Montserrat,sans-serif;display:flex;align-items:center;justify-content:center;box-sizing:border-box}'
-    + '@media (min-width:900px){#eb-sid .eb-sid-sac{top:22px;right:78px}}'
+    + '@media (min-width:900px){#eb-sid .eb-sid-sac{top:calc(22px + env(safe-area-inset-top,0px));right:78px}}'
     + 'html.eb-sid-ouvert,html.eb-sid-ouvert body{overflow:hidden!important}'
     // le panier du site s'ouvre par-dessus le Skin ID (comme au-dessus des fiches) : fond plus opaque sur le fond sombre
     + 'html.eb-sid-ouvert #ebCartPanel{background:rgba(246,244,240,.96)!important}';
@@ -96,12 +100,28 @@
   // ── Panier : les soins du rituel, un par un, dans le panier du site
   function panier(liste, rep){
     if(typeof window.ebCartAddItem !== 'function'){ rep(false); return; }
-    var ok = true, k = 0;
+    // seulement les soins qui ne sont pas déjà dans le panier (un « Réessayer » ne double jamais un soin)
+    var deja = typeof window.ebCartVariantes === 'function' ? window.ebCartVariantes() : [];
+    var aAjouter = liste.filter(function(v){ return deja.indexOf(v) < 0; }), k = 0;
     (function suivant(){
-      if(k >= liste.length){ rep(ok); return; }
-      window.ebCartAddItem(liste[k++], 1).then(function(c){ if(!c) ok = false; suivant(); }, function(){ ok = false; suivant(); });
+      if(k >= aAjouter.length){
+        var dans = typeof window.ebCartVariantes === 'function' ? window.ebCartVariantes() : null;
+        rep(dans ? liste.every(function(v){ return dans.indexOf(v) >= 0; }) : true); return;
+      }
+      var v = aAjouter[k++], essai = 0;
+      (function ajoute(){
+        window.ebCartAddItem(v, 1).then(function(c){ if(!c && essai++ < 1) return setTimeout(ajoute, 700); suivant(); },
+                                         function(){ if(essai++ < 1) return setTimeout(ajoute, 700); suivant(); });
+      })();
     })();
   }
+  // le Skin ID sait toujours ce qu'il y a dans le panier : ses boutons « Ajouté » suivent (retrait d'un soin, panier vidé…)
+  function etatPanier(){
+    if(!canal || typeof window.ebCartVariantes !== 'function') return false;
+    canal.postMessage({ eb: 'skin-id', type: 'panier-etat', variantes: window.ebCartVariantes() });
+    return true;
+  }
+  document.addEventListener('eb-panier', function(){ etatPanier(); });
 
   // ── Le panier du site s'ouvre par-dessus le Skin ID : en le refermant, la cliente retrouve son bilan
   function voirPanier(){
@@ -125,7 +145,7 @@
   function majSac(){
     if(!boite) return;
     var src = document.getElementById('ebCartCount'), n = src ? (parseInt(src.textContent, 10) || 0) : 0;
-    if(dernierN !== null && n < dernierN && canal) canal.postMessage({ eb: 'skin-id', type: 'panier-moins', n: n });
+    if(!etatPanier() && dernierN !== null && n < dernierN && canal) canal.postMessage({ eb: 'skin-id', type: 'panier-moins', n: n });
     dernierN = n;
     boite.querySelector('.eb-sid-sac span').textContent = n;
     boite.classList.toggle('plein', n > 0);
@@ -156,7 +176,8 @@
     if(d.type === 'pret'){ pret = true; boite.classList.add('pret'); }
     else if(d.type === 'fermer') fermer();
     else if(d.type === 'bilan') garderBilan(d.rep || null);
-    else if(d.type === 'ecran'){ boite.classList.toggle('fin', !!d.fin); majSac(); }
+    else if(d.type === 'ecran'){ boite.classList.toggle('fin', !!d.fin); if(!d.fin) boite.classList.remove('bande'); majSac(); }
+    else if(d.type === 'bande') boite.classList.toggle('bande', !!d.on);
     else if(d.type === 'voir-panier') voirPanier();
     else if(d.type === 'fiche' && d.id) fiche(String(d.id));
     else if(d.type === 'panier' && d.variantes) panier(d.variantes.map(String), function(ok){
@@ -192,5 +213,15 @@
   window.addEventListener('load', function(){ window.ebDiagOpen = ouvrir; });
   if(/[?&]skinid\b/.test(location.search) || /^#skin-?id$/.test(location.hash)){
     if(document.body) ouvrir(); else document.addEventListener('DOMContentLoaded', ouvrir);
+    // l'adresse est nettoyée : une page actualisée, un favori ou la saisie automatique ne rouvrent pas le Skin ID tout seuls
+    try{
+      var u = new URL(location.href); u.searchParams.delete('skinid'); if(/^#skin-?id$/.test(u.hash)) u.hash = '';
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    }catch(e){}
   }
+  // Safari (iPhone surtout) peut ressortir une page de sa mémoire avec le Skin ID encore ouvert :
+  // on le referme, la cliente retrouve la page ; en le rouvrant, elle reprend là où elle en était
+  window.addEventListener('pageshow', function(e){
+    if(e.persisted && boite && boite.classList.contains('on')){ fermerPanier(); fermer(); }
+  });
 })();
