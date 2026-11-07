@@ -107,6 +107,7 @@
   + ".ens-cal.ok{opacity:1}"
   + ".ens-cal img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}"
   + ".ens-ban.ens-avec-photos .ens-bimg{opacity:0}"
+  + ".ens-ban.ens-avec-photos{background:" + REGLAGES.fondSite + "}"   // plus de fond rosé de l'ancienne photo : le beige du site en attendant la photo
   + ".ens-cal.portrait img{left:auto;right:0;width:auto;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
   + ".ens-ban.ens-photo .ens-plein{opacity:1}"
   + ".ens-ban.ens-direct .ens-plein,.ens-ban.ens-direct .ens-cal{transition:none}"
