@@ -96,12 +96,15 @@
   // photo entière (pas de zoom), à droite ; à gauche, le dégradé reprend exactement les couleurs du bord de la photo
   + ".ens-ban{position:relative;height:clamp(560px,44vw,740px);display:flex;overflow:hidden;background:linear-gradient(180deg,rgb(229,198,188) 0%,rgb(213,179,167) 10%,rgb(213,180,165) 20%,rgb(212,178,166) 30%,rgb(210,178,165) 40%,rgb(209,177,164) 50%,rgb(206,172,160) 60%,rgb(219,192,182) 70%,rgb(221,192,180) 80%,rgb(209,178,164) 90%,rgb(191,161,150) 100%)}"
   + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
-  + ".ens-plein{position:absolute;inset:0;z-index:1;background:var(--ens-fond," + REGLAGES.fondSite + ");opacity:0;transition:opacity .5s ease;pointer-events:none}"
-  + ".ens-plein img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0;transition:opacity .5s ease}"
-  + ".ens-plein img.ok{opacity:1}"
-  + ".ens-plein.portrait img{left:auto;right:0;width:auto;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
+  // deux calques de photo qui se fondent l'un dans l'autre (la nouvelle photo n'apparaît qu'une fois chargée)
+  + ".ens-plein{position:absolute;inset:0;z-index:1;opacity:0;transition:opacity .6s ease;pointer-events:none}"
+  + ".ens-cal{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}"
+  + ".ens-cal.ok{opacity:1}"
+  + ".ens-cal img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover}"
+  + ".ens-ban.ens-avec-photos .ens-bimg{opacity:0}"
+  + ".ens-cal.portrait img{left:auto;right:0;width:auto;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
   + ".ens-ban.ens-photo .ens-plein{opacity:1}"
-  + ".ens-ban.ens-direct .ens-plein,.ens-ban.ens-direct .ens-plein img{transition:none}"
+  + ".ens-ban.ens-direct .ens-plein,.ens-ban.ens-direct .ens-cal{transition:none}"
   + ".ens-ban.ens-photo .ens-bt{flex:0 0 48%;max-width:48%}"
   + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:" + REGLAGES.espaceMenu + "px 5% 0}"
   // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
@@ -117,14 +120,13 @@
   // téléphone : exactement comme la bannière Balance — photo sur toute la hauteur, fondu beige en bas (sans voile en haut : la photo garde ses couleurs), texte posé dessus
   + "@media(max-width:699px){.ens-ban{display:block;height:100vh;height:100svh;min-height:660px;max-height:900px;background:" + REGLAGES.fondSite + "}"
   +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
-  +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
+  +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%);transition:opacity .6s ease}"
   +   ".ens-bt{position:absolute;left:0;right:0;bottom:4%;max-width:none;margin:0;padding:0 32px;z-index:2}"
-  +   ".ens-plein{background:" + REGLAGES.fondSite + "}"
-  +   ".ens-plein img,.ens-plein.portrait img{left:0;right:auto;width:100%;aspect-ratio:auto;height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
+  +   ".ens-cal img,.ens-cal.portrait img{left:0;right:auto;width:100%;aspect-ratio:auto;height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
   // (telPlein : sur téléphone, la photo part du haut et descend sur telHaut de l'écran, avec un fondu très léger en bas seulement)
   // (sombreTel : sur téléphone, photo foncée sur fond noir → textes clairs)
-  +   ".ens-ban.ens-sombre .ens-plein{background:#111}.ens-ban.ens-sombre .ens-bn,.ens-ban.ens-sombre .ens-bm{color:#fff}#eb-ns .ens-ban.ens-sombre .ens-bk{color:#e9e3d9}.ens-ban.ens-sombre .ens-bt{text-shadow:0 1px 10px rgba(0,0,0,.55)}.ens-ban.ens-sombre .ens-bg{background:linear-gradient(90deg,#8f8676,#e9e3d9 45%,#fbfaf7)}"
-  +   ".ens-ban.ens-telplein .ens-plein img{height:var(--ens-telh,100%);-webkit-mask-image:linear-gradient(180deg,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 90%,transparent 100%)}.ens-ban.ens-telplein:after{display:none}"
+  +   ".ens-ban.ens-sombre .ens-bn,.ens-ban.ens-sombre .ens-bm{color:#fff}#eb-ns .ens-ban.ens-sombre .ens-bk{color:#e9e3d9}.ens-ban.ens-sombre .ens-bt{text-shadow:0 1px 10px rgba(0,0,0,.55)}.ens-ban.ens-sombre .ens-bg{background:linear-gradient(90deg,#8f8676,#e9e3d9 45%,#fbfaf7)}"
+  +   ".ens-cal.tp img{height:var(--ens-telh,100%);-webkit-mask-image:linear-gradient(180deg,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 90%,transparent 100%)}.ens-ban.ens-telplein:after{opacity:0}"
   +   ".ens-ban.ens-photo .ens-bt{max-width:none}"
   +   "#eb-ns .ens-bk{font-size:9px;color:#2a2723;margin:0 0 11px}"
   +   ".ens-bn{font-size:24px;letter-spacing:.28em;padding-left:.28em;line-height:1.3}"
@@ -227,32 +229,55 @@
 
   var ban = root.querySelector('.ens-ban');
   // calque de la photo propre au type (posé au-dessus de la photo de l'embed, sous le texte)
-  var plein = null;
+  var plein = null, cals = [], calA = 0, nPhoto = 0;
   if(ban && Object.keys(PHOTOS_TYPES).length){
-    plein = document.createElement('div'); plein.className = 'ens-plein'; plein.innerHTML = '<img alt="" decoding="async">';
+    plein = document.createElement('div'); plein.className = 'ens-plein';
+    plein.innerHTML = '<div class="ens-cal"><img alt="" decoding="async"></div><div class="ens-cal"><img alt="" decoding="async"></div>';
+    cals = [].slice.call(plein.children);
     var bt0 = ban.querySelector('.ens-bt'); ban.insertBefore(plein, bt0 || null);
-    window.addEventListener('load', function(){ var tel = window.innerWidth < 700; Object.keys(PHOTOS_TYPES).forEach(function(k){ var q = PHOTOS_TYPES[k], im = new Image(); im.src = (tel && q.photoTel) || q.photo; }); });
+    ban.classList.add('ens-avec-photos');
+    // les autres photos se chargent en avance, discrètement, une fois la page prête
+    window.addEventListener('load', function(){ var tel = window.innerWidth < 700; Object.keys(PHOTOS_TYPES).forEach(function(k){ var q = PHOTOS_TYPES[k], im = new Image(); im.decoding = 'async'; im.src = (tel && q.photoTel) || q.photo; }); });
   }
-  function photoType(type, direct){
-    if(!plein) return;
-    var p = PHOTOS_TYPES[type], img = plein.firstChild;
-    if(direct){ ban.classList.add('ens-direct'); setTimeout(function(){ ban.classList.remove('ens-direct'); }, 60); }
-    if(!p){ ban.classList.remove('ens-photo'); ban.classList.remove('ens-telplein'); ban.classList.remove('ens-sombre'); return; }
-    plein.classList.toggle('portrait', !!p.portrait);
-    ban.classList.toggle('ens-telplein', !!p.telPlein);
-    ban.classList.toggle('ens-sombre', !!p.sombreTel);
-    if(p.telHaut) plein.style.setProperty('--ens-telh', p.telHaut); else plein.style.removeProperty('--ens-telh');
-    if(p.fond) plein.style.setProperty('--ens-fond', p.fond); else plein.style.removeProperty('--ens-fond');
-    var tel = window.innerWidth < 700, url = (tel && p.photoTel) || p.photo;
+  function reglerCalque(cal, p, tel){
+    var img = cal.firstChild;
+    cal.classList.toggle('portrait', !!p.portrait);
+    cal.classList.toggle('tp', !!p.telPlein);
+    if(p.telHaut) cal.style.setProperty('--ens-telh', p.telHaut); else cal.style.removeProperty('--ens-telh');
+    cal.style.background = tel ? (p.sombreTel ? '#111' : REGLAGES.fondSite) : (p.fond || REGLAGES.fondSite);
     img.style.objectPosition = tel ? (p.cadrageTel || p.cadrage || '50% 50%') : (p.cadrage || '50% 50%');
     img.alt = p.alt || '';
-    if(img.getAttribute('data-u') !== url){
-      img.classList.remove('ok'); img.setAttribute('data-u', url);
-      img.onload = function(){ img.classList.add('ok'); };
-      img.src = url;
-      if(img.complete && img.naturalWidth) img.classList.add('ok');
+  }
+  // change la photo du type : la nouvelle photo est chargée en coulisse, puis photo + textes changent ensemble
+  function photoType(type, direct, pret, attente){
+    pret = pret || function(){};
+    if(!plein){ pret(); return; }
+    var p = PHOTOS_TYPES[type], n = ++nPhoto, tel = window.innerWidth < 700;
+    function appliquer(){
+      ban.classList.toggle('ens-telplein', !!(p && p.telPlein));
+      ban.classList.toggle('ens-sombre', !!(p && p.sombreTel));
+      ban.classList.toggle('ens-photo', !!p);
     }
-    ban.classList.add('ens-photo');
+    if(!p){ cals.forEach(function(c){ c.classList.remove('ok'); }); appliquer(); pret(); return; }
+    var url = (tel && p.photoTel) || p.photo, actif = cals[calA];
+    if(actif.getAttribute('data-u') === url && actif.classList.contains('ok')){ reglerCalque(actif, p, tel); appliquer(); pret(); return; }
+    var suivant = cals[1 - calA], img = suivant.firstChild, tMin = Date.now() + (attente || 0), fait = false;
+    suivant.classList.remove('ok'); suivant.style.zIndex = 1; actif.style.zIndex = 2;
+    reglerCalque(suivant, p, tel); suivant.setAttribute('data-u', url);
+    function montrer(){
+      if(fait || n !== nPhoto) return;
+      var reste = tMin - Date.now(); if(reste > 0){ setTimeout(montrer, reste); return; }
+      fait = true;
+      if(direct){ ban.classList.add('ens-direct'); setTimeout(function(){ ban.classList.remove('ens-direct'); }, 60); }
+      suivant.style.zIndex = 2; actif.style.zIndex = 1;
+      suivant.classList.add('ok'); appliquer(); calA = cals.indexOf(suivant);
+      setTimeout(function(){ if(cals[calA] !== actif) actif.classList.remove('ok'); }, 700);
+      pret();
+    }
+    img.onload = function(){ if(img.decode) img.decode().then(montrer, montrer); else montrer(); };
+    img.onerror = montrer;
+    if(img.getAttribute('src') !== url) img.src = url; else if(img.complete && img.naturalWidth) img.onload();
+    setTimeout(montrer, 1500);   // sécurité : si la photo tarde (réseau lent), on n'attend pas plus
   }
   // toute la page « Nos soins » prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
   function bordABord(){
@@ -386,14 +411,16 @@
     });
     barres();
     var nomT = (root.querySelector('.ens-tabs a[data-type="' + type + '"]') || {}).textContent || '';
-    photoType(type, !defiler); ajusterTitre();
     if(ban){
       var bn = ban.querySelector('.ens-bn'), bm = ban.querySelector('.ens-bm'), txt = (s.querySelector('.ens-txt') || {}).textContent || '';
-      if(bn && bn.textContent !== nomT){
-        ban.classList.add('change');
-        setTimeout(function(){ bn.textContent = nomT; ajusterTitre(); if(bm) bm.textContent = txt; ban.classList.remove('change'); }, bn.textContent ? 300 : 0);
-      }
-    }
+      var nouveau = bn && bn.textContent !== nomT, premier = bn && !bn.textContent;
+      if(nouveau && !premier) ban.classList.add('change');   // les textes s'effacent pendant que la photo se prépare
+      photoType(type, !defiler, function(){
+        if(actuel !== type) return;
+        if(nouveau){ bn.textContent = nomT; if(bm) bm.textContent = txt; }
+        ajusterTitre(); ban.classList.remove('change');       // photo et textes arrivent ensemble
+      }, nouveau && !premier ? 350 : 0);
+    } else { photoType(type, !defiler); }
     choix.innerHTML = esc(LIBELLE) + ' : <b>' + esc(nomT) + '</b><i>+</i>';
     drop.querySelectorAll('a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-type') === type); var o = root.querySelector('.ens-tabs a[data-type="' + a.getAttribute('data-type') + '"]'); a.classList.toggle('vide', !!(o && o.classList.contains('vide'))); });
     colorer();
