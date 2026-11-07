@@ -62,7 +62,8 @@
   (function attendre(n){
     root = document.getElementById('eb-ns');
     var suite = document.querySelectorAll('.eb-ns-suite .ens-s').length;
-    if(root && (suite || document.readyState === 'complete' || n <= 0)) return demarrer();
+    // on attend que tous les embeds de la page soient lus (la suite des soins peut être répartie sur plusieurs embeds)
+    if(root && ((suite && document.readyState !== 'loading') || document.readyState === 'complete' || n <= 0)) return demarrer();
     if(n > 0) setTimeout(function(){ attendre(n - 1); }, 100);
   })(40);
 
