@@ -16,6 +16,8 @@
     photoTelephoneHaut: "-10%",   // téléphone : remonte la photo de la bannière (les flacons au-dessus du texte, comme Balance)
     versionPhotos: 3,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
     typeParDefaut: "nettoyants",
+    // Types sans échelle de texture (pas de phrase « du plus léger au plus riche », pas de curseur sur le côté)
+    typesSansEchelle: ["protection", "masques"],
     // Fond de la bande des types (calme, dans les beiges du site)
     bande: "linear-gradient(90deg,#f8f6f1,#e2d9ca 55%,#c9bca7)",
     // Barre de texture (du plus léger au plus riche)
@@ -360,12 +362,20 @@
       var cartes = [].filter.call(grid.querySelectorAll('.ens-c'), function(c){ return !c.classList.contains('off'); });
       s.setAttribute('data-n', cartes.length);
       var deb = s.getAttribute('data-debut'), fin = s.getAttribute('data-fin');
+      if(REGLAGES.typesSansEchelle.indexOf(s.getAttribute('data-type')) > -1) deb = null;
       var phr = s.querySelector('.ens-phr'); if(phr) phr.style.display = (deb && cartes.length > 1) ? '' : 'none';
+      // le filtre Bloom / Balance n'a de sens que si les deux gammes sont présentes dans ce type
+      var gammes = {}; grid.querySelectorAll('.ens-c').forEach(function(c){ gammes[c.getAttribute('data-gamme')] = 1; });
+      s.setAttribute('data-total', grid.querySelectorAll('.ens-c').length);
+      s.setAttribute('data-gammes', Object.keys(gammes).length);
     });
+    var sOn = root.querySelector('.ens-s.on') || document.getElementById('ens-' + actuel);
+    var deux = !!(sOn && +sOn.getAttribute('data-gammes') > 1);
+    root.querySelectorAll('.ens-gm').forEach(function(g){ g.style.display = deux ? '' : 'none'; });
     if(window.ebNsEchelle) window.ebNsEchelle();
     root.querySelectorAll('.ens-tabs a').forEach(function(a){
       var s = document.getElementById('ens-' + a.getAttribute('data-type'));
-      a.classList.toggle('vide', !!(s && s.getAttribute('data-n') === '0'));
+      a.classList.toggle('vide', !!(s && s.getAttribute('data-total') === '0'));
     });
   }
 
@@ -400,9 +410,17 @@
     if(sombre(tBande(.5))){ choix.style.color = REGLAGES.fondSite; } else choix.style.color = '';
   }
   var navT = root.querySelector('.ens-tabs'); if(navT) navT.addEventListener('scroll', colorer, { passive: true });
+  // le filtre Bloom / Balance revient sur « Tout voir » (tout montrer)
+  function filtreTout(){
+    root.querySelectorAll('.ens-c.off').forEach(function(c){ c.classList.remove('off'); });
+    var bs = root.querySelectorAll('.ens-gm button');
+    bs.forEach(function(x){ x.classList.toggle('on', !x.getAttribute('data-g')); });
+  }
   function afficher(type, defiler){
     var s = document.getElementById('ens-' + type);
-    if(!s || s.getAttribute('data-n') === '0'){ s = secs.filter(function(x){ return x.getAttribute('data-n') !== '0'; })[0]; if(!s) return; type = s.getAttribute('data-type'); }
+    // nouveau type, ou plus aucun soin avec le filtre choisi : on repart de « Tout voir » (jamais de saut vers un autre type)
+    if(s && (type !== actuel || s.getAttribute('data-n') === '0') && root.querySelector('.ens-c.off')){ filtreTout(); barres(); }
+    if(!s || s.getAttribute('data-total') === '0'){ s = secs.filter(function(x){ return x.getAttribute('data-n') !== '0'; })[0]; if(!s) return; type = s.getAttribute('data-type'); }
     actuel = type;
     secs.forEach(function(x){ x.classList.toggle('on', x === s); });
     root.querySelectorAll('.ens-tabs a').forEach(function(a){
@@ -628,7 +646,7 @@
   // les rangées de la page affichée : les vignettes visibles, regroupées par ligne
   function lireRangs(){
     rangs = []; secR = root.querySelector('.ens-s.on');
-    if(!secR || !secR.getAttribute('data-debut')) return;
+    if(!secR || !secR.getAttribute('data-debut') || REGLAGES.typesSansEchelle.indexOf(secR.getAttribute('data-type')) > -1) return;
     var cartes = [].filter.call(secR.querySelectorAll('.ens-grid .ens-c'), function(c){ return !c.classList.contains('off') && c.offsetParent; });
     var haut = null;
     cartes.forEach(function(c){ var t = c.offsetTop; if(haut === null || Math.abs(t - haut) > 20){ rangs.push([]); haut = t; } rangs[rangs.length - 1].push(c); });
