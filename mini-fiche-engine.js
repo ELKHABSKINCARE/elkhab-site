@@ -101,6 +101,26 @@
       pour: 'Idéale pour les premières rides et ridules, tous types de peau, même sensibles.',
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
     },
+    'cellular-reveal': {
+      gamme: 'balance', type: 'Sérum lissant', ligne: 'cellular',
+      photo: 'mf-cellular-reveal.webp', net: true, cm: 10.5,
+      sous: 'Alternative végétale au rétinol<br>Myrte rose · 30 ml',   // sous le nom (à la place du sous-titre du site)
+      eng: ['99 % d’origine naturelle', '24 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Enfin une alternative au rétinol, <b>pour les peaux sensibles et les premiers pas</b>.',
+      // résultats des études Selfnamed (laboratoire indépendant) : [pourcentage, texte]
+      resultats: [
+        [85, 'L’aspect général de la peau <b>amélioré</b>'],
+        [70, 'Des ridules <b>moins visibles</b>'],
+        [85, 'Une peau plus <b>lisse</b> et une texture <b>affinée</b>'],
+        [90, 'Une peau <b>hydratée</b> toute la journée'],
+        [90, 'Une peau <b>instantanément apaisée</b>']
+      ],
+      pourquoi: [
+        'Une alternative végétale au rétinol agit sur les ridules et le grain de peau, sans brusquer les peaux sensibles qui ne tolèrent pas le rétinol.',
+        'L’aloe vera, le jojoba et l’acide hyaluronique hydratent, et la myrte rose aide la peau à se protéger des agressions.'
+      ],
+      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 13 € par mois.'
+    },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
@@ -161,6 +181,18 @@
         'Ensemble, ils unifient le teint et révèlent une peau plus lumineuse, tout en maintenant l’hydratation.'
       ] }
   ];
+
+  /* ─── Les lignes mises en avant (structure de fiche enrichie) ─── */
+  var LIGNES = {
+    cellular: {
+      badge: 'LA LIGNE CELLULAR', titre: 'LA ROUTINE CELLULAR',
+      etude: 'Pourcentage de femmes ayant constaté le résultat. Étude menée par un laboratoire indépendant sur 21 femmes, pendant 8 semaines.',
+      routine: 'routine-essentielle',   // les 3 soins ensemble (99 €)
+      // [soin, ce que c'est, hauteur réelle en cm] — les vignettes gardent les vraies proportions
+      soins: [['cellular-reveal', 'Sérum · 30 ml', 10.5], ['cellular-renew', 'Crème · 50 ml', 14.5], ['cellular-eye-restore', 'Yeux · 15 ml', 7.5]],
+      courts: { 'cellular-eye-restore': 'Eye Restore' }
+    }
+  };
 
   var ids = ((new URLSearchParams(location.search)).get('mini') || '').split(',')
     .map(function(s){ return s.trim(); }).filter(Boolean).slice(0, 3);
@@ -284,6 +316,28 @@
   + '#ebmf .mf-chs.tx{grid-template-columns:repeat(4,1fr)}'
   + '#ebmf .mf-chs.tx button.mf-ch{flex-direction:column;align-items:stretch;gap:7px;padding:5px 5px 8px;text-align:center;letter-spacing:.12em;font-size:8.5px}'
   + '#ebmf .mf-tx{display:block;width:100%;aspect-ratio:1/1;background:#efece6 center/cover no-repeat}'
+  + '#ebmf .mf-badge{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.3em;color:#fff;padding:6px 10px;border-radius:4px;margin:0 0 12px}'
+  + '#ebmf .mf-acc2{font-size:19px;margin:16px 0 4px}'
+  + '#ebmf .mf-etu{font-size:13px;font-weight:700;margin:0 0 4px}'
+  + '#ebmf .mf-res>div{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid rgba(0,0,0,.08);padding:9px 0;font-size:13.5px;line-height:1.35}'
+  + '#ebmf .mf-res i{font-style:normal;font-size:12px;font-weight:800;width:42px;flex:none}'
+  + '#ebmf .mf-src{font-size:9.5px;font-style:italic;color:#8a8278;line-height:1.45;margin:8px 0 0}'
+  + '#ebmf .mf-pq p{font-size:12px;line-height:1.55;color:#2a2622;margin:0 0 8px}'
+  + '#ebmf .mf-rt{background:#fff;border:1px solid rgba(0,0,0,.07);border-radius:16px;padding:14px}'
+  + '#ebmf .mf-rvs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}'
+  + '#ebmf .mf-rv{text-align:center}'
+  + '#ebmf .mf-rv[data-mf-soin]{cursor:pointer}'
+  + '#ebmf .mf-rim{aspect-ratio:3/4;border-radius:10px;background:#f5f4f0;overflow:hidden;position:relative;border:1.5px solid transparent;box-sizing:border-box}'
+  + '#ebmf .mf-rv.on .mf-rim{border-color:#111}'
+  + '#ebmf .mf-rim img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 95%}'
+  + '#ebmf .mf-rv b{display:block;font-size:8px;font-weight:700;letter-spacing:.12em;margin-top:7px;line-height:1.35}'
+  + '#ebmf .mf-rv em{display:block;font-style:normal;font-size:8.5px;color:#8a8278;margin-top:2px}'
+  + '#ebmf .mf-rt p{font-size:12px;line-height:1.5;margin:12px 0}'
+  + '#ebmf button.mf-b2{width:100%;display:flex;justify-content:space-between;align-items:center;height:48px;margin:0;padding:0 16px;background:transparent;color:#111;border:1.5px solid #111;border-radius:0;font:700 9.5px Montserrat,sans-serif;letter-spacing:.2em;cursor:pointer;-webkit-appearance:none;appearance:none}'
+  + '#ebmf .mf-eco{font-size:10.5px;color:#7a7268;text-align:center;margin-top:8px}'
+  + '#ebmf .mf-eco s{color:#8a8278}'
+  + '#ebmf .mf-coll{position:sticky;bottom:calc(-24px - env(safe-area-inset-bottom));margin:0 -22px calc(-24px - env(safe-area-inset-bottom));padding:12px 22px calc(14px + env(safe-area-inset-bottom));background:#f6f4f0;border-top:1px solid rgba(0,0,0,.06);z-index:2}'
+  + '#ebmf .mf-coll .mf-c{margin-top:10px}'
   + '#ebmf .mf-pour{font-size:11.5px;font-style:italic;color:#6b645b;margin:-2px 0 10px;line-height:1.5}'
   + '#ebmf button.mf-b.off{background:#e4dfd7;border-color:#e4dfd7;color:#7a7268}'
   + '#ebmf button.mf-b1.off{border-color:rgba(0,0,0,.25);color:#7a7268}'
@@ -349,8 +403,47 @@
       + v.map(function(x, i){ return '<button type="button" class="mf-ch' + (i === p.sel ? ' on' : '') + '" data-choix="' + p.i + ':' + i + '">' + (x.texture ? '<span class="mf-tx" style="background-image:url(' + (/^https?:/.test(x.texture) ? x.texture + '&width=240' : BASE + x.texture) + ')"></span>' : '<i style="background:' + x.couleur + '"></i>') + '<b>' + esc(x.label.toUpperCase()) + '</b></button>'; }).join('')
       + '</div>';
   }
+  function blocLigne(p){
+    var m = p.m, d = p.d, L = LIGNES[m.ligne], P = window.EB_PRODUITS || {}, vert = COULEUR[m.gamme];
+    var h = '<div class="mf-badge" style="background:' + vert + '">' + esc(L.badge) + '</div>'
+      + '<div class="mf-haut"><div class="mf-ph mf-net"><img src="' + photoDe(p) + '" alt="' + esc(d.nom) + ' ELKHA.B"></div><div>'
+      + '<div class="mf-g" style="color:' + vert + '">' + esc((m.gamme === 'balance' ? 'Balance' : 'Bloom').toUpperCase() + ' · ' + m.type.toUpperCase()) + '</div>'
+      + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span></div>'
+      + '<div class="mf-s">' + (m.sous || esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '')) + '</div></div></div>'
+      + '<div class="mf-eng">' + m.eng.map(function(e){ return '<span>' + insec(e) + '</span>'; }).join('') + '</div>'
+      + '<div class="mf-acc mf-acc2">' + m.accroche + '</div>'
+      + '<div class="mf-tl">LES RÉSULTATS</div>'
+      + '<div class="mf-etu" style="color:' + vert + '">Les études ont montré :</div>'
+      + '<div class="mf-res">' + m.resultats.map(function(r){ return '<div><i style="color:' + vert + '">' + r[0] + '\u00a0%</i><span>' + r[1] + '</span></div>'; }).join('') + '</div>'
+      + '<div class="mf-src">' + esc(L.etude) + '</div>'
+      + '<div class="mf-tl">POURQUOI ÇA MARCHE</div>'
+      + '<div class="mf-pq">' + m.pourquoi.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('') + '</div>';
+    // la routine complète
+    var R = P[L.routine], autres = L.soins.filter(function(s){ return s[0] !== p.id && P[s[0]]; });
+    var hMax = Math.max.apply(null, L.soins.map(function(s){ return s[2]; }));
+    var somme = L.soins.reduce(function(t, s){ return t + (P[s[0]] ? nb(P[s[0]].prix) : 0); }, 0);
+    h += '<div class="mf-tl">' + esc(L.titre) + '</div><div class="mf-rt"><div class="mf-rvs">'
+      + L.soins.map(function(s){
+          var x = P[s[0]]; if(!x) return '';
+          var nom = (L.courts[s[0]] || x.nom).toUpperCase();
+          return '<div class="mf-rv' + (s[0] === p.id ? ' on' : '') + '"' + (s[0] !== p.id && MINI[s[0]] ? ' data-mf-soin="' + s[0] + '" role="button" tabindex="0"' : '') + '><div class="mf-rim"><img src="' + BASE + 'mf-' + s[0] + '.webp" style="transform:scale(' + (s[2] / hMax) + ')" alt="' + esc(x.nom) + ' ELKHA.B" loading="lazy"></div>'
+            + '<b>' + esc(nom) + '</b><em>' + esc(s[1]) + '</em></div>';
+        }).join('') + '</div>'
+      + '<p>Associé à ' + autres.map(function(s){ return '<b>' + esc(P[s[0]].nom) + '</b>'; }).join(' et ') + ', vous avez une routine rapide et efficace, pour une évolution de peau remarquée.</p>';
+    if(R && R.variantId){
+      var prixR = nb(R.prix);
+      h += '<button type="button" class="mf-b2" data-routine="' + R.variantId + '"><span>AJOUTER LA ROUTINE COMPLÈTE</span><span>' + euros(prixR) + '</span></button>'
+        + '<div class="mf-eco">' + (somme - prixR >= 1 ? 'au lieu de <s>' + euros(somme) + '</s> · ' : '') + (prixR >= SEUIL_LIVRAISON ? '<b>livraison offerte</b>' : 'livraison offerte dès ' + SEUIL_LIVRAISON + '\u00a0€') + '</div>';
+    }
+    h += '</div><div class="mf-dur" style="margin-top:16px">' + insec(m.duree) + '</div>'
+      + '<div class="mf-coll"><button type="button" class="mf-b" data-ajout="' + p.i + '"><span>AJOUTER ' + (/crème/i.test(m.type) ? 'LA CRÈME' : /yeux/i.test(m.type) ? 'LE SÉRUM' : 'LE SÉRUM') + '</span><span>' + euros(nb(d.prix)) + '</span></button>'
+      + '<div class="mf-c"><button type="button" class="mf-lien" data-mf-fiche="' + esc(p.id) + '">VOIR LA FICHE COMPLÈTE</button></div></div>';
+    return h;
+  }
+
   function blocProduit(p, multi){
     var m = p.m, d = p.d;
+    if(!multi && m.ligne && LIGNES[m.ligne]) return blocLigne(p);
     var tete = '<div class="mf-g" style="color:' + COULEUR[m.gamme] + '">' + esc((m.gamme === 'balance' ? 'Balance' : 'Bloom').toUpperCase() + ' · ' + m.type.toUpperCase()) + '</div>'
       + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span>' + (multi ? '<span class="mf-np">' + euros(nb(d.prix)) + '</span>' : '') + '</div>'
       + '<div class="mf-s">' + esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '') + '</div>';
@@ -360,7 +453,8 @@
       + choixHTML(p)
       + '<div class="mf-acc">' + m.accroche + '</div>'
       + (m.pour ? '<div class="mf-pour">' + esc(m.pour) + '</div>' : '')
-      + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + COULEUR[m.gamme] + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
+      + (m.points ? '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + COULEUR[m.gamme] + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
+        : '<div class="mf-etu" style="color:' + COULEUR[m.gamme] + '">Les études ont montré :</div><div class="mf-res">' + m.resultats.map(function(r){ return '<div><i style="color:' + COULEUR[m.gamme] + '">' + r[0] + '\u00a0%</i><span>' + r[1] + '</span></div>'; }).join('') + '</div><div class="mf-src">' + esc(LIGNES[m.ligne].etude) + '</div>')
       + '<div class="mf-dur">' + insec(m.duree) + '</div>';
     if(multi){
       h += '<div class="mf-l2"><button type="button" class="mf-b1' + (varianteId(p) ? '' : ' off') + '" data-ajout="' + p.i + '"><span>' + (varianteId(p) ? 'AJOUTER CE SOIN' : 'CHOISIR') + '</span><span>' + euros(nb(d.prix)) + '</span></button><button type="button" class="mf-lien" data-mf-fiche="' + esc(p.id) + '">FICHE COMPLÈTE</button></div>';
@@ -463,12 +557,18 @@
     document.body.appendChild(voile); document.body.appendChild(panneau);
     voile.addEventListener('click', fermer);
     panneau.addEventListener('click', function(e){
-      var t = e.target.closest('button, [data-vg]'); if(!t) return;
+      var t = e.target.closest('button, [data-vg], [data-mf-soin]'); if(!t) return;
       if(t.classList.contains('mf-x')) return fermer();
       if(t.hasAttribute('data-vg')){
         actif = +t.getAttribute('data-vg');
         dessiner();
         suivreVue(produits[actif].id, produits[actif].d);
+        return;
+      }
+      if(t.hasAttribute('data-routine')){ return ajouter([{ m: {}, d: { variantId: t.getAttribute('data-routine') } }], t); }
+      if(t.hasAttribute('data-mf-soin')){
+        var sid = t.getAttribute('data-mf-soin'), Pp = window.EB_PRODUITS || {};
+        if(MINI[sid] && Pp[sid]){ produits = [{ id: sid, m: MINI[sid], d: Pp[sid], i: 0, sel: -1 }]; actif = 0; dessiner(); panneau.scrollTop = 0; suivreVue(sid, Pp[sid]); }
         return;
       }
       if(t.hasAttribute('data-mf-fiche')){ var id = t.getAttribute('data-mf-fiche');   // nom à part : « data-fiche » est intercepté par fiche-engine.js, qui ouvrait la fiche DERRIÈRE la mini-fiche
