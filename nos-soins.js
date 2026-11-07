@@ -25,10 +25,31 @@
     fichiers: ["produits-data-test.js", "produits-balance-test.js", "avis-engine.js", "fiche-engine.js"]
   };
   // ── Photo de bannière propre à un type de soin (les types absents gardent la photo de l'embed)
-  //    photo : le lien de la photo ; cadrage : la partie de la photo à garder visible (ordinateur, puis téléphone)
+  //    photo : le lien de la photo (photoTel : une autre photo pour le téléphone, facultatif)
+  //    cadrage : la partie de la photo à garder visible (ordinateur, puis téléphone)
+  //    fond : couleur du fond derrière la photo · telPlein + telHaut : sur téléphone, photo depuis le haut sur telHaut de l'écran
+  //    sombreTel : sur téléphone, textes en blanc sur fond noir (photo foncée)
   var PHOTOS_TYPES = {
     nettoyants: { photo: REGLAGES.base + "nos-soins-nettoyants.jpg", cadrage: "70% 50%", cadrageTel: "68% 50%",
-                  alt: "Mousse d'un nettoyant visage doux ELKHA.B : démaquillants et nettoyants" }
+                  alt: "Mousse d'un nettoyant visage doux ELKHA.B : démaquillants et nettoyants" },
+    lotions:    { photo: REGLAGES.base + "nos-soins-lotions.jpg", photoTel: REGLAGES.base + "nos-soins-lotions-tel.jpg",
+                  cadrage: "100% 50%", cadrageTel: "45% 50%", telPlein: true, telHaut: "100%",
+                  alt: "Gouttes de lotion sur une surface claire : lotions toniques et exfoliants visage ELKHA.B" },
+    serums:     { photo: REGLAGES.base + "nos-soins-serums.jpg", photoTel: REGLAGES.base + "nos-soins-serums-tel.jpg", fond: "#d9cab7",
+                  cadrage: "60% 50%", cadrageTel: "50% 75%",
+                  alt: "Goutte de sérum visage doré aux bulles fines ELKHA.B : sérums" },
+    cremes:     { photo: REGLAGES.base + "nos-soins-cremes.jpg", photoTel: REGLAGES.base + "nos-soins-cremes-tel.jpg",
+                  cadrage: "100% 50%", cadrageTel: "55% 50%",
+                  alt: "Texture d'un gel et d'une crème hydratante ELKHA.B : crèmes et gels visage" },
+    yeux:       { photo: REGLAGES.base + "nos-soins-yeux.jpg", photoTel: REGLAGES.base + "nos-soins-yeux-tel.jpg", fond: "#f2e5de",
+                  cadrage: "100% 50%", cadrageTel: "87% 0%", telPlein: true, telHaut: "100%",
+                  alt: "Contour des yeux ELKHA.B : touches de crème appliquées sous l'œil pour hydrater et défroisser le regard" },
+    masques:    { photo: REGLAGES.base + "nos-soins-masques.jpg", photoTel: REGLAGES.base + "nos-soins-masques-tel.jpg", fond: "#c4b2a4",
+                  cadrage: "100% 35%", cadrageTel: "64% 0%", telPlein: true, telHaut: "100%",
+                  alt: "Patchs yeux ELKHA.B posés sous les yeux : masques et patchs visage" },
+    protection: { photo: REGLAGES.base + "nos-soins-protection.jpg", photoTel: REGLAGES.base + "nos-soins-protection-tel.jpg",
+                  cadrage: "100% 40%", cadrageTel: "73% 0%", telPlein: true, telHaut: "100%", sombreTel: true,
+                  alt: "Femme au chapeau de paille au soleil couchant : protection solaire visage ELKHA.B" }
   };
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
 
@@ -75,9 +96,10 @@
   // photo entière (pas de zoom), à droite ; à gauche, le dégradé reprend exactement les couleurs du bord de la photo
   + ".ens-ban{position:relative;height:clamp(560px,44vw,740px);display:flex;overflow:hidden;background:linear-gradient(180deg,rgb(229,198,188) 0%,rgb(213,179,167) 10%,rgb(213,180,165) 20%,rgb(212,178,166) 30%,rgb(210,178,165) 40%,rgb(209,177,164) 50%,rgb(206,172,160) 60%,rgb(219,192,182) 70%,rgb(221,192,180) 80%,rgb(209,178,164) 90%,rgb(191,161,150) 100%)}"
   + ".ens-bimg{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
-  + ".ens-plein{position:absolute;inset:0;z-index:1;background:" + REGLAGES.fondSite + ";opacity:0;transition:opacity .5s ease;pointer-events:none}"
+  + ".ens-plein{position:absolute;inset:0;z-index:1;background:var(--ens-fond," + REGLAGES.fondSite + ");opacity:0;transition:opacity .5s ease;pointer-events:none}"
   + ".ens-plein img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0;transition:opacity .5s ease}"
   + ".ens-plein img.ok{opacity:1}"
+  + ".ens-plein.portrait img{left:auto;right:0;width:auto;aspect-ratio:1086 / 1448;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%);mask-image:linear-gradient(90deg,transparent 0,#000 30%)}"
   + ".ens-ban.ens-photo .ens-plein{opacity:1}"
   + ".ens-ban.ens-direct .ens-plein,.ens-ban.ens-direct .ens-plein img{transition:none}"
   + ".ens-ban.ens-photo .ens-bt{flex:0 0 48%;max-width:48%}"
@@ -90,13 +112,19 @@
   + ".ens-bg{width:120px;height:2px;margin:22px auto 0;background:linear-gradient(90deg,#fbfaf7,#e9e3d9 55%,#8f8676)}"
   + ".ens-bm{font-size:15px;font-weight:400;line-height:1.65;color:#1f1d1a;max-width:520px;margin:24px auto 0;transition:opacity .35s ease,transform .35s ease}"
   + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
+
   + ".ens-bar{margin-top:64px !important}"
   // téléphone : exactement comme la bannière Balance — photo sur toute la hauteur, fondu beige en bas (sans voile en haut : la photo garde ses couleurs), texte posé dessus
   + "@media(max-width:699px){.ens-ban{display:block;height:100vh;height:100svh;min-height:660px;max-height:900px;background:" + REGLAGES.fondSite + "}"
   +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
   +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
   +   ".ens-bt{position:absolute;left:0;right:0;bottom:4%;max-width:none;margin:0;padding:0 32px;z-index:2}"
-  +   ".ens-plein img{height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
+  +   ".ens-plein{background:" + REGLAGES.fondSite + "}"
+  +   ".ens-plein img,.ens-plein.portrait img{left:0;right:auto;width:100%;aspect-ratio:auto;height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
+  // (telPlein : sur téléphone, la photo part du haut et descend sur telHaut de l'écran, avec un fondu très léger en bas seulement)
+  // (sombreTel : sur téléphone, photo foncée sur fond noir → textes clairs)
+  +   ".ens-ban.ens-sombre .ens-plein{background:#111}.ens-ban.ens-sombre .ens-bn,.ens-ban.ens-sombre .ens-bm{color:#fff}#eb-ns .ens-ban.ens-sombre .ens-bk{color:#e9e3d9}.ens-ban.ens-sombre .ens-bt{text-shadow:0 1px 10px rgba(0,0,0,.55)}.ens-ban.ens-sombre .ens-bg{background:linear-gradient(90deg,#8f8676,#e9e3d9 45%,#fbfaf7)}"
+  +   ".ens-ban.ens-telplein .ens-plein img{height:var(--ens-telh,100%);-webkit-mask-image:linear-gradient(180deg,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 90%,transparent 100%)}.ens-ban.ens-telplein:after{display:none}"
   +   ".ens-ban.ens-photo .ens-bt{max-width:none}"
   +   "#eb-ns .ens-bk{font-size:9px;color:#2a2723;margin:0 0 11px}"
   +   ".ens-bn{font-size:24px;letter-spacing:.28em;padding-left:.28em;line-height:1.3}"
@@ -203,19 +231,25 @@
   if(ban && Object.keys(PHOTOS_TYPES).length){
     plein = document.createElement('div'); plein.className = 'ens-plein'; plein.innerHTML = '<img alt="" decoding="async">';
     var bt0 = ban.querySelector('.ens-bt'); ban.insertBefore(plein, bt0 || null);
-    window.addEventListener('load', function(){ Object.keys(PHOTOS_TYPES).forEach(function(k){ var im = new Image(); im.src = PHOTOS_TYPES[k].photo; }); });
+    window.addEventListener('load', function(){ var tel = window.innerWidth < 700; Object.keys(PHOTOS_TYPES).forEach(function(k){ var q = PHOTOS_TYPES[k], im = new Image(); im.src = (tel && q.photoTel) || q.photo; }); });
   }
   function photoType(type, direct){
     if(!plein) return;
     var p = PHOTOS_TYPES[type], img = plein.firstChild;
     if(direct){ ban.classList.add('ens-direct'); setTimeout(function(){ ban.classList.remove('ens-direct'); }, 60); }
-    if(!p){ ban.classList.remove('ens-photo'); return; }
-    img.style.objectPosition = window.innerWidth < 700 ? (p.cadrageTel || p.cadrage || '50% 50%') : (p.cadrage || '50% 50%');
+    if(!p){ ban.classList.remove('ens-photo'); ban.classList.remove('ens-telplein'); ban.classList.remove('ens-sombre'); return; }
+    plein.classList.toggle('portrait', !!p.portrait);
+    ban.classList.toggle('ens-telplein', !!p.telPlein);
+    ban.classList.toggle('ens-sombre', !!p.sombreTel);
+    if(p.telHaut) plein.style.setProperty('--ens-telh', p.telHaut); else plein.style.removeProperty('--ens-telh');
+    if(p.fond) plein.style.setProperty('--ens-fond', p.fond); else plein.style.removeProperty('--ens-fond');
+    var tel = window.innerWidth < 700, url = (tel && p.photoTel) || p.photo;
+    img.style.objectPosition = tel ? (p.cadrageTel || p.cadrage || '50% 50%') : (p.cadrage || '50% 50%');
     img.alt = p.alt || '';
-    if(img.getAttribute('data-u') !== p.photo){
-      img.classList.remove('ok'); img.setAttribute('data-u', p.photo);
+    if(img.getAttribute('data-u') !== url){
+      img.classList.remove('ok'); img.setAttribute('data-u', url);
       img.onload = function(){ img.classList.add('ok'); };
-      img.src = p.photo;
+      img.src = url;
       if(img.complete && img.naturalWidth) img.classList.add('ok');
     }
     ban.classList.add('ens-photo');
