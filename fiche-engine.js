@@ -212,6 +212,66 @@
 
   var overlay, closeBtn, cartBtn, backBtn, pile = [], courant = null, built = false, observer = null, slideTimer = null, choixManuel = false;
 
+  // ── Pour Google : une fiche ouverte devient une vraie page aux yeux de Google ──
+  // Titre de l'onglet, description, adresse ?fiche=… et carte « produit » (nom, photos, prix).
+  // Rien ne change à l'écran pour la cliente. TEST : seulement Le Temps Suspendu pour l'instant.
+  var SEO = {
+    'coffret-temps-suspendu': {
+      titre: 'Coffret Le Temps Suspendu, soins anti-rides aux peptides | ELKHA.B',
+      description: 'Coffret cadeau soin visage anti-rides : Active Lift, Age Lift et Eye Lift, aux peptides et à l’acide hyaluronique. Vegan, édition limitée des fêtes.',
+      nomProduit: 'Coffret Le Temps Suspendu',
+      adresse: 'https://routines.elkhab.com/?fiche=coffret-temps-suspendu'
+    }
+  };
+  var seoOrigine = null;
+  function seoBalise(sel, creer){
+    var el = document.head.querySelector(sel);
+    if(!el && creer){ el = creer(); document.head.appendChild(el); el.setAttribute('data-eb-seo-cree', '1'); }
+    return el;
+  }
+  function seoAdresse(id){
+    try {
+      var u = new URL(window.location.href);
+      if(id) u.searchParams.set('fiche', id); else u.searchParams.delete('fiche');
+      if(u.href !== window.location.href) history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+    } catch(err){}
+  }
+  function seoRetablir(){
+    if(!seoOrigine) return;
+    document.title = seoOrigine.titre;
+    var d = document.head.querySelector('meta[name="description"]');
+    if(d){ if(d.getAttribute('data-eb-seo-cree')) d.remove(); else d.setAttribute('content', seoOrigine.description); }
+    var c = document.head.querySelector('link[rel="canonical"]');
+    if(c){ if(c.getAttribute('data-eb-seo-cree')) c.remove(); else c.setAttribute('href', seoOrigine.canonical); }
+    var ld = document.getElementById('eb-fiche-ld'); if(ld) ld.remove();
+    seoAdresse(null);
+    seoOrigine = null;
+  }
+  function seoAppliquer(id, data){
+    var s = SEO[id];
+    if(!s){ seoRetablir(); return; }
+    try {
+      if(!seoOrigine){
+        var d0 = document.head.querySelector('meta[name="description"]'), c0 = document.head.querySelector('link[rel="canonical"]');
+        seoOrigine = { titre: document.title, description: d0 ? d0.getAttribute('content') : '', canonical: c0 ? c0.getAttribute('href') : '' };
+      }
+      document.title = s.titre;
+      seoBalise('meta[name="description"]', function(){ var m = document.createElement('meta'); m.name = 'description'; return m; }).setAttribute('content', s.description);
+      seoBalise('link[rel="canonical"]', function(){ var l = document.createElement('link'); l.rel = 'canonical'; return l; }).setAttribute('href', s.adresse);
+      seoAdresse(id);
+      var prix = String(data.prix || '').replace(/[^0-9,\.]/g, '').replace(',', '.');
+      var images = (data.media && data.media.images) || [];
+      var produit = { '@context': 'https://schema.org', '@type': 'Product', name: s.nomProduit || data.nom, description: s.description,
+        image: images, brand: { '@type': 'Brand', name: 'ELKHA.B' }, url: s.adresse };
+      if(data.variantId) produit.sku = String(data.variantId);
+      if(prix) produit.offers = { '@type': 'Offer', price: Number(prix).toFixed(2), priceCurrency: 'EUR', availability: 'https://schema.org/InStock', url: s.adresse,
+        seller: { '@type': 'Organization', name: 'ELKHA.B' } };
+      var ld = document.getElementById('eb-fiche-ld');
+      if(!ld){ ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'eb-fiche-ld'; document.head.appendChild(ld); }
+      ld.textContent = JSON.stringify(produit);
+    } catch(err){}
+  }
+
   // ── Soins d'une routine à leur taille réelle (Balance) : même échelle, posés sur la même ligne ──
   //    [hauteur réelle en cm, photo du flacon sur le fond du site] — les petits soins restent petits
   var ECHELLE = {
@@ -621,6 +681,7 @@
     ctx = ctx || {};
     build();
     courant = { id: id, ctx: ctx };
+    seoAppliquer(id, data);
     var routineParente = ctx.routine && window.EB_PRODUITS[ctx.routine];
     charger(REVIEWS_ENGINE, function(){ return typeof window.ebRenderReviews === 'function'; });
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
@@ -838,6 +899,7 @@
   function ebFicheClose(){
     if(!overlay) return;
     pile = []; courant = null;
+    seoRetablir();
     backBtn.classList.remove('visible');
     overlay.classList.remove('open');
     closeBtn.classList.remove('visible');
@@ -875,8 +937,9 @@
   var fiche = params.get('fiche');
   if(fiche){
     try {
-      var u = new URL(window.location.href); u.searchParams.delete('fiche');
-      history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+      // une fiche « Google » garde son adresse ; les autres l'effacent comme avant
+      if(!SEO[fiche]){ var u = new URL(window.location.href); u.searchParams.delete('fiche');
+      history.replaceState(history.state, '', u.pathname + u.search + u.hash); }
     } catch(err){}
     var ouvrir = function(){ setTimeout(function(){ ebFicheOpen(fiche); }, 300); };
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ouvrir); else ouvrir();
