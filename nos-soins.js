@@ -92,10 +92,10 @@
   + ".ens-ban.change .ens-bn,.ens-ban.change .ens-bm{opacity:0;transform:translateY(6px)}"
   + ".ens-bar{margin-top:64px !important}"
   // téléphone : exactement comme la bannière Balance — photo sur toute la hauteur, fondu beige en bas (sans voile en haut : la photo garde ses couleurs), texte posé dessus
-  + "@media(max-width:699px){.ens-ban{display:block;height:calc(100svh - 64px);min-height:660px;max-height:900px;background:" + REGLAGES.fondSite + "}"
+  + "@media(max-width:699px){.ens-ban{display:block;height:100vh;height:100svh;min-height:660px;max-height:900px;background:" + REGLAGES.fondSite + "}"
   +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
   +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%)}"
-  +   ".ens-bt{position:absolute;left:0;right:0;bottom:1.6%;max-width:none;margin:0;padding:0 32px;z-index:2}"
+  +   ".ens-bt{position:absolute;left:0;right:0;bottom:4%;max-width:none;margin:0;padding:0 32px;z-index:2}"
   +   ".ens-plein img{height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
   +   ".ens-ban.ens-photo .ens-bt{max-width:none}"
   +   "#eb-ns .ens-bk{font-size:9px;color:#2a2723;margin:0 0 11px}"
