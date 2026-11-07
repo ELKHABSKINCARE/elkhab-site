@@ -323,10 +323,10 @@
       + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + COULEUR[m.gamme] + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
       + '<div class="mf-dur">' + insec(m.duree) + '</div>';
     if(multi){
-      h += '<div class="mf-l2"><button type="button" class="mf-b1' + (varianteId(p) ? '' : ' off') + '" data-ajout="' + p.i + '"><span>' + (varianteId(p) ? 'AJOUTER CE SOIN' : 'CHOISIR') + '</span><span>' + euros(nb(d.prix)) + '</span></button><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">FICHE COMPLÈTE</button></div>';
+      h += '<div class="mf-l2"><button type="button" class="mf-b1' + (varianteId(p) ? '' : ' off') + '" data-ajout="' + p.i + '"><span>' + (varianteId(p) ? 'AJOUTER CE SOIN' : 'CHOISIR') + '</span><span>' + euros(nb(d.prix)) + '</span></button><button type="button" class="mf-lien" data-mf-fiche="' + esc(p.id) + '">FICHE COMPLÈTE</button></div>';
     } else {
       h += '<button type="button" class="mf-b' + (varianteId(p) ? '' : ' off') + '" data-ajout="' + p.i + '"><span>' + (varianteId(p) ? (p.m.variantes ? 'AJOUTER · ' + esc(p.m.variantes[p.sel].label.split(' ')[0]) : 'AJOUTER AU PANIER') : esc(p.m.choisir.toUpperCase())) + '</span><span>' + euros(nb(d.prix)) + '</span></button>'
-        + '<div class="mf-c"><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">VOIR LA FICHE COMPLÈTE</button></div>';
+        + '<div class="mf-c"><button type="button" class="mf-lien" data-mf-fiche="' + esc(p.id) + '">VOIR LA FICHE COMPLÈTE</button></div>';
     }
     return h;
   }
@@ -349,7 +349,7 @@
       + '<ul class="mf-pts">' + m.points.map(function(t, i){ return '<li><span style="color:' + m.couleur + '">0' + (i + 1) + '</span>' + esc(t) + '</li>'; }).join('') + '</ul>'
       + '<div class="mf-dur">Prêt à offrir, dans son écrin des fêtes. Quantités limitées.</div>'
       + '<button type="button" class="mf-b" data-ajout="' + p.i + '"><span>AJOUTER LE COFFRET</span><span>' + euros(prix) + '</span></button>'
-      + '<div class="mf-c"><button type="button" class="mf-lien" data-fiche="' + esc(p.id) + '">VOIR LE COFFRET EN DÉTAIL</button></div>';
+      + '<div class="mf-c"><button type="button" class="mf-lien" data-mf-fiche="' + esc(p.id) + '">VOIR LE COFFRET EN DÉTAIL</button></div>';
     return h;
   }
   function photoCoffret(p){ var u = (p.d.media && (p.d.media.miniature || (p.d.media.images && p.d.media.images[0]))) || ''; return u + (u.indexOf('?') < 0 ? '?' : '&') + 'width=300'; }
@@ -431,7 +431,8 @@
         suivreVue(produits[actif].id, produits[actif].d);
         return;
       }
-      if(t.hasAttribute('data-fiche')){ var id = t.getAttribute('data-fiche'); fermer(); return ficheComplete(id); }
+      if(t.hasAttribute('data-mf-fiche')){ var id = t.getAttribute('data-mf-fiche');   // nom à part : « data-fiche » est intercepté par fiche-engine.js, qui ouvrait la fiche DERRIÈRE la mini-fiche
+        fermer(); return ficheComplete(id); }
       if(t.hasAttribute('data-choix')){
         var c = t.getAttribute('data-choix').split(':');
         produits[+c[0]].sel = +c[1];
