@@ -19,7 +19,7 @@
   var MINI = {
     'radiance-serum': {
       gamme: 'bloom', type: 'Sérum antioxydant',
-      photo: 'rituel-flacon-radiance-c-serum.webp',
+      photo: 'mf-radiance-serum.webp', net: true, cm: 11.5,   // photo du site avec son capot ; cm = hauteur réelle (vraies proportions à 2 soins)
       eng: ['99 % d’origine naturelle', '13 % d’ingrédients bio', 'Vegan', 'Haute tolérance'],
       accroche: 'La protection <b>antioxydante</b>, sans l’inconfort de la vitamine C.',
       points: [
@@ -30,22 +30,23 @@
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
     },
     'luminescence-jour': {
-      gamme: 'bloom', type: 'Crème hydratante',
-      photo: 'rituel-flacon-luminescence-jour.webp',
-      eng: ['99 % d’origine naturelle', 'Vegan'],
-      accroche: 'Une hydratation <b>qui dure</b>, et le confort en plus.',
+      gamme: 'bloom', type: 'Crème hydratante de jour',
+      photo: 'mf-luminescence-jour.webp', net: true, cm: 14.5,   // photo du site sur le fond du site, comme les vignettes des coffrets
+      eng: ['99 % d’origine naturelle', '22 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Une hydratation <b>qui dure</b>, un éclat naturel en plus.',
       points: [
-        'L’acide hyaluronique multimoléculaire hydrate à plusieurs niveaux de l’épiderme, pour une peau souple et rebondie toute la journée.',
-        'Le bisabolol apaise la peau et aide à préserver sa barrière cutanée.',
-        'Une texture crème soyeuse qui pénètre vite, sans fini gras, et révèle un teint lumineux.'
+        'L’acide hyaluronique multimoléculaire hydrate à plusieurs niveaux de la peau : elle reste souple et rebondie toute la journée.',
+        'L’aloe vera et le bisabolol apaisent la peau et aident à préserver sa barrière cutanée.',
+        'Des extraits de framboise et de mûre, antioxydants, préservent l’éclat du teint, dans une crème soyeuse qui pénètre vite, sans fini gras.'
       ],
+      pour: 'Idéale pour les peaux normales à sèches, en manque d’hydratation et d’éclat.',
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
     }
     ,
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
-      cadrer: true,    // le stick est fin et la photo a beaucoup de vide autour : on l'agrandit pour qu'il remplisse le cadre
+      cadrer: true, cm: 9,   // le stick est fin et la photo a beaucoup de vide autour : on l'agrandit pour qu'il remplisse le cadre
       eng: ['98 % d’origine naturelle', 'SPF 30', 'Vegan'],
       choix: 'Votre teinte', choisir: 'Choisissez votre teinte',
       // dans le même ordre que les variantes de la fiche (B1, B2, B3, B4)
@@ -178,6 +179,12 @@
   + '#ebmf .mf-ph img{width:100%;height:100%;object-fit:contain;transform:scale(.88);mix-blend-mode:darken}'
   + '#ebmf .mf-g{font-size:8.5px;font-weight:600;letter-spacing:.34em;margin-top:14px}'
   + '#ebmf .mf-haut .mf-g{margin-top:0}'
+  + '#ebmf .mf-ph.mf-net{background:#f5f4f0;border:1px solid rgba(0,0,0,.08)}'
+  + '#ebmf .mf-net img{transform:none;mix-blend-mode:normal;object-fit:cover;transform-origin:50% 95%}'
+  + '#ebmf .mf-vgs.mf-duo{display:grid;grid-template-columns:repeat(2,calc((100% - 20px) / 3));justify-content:center;gap:10px}'
+  + '#ebmf .mf-duo .mf-vg{padding:4px;border-radius:12px}'
+  + '#ebmf .mf-duo .mf-vph{height:auto;aspect-ratio:3/4;border-radius:9px;background:#f5f4f0}'
+  + '#ebmf .mf-duo .mf-vph.mf-net{border:0}'
   + '#ebmf .mf-n{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:16px;font-weight:700;letter-spacing:.06em;margin:5px 0 4px;line-height:1.25}'
   + '#ebmf .mf-np{font-size:14px;font-weight:500;letter-spacing:.03em;white-space:nowrap}'
   + '#ebmf .mf-s{font-size:11px;color:#6b645b;line-height:1.5}'
@@ -266,11 +273,13 @@
       zoneDe(img.src, function(z){
         var cadre = img.parentNode; if(!z || !cadre || !cadre.isConnected) return;
         var b = cadre.getBoundingClientRect(); if(!b.width || !b.height) return;
-        var hImg = Math.min(b.height * .9 / z.h, b.width * .9 / (z.w * z.r));   // hauteur de la photo entière
+        var frac = parseFloat(img.getAttribute('data-frac')) || 0;
+        var hImg = frac ? b.height * frac / z.h : Math.min(b.height * .9 / z.h, b.width * .9 / (z.w * z.r));   // hauteur de la photo entière
         var wImg = hImg * z.r;
+        var haut = frac ? b.height * .95 - (z.y + z.h) * hImg : b.height / 2 - (z.y + z.h / 2) * hImg;   // à 2 soins : posé sur la même ligne que l'autre
         cadre.style.position = 'relative';
         img.style.cssText = 'position:absolute;max-width:none;object-fit:fill;transform:none;width:' + wImg + 'px;height:' + hImg + 'px;'
-          + 'left:' + (b.width / 2 - (z.x + z.w / 2) * wImg) + 'px;top:' + (b.height / 2 - (z.y + z.h / 2) * hImg) + 'px';
+          + 'left:' + (b.width / 2 - (z.x + z.w / 2) * wImg) + 'px;top:' + haut + 'px';
       });
     });
   }
@@ -287,7 +296,7 @@
       + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span>' + (multi ? '<span class="mf-np">' + euros(nb(d.prix)) + '</span>' : '') + '</div>'
       + '<div class="mf-s">' + esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '') + '</div>';
     var h = multi ? tete
-      : '<div class="mf-haut"><div class="mf-ph"><img src="' + photoDe(p) + '"' + (p.m.cadrer ? ' data-cadrer="1"' : '') + ' alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
+      : '<div class="mf-haut"><div class="mf-ph' + (p.m.net ? ' mf-net' : '') + '"><img src="' + photoDe(p) + '"' + (p.m.cadrer ? ' data-cadrer="1"' : '') + ' alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
     h += '<div class="mf-eng">' + m.eng.map(function(e){ return '<span>' + insec(e) + '</span>'; }).join('') + '</div>'
       + choixHTML(p)
       + '<div class="mf-acc">' + m.accroche + '</div>'
@@ -341,10 +350,16 @@
       return;
     }
     if(multi){
+      var cmMax = 0; produits.forEach(function(p){ if(p.m && p.m.cm > cmMax) cmMax = p.m.cm; });
       var n = NOMBRES[produits.length];
       h += '<div class="mf-k">LES ' + produits.length + ' SOINS DE LA VIDÉO</div>'
         + '<div class="mf-off">Avec les ' + n + ' soins : ' + (total >= SEUIL_LIVRAISON ? '<b>livraison offerte</b> et <b>un échantillon offert</b>' : '<b>un échantillon offert</b>') + '</div>'
-        + '<div class="mf-vgs">' + produits.map(function(p, i){ return '<div class="mf-vg' + (i === actif ? ' on' : '') + '" data-vg="' + i + '" role="button" tabindex="0" aria-label="' + esc(p.d.nom) + '"><div class="mf-vph"><img src="' + photoDe(p) + '" alt="' + esc(p.d.nom) + ' ELKHA.B"></div></div>'; }).join('') + '</div>'
+        + '<div class="mf-vgs mf-duo">' + produits.map(function(p, i){
+            var k = (p.m.cm && cmMax) ? p.m.cm / cmMax : 1;   // le plus grand soin remplit la vignette, l'autre à sa vraie taille à côté
+            var img = p.m.cadrer ? '<img src="' + photoDe(p) + '" data-cadrer="1" data-frac="' + (.86 * k) + '" alt="' + esc(p.d.nom) + ' ELKHA.B">'
+              : '<img src="' + photoDe(p) + '"' + (p.m.net ? ' style="transform:scale(' + k + ')"' : '') + ' alt="' + esc(p.d.nom) + ' ELKHA.B">';
+            return '<div class="mf-vg' + (i === actif ? ' on' : '') + '" data-vg="' + i + '" role="button" tabindex="0" aria-label="' + esc(p.d.nom) + '"><div class="mf-vph' + (p.m.net ? ' mf-net' : '') + '">' + img + '</div></div>';
+          }).join('') + '</div>'
         + '<div class="mf-det">' + blocProduit(produits[actif], true) + '</div>'
         + '<div class="mf-sep"></div>'
         + '<button type="button" class="mf-b' + (manque() < 0 ? '' : ' off') + '" data-ajout="tout"><span>' + (manque() < 0 ? 'AJOUTER LES ' + n.toUpperCase() + ' SOINS' : esc(produits[manque()].m.choisir.toUpperCase())) + '</span><span>' + euros(total) + '</span></button>';
