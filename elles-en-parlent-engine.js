@@ -27,6 +27,15 @@ var PAGE = {
   mention:  "Nos collaboratrices ont reçu les soins pour les tester. Elles ne sont pas rémunérées et leurs avis sont libres."
 };
 
+// FILTRES (toujours affichés) et message quand une gamme n'a pas encore de vidéo
+var FILTRES = ["Toutes", "Bloom", "Balance", "Coffrets"];
+var BIENTOT = {
+  Toutes:   "Les premières expériences arrivent très bientôt.",
+  Bloom:    "Les premières expériences Bloom arrivent très bientôt.",
+  Balance:  "Les premières expériences Balance arrivent très bientôt.",
+  Coffrets: "Les premières expériences de nos coffrets des fêtes arrivent très bientôt."
+};
+
 // SECTION « DEVENIR AMBASSADRICE » (en bas de page) — le bouton « code » ouvre l'espace ambassadrice
 var AMBASSADRICE = {
   surtitre: "Vous aussi ?",
@@ -153,14 +162,15 @@ if(!document.getElementById('eb-montserrat')){
 var css = ''
 + '.ebe{width:100%;font-family:"Montserrat",sans-serif;color:#000;text-align:left;-webkit-tap-highlight-color:transparent}'
 + '.ebe *{box-sizing:border-box}'
-+ '.ebe-tete{text-align:center;padding:10px 16px 0}'
++ '.ebe-tete{text-align:center;padding:26px 16px 0}'
 + '.ebe-sur{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;opacity:.6}'
 + '.ebe-h1{font-size:clamp(22px,4.2vw,32px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:8px 0 10px;line-height:1.15}'
 + '.ebe-intro{font-size:13.5px;font-weight:300;margin:0}'
 + '.ebe-mention{font-size:11px;font-weight:300;font-style:italic;opacity:.65;max-width:520px;margin:10px auto 0;line-height:1.55}'
-+ '.ebe-filtres{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px 0 4px}'
++ '.ebe-filtres{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:20px 0 4px}'
 + '.ebe-filtre{font:600 10.5px "Montserrat",sans-serif;letter-spacing:.1em;text-transform:uppercase;border:1px solid #000;background:none;color:#000;padding:8px 14px;cursor:pointer}'
 + '.ebe-filtre.on{background:#000;color:#f5f4f0}'
++ '@media (max-width:480px){.ebe-filtres{flex-wrap:nowrap;gap:6px}.ebe-filtre{font-size:9.5px;letter-spacing:.08em;padding:8px 11px}}'
 /* Carrousel */
 + '.ebe-rang{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:22px 16px 6px;margin:0}'
 + '.ebe-rang::-webkit-scrollbar{display:none}'
@@ -235,6 +245,7 @@ var css = ''
 +   '.ebe-nav{margin-top:auto}'
 + '}'
 + 'html.ebe-bloque{overflow:hidden}'
++ '.ebe-vide{text-align:center;font-size:14px;font-weight:300;font-style:italic;opacity:.75;margin:46px 20px 50px;line-height:1.6}'
 /* Devenir ambassadrice */
 + '.ebe-amb{background:#141414;color:#f5f4f0;text-align:center;margin:40px 0 0;padding:44px 26px 46px}'
 + '.ebe-amb .ebe-sur{opacity:.6}'
@@ -316,20 +327,17 @@ function grandHTML(c, k, joue){
 }
 
 function construire(){
-  var gammes = [];
-  COLLABORATRICES.forEach(function(c){ if(gammes.indexOf(c.gamme) < 0) gammes.push(c.gamme); });
   var h = '<div class="ebe-tete">' + (PAGE.surtitre ? '<div class="ebe-sur">' + esc(PAGE.surtitre) + '</div>' : '')
     + (PAGE.titre ? '<h1 class="ebe-h1">' + esc(PAGE.titre) + '</h1>' : '') + (PAGE.intro ? '<p class="ebe-intro">' + esc(PAGE.intro) + '</p>' : '')
     + (PAGE.mention ? '<p class="ebe-mention">' + esc(PAGE.mention) + '</p>' : '');
-  if(gammes.length > 1){
-    h += '<div class="ebe-filtres">' + ['Toutes'].concat(['Bloom', 'Balance', 'Coffrets'].filter(function(g){ return gammes.indexOf(g) >= 0; }))
-      .map(function(g){ return '<button type="button" class="ebe-filtre' + (g === filtre ? ' on' : '') + '" data-ebe-filtre="' + g + '">' + g + '</button>'; }).join('') + '</div>';
-  }
+  // les filtres sont toujours là, même pour une gamme qui n'a pas encore de vidéo
+  h += '<div class="ebe-filtres">' + FILTRES.map(function(g){ return '<button type="button" class="ebe-filtre' + (g === filtre ? ' on' : '') + '" data-ebe-filtre="' + g + '">' + g + '</button>'; }).join('') + '</div>';
   h += '</div>';
   liste = visibles();
   var normales = [], vedettes = [];
   liste.forEach(function(c, i){ (c.vedette ? vedettes : normales).push(i); });
   var r = 0, v = 0;
+  if(!liste.length) h += '<p class="ebe-vide">' + esc(BIENTOT[filtre] || BIENTOT.Toutes) + '</p>';
   while(r < normales.length || v < vedettes.length){
     var rang = normales.slice(r, r + PAR_RANG); r += PAR_RANG;
     if(rang.length) h += '<div class="ebe-rang">' + rang.map(function(i){ return carteHTML(liste[i], i); }).join('') + '</div>';
