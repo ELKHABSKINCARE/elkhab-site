@@ -90,7 +90,9 @@
     return (L + .05) / .056 < 1.0 / (L + .05) * .98;
   }
   var CSS = ""
-  + "#eb-ns{animation:none;opacity:1 !important;font-family:'Montserrat',sans-serif;color:#111;max-width:none;margin:0 auto;padding:0 0 70px;text-align:center}"
+  + "#eb-ns{animation:none;opacity:0 !important;transition:opacity .3s ease}"
+  + "#eb-ns.ens-vu{opacity:1 !important}"
+  + "#eb-ns{font-family:'Montserrat',sans-serif;color:#111;max-width:none;margin:0 auto;padding:0 0 70px;text-align:center}"
   + "#eb-ns *{box-sizing:border-box}"
   + ".ens-hd{padding:72px 20px 0;max-width:760px;margin:0 auto}"
   + ".ens-k{font-size:9.5px;letter-spacing:.3em;color:#5f5a53;font-weight:600;margin:0 0 20px;text-transform:uppercase}"
@@ -441,6 +443,7 @@
         if(actuel !== type) return;
         if(nouveau){ bn.textContent = nomT; if(bm) bm.textContent = txt; }
         ajusterTitre(); ban.classList.remove('change');       // photo et textes arrivent ensemble
+        root.classList.add('ens-vu');                          // à l'arrivée : la page apparaît avec sa photo déjà prête
       }, nouveau && !premier ? 350 : 0);
     } else { photoType(type, !defiler); }
     choix.innerHTML = esc(LIBELLE) + ' : <b>' + esc(nomT) + '</b><i>+</i>';
@@ -707,6 +710,8 @@
   majPrix(); barres();
   var demande = (location.search.match(new RegExp('[?&]' + PARAM + '=([a-z-]+)')) || [])[1];
   afficher(demande || DEFAUT, false);
+  if(!ban) root.classList.add('ens-vu');
+  setTimeout(function(){ root.classList.add('ens-vu'); }, 1600);   // sécurité : la page s'affiche toujours
   var largeur = window.innerWidth;
   window.addEventListener('resize', function(){ colorer(); bordABord(); ajusterTitre(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
   ajusterTitre(); setTimeout(ajusterTitre, 500); if(document.fonts && document.fonts.ready) document.fonts.ready.then(ajusterTitre);
