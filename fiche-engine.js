@@ -214,13 +214,31 @@
 
   // ── Pour Google : une fiche ouverte devient une vraie page aux yeux de Google ──
   // Titre de l'onglet, description, adresse ?fiche=… et carte « produit » (nom, photos, prix).
-  // Rien ne change à l'écran pour la cliente. TEST : seulement Le Temps Suspendu pour l'instant.
+  // Rien ne change à l'écran pour la cliente. Pour l'instant : les 4 coffrets des fêtes.
   var SEO = {
     'coffret-temps-suspendu': {
-      titre: 'Coffret Le Temps Suspendu, soins anti-rides aux peptides | ELKHA.B',
-      description: 'Coffret cadeau soin visage anti-rides : Active Lift, Age Lift et Eye Lift, aux peptides et à l’acide hyaluronique. Vegan, édition limitée des fêtes.',
+      titre: 'Coffret Le Temps Suspendu, soins anti-rides aux peptides',
+      description: 'Coffret cadeau soin visage anti-rides : Active Lift, Age Lift et Eye Lift, aux peptides et à l\u2019acide hyaluronique. Vegan, édition limitée des fêtes.',
       nomProduit: 'Coffret Le Temps Suspendu',
       adresse: 'https://routines.elkhab.com/?fiche=coffret-temps-suspendu'
+    },
+    'coffret-rituel-de-minuit': {
+      titre: 'Coffret Rituel de Minuit, soins contour des yeux et fermeté',
+      description: 'Coffret cadeau soin du soir : Fusion Balance démaquille, Luminescence Boost raffermit, Radiance Eye Cream repose le regard. Vegan, édition limitée des fêtes.',
+      nomProduit: 'Coffret Rituel de Minuit',
+      adresse: 'https://routines.elkhab.com/?fiche=coffret-rituel-de-minuit'
+    },
+    'coffret-nouvelle-aube': {
+      titre: 'Coffret Nouvelle Aube, soins visage renouvellement cellulaire',
+      description: 'Coffret cadeau peau neuve : AHA Balance Peel exfolie, Active Lift lisse grâce aux peptides, Hydra Balance repulpe à l\u2019acide hyaluronique. Vegan, édition limitée des fêtes.',
+      nomProduit: 'Coffret Nouvelle Aube',
+      adresse: 'https://routines.elkhab.com/?fiche=coffret-nouvelle-aube'
+    },
+    'coffret-lumiere-dhiver': {
+      titre: 'Coffret Lumière d\u2019hiver, soins anti-taches et éclat',
+      description: 'Coffret cadeau éclat : Radiance C Serum à la vitamine C et Lumi-Bloom Arbutin pour atténuer l\u2019apparence des taches et unifier le teint. Vegan, édition limitée des fêtes.',
+      nomProduit: 'Coffret Lumière d\u2019hiver',
+      adresse: 'https://routines.elkhab.com/?fiche=coffret-lumiere-dhiver'
     }
   };
   var seoOrigine = null;
