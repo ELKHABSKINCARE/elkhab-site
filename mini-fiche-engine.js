@@ -62,6 +62,45 @@
       pour: 'Idéal pour toutes les peaux, des peaux grasses aux peaux sèches, même sensibles.',
       duree: 'Format stick : il se glisse dans votre sac pour vous protéger à nouveau à tout moment.'
     },
+    'lumibloom-niac-5': {
+      gamme: 'bloom', type: 'Sérum gel équilibrant',
+      photo: 'mf-lumibloom-niac-5.webp', net: true, cm: 14.5,
+      eng: ['99 % d’origine naturelle', 'Niacinamide 5 %', 'Vegan'],
+      accroche: 'Des pores <b>affinés</b>, un teint <b>plus net</b>.',
+      points: [
+        'La niacinamide, dosée à 5 %, aide à réguler le sébum, affine visiblement les pores et lisse le grain de peau.',
+        'Elle unifie le teint, atténue l’apparence des taches pigmentaires et renforce la barrière cutanée.',
+        'Elle est associée au ginkgo biloba, dans un gel frais et léger qui pénètre vite, sans effet collant ni fini gras.'
+      ],
+      pour: 'Formulé pour les peaux sensibles : idéal des peaux mixtes à grasses jusqu’aux peaux sèches, grâce à son effet hydratant.',
+      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
+    },
+    'bright-control': {
+      gamme: 'balance', type: 'Crème correctrice anti-taches',
+      photo: 'mf-bright-control.webp', net: true, cm: 14.5,
+      eng: ['100 % d’origine naturelle', '8 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Pour un teint plus <b>uniforme</b>, jour après jour.',
+      points: [
+        'L’acide kojique aide à atténuer l’apparence des taches brunes et des marques laissées par les imperfections.',
+        'La vitamine C et l’extrait de romarin apportent un soutien antioxydant et ravivent l’éclat du teint.',
+        'Une crème pour tout le visage, qui hydrate et adoucit la peau, avec un parfum frais d’agrumes et de gingembre.'
+      ],
+      pour: 'Idéale pour les taches brunes, les marques d’imperfections et les teints ternes. Le matin, toujours avec une protection solaire.',
+      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
+    },
+    'cellular-renew': {
+      gamme: 'balance', type: 'Crème lissante',
+      photo: 'mf-cellular-renew.webp', net: true, cm: 14.5,
+      eng: ['Alternative végétale au rétinol', 'Vegan'],
+      accroche: 'Des ridules <b>moins marquées</b>, sans brusquer la peau.',
+      points: [
+        'Une alternative végétale au rétinol aide à atténuer les rides et ridules : au fil des semaines, la peau paraît plus lisse et reposée.',
+        'L’acide hyaluronique et l’aloe vera hydratent intensément, pour une peau souple et confortable.',
+        'Le jojoba, l’argousier et le beurre de mangue bio nourrissent la peau, dans une crème légère au fini lumineux, sans effet gras.'
+      ],
+      pour: 'Idéale pour les premières rides et ridules, tous types de peau, même sensibles.',
+      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
+    },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
@@ -177,8 +216,9 @@
 
   /* ─── Styles ─── */
   var css = ''
-  + '#ebmf-v{position:fixed;inset:0;z-index:2147482000;background:rgba(0,0,0,.28);opacity:0;transition:opacity .4s ease}'
-  + '#ebmf-v.on{opacity:1}'
+  + '#ebmf-v{position:fixed;inset:0;z-index:2147482000;background:rgba(0,0,0,.28);opacity:0;transition:opacity .4s ease;pointer-events:none}'
+  + '#ebmf-v.on{opacity:1;pointer-events:auto}'
+  + '#ebmf:not(.on){pointer-events:none}'
   + '#ebmf{position:fixed;z-index:2147482001;left:50%;bottom:0;width:min(480px,100vw);max-height:92vh;max-height:92dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;box-sizing:border-box;background:#f6f4f0;border-radius:22px 22px 0 0;padding:10px 22px calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,102%);transition:transform .5s cubic-bezier(.22,.8,.24,1);font-family:Montserrat,sans-serif;color:#111;text-align:left;box-shadow:0 -12px 40px rgba(0,0,0,.14)}'
   + '#ebmf.on{transform:translate(-50%,0)}'
   + '#ebmf *{box-sizing:border-box}'
