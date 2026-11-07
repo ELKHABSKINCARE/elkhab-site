@@ -43,6 +43,25 @@
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
     }
     ,
+    'radiance-protect': {
+      gamme: 'bloom', type: 'Protection solaire minérale',
+      photo: 'mf-radiance-protect.webp', net: true, cm: 9,   // photo du site : stick ouvert + capot
+      eng: ['98 % d’origine naturelle', 'SPF 50', 'Vegan', 'Haute tolérance'],
+      choix: 'Votre version', choisir: 'Choisissez votre version',
+      // dans le même ordre que les variantes de la fiche (sans teinte, teinté) — photos de texture du site
+      variantes: [
+        { cle: 'sans-teinte', label: 'Sans teinte', texture: 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282' },
+        { cle: 'teinte', label: 'Teinté', texture: 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291' }
+      ],
+      accroche: 'Une protection <b>SPF 50 minérale</b>, légère comme un voile.',
+      points: [
+        'L’oxyde de zinc, un filtre 100 % minéral, protège la peau des UVA et des UVB. C’est une protection à haute tolérance, idéale pour les peaux sensibles.',
+        'Le jojoba, le beurre de cacao et l’huile d’argousier nourrissent la peau et maintiennent son hydratation toute la journée, sans effet gras sur la peau.',
+        'En version teintée, il unifie le teint pour un fini naturel et lumineux. En version sans teinte, il se fait invisible.'
+      ],
+      pour: 'Idéal pour toutes les peaux, des peaux grasses aux peaux sèches, même sensibles.',
+      duree: 'Format stick : il se glisse dans votre sac pour vous protéger à nouveau à tout moment.'
+    },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
