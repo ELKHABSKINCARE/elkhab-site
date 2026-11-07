@@ -164,8 +164,7 @@
     },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
-      photo: 'site',   // la vignette du site (photo Shopify « miniature » de la fiche)
-      cadrer: true, cm: 9,   // le stick est fin et la photo a beaucoup de vide autour : on l'agrandit pour qu'il remplisse le cadre
+      photo: 'mf-lumiveil-cc-cream.webp', net: true, cm: 9,   // photo du site (stick B1 + capot), recadrée et centrée comme les autres
       eng: ['98 % d’origine naturelle', 'SPF 30', 'Vegan'],
       choix: 'Votre teinte', choisir: 'Choisissez votre teinte',
       // dans le même ordre que les variantes de la fiche (B1, B2, B3, B4)
