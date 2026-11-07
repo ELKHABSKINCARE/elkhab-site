@@ -18,10 +18,12 @@
    │ ✏️ RÉGLAGES                                                          │
    └─────────────────────────────────────────────────────────────────────┘ */
 
+// Le titre « Elles en parlent » est dans la bannière (code banniere-experience-a-coller.txt) :
+// ici, laisser surtitre, titre et intro vides pour ne pas l'avoir en double.
 var PAGE = {
-  surtitre: "Leur expérience",
-  titre:    "Elles en parlent",
-  intro:    "Leurs vidéos, leurs mots, leur peau.",
+  surtitre: "",
+  titre:    "",
+  intro:    "",
   mention:  "Nos collaboratrices ont reçu les soins pour les tester. Elles ne sont pas rémunérées et leurs avis sont libres."
 };
 
@@ -292,8 +294,9 @@ function grandHTML(c, k, joue){
 function construire(){
   var gammes = [];
   COLLABORATRICES.forEach(function(c){ if(gammes.indexOf(c.gamme) < 0) gammes.push(c.gamme); });
-  var h = '<div class="ebe-tete"><div class="ebe-sur">' + esc(PAGE.surtitre) + '</div><h1 class="ebe-h1">' + esc(PAGE.titre) + '</h1>'
-    + '<p class="ebe-intro">' + esc(PAGE.intro) + '</p>' + (PAGE.mention ? '<p class="ebe-mention">' + esc(PAGE.mention) + '</p>' : '');
+  var h = '<div class="ebe-tete">' + (PAGE.surtitre ? '<div class="ebe-sur">' + esc(PAGE.surtitre) + '</div>' : '')
+    + (PAGE.titre ? '<h1 class="ebe-h1">' + esc(PAGE.titre) + '</h1>' : '') + (PAGE.intro ? '<p class="ebe-intro">' + esc(PAGE.intro) + '</p>' : '')
+    + (PAGE.mention ? '<p class="ebe-mention">' + esc(PAGE.mention) + '</p>' : '');
   if(gammes.length > 1){
     h += '<div class="ebe-filtres">' + ['Toutes'].concat(['Bloom', 'Balance', 'Coffrets'].filter(function(g){ return gammes.indexOf(g) >= 0; }))
       .map(function(g){ return '<button type="button" class="ebe-filtre' + (g === filtre ? ' on' : '') + '" data-ebe-filtre="' + g + '">' + g + '</button>'; }).join('') + '</div>';
