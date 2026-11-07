@@ -49,6 +49,9 @@
     masques:    { photo: REGLAGES.base + "nos-soins-masques.jpg", photoTel: REGLAGES.base + "nos-soins-masques-tel.jpg", fond: "#c4b2a4",
                   cadrage: "100% 35%", cadrageTel: "64% 0%", telPlein: true, telHaut: "100%",
                   alt: "Patchs yeux ELKHA.B posés sous les yeux : masques et patchs visage" },
+    sensibles:  { photo: REGLAGES.base + "nos-soins-sensibles.jpg", photoTel: REGLAGES.base + "nos-soins-sensibles-tel.jpg", fond: "#f4e4d3",
+                  cadrage: "100% 50%", cadrageTel: "57% 0%", telPlein: true, telHaut: "100%",
+                  alt: "Visages de femmes à la peau sensible, en lumière douce : soins pour peaux sensibles ELKHA.B" },
     protection: { photo: REGLAGES.base + "nos-soins-protection.jpg", photoTel: REGLAGES.base + "nos-soins-protection-tel.jpg",
                   cadrage: "100% 40%", cadrageTel: "73% 0%", telPlein: true, telHaut: "100%", sombreTel: true,
                   alt: "Femme au chapeau de paille au soleil couchant : protection solaire visage ELKHA.B" }
@@ -467,12 +470,16 @@
   });
 
   // ── Menu « Nos soins » : déjà sur cette page, « Sérums »… change de type sans recharger ──
-  document.addEventListener('click', function(e){
+  // (écouté sur la fenêtre, avant le panier : sinon le panier rechargeait toute la page pour y glisser ses informations)
+  window.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href*="?' + PARAM + '="]'); if(!a || root.contains(a)) return;
+    if(e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;   // nouvel onglet : on laisse faire
     try { var u = new URL(a.href, location.href); } catch(err){ return; }
-    if(u.hostname !== location.hostname) return;
+    if(u.hostname !== location.hostname || u.pathname !== location.pathname) return;
     var t = u.searchParams.get(PARAM); if(!t || !document.getElementById('ens-' + t)) return;
-    e.preventDefault(); afficher(t, true);
+    e.preventDefault();
+    var voile = document.querySelector('.ebm-voile.on'); if(voile) voile.click();   // le menu se referme
+    afficher(t, true);
     try { history.replaceState(null, '', '?' + PARAM + '=' + t); } catch(err){}
   }, true);
 
