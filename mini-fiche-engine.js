@@ -88,19 +88,6 @@
       pour: 'Idéale pour les taches brunes, les marques d’imperfections et les teints ternes. Le matin, toujours avec une protection solaire.',
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
     },
-    'cellular-renew': {
-      gamme: 'balance', type: 'Crème lissante',
-      photo: 'mf-cellular-renew.webp', net: true, cm: 14.5,
-      eng: ['Alternative végétale au rétinol', 'Vegan'],
-      accroche: 'Des ridules <b>moins marquées</b>, sans brusquer la peau.',
-      points: [
-        'Une alternative végétale au rétinol aide à atténuer les rides et ridules : au fil des semaines, la peau paraît plus lisse et reposée.',
-        'L’acide hyaluronique et l’aloe vera hydratent intensément, pour une peau souple et confortable.',
-        'Le jojoba, l’argousier et le beurre de mangue bio nourrissent la peau, dans une crème légère au fini lumineux, sans effet gras.'
-      ],
-      pour: 'Idéale pour les premières rides et ridules, tous types de peau, même sensibles.',
-      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
-    },
     'cellular-reveal': {
       gamme: 'balance', type: 'Sérum lissant', ligne: 'cellular',
       photo: 'mf-cellular-reveal.webp', net: true, cm: 10.5,
@@ -120,6 +107,60 @@
         'L’aloe vera, le jojoba et l’acide hyaluronique hydratent, et la myrte rose aide la peau à se protéger des agressions.'
       ],
       duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 13 € par mois.'
+    },
+    'cellular-renew': {
+      gamme: 'balance', type: 'Crème lissante', ligne: 'cellular',
+      photo: 'mf-cellular-renew.webp', net: true, cm: 14.5,
+      sous: 'Alternative végétale au rétinol<br>Acide hyaluronique · 50 ml',
+      eng: ['Aloe vera & jojoba bio', 'Vegan'],
+      accroche: 'L’alternative au rétinol en crème, <b>pour les peaux sensibles</b>.',
+      resultats: [
+        [90, 'L’aspect général de la peau <b>amélioré</b>'],
+        [80, 'Des ridules <b>moins visibles</b>'],
+        [75, 'Des taches brunes <b>moins visibles</b>'],
+        [95, 'Une peau <b>instantanément apaisée</b>'],
+        [95, 'Une peau nettement plus <b>hydratée</b>'],
+        [85, 'Une sensation <b>liftante</b> toute la journée']
+      ],
+      pourquoi: [
+        'Une alternative végétale au rétinol atténue les rides et ridules : au fil des semaines, la peau paraît plus lisse et reposée.',
+        'L’acide hyaluronique et l’aloe vera hydratent intensément, et le jojoba, l’argousier et le beurre de mangue bio nourrissent la peau, dans une crème légère sans effet gras.'
+      ],
+      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 12 € par mois.'
+    },
+    'cellular-eye-restore': {
+      gamme: 'balance', type: 'Sérum contour des yeux', ligne: 'cellular',
+      photo: 'mf-cellular-eye-restore.webp', net: true, cm: 7.5,
+      sous: 'Alternative végétale au rétinol<br>Contour des yeux · 15 ml',
+      eng: ['100 % d’origine naturelle', '22 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Poches, cernes, ridules : l’alternative au rétinol <b>pour un regard plus frais</b>.',
+      resultats: [
+        [95, 'Un contour des yeux plus <b>lisse</b>'],
+        [90, 'Des cernes <b>moins visibles</b>'],
+        [85, 'Des poches <b>moins visibles</b>'],
+        [95, 'L’aspect général du regard <b>amélioré</b>'],
+        [90, 'Un contour des yeux nettement plus <b>hydraté</b>'],
+        [85, 'Une amélioration <b>visible dès l’application</b>']
+      ],
+      pourquoi: [
+        'Une alternative végétale au rétinol, pensée pour la peau fine du regard, lisse les ridules et les pattes-d’oie sans brusquer cette zone fragile.',
+        'L’acide hyaluronique et l’aloe vera hydratent en profondeur, et le marron d’Inde aide à atténuer les poches et les signes de fatigue.'
+      ],
+      duree: 'Formule concentrée : une pression suffit, jusqu’à 3 mois de soin, soit moins de 11 € par mois.'
+    },
+    'aha-balance-peel': {
+      gamme: 'balance', type: 'Concentré exfoliant',
+      photo: 'mf-aha-balance-peel.webp', net: true, cm: 11,
+      sous: 'AHA 10 %<br>Acide hyaluronique · 30 ml',   // sans « acide lactique » (nom technique)
+      eng: ['100 % d’origine naturelle', 'AHA 10 %', 'Vegan'],
+      accroche: 'Un grain de peau <b>affiné</b>, un teint <b>illuminé</b>, une peau <b>hydratée</b>.',
+      points: [
+        'L’AHA, dosé à 10 %, élimine les cellules mortes et renouvelle la surface de la peau : le grain est affiné, le teint plus lumineux.',
+        'L’acide hyaluronique, le thé blanc et la sauge préservent l’hydratation : la peau est exfoliée sans tirailler.',
+        'AHA Balance Peel lisse visiblement la texture et atténue l’apparence des petites taches et des ridules.'
+      ],
+      pour: 'Idéal pour les teints ternes, le grain de peau irrégulier et les taches superficielles. Le matin, toujours avec une protection solaire.',
+      duree: 'Formule concentrée : quelques gouttes suffisent, jusqu’à 3 mois de soin, soit moins de 11 € par mois.'
     },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
@@ -186,7 +227,7 @@
   var LIGNES = {
     cellular: {
       badge: 'LA LIGNE CELLULAR', titre: 'LA ROUTINE CELLULAR',
-      etude: 'Pourcentage de femmes ayant constaté le résultat. Étude menée par un laboratoire indépendant sur 21 femmes, pendant 8 semaines.',
+      etude: 'Pourcentage de femmes ayant constaté le résultat. Étude menée par un laboratoire indépendant sur 20 femmes, pendant 8 semaines.',
       routine: 'routine-essentielle',   // les 3 soins ensemble (99 €)
       // [soin, ce que c'est, hauteur réelle en cm] — les vignettes gardent les vraies proportions
       soins: [['cellular-reveal', 'Sérum · 30 ml', 10.5], ['cellular-renew', 'Crème · 50 ml', 14.5], ['cellular-eye-restore', 'Yeux · 15 ml', 7.5]],
@@ -446,7 +487,7 @@
     if(!multi && m.ligne && LIGNES[m.ligne]) return blocLigne(p);
     var tete = '<div class="mf-g" style="color:' + COULEUR[m.gamme] + '">' + esc((m.gamme === 'balance' ? 'Balance' : 'Bloom').toUpperCase() + ' · ' + m.type.toUpperCase()) + '</div>'
       + '<div class="mf-n"><span>' + esc(d.nom.toUpperCase()) + '</span>' + (multi ? '<span class="mf-np">' + euros(nb(d.prix)) + '</span>' : '') + '</div>'
-      + '<div class="mf-s">' + esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '') + '</div>';
+      + '<div class="mf-s">' + (m.sous || esc(d.sousTitre || '').split(' · ').join('<br>') + ((d.details && d.details[0]) ? ' · ' + esc(d.details[0]) : '')) + '</div>';
     var h = multi ? tete
       : '<div class="mf-haut"><div class="mf-ph' + (p.m.net ? ' mf-net' : '') + '"><img src="' + photoDe(p) + '"' + (p.m.cadrer ? ' data-cadrer="1"' : '') + ' alt="' + esc(d.nom) + ' ELKHA.B"></div><div>' + tete + '</div></div>';
     h += '<div class="mf-eng">' + m.eng.map(function(e){ return '<span>' + insec(e) + '</span>'; }).join('') + '</div>'
