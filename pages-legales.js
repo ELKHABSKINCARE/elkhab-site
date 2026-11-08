@@ -488,7 +488,10 @@ window.addEventListener('click', function(e){
   try { url = new URL(a.getAttribute('href'), location.href); } catch(err){ return; }
   var id = url.hash.replace('#', '');
   if(!PAGES[id]) return;
-  if(!/(^|\.)elkhab\.com$/i.test(url.hostname) && url.hostname !== location.hostname) return;
+  // un lien vers n'importe quel site ELKHA.B (vrais sites, et copies de test dont les liens sont réécrits)
+  var siteElkhab = /(^|\.)elkhab\.com$/i.test(url.hostname) || url.hostname === location.hostname
+    || (typeof window.ebSiteFromHost === 'function' && !!window.ebSiteFromHost(url.hostname));
+  if(!siteElkhab) return;
   e.preventDefault();
   e.stopPropagation();
   ouvrir(id, true);
