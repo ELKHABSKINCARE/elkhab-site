@@ -565,7 +565,8 @@
     document.body.appendChild(s);
   }
   function ficheDe(a){ try { return new URL(a.href, location.href).searchParams.get('fiche'); } catch(e){ return null; } }
-  document.addEventListener('click', function(e){
+  // écouté sur la fenêtre (avant le panier) : sinon, quand un panier existe, le panier emmenait la cliente sur le site de la gamme
+  window.addEventListener('click', function(e){
     var a = e.target.closest && e.target.closest('a[href*="fiche="]'); if(!a) return;
     if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || (e.button && e.button !== 0)) return;   // ouverture dans un nouvel onglet : on laisse faire
     var id = ficheDe(a); if(!id) return;
