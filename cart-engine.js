@@ -584,6 +584,43 @@ function ebEchEstEchantillon(m){
   return Object.keys(EB_ECHANTILLONS).some(function(k){ return EB_ECHANTILLONS[k].variant && EB_ECHANTILLONS[k].variant === v; })
     || /^echantillon/.test(ebEchNorm(m.product && m.product.title));
 }
+// La photo du site pour une variante Shopify — la même que dans la recherche :
+// celle de la teinte si la fiche en a une, sinon la miniature de la fiche (ou sa 1re photo ; la 3e pour un coffret)
+const EB_FICHES_BASE = 'https://elkhabskincare.github.io/elkhab-site/';
+const EB_FICHES_FICHIERS = ['produits-data-test.js', 'produits-balance-test.js'];
+let ebFichesDemandees = false;
+function ebPhotoSite(gid){
+  const P = window.EB_PRODUITS; if(!P) return '';
+  const v = String(gid || '').split('/').pop(); if(!v) return '';
+  const ok = function(u){ return typeof u === 'string' && u && !/\.mp4(\?|$)/i.test(u) ? u : ''; };
+  const principale = function(k, p){
+    const md = p.media || {}, imgs = md.images || [];
+    return ok(md.miniature) || ok(imgs[k.indexOf('coffret-') === 0 ? 2 : 0]) || ok(md.image) || ok(imgs.filter(ok)[0]) || '';
+  };
+  for(const k in P){
+    const p = P[k]; if(!p) continue;
+    if(Array.isArray(p.variantes)){
+      for(const x of p.variantes){ if(x && String(x.variantId) === v) return ok(x.image) || principale(k, p); }
+    }
+    if(String(p.variantId || '') === v) return principale(k, p);
+  }
+  return '';
+}
+// Les fiches ne sont pas encore sur cette page : on les charge une fois, puis on redessine le panier avec les bonnes photos
+function ebChargerFichesPanier(){
+  if(ebFichesDemandees) return; ebFichesDemandees = true;
+  let reste = 0;
+  const fini = function(){ if(--reste <= 0 && ebDernierPanier) ebRenderCart(ebDernierPanier); };
+  EB_FICHES_FICHIERS.forEach(function(f){
+    if(document.querySelector('script[src*="' + f + '"]')) return;
+    reste++;
+    const s = document.createElement('script'); s.src = EB_FICHES_BASE + f; s.onload = s.onerror = fini; document.body.appendChild(s);
+  });
+  if(reste === 0) setTimeout(function(){ if(ebDernierPanier) ebRenderCart(ebDernierPanier); }, 1500);   // déjà dans la page, encore en lecture
+}
+// Taille demandée : seulement pour les photos Shopify (comme la recherche)
+function ebPhotoTaille(u){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u.split('?')[0] + '?width=160'; }
+
 function ebEchCle(titre){ const t = ebEchNorm(titre); for(const r of EB_ECH_REGLES){ if(t.indexOf(r[0]) > -1) return r[1]; } return 'radiance-c-serum'; }
 function ebEchantillonEtat(cart){
   const lignes = cart ? cart.lines.edges.map(function(e){ return e.node; }) : [];
@@ -719,11 +756,12 @@ function ebCartStylePhotos(){
   st.id = 'eb-cart-photos-style';
   st.textContent = ''
     + '.eb-cart-item.eb-cart-item-photo{display:flex;gap:14px;align-items:flex-start}'
-    + '.eb-cart-thumb{flex:0 0 64px;width:64px;height:64px;background:#EBE5DB;overflow:hidden}'
-    + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:cover}'
+    // même vignette que la recherche : carré aux bords arrondis, le flacon entier jamais coupé
+    + '.eb-cart-thumb{flex:0 0 60px;width:60px;height:60px;border-radius:10px;background:#f5f4f0;overflow:hidden}'
+    + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88);color:transparent}'
     + '.eb-cart-info{flex:1;min-width:0}'
     + '.eb-cart-echantillon{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:12px 0;border-bottom:1px solid #EBE5DB;font-family:Montserrat,sans-serif;text-align:left}'
-    + '.eb-ech-mini{flex:0 0 48px;width:48px;height:64px;background:#f5f4f0;overflow:hidden}.eb-ech-mini img{display:block;width:100%;height:100%;object-fit:cover}'
+    + '.eb-ech-mini{flex:0 0 60px;width:60px;height:60px;border-radius:10px;background:#f5f4f0;overflow:hidden}.eb-ech-mini img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88)}'
     + '.eb-cart-echantillon.eb-ech-attente .eb-ech-mini{opacity:.55}'
     + '.eb-ech-txt{font-size:11.5px;line-height:1.55;letter-spacing:.02em;color:#4a453e}.eb-ech-txt b{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#1d1b18;margin-bottom:3px}'
     + '.eb-cart-livraison{margin:0 0 16px}'
@@ -787,10 +825,13 @@ function ebRenderCart(cart, attemptsLeft){
     const line = edge.node;
     const m = line.merchandise;
     if(ebEchEstEchantillon(m)) return;   // l'échantillon s'affiche à part, sous la liste
-    // Miniature : photo de la variante (teinte, formule…), sinon photo principale du produit
-    const imgUrl = (m.image && m.image.url) || (m.product.featuredImage && m.product.featuredImage.url) || '';
+    // Miniature : la photo du site (1re photo de la fiche, ou celle de la teinte), toujours à jour ;
+    // sinon (fiches pas chargées sur cette page) la photo de la variante dans Shopify, puis la photo principale du produit
+    const photoSite = ebPhotoSite(m.id);
+    if(!photoSite) ebChargerFichesPanier();
+    const imgUrl = ebPhotoTaille(photoSite || (m.image && m.image.url) || (m.product.featuredImage && m.product.featuredImage.url) || '');
     html += '<div class="eb-cart-item eb-cart-item-photo">';
-    html += '<div class="eb-cart-thumb">' + (imgUrl ? '<img src="' + imgUrl + (imgUrl.indexOf('?') > -1 ? '&' : '?') + 'width=200" alt="" loading="lazy">' : '') + '</div>';
+    html += '<div class="eb-cart-thumb">' + (imgUrl ? '<img src="' + imgUrl + '" alt="" loading="lazy" onerror="this.style.visibility=\'hidden\'">' : '') + '</div>';
     html += '<div class="eb-cart-info">';
     html += '<div class="eb-cart-item-title">' + m.product.title + '</div>';
     // « Default », « Default Title » ou « Default / Default / Default » (lots) : rien à afficher
