@@ -839,6 +839,41 @@ window.ebCartVariantes = function(){
     .map(function(e){ return String(e.node.merchandise.id).split('/').pop(); });
 };
 
+// ── Le bouton « Ajouter mon rituel au panier » de l'e-mail du Skin ID : ?panier=ID.ID.ID&code=CODE
+// les soins qui manquent arrivent dans le panier (ceux déjà présents ne sont pas doublés),
+// son code personnel est appliqué, puis le panier s'ouvre ; l'adresse est nettoyée aussitôt
+function ebLienPanierPresent(){ return /[?&](panier|code)=/.test(location.search); }
+async function ebLienPanier(ouvrir){
+  let q; try{ q = new URLSearchParams(location.search); }catch(e){ return; }
+  const brut = q.get('panier') || '', code = (q.get('code') || '').trim().toUpperCase();
+  try{
+    const u = new URL(location.href); u.searchParams.delete('panier'); u.searchParams.delete('code');
+    history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+  }catch(e){}
+  const ids = brut.split(/[.,]/).filter(function(v){ return /^\d{6,20}$/.test(v); }).slice(0, 10);
+  try{
+    let cart = cartId ? await ebEnFile(ebCartFetch) : null;
+    if(cart) ebRenderCart(cart);
+    const deja = window.ebCartVariantes();
+    for(const v of ids){
+      if(deja.indexOf(v) > -1) continue;
+      const c = await ebCartAddItem(v, 1);
+      if(c) cart = c;
+    }
+    if(code && /^[A-Z0-9-]{4,30}$/.test(code) && cartId){
+      const c = await ebEnFile(function(){ return ebCartSetCode([code]); });
+      const dc = c && (c.discountCodes || []).filter(function(d){ return d.code.toUpperCase() === code; })[0];
+      if(c && dc && dc.applicable){ ebRenderCart(c); }
+      else if(c){
+        // code refusé (déjà utilisé, plus valable…) : on ne le laisse pas traîner dans le panier
+        const c2 = await ebEnFile(function(){ return ebCartSetCode([]); });
+        ebRenderCart(c2 || c);
+      }
+    }
+    if(ids.length || code) ouvrir();
+  }catch(err){ console.error('ELKHA.B panier — lien de l\'e-mail', err); }
+}
+
 function ebWaitForCartUI(callback, attemptsLeft){
   attemptsLeft = attemptsLeft === undefined ? 25 : attemptsLeft;
   const cartButton = document.getElementById('ebCartButton');
@@ -889,7 +924,9 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
   // Au chargement, si un panier existe déjà (cliente revenue plus tard), on le récupère
-  if(cartId){
+  if(ebLienPanierPresent()){
+    ebLienPanier(openCart);   // il s'occupe aussi du panier déjà commencé
+  } else if(cartId){
     ebCartFetch().then(function(cart){
       if(cart) ebRenderCart(cart);
     });
