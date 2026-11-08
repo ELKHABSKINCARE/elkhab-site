@@ -37,7 +37,7 @@ var SCRIPT_CONTACT = "https://script.google.com/macros/s/AKfycbxIaAoTNt_kRSqZkhS
 var OBJETS_CONTACT = ["Ma commande", "Un conseil soin", "Une collaboration", "Autre"];
 
 // Photo affichée à droite des pages légales sur ordinateur
-var PHOTO_DROITE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Image_ChatGPT_30_sept._2026_19_17_16.png?v=1791466549";
+var PHOTO_DROITE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/photo-contact-beige.jpg?v=1794172851";
 /* ═══════════════════════════════════════════════════════════════════════ */
 
 var PAGES = {
