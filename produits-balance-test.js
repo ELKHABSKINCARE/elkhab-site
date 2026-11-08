@@ -1119,13 +1119,13 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-face-fond-site-v2.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/temps-suspendu-face-site.jpg",
         // 📷 2. LE DOS DU COFFRET
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/temps-suspendu-dos-fond-site-v2.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/temps-suspendu-dos-site.jpg",
         // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-temps-suspendu-soins-v1.jpg",
         // 📷 4. AMBIANCE DES FÊTES (aussi la photo montrée par Google)
-        "https://elkhabskincare.github.io/elkhab-site/coffret-temps-suspendu-ambiance.jpg"
+        "https://elkhabskincare.github.io/elkhab-site/coffret-temps-suspendu-ambiance-v3.jpg"
       ]
     },
     routine: {
@@ -1162,13 +1162,13 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-de-minuit-face-fond-site.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/rituel-de-minuit-face-site.jpg",
         // 📷 2. LE DOS DU COFFRET
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-de-minuit-dos-fond-site.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/rituel-de-minuit-dos-site.jpg",
         // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-rituel-de-minuit-soins-v1.jpg",
         // 📷 4. AMBIANCE DES FÊTES (aussi la photo montrée par Google)
-        "https://elkhabskincare.github.io/elkhab-site/coffret-rituel-de-minuit-ambiance.jpg"
+        "https://elkhabskincare.github.io/elkhab-site/coffret-rituel-de-minuit-ambiance-v3.jpg"
       ]
     },
     routine: {
@@ -1204,13 +1204,13 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/nouvelle-aube-face-fond-site.jpg?v=1793908737",
+        "https://elkhabskincare.github.io/elkhab-site/nouvelle-aube-face-site.jpg",
         // 📷 2. LE DOS DU COFFRET
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/nouvelle-aube-dos-fond-site.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/nouvelle-aube-dos-site.jpg",
         // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/coffret-nouvelle-aube-soins-v2.jpg",
         // 📷 4. AMBIANCE DES FÊTES (aussi la photo montrée par Google)
-        "https://elkhabskincare.github.io/elkhab-site/coffret-nouvelle-aube-ambiance-v2.jpg"
+        "https://elkhabskincare.github.io/elkhab-site/coffret-nouvelle-aube-ambiance-v3.jpg"
       ]
     },
     routine: {

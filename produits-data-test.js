@@ -1756,13 +1756,13 @@ window.EB_PRODUITS = {
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-face-fond-site-v2.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/lumiere-dhiver-face-site.jpg",
         // 📷 2. LE DOS DU COFFRET
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumiere-dhiver-dos-fond-site-v2.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/lumiere-dhiver-dos-site.jpg",
         // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
         "https://elkhabskincare.github.io/elkhab-site/coffret-lumiere-dhiver-soins-v3.jpg",   // Radiance C Serum avec son capot
         // 📷 4. AMBIANCE DES FÊTES (aussi la photo montrée par Google)
-        "https://elkhabskincare.github.io/elkhab-site/coffret-lumiere-dhiver-ambiance.jpg"
+        "https://elkhabskincare.github.io/elkhab-site/coffret-lumiere-dhiver-ambiance-v3.jpg"
       ]
     },
     routine: {
