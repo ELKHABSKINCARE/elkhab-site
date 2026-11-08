@@ -8,6 +8,10 @@
    ═══════════════════════════════════════════════════════════════════════ */
 (function(){
 
+/* ─── Pages Nos soins / Vos besoins : la bannière photo monte sous le menu et recouvre le bandeau défilant.
+       On ne l'affiche donc pas du tout sur ces pages : sinon il apparaît pendant le chargement puis la page saute ─── */
+(function(){ var st=document.createElement('style'); st.textContent='body:has(#eb-ns) .container-component:has(.eb-ticker){display:none!important}'; (document.head||document.documentElement).appendChild(st); })();
+
 /* ─── Skin ID : le nouveau diagnostic s'ouvre par-dessus la page (skin-id-engine.js) ─── */
 var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=9";
 /* ─── Recherche : la nouvelle version (même panneau que le panier) remplace l'ancienne ─── */
