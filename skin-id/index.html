@@ -530,8 +530,8 @@ body.res .contenu{max-width:none;padding:0}
 .sid .mail.carteb{margin-top:22px}
 .sid .mail.carteb>label[for]{font-size:8.5px;font-weight:600;letter-spacing:.3em;color:rgba(246,244,240,.6)}
 .sid .mail.carteb>.ck{font-weight:400;color:rgba(246,244,240,.7)}
-.sid .envoye{display:none;margin-top:12px;font-size:12px;font-style:italic;color:#e9a9a6}
-.sid .mail.ok .envoye{display:block}
+.sid .envoye{display:none;margin-top:12px;font-size:12px;font-style:italic;color:#e9a9a6;text-align:left;-webkit-hyphens:none;hyphens:none}
+.sid .mail.ok .envoye,.sid .mail.dit .envoye{display:block}
 @media (prefers-reduced-motion:reduce){.mb::after{animation:none}}
 
 .sid-code{font-size:clamp(40px,12vw,48px);font-weight:800;letter-spacing:.04em;line-height:1;margin-top:10px;white-space:nowrap}
@@ -1320,7 +1320,7 @@ body{background:#000;color:#f6f4f0}
     var niv=actifs===3?2:actifs===0?3:(mature&&sens===0&&actifs===1)?5:4; if(delicat)niv=Math.max(1,niv-1);
     // l'exfoliation chimique : jamais pour une peau réactive ou sous précaution ; douce (acide lactique, une fois par semaine) quand la peau marque ou découvre les actifs
     var exfoDeja=deja.indexOf(5)>=0&&rep.exfo!==0, exfoType=rep.exfo;   // un gommage à grains ne compte pas : il est à remplacer
-    var exfoOK=!delicat&&actifs!==3&&!exfoDeja&&rep.precau!==0&&rep.precau!==1, exfoDoux=sens===1||actifs===0||actifs===2||rep.photo>=2;
+    var exfoOK=!delicat&&actifs!==3&&!exfoDeja&&rep.precau!==0&&rep.precau!==1&&rep.nx!==1, exfoDoux=sens===1||actifs===0||actifs===2||rep.photo>=2;
     var freq=exfoDoux?'Une fois par semaine pour commencer.':type===0?'Une à deux fois par semaine.':'Un à trois soirs par semaine.', grains=rep.exfo===0?' Il remplace votre gommage à grains.':'';
     // l'alternative au rétinol : Cellular Reveal de 35 à 44 ans (et pour les peaux sensibles), le bakuchiol à partir de 45 ans
     // pressée, à partir de 35 ans, avec des rides ou des taches localisées : le rituel tourne autour de la gamme Cellular
@@ -1331,7 +1331,7 @@ body{background:#000;color:#f6f4f0}
     // le masque aux argiles : peau mixte ou grasse, ni sensible ni sous traitement ; une à deux fois par semaine
     // Lumi-Glow PDRN : éclat et grain de peau jusqu'à 44 ans ; il remplace l'acide quand la peau est sensible ou découvre les actifs
     var glowOK=GLOW_EN_VENTE&&!delicat&&actifs!==3&&a<=3, glowDoux=sens===1||actifs!==1, glowGrain=glowOK&&p0===5&&glowDoux, glowEclat=glowOK&&p0===0;
-    var pureOK=type>=2&&sens===0&&!delicat&&actifs!==3&&rep.precau!==0&&rep.precau!==1, pureCas=p0===2||(p0===5&&(grainL().indexOf(3)>=0||rep.pores===1));
+    var pureOK=type>=2&&sens===0&&!delicat&&actifs!==3&&rep.precau!==0&&rep.precau!==1&&rep.nx!==1, pureCas=p0===2||(p0===5&&(grainL().indexOf(3)>=0||rep.pores===1));
     // Cellular Reveal convient à tous les types de peau, sensibles compris : à partir de 30 ans, pour les rides ou la fermeté (après 45 ans, quand le bakuchiol ne lui convient pas)
     var revealSens=actifs!==3&&a>=2&&rides;
     function permis(id,choisis){var s=SOINS[id]; if(!s)return false;
@@ -1393,7 +1393,7 @@ body{background:#000;color:#f6f4f0}
     // 5. nettoyer, si son nettoyage actuel ne convient pas
     var aNettoyant=rep.routine===2||(rep.routine===3&&deja.indexOf(0)>=0), demaqMal=rep.demaq===0||rep.demaq===1;
     var besoinNet=!aNettoyant||rep.apresnet>=1||demaqMal;
-    var doux=type===0||sens===2||precauDoux||(rep.apresnet===1&&type<=1);
+    var doux=type===0||sens===2||precauDoux||rep.dx===1||(rep.apresnet===1&&type<=1);
     // pressée, ou un seul produit pour démaquiller et nettoyer : Fusion Balance devient son geste du soir
     var maq=rep.demaq!=null&&rep.demaq!==4, fusionRituel=maq&&(rep.temps===0||rep.demaq===3);
     if(fusionRituel)ajoute(['fusion','Le soir, un seul geste : ses deux phases dissolvent le maquillage, même waterproof ou longue tenue, et laissent la peau nette, sans frotter ni la dessécher.'],(besoinNet||rep.demaq===3)?85:70);
@@ -1752,7 +1752,7 @@ body{background:#000;color:#f6f4f0}
     function g(k){if(gestes.length>=3||!k||gestes.indexOf(k)>=0||pris(k))return false; if(k==='tiede'&&pris('netmatin'))return false; gestes.push(k); return true;}
     function premier(L){for(var j=0;j<L.length;j++)if(g(L[j]))return;}
     if(p0!=null)premier(PAR_PRIO[p0]);
-    premier([type===0?'tiede':null,sens>=1?'tamponner':null,type===3?'taie':null,(sens===2||a===0||a===3||precauDoux)?'unsoin':null]);
+    premier([type===0?'tiede':null,sens>=1?'tamponner':null,type===3?'taie':null,(sens===2||a===0||a===3||precauDoux||rep.dx===1)?'unsoin':null]);
     premier([env.indexOf(1)>=0?'aerer':null,env.indexOf(2)>=0?'chapeau':null]);
     if(p1!=null)premier(PAR_PRIO[p1]);
     if(regardSignes&&p0!==8&&p1!==8)premier(['annulaire']);
@@ -1858,7 +1858,7 @@ body{background:#000;color:#f6f4f0}
     var RG=rep.regard||[], vuRegard=['des cernes','des poches','des ridules','des paupières moins fermes','de la sécheresse','un regard fatigué'];
     var regN=RG.filter(function(n){return n<6;}).sort(function(x,y){return ([2,4].indexOf(x)>=0)-([2,4].indexOf(y)>=0);}), regDit=regN.map(function(n){return vuRegard[n];}), regAutour=regN.length&&[2,4].indexOf(regN[regN.length-1])>=0; regDit=regDit.length>1?regDit.slice(0,-1).join(', ')+' et '+regDit[regDit.length-1]:regDit[0];
     var total=R.tout.reduce(function(t,x){return t+SOINS[x[0]].p;},0), px=R.routine?R.routine.prix:total;
-    RES={why:{},R:R}; if(window.parent!==window){try{sessionStorage.setItem('ebSkinIdRep',JSON.stringify(rep));}catch(e){} versSite({type:'bilan',rep:rep});} R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1]; if(dem)RES.why[dem[0]]=dem[1];
+    RES={why:{},R:R,L:L,p1:p1,px:px}; if(window.parent!==window){try{sessionStorage.setItem('ebSkinIdRep',JSON.stringify(rep));}catch(e){} versSite({type:'bilan',rep:rep});} R.tout.concat(R.second||[]).forEach(function(x){RES.why[x[0]]=x[1];}); if(comp)RES.why[comp[0]]=comp[1]; if(reg)RES.why[reg[0]]=reg[1]; if(dem)RES.why[dem[0]]=dem[1];
     var nb=R.tout.length;
     var carte='<div class="rc" id="rc"><div class="rc-h"><span>VOTRE RITUEL</span><span>'+nb+' SOIN'+(nb>1?'S':'')+'</span></div>'+(p0!=null?'<p class="rc-pr">Pensé pour votre priorité</p><p class="rc-t">'+PRIOS[p0]+'</p>':'')
       +'<div class="rang'+(nb>4?' defile':'')+'" style="--n:'+Math.min(nb,4)+'">'+parMoment(R).map(function(x,k){return tuile(x,R,k);}).join('')+'</div>'
@@ -1895,12 +1895,12 @@ body{background:#000;color:#f6f4f0}
       +(reg?enc('POUR VOTRE REGARD','Vous avez remarqué '+regDit+(regAutour?' autour des yeux':'')+'.',reg):'')
       +(dem?enc('POUR VOTRE DÉMAQUILLAGE',demT,dem):'')
       +(veil?encTeint(veil):'')
-      +sec('VOTRE CARTE B','Rejoignez les B.','<p>'+fr('Recevez votre carte membre par e-mail, avec votre Skin ID et votre rituel : elle vous offre 10 % sur votre première commande.')+'</p>'
+      +sec('VOTRE CARTE B','Rejoignez les B.','<p>'+fr('Recevez votre carte membre par e-mail, avec votre Skin ID et votre rituel : elle vous offre 10 % sur votre première commande, pendant deux mois.')+'</p>'
         +'<div class="mbw"><div class="mb" role="img" aria-label="Carte membre B : moins 10 % sur votre première commande, code envoyé par e-mail"><div class="mo"></div><div class="wm" aria-hidden="true">ELKHA.B</div><div class="k">ELKHA.B · CARTE MEMBRE</div>'
         +'<div class="b" aria-hidden="true">B<i>.</i></div><div class="bvm">Bienvenue parmi les B.</div><div class="mot">Beauté, bien-être, et surtout bien dans sa peau. Votre rituel commence ici.</div>'
         +'<div class="pct">−10 %<span>SUR VOTRE PREMIÈRE COMMANDE</span></div><div class="code" aria-hidden="true">B-SKIN-7K4Q</div><div class="okm"><i></i>MEMBRE DEPUIS LE '+date.replace(/ /g,'.')+'</div></div></div>')
       +'<div class="mail carteb"><label for="m-mail">RECEVOIR MA CARTE ET MON SKIN ID</label><div class="m-l"><input type="email" id="m-mail" placeholder="Votre adresse e-mail" autocomplete="email"><button type="button" class="bt-c" id="b-mail">Envoyer</button></div>'
-      +'<label class="ck"><input type="checkbox"> Recevoir un e-mail dans 6 semaines pour faire le point sur ma peau</label></div>'
+      +'<label class="ck"><input type="checkbox" id="m-suivi"> Recevoir un e-mail dans 6 semaines pour faire le point sur ma peau</label><p class="envoye" id="m-envoye" role="status"></p></div>'
       +'<p class="leg">Ce bilan vous guide dans le choix de vos soins ; il ne remplace pas l’avis d’un dermatologue. Vos réponses de santé ne sont ni envoyées ni enregistrées.</p>'
       +'<p class="sign">Avec soin, la fondatrice d’ELKHA.B</p>'
       +'<button type="button" class="refaire" id="b-refaire">Refaire mon Skin ID</button>';
@@ -2015,7 +2015,7 @@ body{background:#000;color:#f6f4f0}
     if(t.dataset.teinte!=null&&t.classList.contains('te')){var bx=t.closest('.enc'); bx.querySelectorAll('.te').forEach(function(z){z.classList.toggle('on',z===t); z.setAttribute('aria-pressed',String(z===t));}); var bt=bx.querySelector('.pl-teinte'); bt.disabled=false; bt.dataset.teinte=t.dataset.teinte; bt.textContent='Ajouter '+TEINTES[+t.dataset.teinte][0]+' · '+prix(SOINS.lumiveil.p); delete bt.dataset.fait; return;}
     if(t.dataset.ajoute){var ids=t.dataset.ajoute.split(','); auPanier(variantesDe(ids,t),t,'Ajouté');return;}
     if(t.id==='b-regard'||t.id==='b-net'){t.textContent='Ajouté au panier (page de test)';return;}
-    if(t.id==='b-mail'){t.textContent='Sur le site, votre rituel partira par e-mail';return;}
+    if(t.id==='b-mail'){envoyerCarte(t);return;}
     if(t.id==='b-recommencer'||t.id==='b-refaire'){try{sessionStorage.removeItem('ebSkinIdRep');}catch(e){} if(window.parent!==window)versSite({type:'bilan',rep:null}); rep={};dejaSouleve=false;aGlisseQuestion=false;accueil();return;}
     if(t.hasAttribute('data-retour')){if(E_Q.classList.contains('on'))reculer(); else retour(); return;}
     if(t.hasAttribute('data-suite')){avancer();return;}
@@ -2043,6 +2043,58 @@ body{background:#000;color:#f6f4f0}
     h.style.fontSize=f+'px'; var L=h.querySelectorAll('.l'); function deborde(){return [].some.call(L,function(x){return x.scrollWidth>h.clientWidth+1;});}
     while(deborde()&&f>14){f-=.5; h.style.fontSize=f+'px';}}
   window.addEventListener('resize',ajusteTitre); if(document.fonts&&document.fonts.ready)document.fonts.ready.then(ajusteTitre); setTimeout(ajusteTitre,50);
+
+  // ================= L'E-MAIL DU SKIN ID : sa carte, son rituel, sa carte B avec son code personnel =================
+  // l'adresse du script Google « Skin ID ELKHA.B » (Déployer → Gérer les déploiements → URL de l'application Web)
+  var SCRIPT_SKINID='https://script.google.com/macros/s/AKfycbxIaAoTNt_kRSqZkhSgmECkMH7_A5vuZciryx4NjIYdgzDfzolrMMRBkRNK0QXLT9im/exec';
+  // le lien « Relire mon bilan » : ses réponses, SANS ses réponses de santé (traitement, intervention) ;
+  // seuls deux réglages du rituel les remplacent : pas d'exfoliant (nx), formules douces (dx)
+  function lienBilan(){var r={},k; for(k in rep){if(k==='precau'||k==='recup'||k.charAt(0)==='_')continue; r[k]=rep[k];}
+    if(rep.precau===0||rep.precau===1)r.nx=1; if(rep.precau===0||rep.precau===1||(rep.precau===2&&rep.recup!==1))r.dx=1;
+    try{return 'b1'+btoa(unescape(encodeURIComponent(JSON.stringify(r)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}catch(e){return '';}}
+  // la carte Skin ID en image, à l'identique : son fond (carte-fond-….jpg), puis chaque lettre à sa place exacte
+  function rondRect(x,a,b,w,h,r){x.beginPath();x.moveTo(a+r,b);x.arcTo(a+w,b,a+w,b+h,r);x.arcTo(a+w,b+h,a,b+h,r);x.arcTo(a,b+h,a,b,r);x.arcTo(a,b,a+w,b,r);x.closePath();}
+  function ecrireCarte(x,e,R,k){var cs=getComputedStyle(e), fs=parseFloat(cs.fontSize)*k; if(!fs)return;
+    x.font=cs.fontStyle+' '+cs.fontWeight+' '+fs+'px '+cs.fontFamily; x.fillStyle=cs.color; x.textBaseline='alphabetic';
+    var m=x.measureText('H'), asc=m.fontBoundingBoxAscent>0?m.fontBoundingBoxAscent:fs*.968, maj=cs.textTransform==='uppercase';
+    var W=document.createTreeWalker(e,NodeFilter.SHOW_TEXT,null), n, g=document.createRange();
+    while((n=W.nextNode())){for(var i=0;i<n.data.length;i++){var ch=n.data.charAt(i); if(/\s/.test(ch))continue; g.setStart(n,i); g.setEnd(n,i+1);
+      var b=g.getBoundingClientRect(); if(!b.width)continue; x.fillText(maj?ch.toUpperCase():ch,(b.left-R.left)*k,(b.top-R.top)*k+asc);}}}
+  function carteImage(){return new Promise(function(ok){try{
+      var c=document.querySelector('#e-fin .idc')||document.querySelector('.idc'); if(!c||!window.HTMLCanvasElement)return ok(null);
+      var th=['balance','mixte'].filter(function(t){return c.classList.contains(t);})[0]||'bloom', im=new Image(), fini=false;
+      var stop=setTimeout(function(){if(!fini){fini=true;ok(null);}},6000);
+      im.onerror=function(){if(!fini){fini=true;clearTimeout(stop);ok(null);}};
+      im.onload=function(){(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){if(fini)return; fini=true; clearTimeout(stop);
+        try{var R=c.getBoundingClientRect(), W=1000, H=630, k=W/R.width, cv=document.createElement('canvas'); cv.width=W; cv.height=H; var x=cv.getContext('2d');
+          x.fillStyle='#000'; x.fillRect(0,0,W,H); x.save(); rondRect(x,0,0,W,H,18*k); x.clip(); x.drawImage(im,0,0,W,H);
+          ['.idc-k','.sid-code','.sid-fam','.sid-prom','.idc-cd','.ok'].forEach(function(s){var e=c.querySelector(s); if(e)ecrireCarte(x,e,R,k);});
+          var v=c.querySelector('.ok i'); if(v){var d=v.getBoundingClientRect(), col=getComputedStyle(v).backgroundColor, cx=(d.left+d.width/2-R.left)*k, cy=(d.top+d.height/2-R.top)*k, rr=d.width/2*k;
+            x.fillStyle=col; x.globalAlpha=.18; x.beginPath(); x.arc(cx,cy,rr+.8*W/100,0,7); x.fill(); x.globalAlpha=1; x.beginPath(); x.arc(cx,cy,rr,0,7); x.fill();}
+          x.restore(); ok(cv.toDataURL('image/jpeg',.9).split(',')[1]);}catch(e){ok(null);}});};
+      im.src='carte-fond-'+th+'.jpg';}catch(e){ok(null);}});}
+  function soinMail(id,R){var s=SOINS[id]; return {id:id,nom:s.nom,m:R?moment(id,R):(s.m==='matin'?'MATIN':s.m==='soir'?'SOIR':s.m==='les2'?'MATIN & SOIR':''),h:s.h,photo:!!PHOTOS[id]};}
+  function envoyerCarte(b){var champ=document.getElementById('m-mail'), msg=document.getElementById('m-envoye'), boite=b.closest('.mail');
+    var email=(champ&&champ.value||'').trim();
+    function dire(t,ok){if(msg)msg.textContent=t; if(boite)boite.classList.toggle('dit',!!t);}
+    if(!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(email)){dire('Vérifiez votre adresse e-mail.'); if(champ)champ.focus(); return;}
+    if(!SCRIPT_SKINID){dire('L’envoi par e-mail arrive très bientôt.');return;}
+    if(!RES||!RES.R)return;
+    var R=RES.R, ID=skinId(R), A=ID.a||{code:'BL·N1',fam:'DOUCEUR',prom:PROMESSES[1]}, S=R.second||[], p1=RES.p1;
+    b.disabled=true; var orig=b.textContent; b.textContent='Envoi…'; dire('');
+    carteImage().then(function(img){
+      var d={type:'skinid',email:email,suivi:!!(document.getElementById('m-suivi')||{}).checked,
+        carte:{img:img,code:A.code,fam:A.fam,prom:A.prom},
+        rituel:{soins:parMoment(R).map(function(x){return soinMail(x[0],R);}),prix:RES.px,variantes:variantesRituel(R)},
+        second:S.length&&p1!=null?{label:'Pour '+NOMS_COURTS[p1],soins:S.map(function(x){return soinMail(x[0],R);}),prix:S.reduce(function(t,x){return t+SOINS[x[0]].p;},0)}:null,
+        geste:RES.L&&RES.L.gestes&&RES.L.gestes[0]||'', bilan:lienBilan()};
+      return fetch(SCRIPT_SKINID,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).then(function(r){return r.json();});
+    }).then(function(r){b.disabled=false;
+      if(r&&r.ok){b.textContent='Envoyé'; dire('C’est envoyé : votre carte et votre Skin ID vous attendent dans votre boîte mail. Pensez à regarder aussi vos courriers indésirables.',true);
+        var c=document.querySelector('.mb .code'); if(c&&r.code){c.textContent=r.code; c.style.filter='none';} return;}
+      b.textContent=orig;
+      dire(r&&r.raison==='limite'?'Votre Skin ID a déjà été envoyé à cette adresse aujourd’hui : regardez votre boîte mail.':r&&r.raison==='email'?'Vérifiez votre adresse e-mail.':'L’envoi n’a pas abouti. Réessayez dans un instant.');
+    }).catch(function(){b.disabled=false; b.textContent=orig; dire('L’envoi n’a pas abouti. Réessayez dans un instant.');});}
   // ================= SUR LE SITE : le Skin ID s'ouvre par-dessus la page (skin-id-engine.js) =================
   // le panier et les fiches sont ceux du site : on lui envoie un message, il répond quand c'est fait
   var SITE=window.parent!==window;
