@@ -568,7 +568,7 @@ const EB_ECHANTILLONS = {
 };
 // Quel échantillon pour quel soin : le soin principal (le plus cher) décide ; jamais un soin déjà dans la commande
 const EB_ECH_REGLES = [
-  ['lumiere d', 'milky-bloom'], ['temps suspendu', 'ceramide-night-restore'], ['rituel de minuit', 'age-lift'], ['nouvelle aube', 'ceramide-night-restore'],
+  ['velours d', 'age-lift'], ['lumiere d', 'milky-bloom'], ['temps suspendu', 'ceramide-night-restore'], ['rituel de minuit', 'age-lift'], ['nouvelle aube', 'ceramide-night-restore'],
   ['radiance c serum', 'milky-bloom'], ['milky bloom', 'radiance-c-serum'], ['radiance cleanser', 'radiance-c-serum'], ['lumi-pure', 'radiance-c-serum'], ['gelee', 'radiance-c-serum'],
   ['arbutin', 'radiance-c-serum'], ['niacinamide', 'radiance-c-serum'], ['spot control', 'radiance-c-serum'], ['bright control', 'radiance-c-serum'],
   ['luminescence', 'lumi-bloom-arbutin'], ['radiance eye cream', 'lumi-bloom-arbutin'],

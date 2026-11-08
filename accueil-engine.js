@@ -22,15 +22,16 @@
     surtitre: "Édition limitée · Coffrets cadeaux",
     titre: "Les coffrets des fêtes",
     texte: "Nos rituels de soin visage réunis dans un écrin à offrir ou à s'offrir, en quantité limitée, jusqu'à début janvier.",
-    photo: "https://elkhabskincare.github.io/elkhab-site/accueil-coffrets-fetes.webp",
-    photoTel: "https://elkhabskincare.github.io/elkhab-site/accueil-coffrets-fetes-900.webp",
+    photo: "https://elkhabskincare.github.io/elkhab-site/accueil-coffrets-fetes-5.webp",
+    photoTel: "https://elkhabskincare.github.io/elkhab-site/accueil-coffrets-fetes-5-900.webp",
     lien: "https://routines.elkhab.com/",
     bouton: "Découvrir les coffrets",
     coffrets: [
       { nom: "Le Temps Suspendu", sous: "Rituel Lift · Balance",          prix: "92 €", fiche: "coffret-temps-suspendu" },
       { nom: "Rituel de Minuit",  sous: "Soin du soir · Bloom & Balance", prix: "87 €", fiche: "coffret-rituel-de-minuit" },
       { nom: "Nouvelle Aube",     sous: "Peau neuve · Balance",           prix: "82 €", fiche: "coffret-nouvelle-aube" },
-      { nom: "Lumière d'hiver",   sous: "Rituel éclat · Bloom",           prix: "59 €", fiche: "coffret-lumiere-dhiver" }
+      { nom: "Lumière d'hiver",   sous: "Rituel éclat · Bloom",           prix: "59 €", fiche: "coffret-lumiere-dhiver" },
+      { nom: "Velours d'Hiver",   sous: "Sérums fermeté · Bloom & Balance", prix: "94 €", fiche: "coffret-velours-dhiver" }
     ]
   };
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
@@ -204,10 +205,10 @@
   // apparition douce des blocs quand on descend
   + ".eba-entre{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}.eba-entre.vu{opacity:1;transform:none}"
   // ── Les coffrets des fêtes
-  + ".eba-fetes .eba-fph{display:block;margin:40px auto 0;aspect-ratio:3 / 2;overflow:hidden;background:#efe6dc}"
+  + ".eba-fetes .eba-fph{display:block;margin:40px auto 0;aspect-ratio:1672 / 941;overflow:hidden;background:#efe6dc}"
   + ".eba-fetes .eba-fph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.4s ease}"
   + ".eba-fetes .eba-fph:hover img{transform:scale(1.02)}"
-  + ".eba-f4{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid #e3dccf}"
+  + ".eba-f4{display:grid;grid-template-columns:repeat(var(--eba-n,4),1fr);border-left:1px solid #e3dccf}"
   + ".eba-f4 a{display:block;padding:20px 10px 22px;border-right:1px solid #e3dccf;border-bottom:1px solid #e3dccf;transition:background .3s ease}"
   + ".eba-f4 a:hover{background:#efe9df}"
   + "#eb-acc .eba-f4 h3{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;line-height:1.4}"
@@ -235,7 +236,7 @@
   +   ".eba-p{font-size:12px;line-height:1.55;margin:0 0 14px}"
   +   ".eba-lien{font-size:9px;letter-spacing:.2em}"
   +   ".eba-fetes .eba-fph{margin:26px 0 0}"
-  +   ".eba-f4{grid-template-columns:1fr 1fr}"
+  +   ".eba-f4{grid-template-columns:1fr 1fr}.eba-f4 a:last-child:nth-child(odd){grid-column:1/-1}"
   +   "#eb-acc .eba-f4 h3{font-size:10px;letter-spacing:.12em}.eba-f4 span{font-size:10px}"
   +   ".eba-fetes .eba-btn{margin-top:26px}"
   + "}"
@@ -262,7 +263,7 @@
       var hf = '<section class="eba-sec eba-fetes" id="eba-fetes"><p class="eba-k">' + e(FETES.surtitre) + '</p><h2 class="eba-t">' + e(FETES.titre) + '</h2><i class="eba-g"></i>'
         + '<p class="eba-st2">' + e(FETES.texte) + '</p>'
         + '<a class="eba-fph" href="' + e(FETES.lien) + '"><picture><source media="(max-width:699px)" srcset="' + e(FETES.photoTel) + '"><img src="' + e(FETES.photo) + '" alt="Coffrets cadeaux soin visage ELKHA.B, édition des fêtes : ' + e(FETES.coffrets.map(function(c){ return c.nom; }).join(', ')) + '" loading="lazy" decoding="async"></picture></a>'
-        + '<div class="eba-f4">' + FETES.coffrets.map(function(c){ return '<a href="' + e(FETES.lien + '?fiche=' + c.fiche) + '"><h3>' + e(c.nom) + '</h3><span>' + e(c.sous) + '</span><b>' + e(c.prix) + '</b></a>'; }).join('') + '</div>'
+        + '<div class="eba-f4" style="--eba-n:' + FETES.coffrets.length + '">' + FETES.coffrets.map(function(c){ return '<a href="' + e(FETES.lien + '?fiche=' + c.fiche) + '"><h3>' + e(c.nom) + '</h3><span>' + e(c.sous) + '</span><b>' + e(c.prix) + '</b></a>'; }).join('') + '</div>'
         + '<a class="eba-btn" href="' + e(FETES.lien) + '">' + e(FETES.bouton) + '</a></section>';
       ban.insertAdjacentHTML('afterend', hf);
     }

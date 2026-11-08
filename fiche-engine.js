@@ -214,7 +214,7 @@
 
   // ── Pour Google : une fiche ouverte devient une vraie page aux yeux de Google ──
   // Titre de l'onglet, description, adresse ?fiche=… et carte « produit » (nom, photos, prix).
-  // Rien ne change à l'écran pour la cliente. Pour l'instant : les 4 coffrets des fêtes.
+  // Rien ne change à l'écran pour la cliente. Pour l'instant : les 5 coffrets des fêtes.
   var SEO = {
     'coffret-temps-suspendu': {
       titre: 'Coffret Le Temps Suspendu, soins anti-rides aux peptides',
@@ -239,6 +239,12 @@
       description: 'Coffret cadeau éclat : Radiance C Serum à la vitamine C et Lumi-Bloom Arbutin pour atténuer l\u2019apparence des taches et unifier le teint. Vegan, édition limitée des fêtes.',
       nomProduit: 'Coffret Lumière d\u2019hiver',
       adresse: 'https://routines.elkhab.com/?fiche=coffret-lumiere-dhiver'
+    },
+    'coffret-velours-dhiver': {
+      titre: 'Coffret Velours d\u2019Hiver, sérums fermeté au bakuchiol et aux peptides',
+      description: 'Coffret cadeau sérums fermeté : Bakuchiol Elixir, alternative végétale au rétinol, Active Lift aux peptides et Luminescence Boost pour une peau plus ferme et lisse. Vegan, édition limitée des fêtes.',
+      nomProduit: 'Coffret Velours d\u2019Hiver',
+      adresse: 'https://routines.elkhab.com/?fiche=coffret-velours-dhiver'
     }
   };
   var seoOrigine = null;

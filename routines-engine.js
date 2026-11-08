@@ -44,7 +44,8 @@
     { id: "coffret-temps-suspendu",   pour: "Rides, ridules et fermeté, regard compris",              besoins: ["fermete", "regard"] },
     { id: "coffret-rituel-de-minuit", pour: "Le rituel du soir complet, regard compris",              besoins: ["fermete", "regard"] },
     { id: "coffret-nouvelle-aube",    pour: "Pour une peau neuve : exfolier, lisser, repulper",       besoins: ["eclat", "fermete", "hydratation"] },
-    { id: "coffret-lumiere-dhiver",   pour: "Pour un teint lumineux et unifié tout l'hiver",          besoins: ["eclat", "taches"] }
+    { id: "coffret-lumiere-dhiver",   pour: "Pour un teint lumineux et unifié tout l'hiver",          besoins: ["eclat", "taches"] },
+    { id: "coffret-velours-dhiver",   pour: "Trois sérums pour une peau plus ferme, lisse et rebondie", besoins: ["fermete"] }
   ];
   var EDITION = {
     surtitre: "Édition limitée",

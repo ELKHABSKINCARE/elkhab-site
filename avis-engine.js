@@ -30,7 +30,7 @@
     'Age Lift','Eye Lift','Cellular Reveal','Bakuchiol Elixir','Spot Control','Bright Control','BHA Balance','Glyco Balance','AHA Balance Peel',
     'Routine essentielle','Routine anti-âge','Routine anti-taches','Routine apaisante','Routine renouvellement',
     // Coffrets des fêtes (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google, écrits exactement pareil)
-    'Le Temps Suspendu','Rituel de Minuit','Nouvelle Aube',"Lumière d'hiver"
+    'Le Temps Suspendu','Rituel de Minuit','Nouvelle Aube',"Lumière d'hiver","Velours d'Hiver"
   ];
   var BANNIERE = 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200';
 

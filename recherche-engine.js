@@ -59,7 +59,8 @@
     "coffret-temps-suspendu": ["coffret","cadeau","noel","fetes","peptides","rides","fermete","lift"],
     "coffret-rituel-de-minuit": ["coffret","cadeau","noel","fetes","soir","nuit","demaquillant"],
     "coffret-nouvelle-aube": ["coffret","cadeau","noel","fetes","peau neuve","exfoliant","acide lactique"],
-    "coffret-lumiere-dhiver": ["coffret","cadeau","noel","fetes","eclat","vitamine c","taches"]
+    "coffret-lumiere-dhiver": ["coffret","cadeau","noel","fetes","eclat","vitamine c","taches"],
+    "coffret-velours-dhiver": ["coffret","cadeau","noel","fetes","serums","fermete","rides","bakuchiol","retinol vegetal","peptides","velours"]
   };
   var BALANCE = ['hydra-balance','calm-balance-jour','calm-balance-nuit','ceramide-night-restore','cellular-reveal','cellular-eye-restore','cellular-renew','active-lift','age-lift','eye-lift','bakuchiol-elixir','bright-control','spot-control','glyco-balance','aha-balance-peel','bha-balance','fusion-balance'];
 

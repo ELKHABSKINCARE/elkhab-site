@@ -1227,6 +1227,47 @@ var BALANCE = {
     sections: [
       { titre: "Le coffret", texte: "Les trois soins sont présentés dans le coffret Nouvelle Aube, une édition limitée des fêtes prête à être offerte.\nAHA Balance Peel · 30 ml\nActive Lift · 30 ml\nHydra Balance · 30 ml" }
     ]
+  },
+  // =====================================================================
+  // COFFRET VELOURS D'HIVER (Bloom & Balance) — édition limitée des fêtes 2026
+  // =====================================================================
+  "coffret-velours-dhiver": {
+    nom: "Velours d'Hiver",
+    sousTitre: "Coffret Sérums Fermeté\nBakuchiol Elixir · Active Lift · Luminescence Boost",
+    gammeLabel: "Bloom & Balance",
+    details: ["Coffret · 3 soins", "Vegan"],
+    note: "Édition limitée des fêtes",
+    prix: "94€",
+    variantId: "60413279469913",
+    coffret: true,
+    carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
+    media: {
+      type: "diaporama",
+      images: [
+        // 📷 1. LE COFFRET DE FACE
+        "https://elkhabskincare.github.io/elkhab-site/velours-dhiver-face-site.jpg",
+        // 📷 2. LE DOS DU COFFRET
+        "https://elkhabskincare.github.io/elkhab-site/velours-dhiver-dos-site.jpg",
+        // 📷 3. LES SOINS DU COFFRET (à leur taille réelle)
+        "https://elkhabskincare.github.io/elkhab-site/coffret-velours-dhiver-soins-v1.jpg",
+        // 📷 4. AMBIANCE DES FÊTES (aussi la photo montrée par Google)
+        "https://elkhabskincare.github.io/elkhab-site/coffret-velours-dhiver-ambiance.jpg"
+      ]
+    },
+    routine: {
+      titreSoins: "Dans le coffret",
+      intro: "Un coffret cadeau de trois sérums concentrés pour une peau plus ferme, lisse et rebondie.\nActive Lift, aux peptides, lisse l'apparence des rides et raffermit la peau dès le matin. Le soir, Luminescence Boost redonne tonus et rebond, puis Bakuchiol Elixir, l'alternative végétale au rétinol, travaille le grain de peau et l'apparence des rides pendant la nuit, dans un soin nourrissant aux huiles précieuses. Trois sérums Bloom et Balance réunis dans un écrin des fêtes, à offrir ou à s'offrir.",
+      soins: ["bakuchiol-elixir", "active-lift", "luminescence-boost"],
+      etapes: [
+        { moment: "Le matin", soin: "active-lift", texte: "Sur peau propre, appliquez une pression d'Active Lift sur le visage et le cou, puis votre crème habituelle." },
+        { moment: "Le soir", soin: "luminescence-boost", texte: "Sur peau propre, appliquez une pression de Luminescence Boost sur le visage en lissant de l'ovale vers les tempes, puis sur le cou." },
+        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Réchauffez quelques gouttes de Bakuchiol Elixir entre vos paumes et pressez-les délicatement sur le visage et le cou, pour terminer le rituel." }
+      ],
+      conclusion: "Trois sérums qui se complètent : les peptides le matin, le rebond et le bakuchiol le soir, pendant que la peau se régénère.\nSi votre peau découvre le bakuchiol, commencez deux à trois soirs par semaine. Le matin, terminez par une protection solaire pour préserver les résultats."
+    },
+    sections: [
+      { titre: "Le coffret", texte: "Les trois sérums sont présentés dans le coffret Velours d'Hiver, une édition limitée des fêtes prête à être offerte.\nBakuchiol Elixir · 30 ml\nActive Lift · 30 ml\nLuminescence Boost · 30 ml" }
+    ]
   }
 };
 for(var k in BALANCE){

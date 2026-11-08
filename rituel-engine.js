@@ -3,7 +3,7 @@
 // ELKHA.B — Page « Votre rituel » (rituel.elkhab.com), ouverte par le QR code au dos des coffrets
 // Embed Carrd :  <div id="eb-rituel"></div>
 //                <script defer src="https://elkhabskincare.github.io/elkhab-site/rituel-engine.js"></script>
-// L'adresse choisit le coffret : ?ts (Le Temps Suspendu), ?lh (Lumière d'hiver), ?rm (Rituel de Minuit), ?na (Nouvelle Aube)
+// L'adresse choisit le coffret : ?ts (Le Temps Suspendu), ?lh (Lumière d'hiver), ?rm (Rituel de Minuit), ?na (Nouvelle Aube), ?vh (Velours d'Hiver)
 // Le rituel (étapes, conclusion) vient des fiches des coffrets (produits-data-test.js et produits-balance-test.js) :
 // une étape modifiée dans la fiche l'est aussi ici.
 //
@@ -81,6 +81,23 @@
       savoir: {
         'Matin et soir': ["L'acide hyaluronique peut retenir jusqu'à mille fois son poids en eau. Dans Hydra Balance, il est présent en plusieurs tailles de molécules : les plus grandes hydratent en surface, les plus petites agissent plus profondément dans l'épiderme."],
         '1 à 2 soirs par semaine': ["L'acide lactique est un AHA : il dissout le « ciment » qui retient les cellules mortes à la surface de la peau, sans grains ni frottement. C'est une exfoliation chimique, plus régulière qu'un gommage. Il fait aussi partie des composants naturels de l'hydratation de la peau : il exfolie tout en hydratant. Le lendemain matin, la protection solaire est indispensable : une peau fraîchement exfoliée est plus sensible aux UV."]
+      }
+    },
+    vh: {
+      fiche: 'coffret-velours-dhiver', nom: "Velours d'Hiver", sous: 'Coffret Sérums Fermeté', couleur: '#8e1d3f',
+      bande: BASE + 'rituel-grille-vh.webp', motif: BASE + 'rituel-grille-vh.webp', grille: [4, 6, 0, 5],
+      voile: 'rgba(40,0,24,.45)', base: '#550236', encre: '#ffffff', nuit: '#3f0128', or: '#f4b3a6',
+      sens: {
+        'bakuchiol-elixir': "Une texture soyeuse aux huiles de jojoba, de rose musquée et d'onagre, au parfum de rose aux notes chaleureuses et boisées.",
+        'active-lift': "Un sérum fluide au parfum floral subtil, réchauffé de notes d'ambre sur un fond poudré.",
+        'luminescence-boost': "Une texture légère et fraîche, absorbée en quelques secondes, aux notes poudrées d'iris et de violette."
+      },
+      savoir: {
+        'Le matin': ["Les peptides sont de courtes chaînes d'acides aminés, les briques du collagène. Ils jouent le rôle de messagers : ils encouragent la peau à entretenir sa fermeté et son élasticité. Les résultats se construisent avec la régularité, semaine après semaine. Le matin, terminez par une protection solaire : les UV sont le premier accélérateur du relâchement cutané."],
+        'Le soir': [
+          "Le bakuchiol vient des graines du babchi, une plante utilisée depuis des siècles en Inde. Une étude clinique l'a comparé au rétinol : des résultats proches sur les rides, avec beaucoup moins de rougeurs et de desquamation. C'est l'alternative végétale au rétinol la plus affirmée de la gamme.",
+          "L'ordre compte : on applique les textures de la plus légère à la plus riche. Le sérum aqueux d'abord, pour que ses actifs pénètrent, puis l'élixir huileux, qui nourrit et retient l'hydratation toute la nuit."
+        ]
       }
     }
   };
