@@ -566,10 +566,22 @@ function boutonFermer(){
 // Arrivée sur un article : le voile beige posé par l'embed du menu (#ebarr) cache la page
 // pendant qu'elle se met en place, puis s'efface en fondu sur l'article prêt (rien ne saute)
 function finArrivee(){
-  var v = document.getElementById('ebarr'); if(!v) return;
+  // le beige posé dès le début de la page (embed « Head » : classe eb-arr) est relayé par le voile #ebarr
+  var html = document.documentElement;
+  var v = document.getElementById('ebarr');
+  if(!v){
+    if(html.classList.contains('eb-arr')){
+      var lever = function(){ html.classList.remove('eb-arr'); };
+      if(document.readyState === 'complete') setTimeout(lever, 250);
+      else window.addEventListener('load', function(){ setTimeout(lever, 250); });
+      setTimeout(lever, 3500);
+    }
+    return;
+  }
   var fait = false;
   function effacer(){
     if(fait) return; fait = true;
+    html.classList.remove('eb-arr');
     if(/^#article-/.test(location.hash) && window.scrollY > 2) window.scrollTo(0, 0);
     v.style.transition = 'opacity .4s ease'; v.style.opacity = '0';
     setTimeout(function(){ if(v.parentNode) v.parentNode.removeChild(v); }, 450);
