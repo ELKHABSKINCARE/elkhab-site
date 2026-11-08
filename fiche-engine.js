@@ -34,6 +34,7 @@
   + ".eb-fp-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}"
   + ".eb-fp-slides::-webkit-scrollbar{display:none}"
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
+  + ".eb-fp-slide{clip-path:inset(0 1px)}"   /* la photo voisine ne dépasse jamais d'un pixel (trait au bord de la photo, écrans Windows) */
   + ".eb-fp-slide img,.eb-fp-slide video{display:block;width:100%;height:auto}"
   + ".eb-fp-dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:7px}"
   + ".eb-fp-dot{width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.25);transition:background .2s ease}"
