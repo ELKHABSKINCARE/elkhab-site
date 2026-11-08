@@ -661,7 +661,7 @@ function ebCartEchantillonZone(cart){
   zone.style.display = 'flex';
   const nom = EB_ECHANTILLONS[e.cle].nom, offert = e.nb >= 2;
   zone.classList.toggle('eb-ech-attente', !offert);
-  zone.innerHTML = '<span class="eb-ech-mini"><img src="https://elkhabskincare.github.io/elkhab-site/echantillon-mini-' + e.cle + '.webp" alt="Échantillon ' + nom + ' ELKHA.B" loading="lazy"></span>'
+  zone.innerHTML = '<span class="eb-ech-mini"><img src="https://elkhabskincare.github.io/elkhab-site/echantillon-mini-' + e.cle + '.webp?v=2" alt="Échantillon ' + nom + ' ELKHA.B" loading="lazy"></span>'
     + '<span class="eb-ech-txt">' + (offert
       ? '<b>Échantillon offert</b>' + nom + ' est ajouté à votre commande.'
       : '<b>Un échantillon vous attend</b>' + nom + ' vous est offert dès votre deuxième soin.') + '</span>';
@@ -770,7 +770,6 @@ function ebCartStylePhotos(){
     + '.eb-cart-info{flex:1;min-width:0}'
     + '.eb-cart-echantillon{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:12px 0;border-bottom:1px solid #EBE5DB;font-family:Montserrat,sans-serif;text-align:left}'
     + '.eb-ech-mini{flex:0 0 60px;width:60px;height:60px;border-radius:10px;background:#f5f4f0;overflow:hidden}.eb-ech-mini img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88)}'
-    + '.eb-cart-echantillon.eb-ech-attente .eb-ech-mini{opacity:.55}'
     + '.eb-ech-txt{font-size:11.5px;line-height:1.55;letter-spacing:.02em;color:#4a453e}.eb-ech-txt b{display:block;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#1d1b18;margin-bottom:3px}'
     + '.eb-cart-livraison{margin:0 0 16px}'
     + '.eb-cart-livraison-txt{font-family:Montserrat,sans-serif;font-size:11.5px;font-weight:400;letter-spacing:.02em;margin-bottom:8px;text-align:center}'
