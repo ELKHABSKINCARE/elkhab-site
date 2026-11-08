@@ -102,7 +102,7 @@
   + ".eb-av-overlay.eb-av-doux .eb-av-bandeau{display:none}"
   + ".eb-av-overlay.eb-av-doux .eb-av-inner{padding-top:64px}"
   + ".eb-av-overlay.eb-av-doux .eb-av-tete{display:flex;flex-direction:column;align-items:center}"
-  + ".eb-av-overlay.eb-av-doux .eb-sceau{display:inline-block;margin:0 0 16px;padding:8px 15px 7px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:3px;background:rgba(255,255,255,.4);font-size:16px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
+  + ".eb-av-overlay.eb-av-doux .eb-griffe{display:block;height:24px;width:auto;margin:0 auto;color:#efebe3;filter:drop-shadow(1px 1px 0 rgba(120,105,85,.55)) drop-shadow(-1px -1px 0 #fff)}.eb-av-overlay.eb-av-doux .eb-sceau{display:inline-block;margin:0 0 16px;padding:9px 14px 8px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:3px;background:rgba(255,255,255,.4);font-size:16px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
   + ".eb-av-overlay.eb-av-doux .eb-av-hero{display:none;margin:0 0 6px}"
   + ".eb-av-overlay.eb-av-doux.eb-av-un .eb-av-hero{display:block}"
   + ".eb-av-overlay.eb-av-doux .eb-av-hero img{display:block;height:170px;width:auto;filter:brightness(1.06);mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent),linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent),linear-gradient(180deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}"
@@ -154,7 +154,7 @@
     overlay.innerHTML = ''
       + '<div class="eb-av-inner">'
       +   '<div class="eb-av-bandeau"><img class="eb-av-banner" src="' + BANNIERE + '" alt="ELKHA.B Paris"></div>'
-      +   '<div class="eb-av-tete"><div class="eb-sceau">E.B</div><div class="eb-av-hero"><img alt=""></div><p class="eb-av-kicker">La parole aux B.</p></div>'
+      +   '<div class="eb-av-tete"><div class="eb-sceau"><svg class="eb-griffe" viewBox="18 7 72 90" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"><rect x="48" y="10" width="7" height="84"/><rect x="21" y="10" width="27" height="2.4"/><rect x="28" y="49.12" width="20" height="2.4"/><rect x="21" y="91.60" width="27" height="2.4"/><path d="M55 10H65A16.5 20.16 0 0 1 65 50.32H55ZM55 12.4H64.5A10.8 18.36 0 0 1 64.5 49.12H55Z"/><path d="M55 50.32H68A19 21.84 0 0 1 68 94H55ZM55 51.52H67.5A12.6 20.04 0 0 1 67.5 91.60H55Z"/></g></svg></div><div class="eb-av-hero"><img alt=""></div><p class="eb-av-kicker">La parole aux B.</p></div>'
       +   '<h2 class="eb-av-title">Votre avis compte</h2><div class="eb-av-filet"></div>'
       +   '<p class="eb-av-intro">Texture, sensations, évolution de votre peau… Partagez votre expérience, simplement et sincèrement. Votre avis aidera d’autres peaux à trouver les soins qui leur correspondent.</p>'
       +   '<div class="eb-av-form">'

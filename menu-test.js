@@ -9,9 +9,9 @@
 (function(){
 
 /* ─── Skin ID : le nouveau diagnostic s'ouvre par-dessus la page (skin-id-engine.js) ─── */
-var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=8";
+var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=9";
 /* ─── Recherche : la nouvelle version (même panneau que le panier) remplace l'ancienne ─── */
-(function(){ if(document.querySelector('script[data-eb-recherche]')) return; var s=document.createElement('script'); s.src="https://elkhabskincare.github.io/elkhab-site/recherche-engine.js?v=3"; s.async=true; s.setAttribute('data-eb-recherche','1'); (document.head||document.documentElement).appendChild(s); })();
+(function(){ if(document.querySelector('script[data-eb-recherche]')) return; var s=document.createElement('script'); s.src="https://elkhabskincare.github.io/elkhab-site/recherche-engine.js?v=4"; s.async=true; s.setAttribute('data-eb-recherche','1'); (document.head||document.documentElement).appendChild(s); })();
 function chargerSkinId(fait){
   if(typeof window.ebSkinIdOpen==='function'){ if(fait) fait(); return; }
   var s=document.querySelector('script[data-eb-skinid]');
@@ -124,7 +124,8 @@ var CSS = ""
 + ".ebm-skin-zone{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center}"
 + ".ebm-soins a.ebm-skin{position:relative;display:block;width:100%;max-width:280px;box-sizing:border-box;padding:18px 18px 16px;cursor:pointer;text-decoration:none;color:#111;border:1px solid #e4e1d8;background:radial-gradient(260px 180px at 100% 0%,rgba(230,203,189,.45),rgba(230,203,189,0) 70%),radial-gradient(260px 180px at 0% 100%,rgba(195,204,143,.35),rgba(195,204,143,0) 70%),#faf9f6;transition:transform .3s ease,box-shadow .3s ease}"
 + ".ebm-soins a.ebm-skin:hover{opacity:1;transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.06)}"
-+ ".ebm-skin .ebm-sceau{position:absolute;top:14px;right:14px;padding:5px 10px 4px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:2px;background:rgba(255,255,255,.4);font-size:11px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
++ ".ebm-skin .ebm-griffe{display:block;height:17px;width:auto;margin:0 auto;color:#efebe3;filter:drop-shadow(1px 1px 0 rgba(120,105,85,.55)) drop-shadow(-1px -1px 0 #fff)}"
++ ".ebm-skin .ebm-sceau{position:absolute;top:14px;right:14px;padding:6px 9px 5px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:2px;background:rgba(255,255,255,.4);font-size:11px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
 + ".ebm-skin .ebm-sk{margin:2px 0 14px;font-size:8.5px;letter-spacing:.3em;font-weight:600;color:#5f5a53;text-transform:uppercase}"
 + ".ebm-skin .ebm-code{display:block;font-size:17px;font-weight:300;letter-spacing:.14em;white-space:nowrap;color:#1f241c;margin:0 0 8px;transition:opacity .4s ease}"
 + ".ebm-skin .ebm-code b{font-weight:600}"
@@ -191,7 +192,7 @@ function construire(){
   var c1=el('div','','<h4>Par type de soin</h4>'); PAR_TYPE.forEach(function(x){ c1.appendChild(lien(x[0],x[1])); });
   var c2=el('div','','<h4>Par besoin</h4>'); PAR_BESOIN.forEach(function(x){ c2.appendChild(lien(x[0],x[1])); });
   var c3=el('div','ebm-skin-zone');
-  var carte=el('a','ebm-skin','<span class="ebm-sceau">E.B</span><p class="ebm-sk">Skin ID</p><span class="ebm-code"><b>BL</b> · N1 · DOUCEUR</span><p>Votre peau a un code. 2 minutes pour découvrir le vôtre et le rituel qui lui correspond.</p><span class="ebm-cta">Faire mon Skin ID</span>');
+  var carte=el('a','ebm-skin','<span class="ebm-sceau"><svg class="ebm-griffe" viewBox="18 7 72 90" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"><rect x="48" y="10" width="7" height="84"/><rect x="21" y="10" width="27" height="2.4"/><rect x="28" y="49.12" width="20" height="2.4"/><rect x="21" y="91.60" width="27" height="2.4"/><path d="M55 10H65A16.5 20.16 0 0 1 65 50.32H55ZM55 12.4H64.5A10.8 18.36 0 0 1 64.5 49.12H55Z"/><path d="M55 50.32H68A19 21.84 0 0 1 68 94H55ZM55 51.52H67.5A12.6 20.04 0 0 1 67.5 91.60H55Z"/></g></svg></span><p class="ebm-sk">Skin ID</p><span class="ebm-code"><b>BL</b> · N1 · DOUCEUR</span><p>Votre peau a un code. 2 minutes pour découvrir le vôtre et le rituel qui lui correspond.</p><span class="ebm-cta">Faire mon Skin ID</span>');
   enBouton(carte); carte.setAttribute('aria-label','Faire mon Skin ID');
   carte.addEventListener('click',function(e){ e.preventDefault(); fermerTout(); ouvrirSkinId(); });
   c3.appendChild(carte);

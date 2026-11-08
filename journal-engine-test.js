@@ -166,7 +166,7 @@ var CSS = ""
 + ".ebja-titre{font-size:48px}.ebja-q{font-size:21px}.ebja-m{margin-top:34px}"
 + "}"
 /* Le texte de l'article : lettrine, citation */
-+ ".ebj-lettrine:first-letter{float:left;font-size:4.4em;line-height:.85;font-weight:200;margin:.1em .16em 0 -.03em;color:#141414}"
++ ".ebj-lettrine:first-letter{float:left;font-size:3.6em;line-height:.82;font-weight:600;margin:.08em .06em 0 0;color:#8a3038}"
 + ".ebj-cit{margin:46px auto !important;max-width:640px;font-size:22px !important;font-weight:300 !important;line-height:1.45 !important;text-align:center !important;color:#141414 !important}"
 + ".ebj-cit:before,.ebj-cit:after{content:'';display:block;width:60px;height:1px;background:#8f8676;margin:0 auto 26px}"
 + ".ebj-cit:after{margin:26px auto 0}"

@@ -146,7 +146,7 @@
   // Site Balance : même bloc, dans le dégradé vert de la gamme (comme la fenêtre « Laisser un avis »)
   // Nouvelle DA des avis (Bloom et Balance) : fond du site + halo de la gamme très pâle, sceau E.B embossé, avis en cartes
   + ".eb-fp-exp.eb-fp-degrade.eb-fp-doux{background:radial-gradient(560px 420px at 100% 0%,var(--h1),var(--h1z) 72%),radial-gradient(600px 460px at 0% 100%,var(--h2),var(--h2z) 72%),#f5f4f0;color:#1f241c;text-align:left}"
-  + ".eb-fp-exp.eb-fp-doux .eb-sceau{display:inline-block;margin:0 0 20px;padding:8px 15px 7px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:3px;background:rgba(255,255,255,.4);font-size:16px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
+  + ".eb-fp-exp.eb-fp-doux .eb-griffe{display:block;height:24px;width:auto;margin:0 auto;color:#efebe3;filter:drop-shadow(1px 1px 0 rgba(120,105,85,.55)) drop-shadow(-1px -1px 0 #fff)}.eb-fp-exp.eb-fp-doux .eb-sceau{display:inline-block;margin:0 0 20px;padding:9px 14px 8px;border:1px solid #cbc5b6;outline:1px solid #e2ddd1;outline-offset:3px;background:rgba(255,255,255,.4);font-size:16px;font-weight:800;letter-spacing:.16em;line-height:1;color:#e4dfd3;text-shadow:0 1px 0 #fff,0 -1px 0 #b7b1a1}"
   + ".eb-fp-exp.eb-fp-doux .eb-fp-exp-k{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#3a3a3a;margin:0 0 8px}"
   + ".eb-fp-exp.eb-fp-doux .eb-fp-h2{color:#111;margin:0}"
   + ".eb-fp-exp.eb-fp-doux .eb-fp-exp-filet{width:56px;height:2px;margin:12px 0 18px;background:var(--filet)}"
@@ -830,7 +830,7 @@
       var avisDoux = !!window.EB_AVIS_DEGRADE;   // nouvelle DA des avis (sites de test Bloom et Balance)
       var avisBalance = /balance/i.test(window.location.hostname) || data.gamme === 'balance';
       h += '<div class="eb-fp-exp' + (avisDoux ? ' eb-fp-degrade eb-fp-doux ' + (avisBalance ? 'eb-fp-balance' : 'eb-fp-bloomv') : '') + '">'
-        + (avisDoux ? '<div class="eb-sceau">E.B</div><p class="eb-fp-exp-k">La parole aux B.</p>' : '')
+        + (avisDoux ? '<div class="eb-sceau"><svg class="eb-griffe" viewBox="18 7 72 90" aria-hidden="true"><g fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="5" stroke-linejoin="miter"><rect x="48" y="10" width="7" height="84"/><rect x="21" y="10" width="27" height="2.4"/><rect x="28" y="49.12" width="20" height="2.4"/><rect x="21" y="91.60" width="27" height="2.4"/><path d="M55 10H65A16.5 20.16 0 0 1 65 50.32H55ZM55 12.4H64.5A10.8 18.36 0 0 1 64.5 49.12H55Z"/><path d="M55 50.32H68A19 21.84 0 0 1 68 94H55ZM55 51.52H67.5A12.6 20.04 0 0 1 67.5 91.60H55Z"/></g></svg></div><p class="eb-fp-exp-k">La parole aux B.</p>' : '')
         + '<h2 class="eb-fp-h2">Vos expériences</h2>' + (avisDoux ? '<div class="eb-fp-exp-filet"></div>' : '');
       h += '<div class="eb-reviews" data-produit="' + esc(data.avis) + '"><div class="eb-review-status">Aucun avis pour le moment.</div></div>';
       h += '<button type="button" class="eb-fp-avis" data-avis="' + esc(data.avis) + '">Laisser un avis</button></div>';
