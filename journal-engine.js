@@ -9,6 +9,26 @@
    ✏️ POUR MODIFIER LE JOURNAL, ON NE TOUCHE QU'À LA PARTIE « RÉGLAGES »
    ═══════════════════════════════════════════════════════════════════════ */
 (function(){
+/* ─── ARTICLE OUVERT DANS LE PANNEAU D'UN AUTRE SITE (articles-panneau.js) ───
+   Le menu, le bandeau cookies et la newsletter de ce site sont cachés (ceux de la page d'en dessous suffisent),
+   la croix referme le panneau, et un lien vers un autre site est suivi par la page d'en dessous. */
+var EN_CADRE = window.parent !== window && /[?&]cadre=1/.test(location.search);
+if(EN_CADRE){
+  document.documentElement.classList.add('eb-cadre');
+  var stCadre = document.createElement('style');
+  stCadre.textContent = 'html.eb-cadre .eb-navbar,html.eb-cadre .ebn,html.eb-cadre #ebck,html.eb-cadre .ebm-voile,html.eb-cadre #ebCartButton,html.eb-cadre .eb-cart-button,html.eb-cadre .eb-journal-close{display:none !important}';
+  (document.head || document.documentElement).appendChild(stCadre);
+  window.addEventListener('click', function(e){
+    if(e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var a = e.target.closest && e.target.closest('a[href]'); if(!a) return;
+    var u; try { u = new URL(a.getAttribute('href'), location.href); } catch(err){ return; }
+    if(u.hostname === location.hostname) return;              // un autre article : il s'ouvre ici, dans le panneau
+    if(!/^https?:$/.test(u.protocol)) return;
+    e.preventDefault(); e.stopPropagation();
+    try { window.parent.postMessage({ eb: 'article-lien', href: u.toString() }, '*'); } catch(err){ location.href = u.toString(); }
+  }, true);
+}
+function direAuPanneau(type){ if(EN_CADRE){ try { window.parent.postMessage({ eb: type }, '*'); } catch(e){} } }
 
 /* ┌─────────────────────────────────────────────────────────────────────┐
    │ ✏️ RÉGLAGES                                                          │
@@ -516,6 +536,7 @@ function boutonFermer(){
       replacer(prev.y);
       return;
     }
+    if(EN_CADRE){ direAuPanneau('article-fermer'); return; }
     var origin = ebP('origin');
     if(origin && EB_KNOWN.indexOf(origin) !== -1){ ebGo(origin, { scrollTo: ebP('pos') }, ebP('h')); return; }
     ebGo(FALLBACK_SITE);
@@ -532,6 +553,12 @@ function demarrer(){
   boutonFermer();
   animer();
   window.addEventListener('hashchange', function(){ setTimeout(animer, 30); setTimeout(ajusterLargeur, 120); });
+  // dans le panneau : on se montre quand l'article est mis en page (et au plus tard au chargement complet)
+  if(EN_CADRE){
+    var dit = false, pret = function(){ if(!dit){ dit = true; direAuPanneau('article-pret'); } };
+    setTimeout(pret, 450);
+    window.addEventListener('load', function(){ setTimeout(pret, 150); });
+  }
 }
 if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', demarrer); }
 else { demarrer(); }

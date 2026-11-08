@@ -606,17 +606,25 @@ function ebPhotoSite(gid){
   }
   return '';
 }
-// Les fiches ne sont pas encore sur cette page : on les charge une fois, puis on redessine le panier avec les bonnes photos
+// Les fiches à jour (produits-data-test.js) ne sont pas encore sur cette page : on les charge une fois, puis on redessine le panier.
+// Chargement l'un après l'autre, en gardant les fiches déjà présentes (Balance…) : le fichier Bloom ne doit jamais les effacer.
+function ebFichesAJour(){ return !!window.EB_PRODUITS && !!document.querySelector('script[src*="produits-data-test.js"]'); }
 function ebChargerFichesPanier(){
   if(ebFichesDemandees) return; ebFichesDemandees = true;
-  let reste = 0;
-  const fini = function(){ if(--reste <= 0 && ebDernierPanier) ebRenderCart(ebDernierPanier); };
-  EB_FICHES_FICHIERS.forEach(function(f){
-    if(document.querySelector('script[src*="' + f + '"]')) return;
-    reste++;
-    const s = document.createElement('script'); s.src = EB_FICHES_BASE + f; s.onload = s.onerror = fini; document.body.appendChild(s);
-  });
-  if(reste === 0) setTimeout(function(){ if(ebDernierPanier) ebRenderCart(ebDernierPanier); }, 1500);   // déjà dans la page, encore en lecture
+  const fin = function(){ if(ebDernierPanier) ebRenderCart(ebDernierPanier); };
+  (function suivant(i){
+    if(i >= EB_FICHES_FICHIERS.length){ fin(); return; }
+    const f = EB_FICHES_FICHIERS[i];
+    if(document.querySelector('script[src*="' + f + '"]')){ setTimeout(function(){ suivant(i + 1); }, window.EB_PRODUITS ? 0 : 1200); return; }   // déjà dans la page
+    const avant = window.EB_PRODUITS;
+    const s = document.createElement('script'); s.src = EB_FICHES_BASE + f;
+    s.onload = s.onerror = function(){
+      const P = window.EB_PRODUITS;
+      if(avant && P && avant !== P){ for(const k in avant){ if(!(k in P)) P[k] = avant[k]; } }
+      suivant(i + 1);
+    };
+    document.body.appendChild(s);
+  })(0);
 }
 // Taille demandée : seulement pour les photos Shopify (comme la recherche)
 function ebPhotoTaille(u){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u.split('?')[0] + '?width=160'; }
@@ -827,7 +835,7 @@ function ebRenderCart(cart, attemptsLeft){
     if(ebEchEstEchantillon(m)) return;   // l'échantillon s'affiche à part, sous la liste
     // Miniature : la photo du site (1re photo de la fiche, ou celle de la teinte), toujours à jour ;
     // sinon (fiches pas chargées sur cette page) la photo de la variante dans Shopify, puis la photo principale du produit
-    const photoSite = ebPhotoSite(m.id);
+    const photoSite = ebFichesAJour() ? ebPhotoSite(m.id) : '';
     if(!photoSite) ebChargerFichesPanier();
     const imgUrl = ebPhotoTaille(photoSite || (m.image && m.image.url) || (m.product.featuredImage && m.product.featuredImage.url) || '');
     html += '<div class="eb-cart-item eb-cart-item-photo">';

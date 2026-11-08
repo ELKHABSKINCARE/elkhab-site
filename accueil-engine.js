@@ -560,8 +560,10 @@
       return;
     }
     if(document.querySelector('script[src*="' + FICHIERS[i] + '"]')) return charger(i + 1);
+    // on garde les fiches déjà présentes : le fichier Bloom ne doit jamais effacer celles de Balance
+    var avant = window.EB_PRODUITS;
     var s = document.createElement('script'); s.src = BASE + FICHIERS[i];
-    s.onload = s.onerror = function(){ charger(i + 1); };
+    s.onload = s.onerror = function(){ var P = window.EB_PRODUITS; if(avant && P && avant !== P){ for(var k in avant){ if(!(k in P)) P[k] = avant[k]; } } charger(i + 1); };
     document.body.appendChild(s);
   }
   function ficheDe(a){ try { return new URL(a.href, location.href).searchParams.get('fiche'); } catch(e){ return null; } }

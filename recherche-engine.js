@@ -183,7 +183,11 @@
         var essais = 0; (function att(){ if(window.EB_PRODUITS || ++essais > 40) suivant(i + 1); else setTimeout(att, 100); })();
         return;
       }
-      var s = document.createElement('script'); s.src = BASE + FICHIERS[i]; s.onload = s.onerror = function(){ suivant(i + 1); }; document.body.appendChild(s);
+      // on garde les fiches déjà présentes (ex. Balance) : le fichier Bloom ne doit jamais les effacer
+      var avant = window.EB_PRODUITS;
+      var s = document.createElement('script'); s.src = BASE + FICHIERS[i];
+      s.onload = s.onerror = function(){ var P = window.EB_PRODUITS; if(avant && P && avant !== P){ for(var k in avant){ if(!(k in P)) P[k] = avant[k]; } } suivant(i + 1); };
+      document.body.appendChild(s);
     })(0);
   }
 

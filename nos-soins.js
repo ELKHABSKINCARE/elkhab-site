@@ -515,8 +515,10 @@
     if(i >= REGLAGES.fichiers.length){ majPrix(); return; }
     var f = REGLAGES.fichiers[i];
     if(document.querySelector('script[src*="' + f + '"]')){ charger(i + 1); return; }
+    // on garde les fiches déjà présentes (ex. Balance) : le fichier Bloom ne doit jamais les effacer
+    var avant = window.EB_PRODUITS;
     var s = document.createElement('script'); s.src = REGLAGES.base + f;
-    s.onload = s.onerror = function(){ if(i < 2) majPrix(); charger(i + 1); };
+    s.onload = s.onerror = function(){ var P = window.EB_PRODUITS; if(avant && P && avant !== P){ for(var k in avant){ if(!(k in P)) P[k] = avant[k]; } } if(i < 2) majPrix(); charger(i + 1); };
     document.body.appendChild(s);
   }
   charger(0);
