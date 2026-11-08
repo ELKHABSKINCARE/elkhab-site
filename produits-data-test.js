@@ -1753,6 +1753,7 @@ window.EB_PRODUITS = {
     coffret: true,
     carte: { position: "50% 75%", zoom: 1.2 },   // cadrage de la photo sur la carte de la page Routines
     media: {
+      vignette: "https://elkhabskincare.github.io/elkhab-site/coffret-vignette-lumiere-dhiver.webp",   // 📷 petite photo de la boîte (panier, recherche)
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE

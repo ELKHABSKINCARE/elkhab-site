@@ -1114,6 +1114,7 @@ var BALANCE = {
     coffret: true,
     carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
     media: {
+      vignette: "https://elkhabskincare.github.io/elkhab-site/coffret-vignette-temps-suspendu.webp",   // 📷 petite photo de la boîte (panier, recherche)
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
@@ -1157,6 +1158,7 @@ var BALANCE = {
     coffret: true,
     carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
     media: {
+      vignette: "https://elkhabskincare.github.io/elkhab-site/coffret-vignette-rituel-de-minuit.webp",   // 📷 petite photo de la boîte (panier, recherche)
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
@@ -1199,6 +1201,7 @@ var BALANCE = {
     coffret: true,
     carte: { position: "50% 87%", zoom: 1.25 },   // cadrage de la photo sur la carte de la page Routines
     media: {
+      vignette: "https://elkhabskincare.github.io/elkhab-site/coffret-vignette-nouvelle-aube.webp",   // 📷 petite photo de la boîte (panier, recherche)
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE
@@ -1240,6 +1243,7 @@ var BALANCE = {
     coffret: true,
     carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
     media: {
+      vignette: "https://elkhabskincare.github.io/elkhab-site/coffret-vignette-velours-dhiver.webp",   // 📷 petite photo de la boîte (panier, recherche)
       type: "diaporama",
       images: [
         // 📷 1. LE COFFRET DE FACE

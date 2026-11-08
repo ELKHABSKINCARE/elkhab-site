@@ -201,7 +201,8 @@
       var mots = (MOTS[id] || []).filter(function(m){ return type !== 'soin' || ACTIFS.indexOf(m) < 0 || vu.indexOf(norm(m)) >= 0; });
       var hint = String(p.sousTitre || '').split('\n')[0] + (p.actifs ? ' · ' + p.actifs : '');
       liste.push({ id: id, name: p.nom, hint: hint, type: type, gamme: gamme,
-        img: p.media && (p.media.miniature || (p.media.images && p.media.images[type === 'coffret' ? 2 : 0]) || p.media.image) || '',
+        // coffret : la photo de la boîte (1re photo), pour qu'on voie bien que c'est un coffret
+        img: p.media && (type === 'coffret' ? (p.media.vignette || (p.media.images && p.media.images[0])) : (p.media.miniature || (p.media.images && p.media.images[0]) || p.media.image)) || '',
         keywords: mots.concat([p.sousTitre || '', p.actifs || '']) });
     });
     return liste;

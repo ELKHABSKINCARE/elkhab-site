@@ -585,7 +585,9 @@ function ebEchEstEchantillon(m){
     || /^echantillon/.test(ebEchNorm(m.product && m.product.title));
 }
 // La photo du site pour une variante Shopify — la même que dans la recherche :
-// celle de la teinte si la fiche en a une, sinon la miniature de la fiche (ou sa 1re photo ; la 3e pour un coffret)
+// celle de la teinte si la fiche en a une, sinon la miniature de la fiche (ou sa 1re photo).
+// Coffret : toujours la photo de la boîte (1re photo), jamais les soins côte à côte — la cliente doit voir
+// qu'elle reçoit un coffret, pas des soins séparés
 const EB_FICHES_BASE = 'https://elkhabskincare.github.io/elkhab-site/';
 const EB_FICHES_FICHIERS = ['produits-data-test.js', 'produits-balance-test.js'];
 let ebFichesDemandees = false;
@@ -595,7 +597,8 @@ function ebPhotoSite(gid){
   const ok = function(u){ return typeof u === 'string' && u && !/\.mp4(\?|$)/i.test(u) ? u : ''; };
   const principale = function(k, p){
     const md = p.media || {}, imgs = md.images || [];
-    return ok(md.miniature) || ok(imgs[k.indexOf('coffret-') === 0 ? 2 : 0]) || ok(md.image) || ok(imgs.filter(ok)[0]) || '';
+    if(k.indexOf('coffret-') === 0) return ok(md.vignette) || ok(imgs[0]) || ok(md.miniature) || ok(imgs.filter(ok)[0]) || '';
+    return ok(md.miniature) || ok(imgs[0]) || ok(md.image) || ok(imgs.filter(ok)[0]) || '';
   };
   for(const k in P){
     const p = P[k]; if(!p) continue;
