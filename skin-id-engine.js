@@ -15,7 +15,7 @@
      └─────────────────────────────────────────────────────────────────────┘ */
   var REGLAGES = {
     page: 'https://elkhabskincare.github.io/elkhab-site/skin-id/index.html',
-    version: 8,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
+    version: 9,   // à augmenter quand la page du Skin ID change (le navigateur reprend la nouvelle version)
     // fiches : fichiers à charger si la page n'a pas déjà la fiche demandée
     donneesBloom: 'https://elkhabskincare.github.io/elkhab-site/produits-data-test.js',
     donneesBalance: 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js',
@@ -212,6 +212,15 @@
   window.ebDiagOpen = ouvrir;   // l'ancien diagnostic est remplacé par le Skin ID
   window.addEventListener('load', function(){ window.ebDiagOpen = ouvrir; });
   if(/[?&]skinid\b/.test(location.search) || /^#skin-?id$/.test(location.hash)){
+    // lien « Relire mon bilan » de l'e-mail : ?skinid=b1… porte ses réponses (sans ses réponses de santé)
+    try{
+      var v = new URLSearchParams(location.search).get('skinid') || '';
+      if(/^b1[A-Za-z0-9_-]{4,}$/.test(v)){
+        var b64 = v.slice(2).replace(/-/g, '+').replace(/_/g, '/'); while(b64.length % 4) b64 += '=';
+        var r = JSON.parse(decodeURIComponent(escape(atob(b64))));
+        if(r && typeof r === 'object' && !Array.isArray(r)) garderBilan(r);
+      }
+    }catch(e){}
     if(document.body) ouvrir(); else document.addEventListener('DOMContentLoaded', ouvrir);
     // l'adresse est nettoyée : une page actualisée, un favori ou la saisie automatique ne rouvrent pas le Skin ID tout seuls
     try{
