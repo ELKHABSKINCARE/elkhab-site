@@ -253,7 +253,7 @@ var BALANCE = {
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon-v6.jpg",
         // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_89f24ff3-7586-4d35-b23e-1dc66528ab55.png?v=1793811289"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_CERAMIDE_NIGHT_RESTORE.png?v=1793812031"
       ]
     },
     routine: {
@@ -527,9 +527,7 @@ var BALANCE = {
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-2-flacon-v8.jpg",
         // 📷 3. TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_e85beec6-d44a-46d8-8f0d-f3c33891593d.png?v=1793812462",
-        // 📷 4. VISAGE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_a609f46c-afd4-4fee-a227-53091d01d39d.png?v=1793812463"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_e85beec6-d44a-46d8-8f0d-f3c33891593d.png?v=1793812462"
       ]
     },
     routine: {
