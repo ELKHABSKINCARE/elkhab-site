@@ -1,6 +1,6 @@
 // © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 /* ═══════════════════════════════════════════════════════════════════════
-   ELKHA.B — RECHERCHE DU SITE, nouvelle version (recherche-engine.js)
+   ELKHA.B — RECHERCHE DU SITE, nouvelle version (recherche-engine.js) — v5 : synonymes (crème solaire, acné, peaux sensibles…)
    • Chargée par menu-test.js : elle remplace l'ancienne recherche (search-engine.js) sur les nouveaux sites
    • Même panneau que le panier : il glisse depuis la droite, fond beige voilé
    • En haut, la griffe ELKHA.B · PARIS (comme sur les pages rituel)
@@ -20,19 +20,19 @@
      └─────────────────────────────────────────────────────────────────┘ */
   var MOTS = {
     // Bloom
-    "radiance-serum": ["vitamine c","eclat","teint","taches","antioxydant","serum","glow"],
-    "luminescence-jour": ["creme","jour","hydratation","acide hyaluronique","bisabolol"],
-    "luminescence-nuit": ["creme","nuit","fermete","plancton marin","collagene","anti-age"],
+    "radiance-serum": ["vitamine c","peau sensible","eclat","teint","taches","antioxydant","serum","glow"],
+    "luminescence-jour": ["creme","peau sensible","jour","hydratation","acide hyaluronique","bisabolol"],
+    "luminescence-nuit": ["creme","peau sensible","nuit","fermete","plancton marin","collagene","anti-age"],
     "luminescence-boost": ["serum","collagene","fermete","booster","raffermissant","rides","anti-age","nuit"],
-    "lumi-pure": ["masque","argile","purifiant","points noirs","pores","sebum","brillance","peau grasse","peau mixte"],
+    "lumi-pure": ["masque","imperfections","argile","purifiant","points noirs","pores","sebum","brillance","peau grasse","peau mixte"],
     "milky-bloom": ["demaquillant","nettoyant","huile","lait","peau sensible","peau seche"],
-    "radiance-cleanser": ["nettoyant","gel","sebum","peau grasse","peau mixte"],
-    "gelee-lumibloom": ["prebiotique","microbiome","barriere cutanee","hydratation","gelee"],
-    "lumiveil-cc-cream": ["cc creme","cc cream","teint","spf","spf 30","fond de teint","teinte","ceramides","stick","maquillage"],
-    "lumibloom-niac-5": ["niacinamide","sebum","pores","imperfections","boutons","peau grasse","serum"],
+    "radiance-cleanser": ["nettoyant","imperfections","pores","gel","sebum","peau grasse","peau mixte"],
+    "gelee-lumibloom": ["prebiotique","peau sensible","microbiome","barriere cutanee","hydratation","gelee"],
+    "lumiveil-cc-cream": ["cc creme","protection solaire","peau sensible","cc cream","teint","spf","spf 30","fond de teint","teinte","ceramides","stick","maquillage"],
+    "lumibloom-niac-5": ["niacinamide","peau sensible","sebum","pores","imperfections","boutons","peau grasse","serum"],
     "lumibloom-arbutin": ["arbutine","alpha arbutine","taches","taches pigmentaires","anti-taches","teint","serum"],
     "rituel-luminescence": ["rituel","duo","jour et nuit","routine"],
-    "radiance-protect": ["spf","spf 50","protection solaire","uv","soleil","stick","teinte"],
+    "radiance-protect": ["spf","peau sensible","spf 50","protection solaire","uv","soleil","stick","teinte"],
     "radiance-eye-cream": ["contour des yeux","yeux","cernes","poches","regard"],
     "bright-glow-patch": ["patch","patchs","contour des yeux","yeux","niacinamide","regard","lumi eyes"],
     "bright-glow-decongestionnant": ["patch","patchs","contour des yeux","yeux","cafeine","vitamine c","poches","regard","lumi eyes"],
@@ -40,12 +40,12 @@
     // Balance
     "calm-balance-jour": ["creme","jour","apaisante","peau sensible","rougeurs","aloe vera","sans parfum","reactive"],
     "calm-balance-nuit": ["creme","nuit","apaisante","peau sensible","rougeurs","sans parfum","reactive"],
-    "hydra-balance": ["gel","hydratant","acide hyaluronique","repulpant","deshydratee","hydratation"],
+    "hydra-balance": ["gel","peau sensible","hydratant","acide hyaluronique","repulpant","deshydratee","hydratation"],
     "fusion-balance": ["demaquillant","biphase","yeux","waterproof","maquillage","nettoyant","sans parfum"],
-    "ceramide-night-restore": ["ceramides","karite","barriere cutanee","nuit","reparatrice","creme","peau seche"],
+    "ceramide-night-restore": ["ceramides","peau sensible","karite","barriere cutanee","nuit","reparatrice","creme","peau seche"],
     "cellular-reveal": ["serum","rides","ridules","alternative au retinol","retinol","bidens pilosa","anti-age","lissant"],
     "cellular-eye-restore": ["contour des yeux","yeux","ridules","pattes d oie","cernes","retinol","anti-age","regard"],
-    "cellular-renew": ["creme","rides","regenerante","alternative au retinol","retinol","anti-age"],
+    "cellular-renew": ["creme","peau sensible","rides","regenerante","alternative au retinol","retinol","anti-age"],
     "active-lift": ["serum","peptides","fermete","rides","raffermissant","repulpant","anti-age","lift"],
     "age-lift": ["creme","peptides","vitamine c","liftante","fermete","rides","anti-age","lift"],
     "eye-lift": ["contour des yeux","yeux","peptides","vitamine c","vitamine e","paupieres","liftante","regard","lift"],
@@ -53,7 +53,7 @@
     "spot-control": ["taches","acide kojique","kojique","vitamine c","hyperpigmentation","anti-taches","serum"],
     "bright-control": ["taches","anti-taches","correctrice","teint","unifier","creme","hyperpigmentation"],
     "bha-balance": ["bha","acide salicylique","pores","points noirs","imperfections","sebum","boutons","lotion","peau grasse"],
-    "glyco-balance": ["aha","acide glycolique","exfoliant","peau neuve","eclat","grain de peau","lotion"],
+    "glyco-balance": ["aha","imperfections","pores","acide glycolique","exfoliant","peau neuve","eclat","grain de peau","lotion"],
     "aha-balance-peel": ["aha","acide lactique","peeling","exfoliant","grain de peau","eclat"],
     // Coffrets des fêtes
     "coffret-temps-suspendu": ["coffret","cadeau","noel","fetes","peptides","rides","fermete","lift"],
@@ -107,6 +107,16 @@
   var ACTIFS = ["vitamine c","vitamine e","niacinamide","acide hyaluronique","hyaluronique","peptides","collagene","ceramides","bakuchiol",
     "acide salicylique","bha","aha","acide glycolique","acide lactique","acide kojique","kojique","arbutine","alpha arbutine","cafeine",
     "prebiotique","argile","bisabolol","plancton marin","karite","aloe vera","bidens pilosa","beurre de cacao","charbon","camomille","provitamine b5"];
+
+  /* ✏️ SYNONYMES : ce que la cliente tape → ce que la recherche comprend (sans accents, en minuscules) */
+  var SYNONYMES = [
+    ["creme solaire","protection solaire"], ["cremes solaires","protection solaire"], ["ecran solaire","protection solaire"], ["ecran total","protection solaire"],
+    ["protection uv","protection solaire"], ["anti uv","protection solaire"], ["solaire","protection solaire"], ["soleil","protection solaire"],
+    ["anti acne","imperfections"], ["acne","imperfections"], ["boutons","imperfections"], ["bouton","imperfections"],
+    ["peaux reactives","peau sensible"], ["peau reactive","peau sensible"], ["peaux intolerantes","peau sensible"], ["peau intolerante","peau sensible"],
+    ["peaux sensibles","peau sensible"], ["peau sensibles","peau sensible"], ["peaux sensible","peau sensible"],
+    ["hydratante","hydratation"], ["hydratant","hydratation"], ["hydrater","hydratation"]
+  ];
 
   var SUGGESTIONS = ["Taches", "Rides", "Contour des yeux", "Peau sensible", "Coffrets", "Livraison"];
 
@@ -211,7 +221,7 @@
     var nom = norm(item.name), tout = nom + ' ' + norm(item.hint) + ' ' + norm((item.keywords || []).join(' | ')), s = 0;
     for(var i = 0; i < mots.length; i++){
       var m = mots[i];
-      if(tout.indexOf(m) === -1){ var alt = m.slice(-1) === 's' ? m.slice(0, -1) : m + 's'; if(m.length < 4 || tout.indexOf(alt) === -1) return 0; }
+      if(tout.indexOf(m) === -1){ var fin = m.slice(-1), alt = (fin === 's' || fin === 'x') ? m.slice(0, -1) : m + 's'; if(m.length < 4 || tout.indexOf(alt) === -1) return 0; }
       s += nom.indexOf(m) === 0 ? 6 : (nom.indexOf(m) !== -1 ? 4 : 1);
     }
     return s;
@@ -239,7 +249,10 @@
     var q = norm(valeur); ACTIONS = {};
     if(q.length < 2){ zone.innerHTML = suggestionsHTML() + skinIdHTML(); return; }
     // une lettre seule reste attachée au mot d'avant : « vitamine c » cherche « vitamine c », pas toutes les vitamines
-    if(/^vitamines?$/.test(q)) q = 'vitamine c';   // « vitamine » seule : la vitamine C, la plus recherchée
+    if(/^vitamines?$/.test(q)) q = 'vitamine c';
+    // les mots que les clientes tapent vraiment (crème solaire, acné, peaux sensibles…) → les mots du site
+    SYNONYMES.forEach(function(p){ q = (' ' + q + ' ').split(' ' + p[0] + ' ').join(' ' + p[1] + ' ').trim(); });
+    q = q.replace(/\bprotection (protection solaire)\b/g, '$1').replace(/\b(protection solaire) solaire\b/g, '$1');   // « vitamine » seule : la vitamine C, la plus recherchée
     var mots = []; q.split(' ').forEach(function(m){ if(m.length > 1 || /\d/.test(m)) mots.push(m); else if(mots.length) mots[mots.length - 1] += ' ' + m; });
     if(!mots.length){ zone.innerHTML = suggestionsHTML() + skinIdHTML(); return; }
     var S = soins();
