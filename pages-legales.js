@@ -32,6 +32,10 @@ var ENTREPRISE = {
   email:     "contact@elkhab.com"    // adresse e-mail de contact
 };
 
+// Le script Google qui reçoit les messages du formulaire Contact (le même que le Skin ID)
+var SCRIPT_CONTACT = "https://script.google.com/macros/s/AKfycbxIaAoTNt_kRSqZkhSgmECkMH7_A5vuZciryx4NjIYdgzDfzolrMMRBkRNK0QXLT9im/exec";
+var OBJETS_CONTACT = ["Ma commande", "Un conseil soin", "Une collaboration", "Autre"];
+
 // Photo affichée à droite des pages légales sur ordinateur
 var PHOTO_DROITE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Image_ChatGPT_30_sept._2026_19_17_16.png?v=1791466549";
 /* ═══════════════════════════════════════════════════════════════════════ */
@@ -374,6 +378,13 @@ Vous pouvez changer d'avis à tout moment grâce au bouton « Gérer mes cookies
 Pour toute question concernant l'utilisation des cookies, vous pouvez contacter ELKHA.B via le formulaire de contact disponible sur le site.
 `
   }
+  ,
+  // ✏️ La page CONTACT : un formulaire (les messages arrivent par e-mail sur contact@elkhab.com)
+  "contact": {
+    titre: "CONTACT",
+    formulaire: true,
+    texte: `Une question sur un soin, une commande ou une collaboration ? Écrivez-nous : nous vous répondons sous 48 h ouvrées.`
+  }
 };
 
 /* ┌─────────────────────────────────────────────────────────────────────┐
@@ -397,6 +408,23 @@ var css = ""
 + ".eb-legal-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-legal-close.visible{display:flex}.eb-legal-close:hover{transform:scale(1.1)}"
 + "html.eb-legal-lock,html.eb-legal-lock body{overflow:hidden !important}"
++ ".eb-ct{margin-top:30px}"
++ ".eb-ct-l{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin:0 0 6px}"
++ ".eb-ct-c{margin:0 0 26px}"
++ ".eb-ct input,.eb-ct textarea{display:block;width:100%;box-sizing:border-box;border:0;border-bottom:1px solid rgba(0,0,0,.35);background:transparent;border-radius:0;padding:8px 0 9px;font:300 16px/1.5 'Montserrat',sans-serif;color:#111;outline:none;-webkit-appearance:none;appearance:none}"
++ ".eb-ct textarea{min-height:130px;resize:vertical}"
++ ".eb-ct input:focus,.eb-ct textarea:focus{border-bottom-color:#111}"
++ ".eb-ct-objets{display:flex;flex-wrap:wrap;gap:8px}"
++ ".eb-ct-objets button{border:1px solid rgba(0,0,0,.3);background:transparent;color:#111;border-radius:999px;padding:9px 15px;font:400 12px 'Montserrat',sans-serif;letter-spacing:.03em;cursor:pointer;-webkit-appearance:none;appearance:none;transition:background .2s,color .2s,border-color .2s}"
++ ".eb-ct-objets button.on{background:#111;color:#fff;border-color:#111}"
++ ".eb-ct-piege{position:absolute !important;left:-9999px !important;width:1px !important;height:1px !important;opacity:0 !important}"
++ ".eb-ct-envoi{display:inline-flex;align-items:center;justify-content:center;margin:4px 0 0;padding:0 34px;height:48px;background:#111;color:#fff;border:1px solid #111;border-radius:0;font:600 10.5px 'Montserrat',sans-serif;letter-spacing:.3em;cursor:pointer;-webkit-appearance:none;appearance:none}"
++ ".eb-ct-envoi[disabled]{opacity:.5;cursor:default}"
++ ".eb-ct-msg{font-size:12.5px;line-height:1.6;margin:14px 0 0;min-height:1em;color:#8a2a2a}"
++ ".eb-ct-note{font-size:11.5px;font-weight:300;line-height:1.7;opacity:.6;margin:26px 0 0}"
++ ".eb-ct-note a{color:inherit}"
++ ".eb-ct-merci{margin-top:34px;padding:30px 0 0;border-top:1px solid rgba(0,0,0,.12)}"
++ ".eb-ct-merci b{display:block;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}"
 + "@media (min-width:900px){"
 +   ".eb-legal-wrap{display:flex;align-items:flex-start}"
 +   ".eb-legal-in{flex:1 1 auto;min-width:0;max-width:none;margin:0;padding:130px clamp(48px,6vw,120px) 110px}"
@@ -409,8 +437,69 @@ var panneau, contenu, croix, ouvert = null;
 
 function esc(t){ var d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; }
 
+function rendreContact(page){
+  var html = '<span class="eb-legal-tag">ELKHA.B · Contact</span>'
+           + '<h2 class="eb-legal-titre">' + esc(page.titre) + '</h2><span class="eb-legal-trait"></span>'
+           + '<p class="eb-legal-p">' + esc(page.texte) + '</p>'
+           + '<form class="eb-ct" novalidate>'
+           +   '<div class="eb-ct-c"><label class="eb-ct-l" for="eb-ct-prenom">Votre prénom</label><input id="eb-ct-prenom" name="prenom" type="text" autocomplete="given-name" maxlength="60" required></div>'
+           +   '<div class="eb-ct-c"><label class="eb-ct-l" for="eb-ct-email">Votre e-mail</label><input id="eb-ct-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required></div>'
+           +   '<div class="eb-ct-c"><span class="eb-ct-l">Votre message concerne</span><div class="eb-ct-objets">'
+           +     OBJETS_CONTACT.map(function(o, i){ return '<button type="button" data-objet="' + esc(o) + '"' + (i === 0 ? ' class="on"' : '') + '>' + esc(o) + '</button>'; }).join('')
+           +   '</div></div>'
+           +   '<div class="eb-ct-c"><label class="eb-ct-l" for="eb-ct-message">Votre message</label><textarea id="eb-ct-message" name="message" maxlength="4000" required></textarea></div>'
+           +   '<input class="eb-ct-piege" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">'
+           +   '<button class="eb-ct-envoi" type="submit">ENVOYER</button>'
+           +   '<p class="eb-ct-msg" role="status"></p>'
+           + '</form>'
+           + '<p class="eb-ct-note">Vous pouvez aussi nous écrire directement à <a href="mailto:' + esc(ENTREPRISE.email) + '">' + esc(ENTREPRISE.email) + '</a>. '
+           + 'Vos informations servent uniquement à vous répondre (<a href="#politique-confidentialite">politique de confidentialité</a>).</p>';
+  return html;
+}
+
+// Le formulaire Contact : vérification, envoi au script Google, puis le merci
+function brancherContact(){
+  var form = contenu.querySelector('.eb-ct'); if(!form) return;
+  var objet = OBJETS_CONTACT[0];
+  [].forEach.call(form.querySelectorAll('.eb-ct-objets button'), function(b){
+    b.addEventListener('click', function(){
+      [].forEach.call(form.querySelectorAll('.eb-ct-objets button'), function(x){ x.classList.remove('on'); });
+      b.classList.add('on'); objet = b.getAttribute('data-objet');
+    });
+  });
+  var msg = form.querySelector('.eb-ct-msg'), bouton = form.querySelector('.eb-ct-envoi');
+  form.addEventListener('input', function(){ msg.textContent = ''; });
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var prenom = form.prenom.value.trim(), email = form.email.value.trim(), message = form.message.value.trim();
+    if(!prenom){ msg.textContent = 'Indiquez votre prénom, s’il vous plaît.'; form.prenom.focus(); return; }
+    if(!/^[^\s@<>"']+@[^\s@<>"']+\.[a-z]{2,}$/i.test(email)){ msg.textContent = 'Votre adresse e-mail ne semble pas complète.'; form.email.focus(); return; }
+    if(message.length < 2){ msg.textContent = 'Écrivez-nous votre message.'; form.message.focus(); return; }
+    msg.textContent = ''; bouton.disabled = true; bouton.textContent = 'ENVOI…';
+    var donnees = { type: 'contact', prenom: prenom, email: email, objet: objet, message: message, page: location.href.split('?')[0], site: form.site.value };
+    fetch(SCRIPT_CONTACT, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(donnees) })
+      .then(function(r){ return r.json(); })
+      .then(function(r){
+        if(r && r.ok){
+          form.outerHTML = '<div class="eb-ct-merci"><b>Merci ' + esc(prenom) + '</b><p class="eb-legal-p">Votre message est bien arrivé. Nous vous répondons sous 48 h ouvrées, à l’adresse ' + esc(email) + '.</p></div>';
+          return;
+        }
+        var raison = r && r.raison;
+        msg.textContent = raison === 'limite' ? 'Nous avons bien reçu vos messages : nous vous répondons très vite.'
+                        : raison === 'email' ? 'Votre adresse e-mail ne semble pas complète.'
+                        : 'Le message n’a pas pu partir. Réessayez dans un instant, ou écrivez-nous à ' + ENTREPRISE.email + '.';
+        bouton.disabled = false; bouton.textContent = 'ENVOYER';
+      })
+      .catch(function(){
+        msg.textContent = 'Le message n’a pas pu partir. Réessayez dans un instant, ou écrivez-nous à ' + ENTREPRISE.email + '.';
+        bouton.disabled = false; bouton.textContent = 'ENVOYER';
+      });
+  });
+}
+
 function rendre(id){
   var page = PAGES[id];
+  if(page.formulaire) return rendreContact(page);
   var html = '<span class="eb-legal-tag">ELKHA.B · Informations</span>'
            + '<h2 class="eb-legal-titre">' + esc(page.titre) + '</h2><span class="eb-legal-trait"></span>';
   var texte = page.texte.replace(/\{(nom|adresse|forme|siret|tva|email)\}/g, function(m, cle){
@@ -453,6 +542,7 @@ function ouvrir(id, depuisLien){
   if(!PAGES[id]) return false;
   preparer();
   contenu.innerHTML = rendre(id);
+  brancherContact();
   panneau.scrollTop = 0;
   if(!ouvert && depuisLien){ try { history.pushState({ ebLegal: id }, ''); } catch(e){} }
   ouvert = id;
