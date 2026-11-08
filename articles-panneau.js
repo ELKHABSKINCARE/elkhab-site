@@ -11,7 +11,8 @@
 if(window.ebArticlesPanneau) return; window.ebArticlesPanneau = true;
 
 var HOTES_JOURNAL = ['journal.elkhab.com', 'journal-test.carrd.co'];
-var ATTENTE_MAX = 9000;   // si l'article n'est pas prêt après 9 s : on y va normalement
+var ATTENTE_MAX = 9000;
+var DIAG = /[?&]articles=diag/.test(location.search);   // vérification : le panneau montre ce qu'il reçoit et ne repart jamais   // si l'article n'est pas prêt après 9 s : on y va normalement
 
 function hoteJournal(){
   try { return new URL((window.EB_SITES && window.EB_SITES.journal) || 'https://journal.elkhab.com/').hostname; } catch(e){ return 'journal.elkhab.com'; }
@@ -60,7 +61,7 @@ function ouvrir(url){
   if(cadre){ cadre.remove(); }
   cadre = document.createElement('iframe'); cadre.setAttribute('title', 'Article du Journal'); cadre.src = u.toString();
   // page chargée mais l'article ne se signale pas (affichage refusé dans un panneau…) : on y va normalement
-  cadre.addEventListener('load', function(){ var c = cadre; setTimeout(function(){ if(ouvert && c === cadre && !panneau.classList.contains('pret')) location.href = lienOrigine; }, 2000); });
+  cadre.addEventListener('load', function(){ var c = cadre; setTimeout(function(){ if(ouvert && c === cadre && !panneau.classList.contains('pret')) secours(); }, 2000); });
   panneau.appendChild(cadre);
   ouvert = true;
   document.documentElement.classList.add('eb-art-lock');
@@ -70,7 +71,18 @@ function ouvrir(url){
   if(!histo){ try { history.pushState({ ebArticle: 1 }, ''); histo = true; } catch(e){} }
   clearTimeout(minuteur);
   // l'article ne répond pas : on y va normalement, plutôt que de laisser la cliente devant un panneau vide
-  minuteur = setTimeout(function(){ if(ouvert && !panneau.classList.contains('pret')) location.href = lienOrigine; }, ATTENTE_MAX);
+  minuteur = setTimeout(function(){ if(ouvert && !panneau.classList.contains('pret')) secours(); }, ATTENTE_MAX);
+}
+
+// l'article ne peut pas s'afficher dans le panneau : on suit le lien normalement, avec l'adresse de retour
+// (le panier ajoute le site et la position d'origine : la croix du Journal ramène ici)
+var passer = false;
+function secours(){
+  if(!ouvert) return;
+  if(DIAG){ panneau.classList.add('pret'); return; }
+  ouvert = false; clearTimeout(minuteur);
+  var a = document.createElement('a'); a.href = lienOrigine; a.style.display = 'none'; document.body.appendChild(a);
+  passer = true; a.click(); passer = false; a.remove();
 }
 
 function fermer(viaCroix){
@@ -108,6 +120,7 @@ window.addEventListener('message', function(e){
 
 // clic sur un lien vers un article du Journal (écouté avant le panier, qui sinon changerait de site)
 window.addEventListener('click', function(e){
+  if(passer) return;
   if(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
   var a = e.target.closest && e.target.closest('a[href]'); if(!a) return;
   if(a.target && a.target !== '_self') return;
