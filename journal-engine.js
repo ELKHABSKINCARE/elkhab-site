@@ -363,7 +363,7 @@ function marquerHaut(){
   for(var j = 0; j < enfants.length; j++){
     var el = enfants[j];
     if(el.tagName === 'SECTION') break;              // on s'arrête à la première section
-    if(el.querySelector('section, #eb-journal')) continue;
+    if(el.id === 'ebarr' || el.querySelector('section, #eb-journal')) continue;   // jamais le voile d'arrivée
     el.classList.add('eb-haut-journal');
   }
 }
@@ -487,6 +487,16 @@ function boutonFermer(){
     if(typeof window.ebNavigate === 'function'){ window.ebNavigate(site, params, hash); }
     else { history.back(); }
   }
+  function depuisAutreSite(){
+    try { var r = new URL(document.referrer); return !!r.hostname && r.hostname !== location.hostname && /(^|\.)elkhab\.com$|\.carrd\.co$/.test(r.hostname); } catch(e){ return false; }
+  }
+  // un voile beige ELKHA.B (le même que celui du site d'origine) pendant le retour
+  function voileRetour(){
+    var v = document.createElement('div'); v.className = 'eb-voile-retour';
+    v.style.cssText = 'position:fixed;inset:0;z-index:2147483646;background:#f5f4f0;opacity:0;transition:opacity .25s ease';
+    document.body.appendChild(v); void v.offsetWidth; v.style.opacity = '1';
+  }
+  window.addEventListener('pageshow', function(e){ if(e.persisted){ [].forEach.call(document.querySelectorAll('.eb-voile-retour'), function(v){ v.remove(); }); } });
   function suivie(h){ return sections.indexOf(h) !== -1; }
   function courant(){ return window.location.hash.replace('#', ''); }
   function replacer(y){
@@ -538,12 +548,35 @@ function boutonFermer(){
     }
     if(EN_CADRE){ direAuPanneau('article-fermer'); return; }
     var origin = ebP('origin');
+    // arrivée depuis un autre site ELKHA.B (lien vers l'article) : on revient simplement en arrière,
+    // la page d'origine réapparaît exactement où elle était, sans rechargement
+    if(origin && origin !== 'journal' && history.length > 1 && depuisAutreSite()){
+      voileRetour();
+      setTimeout(function(){ history.back(); }, 260);
+      return;
+    }
     if(origin && EB_KNOWN.indexOf(origin) !== -1){ ebGo(origin, { scrollTo: ebP('pos') }, ebP('h')); return; }
     ebGo(FALLBACK_SITE);
   });
 
   verifier();
   window.addEventListener('hashchange', verifier);
+}
+
+// Arrivée sur un article : le voile beige posé par l'embed du menu (#ebarr) cache la page
+// pendant qu'elle se met en place, puis s'efface en fondu sur l'article prêt (rien ne saute)
+function finArrivee(){
+  var v = document.getElementById('ebarr'); if(!v) return;
+  var fait = false;
+  function effacer(){
+    if(fait) return; fait = true;
+    if(/^#article-/.test(location.hash) && window.scrollY > 2) window.scrollTo(0, 0);
+    v.style.transition = 'opacity .4s ease'; v.style.opacity = '0';
+    setTimeout(function(){ if(v.parentNode) v.parentNode.removeChild(v); }, 450);
+  }
+  if(document.readyState === 'complete') setTimeout(effacer, 250);
+  else window.addEventListener('load', function(){ setTimeout(effacer, 250); });
+  setTimeout(effacer, 3500);
 }
 
 function demarrer(){
@@ -553,6 +586,7 @@ function demarrer(){
   boutonFermer();
   animer();
   window.addEventListener('hashchange', function(){ setTimeout(animer, 30); setTimeout(ajusterLargeur, 120); });
+  finArrivee();
   // dans le panneau : on se montre quand l'article est mis en page (et au plus tard au chargement complet)
   if(EN_CADRE){
     var dit = false, pret = function(){ if(!dit){ dit = true; direAuPanneau('article-pret'); } };
