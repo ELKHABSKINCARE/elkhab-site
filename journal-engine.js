@@ -38,11 +38,6 @@ function direAuPanneau(type){ if(EN_CADRE){ try { window.parent.postMessage({ eb
 //   Sa photo est celle que tu as mise pour cet article dans la liste ARTICLES.
 var A_LA_UNE = "article-peau-deshydratee";
 
-// BANNIÈRE DU HAUT DU JOURNAL : cachée quand un article est ouvert,
-// pour que la cliente voie la bannière de l'article glisser.
-// Repérée automatiquement (tout ce qui est au-dessus de la première section).
-// Facultatif : si un élément Carrd porte cet ID, c'est lui qui sera caché à la place.
-var BANNIERE_DU_SITE = "banniere-journal";
 
 // SECTIONS DU JOURNAL, dans l'ordre d'affichage
 var SECTIONS = [
@@ -205,10 +200,7 @@ var CSS = ""
 /* Bouton Fermer des articles */
 + ".eb-journal-close{position:fixed;top:80px;right:24px;z-index:9999;background:#f5f4f0;border:1px solid rgba(20,20,20,.35);width:38px;height:38px;border-radius:50%;display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:300;color:#000;cursor:pointer;transition:transform .2s ease;-webkit-tap-highlight-color:transparent}"
 + ".eb-journal-close.visible{display:flex}"
-+ ".eb-journal-close:hover{transform:scale(1.1)}"
-+ ".eb-article-ouvert #" + BANNIERE_DU_SITE + ",.eb-article-ouvert .eb-haut-journal,.eb-article-ouvert .eb-cache-article{display:none !important}"
-/* Téléphone et tablette : Carrd place l'image du site tout en haut de la page (body::before) — cachée pendant la lecture d'un article */
-+ "@media (max-width:980px){html.eb-article-ouvert body::before{display:none !important}}";
++ ".eb-journal-close:hover{transform:scale(1.1)}";
 
 /* Filtres : une règle par section */
 SECTIONS.forEach(function(s){
@@ -350,115 +342,17 @@ function ligneLecture(){
   prog.style.width = (p * 100).toFixed(1) + '%';
 }
 
-// Repère automatiquement la bannière du haut du Journal :
-// les éléments Carrd placés au-dessus de la première section (communs à toutes les sections)
-var hautMarque = false;
-function marquerHaut(){
-  if(hautMarque || document.getElementById(BANNIERE_DU_SITE)) return;
-  var premier = null;
-  for(var i = 0; i < ARTICLES.length && !premier; i++){ premier = sectionDe(ARTICLES[i].id); }
-  if(!premier || !premier.parentElement) return;
-  hautMarque = true;
-  var enfants = premier.parentElement.children;
-  for(var j = 0; j < enfants.length; j++){
-    var el = enfants[j];
-    if(el.tagName === 'SECTION') break;              // on s'arrête à la première section
-    if(el.id === 'ebarr' || el.querySelector('section, #eb-journal')) continue;   // jamais le voile d'arrivée
-    el.classList.add('eb-haut-journal');
-  }
-}
-
-// Sur ordinateur, si le site est en deux parties (texte à gauche, image à droite),
-// la bannière prend toute la largeur de la colonne de gauche au lieu de tout l'écran
-function ajusterLargeur(){
-  var bs = document.querySelectorAll('.ebja, .ebjd, .ebj');
-  for(var i = 0; i < bs.length; i++){
-    var b = bs[i];
-    if(!b.offsetParent) continue;                     // section cachée
-    b.style.width = ''; b.style.marginLeft = '';
-    var col = null, el = b.parentElement;
-    while(el && el !== document.body){
-      var r = el.getBoundingClientRect();
-      var auBord = r.left <= 2 || r.right >= window.innerWidth - 2;   // colonne collée au bord de l'écran
-      if(r.width > 0 && r.width < window.innerWidth * 0.9 && auBord){ col = el; }
-      el = el.parentElement;
-    }
-    if(!col) continue;                                // site sur toute la largeur : rien à changer
-    var p = b.parentElement, pr = p.getBoundingClientRect(), ps = getComputedStyle(p);
-    var c = col.getBoundingClientRect();
-    var L = pr.left + parseFloat(ps.paddingLeft || 0) + parseFloat(ps.borderLeftWidth || 0);
-    b.style.width = c.width + 'px';
-    b.style.marginLeft = (c.left - L) + 'px';
-  }
-}
-window.addEventListener('resize', ajusterLargeur);
-
-// Sur téléphone, l'image de la mise en page en deux parties passe AU-DESSUS du contenu :
-// on cache aussi tout ce qui se trouve au-dessus de l'article (jamais le menu ni les panneaux)
-var masqueFait = null;
-function masquerAuDessus(id){
-  if(id && masqueFait === id) return;                 // déjà fait pour cet article
-  var anciens = document.querySelectorAll('.eb-cache-article');
-  for(var i = 0; i < anciens.length; i++){ anciens[i].classList.remove('eb-cache-article'); }
-  masqueFait = null;
-  if(!id) return;
-  var sec = sectionDe(id);
-  if(!sec || !sec.offsetParent){                      // Carrd n'a pas encore affiché l'article : on réessaie
-    setTimeout(function(){ if(location.hash.replace('#','') === id) masquerAuDessus(id); }, 150);
-    return;
-  }
-  masqueFait = id;
-  var haut = sec.getBoundingClientRect().top + 1;
-  var aCacher = [];
-  var el = sec;
-  while(el && el.parentElement && el.parentElement !== document.documentElement){
-    var parent = el.parentElement;
-    for(var j = 0; j < parent.children.length; j++){
-      var f = parent.children[j];
-      if(f === el || /^(SCRIPT|STYLE|LINK)$/.test(f.tagName)) continue;
-      var cs = getComputedStyle(f);
-      if(cs.position === 'fixed' || cs.display === 'none') continue;
-      if(f.querySelector('section') || f.tagName === 'SECTION') continue;
-      if(/eb-|ebFiche|ebCart|ebOverlay/.test((f.className || '') + ' ' + (f.id || '')) ) continue;
-      var r = f.getBoundingClientRect();
-      if(r.height > 0 && r.bottom <= haut){ aCacher.push(f); }
-    }
-    if(parent === document.body) break;
-    el = parent;
-  }
-  aCacher.forEach(function(f){ f.classList.add('eb-cache-article'); });
-  if(aCacher.length){ window.scrollTo(0, 0); }
-}
-
 // Rejoue l'animation à chaque ouverture d'un article
 function animer(){
   var h = location.hash.replace('#', '');
-  // Article ouvert : on cache la bannière du haut du Journal et on remonte en haut
+  // Article ouvert : on remonte en haut
   var estArticle = !!trouverArticle(h);
-  marquerHaut();
   document.documentElement.classList.toggle('eb-article-ouvert', estArticle);
-  masquerAuDessus(estArticle ? h : null);
-  if(estArticle){ window.scrollTo(0, 0); ajusterLargeur(); setTimeout(ajusterLargeur, 80); setTimeout(ajusterLargeur, 400); }
+  if(estArticle) window.scrollTo(0, 0);
   ligneLecture();
   var b = document.querySelector('.ebja[data-article="' + h + '"]');
   if(!b) return;
   rejouer(b);
-  // Si quelque chose reste au-dessus de la bannière (image du haut sur téléphone),
-  // la page remonte jusqu'à la bannière, puis l'animation se rejoue sous les yeux de la cliente
-  var touche = false;
-  function stop(){ touche = true; }
-  window.addEventListener('touchstart', stop, { passive: true, once: true });
-  window.addEventListener('wheel', stop, { passive: true, once: true });
-  [60, 350, 800].forEach(function(t, i){
-    setTimeout(function(){
-      if(touche || location.hash.replace('#', '') !== h || !b.offsetParent) return;
-      var y = b.getBoundingClientRect().top + window.scrollY;
-      if(Math.abs(window.scrollY - y) > 4){
-        window.scrollTo({ top: y, behavior: 'instant' });
-        if(i === 0) rejouer(b);
-      }
-    }, t);
-  });
 }
 function rejouer(b){
   b.classList.remove('go');
@@ -593,11 +487,10 @@ function finArrivee(){
 
 function demarrer(){
   construireAccueil();
-  ajusterLargeur(); setTimeout(ajusterLargeur, 300); setTimeout(ajusterLargeur, 1200);
   construireBannieres();
   boutonFermer();
   animer();
-  window.addEventListener('hashchange', function(){ setTimeout(animer, 30); setTimeout(ajusterLargeur, 120); });
+  window.addEventListener('hashchange', function(){ setTimeout(animer, 30); });
   finArrivee();
   // dans le panneau : on se montre quand l'article est mis en page (et au plus tard au chargement complet)
   if(EN_CADRE){
