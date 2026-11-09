@@ -159,7 +159,6 @@
   + ".eba-jq{display:block;font-size:12.5px;font-weight:400;color:#2a2723;line-height:1.6}"
   + ".eba-mono{position:absolute;top:18px;right:18px;font-size:13px;font-weight:800;letter-spacing:.08em;color:transparent;background-image:linear-gradient(180deg,#fbf9f5,#e9dfd0 55%,#d9cbb6);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(1px 1px 0 rgba(110,85,60,.25)) drop-shadow(-1px -1px 0 rgba(255,255,255,.8))}"
   + "@media (max-width:699px){.eba-ugc{grid-template-columns:1fr 1fr;gap:8px;margin-top:28px}.eba-hi{grid-template-columns:1fr;gap:28px;text-align:center}.eba-gg{margin:18px auto 0}#eb-acc .eba-hp{font-size:13.5px;margin:18px auto 0}#eb-acc .eba-tg{font-size:19px;letter-spacing:.16em}.eba-eng{font-size:9.5px;letter-spacing:.22em;gap:8px 14px}.eba-eng span+span:before{margin-right:14px}.eba-eng span:last-child{flex-basis:100%}.eba-eng span:last-child:before{display:none}.eba-jr{grid-auto-columns:76%}}"
-  + ".eba-psb:before,.eba-psa:after{display:none !important}.eba-sansfond{background-image:none !important}.eba-sanspad{padding-top:0 !important}.eba-cache{display:none !important}"
   // ── 4. Skin ID : la seule bande sombre de la page, avec la carte qui attend son code
   + ".eba-sid{position:relative;overflow:hidden;margin-top:110px;background:radial-gradient(700px 420px at 92% 10%,rgba(230,203,189,.18),rgba(230,203,189,0) 70%),radial-gradient(700px 420px at 30% 110%,rgba(195,204,143,.13),rgba(195,204,143,0) 70%),#1b1a17;color:" + F + "}"
   + ".eba-sin{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:40px;max-width:1240px;margin:0 auto;padding:110px 6%;text-align:left}"
@@ -267,71 +266,6 @@
         + '<a class="eba-btn" href="' + e(FETES.lien) + '">' + e(FETES.bouton) + '</a></section>';
       ban.insertAdjacentHTML('afterend', hf);
     }
-  // toute la page d'accueil prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
-  function bordABord(){
-    root.style.maxWidth = 'none';
-    // position du bord gauche du conteneur Carrd (on ne mesure pas la page elle-même : son style de départ la place déjà bord à bord)
-    var pa = root.parentElement, cs = getComputedStyle(pa);
-    var g = pa.getBoundingClientRect().left + parseFloat(cs.paddingLeft || 0) + parseFloat(cs.borderLeftWidth || 0);
-    root.style.width = document.documentElement.clientWidth + 'px'; root.style.marginLeft = (-g) + 'px';
-  }
-  bordABord(); setTimeout(bordABord, 400);
-
-  // Carrd : on retire l'ancienne bannière en fond de site et l'espace qu'elle réservait, la bannière monte sous le menu
-  function nettoyerFond(){
-    var url = /url\(/, anc = [document.documentElement, document.body];
-    for(var e = root.parentElement; e && e !== document.body; e = e.parentElement) anc.push(e);
-    anc.forEach(function(el){
-      ['::before', '::after'].forEach(function(ps, k){ var cs = getComputedStyle(el, ps); if(cs.content !== 'none' && url.test(cs.backgroundImage)) el.classList.add(k ? 'eba-psa' : 'eba-psb'); });
-      if(url.test(getComputedStyle(el).backgroundImage)) el.classList.add('eba-sansfond');
-      if(el !== document.documentElement && el !== document.body && parseFloat(getComputedStyle(el).paddingTop) > window.innerHeight * .12) el.classList.add('eba-sanspad');
-    });
-    // une grande image de fond posée à part (calque fixe de Carrd)
-    document.querySelectorAll('body > *').forEach(function(el){
-      if(el.contains(root) || el.id === 'eb-acc') return;
-      var cs = getComputedStyle(el);
-      if((cs.position === 'fixed' || cs.position === 'absolute') && url.test(cs.backgroundImage) && el.offsetWidth > window.innerWidth * .6) el.classList.add('eba-cache');
-    });
-    // mise en page Carrd « en deux colonnes » (contenu d'un côté, image de l'autre) : le contenu reprend toute la largeur
-    var W = document.documentElement.clientWidth;
-    for(var c = root.parentElement; c && c !== document.body; c = c.parentElement){
-      var parent = c.parentElement; if(!parent || parent === document.body) break;
-      var autre = false;
-      [].forEach.call(parent.children, function(f){
-        if(f === c || /^(SCRIPT|STYLE|LINK|NOSCRIPT)$/.test(f.tagName) || f.classList.contains('eba-cache') || getComputedStyle(f).position === 'fixed') return;
-        var vide = !f.textContent.trim() && !f.querySelector('img,video,iframe,svg,canvas');
-        var r = f.getBoundingClientRect();
-        if(vide && r.width > W * .2 && r.height > window.innerHeight * .3){ f.classList.add('eba-cache'); autre = true; }
-      });
-      if(autre){
-        c.style.setProperty('width', '100%', 'important'); c.style.setProperty('max-width', 'none', 'important');
-        c.style.setProperty('flex', '1 1 100%', 'important'); c.style.setProperty('margin-left', '0', 'important'); c.style.setProperty('margin-right', '0', 'important');
-      }
-    }
-    // il reste un vide entre le menu et la bannière ? la bannière remonte
-    if(!ban) return;
-    var bloc = ban; bloc.style.marginTop = '';
-    // la bannière monte tout en haut, derrière le menu transparent (comme sur les autres sites)
-    var ecart = ban.getBoundingClientRect().top + window.scrollY;
-    if(ecart > 4 && ecart < window.innerHeight * .8 && !quelqueChoseAuDessus()) bloc.style.marginTop = (-ecart) + 'px';
-
-  }
-  function quelqueChoseAuDessus(){
-    var tous = document.body.querySelectorAll('img, video, p, h1, h2, h3, a, button, iframe');
-    for(var i = 0; i < tous.length; i++){
-      var el = tous[i]; if(root.contains(el)) continue;
-      if(!(el.compareDocumentPosition(root) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
-      var cs = getComputedStyle(el); if(cs.position === 'fixed' || cs.display === 'none' || cs.visibility === 'hidden') continue;
-      var f = el; while(f && f !== document.body){ if(getComputedStyle(f).position === 'fixed') break; f = f.parentElement; } if(f && f !== document.body) continue;
-      var r = el.getBoundingClientRect(); if(r.width > 2 && r.height > 2 && r.bottom + window.scrollY <= ban.getBoundingClientRect().top + window.scrollY + 2) return true;
-    }
-    return false;
-  }
-  try { nettoyerFond(); bordABord(); } catch(err){}
-  setTimeout(function(){ try { nettoyerFond(); bordABord(); } catch(err){} }, 500);
-  window.addEventListener('load', function(){ try { nettoyerFond(); bordABord(); } catch(err){} });
-
-
     // cadrage de chaque photo (ordinateur / téléphone), réglé dans l'embed
     function cadrer(){
       root.querySelectorAll('img[data-pos]').forEach(function(im){
