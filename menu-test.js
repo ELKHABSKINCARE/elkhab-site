@@ -42,13 +42,13 @@ var LIENS = {
 };
 // « Nos soins » : les pages par type et par besoin arriveront après le lancement ("" = pas encore de page)
 // Page « Nos soins » (site de test pour l'instant ; au lancement : https://soins.elkhab.com/)
-var PAGE_SOINS = "https://soins-balance-test.carrd.co/";
+var PAGE_SOINS = "https://soins.elkhab.com/";
 var PAR_TYPE = [
   ["Nettoyants & démaquillants",PAGE_SOINS+"?type=nettoyants"],["Lotions & exfoliants",PAGE_SOINS+"?type=lotions"],["Sérums",PAGE_SOINS+"?type=serums"],["Crèmes & gels",PAGE_SOINS+"?type=cremes"],
   ["Contour des yeux",PAGE_SOINS+"?type=yeux"],["Masques & patchs",PAGE_SOINS+"?type=masques"],["Protections solaires & CC crèmes",PAGE_SOINS+"?type=protection"]
 ];
 // Page « Vos besoins » (site de test pour l'instant ; au lancement : https://besoins.elkhab.com/)
-var PAGE_BESOINS = "https://besoins-balance-test.carrd.co/";
+var PAGE_BESOINS = "https://besoins.elkhab.com/";
 var PAR_BESOIN = [
   ["Peaux sensibles",PAGE_BESOINS+"?besoin=sensibles"],["Hydratation",PAGE_BESOINS+"?besoin=hydratation"],["Éclat",PAGE_BESOINS+"?besoin=eclat"],
   ["Taches & teint unifié",PAGE_BESOINS+"?besoin=taches"],["Rides & fermeté",PAGE_BESOINS+"?besoin=fermete"],["Pores & imperfections",PAGE_BESOINS+"?besoin=pores"]
