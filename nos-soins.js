@@ -131,8 +131,6 @@
   + ".ens-ban.ens-direct .ens-plein,.ens-ban.ens-direct .ens-cal{transition:none}"
   + ".ens-ban.ens-photo .ens-bt{flex:0 0 48%;max-width:48%}"
   + ".ens-bt{position:relative;z-index:2;flex:1 1 auto;max-width:calc(100% - clamp(560px,44vw,740px) * .62);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:" + REGLAGES.espaceMenu + "px 5% 0}"
-  // l'ancienne image de fond du site Carrd (la « tall box ») est retirée par le code
-  + ".ens-psb:before,.ens-psa:after{display:none !important}.ens-sansfond{background-image:none !important}.ens-sanspad{padding-top:0 !important}.ens-cache{display:none !important}"
   // mêmes tailles d'écriture que la bannière et le titre de la page Balance (« LES SOINS » / « BALANCE »)
   + "#eb-ns .ens-bk{font-size:11px;letter-spacing:.5em;font-weight:500;color:#2a2723;margin:0 0 16px;padding-left:.5em;text-transform:uppercase;line-height:1.4}"
   + ".ens-bn{font-size:46px;letter-spacing:.38em;font-weight:400;line-height:1.2;margin:0;padding-left:.38em;color:#000;text-transform:uppercase;transition:opacity .35s ease,transform .35s ease}"
@@ -303,78 +301,6 @@
     if(img.getAttribute('src') !== url) img.src = url; else if(img.complete && img.naturalWidth) img.onload();
     setTimeout(montrer, 1500);   // sécurité : si la photo tarde (réseau lent), on n'attend pas plus
   }
-  // toute la page « Nos soins » prend la largeur de l'écran et se centre, quelle que soit la mise en page Carrd
-  // glissement en cours d'une animation Carrd (apparition qui glisse) : on le retire des mesures, sinon la page se cale de travers
-  function glissement(el){
-    var x = 0, y = 0;
-    for(var e = el.parentElement; e && e !== document.documentElement; e = e.parentElement){
-      var t = getComputedStyle(e).transform, m = t && t !== 'none' && t.match(/matrix\(([^)]+)\)/);
-      if(m){ var v = m[1].split(','); x += parseFloat(v[4]) || 0; y += parseFloat(v[5]) || 0; }
-    }
-    return { x: x, y: y };
-  }
-  function bordABord(){
-    root.style.width = ''; root.style.marginLeft = ''; root.style.maxWidth = 'none';
-    var g = root.getBoundingClientRect().left - glissement(root).x;
-    root.style.width = document.documentElement.clientWidth + 'px'; root.style.marginLeft = (-g) + 'px';
-  }
-  bordABord(); setTimeout(bordABord, 400);
-
-  // Carrd : on retire l'ancienne bannière en fond de site et l'espace qu'elle réservait, la bannière monte sous le menu
-  function nettoyerFond(){
-    var url = /url\(/, anc = [document.documentElement, document.body];
-    for(var e = root.parentElement; e && e !== document.body; e = e.parentElement) anc.push(e);
-    anc.forEach(function(el){
-      ['::before', '::after'].forEach(function(ps, k){ var cs = getComputedStyle(el, ps); if(cs.content !== 'none' && url.test(cs.backgroundImage)) el.classList.add(k ? 'ens-psa' : 'ens-psb'); });
-      if(url.test(getComputedStyle(el).backgroundImage)) el.classList.add('ens-sansfond');
-      if(el !== document.documentElement && el !== document.body && parseFloat(getComputedStyle(el).paddingTop) > window.innerHeight * .12) el.classList.add('ens-sanspad');
-    });
-    // une grande image de fond posée à part (calque fixe de Carrd)
-    document.querySelectorAll('body > *').forEach(function(el){
-      if(el.contains(root) || el.id === 'eb-ns') return;
-      var cs = getComputedStyle(el);
-      if((cs.position === 'fixed' || cs.position === 'absolute') && url.test(cs.backgroundImage) && el.offsetWidth > window.innerWidth * .6) el.classList.add('ens-cache');
-    });
-    // mise en page Carrd « en deux colonnes » (contenu d'un côté, image de l'autre) : le contenu reprend toute la largeur
-    var W = document.documentElement.clientWidth;
-    for(var c = root.parentElement; c && c !== document.body; c = c.parentElement){
-      var parent = c.parentElement; if(!parent) break;
-      var autre = false;
-      [].forEach.call(parent.children, function(f){
-        if(f === c || /^(SCRIPT|STYLE|LINK|NOSCRIPT)$/.test(f.tagName) || f.classList.contains('ens-cache')) return;
-        var vide = !f.textContent.trim() && !f.querySelector('img,video,iframe,svg,canvas');
-        var r = f.getBoundingClientRect();
-        if(vide && r.width > W * .2 && r.height > window.innerHeight * .3){ f.classList.add('ens-cache'); autre = true; }
-      });
-      if(autre){
-        c.style.setProperty('width', '100%', 'important'); c.style.setProperty('max-width', 'none', 'important');
-        c.style.setProperty('flex', '1 1 100%', 'important'); c.style.setProperty('margin-left', '0', 'important'); c.style.setProperty('margin-right', '0', 'important');
-      }
-    }
-    // il reste un vide entre le menu et la bannière ? la bannière remonte
-    if(!ban) return;
-    var bloc = ban; bloc.style.marginTop = '';
-    // la bannière monte tout en haut, derrière le menu transparent (comme sur les autres sites)
-    var ecart = ban.getBoundingClientRect().top - glissement(ban).y + window.scrollY;
-    if(ecart > 4 && ecart < window.innerHeight * .8 && !quelqueChoseAuDessus()) bloc.style.marginTop = (-ecart) + 'px';
-
-  }
-  function quelqueChoseAuDessus(){
-    var tous = document.body.querySelectorAll('img, video, p, h1, h2, h3, a, button, iframe');
-    for(var i = 0; i < tous.length; i++){
-      var el = tous[i]; if(root.contains(el)) continue;
-      if(!(el.compareDocumentPosition(root) & Node.DOCUMENT_POSITION_FOLLOWING)) continue;
-      var cs = getComputedStyle(el); if(cs.position === 'fixed' || cs.display === 'none' || cs.visibility === 'hidden') continue;
-      var f = el; while(f && f !== document.body){ if(getComputedStyle(f).position === 'fixed') break; f = f.parentElement; } if(f && f !== document.body) continue;
-      var r = el.getBoundingClientRect(); if(r.width > 2 && r.height > 2 && r.bottom + window.scrollY <= ban.getBoundingClientRect().top + window.scrollY + 2) return true;
-    }
-    return false;
-  }
-  try { nettoyerFond(); } catch(err){}
-  setTimeout(function(){ try { nettoyerFond(); bordABord(); } catch(err){} }, 500);
-  window.addEventListener('load', function(){ try { nettoyerFond(); bordABord(); } catch(err){} });
-  // à la fin d'une animation Carrd sur un bloc qui contient la page : on recale (bord à bord, sous le menu)
-  ['animationend', 'transitionend'].forEach(function(ev){ document.addEventListener(ev, function(e){ var t = e.target; if(t && t.nodeType === 1 && t !== root && t.contains(root)){ try { nettoyerFond(); bordABord(); } catch(err){} } }, true); });
   var secs = [].slice.call(root.querySelectorAll('.ens-s'));
   secs.forEach(function(s){ s.querySelectorAll('.ens-c').forEach(function(c){ var im = c.querySelector('img'); if(im) im.setAttribute('data-g', c.getAttribute('data-gamme')); }); });
 
@@ -742,7 +668,7 @@
   if(!ban) root.classList.add('ens-vu');
   setTimeout(function(){ root.classList.add('ens-vu'); }, 1600);   // sécurité : la page s'affiche toujours
   var largeur = window.innerWidth;
-  window.addEventListener('resize', function(){ colorer(); bordABord(); ajusterTitre(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
+  window.addEventListener('resize', function(){ colorer(); ajusterTitre(); if(window.innerWidth !== largeur){ largeur = window.innerWidth; barres(); } });
   ajusterTitre(); setTimeout(ajusterTitre, 500); if(document.fonts && document.fonts.ready) document.fonts.ready.then(ajusterTitre);
   if(document.fonts && document.fonts.ready) document.fonts.ready.then(colorer);
   }
