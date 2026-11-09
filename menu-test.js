@@ -103,18 +103,9 @@ var CSS = ""
 + ".ebm-t.ebm-balance:after{height:2px;background:" + BAL_DEG + "}"
 + ".ebm-g,.ebm-d{display:none;align-items:center;gap:24px}"
 + ".ebm-icone{width:18px;height:18px;cursor:pointer;display:flex}.ebm-icone svg{width:100%;height:100%}"
-/* téléphone : MENU / PANIER en texte */
-+ ".ebm-menu,.ebm-panier{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:#000;cursor:pointer;background:none;border:0;padding:8px 0}"
 + ".eb-navbar #ebBurger{width:24px !important;height:16.5px !important}.eb-navbar #ebBurger span{height:1.5px !important;background:#000 !important;border-radius:0}"
 + ".eb-navbar #ebCartButton svg,.eb-navbar #ebCartButton svg *,.eb-navbar .ebm-mloupe svg,.eb-navbar .ebm-mloupe svg *,.ebm-icone svg,.ebm-icone svg *{stroke-width:1.2 !important}"
-/* téléphone : la carte Skin ID en miniature, entre le logo et le panier (même fond, même sceau, même code que la carte du menu) */
-+ ".ebm-mini{position:relative;display:block;width:54px;height:25px;box-sizing:border-box;padding:4px 4px 3px 5px;border:1px solid #ebe5dc;background:linear-gradient(135deg,#fcfbf8 0%,#f9f3ee 55%,#f3e4dc 100%);text-decoration:none;color:#111;font-family:'Montserrat',sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;flex:0 0 auto;align-self:center}"
-+ ".ebm-mini .ebm-msceau{position:absolute;top:3px;right:3px;display:block;height:8px;box-sizing:border-box;padding:0 2px;border:.5px solid #cbc5b6;outline:.5px solid #e2ddd1;outline-offset:1px;background:rgba(255,255,255,.5);font-size:5px;font-weight:800;letter-spacing:.1em;line-height:7.5px;color:#a9a294}"
-+ ".ebm-mini .ebm-msk{display:block;font-size:4.5px;letter-spacing:.18em;font-weight:500;color:#6b665e;line-height:1;margin-top:1px}"
-+ ".ebm-mini .ebm-mcode{display:block;font-size:6.5px;font-weight:300;letter-spacing:.06em;color:#2a2723;margin-top:5px;white-space:nowrap;line-height:1;transition:opacity .4s ease}"
-+ ".ebm-mini .ebm-mcode b{font-weight:500}"
 + ".eb-navbar .ebm-droite{gap:10px !important}"
-+ "@media (max-width:350px){.ebm-mini{width:38px;padding:0;display:flex;align-items:center;justify-content:center}.eb-navbar .ebm-droite{gap:8px !important}.ebm-mini .ebm-msceau,.ebm-mini .ebm-mcode{display:none}.ebm-mini .ebm-msk{margin:0;font-size:5px;letter-spacing:.15em;text-align:center;line-height:1.5;white-space:normal;width:22px}}"
 /* liste du téléphone */
 + "html body .eb-navbar.eb-menu-open,html body .eb-navbar.ebm-soins-ouvert{box-shadow:none !important}"
 + "#ebOverlay.ebm-liste{top:64px !important;background:rgba(245,244,240,.88) !important;-webkit-backdrop-filter:blur(16px) saturate(1.1) !important;backdrop-filter:blur(16px) saturate(1.1) !important;padding:4px max(22px,env(safe-area-inset-left,0px)) 22px !important;max-height:calc(100dvh - 140px);overflow-y:auto;box-shadow:0 14px 24px rgba(40,30,20,.08);z-index:9999}"
@@ -155,7 +146,7 @@ var CSS = ""
 + "@media (min-width:1000px){"
 + ".eb-navbar{padding:0 40px}"
 + ".ebm-g,.ebm-d{display:flex}"
-+ ".eb-navbar #ebBurger,.ebm-mloupe,.ebm-mini{display:none !important}"
++ ".eb-navbar #ebBurger,.ebm-mloupe{display:none !important}"
 + ".eb-navbar .ebm-droite{gap:24px !important}"
 + ".eb-navbar .eb-navbar-brand{font-size:22px !important}"
 + ".eb-navbar .eb-navbar-brand span{font-size:6.5px !important;margin-top:8px !important}"
@@ -206,7 +197,6 @@ function construire(){
   [loupe,aSkin,aJour,aExp].forEach(function(x){ d.appendChild(x); });
   droite.insertBefore(d, droite.firstChild);
   droite.style.gap='24px'; droite.classList.add('ebm-droite');
-  // (la mini carte Skin ID du téléphone a été retirée le 6 nov. 2026 : pas harmonieuse ; le Skin ID reste dans le menu)
 
   // ── Panneau « Nos soins » (ordinateur)
   var p=el('div','ebm-soins'); var pin=el('div','ebm-soins-in');
@@ -302,8 +292,6 @@ function construire(){
     if(Math.abs(y - yDernier) > 6) yDernier = y;
     if(ouvertQuelquePart() && Math.abs(y - yOuverture) > 8) fermerTout();
   },{capture:true,passive:true});
-  // le menu est prêt : la barre apparaît (elle restait invisible pour ne pas montrer l'ancien logo)
-  document.documentElement.classList.add('ebm-pret');
   return true;
 }
 (function attendre(n){ if(construire()) return; if(n>0) setTimeout(function(){ attendre(n-1); },200); })(40);
