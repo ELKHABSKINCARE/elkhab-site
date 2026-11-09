@@ -1,16 +1,12 @@
 /* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
-/* ═══════════════════════════════════════════════════════════════════════
-   ELKHA.B — NOUVEAU MENU (menu-test.js) — VERSION DE TEST
-   • Se charge par une ligne ajoutée à la fin de l'embed du menu (copies de travail)
-   • Garde le panier, la recherche et le Skin ID existants : il ne change que l'apparence
-   • Ordinateur : Bloom · Balance · Nos soins · Routines | logo | Skin ID · Journal · Leur expérience · Panier
-   • Téléphone : MENU | logo | PANIER — liste qui descend, refermée d'un toucher sur la page
-   ═══════════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════
+   ELKHA.B — MENU DES 8 SITES (menu-test.js)
+   • Chargé par l'embed Menu de chaque site, qui dessine déjà la barre de départ à l'identique
+   • Remplace cette barre par la version cliquable, sans rien déplacer ; garde le panier, la recherche et le Skin ID
+   • Ordinateur : Bloom · Balance · Nos soins · Routines | logo | loupe · Skin ID · Journal · Leur expérience · panier
+   • Téléphone : menu + loupe | logo | panier — liste qui descend, refermée d'un toucher sur la page
+   ═══════════════════════════════════════ */
 (function(){
-
-/* ─── Pages Nos soins / Vos besoins : la bannière photo monte sous le menu et recouvre le bandeau défilant.
-       On ne l'affiche donc pas du tout sur ces pages : sinon il apparaît pendant le chargement puis la page saute ─── */
-(function(){ var st=document.createElement('style'); st.textContent='body:has(#eb-ns) .container-component:has(.eb-ticker){display:none!important}'; (document.head||document.documentElement).appendChild(st); })();
 
 /* ─── Passage d'un site à l'autre plus fluide : dès que la souris passe sur un lien vers un autre site ELKHA.B
        (ou dès que le doigt le touche), le navigateur commence à télécharger la page suivante en arrière-plan ─── */
