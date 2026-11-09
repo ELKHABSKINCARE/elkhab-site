@@ -958,12 +958,30 @@ document.addEventListener('DOMContentLoaded', function(){
   if(cartBackdrop) cartBackdrop.addEventListener('click', closeCart);
   if(cartClose) cartClose.addEventListener('click', closeCart);
 
+  // Retour arrière depuis la page de paiement : le navigateur réaffiche la page telle qu'on l'a quittée
+  // (bouton resté sur « Chargement… ») → le bouton redevient « Passer au paiement » et on relit le panier
+  // (il a pu changer, ou être payé, pendant que la cliente était sur Shopify)
+  const texteCheckout = checkoutBtn ? checkoutBtn.textContent : '';
+  window.addEventListener('pageshow', function(e){
+    if(checkoutBtn){ checkoutBtn.textContent = texteCheckout; checkoutBtn.disabled = false; }
+    if(e.persisted && cartId){
+      ebCartFetch().then(function(cart){ if(cart || !cartId) ebRenderCart(cart); }).catch(function(){});
+    }
+  });
+
   if(checkoutBtn){
     checkoutBtn.addEventListener('click', async function(){
       const originalText = checkoutBtn.textContent;
       checkoutBtn.textContent = 'CHARGEMENT...';
       checkoutBtn.disabled = true;
-      const cart = await ebCartFetch();
+      // on laisse finir un ajout en cours (échantillon offert…), 3 s au plus
+      await Promise.race([ebCartFile, new Promise(function(r){ setTimeout(r, 3000); })]);
+      // l'adresse de paiement du panier est déjà connue : on y va tout de suite, sans redemander à Shopify
+      // (en navigation privée, cette question pouvait faire attendre la cliente très longtemps)
+      const connu = ebDernierPanier && ebDernierPanier.checkoutUrl && ebDernierPanier.id === cartId && ebDernierPanier.totalQuantity > 0;
+      if(connu){ window.location.href = ebDernierPanier.checkoutUrl; return; }
+      // sinon on demande à Shopify, mais jamais plus de 8 secondes
+      const cart = await Promise.race([ebCartFetch().catch(function(){ return null; }), new Promise(function(r){ setTimeout(function(){ r(null); }, 8000); })]);
       if(cart && cart.checkoutUrl){
         window.location.href = cart.checkoutUrl;
       } else {
