@@ -12,6 +12,22 @@
        On ne l'affiche donc pas du tout sur ces pages : sinon il apparaît pendant le chargement puis la page saute ─── */
 (function(){ var st=document.createElement('style'); st.textContent='body:has(#eb-ns) .container-component:has(.eb-ticker){display:none!important}'; (document.head||document.documentElement).appendChild(st); })();
 
+/* ─── Passage d'un site à l'autre plus fluide : dès que la souris passe sur un lien vers un autre site ELKHA.B
+       (ou dès que le doigt le touche), le navigateur commence à télécharger la page suivante en arrière-plan ─── */
+(function(){
+  var faits = {};
+  function prepare(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href]'); if(!a) return;
+    var u; try { u = new URL(a.href, location.href); } catch(err){ return; }
+    if(u.hostname === location.hostname || !/(^|\.)elkhab\.com$/.test(u.hostname)) return;
+    var cle = u.origin + u.pathname + u.search; if(faits[cle]) return; faits[cle] = 1;
+    var l = document.createElement('link'); l.rel = 'prefetch'; l.href = cle; (document.head || document.documentElement).appendChild(l);
+  }
+  document.addEventListener('mouseover', prepare, { passive: true });
+  document.addEventListener('touchstart', prepare, { passive: true });
+  document.addEventListener('focusin', prepare);
+})();
+
 /* ─── Skin ID : le nouveau diagnostic s'ouvre par-dessus la page (skin-id-engine.js) ─── */
 var SKIN_ID_ENGINE = "https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=9";
 /* ─── Recherche : la nouvelle version (même panneau que le panier) remplace l'ancienne ─── */
