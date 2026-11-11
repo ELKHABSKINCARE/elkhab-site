@@ -24,6 +24,9 @@
     ".eb-review-meta{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff !important;opacity:.6;margin-bottom:8px}" +
     ".eb-review-text{font-size:13.5px;line-height:1.7;color:#fff !important;opacity:.9}" +
     ".eb-review-text b{font-weight:600}" +
+    // ambassadrices : « Ambassadrice ELKHA.B · soin offert · @pseudo »
+    ".eb-review-ambassadrice{font-size:10.5px !important;font-weight:300 !important;font-style:italic;letter-spacing:.02em;opacity:.75;margin:6px 0 0}" +
+    ".eb-review-ambassadrice a{color:inherit !important;text-decoration:underline;text-underline-offset:2px}" +
     ".eb-review-status{font-size:13px;color:#fff !important;opacity:.6;font-style:italic;padding:12px 0}" +
     // petite mention sous le bouton « Laisser un avis »
     ".eb-avis-mention{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:300;font-style:italic;line-height:1.6;letter-spacing:.02em;color:#9a968f;text-align:center;margin:14px auto 0;max-width:320px}";
@@ -106,9 +109,26 @@
     });
   }
 
-  // Le titre « 38 ans · Peau sensible » (envoyé par le formulaire du site) sert de signature ;
-  // un vrai titre écrit par la cliente s'affiche en tête de son avis
-  var PROFIL = /^\s*\d{1,3}\s*ans\b/i;
+  // Le titre de l'avis, en morceaux séparés par « · » :
+  // « 38 ans · Peau sensible » (formulaire du site) → signature ;
+  // « Soin offert » et « @pseudo » (ajoutés par ELKHA.B dans Judge.me pour une ambassadrice) → mention ambassadrice ;
+  // tout autre texte = vrai titre écrit par la cliente, affiché en tête de son avis
+  function lireTitre(titre){
+    var t = { age: '', peau: '', offert: false, pseudo: '', libre: [] };
+    String(titre || '').split('·').forEach(function(m){
+      m = m.trim();
+      if(!m) return;
+      if(/^\d{1,3}\s*ans$/i.test(m)) t.age = m;
+      else if(/^peau\b/i.test(m)) t.peau = m;
+      else if(/^soin offert$/i.test(m)) t.offert = true;
+      else if(/^@[A-Za-z0-9._]{2,30}$/.test(m)) t.pseudo = m.slice(1);
+      else t.libre.push(m);
+    });
+    return t;
+  }
+  function lienTikTok(pseudo){
+    return '<a href="https://www.tiktok.com/@' + encodeURIComponent(pseudo) + '" target="_blank" rel="noopener nofollow">@' + escapeHTML(pseudo) + '</a>';
+  }
 
   function rendu(res){
     if(!res.avis.length) return '<div class="eb-review-status">Aucun avis pour le moment.</div>';
@@ -117,13 +137,18 @@
       + '<span class="eb-review-stars">' + starsHTML(res.moyenne) + '</span>'
       + '<span>' + res.total + ' avis' + (verifies ? ' · ' + verifies + (verifies > 1 ? ' achats vérifiés' : ' achat vérifié') : '') + '</span></div>';
     res.avis.forEach(function(a){
-      var profil = PROFIL.test(a.titre) ? a.titre.replace(/\s*·\s*/g, ' — ') : '';
-      var signature = [escapeHTML(a.auteur) + (profil ? ', ' + escapeHTML(profil) : ''), formatDate(a.date), a.verifie ? 'Achat vérifié' : '']
+      var t = lireTitre(a.titre);
+      var profil = [t.age, t.peau].filter(Boolean).join(' — ');
+      var date = formatDate(a.date);
+      var signature = [escapeHTML(a.auteur) + (profil ? ', ' + escapeHTML(profil) : ''), date ? '<span style="white-space:nowrap">' + date + '</span>' : '', a.verifie ? 'Achat vérifié' : '']
         .filter(Boolean).join(' · ');
+      var ambassadrice = t.offert ? 'Ambassadrice ELKHA.B · soin offert' + (t.pseudo ? ' · ' + lienTikTok(t.pseudo) : '')
+        : (t.pseudo ? lienTikTok(t.pseudo) : '');
       html += '<div class="eb-review">'
         + '<div class="eb-review-stars">' + starsHTML(a.note) + '</div>'
-        + '<div class="eb-review-text">' + (a.titre && !profil ? '<b>' + escapeHTML(a.titre) + '</b><br>' : '') + escapeHTML(a.texte) + '</div>'
+        + '<div class="eb-review-text">' + (t.libre.length ? '<b>' + escapeHTML(t.libre.join(' · ')) + '</b><br>' : '') + escapeHTML(a.texte) + '</div>'
         + '<div class="eb-review-meta">' + signature + '</div>'
+        + (ambassadrice ? '<div class="eb-review-ambassadrice">' + ambassadrice + '</div>' : '')
         + '</div>';
     });
     return html;
