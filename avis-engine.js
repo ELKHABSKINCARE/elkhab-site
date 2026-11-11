@@ -6,16 +6,16 @@
   // la page : panier et position sont conservés.
   // ==========================================================================
 
-  var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdYPf5x7JSnW9nKutmeQhy6uhhu-oPbE1HfqnptpOTZprf3rw/formResponse';
-  var F = {
-    produit: 'entry.1596870022',
-    prenom:  'entry.772147728',
-    age:     'entry.560387394',
-    peau:    'entry.943870453',
-    note:    'entry.754526713',
-    avis:    'entry.237241556'
-  };
-  // Choix exacts de la question « Produit concerné » du formulaire
+  // Les avis partent chez Judge.me (appli d'avis de la boutique Shopify), avec le jeton PUBLIC
+  // (prévu pour être dans une page) ; ils sont publiés automatiquement puis affichés par reviews-engine.js.
+  var JUDGEME = 'https://judge.me/api/v1/reviews';
+  var JUDGEME_TOKEN = '-VkYlsX3rxyFcQpINRq-Lm_31J4';
+  var BOUTIQUE = 'fyjy1d-t8.myshopify.com';
+  // Judge.me range les avis par produit Shopify : la variante de la fiche donne le numéro du produit
+  var STOREFRONT = 'https://' + BOUTIQUE + '/api/2026-07/graphql.json';
+  var STOREFRONT_TOKEN = 'd7b9bf173e3b947dc2bb10f375e14185';
+  var FICHES = ['https://elkhabskincare.github.io/elkhab-site/produits-data-test.js', 'https://elkhabskincare.github.io/elkhab-site/produits-balance-test.js'];
+  // Soins proposés dans la liste « Choisissez le soin » (même nom que le champ « avis » des fiches)
   var PRODUITS = [
     'Radiance C Serum','Lumi-Bloom Niacinamide 5','Luminescence Jour','Luminescence Nuit',
     'Gelée Lumi-Bloom au Prébiotique','Rituel Luminescence','Radiance Protect','Lumi-Veil CC Cream',
@@ -23,13 +23,13 @@
     'Lumi-Eyes Bright & Glow Caféine + Vitamine C','Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5',
     'Routine éclat','Routine hydratation','Routine fermeté','Routine équilibre',
     'Routine teint & protection','Routine regard',
-    // Bloom, nouveaux soins (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
+    // Bloom, nouveaux soins
     'Lumi-Bloom Arbutin','Milky Bloom','Lumi-Pure','Radiance Cleanser','Luminescence Boost',
-    // Balance (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google)
+    // Balance
     'Hydra Balance','Fusion Balance','Calm Balance Jour','Calm Balance Nuit','Ceramide Night Restore','Cellular Renew','Cellular Eye Restore','Active Lift',
     'Age Lift','Eye Lift','Cellular Reveal','Bakuchiol Elixir','Spot Control','Bright Control','BHA Balance','Glyco Balance','AHA Balance Peel',
     'Routine essentielle','Routine anti-âge','Routine anti-taches','Routine apaisante','Routine renouvellement',
-    // Coffrets des fêtes (choix à ajouter aussi dans la question « Produit concerné » du formulaire Google, écrits exactement pareil)
+    // Coffrets des fêtes
     'Le Temps Suspendu','Rituel de Minuit','Nouvelle Aube',"Lumière d'hiver","Velours d'Hiver"
   ];
   var BANNIERE = 'https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200';
@@ -160,6 +160,7 @@
       +   '<div class="eb-av-form">'
       +     '<div class="eb-av-label">Vous</div>'
       +     '<input type="text" class="eb-av-prenom" placeholder="Prénom" maxlength="40" autocomplete="given-name">'
+      +     '<input type="email" class="eb-av-email" placeholder="E-mail (jamais publié)" maxlength="120" autocomplete="email" inputmode="email">'
       +     '<div class="eb-av-row">'
       +       '<input type="text" class="eb-av-age" placeholder="Âge" inputmode="numeric" maxlength="3">'
       +       '<select class="eb-av-peau">'
@@ -178,11 +179,11 @@
       +     '<input type="text" class="eb-av-hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">'
       +     '<div class="eb-av-error" role="alert"></div>'
       +     '<button type="button" class="eb-av-send">Envoyer mes avis</button>'
-      +     '<p class="eb-av-note">Vos avis sont publiés sur le site après vérification par notre équipe.</p>'
+      +     '<p class="eb-av-note">Votre e-mail reste privé : il sert uniquement à authentifier votre avis.</p>'
       +   '</div>'
       +   '<div class="eb-av-thanks">'
       +     '<div class="eb-av-thanks-title">Merci 🤍</div>'
-      +     '<p>Vos avis ont bien été envoyés. Ils apparaîtront sur le site après vérification. Merci de faire grandir ELKHA.B avec nous.</p>'
+      +     '<p>Vos avis ont bien été envoyés. Ils apparaîtront sur le site d’ici quelques minutes. Merci de faire grandir ELKHA.B avec nous.</p>'
       +     '<button type="button" class="eb-av-continue">Continuer mes achats</button>'
       +   '</div>'
       + '</div>';
@@ -355,15 +356,55 @@
   window.ebAvisClose = ebAvisClose;
 
   // ------------------------------------------------------------------ ENVOI
+  // Fiche du soin (champ « avis » ou nom) → numéro du produit Shopify
+  function ficheDuSoin(nom){
+    var P = window.EB_PRODUITS || {};
+    for(var k in P){ if(P[k] && (P[k].avis === nom || P[k].nom === nom)) return P[k]; }
+    return null;
+  }
+  // Fiches pas encore dans la page (ex. arrivée depuis l'e-mail) : on les charge, sans effacer celles déjà là
+  function chargerFiches(){
+    return FICHES.reduce(function(suite, url){
+      return suite.then(function(){
+        if(document.querySelector('script[src*="' + url.split('/').pop() + '"]')) return;
+        return new Promise(function(ok){
+          var avant = window.EB_PRODUITS, s = document.createElement('script');
+          s.src = url;
+          s.onload = s.onerror = function(){
+            var P = window.EB_PRODUITS;
+            if(avant && P && avant !== P){ for(var k in avant){ if(!(k in P)) P[k] = avant[k]; } }
+            ok();
+          };
+          document.head.appendChild(s);
+        });
+      });
+    }, Promise.resolve());
+  }
+  async function produitShopify(nom){
+    var fiche = ficheDuSoin(nom);
+    if(!fiche){ await chargerFiches(); fiche = ficheDuSoin(nom); }
+    var variante = fiche && (fiche.variantId || (fiche.variantes && fiche.variantes[0] && fiche.variantes[0].variantId));
+    if(!variante) return '';
+    var r = await fetch(STOREFRONT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN },
+      body: JSON.stringify({ query: '{node(id:"gid://shopify/ProductVariant/' + variante + '"){... on ProductVariant{product{id}}}}' })
+    });
+    var j = await r.json();
+    return String((j && j.data && j.data.node && j.data.node.product && j.data.node.product.id) || '').split('/').pop();
+  }
+
   async function send(){
     errorEl.textContent = '';
     if(overlay.querySelector('.eb-av-hp').value) return; // robot
 
     var prenom = overlay.querySelector('.eb-av-prenom').value.trim();
+    var email = overlay.querySelector('.eb-av-email').value.trim();
     var age = overlay.querySelector('.eb-av-age').value.trim();
     var peau = overlay.querySelector('.eb-av-peau').value;
 
     if(!prenom){ errorEl.textContent = 'Indiquez votre prénom.'; return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){ errorEl.textContent = 'Indiquez votre adresse e-mail.'; return; }
     if(!/^\d{2,3}$/.test(age)){ errorEl.textContent = 'Indiquez votre âge (en chiffres).'; return; }
     if(!peau){ errorEl.textContent = 'Choisissez votre type de peau.'; return; }
 
@@ -386,14 +427,20 @@
     sendBtn.textContent = 'Envoi en cours…';
     try {
       for(var j = 0; j < toSend.length; j++){
-        var body = new URLSearchParams();
-        body.append(F.produit, toSend[j].choice);
-        body.append(F.prenom, prenom);
-        body.append(F.age, age);
-        body.append(F.peau, peau);
-        body.append(F.note, toSend[j].note);
-        body.append(F.avis, toSend[j].text);
-        await fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: body });
+        var idProduit = await produitShopify(toSend[j].choice);
+        if(!idProduit) throw new Error('produit Shopify introuvable : ' + toSend[j].choice);
+        // envoi en formulaire simple (pas en JSON : refusé par le navigateur depuis un autre site)
+        var body = new URLSearchParams({
+          shop_domain: BOUTIQUE, platform: 'shopify', api_token: JUDGEME_TOKEN,
+          id: idProduit,
+          name: prenom,
+          email: email,
+          rating: toSend[j].note,
+          title: age + ' ans · ' + peau.charAt(0).toUpperCase() + peau.slice(1),   // affiché en signature par reviews-engine.js
+          body: toSend[j].text
+        });
+        var rep = await fetch(JUDGEME, { method: 'POST', body: body });
+        if(!rep.ok) throw new Error('Judge.me HTTP ' + rep.status);
       }
       formEl.style.display = 'none';
       thanksEl.style.display = 'block';
