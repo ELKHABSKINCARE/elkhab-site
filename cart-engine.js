@@ -629,6 +629,22 @@ function ebChargerFichesPanier(){
     document.body.appendChild(s);
   })(0);
 }
+// Coffret : prix des soins achetés séparément (barré à côté du prix du coffret), calculé depuis les fiches.
+// Même seuil que les fiches et les cartes des routines : rien en dessous de 3 € d'écart (ex. Rituel de Minuit).
+function ebPrixSepares(gid){
+  const P = window.EB_PRODUITS; if(!P || !ebFichesAJour()) return 0;
+  const v = String(gid || '').split('/').pop(); if(!v) return 0;
+  const n = function(p){ return parseFloat(String(p || '').replace(/[^0-9,.]/g, '').replace(',', '.')) || 0; };
+  for(const k in P){
+    const p = P[k];
+    if(!p || !p.coffret || String(p.variantId || '') !== v) continue;
+    const soins = (p.routine && p.routine.soins) || [];
+    let somme = 0;
+    for(const s of soins){ if(!P[s] || !n(P[s].prix)) return 0; somme += n(P[s].prix); }
+    return somme - n(p.prix) >= 3 ? somme : 0;
+  }
+  return 0;
+}
 // Taille demandée : seulement pour les photos Shopify (comme la recherche)
 function ebPhotoTaille(u){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u.split('?')[0] + '?width=160'; }
 
@@ -767,6 +783,7 @@ function ebCartStylePhotos(){
   st.id = 'eb-cart-photos-style';
   st.textContent = ''
     + '.eb-cart-item.eb-cart-item-photo{display:flex;gap:14px;align-items:flex-start}'
+    + '.eb-cart-barre{opacity:.5;font-weight:400;margin-right:2px}'
     // même vignette que la recherche : carré aux bords arrondis, le flacon entier jamais coupé
     + '.eb-cart-thumb{flex:0 0 60px;width:60px;height:60px;border-radius:10px;background:#f5f4f0;overflow:hidden}'
     + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88);color:transparent}'
@@ -849,7 +866,8 @@ function ebRenderCart(cart, attemptsLeft){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
     html += '<div class="eb-cart-item-bottom">';
-    html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
+    const separes = ebPrixSepares(m.id);
+    html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + (separes ? '<s class="eb-cart-barre">' + ebFormatPrice(separes * line.quantity) + '</s> ' : '') + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
     html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
     html += '</div></div></div>';
   });
