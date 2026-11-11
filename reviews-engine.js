@@ -1,12 +1,19 @@
 /* © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite. */
 (function(){
-  const SHEET_ID = "100cL1PE_giU0UnrVhWSmTEoU7aqIGVgkrUP1aYC_AcU";
-  const GID = "1134795247"; // onglet "Publiés"
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/" + SHEET_ID + "/export?format=csv&gid=" + GID;
+  // ==========================================================================
+  // ELKHA.B — Avis clientes des fiches (section « Vos expériences »)
+  // Les avis viennent de Judge.me (appli d'avis de la boutique Shopify) :
+  // demandes d'avis envoyées après chaque commande + bouton « Laisser un avis » du site.
+  // Lecture avec le jeton PUBLIC de Judge.me (lecture seule, prévu pour être dans une page).
+  // ==========================================================================
+  var JUDGEME = 'https://judge.me/api/v1/widgets/product_review';
+  var JUDGEME_TOKEN = '-VkYlsX3rxyFcQpINRq-Lm_31J4';
+  var BOUTIQUE = 'fyjy1d-t8.myshopify.com';
+  // Pour retrouver le produit Shopify d'une fiche (Judge.me range les avis par produit Shopify)
+  var STOREFRONT = 'https://' + BOUTIQUE + '/api/2026-07/graphql.json';
+  var STOREFRONT_TOKEN = 'd7b9bf173e3b947dc2bb10f375e14185';
+  var MENTION = 'Avis collectés et vérifiés par Judge.me après chaque commande';
 
-  // ---------------------------------------------------------------
-  // Style des avis et du bouton « Laisser un avis » (fond noir des fiches)
-  // ---------------------------------------------------------------
   var styleTag = document.createElement('style');
   styleTag.textContent =
     ".eb-reviews{font-family:'Montserrat',sans-serif !important;margin:10px auto 0 !important;padding:0 24px !important;max-width:560px !important;width:auto !important;box-sizing:border-box !important;color:#fff !important;text-align:left !important}" +
@@ -15,172 +22,156 @@
     ".eb-review{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.18)}" +
     ".eb-review-stars{color:#fff !important;font-size:19px !important;letter-spacing:3px;line-height:1.2;margin-bottom:8px}" +
     ".eb-review-meta{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#fff !important;opacity:.6;margin-bottom:8px}" +
-    ".eb-review-ambassadrice{font-size:10.5px !important;font-weight:300 !important;font-style:italic;letter-spacing:.02em;color:#fff !important;opacity:.5;margin:-5px 0 8px}" +
     ".eb-review-text{font-size:13.5px;line-height:1.7;color:#fff !important;opacity:.9}" +
+    ".eb-review-text b{font-weight:600}" +
     ".eb-review-status{font-size:13px;color:#fff !important;opacity:.6;font-style:italic;padding:12px 0}" +
-    ".eb-laisser-avis{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:280px;margin:22px auto 0;background:#fff;color:#000 !important;border:1px solid #fff;border-radius:0;padding:16px 24px;box-sizing:border-box;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;text-decoration:none !important;cursor:pointer;transition:transform .2s ease;white-space:nowrap}" +
-    ".eb-laisser-avis:hover{transform:scale(1.03)}";
+    // petite mention sous le bouton « Laisser un avis »
+    ".eb-avis-mention{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:300;font-style:italic;line-height:1.6;letter-spacing:.02em;color:#9a968f;text-align:center;margin:14px auto 0;max-width:320px}";
   document.head.appendChild(styleTag);
 
-  // Petit analyseur de CSV (gère les virgules et retours à la ligne à l'intérieur d'un commentaire entre guillemets)
-  function parseCSV(text){
-    const rows = [];
-    let row = [], field = '', inQuotes = false;
-    for(let i = 0; i < text.length; i++){
-      const c = text[i];
-      if(inQuotes){
-        if(c === '"'){
-          if(text[i+1] === '"'){ field += '"'; i++; }
-          else { inQuotes = false; }
-        } else {
-          field += c;
-        }
-      } else {
-        if(c === '"'){ inQuotes = true; }
-        else if(c === ','){ row.push(field); field = ''; }
-        else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
-        else if(c === '\r'){ /* ignoré */ }
-        else { field += c; }
-      }
-    }
-    if(field.length || row.length){ row.push(field); rows.push(row); }
-    return rows;
-  }
-
   function starsHTML(note){
-    const n = Math.round(parseFloat(note)) || 0;
-    let s = '';
-    for(let i = 1; i <= 5; i++){ s += i <= n ? '★' : '☆'; }
+    var n = Math.round(parseFloat(note)) || 0, s = '';
+    for(var i = 1; i <= 5; i++){ s += i <= n ? '★' : '☆'; }
     return s;
   }
-
-  function formatDate(horodateur){
-    if(!horodateur) return '';
-    const datePart = horodateur.trim().split(' ')[0]; // "27/09/2026 14:32:10" -> "27/09/2026"
-    const parts = datePart.split('/');
-    if(parts.length !== 3) return '';
-    const mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
-    const jour = parseInt(parts[0], 10);
-    const moisIndex = parseInt(parts[1], 10) - 1;
-    const annee = parts[2];
-    if(isNaN(jour) || !mois[moisIndex]) return '';
-    return jour + ' ' + mois[moisIndex] + ' ' + annee;
-  }
-
   function escapeHTML(str){
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.textContent = str || '';
     return div.innerHTML;
   }
-
-  // Le Google Sheets n'est lu qu'une seule fois par page, même s'il y a 18 fiches
-  let csvPromise = null;
-  function getRows(){
-    if(!csvPromise){
-      csvPromise = fetch(CSV_URL)
-        .then(function(res){
-          if(!res.ok) throw new Error('HTTP ' + res.status);
-          return res.text();
-        })
-        .then(parseCSV)
-        .catch(function(err){ csvPromise = null; throw err; });
-    }
-    return csvPromise;
+  // « 2026-11-10 10:41:19 UTC » → « 10 novembre 2026 »
+  function formatDate(t){
+    var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(t || ''));
+    if(!m) return '';
+    var mois = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+    return parseInt(m[3], 10) + ' ' + mois[parseInt(m[2], 10) - 1] + ' ' + m[1];
+  }
+  function memo(cle, valeur){
+    try {
+      if(valeur === undefined) return sessionStorage.getItem(cle);
+      sessionStorage.setItem(cle, valeur);
+    } catch(e){ return null; }
   }
 
-  // Rend les avis pour un conteneur donné
-  async function ebRenderReviewsInto(container, productName){
-    try {
-      const rows = await getRows();
-      if(rows.length < 2){
-        container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
-        return;
-      }
-      // Reconnaît chaque colonne par un mot-clé, sans tenir compte des majuscules,
-      // des accents ni du pluriel (ex. « PRODUITS CONCERNÉS » = « Produit concerné »)
-      const norm = function(t){ return (t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); };
-      const header = rows[0].map(norm);
-      const col = function(motCle){ for(let i = 0; i < header.length; i++){ if(header[i].indexOf(motCle) !== -1) return i; } return -1; };
-      const idx = {
-        horodateur: col('horodat'),
-        produit: col('produit'),
-        prenom: col('prenom'),
-        age: col('age'),
-        peau: col('peau'),
-        note: col('note'),
-        commentaire: col('avis'),
-        ambassadrice: col('ambassad')   // colonne « Ambassadrice » : écrire « oui » pour un avis d'ambassadrice ou de collaboratrice
-      };
-      if(idx.produit === -1){
-        console.error('ELKHA.B avis — colonne des produits introuvable dans l\'onglet Publiés', rows[0]);
-      }
-      // Comparaison tolérante : accents, majuscules et espaces invisibles ignorés
-      const cle = function(t){ return norm(t).replace(/[\s\u00a0\u202f]+/g, ' ').trim(); };
-      const cible = cle(productName);
-      const matches = rows.slice(1).filter(function(r){
-        return r[idx.produit] && cle(r[idx.produit]) === cible;
-      });
-      if(matches.length === 0){
-        container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>';
-        return;
-      }
+  // Fiche → produit Shopify : la variante de la fiche donne le numéro du produit (gardé pour la visite)
+  var produitsEnCours = {};
+  function produitShopify(nomAvis){
+    if(produitsEnCours[nomAvis]) return produitsEnCours[nomAvis];
+    var P = window.EB_PRODUITS || {}, variante = '';
+    for(var k in P){
+      var p = P[k];
+      if(p && p.avis === nomAvis){ variante = p.variantId || (p.variantes && p.variantes[0] && p.variantes[0].variantId) || ''; if(variante) break; }
+    }
+    if(!variante) return Promise.resolve('');
+    var cle = 'eb-produit-' + variante, connu = memo(cle);
+    if(connu) return Promise.resolve(connu);
+    produitsEnCours[nomAvis] = fetch(STOREFRONT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Shopify-Storefront-Access-Token': STOREFRONT_TOKEN },
+      body: JSON.stringify({ query: '{node(id:"gid://shopify/ProductVariant/' + variante + '"){... on ProductVariant{product{id}}}}' })
+    }).then(function(r){ return r.json(); }).then(function(j){
+      var id = String((((j || {}).data || {}).node || {}).product ? j.data.node.product.id : '').split('/').pop();
+      if(id) memo(cle, id);
+      return id;
+    }).catch(function(){ produitsEnCours[nomAvis] = null; return ''; });
+    return produitsEnCours[nomAvis];
+  }
 
-      let html = '';
-      // Résumé : note moyenne + nombre d'avis (affiché seulement par la nouvelle présentation des avis)
-      const notes = matches.map(function(r){ return parseFloat(String(r[idx.note] || '').replace(',', '.')); }).filter(function(n){ return n > 0; });
-      if(notes.length){
-        const moy = notes.reduce(function(a, b){ return a + b; }, 0) / notes.length;
-        html += '<div class="eb-review-resume" style="display:none"><b>' + moy.toFixed(1).replace('.', ',') + '</b><span class="eb-review-stars">' + starsHTML(Math.round(moy)) + '</span><span>' + matches.length + ' avis</span></div>';
-      }
-      matches.forEach(function(r){
-        const dateFormatee = formatDate(r[idx.horodateur]);
-        html += '<div class="eb-review">';
-        html += '<div class="eb-review-stars">' + starsHTML(r[idx.note]) + '</div>';
-        html += '<div class="eb-review-meta">' + escapeHTML(r[idx.prenom]) + ', ' + escapeHTML(r[idx.age]) + ' ans — ' + escapeHTML(r[idx.peau]) + (dateFormatee ? ' · ' + dateFormatee : '') + '</div>';
-        if(idx.ambassadrice !== -1 && /^(oui|o|x|yes|1|vrai|true)$/i.test((r[idx.ambassadrice] || '').trim())){
-          html += '<div class="eb-review-ambassadrice">Ambassadrice ELKHA.B · soin offert</div>';
-        }
-        html += '<div class="eb-review-text">' + escapeHTML(r[idx.commentaire]) + '</div>';
-        html += '</div>';
+  // Avis Judge.me d'un produit : note moyenne, nombre total et avis publiés
+  function avisJudgeme(idProduit){
+    var url = JUDGEME + '?external_id=' + encodeURIComponent(idProduit) + '&api_token=' + encodeURIComponent(JUDGEME_TOKEN) + '&shop_domain=' + BOUTIQUE;
+    return fetch(url).then(function(r){
+      if(!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(j){
+      var doc = new DOMParser().parseFromString(j.widget || '', 'text/html');
+      var w = doc.querySelector('.jdgm-rev-widg');
+      var avis = [].map.call(doc.querySelectorAll('.jdgm-rev'), function(el){
+        var q = function(s){ return el.querySelector(s); };
+        var t = function(s){ var e = q(s); return e ? e.textContent.trim() : ''; };
+        return {
+          note: (q('.jdgm-rev__rating') || { getAttribute: function(){ return 0; } }).getAttribute('data-score'),
+          auteur: t('.jdgm-rev__author'),
+          titre: t('.jdgm-rev__title'),
+          texte: t('.jdgm-rev__body'),
+          date: (q('.jdgm-rev__timestamp') || { getAttribute: function(){ return ''; } }).getAttribute('data-content'),
+          verifie: el.getAttribute('data-verified-buyer') === 'true'
+        };
       });
-      container.innerHTML = html;
-    } catch(e){
+      return {
+        moyenne: w ? parseFloat(w.getAttribute('data-average-rating')) || 0 : 0,
+        total: w ? parseInt(w.getAttribute('data-number-of-reviews'), 10) || avis.length : avis.length,
+        avis: avis
+      };
+    });
+  }
+
+  // Le titre « 38 ans · Peau sensible » (envoyé par le formulaire du site) sert de signature ;
+  // un vrai titre écrit par la cliente s'affiche en tête de son avis
+  var PROFIL = /^\s*\d{1,3}\s*ans\b/i;
+
+  function rendu(res){
+    if(!res.avis.length) return '<div class="eb-review-status">Aucun avis pour le moment.</div>';
+    var verifies = res.avis.filter(function(a){ return a.verifie; }).length;
+    var html = '<div class="eb-review-resume"><b>' + res.moyenne.toFixed(1).replace('.', ',') + '</b>'
+      + '<span class="eb-review-stars">' + starsHTML(res.moyenne) + '</span>'
+      + '<span>' + res.total + ' avis' + (verifies ? ' · ' + verifies + (verifies > 1 ? ' achats vérifiés' : ' achat vérifié') : '') + '</span></div>';
+    res.avis.forEach(function(a){
+      var profil = PROFIL.test(a.titre) ? a.titre.replace(/\s*·\s*/g, ' — ') : '';
+      var signature = [escapeHTML(a.auteur) + (profil ? ', ' + escapeHTML(profil) : ''), formatDate(a.date), a.verifie ? 'Achat vérifié' : '']
+        .filter(Boolean).join(' · ');
+      html += '<div class="eb-review">'
+        + '<div class="eb-review-stars">' + starsHTML(a.note) + '</div>'
+        + '<div class="eb-review-text">' + (a.titre && !profil ? '<b>' + escapeHTML(a.titre) + '</b><br>' : '') + escapeHTML(a.texte) + '</div>'
+        + '<div class="eb-review-meta">' + signature + '</div>'
+        + '</div>';
+    });
+    return html;
+  }
+
+  // Mention sous le bouton « Laisser un avis » de la même section
+  function ajouterMention(container){
+    var section = container.parentElement, bouton = section && section.querySelector('.eb-fp-avis');
+    if(!bouton || section.querySelector('.eb-avis-mention')) return;
+    var p = document.createElement('p');
+    p.className = 'eb-avis-mention';
+    p.textContent = MENTION;
+    bouton.insertAdjacentElement('afterend', p);
+  }
+
+  function ebRenderReviewsInto(container, nomAvis){
+    ajouterMention(container);
+    produitShopify(nomAvis).then(function(id){
+      if(!id){ container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>'; return; }
+      return avisJudgeme(id).then(function(res){ container.innerHTML = rendu(res); });
+    }).catch(function(e){
       container.innerHTML = '<div class="eb-review-status">Avis momentanément indisponibles.</div>';
       console.error('ELKHA.B avis — erreur de chargement', e);
-    }
+    });
   }
 
-  // Fonction appelable directement (compatibilité avec l'ancienne méthode)
-  window.ebRenderReviews = function(containerId, productName){
-    const container = document.getElementById(containerId);
-    if(container){ ebRenderReviewsInto(container, productName); }
+  window.ebRenderReviews = function(containerId, nomAvis){
+    var container = document.getElementById(containerId);
+    if(container){ ebRenderReviewsInto(container, nomAvis); }
   };
   window.ebReviewsEngineReady = true;
 
-  // ---------------------------------------------------------------
-  // AFFICHAGE AUTOMATIQUE : remplit tous les blocs <div class="eb-reviews" data-produit="...">
-  // de la page, sans aucun code dans les fiches.
-  // ---------------------------------------------------------------
+  // Remplit tous les blocs <div class="eb-reviews" data-produit="..."> de la page (fiches ouvertes au fil de la visite)
   function renderAll(){
-    const blocs = document.querySelectorAll('.eb-reviews[data-produit]');
-    for(let i = 0; i < blocs.length; i++){
-      const b = blocs[i];
+    var blocs = document.querySelectorAll('.eb-reviews[data-produit]');
+    for(var i = 0; i < blocs.length; i++){
+      var b = blocs[i];
       if(b.getAttribute('data-eb-fait') === '1') continue;
       b.setAttribute('data-eb-fait', '1');
       ebRenderReviewsInto(b, b.getAttribute('data-produit'));
     }
   }
-
   function start(){
     renderAll();
-    window.addEventListener('hashchange', function(){ setTimeout(renderAll, 50); setTimeout(renderAll, 600); });
     if(window.MutationObserver){
       new MutationObserver(function(){ renderAll(); }).observe(document.body, { childList: true, subtree: true });
     }
-    let n = 0;
-    const t = setInterval(function(){ renderAll(); if(++n > 20) clearInterval(t); }, 500);
   }
-
   if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', start); }
   else { start(); }
 })();
