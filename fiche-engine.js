@@ -216,7 +216,7 @@
 
   // ── Pour Google : une fiche ouverte devient une vraie page aux yeux de Google ──
   // Titre de l'onglet, description, adresse ?fiche=… et carte « produit » (nom, photos, prix).
-  // Rien ne change à l'écran pour la cliente. Pour l'instant : les 5 coffrets des fêtes.
+  // Rien ne change à l'écran pour la cliente. Les 5 coffrets des fêtes, puis tous les soins et routines.
   var SEO = {
     'coffret-temps-suspendu': {
       titre: 'Coffret Le Temps Suspendu, soins anti-rides aux peptides',
@@ -247,6 +247,232 @@
       description: 'Coffret cadeau sérums fermeté : Bakuchiol Elixir, alternative végétale au rétinol, Active Lift aux peptides et Luminescence Boost pour une peau plus ferme et lisse. Vegan, édition limitée des fêtes.',
       nomProduit: 'Coffret Velours d\u2019Hiver',
       adresse: 'https://routines.elkhab.com/?fiche=coffret-velours-dhiver'
+    },
+    // ── Les soins et les routines (textes validés le 11 nov. 2026) ──
+    'radiance-serum': {
+      titre: 'Radiance C Serum, sérum vitamine C éclat et hydratation',
+      description: 'Sérum visage à la vitamine C stabilisée et à l\u2019acide hyaluronique : il ravive l\u2019éclat du teint sans dessécher. Texture sorbet, vegan, peaux sensibles. 30 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=radiance-serum'
+    },
+    'luminescence-jour': {
+      titre: 'Luminescence Jour, crème hydratante éclat à l\u2019acide hyaluronique',
+      description: 'Crème de jour à l\u2019acide hyaluronique multimoléculaire et au bisabolol pour une peau repulpée, apaisée, souple et lumineuse. Vegan, peaux sensibles. 50 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=luminescence-jour'
+    },
+    'gelee-lumibloom': {
+      titre: 'Gelée Lumi-Bloom, gel hydratant visage aux prébiotiques',
+      description: 'Gel frais aux prébiotiques et à l\u2019acide hyaluronique : il hydrate, soutient l\u2019équilibre du microbiome cutané et renforce les barrières fragilisées. Vegan, peaux sensibles. 30 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=gelee-lumibloom'
+    },
+    'lumiveil-cc-cream': {
+      titre: 'Lumi-Veil CC Cream SPF 30, stick teinté aux céramides',
+      description: 'CC crème en stick, 4 teintes : unifie le teint, protège avec un SPF 30 et préserve la barrière cutanée grâce aux céramides. Vegan. 12 g.',
+      adresse: 'https://bloom.elkhab.com/?fiche=lumiveil-cc-cream'
+    },
+    'lumibloom-niac-5': {
+      titre: 'Lumi-Bloom Niacinamide 5, gel hydratant pores et imperfections',
+      description: 'Gel hydratant à la niacinamide et au ginkgo biloba pour peaux sensibles : il régule l\u2019excès de sébum, affine visiblement les pores et unifie le teint. Vegan. 50 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=lumibloom-niac-5'
+    },
+    'lumibloom-arbutin': {
+      titre: 'Lumi-Bloom Arbutin, sérum anti-taches à l\u2019alpha-arbutine',
+      description: 'Sérum à l\u2019alpha-arbutine, au Bidens pilosa et à la vitamine C pour atténuer l\u2019apparence des taches pigmentaires et unifier le teint. Vegan. 30 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=lumibloom-arbutin'
+    },
+    'milky-bloom': {
+      titre: 'Milky Bloom, démaquillant huile-en-lait peaux sensibles',
+      description: 'Nettoyant huile-en-lait sans agent moussant, à la camomille et à l\u2019argousier : il dissout le maquillage et respecte les peaux sèches et sensibles. 150 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=milky-bloom'
+    },
+    'lumi-pure': {
+      titre: 'Lumi-Pure, masque purifiant à l\u2019argile et au charbon végétal',
+      description: 'Masque aux argiles et au charbon végétal : désincruste les pores, limite les brillances et les points noirs. Vegan, peaux mixtes à grasses. 90 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=lumi-pure'
+    },
+    'radiance-cleanser': {
+      titre: 'Radiance Cleanser, gel nettoyant éclat peaux mixtes à grasses',
+      description: 'Gel nettoyant à l\u2019aloe vera et à la mûre : il purifie l\u2019excès de sébum sans agresser et ravive l\u2019éclat du teint. Vegan. 145 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=radiance-cleanser'
+    },
+    'luminescence-boost': {
+      titre: 'Luminescence Boost, sérum fermeté à l\u2019acide hyaluronique',
+      description: 'Sérum raffermissant au cresson, au sureau et à l\u2019acide hyaluronique : peau visiblement plus ferme, plus lisse et rebondie. Vegan. 30 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=luminescence-boost'
+    },
+    'luminescence-nuit': {
+      titre: 'Luminescence Nuit, crème de nuit au plancton marin et collagène',
+      description: 'Crème de nuit riche au plancton marin et au collagène : elle accompagne la régénération nocturne pour une peau plus lisse au réveil. Vegan, peaux sensibles. 50 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=luminescence-nuit'
+    },
+    'rituel-luminescence': {
+      titre: 'Rituel Luminescence, duo crèmes jour et nuit hydratation éclat',
+      description: 'Luminescence Jour et Luminescence Nuit : acide hyaluronique le matin, plancton marin et collagène le soir, pour une peau hydratée et lumineuse. 2 × 50 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=rituel-luminescence'
+    },
+    'radiance-protect': {
+      titre: 'Radiance Protect SPF 50, stick solaire minéral visage',
+      description: 'Protection solaire minérale UVA/UVB SPF 50 en stick, haute tolérance pour peaux sensibles, teintée ou sans teinte. Vegan. 12 g.',
+      adresse: 'https://bloom.elkhab.com/?fiche=radiance-protect'
+    },
+    'routine-eclat': {
+      titre: 'Routine Éclat, nettoyant, sérum vitamine C et crème hydratante',
+      description: 'Trois soins pour révéler l\u2019éclat du teint : vitamine C stabilisée, acide hyaluronique multimoléculaire, bisabolol et aloe vera, sélectionnés pour s\u2019adapter à tous les types de peau. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-eclat'
+    },
+    'radiance-eye-cream': {
+      titre: 'Radiance Eye Cream, crème contour des yeux cernes et poches',
+      description: 'Obtenez un contour des yeux intensément hydraté grâce à l\u2019acide hyaluronique multi-poids moléculaire et aux extraits végétaux bio : poches et cernes visiblement atténués. Vegan. 15 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=radiance-eye-cream'
+    },
+    'bright-glow-patch': {
+      titre: 'Lumi-Eyes Bright & Glow, patchs yeux à la niacinamide',
+      description: 'Patchs hydrogel à la niacinamide et à l\u2019acide hyaluronique : 15 minutes pour atténuer l\u2019apparence des cernes et des ridules. Vegan. 7 paires.',
+      adresse: 'https://bloom.elkhab.com/?fiche=bright-glow-patch'
+    },
+    'bright-glow-decongestionnant': {
+      titre: 'Lumi-Eyes Bright & Glow, patchs yeux caféine anti-poches',
+      description: 'Patchs hydrogel décongestionnants à la caféine et à la vitamine C : regard défroissé, poches atténuées et éclat ravivé en 15 minutes. 7 paires.',
+      adresse: 'https://bloom.elkhab.com/?fiche=bright-glow-decongestionnant'
+    },
+    'bright-glow-anti-fatigue': {
+      titre: 'Lumi-Eyes Bright & Glow, patchs yeux anti-fatigue',
+      description: 'Patchs hydrogel aux antioxydants et à la provitamine B5 : ils hydratent et réconfortent le contour des yeux fatigué. Vegan. 7 paires.',
+      adresse: 'https://bloom.elkhab.com/?fiche=bright-glow-anti-fatigue'
+    },
+    'routine-hydratation': {
+      titre: 'Routine Hydratation, gel aux prébiotiques et crème hydratante',
+      description: 'Gelée Lumi-Bloom et Luminescence Jour : deux soins pour hydrater durablement et préserver le confort et l\u2019équilibre de la peau. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-hydratation'
+    },
+    'routine-anti-age': {
+      titre: 'Routine Fermeté, soins anti-âge jour, nuit et SPF 50',
+      description: 'Luminescence Jour, Luminescence Nuit et Radiance Protect SPF 50 : une routine complète pour repulper, raffermir et protéger la peau. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-anti-age'
+    },
+    'routine-equilibre': {
+      titre: 'Routine Équilibre, niacinamide, gel prébiotique et CC crème',
+      description: 'La routine idéale des peaux fragilisées en quête d\u2019équilibre : niacinamide, prébiotiques et céramides réunis pour retrouver une peau visiblement plus saine et un teint unifié. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-equilibre'
+    },
+    'routine-teint-protection': {
+      titre: 'Routine Teint & Protection, sérum vitamine C et CC crème SPF 30',
+      description: 'Radiance C Serum et Lumi-Veil CC Cream SPF 30 : un teint lumineux, unifié et protégé des UV au quotidien. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-teint-protection'
+    },
+    'routine-regard': {
+      titre: 'Routine Regard, crème contour des yeux et patchs hydrogel',
+      description: 'Pour un contour de l\u2019œil déshydraté qui tiraille : Radiance Eye Cream et les patchs Lumi-Eyes Bright & Glow l\u2019hydratent intensément et atténuent visiblement cernes et poches. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-regard'
+    },
+    'calm-balance-jour': {
+      titre: 'Calm Balance Jour, crème de jour apaisante sans parfum',
+      description: 'Le soin jour de la ligne Calm : une crème légère, idéale pour les peaux sensibles en quête de confort et d\u2019apaisement, qui atténue visiblement les rougeurs. Vegan. 50 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=calm-balance-jour'
+    },
+    'calm-balance-nuit': {
+      titre: 'Calm Balance Nuit, crème de nuit apaisante sans parfum',
+      description: 'Le soin nuit de la ligne Calm : idéal pour les peaux sensibles en quête de confort et d\u2019apaisement, il apaise la peau et atténue visiblement les rougeurs pendant le sommeil. Vegan. 50 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=calm-balance-nuit'
+    },
+    'hydra-balance': {
+      titre: 'Hydra Balance, gel hydratant, véritable bain d\u2019hydratation',
+      description: 'Un véritable bain d\u2019hydratation pour retrouver une peau souple et confortable : son acide hyaluronique multi-poids moléculaire hydrate en profondeur. Vegan. 30 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=hydra-balance'
+    },
+    'fusion-balance': {
+      titre: 'Fusion Balance, démaquillant biphasé sans parfum',
+      description: 'Démaquillant biphasé à l\u2019aloe vera : il dissout le maquillage, même waterproof et longue tenue. Idéal pour les peaux sensibles. Vegan. 100 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=fusion-balance'
+    },
+    'ceramide-night-restore': {
+      titre: 'Ceramide Night Restore, crème de nuit nourrissante aux céramides',
+      description: 'Crème de nuit aux céramides végétaux et au karité, idéale pour les peaux sèches : elle renforce la barrière cutanée pour une peau confortable au réveil. Vegan. 50 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=ceramide-night-restore'
+    },
+    'cellular-reveal': {
+      titre: 'Cellular Reveal, sérum anti-rides, alternative au rétinol',
+      description: 'Le sérum phare de la ligne Cellular, au Bidens pilosa : il lisse visiblement les traits, atténue l\u2019apparence des taches et réveille l\u2019éclat, sans brusquer la peau. Vegan. 30 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=cellular-reveal'
+    },
+    'cellular-eye-restore': {
+      titre: 'Cellular Eye Restore, sérum contour des yeux anti-ridules',
+      description: 'La ligne Cellular s\u2019invite au regard : un sérum ciblé, alternative végétale au rétinol, qui lisse visiblement ridules et pattes-d\u2019oie et ravive l\u2019éclat du regard. Vegan. 15 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=cellular-eye-restore'
+    },
+    'active-lift': {
+      titre: 'Active Lift, sérum liftant et raffermissant aux peptides',
+      description: 'Le sérum star de la ligne Lift : un concentré de peptides qui lisse visiblement les rides, raffermit les traits et rend à la peau tout son rebond. Vegan. 30 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=active-lift'
+    },
+    'age-lift': {
+      titre: 'Age Lift, crème anti-rides raffermissante aux peptides',
+      description: 'La crème signature de la ligne Lift : elle repulpe, raffermit et lisse visiblement les rides pour une peau plus ferme jour après jour. Vegan. 50 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=age-lift'
+    },
+    'eye-lift': {
+      titre: 'Eye Lift, crème contour des yeux liftante aux peptides',
+      description: 'La ligne Lift s\u2019invite au regard : elle atténue visiblement ridules et pattes-d\u2019oie et raffermit le contour des yeux pour un regard reposé. Vegan. 15 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=eye-lift'
+    },
+    'bakuchiol-elixir': {
+      titre: 'Bakuchiol Elixir, sérum au bakuchiol alternative au rétinol',
+      description: 'Sérum aux huiles de rose musquée, jojoba et onagre, pour une action plus intense sur les rides installées sans renoncer au confort. Vegan. 30 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=bakuchiol-elixir'
+    },
+    'bright-control': {
+      titre: 'Bright Control, crème anti-taches à l\u2019acide kojique',
+      description: 'La crème experte de la ligne Control : elle atténue visiblement les taches brunes et unifie le teint de tout le visage, pour une peau plus lumineuse. Vegan. 50 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=bright-control'
+    },
+    'spot-control': {
+      titre: 'Spot Control, sérum anti-taches ciblé à l\u2019acide kojique',
+      description: 'Le correcteur de précision de la ligne Control : appliqué tache par tache, il atténue visiblement les taches brunes les plus marquées. Vegan. 15 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=spot-control'
+    },
+    'glyco-balance': {
+      titre: 'Glyco Balance, lotion exfoliante à l\u2019acide glycolique',
+      description: 'Lotion tonique à l\u2019acide glycolique (AHA) et à la bétaïne : elle affine visiblement le grain de peau et ravive l\u2019éclat, tout en préservant l\u2019hydratation de la peau. Vegan. 250 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=glyco-balance'
+    },
+    'aha-balance-peel': {
+      titre: 'AHA Balance Peel, concentré exfoliant à l\u2019acide lactique',
+      description: 'Concentré exfoliant à l\u2019acide lactique et à l\u2019acide hyaluronique : il lisse la texture et révèle un teint plus frais et lumineux, sans agresser la peau et en préservant son hydratation. Vegan. 30 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=aha-balance-peel'
+    },
+    'cellular-renew': {
+      titre: 'Cellular Renew, crème anti-rides, alternative végétale au rétinol',
+      description: 'La crème signature de la ligne Cellular : elle atténue visiblement rides et ridules, estompe l\u2019apparence des taches et réveille l\u2019éclat. Texture fondante, fini lumineux. Vegan. 50 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=cellular-renew'
+    },
+    'bha-balance': {
+      titre: 'BHA Balance, lotion purifiante à l\u2019acide salicylique',
+      description: 'Lotion tonique à l\u2019acide salicylique (BHA) : elle désobstrue les pores et limite les brillances sans assécher la peau. Vegan, peaux mixtes à grasses. 200 ml.',
+      adresse: 'https://balance.elkhab.com/?fiche=bha-balance'
+    },
+    'routine-anti-age-balance': {
+      titre: 'Routine Anti-âge, sérum, crème et contour des yeux aux peptides',
+      description: 'Le trio complet de la ligne Lift : Active Lift, Age Lift et Eye Lift pour lisser rides et ridules et raffermir tout le visage, regard compris. Vegan.',
+      adresse: 'https://balance.elkhab.com/?fiche=routine-anti-age-balance'
+    },
+    'routine-essentielle': {
+      titre: 'Routine Essentielle, premiers signes de l\u2019âge au Bidens pilosa',
+      description: 'Le trio de la ligne Cellular, alternative végétale au rétinol : Cellular Reveal, Cellular Renew et Cellular Eye Restore pour répondre aux premiers signes de l\u2019âge en trois gestes. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-essentielle'
+    },
+    'routine-anti-taches': {
+      titre: 'Routine Anti-taches, exfoliant, crème et sérum anti-taches',
+      description: 'Le trio anti-taches complet : AHA Balance Peel affine le grain de peau, Bright Control unifie le teint et Spot Control cible chaque tache. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-anti-taches'
+    },
+    'routine-apaisante': {
+      titre: 'Routine Apaisante, soins peaux sensibles et rougeurs',
+      description: 'Le trio de la ligne Calm, avec Hydra Balance : pour les peaux sensibles qui rougissent et tiraillent, apaisées et hydratées du matin au soir. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-apaisante'
+    },
+    'routine-renouvellement': {
+      titre: 'Routine Renouvellement, bakuchiol et céramides',
+      description: 'Bakuchiol Elixir et Ceramide Night Restore : la routine du soir pour les rides installées et le grain de peau irrégulier. Vegan.',
+      adresse: 'https://routines.elkhab.com/?fiche=routine-renouvellement'
     }
   };
   var seoOrigine = null;
