@@ -75,6 +75,7 @@
   + ".eb-fp-buy .eb-produit-add-price{font-weight:400;opacity:.85}"
   + ".eb-fp-ship{font-size:12px;line-height:1.6;text-align:center;color:#2e2e2e;margin:12px auto 0;max-width:320px;opacity:0;transform:translateY(10px) scale(.88);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}"
   + ".eb-fp-ship.eb-in{opacity:1;transform:scale(1)}"
+  + ".eb-fp-ship .eb-fp-eco{display:block;text-wrap:balance;margin-bottom:2px}.eb-fp-ship .eb-fp-barre{opacity:.6}"
   // Accordéon
   + ".eb-fp-acc{border-top:1px solid rgba(0,0,0,.15);margin-top:40px}"
   + ".eb-fp-acc-item{border-bottom:1px solid rgba(0,0,0,.15)}"
@@ -698,6 +699,19 @@
     return h + '</div>';
   }
 
+  // Coffret : « Au lieu de X € pour les soins achetés séparément » (même phrase et même seuil que les cartes des routines).
+  // Le total est recalculé à partir des prix des soins du coffret : il suit tout seul un changement de prix.
+  // Ce prix barré reste visuel : les données lues par Google ne gardent que le vrai prix du coffret.
+  var ECONOMIE_MINI = 3;
+  function nombrePrix(p){ return parseFloat(String(p || '').replace(/[^0-9,\.]/g, '').replace(',', '.')) || 0; }
+  function prixSepares(data){
+    if(!data || !data.coffret || !data.routine || !data.routine.soins) return '';
+    var P = window.EB_PRODUITS || {}, somme = 0, complet = true;
+    data.routine.soins.forEach(function(s){ if(P[s] && nombrePrix(P[s].prix)) somme += nombrePrix(P[s].prix); else complet = false; });
+    if(!complet || somme - nombrePrix(data.prix) < ECONOMIE_MINI) return '';
+    return '<span class="eb-fp-eco">Au lieu de <s class="eb-fp-barre">' + somme.toFixed(2).replace('.', ',') + ' €</s> pour les soins achetés séparément</span>';
+  }
+
   function boutonAchat(variantId, prix, extraClass){
     return '<button type="button" class="eb-fp-buy eb-cart-add-btn' + (extraClass ? ' ' + extraClass : '') + '" data-variant-id="' + esc(variantId) + '">'
       + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + esc(prix) + '</span>' : '') + '</button>';
@@ -743,7 +757,7 @@
       if(idAchat){
         h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
         // petite ligne sous le bouton : « mention » de la version choisie, sinon le rappel de livraison
-        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[0].mention ? esc(variantes[0].mention) : 'Livraison offerte dès 65€ d\'achat') + '</p>';
+        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[0].mention ? esc(variantes[0].mention) : prixSepares(data) + 'Livraison offerte dès 65€ d\'achat') + '</p>';
       }
     }
 
