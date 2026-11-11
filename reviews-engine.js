@@ -164,11 +164,36 @@
     bouton.insertAdjacentElement('afterend', p);
   }
 
+  // Étoiles Google : la note et les avis s'ajoutent à la carte « produit » lue par Google
+  // (balise #eb-fiche-ld posée par fiche-engine.js pour la fiche ouverte)
+  function etoilesGoogle(adresse, res){
+    var ld = document.getElementById('eb-fiche-ld');
+    if(!ld || !res.avis.length) return;
+    try {
+      var produit = JSON.parse(ld.textContent);
+      if(produit.url !== adresse) return;   // entre-temps, une autre fiche a été ouverte
+      produit.aggregateRating = { '@type': 'AggregateRating', ratingValue: res.moyenne.toFixed(1), reviewCount: res.total, bestRating: 5, worstRating: 1 };
+      produit.review = res.avis.slice(0, 5).map(function(a){
+        var r = { '@type': 'Review', author: { '@type': 'Person', name: a.auteur || 'Cliente' },
+          reviewRating: { '@type': 'Rating', ratingValue: String(a.note), bestRating: 5, worstRating: 1 },
+          reviewBody: a.texte };
+        var d = /^(\d{4}-\d{2}-\d{2})/.exec(a.date || ''); if(d) r.datePublished = d[1];
+        return r;
+      });
+      ld.textContent = JSON.stringify(produit);
+    } catch(e){}
+  }
+  function adresseFiche(){
+    var ld = document.getElementById('eb-fiche-ld');
+    try { return ld ? JSON.parse(ld.textContent).url : ''; } catch(e){ return ''; }
+  }
+
   function ebRenderReviewsInto(container, nomAvis){
     ajouterMention(container);
+    var adresse = adresseFiche();
     produitShopify(nomAvis).then(function(id){
       if(!id){ container.innerHTML = '<div class="eb-review-status">Aucun avis pour le moment.</div>'; return; }
-      return avisJudgeme(id).then(function(res){ container.innerHTML = rendu(res); });
+      return avisJudgeme(id).then(function(res){ container.innerHTML = rendu(res); if(adresse) etoilesGoogle(adresse, res); });
     }).catch(function(e){
       container.innerHTML = '<div class="eb-review-status">Avis momentanément indisponibles.</div>';
       console.error('ELKHA.B avis — erreur de chargement', e);
