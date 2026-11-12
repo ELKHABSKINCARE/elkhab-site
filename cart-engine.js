@@ -482,6 +482,26 @@ async function ebCartSetCode(codes){
   return result && result.data && result.data.cartDiscountCodesUpdate && result.data.cartDiscountCodesUpdate.cart;
 }
 
+// ── Choix cookies de la cliente transmis à la page de paiement Shopify ──
+// Le bandeau du site enregistre « eb_cookies » (oui / non). Shopify ne le voit pas sur sa page de paiement :
+// on lui transmet ce choix avec le panier (visitorConsent), pour qu'il n'envoie les achats à TikTok
+// QUE si la cliente a accepté, sans lui redemander. Sans choix enregistré : rien n'est transmis.
+function ebChoixCookies(){
+  const m = document.cookie.match(/(?:^|; )eb_cookies=([^;]*)/);
+  return m ? m[1] : null;
+}
+async function ebUrlPaiementAvecChoix(){
+  const choix = ebChoixCookies();
+  if(!cartId || (choix !== 'oui' && choix !== 'non')) return null;
+  const v = choix === 'oui' ? 'true' : 'false';
+  const query = 'query cartPaiement($id: ID!) @inContext(visitorConsent: {analytics: ' + v + ', preferences: ' + v + ', marketing: ' + v + ', saleOfData: ' + v + '}) { cart(id: $id) { id checkoutUrl totalQuantity } }';
+  try {
+    const r = await shopifyFetch(query, { id: cartId });
+    const c = r && r.data && r.data.cart;
+    return (c && c.checkoutUrl && c.totalQuantity > 0) ? c.checkoutUrl : null;
+  } catch(e){ return null; }
+}
+
 async function ebCartFetch(){
   if(!cartId) return null;
   const query = `query cart($id: ID!) { cart(id: $id) { ${CART_FIELDS} } }`;
@@ -996,6 +1016,9 @@ document.addEventListener('DOMContentLoaded', function(){
       await Promise.race([ebCartFile, new Promise(function(r){ setTimeout(r, 3000); })]);
       // l'adresse de paiement du panier est déjà connue : on y va tout de suite, sans redemander à Shopify
       // (en navigation privée, cette question pouvait faire attendre la cliente très longtemps)
+      // le choix cookies de la cliente part avec le panier (3 s au plus, sinon on continue comme avant)
+      const urlChoix = await Promise.race([ebUrlPaiementAvecChoix(), new Promise(function(r){ setTimeout(function(){ r(null); }, 3000); })]);
+      if(urlChoix){ window.location.href = urlChoix; return; }
       const connu = ebDernierPanier && ebDernierPanier.checkoutUrl && ebDernierPanier.id === cartId && ebDernierPanier.totalQuantity > 0;
       if(connu){ window.location.href = ebDernierPanier.checkoutUrl; return; }
       // sinon on demande à Shopify, mais jamais plus de 8 secondes
