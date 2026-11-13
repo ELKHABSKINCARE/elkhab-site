@@ -162,6 +162,20 @@
       pour: 'Idéal pour les teints ternes, le grain de peau irrégulier et les taches superficielles. Le matin, toujours avec une protection solaire.',
       duree: 'Formule concentrée : quelques gouttes suffisent, jusqu’à 3 mois de soin, soit moins de 11 € par mois.'
     },
+    'bakuchiol-elixir': {
+      gamme: 'balance', type: 'Sérum lissant',
+      photo: 'mf-bakuchiol-elixir.webp', net: true, cm: 11,
+      sous: 'Alternative au rétinol<br>Rose musquée · 30 ml',
+      eng: ['99 % d’origine naturelle', '61 % d’ingrédients bio', 'Vegan'],
+      accroche: 'L’alternative au rétinol, <b>pour toutes les peaux, même sensibles</b>.',
+      points: [
+        'Le bakuchiol stimule le collagène et favorise le renouvellement cellulaire, pour une peau visiblement plus lisse et des rides moins marquées.',
+        'Antioxydant, il aide à atténuer l’apparence des taches brunes, unifie le teint et révèle l’éclat.',
+        'Les huiles de rose musquée et de jojoba nourrissent la peau et la laissent souple et douce. La texture soyeuse pénètre rapidement, sans effet gras.'
+      ],
+      pour: 'Idéal pour lisser les rides et les ridules sans agresser la peau, même sensible. À appliquer le soir.',
+      duree: 'Formule concentrée : quelques gouttes suffisent. Estimation d’utilisation : 3 mois, soit moins de 14 € par mois.'
+    },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'mf-lumiveil-cc-cream.webp', net: true, cm: 9,   // photo du site (stick B1 + capot), recadrée et centrée comme les autres
