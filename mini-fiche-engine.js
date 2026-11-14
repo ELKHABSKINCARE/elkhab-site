@@ -215,7 +215,7 @@
       accroche: 'Ce que votre peau fait de mieux, elle le fait <b>la nuit</b>.',
       points: [
         'Fusion Balance, le démaquillant biphasé, dissout le maquillage, même waterproof, sans frotter ni tirailler.',
-        'Luminescence Boost, au cresson et au sureau, travaille la fermeté et l’éclat : il donne à la peau plus de souplesse et de rebond.',
+        'Luminescence Boost, à l’acide hyaluronique, à la vitamine C et à des actifs stimulants d’origine naturelle, travaille la fermeté et l’éclat : il donne à la peau plus de souplesse et de rebond.',
         'Radiance Eye Cream atténue l’apparence des poches et des cernes, pour un regard plus frais. Idéale sous le maquillage, elle ne file pas.'
       ] },
     { id: 'coffret-nouvelle-aube', cle: 'nouvelle-aube', gamme: 'Balance', couleur: '#5f7149', type: 'Coffret Peau Neuve',
@@ -225,6 +225,14 @@
         'AHA Balance Peel exfolie sans agresser : il associe un AHA doux à l’acide hyaluronique et aux extraits de thé blanc et de sauge, pour lisser le grain de peau tout en préservant son hydratation.',
         'Active Lift, aux peptides, aide à lisser les ridules et redonne du rebond.',
         'Hydra Balance, à l’acide hyaluronique multimoléculaire, hydrate à plusieurs niveaux de la peau : elle est repulpée, souple et confortable.'
+      ] },
+    { id: 'coffret-velours-dhiver', cle: 'velours-dhiver', gamme: 'Bloom & Balance', couleur: '#7a2a52', type: 'Coffret Sérums Fermeté',
+      contenu: [['bakuchiol-elixir', 'Bakuchiol Elixir', '30 ml'], ['active-lift', 'Active Lift', '30 ml'], ['luminescence-boost', 'Luminescence Boost', '30 ml']],
+      accroche: 'L’alliance <b>fermeté</b>, pour une peau de velours.',
+      points: [
+        'Bakuchiol Elixir, l’alternative au rétinol, stimule le collagène et favorise le renouvellement cellulaire : la peau paraît plus lisse, sans être agressée.',
+        'Active Lift, aux peptides et à l’acide hyaluronique, aide à lisser les rides et redonne du rebond à la peau.',
+        'Luminescence Boost, à l’acide hyaluronique, à la vitamine C et à des actifs stimulants d’origine naturelle, travaille la fermeté et l’éclat : il donne à la peau plus de souplesse et de rebond.'
       ] },
     { id: 'coffret-lumiere-dhiver', cle: 'lumiere-dhiver', gamme: 'Bloom', couleur: '#a65a63', type: 'Coffret Rituel Éclat',
       contenu: [['radiance-serum', 'Radiance C Serum', '30 ml'], ['lumibloom-arbutin', 'Lumi-Bloom Arbutin', '30 ml']],
@@ -347,7 +355,7 @@
   + '#ebmf .mf-lien{display:inline-block;background:none;border:0;padding:0;font:600 9.5px Montserrat,sans-serif;letter-spacing:.24em;color:#111;text-decoration:underline;text-underline-offset:5px;cursor:pointer;white-space:nowrap}'
   + '#ebmf .mf-c{text-align:center;margin-top:16px}'
   + '#ebmf .mf-sep{height:1px;background:rgba(0,0,0,.1);margin:16px 0}'
-  + '#ebmf .mf-vgs.mf-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}'
+  + '#ebmf .mf-vgs.mf-4{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}'
   + '#ebmf .mf-4 .mf-vg{padding:4px;border-radius:12px}'
   + '#ebmf .mf-4 .mf-vph{height:auto;aspect-ratio:3/4;border-radius:9px}'
   + '#ebmf .mf-4 .mf-vph img{transform:none;object-fit:cover}'
