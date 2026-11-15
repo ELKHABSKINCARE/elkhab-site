@@ -176,6 +176,19 @@
       pour: 'Idéal pour lisser les rides et les ridules sans agresser la peau, même sensible. À appliquer le soir.',
       duree: 'Formule concentrée : quelques gouttes suffisent. Estimation d’utilisation : 3 mois, soit moins de 14 € par mois.'
     },
+    'radiance-eye-cream': {
+      gamme: 'bloom', type: 'Soin contour des yeux',
+      photo: 'mf-radiance-eye-cream.webp', net: true, cm: 8.5,
+      eng: ['100 % d’origine naturelle', '10 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Cernes, poches, ridules : <b>un seul soin</b> pour le contour des yeux.',
+      points: [
+        'Un complexe de trois extraits végétaux bio aide à atténuer l’apparence des poches et des cernes, pour un regard plus frais et reposé.',
+        'L’acide hyaluronique, de plusieurs tailles de molécules, hydrate la zone délicate du contour de l’œil et lisse visiblement les ridules de déshydratation.',
+        'Une crème douce et confortable, aux notes de coton et de fleurs, qui pénètre vite, sans effet gras : parfaite sous le maquillage, elle ne file pas.'
+      ],
+      pour: 'Idéale pour les regards fatigués, les cernes, les poches et les ridules du contour des yeux, y compris les peaux sensibles. Le matin et/ou le soir.',
+      duree: 'Formule concentrée : une petite quantité suffit pour tout le contour des yeux.'
+    },
     'lumiveil-cc-cream': {
       gamme: 'bloom', type: 'CC crème SPF 30',
       photo: 'mf-lumiveil-cc-cream.webp', net: true, cm: 9,   // photo du site (stick B1 + capot), recadrée et centrée comme les autres
