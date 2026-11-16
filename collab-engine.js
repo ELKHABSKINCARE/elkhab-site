@@ -15,27 +15,38 @@ window.ebCollabCharge = true;
    └─────────────────────────────────────────────────────────────────────┘ */
 
 // Adresse du script Google (Apps Script) du Google Sheet « ELKHA.B — Collaborations »
-// (si on la vide : MODE TEST, seul le code LKB-TEST-01 fonctionne et rien n'est enregistré)
+// (si on la vide : MODE TEST, seul le code EB-TEST-01 fonctionne et rien n'est enregistré)
 var URL_SCRIPT = "https://script.google.com/macros/s/AKfycbxQCXs8onhnmA1p_mbMHPWhlUF0x_sIxRiveilPYitjZExd70PZLilpMxflvT8ttTVa1Q/exec";
 
 var TIKTOK = "https://www.tiktok.com/@elkha.b";
-var BANNIERE = "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000002aac81f4b0c844adde3b8458.png?v=1790842458&width=1200";
+var BANNIERE = "https://elkhabskincare.github.io/elkhab-site/collab-logo.webp";
 
 // Version de l'accord : à changer si tu modifies le texte de l'accord
-var VERSION_ACCORD = "Accord de collaboration ELKHA.B — version du 9 octobre 2026";
+var VERSION_ACCORD = "Accord de collaboration ELKHA.B — version du 16 novembre 2026";
 
 // CONTENUS ATTENDUS (obligatoire: true / false)
 var CONTENUS = [
   { titre: "Vidéo découverte & unboxing", delai: "sous 48h", obligatoire: true,
     texte: "Une vidéo présentant la réception du produit, avec un unboxing naturel et authentique. Nous souhaitons une présentation face caméra, dans laquelle vous découvrez le soin, partagez vos premières impressions et présentez le produit à votre communauté." },
-  { titre: "Vidéo d'application", delai: "sous 7 jours", obligatoire: true,
-    texte: "Une vidéo face caméra intégrant le produit dans votre routine de soin. Nous souhaitons mettre en avant la texture, l'application, les sensations sur la peau, le parfum ainsi que votre ressenti lors de la première utilisation, en toute authenticité." },
+  { titre: "Vidéo routine commentée", delai: "sous 7 jours", obligatoire: true,
+    texte: "Une vidéo face caméra dans laquelle vous appliquez les soins dans votre routine en la commentant tout du long : vous parlez à votre communauté de la texture, de la senteur, de l'application, des sensations sur la peau et de votre ressenti lors de la première utilisation. Une vidéo sans commentaire, où les soins sont seulement appliqués, ne correspond pas à ce contenu." },
   { titre: "Vidéo retour d'expérience", delai: "sous 14 jours", obligatoire: true,
     texte: "Après une période d'utilisation, une vidéo face caméra présentant votre retour d'expérience sincère. Nous souhaitons connaître votre avis sur le produit, les résultats observés, ce que vous avez particulièrement apprécié, ainsi que votre recommandation auprès de votre communauté, en toute transparence." },
-  { titre: "Avis sur le site ELKHA.B", delai: "sous 21 jours", obligatoire: true,
-    texte: "À la fin de votre expérience, un avis sincère laissé directement sur le site, sur la fiche du soin que vous avez utilisé (bouton « Laisser un avis »). Votre ressenti, positif ou non, aide nos futures clientes à choisir en confiance." },
   { titre: "Vidéo retour d'expérience après 2 mois", delai: "", obligatoire: false,
     texte: "Une vidéo face caméra relatant les changements constatés après cette période d'utilisation, ou tout autre contenu selon votre créativité et vos idées, si vous souhaitez aller plus loin avec ELKHA.B." }
+];
+
+// MENTION SOUS LES CONTENUS (une seule collaboration par vidéo)
+var EXCLUSIVITE = "Les vidéos réalisées dans le cadre de cette collaboration doivent être consacrées à ELKHA.B. Vous pouvez y montrer d'autres produits, mais pas ceux d'une autre collaboration : deux collaborations ne doivent jamais apparaître dans une même vidéo.";
+
+// RETOUR DE COLLABORATION (ce que chacune s'engage à faire)
+var RETOUR_ELKHAB = [
+  "Vous mentionner à chaque republication de vos vidéos.",
+  "Mettre vos vidéos en avant sur le site, en mentionnant votre pseudo, pour vous apporter plus de visibilité."
+];
+var RETOUR_AMBASSADRICE = [
+  "Laisser un avis sur le site, sur chaque soin testé (bouton « Laisser un avis » de la fiche du soin).",
+  "Nous transmettre vos vidéos sans le logo TikTok, ou nous donner accès à leur téléchargement depuis vos réseaux sociaux."
 ];
 
 // ACCORD DE COLLABORATION (# = titre de partie ; chaque autre ligne = un paragraphe)
@@ -51,9 +62,12 @@ ELKHA.B s'engage à respecter la liberté d'expression de l'ambassadrice concern
 ELKHA.B s'engage à préserver l'image, la réputation et la vie privée de l'ambassadrice dans le cadre de cette collaboration.
 Les données personnelles communiquées par l'ambassadrice (coordonnées, adresse de livraison, informations de contact) sont utilisées uniquement dans le cadre de la collaboration et ne seront ni cédées ni transmises à des tiers sans son consentement.
 ELKHA.B s'engage à utiliser les contenus réalisés par l'ambassadrice de manière respectueuse et conforme aux autorisations accordées dans le présent document.
+ELKHA.B s'engage à mentionner l'ambassadrice à chaque republication de ses vidéos, et à mettre ses vidéos en avant sur le site en mentionnant son pseudo, pour lui apporter plus de visibilité.
 # Engagements de l'ambassadrice
 L'ambassadrice confirme sa participation volontaire à cette collaboration.
 Elle s'engage à réaliser les contenus définis dans le présent accord ou, en cas d'impossibilité, à en informer ELKHA.B dans les meilleurs délais.
+Elle s'engage à consacrer ses vidéos de collaboration à ELKHA.B : une autre collaboration ne doit pas apparaître dans une même vidéo.
+Elle s'engage à laisser un avis sur le site pour chaque soin testé, et à transmettre ses vidéos sans le logo TikTok, ou à en permettre le téléchargement depuis ses réseaux sociaux.
 L'authenticité, la transparence et les retours réels d'utilisation constituent les fondements de toute collaboration avec ELKHA.B.
 Les produits sont envoyés dans le cadre exclusif de cette collaboration et ne constituent pas un cadeau sans contrepartie.
 # Informations
@@ -73,7 +87,7 @@ var INFOS_LEGALES = `
 # Mention du partenariat
 L'ambassadrice s'engage à indiquer clairement, dans chacun de ses contenus, qu'il s'agit d'une collaboration avec ELKHA.B (par exemple « Collaboration commerciale » ou « Produit offert par ELKHA.B »), conformément à la loi du 9 juin 2023 encadrant l'influence commerciale.
 # Utilisation des contenus
-L'autorisation de réutilisation des contenus est accordée à titre gracieux, pour une durée de deux ans à compter de leur publication, sur internet et sur les supports de communication d'ELKHA.B. Le pseudo de l'ambassadrice est mentionné lorsque cela est possible.
+L'autorisation de réutilisation des contenus est accordée à titre gracieux, pour une durée de deux ans à compter de leur publication, sur internet et sur les supports de communication d'ELKHA.B. Le pseudo de l'ambassadrice est mentionné à chaque republication.
 # Utilisation des soins
 Avant la première utilisation, l'ambassadrice s'engage à réaliser un test sur une petite zone de peau et à interrompre l'utilisation en cas de réaction ou d'inconfort.
 # Âge
@@ -120,7 +134,10 @@ var css = ""
 + ".ebc.open{transform:none;visibility:visible;transition:transform .5s cubic-bezier(.65,0,.35,1),visibility 0s}"
 + ".ebc *{box-sizing:border-box}"
 + ".ebc-in{max-width:560px;margin:0 auto;padding:76px 24px 80px}"
-+ ".ebc-banner{display:block;width:100%;height:auto;margin:0 0 34px}"
++ ".ebc-banner{display:block;width:150px;height:150px;border-radius:50%;object-fit:cover;margin:0 auto 34px}"
++ ".ebc-excl{font-size:12.5px;font-weight:400;line-height:1.75;margin:18px 0 0;padding:12px 14px;border-left:2px solid #fff;background:rgba(255,255,255,.06)}"
++ ".ebc-rh{display:inline-block;background:#fff;color:#000;padding:5px 10px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin:20px 0 12px}.ebc-rh:first-of-type{margin-top:0}"
++ ".ebc-rl{margin:0 0 4px;padding:0 0 0 18px}.ebc-rl li{font-size:13px;font-weight:300;line-height:1.75;opacity:.85;margin:0 0 6px}"
 + ".ebc-tag{display:block;text-align:center;font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;opacity:.5;margin:0 0 12px}"
 + ".ebc-titre{font-size:21px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;margin:0 0 18px;line-height:1.35}"
 + ".ebc-intro{font-size:13.5px;font-weight:300;line-height:1.85;text-align:center;opacity:.8;margin:0 0 30px}"
@@ -247,7 +264,7 @@ function ecranAccueil(){
     + '<p class="ebc-intro">Vous créez du contenu autour du soin, de la beauté ou du bien-être, et l\'univers ELKHA.B vous ressemble&nbsp;? Écrivez-nous en message privé sur TikTok&nbsp;: présentez-vous et parlez-nous de votre peau. Si votre profil correspond à nos collaborations, nous vous transmettrons un code personnel pour accéder à votre espace ambassadrice.</p>'
     + '<a class="ebc-btn" href="' + TIKTOK + '" target="_blank" rel="noopener">Nous écrire sur TikTok</a>'
     + '<div class="ebc-sep">Vous avez reçu un code&nbsp;?</div>'
-    + '<div class="ebc-code"><input type="text" id="ebcCode" placeholder="LKB-PRÉNOM-01" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" class="ebc-btn" id="ebcGo">Accéder</button></div>'
+    + '<div class="ebc-code"><input type="text" id="ebcCode" placeholder="EB-PRÉNOM-01" autocomplete="off" autocapitalize="characters" spellcheck="false"><button type="button" class="ebc-btn" id="ebcGo">Accéder</button></div>'
     + '<p class="ebc-etat" id="ebcEtat"></p>'
     + '<p class="ebc-err" id="ebcErrCode"></p>'
     + '</div>';
@@ -286,7 +303,7 @@ function verifierCode(){
 function demanderCode(code){
   if(!URL_SCRIPT){
     return new Promise(function(res){ setTimeout(function(){
-      res(code === 'LKB-TEST-01'
+      res(code === 'EB-TEST-01'
         ? { ok: true, prenom: 'Sarah', gamme: 'Bloom', produits: ['Radiance C Serum – 34,90 €', 'Radiance Eye Cream – 28,90 €'] }
         : { ok: false, raison: 'inconnu' });
     }, 500); });
@@ -323,7 +340,13 @@ function ecranEspace(){
       + (c.delai ? '<span class="ebc-badge">' + esc(c.delai) + '</span>' : '')
       + '</div><p class="ebc-p">' + nb(c.texte) + '</p></div>';
   });
-  html += '</div>'
+  html += '<p class="ebc-excl">' + nb(EXCLUSIVITE) + '</p>'
+    + '</div>'
+
+    + '<div class="ebc-bloc"><h3 class="ebc-h">Retour de collaboration</h3>'
+    + '<p class="ebc-rh">ELKHA.B s\'engage à</p><ul class="ebc-rl">' + RETOUR_ELKHAB.map(function(t){ return '<li>' + nb(t) + '</li>'; }).join('') + '</ul>'
+    + '<p class="ebc-rh">L\'ambassadrice s\'engage à</p><ul class="ebc-rl">' + RETOUR_AMBASSADRICE.map(function(t){ return '<li>' + nb(t) + '</li>'; }).join('') + '</ul>'
+    + '</div>'
 
     + '<div class="ebc-bloc"><h3 class="ebc-h">Accord de collaboration</h3>'
     + '<p class="ebc-p">Merci de lire l\'accord en entier&nbsp;: faites-le défiler jusqu\'en bas pour pouvoir l\'accepter.</p>'
