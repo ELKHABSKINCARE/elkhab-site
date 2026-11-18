@@ -70,13 +70,15 @@
   // Les soins. besoins = pastilles qui les allument ; ligne = petite ligne en italique
   // hauteur = hauteur réelle du soin en cm : toutes les photos sont remises à la même échelle,
   //           posées sur la même ligne (les petits soins restent petits)
+  // ✏️ Réglages photo facultatifs pour un soin : echelle (ex. .85 = flacon affiché 15 % plus petit), renfort (0 = écritures non renforcées, .5 = à moitié),
+  //    blancs (ex. .5 = écritures blanches plus éclatantes, pour les étiquettes foncées)
   var SOINS = {
     "fusion-balance": { nom: "Fusion Balance", actifs: "Démaquillant biphasé · Aloe vera", ligne: "Yeux & visage · Sans parfum", besoins: ["sensibles"], prix: "26,90€", taille: "100 ml", hauteur: 12.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-flacon-site-v6.png", alt: "Fusion Balance démaquillant biphasé ELKHA.B Balance" },
-    "hydra-balance": { nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 10.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v7.png", alt: "Hydra Balance ELKHA.B Balance" },
+    "hydra-balance": { echelle: .85, renfort: 0, nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 10.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v7.png", alt: "Hydra Balance ELKHA.B Balance" },
     "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site-v6.png", alt: "Calm Balance Jour ELKHA.B Balance" },
     "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "36,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site-v6.png", alt: "Calm Balance Nuit ELKHA.B Balance" },
     "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides · Karité", ligne: "Barrière cutanée · Réparation", besoins: ["hydratation", "sensibles"], prix: "38,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site-v6.png", alt: "Ceramide Night Restore ELKHA.B Balance" },
-    "cellular-eye-restore": { nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", hauteur: 7.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v6.png", alt: "Cellular Eye Restore ELKHA.B Balance" },
+    "cellular-eye-restore": { renfort: .5, nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", hauteur: 7.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v6.png", alt: "Cellular Eye Restore ELKHA.B Balance" },
     "cellular-renew": { nom: "Cellular Renew", actifs: "Alternative végétale au rétinol", ligne: "Rides · Régénération", besoins: ["fermete"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site-v6.png", alt: "Cellular Renew ELKHA.B Balance" },
     "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", hauteur: 9.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v8.png", alt: "Active Lift ELKHA.B Balance" },
     "age-lift": { nom: "Age Lift", actifs: "Peptides", ligne: "Rides · Fermeté", besoins: ["fermete"], prix: "37,90€", taille: "50 ml", hauteur: 14.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site-v6.png", alt: "Age Lift ELKHA.B Balance" },
@@ -86,7 +88,7 @@
     "spot-control": { nom: "Spot Control", actifs: "Acide kojique & vitamine C", ligne: "Taches", besoins: ["taches"], prix: "28,90€", taille: "15 ml", hauteur: 7.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-flacon-site-v7.png", alt: "Spot Control ELKHA.B Balance" },
     "bright-control": { nom: "Bright Control", actifs: "Correcteur anti-taches", ligne: "Taches · Teint unifié", besoins: ["taches"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site-v6.png", alt: "Bright Control ELKHA.B Balance" },
     "bha-balance": { nom: "BHA Balance", actifs: "Acide salicylique", ligne: "Pores · Imperfections", besoins: ["imperfections"], prix: "24,90€", taille: "200 ml", hauteur: 16, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site-v6.png", alt: "BHA Balance ELKHA.B Balance" },
-    "glyco-balance": { nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau", besoins: ["texture"], prix: "29,90€", taille: "250 ml", hauteur: 12.5, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v6.png", alt: "Glyco Balance ELKHA.B Balance" },
+    "glyco-balance": { blancs: .5, nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau", besoins: ["texture"], prix: "29,90€", taille: "250 ml", hauteur: 12.5, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v6.png", alt: "Glyco Balance ELKHA.B Balance" },
     "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", hauteur: 11, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png", alt: "AHA Balance Peel ELKHA.B Balance" }
   };
 
@@ -419,7 +421,7 @@
       var carte = '', s = SOINS[id];
       if(v.carte && s){
         carte = '<a class="ebs-bc" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" aria-label="' + esc(s.nom) + '">'
-          + '<img src="' + esc(src(s.photo, 700)) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
+          + '<img src="' + esc(src(s.photo, 700)) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
           + '<span class="n">' + esc(s.nom) + '</span><span class="a">' + esc(s.actifs) + '</span><span class="p">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span><span class="d">Découvrir</span></a>';
       }
       if(v.encart){
@@ -638,7 +640,7 @@
       var ox = o.getContext('2d');   // fond transparent : la photo se fond dans la page
       var sc, dx, dy;
       if(y0 >= 0 && s.hauteur && (y1 - y0) > h * .2){
-        sc = hautAff(s.hauteur) * PXCM / (y1 - y0);
+        sc = hautAff(s.hauteur) * PXCM / (y1 - y0) * (s.echelle || 1);   // echelle : réglage de taille propre à un soin (ex. Hydra Balance, flacon large)
         if((x1 - x0) * sc > CW * .9) sc = CW * .9 / (x1 - x0);
         dx = CW / 2 - (x0 + x1) / 2 * sc; dy = SOL - y1 * sc;
       } else { sc = Math.min(CW / w, CH / h); dx = (CW - w * sc) / 2; dy = CH - h * sc; }
@@ -652,6 +654,49 @@
         ox.fillStyle = gb; ox.fillRect(0, 0, CW, CH);
         ox.globalCompositeOperation = 'source-over';
       }
+      // 6. écritures renforcées : on fonce seulement ce qui est déjà sombre (écritures, logo, vert de l'étiquette) ;
+      //    les blancs ne bougent pas (pas d'effet de projecteur) ; dosage plus léger pour les flacons déjà foncés
+      if(x0 >= 0 && y0 >= 0){
+        var bx0 = Math.max(0, Math.floor(dx + x0 * sc)), bx1 = Math.min(CW - 1, Math.ceil(dx + x1 * sc));
+        var by0 = Math.max(0, Math.floor(dy + y0 * sc) - 4), by1 = Math.min(CH - 1, Math.ceil(dy + y1 * sc));
+        var bw = bx1 - bx0 + 1, bh = by1 - by0 + 1;
+        if(bw > 4 && bh > 4){
+          var zone = ox.getImageData(bx0, by0, bw, bh), zq = zone.data, zi, somme = 0, nb = 0;
+          for(zi = 0; zi < zq.length; zi += 4){ if(zq[zi + 3] > 200){ somme += (zq[zi] + zq[zi + 1] + zq[zi + 2]) / 3; nb++; } }
+          var clarte = nb ? somme / nb : 255;
+          var GAM = 1 + .45 * Math.max(0, Math.min(1, (clarte - 120) / 30)) * (s.renfort == null ? 1 : s.renfort), SEUIL = 228;   // renfort : 0 = aucun (photo déjà très nette), 1 = normal
+          var courbe = new Float32Array(256);
+          for(zi = 0; zi < 256; zi++) courbe[zi] = zi < SEUIL ? SEUIL * Math.pow(zi / SEUIL, GAM) : zi;
+          for(zi = 0; zi < zq.length; zi += 4){
+            if(zq[zi + 3] < 8) continue;
+            var lu = (zq[zi] + zq[zi + 1] + zq[zi + 2]) / 3; if(lu < 1) continue;
+            var fct = courbe[Math.round(lu)] / lu;
+            zq[zi] *= fct; zq[zi + 1] *= fct; zq[zi + 2] *= fct;
+          }
+          // blancs : écritures claires posées sur une étiquette foncée (ex. Glyco) rendues plus éclatantes ;
+          //          seulement là où l'entourage est foncé (le verre et le fond ne bougent pas)
+          if(s.blancs){
+            var zb = new Uint8ClampedArray(zq), lum = function(k){ return (zb[k] + zb[k + 1] + zb[k + 2]) / 3; };
+            for(var wy = 0; wy < bh; wy++) for(var wx = 8; wx < bw - 8; wx++){
+              zi = (wy * bw + wx) * 4; if(zb[zi + 3] < 200) continue;
+              var lb = lum(zi); if(lb < 140) continue;
+              var autour = (lum(zi - 32) + lum(zi + 32)) / 2; if(autour > 135) continue;
+              var tb = Math.min(1, (lb - 140) / 70) * s.blancs;
+              zq[zi] += (255 - zq[zi]) * tb; zq[zi + 1] += (255 - zq[zi + 1]) * tb; zq[zi + 2] += (255 - zq[zi + 2]) * tb;
+            }
+          }
+          // netteté des lettres (légère)
+          var net = .6 * (GAM - 1) / .45, src2 = new Uint8ClampedArray(zq);
+          if(net > .05) for(var ry = 1; ry < bh - 1; ry++) for(var rx = 1; rx < bw - 1; rx++){
+            zi = (ry * bw + rx) * 4; if(src2[zi + 3] < 200) continue;
+            for(var cc = 0; cc < 3; cc++){
+              var vv = src2[zi + cc], mo = (src2[zi + cc - 4] + src2[zi + cc + 4] + src2[zi + cc - bw * 4] + src2[zi + cc + bw * 4]) / 4;
+              if(Math.abs(vv - mo) > 2) zq[zi + cc] = vv + (vv - mo) * net;
+            }
+          }
+          ox.putImageData(zone, bx0, by0);
+        }
+      }
       o.toBlob(function(b){
         clearTimeout(secours);
         if(!b){ img.classList.add('brut'); return; }
@@ -661,7 +706,7 @@
     })
     .catch(function(){ clearTimeout(secours); img.classList.add('brut'); });
   }
-  var imgs = root.querySelectorAll('.ebs-ph img');
+  var imgs = root.querySelectorAll('.ebs-ph img, .ebs-bc img');   // aussi la carte posée sur le bandeau (Bakuchiol Elixir)
   if('IntersectionObserver' in window && window.fetch && window.createImageBitmap){
     var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); retravailler(e.target); } }); }, { rootMargin: '800px 0px' });
     imgs.forEach(function(im){ io.observe(im); });
