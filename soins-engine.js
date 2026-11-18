@@ -304,7 +304,7 @@
   + ".filtre .ebs-card.off .ebs-tx,.filtre .ebs-card.off .ebs-num{display:none}"
   + ".filtre .ebs-h.vide{margin:0 0 8px}"
   + ".filtre .ebs-h.vide p{display:none}"
-  + ".ebs-ph{display:block;position:relative;aspect-ratio:1 / 2;overflow:hidden}"
+  + ".ebs-ph{display:block;position:relative;aspect-ratio:4 / 7;overflow:hidden}"
   + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%}"
   + "@media (min-width:900px){.ebs-ph{aspect-ratio:auto;height:clamp(330px,29vw,420px)}}"   // ordinateur : flacons un peu plus grands, sans cases trop hautes
   // secours si la photo ne peut pas être retravaillée : bords fondus en CSS
@@ -442,7 +442,7 @@
     }
   });
   if(REGLAGES.pontBalance) h += '<div class="ebs-pont" aria-live="polite"></div>';
-  if(SOINS[COFFRET.soin]) h += '<section class="ebs-cof"><h2 class="ebs-coft">' + esc(COFFRET.surtitre) + '</h2>' + (COFFRET.texte ? '<p class="ebs-cofp">' + esc(COFFRET.texte) + '</p>' : '') + vignette(COFFRET.soin, null).replace('<img ', '<img data-fond="' + esc(REGLAGES.fondCoffret) + '" ') + '</section>';
+  if(SOINS[COFFRET.soin]) h += '<section class="ebs-cof"><h2 class="ebs-coft">' + esc(COFFRET.surtitre) + '</h2>' + (COFFRET.texte ? '<p class="ebs-cofp">' + esc(COFFRET.texte) + '</p>' : '') + vignette(COFFRET.soin, null) + '</section>';
   h += '<div class="ebs-cib" id="ebs-cibles"><h2>' + esc(CIBLES.titre) + '</h2><span>' + esc(CIBLES.sousTitre) + '</span><p>' + esc(CIBLES.texte) + '</p></div>';
   h += CIBLES.soins.map(function(id){ return vignette(id, null); }).join('');
   h += '</div>' + texteBloom;
