@@ -64,9 +64,9 @@ window.EB_PRODUITS = {
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://elkhabskincare.github.io/elkhab-site/bloom-radiance-serum-1-boite-flacon-v1.webp",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-1-boite-flacon_-_Copie.png?v=1792576367",
         // 📷 2. FLACON SEUL
-        "https://elkhabskincare.github.io/elkhab-site/bloom-radiance-serum-2-flacon-v1.webp",
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-2-flacon_dezoome.png?v=1792676875",
         // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397"
       ]
