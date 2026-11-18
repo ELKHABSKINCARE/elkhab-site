@@ -362,6 +362,8 @@
   +   ".ebs-bc img{display:block;width:100%;height:330px;object-fit:contain;object-position:50% 88%;margin:0 0 18px}"
   +   ".ebs-bc .n{display:block;font-size:13px;font-weight:600;letter-spacing:.16em;text-transform:uppercase}"
   +   ".ebs-bc .a{display:block;font-size:11px;margin-top:7px;opacity:.85}"
+  +   ".ebs-bc .ebs-jauge{margin:0 auto 14px}"
+  +   ".ebs-bc .l{display:block;font-size:10px;font-style:italic;margin-top:6px;opacity:.78}"
   +   ".ebs-bc .p{display:block;font-size:10.5px;margin-top:4px;opacity:.85}"
   +   ".ebs-bc .d{display:inline-block;margin-top:16px;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
   +   ".ebs-bc:hover .d{opacity:.6}"
@@ -422,7 +424,8 @@
       if(v.carte && s){
         carte = '<a class="ebs-bc" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" aria-label="' + esc(s.nom) + '">'
           + '<img src="' + esc(src(s.photo, 700)) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
-          + '<span class="n">' + esc(s.nom) + '</span><span class="a">' + esc(s.actifs) + '</span><span class="p">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span><span class="d">Découvrir</span></a>';
+          + (s.niveau ? '<span class="ebs-jauge" aria-label="Niveau ' + s.niveau + ' sur 5">' + [1,2,3,4,5].map(function(k){ return '<b' + (k <= s.niveau ? ' class="on"' : '') + '></b>'; }).join('') + '<em>NIVEAU ' + s.niveau + '</em></span>' : '')   // même jauge de niveau que les autres soins
+          + '<span class="n">' + esc(s.nom) + '</span><span class="a">' + esc(s.actifs) + '</span><span class="l">' + esc(s.ligne) + '</span><span class="p">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span><span class="d">Découvrir</span></a>';
       }
       if(v.encart){
         var E = ENCART;
