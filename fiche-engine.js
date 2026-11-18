@@ -575,10 +575,18 @@
     if(built) return;
     built = true;
     var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+    // Zoom des photos : loupe au survol (ordinateur), zoom sur place au toucher (téléphone)
+    var stz = document.createElement('style');
+    stz.textContent = ".eb-fp-media img.eb-zoomable{cursor:zoom-in;transition:transform .25s ease;will-change:transform}"
+      + ".eb-fp-media img.eb-zoomable.eb-zoom-on{transition:transform .12s ease-out}"
+      + ".eb-fp-media img.eb-zoom-tel{transition:transform .25s ease}"
+      + ".eb-fp-media img.eb-zoom-tel.eb-glisse{transition:none}";
+    document.head.appendChild(stz);
     overlay = document.createElement('div');
     overlay.className = 'eb-fp-overlay';
     overlay.setAttribute('role', 'dialog');
     document.body.appendChild(overlay);
+    installerZoom();
     closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.className = 'eb-fp-close';
@@ -797,6 +805,83 @@
       };
       t.src = img.currentSrc || img.src;
     });
+  }
+
+  // ── Zoom des photos de la fiche ──
+  //    ordinateur (souris) : la photo s'agrandit sous la souris et suit ses mouvements, comme une loupe
+  //    téléphone (doigt)   : toucher la photo l'agrandit sur place, à l'endroit touché ; toucher encore la remet normale
+  //    la grande version de la photo ne se charge qu'au moment du zoom (la fiche reste rapide)
+  function photoZoomable(el){
+    return el && el.tagName === 'IMG' && el.closest && el.closest('.eb-fp-media') && !el.classList.contains('eb-fp-poster') && !el.closest('.eb-fp-sel');
+  }
+  function grandeVersion(img, fait){
+    if(img.getAttribute('data-hd')){ fait(img.getAttribute('data-hd')); return; }
+    var u = (img.currentSrc || img.src).replace(/([?&])width=\d+/, '$1width=2400');
+    var t = new Image();
+    t.onload = function(){ img.setAttribute('data-hd', u); fait(u); };
+    t.onerror = function(){ fait(img.currentSrc || img.src); };
+    t.src = u;
+  }
+  function installerZoom(){
+    var souris = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    var LOUPE = 2.2;
+    if(souris){
+      overlay.addEventListener('mouseover', function(ev){
+        var img = ev.target; if(!photoZoomable(img)) return;
+        img.classList.add('eb-zoomable');
+        clearTimeout(slideTimer);   // la cliente regarde la photo : le diaporama s'arrête
+        grandeVersion(img, function(u){ if(img.src !== u && img.matches(':hover')) img.src = u; });
+      });
+      overlay.addEventListener('mousemove', function(ev){
+        var img = ev.target; if(!photoZoomable(img)) return;
+        var r = img.getBoundingClientRect();
+        img.style.transformOrigin = ((ev.clientX - r.left) / r.width * 100) + '% ' + ((ev.clientY - r.top) / r.height * 100) + '%';
+        img.style.transform = 'scale(' + LOUPE + ')';
+        img.classList.add('eb-zoom-on');
+      });
+      var reposer = function(img){ img.style.transform = ''; img.classList.remove('eb-zoom-on'); };
+      overlay.addEventListener('mouseout', function(ev){ if(photoZoomable(ev.target)) reposer(ev.target); });
+      overlay.addEventListener('mousedown', function(ev){ if(photoZoomable(ev.target)) reposer(ev.target); });   // glisser vers la photo suivante
+      return;
+    }
+    // téléphone : la photo s'agrandit sur place, dans son cadre (la cliente reste sur la fiche)
+    //   1er toucher : zoom à l'endroit touché ; glisser le doigt : se déplacer ; 2e toucher : photo normale
+    var LOUPE_TEL = 2.4, zoomee = null, depart = null;
+    var origine = function(img){ var o = (img.style.transformOrigin || '50% 50%').split(' '); return [parseFloat(o[0]), parseFloat(o[1])]; };
+    var reposerTel = function(){ if(!zoomee) return; zoomee.style.transform = ''; zoomee.classList.remove('eb-zoom-tel', 'eb-glisse'); zoomee = null; };
+    overlay.addEventListener('click', function(ev){
+      var img = ev.target; if(!photoZoomable(img)) return;
+      if(zoomee === img){ reposerTel(); return; }
+      reposerTel();
+      clearTimeout(slideTimer);   // la cliente regarde la photo : le diaporama s'arrête
+      var r = img.getBoundingClientRect();
+      img.style.transformOrigin = ((ev.clientX - r.left) / r.width * 100) + '% ' + ((ev.clientY - r.top) / r.height * 100) + '%';
+      img.classList.add('eb-zoom-tel');
+      img.style.transform = 'scale(' + LOUPE_TEL + ')';
+      zoomee = img;
+      grandeVersion(img, function(u){ if(zoomee === img && img.src !== u) img.src = u; });
+    });
+    // photo agrandie : le doigt déplace la photo (et ne fait plus défiler le diaporama)
+    overlay.addEventListener('touchstart', function(ev){
+      if(!zoomee || ev.target !== zoomee) return;
+      ev.stopPropagation();
+      var t = ev.touches[0]; depart = { x: t.clientX, y: t.clientY, o: origine(zoomee) };
+    }, { capture: true, passive: true });
+    overlay.addEventListener('touchmove', function(ev){
+      if(!zoomee || ev.target !== zoomee || !depart) return;
+      ev.stopPropagation(); ev.preventDefault();
+      var t = ev.touches[0], r = zoomee.getBoundingClientRect(), w = r.width / LOUPE_TEL, h = r.height / LOUPE_TEL;
+      var ox = Math.max(0, Math.min(100, depart.o[0] - (t.clientX - depart.x) / ((LOUPE_TEL - 1) * w) * 100));
+      var oy = Math.max(0, Math.min(100, depart.o[1] - (t.clientY - depart.y) / ((LOUPE_TEL - 1) * h) * 100));
+      zoomee.classList.add('eb-glisse');
+      zoomee.style.transformOrigin = ox + '% ' + oy + '%';
+    }, { capture: true, passive: false });
+    overlay.addEventListener('touchend', function(ev){
+      if(!zoomee || ev.target !== zoomee) return;
+      ev.stopPropagation(); depart = null; zoomee.classList.remove('eb-glisse');
+    }, { capture: true, passive: true });
+    // la cliente passe à une autre photo : la photo agrandie redevient normale
+    overlay.addEventListener('scroll', reposerTel, { capture: true, passive: true });
   }
 
   function demarrerDiaporama(){

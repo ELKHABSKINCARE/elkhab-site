@@ -99,7 +99,8 @@
   //    texte   = (facultatif) un texte posé sur la vidéo : { k: petit titre, t: titre, p: texte, soin: soin du lien entre [crochets] }
   //    Pour retirer une vidéo : supprimer sa ligne entière.
   var VIDEOS = [
-    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-nuit", format: "carre", alt: "Rituel de soin Balance ELKHA.B" },
+    // encart = la vidéo à gauche et le texte « Pourquoi Balance est née » à droite (sur téléphone : la vidéo au-dessus, le texte dessous)
+    { lien: "https://cdn.shopify.com/videos/c/o/v/0ff5262de6ac456faf380a944a1ad014.mp4", avant: "calm-balance-jour", format: "carre", encart: true, alt: "Rituel de soin Balance ELKHA.B" },
     { lien: "https://cdn.shopify.com/videos/c/o/v/9e337d160bbb42caa508774899eeb9a8.mp4", apres: "active-lift", format: "carre", alt: "Active Lift ELKHA.B Balance, sérum aux peptides, en vidéo",
       // ✏️ texte posé sur la vidéo (facultatif) : petit titre, titre, texte ; [Active Lift] devient un lien vers la fiche du soin
       texte: { k: "Zoom sur un actif", t: "Les peptides, alliés de la fermeté.",
@@ -109,6 +110,19 @@
   ];
 
   // Les 5 niveaux d’intensité (du plus doux au plus fort)
+  // ✏️ Texte de l'encart « Pourquoi Balance est née » (posé à côté de la vidéo rituel)
+  //    court = phrase masquée sur téléphone, pour que le bloc reste court (le texte reste lisible par Google)
+  var ENCART = {
+    k: "Pourquoi Balance est née",
+    t: "Rétinol, peelings, micro-needling… une peau qui tiraille, du temps qu'on n'a pas. Il fallait une autre réponse.",
+    intro: "Ces actifs forts ont fait leurs preuves pour relancer le renouvellement cellulaire. Mais ils mettent souvent la barrière cutanée à rude épreuve, et demandent des jours de récupération que toutes ne peuvent pas s'accorder.",
+    profils: [
+      { titre: "Vous utilisez déjà des actifs forts", texte: "Quand votre peau est sursollicitée, Balance prend le relais. Ses actifs poursuivent le travail sur le renouvellement cellulaire, les rides et la fermeté, au cœur d'une hydratation profonde qui rend à la barrière cutanée toute sa force." },
+      { titre: "Une peau délicate, un agenda bien rempli", court: "Les actifs forts demandent une peau qui les tolère et des jours de pause pour récupérer. ", texte: "Balance agit sur le renouvellement cellulaire, les rides et l'éclat avec des actifs d'origine naturelle, efficaces et bien tolérés, sans jamais mettre votre vie entre parenthèses." }
+    ],
+    fin: "Dans les deux cas, chaque actif est enveloppé d'hydratation : votre peau continue d'avancer, sans tiraillements."
+  };
+
   var ETAPES = [
     { num: "1", titre: "Doux", texte: "Pour commencer, ou pour les peaux réactives.", couleur: "#cfd5a3", soins: ["fusion-balance", "hydra-balance", "calm-balance-jour", "calm-balance-nuit"] },
     { num: "2", titre: "Modéré", texte: "Des actifs réguliers, bien tolérés.", couleur: "#b6c27a", soins: ["ceramide-night-restore", "cellular-eye-restore", "cellular-renew", "active-lift"] },
@@ -251,6 +265,17 @@
   + ".ebs-vid-large .ebs-vbox{aspect-ratio:16 / 9}"
   + ".ebs-vbox video,.ebs-vbox img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}"
   + ".filtre .ebs-vid{display:none}"
+  // Encart « Pourquoi Balance est née » — téléphone : vidéo allongée au-dessus, texte dessous
+  + ".ebs-pq .ebs-vbox,.ebs-pq.ebs-vid-carre .ebs-vbox{aspect-ratio:16 / 9}"
+  + ".ebs-pqt{padding:26px 2px 6px;font-family:'Montserrat',sans-serif;color:#000;text-align:left}"
+  + ".ebs-pqt .k{display:block;font-size:9.5px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;margin:0 0 14px;opacity:.75}"
+  + "#eb-soins .ebs-pqt h2{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:400;line-height:1.38;letter-spacing:0;text-transform:none;margin:0 0 18px;color:#000}"
+  + ".ebs-pqt .i,.ebs-pqt .court{display:none}"
+  + ".ebs-pqt .deux{border-top:1px solid " + LIGNE + ";padding-top:18px}"
+  + ".ebs-pqt .deux div{margin:0 0 18px}"
+  + "#eb-soins .ebs-pqt h3{font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.5;margin:0 0 7px;color:#000}"
+  + ".ebs-pqt p{font-size:12.5px;font-weight:400;line-height:1.72;margin:0;color:rgba(0,0,0,.84)}"
+  + ".ebs-pqt p.fin{font-size:14px;font-style:italic;line-height:1.6;color:#000;margin-top:4px}"
   + ".ebs-bc{display:none}"
   // texte posé sur la vidéo : beige, sans encadré, sur un léger voile sombre venu du bas (pour rester lisible)
   + ".ebs-vid-texte .ebs-vbox{aspect-ratio:4 / 5}"
@@ -339,6 +364,17 @@
   +   ".ebs-bc .d{display:inline-block;margin-top:16px;font-size:9.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:3px}"
   +   ".ebs-bc:hover .d{opacity:.6}"
   +   ".ebs-voisin-bande{display:none}.filtre .ebs-voisin-bande{display:block}"
+  // Encart (ordinateur) : la vidéo carrée à gauche, collée au bord de l'écran ; le texte à droite, dans la hauteur de la vidéo
+  +   ".ebs-vid.ebs-pq,.ebs-c2 .ebs-vid.ebs-pq,.ebs-c3 .ebs-vid.ebs-pq{width:100%;flex:0 0 100%;display:flex;align-items:center;padding:6px 0 70px}"
+  +   ".ebs-pq .ebs-vbox,.ebs-pq.ebs-vid-carre .ebs-vbox{flex:0 0 50%;width:50%;aspect-ratio:1 / 1}"
+  +   ".ebs-pqt{flex:1;padding:0 20px 0 56px}"
+  +   "#eb-soins .ebs-pqt h2{font-size:24px;line-height:1.36;margin:0 0 16px}"
+  +   ".ebs-pqt .i{display:block;font-size:13px;line-height:1.75;margin:0 0 24px}"
+  +   ".ebs-pqt .court{display:inline}"
+  +   ".ebs-pqt .deux{display:grid;grid-template-columns:1fr 1fr;gap:30px;padding-top:20px;margin:0 0 22px}"
+  +   ".ebs-pqt .deux div{margin:0}"
+  +   ".ebs-pqt .deux p{font-size:12px;line-height:1.72}"
+  +   ".ebs-pqt p.fin{font-size:15px;margin:0}"
   // ordinateur : la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
   +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
   +   ".avec-amb .ebs-amb{order:-1;flex:0 0 50%;width:50% !important;margin:0 0 40px !important}"
@@ -386,6 +422,13 @@
           + '<img src="' + esc(src(s.photo, 700)) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
           + '<span class="n">' + esc(s.nom) + '</span><span class="a">' + esc(s.actifs) + '</span><span class="p">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span><span class="d">Découvrir</span></a>';
       }
+      if(v.encart){
+        var E = ENCART;
+        return '<figure class="ebs-vid ebs-vid-carre ebs-pq"><div class="ebs-vbox">' + media + '</div>'
+          + '<div class="ebs-pqt"><span class="k">' + esc(E.k) + '</span><h2>' + esc(E.t) + '</h2><p class="i">' + esc(E.intro) + '</p>'
+          + '<div class="deux">' + E.profils.map(function(pr){ return '<div><h3>' + esc(pr.titre) + '</h3><p>' + (pr.court ? '<span class="court">' + esc(pr.court) + '</span>' : '') + esc(pr.texte) + '</p></div>'; }).join('') + '</div>'
+          + '<p class="fin">' + esc(E.fin) + '</p></div></figure>';
+      }
       return '<figure class="ebs-vid ebs-vid-' + (v.format === 'large' ? 'large' : 'carre') + (tx ? ' ebs-vid-texte' : '') + (carte ? ' ebs-bande ebs-carte-' + (v.carte === 'gauche' ? 'g' : 'd') : '') + '"><div class="ebs-vbox">' + media + tx + '</div>' + carte + '</figure>';
     }).join('');
   }
@@ -408,7 +451,7 @@
     var avecMedia = e.soins.some(function(id){ return videosPres(id, 'avant') || videosPres(id, 'apres'); });
     h += '<div class="ebs-grp' + (ambCote ? ' avec-amb' : '') + (avecMedia ? ' avec-media' : '') + '">' + e.soins.map(function(id){
       var av = videosPres(id, 'avant'), ap = videosPres(id, 'apres'), v = vignette(id, e);
-      if(av || ap) v = v.replace('<a class="ebs-card"', '<a class="ebs-card ebs-voisin' + (/ebs-bande/.test(av + ap) ? ' ebs-voisin-bande' : '') + '"');
+      if((av || ap) && !/ebs-pq/.test(av + ap)) v = v.replace('<a class="ebs-card"', '<a class="ebs-card ebs-voisin' + (/ebs-bande/.test(av + ap) ? ' ebs-voisin-bande' : '') + '"');
       return av + v + ap;
     }).join('');
     if(ambCote){
@@ -515,7 +558,10 @@
 
   // ── Photos : fondues dans le fond du site, même échelle, même ligne de sol ──
   var FONDSITE = (function(c){ c = c.replace('#', ''); return [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }); })(REGLAGES.fondSite);
-  var CW = 600, CH = 800, SOL = CH * .86, PXCM = CH * .66 / 14.5;
+  // photos préparées en haute définition (900 × 1200) ; un flacon de 14,5 cm occupe 84 % de la hauteur de sa case
+  // hautAff : les petits soins restent plus petits que les grands, mais l'écart est adouci pour que leur étiquette reste lisible
+  var CW = 900, CH = 1200, SOL = CH * .95, PXCM = CH * .84 / 14.5;
+  function hautAff(h){ return 14.5 * Math.pow(h / 14.5, .62); }
   function couleur(c){ c = (c || '').replace('#', ''); return c.length === 6 ? [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }) : null; }
   function retravailler(img){
     var s = SOINS[img.getAttribute('data-id')], url = src(s.photo, 700);
@@ -535,6 +581,11 @@
       var F = ech.map(function(a, n){ a.sort(function(u, v){ return u - v; }); return FOND[n] / (a[a.length >> 1] || 255); });
       // 2. le fond de la photo devient exactement celui du site
       for(i = 0; i < p.length; i += 4){ p[i] = Math.min(255, p[i] * F[0]); p[i + 1] = Math.min(255, p[i + 1] * F[1]); p[i + 2] = Math.min(255, p[i + 2] * F[2]); }
+      //    ce qui est presque de la couleur du fond devient transparent : plus aucun rectangle visible autour de la photo
+      for(i = 0; i < p.length; i += 4){
+        var ec = Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2]));
+        if(ec < 14) p[i + 3] = ec <= 5 ? 0 : Math.round(p[i + 3] * (ec - 5) / 9);
+      }
       x.putImageData(d, 0, 0);
       // 3. repérer le soin (colonnes hautes ; l'ombre au sol, plate, est ignorée)
       var col = new Uint32Array(w), dif = new Uint8Array(w * h);
@@ -576,15 +627,24 @@
       var ox = o.getContext('2d');   // fond transparent : la photo se fond dans la page
       var sc, dx, dy;
       if(y0 >= 0 && s.hauteur && (y1 - y0) > h * .2){
-        sc = s.hauteur * PXCM / (y1 - y0);
+        sc = hautAff(s.hauteur) * PXCM / (y1 - y0);
         if((x1 - x0) * sc > CW * .9) sc = CW * .9 / (x1 - x0);
         dx = CW / 2 - (x0 + x1) / 2 * sc; dy = SOL - y1 * sc;
       } else { sc = Math.min(CW / w, CH / h); dx = (CW - w * sc) / 2; dy = CH - h * sc; }
+      ox.imageSmoothingEnabled = true; ox.imageSmoothingQuality = "high";   // réduction de qualité haute : étiquettes nettes
       ox.drawImage(c, dx, dy, w * sc, h * sc);
+      // photo plus large que la case (ex. Glyco Balance) : l'ombre s'efface doucement avant le bord, au lieu d'être coupée net
+      if(dx < 0 || dx + w * sc > CW){
+        ox.globalCompositeOperation = 'destination-in';
+        var gb = ox.createLinearGradient(0, 0, CW, 0);
+        gb.addColorStop(0, 'rgba(0,0,0,0)'); gb.addColorStop(.12, '#000'); gb.addColorStop(.88, '#000'); gb.addColorStop(1, 'rgba(0,0,0,0)');
+        ox.fillStyle = gb; ox.fillRect(0, 0, CW, CH);
+        ox.globalCompositeOperation = 'source-over';
+      }
       o.toBlob(function(b){
         clearTimeout(secours);
         if(!b){ img.classList.add('brut'); return; }
-        img.onload = function(){ img.classList.add('pret'); };
+        img.onload = function(){ img.classList.remove('brut'); img.classList.add('pret'); };
         img.src = URL.createObjectURL(b);
       }, 'image/png');
     })
