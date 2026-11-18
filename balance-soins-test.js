@@ -581,11 +581,6 @@
       var F = ech.map(function(a, n){ a.sort(function(u, v){ return u - v; }); return FOND[n] / (a[a.length >> 1] || 255); });
       // 2. le fond de la photo devient exactement celui du site
       for(i = 0; i < p.length; i += 4){ p[i] = Math.min(255, p[i] * F[0]); p[i + 1] = Math.min(255, p[i + 1] * F[1]); p[i + 2] = Math.min(255, p[i + 2] * F[2]); }
-      //    ce qui est presque de la couleur du fond devient transparent : plus aucun rectangle visible autour de la photo
-      for(i = 0; i < p.length; i += 4){
-        var ec = Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2]));
-        if(ec < 14) p[i + 3] = ec <= 5 ? 0 : Math.round(p[i + 3] * (ec - 5) / 9);
-      }
       x.putImageData(d, 0, 0);
       // 3. repérer le soin (colonnes hautes ; l'ombre au sol, plate, est ignorée)
       var col = new Uint32Array(w), dif = new Uint8Array(w * h);
@@ -609,6 +604,22 @@
           while(yb > y0){ var m = 0; for(xx = x0; xx <= x1; xx++) m += dif[yb * w + xx]; if(m >= plein) break; yb--; }
           if(y1 - yb > (y1 - y0) * .03) y1 = yb;
         }
+      }
+      //    autour du flacon (jamais sur le flacon : les capuchons blancs gardent leur contour),
+      //    ce qui est presque de la couleur du fond devient transparent : plus aucun rectangle visible autour de la photo
+      if(x0 >= 0 && y0 >= 0){
+        var mz = Math.round((x1 - x0) * .06) + 6, zx0 = x0 - mz, zx1 = x1 + mz, zy0 = y0 - mz - Math.round((y1 - y0) * .15), zy1 = y1 + mz;   // au-dessus : marge plus grande (haut des capuchons blancs)
+        for(var yy = 0; yy < h; yy++) for(var xz = 0; xz < w; xz++){
+          var dz = Math.max(zx0 - xz, xz - zx1, zy0 - yy, yy - zy1);
+          if(dz <= 0) continue;
+          i = (yy * w + xz) * 4;
+          var ec = Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2]));
+          if(ec < 14){
+            var pz = Math.min(1, dz / (mz * 2));   // passage progressif : aucun bord visible autour du flacon
+            p[i + 3] = Math.round(p[i + 3] * (1 - pz * (1 - (ec <= 5 ? 0 : (ec - 5) / 9))));
+          }
+        }
+        x.putImageData(d, 0, 0);
       }
       // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
       x.globalCompositeOperation = 'destination-in';
