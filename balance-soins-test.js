@@ -68,28 +68,27 @@
   };
 
   // Les soins. besoins = pastilles qui les allument ; ligne = petite ligne en italique
-  // hauteur = hauteur réelle du soin en cm : toutes les photos sont remises à la même échelle,
-  //           posées sur la même ligne (les petits soins restent petits)
-  // ✏️ Réglages photo facultatifs pour un soin : echelle (ex. .85 = flacon affiché 15 % plus petit), renfort (0 = écritures non renforcées, .5 = à moitié),
-  //    blancs (ex. .5 = écritures blanches plus éclatantes, pour les étiquettes foncées)
+  // photo = photo préparée à l'avance (fondue dans le fond du site, même échelle, même ligne de sol, écritures renforcées),
+  //         déposée dans elkhab-site : elle s'affiche telle quelle, sans aucun traitement au moment de l'affichage
+  var PHOTOS = "https://elkhabskincare.github.io/elkhab-site/";
   var SOINS = {
-    "fusion-balance": { nom: "Fusion Balance", actifs: "Démaquillant biphasé · Aloe vera", ligne: "Yeux & visage · Sans parfum", besoins: ["sensibles"], prix: "26,90€", taille: "100 ml", hauteur: 12.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-fusion-balance-flacon-site-v6.png", alt: "Fusion Balance démaquillant biphasé ELKHA.B Balance" },
-    "hydra-balance": { echelle: .85, renfort: 0, nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", hauteur: 10.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-hydra-balance-flacon-site-v7.png", alt: "Hydra Balance ELKHA.B Balance" },
-    "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-flacon-site-v6.png", alt: "Calm Balance Jour ELKHA.B Balance" },
-    "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "36,90€", taille: "50 ml", hauteur: 14.5, niveau: 1, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-flacon-site-v6.png", alt: "Calm Balance Nuit ELKHA.B Balance" },
-    "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides · Karité", ligne: "Barrière cutanée · Réparation", besoins: ["hydratation", "sensibles"], prix: "38,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-flacon-site-v6.png", alt: "Ceramide Night Restore ELKHA.B Balance" },
-    "cellular-eye-restore": { renfort: .5, nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", hauteur: 7.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-eye-restore-flacon-site-v6.png", alt: "Cellular Eye Restore ELKHA.B Balance" },
-    "cellular-renew": { nom: "Cellular Renew", actifs: "Alternative végétale au rétinol", ligne: "Rides · Régénération", besoins: ["fermete"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-renew-flacon-site-v6.png", alt: "Cellular Renew ELKHA.B Balance" },
-    "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", hauteur: 9.5, niveau: 2, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-active-lift-flacon-site-v8.png", alt: "Active Lift ELKHA.B Balance" },
-    "age-lift": { nom: "Age Lift", actifs: "Peptides", ligne: "Rides · Fermeté", besoins: ["fermete"], prix: "37,90€", taille: "50 ml", hauteur: 14.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-flacon-site-v6.png", alt: "Age Lift ELKHA.B Balance" },
-    "eye-lift": { nom: "Eye Lift", actifs: "Peptides", ligne: "Regard · Paupières", besoins: ["regard"], prix: "29,90€", taille: "15 ml", hauteur: 7.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-eye-lift-flacon-site-v8.png", alt: "Eye Lift ELKHA.B Balance" },
-    "cellular-reveal": { nom: "Cellular Reveal", actifs: "Bidens pilosa", ligne: "Ridules · Teint unifié", besoins: ["fermete", "texture"], prix: "37,90€", taille: "30 ml", hauteur: 10.5, niveau: 3, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-cellular-reveal-flacon-site-v6.png", alt: "Cellular Reveal ELKHA.B Balance" },
-    "bakuchiol-elixir": { nom: "Bakuchiol Elixir", actifs: "Bakuchiol · Huiles précieuses", ligne: "Rides installées · Grain de peau", besoins: ["fermete", "texture"], prix: "39,90€", taille: "30 ml", hauteur: 11, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bakuchiol-elixir-flacon-site-v7.png", alt: "Bakuchiol Elixir ELKHA.B Balance" },
-    "spot-control": { nom: "Spot Control", actifs: "Acide kojique & vitamine C", ligne: "Taches", besoins: ["taches"], prix: "28,90€", taille: "15 ml", hauteur: 7.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-spot-control-flacon-site-v7.png", alt: "Spot Control ELKHA.B Balance" },
-    "bright-control": { nom: "Bright Control", actifs: "Correcteur anti-taches", ligne: "Taches · Teint unifié", besoins: ["taches"], prix: "34,90€", taille: "50 ml", hauteur: 14.5, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bright-control-flacon-site-v6.png", alt: "Bright Control ELKHA.B Balance" },
-    "bha-balance": { nom: "BHA Balance", actifs: "Acide salicylique", ligne: "Pores · Imperfections", besoins: ["imperfections"], prix: "24,90€", taille: "200 ml", hauteur: 16, niveau: 4, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-bha-balance-flacon-site-v6.png", alt: "BHA Balance ELKHA.B Balance" },
-    "glyco-balance": { blancs: .5, nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau", besoins: ["texture"], prix: "29,90€", taille: "250 ml", hauteur: 12.5, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-glyco-balance-flacon-site-v6.png", alt: "Glyco Balance ELKHA.B Balance" },
-    "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", hauteur: 11, niveau: 5, photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-aha-balance-peel-flacon-site-v6.png", alt: "AHA Balance Peel ELKHA.B Balance" }
+    "fusion-balance": { nom: "Fusion Balance", actifs: "Démaquillant biphasé · Aloe vera", ligne: "Yeux & visage · Sans parfum", besoins: ["sensibles"], prix: "26,90€", taille: "100 ml", niveau: 1, photo: PHOTOS + "balance-page-fusion-balance.webp", alt: "Fusion Balance démaquillant biphasé ELKHA.B Balance" },
+    "hydra-balance": { nom: "Hydra Balance", actifs: "Acide hyaluronique multi-poids moléculaire", ligne: "Hydratation · Repulpant", besoins: ["hydratation", "sensibles"], prix: "28,90€", taille: "30 ml", niveau: 1, photo: PHOTOS + "balance-page-hydra-balance.webp", alt: "Hydra Balance ELKHA.B Balance" },
+    "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "34,90€", taille: "50 ml", niveau: 1, photo: PHOTOS + "balance-page-calm-balance-jour.webp", alt: "Calm Balance Jour ELKHA.B Balance" },
+    "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Sodium PCA", ligne: "Apaisement · Peaux sensibles", besoins: ["apaisement", "sensibles"], prix: "36,90€", taille: "50 ml", niveau: 1, photo: PHOTOS + "balance-page-calm-balance-nuit.webp", alt: "Calm Balance Nuit ELKHA.B Balance" },
+    "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides · Karité", ligne: "Barrière cutanée · Réparation", besoins: ["hydratation", "sensibles"], prix: "38,90€", taille: "50 ml", niveau: 2, photo: PHOTOS + "balance-page-ceramide-night-restore.webp", alt: "Ceramide Night Restore ELKHA.B Balance" },
+    "cellular-eye-restore": { nom: "Cellular Eye Restore", actifs: "Alternative végétale au rétinol", ligne: "Regard · Ridules", besoins: ["regard"], prix: "32,90€", taille: "15 ml", niveau: 2, photo: PHOTOS + "balance-page-cellular-eye-restore.webp", alt: "Cellular Eye Restore ELKHA.B Balance" },
+    "cellular-renew": { nom: "Cellular Renew", actifs: "Alternative végétale au rétinol", ligne: "Rides · Régénération", besoins: ["fermete"], prix: "34,90€", taille: "50 ml", niveau: 2, photo: PHOTOS + "balance-page-cellular-renew.webp", alt: "Cellular Renew ELKHA.B Balance" },
+    "active-lift": { nom: "Active Lift", actifs: "Peptides", ligne: "Rides · Fermeté · Repulpant", besoins: ["fermete"], prix: "32,90€", taille: "30 ml", niveau: 2, photo: PHOTOS + "balance-page-active-lift.webp", alt: "Active Lift ELKHA.B Balance" },
+    "age-lift": { nom: "Age Lift", actifs: "Peptides", ligne: "Rides · Fermeté", besoins: ["fermete"], prix: "37,90€", taille: "50 ml", niveau: 3, photo: PHOTOS + "balance-page-age-lift.webp", alt: "Age Lift ELKHA.B Balance" },
+    "eye-lift": { nom: "Eye Lift", actifs: "Peptides", ligne: "Regard · Paupières", besoins: ["regard"], prix: "29,90€", taille: "15 ml", niveau: 3, photo: PHOTOS + "balance-page-eye-lift.webp", alt: "Eye Lift ELKHA.B Balance" },
+    "cellular-reveal": { nom: "Cellular Reveal", actifs: "Bidens pilosa", ligne: "Ridules · Teint unifié", besoins: ["fermete", "texture"], prix: "37,90€", taille: "30 ml", niveau: 3, photo: PHOTOS + "balance-page-cellular-reveal.webp", alt: "Cellular Reveal ELKHA.B Balance" },
+    "bakuchiol-elixir": { nom: "Bakuchiol Elixir", actifs: "Bakuchiol · Huiles précieuses", ligne: "Rides installées · Grain de peau", besoins: ["fermete", "texture"], prix: "39,90€", taille: "30 ml", niveau: 4, photo: PHOTOS + "balance-page-bakuchiol-elixir.webp", alt: "Bakuchiol Elixir ELKHA.B Balance" },
+    "spot-control": { nom: "Spot Control", actifs: "Acide kojique & vitamine C", ligne: "Taches", besoins: ["taches"], prix: "28,90€", taille: "15 ml", niveau: 4, photo: PHOTOS + "balance-page-spot-control.webp", alt: "Spot Control ELKHA.B Balance" },
+    "bright-control": { nom: "Bright Control", actifs: "Correcteur anti-taches", ligne: "Taches · Teint unifié", besoins: ["taches"], prix: "34,90€", taille: "50 ml", niveau: 4, photo: PHOTOS + "balance-page-bright-control.webp", alt: "Bright Control ELKHA.B Balance" },
+    "bha-balance": { nom: "BHA Balance", actifs: "Acide salicylique", ligne: "Pores · Imperfections", besoins: ["imperfections"], prix: "24,90€", taille: "200 ml", niveau: 4, photo: PHOTOS + "balance-page-bha-balance.webp", alt: "BHA Balance ELKHA.B Balance" },
+    "glyco-balance": { nom: "Glyco Balance", actifs: "Acide glycolique", ligne: "Grain de peau", besoins: ["texture"], prix: "29,90€", taille: "250 ml", niveau: 5, photo: PHOTOS + "balance-page-glyco-balance.webp", alt: "Glyco Balance ELKHA.B Balance" },
+    "aha-balance-peel": { nom: "AHA Balance Peel", actifs: "Acide lactique & hyaluronique", ligne: "Éclat · Grain de peau", besoins: ["texture", "taches"], prix: "32,90€", taille: "30 ml", niveau: 5, photo: PHOTOS + "balance-page-aha-balance-peel.webp", alt: "AHA Balance Peel ELKHA.B Balance" }
   };
 
   // 🎬 VIDÉOS ET PHOTOS au milieu des soins
@@ -220,10 +219,7 @@
   + ".filtre .ebs-h.vide{margin:0 0 8px}"
   + ".filtre .ebs-h.vide p{display:none}"
   + ".ebs-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden}"
-  + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 86%;opacity:0;transition:opacity .6s ease}"
-  + ".ebs-ph img.pret{opacity:1}"
-  // secours si la photo ne peut pas être retravaillée : bords fondus en CSS
-  + ".ebs-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
+  + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 86%}"
   // textes alignés d'une vignette à l'autre (téléphone)
   + "@media (max-width:899px){#eb-soins .ebs-tx h3{font-size:11px;letter-spacing:.11em}#eb-soins .ebs-cib h2{font-size:20px}}"
   // mobile : les noms passent à la ligne entre deux mots, jamais au milieu d'un mot
@@ -404,7 +400,7 @@
   function vignette(id, etape){
     var s = SOINS[id]; if(!s) return '';
     return '<a class="ebs-card" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-b="' + esc(s.besoins.join(' ')) + '" data-e="' + (etape ? etape.num : '') + '">'
-      + '<div class="ebs-ph"><img src="' + esc(src(s.photo, 700)) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async"></div>'
+      + '<div class="ebs-ph"><img src="' + esc(s.photo) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async"></div>'
       + (s.niveau ? '<span class="ebs-jauge" aria-label="Niveau ' + s.niveau + ' sur 5">' + [1,2,3,4,5].map(function(k){ return '<b' + (k <= s.niveau ? ' class="on"' : '') + '></b>'; }).join('') + '<em>NIVEAU ' + s.niveau + '</em></span>' : '')
       + '<div class="ebs-tx"><h3>' + nomInsecable(s.nom) + '</h3><span class="a">' + esc(s.actifs) + '</span><span class="l">' + esc(s.ligne) + '</span><span class="p" data-prix="' + esc(id) + '">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span></div>'
       + '</a>';
@@ -423,7 +419,7 @@
       var carte = '', s = SOINS[id];
       if(v.carte && s){
         carte = '<a class="ebs-bc" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" aria-label="' + esc(s.nom) + '">'
-          + '<img src="' + esc(src(s.photo, 700)) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
+          + '<img src="' + esc(s.photo) + '" data-id="' + esc(id) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
           + (s.niveau ? '<span class="ebs-jauge" aria-label="Niveau ' + s.niveau + ' sur 5">' + [1,2,3,4,5].map(function(k){ return '<b' + (k <= s.niveau ? ' class="on"' : '') + '></b>'; }).join('') + '<em>NIVEAU ' + s.niveau + '</em></span>' : '')   // même jauge de niveau que les autres soins
           + '<span class="n">' + esc(s.nom) + '</span><span class="a">' + esc(s.actifs) + '</span><span class="l">' + esc(s.ligne) + '</span><span class="p">' + esc(prix(id)) + ' – ' + esc(s.taille) + '</span><span class="d">Découvrir</span></a>';
       }
@@ -561,159 +557,6 @@
   setTimeout(auBord, 600);
   window.addEventListener('load', largeurBloc);
 
-  // ── Photos : fondues dans le fond du site, même échelle, même ligne de sol ──
-  var FONDSITE = (function(c){ c = c.replace('#', ''); return [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }); })(REGLAGES.fondSite);
-  // photos préparées en haute définition (900 × 1200) ; un flacon de 14,5 cm occupe 84 % de la hauteur de sa case
-  // hautAff : les petits soins restent plus petits que les grands, mais l'écart est adouci pour que leur étiquette reste lisible
-  var CW = 900, CH = 1200, SOL = CH * .95, PXCM = CH * .84 / 14.5;
-  function hautAff(h){ return 14.5 * Math.pow(h / 14.5, .62); }
-  function couleur(c){ c = (c || '').replace('#', ''); return c.length === 6 ? [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }) : null; }
-  function retravailler(img){
-    var s = SOINS[img.getAttribute('data-id')], url = src(s.photo, 700);
-    var FOND = couleur(img.getAttribute('data-fond')) || FONDSITE;
-    var secours = setTimeout(function(){ img.classList.add('brut'); }, 6000);
-    fetch(url, { mode: 'cors' }).then(function(r){ if(!r.ok) throw 0; return r.blob(); })
-    .then(function(b){ return createImageBitmap(b); })
-    .then(function(bmp){
-      var w = bmp.width, h = bmp.height, c = document.createElement('canvas'); c.width = w; c.height = h;
-      var x = c.getContext('2d'); x.drawImage(bmp, 0, 0);
-      var d = x.getImageData(0, 0, w, h), p = d.data, i, k;
-      // 1. couleur du fond de la photo (bords du haut et des côtés)
-      var ech = [[], [], []];
-      function prendre(px, py){ var j = (py * w + px) * 4; ech[0].push(p[j]); ech[1].push(p[j + 1]); ech[2].push(p[j + 2]); }
-      for(k = 0; k < w; k += 4){ prendre(k, 2); prendre(k, 5); }
-      for(k = 0; k < h / 4; k += 4){ prendre(2, k | 0); prendre(w - 3, k | 0); }
-      var F = ech.map(function(a, n){ a.sort(function(u, v){ return u - v; }); return FOND[n] / (a[a.length >> 1] || 255); });
-      // 2. le fond de la photo devient exactement celui du site
-      for(i = 0; i < p.length; i += 4){ p[i] = Math.min(255, p[i] * F[0]); p[i + 1] = Math.min(255, p[i + 1] * F[1]); p[i + 2] = Math.min(255, p[i + 2] * F[2]); }
-      x.putImageData(d, 0, 0);
-      // 3. repérer le soin (colonnes hautes ; l'ombre au sol, plate, est ignorée)
-      var col = new Uint32Array(w), dif = new Uint8Array(w * h);
-      for(var y = 0; y < h; y++) for(var xx = 0; xx < w; xx++){
-        i = (y * w + xx) * 4;
-        if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 10){ dif[y * w + xx] = 1; col[xx]++; }
-      }
-      var x0 = -1, x1 = -1;
-      // le flacon = les colonnes nettement différentes du fond (une ombre douce n'est pas prise pour le flacon)
-      var fort = new Uint32Array(w);
-      for(var y3 = 0; y3 < h; y3++) for(var x3 = 0; x3 < w; x3++){ i = (y3 * w + x3) * 4; if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 40) fort[x3]++; }
-      for(xx = 0; xx < w; xx++) if(fort[xx] > h * .08){ if(x0 < 0) x0 = xx; x1 = xx; }
-      if(x0 < 0 || x1 - x0 < w * .1){ x0 = x1 = -1; for(xx = 0; xx < w; xx++) if(col[xx] > h * .12){ if(x0 < 0) x0 = xx; x1 = xx; } }
-      var y0 = -1, y1 = -1;
-      if(x0 >= 0 && x1 - x0 > w * .1){
-        var seuil = Math.max(2, (x1 - x0) * .04);
-        for(y = 0; y < h; y++){ var n = 0; for(xx = x0; xx <= x1; xx++) n += dif[y * w + xx]; if(n >= seuil){ if(y0 < 0) y0 = y; y1 = y; } }
-        // le pied du soin = dernière ligne vraiment pleine (le reflet sous le flacon ne compte pas)
-        if(y0 >= 0){
-          var yb = y1, plein = (x1 - x0) * .5;
-          while(yb > y0){ var m = 0; for(xx = x0; xx <= x1; xx++) m += dif[yb * w + xx]; if(m >= plein) break; yb--; }
-          if(y1 - yb > (y1 - y0) * .03) y1 = yb;
-        }
-      }
-      //    autour du flacon (jamais sur le flacon : les capuchons blancs gardent leur contour),
-      //    ce qui est presque de la couleur du fond devient transparent : plus aucun rectangle visible autour de la photo
-      if(x0 >= 0 && y0 >= 0){
-        var mz = Math.round((x1 - x0) * .06) + 6, zx0 = x0 - mz, zx1 = x1 + mz, zy0 = y0 - mz - Math.round((y1 - y0) * .15), zy1 = y1 + mz;   // au-dessus : marge plus grande (haut des capuchons blancs)
-        for(var yy = 0; yy < h; yy++) for(var xz = 0; xz < w; xz++){
-          var dz = Math.max(zx0 - xz, xz - zx1, zy0 - yy, yy - zy1);
-          if(dz <= 0) continue;
-          i = (yy * w + xz) * 4;
-          var ec = Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2]));
-          if(ec < 14){
-            var pz = Math.min(1, dz / (mz * 2));   // passage progressif : aucun bord visible autour du flacon
-            p[i + 3] = Math.round(p[i + 3] * (1 - pz * (1 - (ec <= 5 ? 0 : (ec - 5) / 9))));
-          }
-        }
-        x.putImageData(d, 0, 0);
-      }
-      // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
-      x.globalCompositeOperation = 'destination-in';
-      //    seulement AUTOUR du flacon : le flacon lui-même n'est jamais rendu transparent (pas de halo blanc sur ses bords)
-      var fg = .14, fd = .86, fh = .08, fb = .92;
-      if(x0 >= 0){ var mg = (x1 - x0) * .1 + 4; fg = Math.min(.14, Math.max(0, (x0 - mg) / w)); fd = Math.max(.86, Math.min(1, (x1 + mg) / w)); }
-      if(y0 >= 0){ fh = Math.min(.08, Math.max(0, (y0 - 3) / h)); fb = Math.max(.92, Math.min(1, (y1 + 3) / h)); }
-      var g = x.createLinearGradient(0, 0, w, 0);
-      g.addColorStop(0, fg > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fg, '#000'); g.addColorStop(fd, '#000'); g.addColorStop(1, fd < .999 ? 'rgba(0,0,0,0)' : '#000');
-      x.fillStyle = g; x.fillRect(0, 0, w, h);
-      g = x.createLinearGradient(0, 0, 0, h);
-      g.addColorStop(0, fh > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fh, '#000'); g.addColorStop(fb, '#000'); g.addColorStop(1, fb < .999 ? 'rgba(0,0,0,0)' : '#000');
-      x.fillStyle = g; x.fillRect(0, 0, w, h);
-      // 5. cadre commun : même échelle (hauteur réelle), même ligne de sol
-      var o = document.createElement('canvas'); o.width = CW; o.height = CH;
-      var ox = o.getContext('2d');   // fond transparent : la photo se fond dans la page
-      var sc, dx, dy;
-      if(y0 >= 0 && s.hauteur && (y1 - y0) > h * .2){
-        sc = hautAff(s.hauteur) * PXCM / (y1 - y0) * (s.echelle || 1);   // echelle : réglage de taille propre à un soin (ex. Hydra Balance, flacon large)
-        if((x1 - x0) * sc > CW * .9) sc = CW * .9 / (x1 - x0);
-        dx = CW / 2 - (x0 + x1) / 2 * sc; dy = SOL - y1 * sc;
-      } else { sc = Math.min(CW / w, CH / h); dx = (CW - w * sc) / 2; dy = CH - h * sc; }
-      ox.imageSmoothingEnabled = true; ox.imageSmoothingQuality = "high";   // réduction de qualité haute : étiquettes nettes
-      ox.drawImage(c, dx, dy, w * sc, h * sc);
-      // photo plus large que la case (ex. Glyco Balance) : l'ombre s'efface doucement avant le bord, au lieu d'être coupée net
-      if(dx < 0 || dx + w * sc > CW){
-        ox.globalCompositeOperation = 'destination-in';
-        var gb = ox.createLinearGradient(0, 0, CW, 0);
-        gb.addColorStop(0, 'rgba(0,0,0,0)'); gb.addColorStop(.12, '#000'); gb.addColorStop(.88, '#000'); gb.addColorStop(1, 'rgba(0,0,0,0)');
-        ox.fillStyle = gb; ox.fillRect(0, 0, CW, CH);
-        ox.globalCompositeOperation = 'source-over';
-      }
-      // 6. écritures renforcées : on fonce seulement ce qui est déjà sombre (écritures, logo, vert de l'étiquette) ;
-      //    les blancs ne bougent pas (pas d'effet de projecteur) ; dosage plus léger pour les flacons déjà foncés
-      if(x0 >= 0 && y0 >= 0){
-        var bx0 = Math.max(0, Math.floor(dx + x0 * sc)), bx1 = Math.min(CW - 1, Math.ceil(dx + x1 * sc));
-        var by0 = Math.max(0, Math.floor(dy + y0 * sc) - 4), by1 = Math.min(CH - 1, Math.ceil(dy + y1 * sc));
-        var bw = bx1 - bx0 + 1, bh = by1 - by0 + 1;
-        if(bw > 4 && bh > 4){
-          var zone = ox.getImageData(bx0, by0, bw, bh), zq = zone.data, zi, somme = 0, nb = 0;
-          for(zi = 0; zi < zq.length; zi += 4){ if(zq[zi + 3] > 200){ somme += (zq[zi] + zq[zi + 1] + zq[zi + 2]) / 3; nb++; } }
-          var clarte = nb ? somme / nb : 255;
-          var GAM = 1 + .45 * Math.max(0, Math.min(1, (clarte - 120) / 30)) * (s.renfort == null ? 1 : s.renfort), SEUIL = 228;   // renfort : 0 = aucun (photo déjà très nette), 1 = normal
-          var courbe = new Float32Array(256);
-          for(zi = 0; zi < 256; zi++) courbe[zi] = zi < SEUIL ? SEUIL * Math.pow(zi / SEUIL, GAM) : zi;
-          for(zi = 0; zi < zq.length; zi += 4){
-            if(zq[zi + 3] < 8) continue;
-            var lu = (zq[zi] + zq[zi + 1] + zq[zi + 2]) / 3; if(lu < 1) continue;
-            var fct = courbe[Math.round(lu)] / lu;
-            zq[zi] *= fct; zq[zi + 1] *= fct; zq[zi + 2] *= fct;
-          }
-          // blancs : écritures claires posées sur une étiquette foncée (ex. Glyco) rendues plus éclatantes ;
-          //          seulement là où l'entourage est foncé (le verre et le fond ne bougent pas)
-          if(s.blancs){
-            var zb = new Uint8ClampedArray(zq), lum = function(k){ return (zb[k] + zb[k + 1] + zb[k + 2]) / 3; };
-            for(var wy = 0; wy < bh; wy++) for(var wx = 8; wx < bw - 8; wx++){
-              zi = (wy * bw + wx) * 4; if(zb[zi + 3] < 200) continue;
-              var lb = lum(zi); if(lb < 140) continue;
-              var autour = (lum(zi - 32) + lum(zi + 32)) / 2; if(autour > 135) continue;
-              var tb = Math.min(1, (lb - 140) / 70) * s.blancs;
-              zq[zi] += (255 - zq[zi]) * tb; zq[zi + 1] += (255 - zq[zi + 1]) * tb; zq[zi + 2] += (255 - zq[zi + 2]) * tb;
-            }
-          }
-          // netteté des lettres (légère)
-          var net = .6 * (GAM - 1) / .45, src2 = new Uint8ClampedArray(zq);
-          if(net > .05) for(var ry = 1; ry < bh - 1; ry++) for(var rx = 1; rx < bw - 1; rx++){
-            zi = (ry * bw + rx) * 4; if(src2[zi + 3] < 200) continue;
-            for(var cc = 0; cc < 3; cc++){
-              var vv = src2[zi + cc], mo = (src2[zi + cc - 4] + src2[zi + cc + 4] + src2[zi + cc - bw * 4] + src2[zi + cc + bw * 4]) / 4;
-              if(Math.abs(vv - mo) > 2) zq[zi + cc] = vv + (vv - mo) * net;
-            }
-          }
-          ox.putImageData(zone, bx0, by0);
-        }
-      }
-      o.toBlob(function(b){
-        clearTimeout(secours);
-        if(!b){ img.classList.add('brut'); return; }
-        img.onload = function(){ img.classList.remove('brut'); img.classList.add('pret'); };
-        img.src = URL.createObjectURL(b);
-      }, 'image/png');
-    })
-    .catch(function(){ clearTimeout(secours); img.classList.add('brut'); });
-  }
-  var imgs = root.querySelectorAll('.ebs-ph img, .ebs-bc img');   // aussi la carte posée sur le bandeau (Bakuchiol Elixir)
-  if('IntersectionObserver' in window && window.fetch && window.createImageBitmap){
-    var io = new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ io.unobserve(e.target); retravailler(e.target); } }); }, { rootMargin: '800px 0px' });
-    imgs.forEach(function(im){ io.observe(im); });
-  } else imgs.forEach(function(im){ im.classList.add('brut'); });
   // Téléphone : 4 lignes, puis « … + » à la fin de la phrase ; ouvert : « − » à la fin du texte
   var txt = root.querySelector('.ebs-txt');
   if(txt){
