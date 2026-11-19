@@ -559,7 +559,6 @@
   // Images Shopify en haute résolution (écrans Retina), sans jamais les agrandir artificiellement
   function hd(url, w){
     if(!url) return '';
-    var prete = photoPrete(url); if(prete) return prete;
     if(/cdn\.shopify\.com\/s\/files\//.test(url) && !/[?&]width=/.test(url)){
       return url + (url.indexOf('?') === -1 ? '?' : '&') + 'width=' + (w || 1600);
     }
@@ -576,22 +575,10 @@
     if(built) return;
     built = true;
     var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
-    // Zoom des photos : loupe au clic (ordinateur), zoom sur place au toucher (téléphone)
-    var stz = document.createElement('style');
-    stz.textContent = ".eb-fp-media img.eb-zoomable{cursor:zoom-in;transition:transform .25s ease;will-change:transform}"
-      + ".eb-fp-media img.eb-zoomable.eb-zoom-on{transition:transform .12s ease-out}"
-      + ".eb-fp-media img.eb-zoomable.eb-zoom-on{cursor:zoom-out}"
-      + ".eb-fp-zoom-aide{position:absolute;left:0;right:0;bottom:38px;text-align:center;font:400 10px/1 'Montserrat',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.55);opacity:0;transition:opacity .3s ease;pointer-events:none;z-index:2}"
-      + ".eb-fp-media.eb-survol .eb-fp-zoom-aide{opacity:1}"
-      + ".eb-fp-media.eb-zoom-actif .eb-fp-zoom-aide{opacity:0}"
-      + ".eb-fp-media img.eb-zoom-tel{transition:transform .25s ease}"
-      + ".eb-fp-media img.eb-zoom-tel.eb-glisse{transition:none}";
-    document.head.appendChild(stz);
     overlay = document.createElement('div');
     overlay.className = 'eb-fp-overlay';
     overlay.setAttribute('role', 'dialog');
     document.body.appendChild(overlay);
-    installerZoom();
     closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.className = 'eb-fp-close';
@@ -810,125 +797,6 @@
       };
       t.src = img.currentSrc || img.src;
     });
-  }
-
-  // ── Photos Balance préparées à l'avance (mêmes couleurs que la page des soins : écritures et vert de l'étiquette renforcés) ──
-  //    déposées dans elkhab-site, à pleine taille : la même photo sert à l'affichage et au zoom, rien n'est retouché au moment de l'affichage
-  //    (une photo qui n'est pas dans cette liste s'affiche normalement depuis Shopify)
-  var PHOTOS_PRETES = "https://elkhabskincare.github.io/elkhab-site/";
-  var PRETES = ["balance-active-lift-1-boite-flacon-v8", "balance-active-lift-2-flacon-v8", "balance-active-lift-flacon-site-v8", "balance-active-lift-miniature-v8", "balance-age-lift-1-boite-flacon-v6", "balance-age-lift-2-flacon-v6", "balance-age-lift-flacon-site-v6", "balance-age-lift-miniature-v6", "balance-aha-balance-peel-1-boite-flacon-v6", "balance-aha-balance-peel-2-flacon-v6", "balance-aha-balance-peel-flacon-site-v6", "balance-aha-balance-peel-miniature-v6", "balance-bakuchiol-elixir-1-boite-flacon-v7", "balance-bakuchiol-elixir-2-flacon-v7", "balance-bakuchiol-elixir-flacon-site-v7", "balance-bakuchiol-elixir-miniature-v7", "balance-bha-balance-1-flacon-v6", "balance-bha-balance-2-dos-v6", "balance-bha-balance-flacon-site-v6", "balance-bha-balance-miniature-v6", "balance-bright-control-1-boite-flacon-v6", "balance-bright-control-2-flacon-v6", "balance-bright-control-flacon-site-v6", "balance-bright-control-miniature-v6", "balance-calm-balance-jour-1-boite-flacon-v6", "balance-calm-balance-jour-2-flacon-v6", "balance-calm-balance-jour-flacon-site-v6", "balance-calm-balance-jour-miniature-v6", "balance-calm-balance-nuit-1-boite-flacon-v6", "balance-calm-balance-nuit-2-flacon-v6", "balance-calm-balance-nuit-flacon-site-v6", "balance-calm-balance-nuit-miniature-v6", "balance-cellular-eye-restore-1-boite-flacon-v6", "balance-cellular-eye-restore-2-flacon-v6", "balance-cellular-eye-restore-flacon-site-v6", "balance-cellular-eye-restore-miniature-v6", "balance-cellular-renew-1-boite-flacon-v6", "balance-cellular-renew-2-flacon-v6", "balance-cellular-renew-flacon-site-v6", "balance-cellular-renew-miniature-v6", "balance-cellular-reveal-1-boite-flacon-v6", "balance-cellular-reveal-2-flacon-v6", "balance-cellular-reveal-flacon-site-v6", "balance-cellular-reveal-miniature-v6", "balance-ceramide-night-restore-1-boite-flacon-v6", "balance-ceramide-night-restore-2-flacon-v6", "balance-ceramide-night-restore-flacon-site-v6", "balance-ceramide-night-restore-miniature-v6", "balance-eye-lift-1-boite-flacon-v7", "balance-eye-lift-2-flacon-v8", "balance-eye-lift-flacon-site-v8", "balance-eye-lift-miniature-v8", "balance-fusion-balance-1-boite-flacon-v6", "balance-fusion-balance-2-flacon-v6", "balance-fusion-balance-flacon-site-v6", "balance-fusion-balance-miniature-v6", "balance-glyco-balance-1-flacon-v6", "balance-glyco-balance-2-dos-v6", "balance-glyco-balance-flacon-site-v6", "balance-glyco-balance-miniature-v6", "balance-hydra-balance-1-boite-flacon-v7", "balance-hydra-balance-2-flacon-v7", "balance-hydra-balance-flacon-site-v7", "balance-hydra-balance-miniature-v7", "balance-spot-control-1-boite-flacon-v7", "balance-spot-control-2-flacon-v7", "balance-spot-control-flacon-site-v7", "balance-spot-control-miniature-v7", "radiance-c-serum-1-boite-flacon_-_Copie", "radiance-c-serum-2-flacon_dezoome"];
-  function photoPrete(u){
-    var m = /\/files\/([^\/?#]+)\.(?:jpg|png)(?:[?#]|$)/.exec(u || '');
-    return (m && PRETES.indexOf(m[1]) >= 0) ? PHOTOS_PRETES + m[1] + '.webp' : null;
-  }
-
-  // ── Zoom des photos de la fiche ──
-  //    ordinateur (souris) : au survol, « Cliquez pour zoomer » ; au clic, la photo s'agrandit et suit la souris, comme une loupe ;
-  //                          nouveau clic ou souris qui quitte la photo : photo normale (les points du diaporama restent faciles à cliquer)
-  //    téléphone (doigt)   : toucher la photo l'agrandit sur place, à l'endroit touché ; toucher encore la remet normale
-  //    la grande version de la photo ne se charge qu'au moment du zoom (la fiche reste rapide), avec les mêmes couleurs que la photo
-  //    seules les 2 premières photos du diaporama se zooment (boîte et flacon) : pas les textures, ni les photos de visage
-  function photoZoomable(el){
-    if(!(el && el.tagName === 'IMG' && el.closest && el.closest('.eb-fp-media') && !el.classList.contains('eb-fp-poster') && !el.closest('.eb-fp-sel'))) return false;
-    var slide = el.closest('.eb-fp-slide');
-    if(!slide) return true;   // photo unique
-    return Array.prototype.indexOf.call(slide.parentNode.children, slide) < 2;
-  }
-  function grandeVersion(img, fait){
-    if(img.getAttribute('data-hd')){ fait(img.getAttribute('data-hd')); return; }
-    var base = img.currentSrc || img.src;
-    if(base.indexOf(PHOTOS_PRETES) === 0){ fait(base); return; }   // photo préparée : déjà à pleine taille
-    var u = base.replace(/([?&])width=\d+/, '$1width=2400');
-    var t = new Image();
-    t.onload = function(){ img.setAttribute('data-hd', u); fait(u); };
-    t.onerror = function(){ fait(img.currentSrc || img.src); };
-    t.src = u;
-  }
-  function installerZoom(){
-    var souris = window.matchMedia && window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-    var LOUPE = 2.2;
-    if(souris){
-      var actif = null, presse = null;
-      var viser = function(img, ev){
-        var r = img.getBoundingClientRect();
-        img.style.transformOrigin = ((ev.clientX - r.left) / r.width * 100) + '% ' + ((ev.clientY - r.top) / r.height * 100) + '%';
-      };
-      var reposer = function(){
-        if(!actif) return;
-        actif.style.transform = ''; actif.classList.remove('eb-zoom-on');
-        var m = actif.closest('.eb-fp-media'); if(m) m.classList.remove('eb-zoom-actif');
-        actif = null;
-      };
-      overlay.addEventListener('mouseover', function(ev){
-        var img = ev.target; if(!photoZoomable(img)) return;
-        img.classList.add('eb-zoomable');
-        var m = img.closest('.eb-fp-media');
-        if(!m.querySelector('.eb-fp-zoom-aide')){ var a = document.createElement('span'); a.className = 'eb-fp-zoom-aide'; a.textContent = 'Cliquez pour zoomer'; m.appendChild(a); }
-        m.classList.add('eb-survol');
-        clearTimeout(slideTimer);   // la cliente regarde la photo : le diaporama s'arrête
-      });
-      overlay.addEventListener('mouseout', function(ev){
-        var img = ev.target; if(!photoZoomable(img)) return;
-        var m = img.closest('.eb-fp-media');
-        if(!m.contains(ev.relatedTarget) || ev.relatedTarget.classList.contains('eb-fp-dot')) m.classList.remove('eb-survol');
-        if(img === actif) reposer();
-      });
-      overlay.addEventListener('mousedown', function(ev){ presse = { x: ev.clientX, y: ev.clientY }; }, true);
-      overlay.addEventListener('click', function(ev){
-        var img = ev.target; if(!photoZoomable(img)) return;
-        if(presse && Math.abs(ev.clientX - presse.x) + Math.abs(ev.clientY - presse.y) > 6) return;   // la cliente a fait glisser le diaporama
-        if(actif === img){ reposer(); return; }
-        reposer();
-        clearTimeout(slideTimer);   // la cliente regarde la photo : le diaporama s'arrête
-        actif = img;
-        viser(img, ev);
-        img.style.transform = 'scale(' + LOUPE + ')';
-        img.classList.add('eb-zoom-on');
-        img.closest('.eb-fp-media').classList.add('eb-zoom-actif');
-        grandeVersion(img, function(u){ if(actif === img && img.src !== u) img.src = u; });
-      });
-      overlay.addEventListener('mousemove', function(ev){ if(actif && ev.target === actif) viser(actif, ev); });
-      overlay.addEventListener('scroll', reposer, { capture: true, passive: true });   // autre photo du diaporama : photo normale
-      return;
-    }
-    // téléphone : la photo s'agrandit sur place, dans son cadre (la cliente reste sur la fiche)
-    //   1er toucher : zoom à l'endroit touché ; glisser le doigt : se déplacer ; 2e toucher : photo normale
-    var LOUPE_TEL = 2.4, zoomee = null, depart = null;
-    var origine = function(img){ var o = (img.style.transformOrigin || '50% 50%').split(' '); return [parseFloat(o[0]), parseFloat(o[1])]; };
-    var reposerTel = function(){ if(!zoomee) return; zoomee.style.transform = ''; zoomee.classList.remove('eb-zoom-tel', 'eb-glisse'); zoomee = null; };
-    overlay.addEventListener('click', function(ev){
-      var img = ev.target; if(!photoZoomable(img)) return;
-      if(zoomee === img){ reposerTel(); return; }
-      reposerTel();
-      clearTimeout(slideTimer);   // la cliente regarde la photo : le diaporama s'arrête
-      var r = img.getBoundingClientRect();
-      img.style.transformOrigin = ((ev.clientX - r.left) / r.width * 100) + '% ' + ((ev.clientY - r.top) / r.height * 100) + '%';
-      img.classList.add('eb-zoom-tel');
-      img.style.transform = 'scale(' + LOUPE_TEL + ')';
-      zoomee = img;
-      grandeVersion(img, function(u){ if(zoomee === img && img.src !== u) img.src = u; });
-    });
-    // photo agrandie : le doigt déplace la photo (et ne fait plus défiler le diaporama)
-    overlay.addEventListener('touchstart', function(ev){
-      if(!zoomee || ev.target !== zoomee) return;
-      ev.stopPropagation();
-      var t = ev.touches[0]; depart = { x: t.clientX, y: t.clientY, o: origine(zoomee) };
-    }, { capture: true, passive: true });
-    overlay.addEventListener('touchmove', function(ev){
-      if(!zoomee || ev.target !== zoomee || !depart) return;
-      ev.stopPropagation(); ev.preventDefault();
-      var t = ev.touches[0], r = zoomee.getBoundingClientRect(), w = r.width / LOUPE_TEL, h = r.height / LOUPE_TEL;
-      var ox = Math.max(0, Math.min(100, depart.o[0] - (t.clientX - depart.x) / ((LOUPE_TEL - 1) * w) * 100));
-      var oy = Math.max(0, Math.min(100, depart.o[1] - (t.clientY - depart.y) / ((LOUPE_TEL - 1) * h) * 100));
-      zoomee.classList.add('eb-glisse');
-      zoomee.style.transformOrigin = ox + '% ' + oy + '%';
-    }, { capture: true, passive: false });
-    overlay.addEventListener('touchend', function(ev){
-      if(!zoomee || ev.target !== zoomee) return;
-      ev.stopPropagation(); depart = null; zoomee.classList.remove('eb-glisse');
-    }, { capture: true, passive: true });
-    // la cliente passe à une autre photo : la photo agrandie redevient normale
-    overlay.addEventListener('scroll', reposerTel, { capture: true, passive: true });
   }
 
   function demarrerDiaporama(){
