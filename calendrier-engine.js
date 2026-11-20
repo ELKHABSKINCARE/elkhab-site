@@ -76,7 +76,7 @@
                txt: 'Un duo de soins vegan à la formulation naturelle, pour garder un teint de fête tout l’hiver : le Radiance C Serum, sérum crémeux antioxydant qui ravive l’éclat, et le Lumi-Bloom Arbutin, sérum unifiant qui estompe les taches. Une peau lumineuse, même sous la neige.' },
     velours: { nom: 'Velours d’Hiver', sous: 'COFFRET SÉRUMS FERMETÉ · VALEUR 94 €', img: 'calendrier-lot-velours-dhiver.jpg',
                alt: 'Coffret de sérums visage vegan Velours d’Hiver ELKHA.B',
-               txt: 'Trois soins vegan à la formulation naturelle réunis pour le grand tirage : le Bakuchiol Elixir, le sérum Active Lift et le Luminescence Boost. Un coffret à offrir… ou à s’offrir.' }
+               txt: 'Trois soins vegan à la formulation naturelle pour une peau plus ferme et plus lisse : le Bakuchiol Elixir, l’alternative végétale au rétinol qui aide à stimuler le collagène et raffermit, le sérum Active Lift pour atténuer rides et ridules, et le Luminescence Boost pour une peau plus tonique et pleine de rebond. Un coffret à offrir… ou à s’offrir.' }
   };
 
   var AUG = 'Augmentez vos chances : chaque amie qui vous rejoint vous rapporte 3 chances.';
