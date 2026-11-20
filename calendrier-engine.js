@@ -23,6 +23,8 @@
     casesDoubles: [6, 13, 18, 20, 23]
   };
   var IMG = REGLAGES.images;
+  var COLLABS = ['LAURELIE', 'CYNTHIA', 'PAULINE', 'VERONIQUE'];   // liens ?ami=PRENOM des collaboratrices (comme le registre)
+  var JOURS_COLLAB = [7, 8];
   var BAL = 'https://balance.elkhab.com/?fiche=', BLO = 'https://bloom.elkhab.com/?fiche=';
 
   // ───────────────────────── LES 24 CASES ─────────────────────────
@@ -39,14 +41,14 @@
           conf: 'Aujourd’hui seulement, chaque amie qui ouvre sa première case grâce à vous vous rapporte 5 chances.' },
     4:  SEL(1),
     5:  { type: 'soin', soin: 'Hydra Balance', img: 'hydra-balance_1', valeur: '28,90 €', genre: 'm', url: BAL + 'hydra-balance' },
-    6:  { type: 'txt', titre: '–20 % sur toute votre commande', sous: 'Aujourd’hui seulement, hors coffrets.',
-          conf: 'Votre remise de 20 % est enregistrée : elle s’appliquera à toute votre commande jusqu’à minuit, hors coffrets.' },
+    6:  { type: 'txt', titre: '–20 % sur vos soins', sous: 'Aujourd’hui seulement, hors coffrets et routines.',
+          conf: 'Votre remise de 20 % est enregistrée : elle s’appliquera à vos soins jusqu’à minuit, hors coffrets et routines.' },
     7:  { type: 'remise', soin: 'Radiance Protect', img: 'radiance-protect', sous: 'Protection solaire SPF 50 minérale en stick, sans effet gras', remise: '–15 %', url: BLO + 'radiance-protect' },
     8:  LIV,
-    9:  { type: 'txt', titre: '–30 % sur votre 2e soin', sous: 'Sur toute la boutique, dès 2 soins achetés.',
+    9:  { type: 'txt', titre: '–30 % sur votre 2e soin', sous: 'Sur un soin à l’unité, dès 2 soins achetés.',
           conf: 'Votre remise de 30 % sur votre 2e soin est enregistrée : elle s’appliquera à votre commande jusqu’à minuit.' },
-    10: { type: 'txt', titre: '–20 % sur votre routine Skin ID', sous: 'Faites votre diagnostic de peau et recevez votre routine avant Noël.',
-          conf: 'Votre remise de 20 % sur votre routine Skin ID est enregistrée : elle s’appliquera jusqu’à minuit. Commandez aujourd’hui pour la recevoir avant Noël.',
+    10: { type: 'txt', titre: '–20 % sur votre routine Skin ID', sous: 'Dès 2 soins à l’unité, hors coffrets et routines.',
+          conf: 'Votre remise de 20 % est enregistrée : elle s’appliquera dès 2 soins à l’unité jusqu’à minuit. Faites votre Skin ID et composez votre routine avec les soins qu’il vous conseille.',
           lien: 'FAIRE MON SKIN ID', skinId: true },
     11: { type: 'remise', soin: 'Lumi-Bloom Arbutin', img: 'lumibloom-arbutin', sous: 'Sérum unifiant anti-taches', remise: '–15 %', url: BLO + 'lumibloom-arbutin' },
     12: { type: 'soin', soin: 'Gelée Lumi-Bloom', img: 'gelee-lumibloom', valeur: '28,90 €', genre: 'f', url: BLO + 'gelee-lumibloom' },
@@ -134,7 +136,7 @@
   function domaine(){ return /(^|\.)elkhab\.com$/.test(location.hostname) ? '; domain=.elkhab.com' : ''; }
   function garderGain(jour){
     var p = paris(), reste = ((23 - p.hour) * 3600 + (59 - p.minute) * 60 + (60 - p.second));
-    document.cookie = 'eb_calendrier=' + REGLAGES.annee + '-12-' + (jour < 10 ? '0' : '') + jour + '; max-age=' + reste + '; path=/' + domaine() + '; SameSite=Lax';
+    document.cookie = 'eb_calendrier=' + REGLAGES.annee + '-12-' + (jour < 10 ? '0' : '') + jour + (estCollab(jour) ? '-c' : '') + '; max-age=' + reste + '; path=/' + domaine() + '; SameSite=Lax';
   }
 
   // ───────────────────────────── LA PAGE ─────────────────────────────
@@ -169,6 +171,9 @@
   // lien d'amie ou de collaboratrice : gardé pour l'inscription
   var ami = (new URLSearchParams(location.search).get('ami') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20);
   if(ami) ecrire('ebcal_ami', ami); else ami = lire('ebcal_ami') || '';
+  function estCollab(j){ return COLLABS.indexOf(ami) >= 0 && JOURS_COLLAB.indexOf(j) >= 0; }
+  var CASE_COLLAB = { type: 'soin', soin: 'Hydra Balance', img: 'hydra-balance_1', valeur: '28,90 €', genre: 'm', url: BAL + 'hydra-balance' };
+  function caseDu(j){ return estCollab(j) ? CASE_COLLAB : (CASES[j] || LIV); }
 
   function A(el, kf, op){ var a = el.animate(kf, Object.assign({ fill: 'forwards' }, op)); anims.push(a); return a; }
   function toast(t){ var e = $('toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function(){ e.classList.remove('on'); }, 2800); }
@@ -240,7 +245,7 @@
 
   // ───────────────────────── LA CARTE DU GAIN ─────────────────────────
   function preparerCarte(){
-    var j = S.jour, c = CASES[j] || LIV, avecImage = (c.type === 'soin' || c.type === 'remise') && IMAGES_PRETES.indexOf(c.img) >= 0;
+    var j = S.jour, c = caseDu(j), avecImage = (c.type === 'soin' || c.type === 'remise') && IMAGES_PRETES.indexOf(c.img) >= 0;
     $('date1').textContent = j + (j === 1 ? 'ER' : '') + ' DÉCEMBRE';
     carte.classList.remove('g-liv', 'g-soin'); carte.classList.add(avecImage ? 'g-soin' : 'g-liv');
     var sz = carte.querySelector('.soin'), gl = carte.querySelector('.gl');
@@ -315,7 +320,7 @@
     carte.classList.remove('lu'); $('reflet').classList.remove('go'); tir.classList.remove('revoir'); etat = 'ferme';
     compte1 = true; revoirMode = true; afficherChances();
     // 2e visite : le bouton dit où il emmène (Skin ID le 10, partage les jours bonus)
-    var c = CASES[S.jour] || LIV, lib = c.skinId ? 'JE FAIS MON SKIN ID' : c.type === 'bonus' ? 'PARTAGER À UNE AMIE' : 'J’EN PROFITE';
+    var c = caseDu(S.jour), lib = c.skinId ? 'JE FAIS MON SKIN ID' : c.type === 'bonus' ? 'PARTAGER À UNE AMIE' : 'J’EN PROFITE';
     carte.querySelectorAll('[data-profiter]').forEach(function(b){ b.textContent = lib; });
     ouvrir(true);
   }
@@ -371,7 +376,7 @@
     if(etat !== 'ouvert') return;
     // 2e visite du jour : pas de 2e carte, « J'en profite » mène directement au soin ou à la boutique
     if(revoirMode){
-      var c = CASES[S.jour] || LIV, bt = $('boutique');
+      var c = caseDu(S.jour), bt = $('boutique');
       if(c.type === 'bonus'){ ranger(); setTimeout(function(){ var p2 = $('pa2'); p2.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function(){ p2.click(); }, 700); }, 1900); return; }
       if(bt.dataset.skin) chargerSkinId(); else window.location.href = bt.href;
       return;
