@@ -364,6 +364,7 @@ const CART_FIELDS = `
       node {
         id
         quantity
+        attributes { key value }
         discountAllocations { discountedAmount { amount } }
         merchandise {
           ... on ProductVariant {
@@ -371,7 +372,7 @@ const CART_FIELDS = `
             title
             price { amount currencyCode }
             image { url }
-            product { title featuredImage { url } }
+            product { id title featuredImage { url } }
           }
         }
       }
@@ -408,13 +409,13 @@ async function ebCartCreate(variantId, quantity){
   return cart;
 }
 
-async function ebCartAddLine(variantId, quantity){
+async function ebCartAddLine(variantId, quantity, attributs){
   const mutation = `mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
     cartLinesAdd(cartId: $cartId, lines: $lines) { cart { ${CART_FIELDS} } userErrors { field message } }
   }`;
   const result = await shopifyFetch(mutation, {
     cartId: cartId,
-    lines: [{ quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId }]
+    lines: [attributs ? { quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId, attributes: attributs } : { quantity, merchandiseId: 'gid://shopify/ProductVariant/' + variantId }]
   });
 
   const userErrors = result && result.data && result.data.cartLinesAdd && result.data.cartLinesAdd.userErrors;
@@ -432,7 +433,7 @@ async function ebCartAddLine(variantId, quantity){
       if(ebCartAddLine.essai !== true){
         ebCartAddLine.essai = true;
         await new Promise(function(r){ setTimeout(r, 500); });
-        try { return await ebCartAddLine(variantId, quantity); } finally { ebCartAddLine.essai = false; }
+        try { return await ebCartAddLine(variantId, quantity, attributs); } finally { ebCartAddLine.essai = false; }
       }
       console.error('ELKHA.B panier — Shopify a refusé l\'ajout deux fois', result);
       return null;
@@ -567,6 +568,12 @@ function ebCartLivraison(sousTotal){
   note.style.display = ebCartCodeActif ? 'none' : 'block';
   const reste = EB_SEUIL_LIVRAISON - sousTotal;
   const txt = zone.querySelector('.eb-cart-livraison-txt');
+  if(ebCalLivraisonOfferte()){
+    txt.innerHTML = '<strong>Votre livraison est offerte</strong> grâce au calendrier';
+    note.style.display = 'none';
+    zone.querySelector('.eb-cart-livraison-barre span').style.width = '100%';
+    return;
+  }
   if(reste > 0){
     txt.innerHTML = 'Plus que <strong>' + ebFormatPrice(reste) + '</strong> pour profiter de la livraison offerte';
   } else {
@@ -602,7 +609,8 @@ function ebEchNorm(t){ return String(t || '').toLowerCase().normalize('NFD').rep
 function ebEchEstEchantillon(m){
   const v = String(m.id || '').split('/').pop();
   return Object.keys(EB_ECHANTILLONS).some(function(k){ return EB_ECHANTILLONS[k].variant && EB_ECHANTILLONS[k].variant === v; })
-    || /^echantillon/.test(ebEchNorm(m.product && m.product.title));
+    || /^echantillon/.test(ebEchNorm(m.product && m.product.title))
+    || (typeof ebCalEstBoule === 'function' && ebCalEstBoule(m));
 }
 // La photo du site pour une variante Shopify — la même que dans la recherche :
 // celle de la teinte si la fiche en a une, sinon la miniature de la fiche (ou sa 1re photo).
@@ -671,7 +679,7 @@ function ebPhotoTaille(u){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0
 function ebEchCle(titre){ const t = ebEchNorm(titre); for(const r of EB_ECH_REGLES){ if(t.indexOf(r[0]) > -1) return r[1]; } return 'radiance-c-serum'; }
 function ebEchantillonEtat(cart){
   const lignes = cart ? cart.lines.edges.map(function(e){ return e.node; }) : [];
-  const soins = lignes.filter(function(l){ return !ebEchEstEchantillon(l.merchandise); });
+  const soins = lignes.filter(function(l){ return !ebEchEstEchantillon(l.merchandise) && !ebCalEstOffert(l); });
   let nb = 0, principal = null;
   soins.forEach(function(l){
     const t = ebEchNorm(l.merchandise.product.title);
@@ -730,6 +738,321 @@ async function ebEchantillonSyncDirect(cart){
   } catch(err){ ebEchEnCours = false; console.error('ELKHA.B panier — échantillon :', err); }
 }
 
+// ══════════ CALENDRIER DES FÊTES ELKHA.B (du 1er au 24 décembre 2026) ══════════
+// Une cliente qui a ouvert sa case garde son gain jusqu'à minuit : calendrier.elkhab.com pose le cookie
+// eb_calendrier (2026-12-JJ, ou 2026-12-JJ-c pour une cliente venue par le lien d'une collaboratrice, les 7 et 8).
+// Le panier applique alors tout seul le code caché du jour (réglé dans Shopify : ce jour-là seulement, une fois par
+// cliente, non cumulable) et ajoute le soin offert ou la boule de bain. Une cliente qui n'a pas joué n'a rien.
+const EB_CAL = {
+  codes: { 1: 'NOEL01AAPCUH', 2: 'NOEL029BDF23', 4: 'NOEL04ESVWKK', 5: 'NOEL05VFZGH6', 6: 'NOEL06G96PXM', 7: 'NOEL07X4RYXR',
+           8: 'NOEL08CWPURM', 9: 'NOEL09EFYHVA', 10: 'NOEL10CB5FEX', 11: 'NOEL1197DQ2Q', 12: 'NOEL12HGLXWB', 13: 'NOEL13SHAGAS',
+           14: 'NOEL14GJCU5P', 15: 'NOEL15WE5DJ2', 16: 'NOEL16BXE4RC', 17: 'NOEL17SYZASH', 20: 'NOEL20W4UEPT', 21: 'NOEL21S93K8F',
+           22: 'NOEL225W87F5', 24: 'NOEL24D8HGM4', c: 'NOELHBMS2HV2' },
+  // soin offert pour l'achat d'un soin (identifiant de variante) : Hydra Balance, Gelée Lumi-Bloom, Fusion Balance, Luminescence Jour
+  offerts: { 5: '60320959398233', 12: '59324234891609', 20: '60341364228441', 24: '59324221129049', c: '60320959398233' },
+  nomsOfferts: { 5: 'Hydra Balance', 12: 'Gelée Lumi-Bloom', 20: 'Fusion Balance', 24: 'Luminescence Jour', c: 'Hydra Balance' },
+  livraison: [1, 8],
+  fraisPort: 5.90,   // ✏️ frais de livraison habituels (pour comparer la livraison offerte avec un autre code)
+  // boule de bain (produit à 0 €) offerte dès 2 soins achetés, le 19
+  boule: { jour: 19, produit: '16814926922073', nom: 'Évasion botanique', mini: 'https://elkhabskincare.github.io/elkhab-site/calendrier-mini-boule.webp' },
+  // −30 % sur un soin de la sélection (pastille rouge sur ces soins, partout sur le site, ce jour-là)
+  selections: {
+    4:  ['bright-control', 'age-lift', 'cellular-reveal', 'hydra-balance', 'gelee-lumibloom', 'fusion-balance'],
+    22: ['calm-balance-jour', 'ceramide-night-restore', 'cellular-renew', 'lumibloom-niac-5', 'eye-lift', 'glyco-balance', 'bakuchiol-elixir']
+  },
+  bloom: ['gelee-lumibloom', 'lumibloom-niac-5']   // les autres soins des sélections sont des Balance
+};
+function ebCalSession(k, v){ try { if(v === undefined) return sessionStorage.getItem(k); if(v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch(e){ return null; } }
+function ebCalAujourdhui(){
+  try { return new Intl.DateTimeFormat('fr-CA', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); }
+  catch(e){ return ''; }
+}
+// Essai avant le 1er décembre : ?calendrier-essai=JJ&code=CODE (code d'essai créé dans Shopify, actif aujourd'hui) — pour cette visite seulement
+(function(){
+  try {
+    const q = new URLSearchParams(location.search), j = q.get('calendrier-essai');
+    if(j === null) return;
+    // seulement avant le 1er décembre, et avec un code d'essai : pendant le jeu, il faut avoir ouvert sa case
+    const avant = ebCalAujourdhui() < '2026-12-01', codeEssai = (q.get('code') || '').trim().toUpperCase();
+    if(avant && codeEssai && /^\d{1,2}c?$/.test(j)) ebCalSession('ebcal_essai', j + '|' + codeEssai); else ebCalSession('ebcal_essai', null);
+    const u = new URL(location.href); u.searchParams.delete('calendrier-essai'); u.searchParams.delete('code');
+    history.replaceState(history.state, '', u.pathname + u.search + u.hash);
+  } catch(e){}
+})();
+function ebCalGain(){
+  let jour, collab, date, codeEssai = '';
+  const essai = ebCalAujourdhui() < '2026-12-01' ? ebCalSession('ebcal_essai') : null;
+  if(essai){
+    const p = essai.split('|'); jour = parseInt(p[0], 10); collab = /c$/.test(p[0]); codeEssai = p[1] || ''; date = 'essai-' + p[0];
+  } else {
+    const m = document.cookie.match(/(?:^|;\s*)eb_calendrier=(\d{4})-12-(\d{2})(-c)?/);
+    if(!m) return null;
+    date = m[1] + '-12-' + m[2];
+    if(date !== ebCalAujourdhui()) return null;   // le gain ne vaut que le jour même
+    jour = parseInt(m[2], 10); collab = !!m[3];
+  }
+  if(!(jour >= 1 && jour <= 24)) return null;
+  const cle = collab && (jour === 7 || jour === 8) ? 'c' : jour;
+  return {
+    jour: jour, cle: cle, date: date,
+    code: codeEssai === '-' ? '' : (codeEssai || EB_CAL.codes[cle] || ''),   // « - » : essai d'un jour sans code (le 19)
+    offert: EB_CAL.offerts[cle] || '', nomOffert: EB_CAL.nomsOfferts[cle] || '',
+    boule: cle === EB_CAL.boule.jour,
+    livraison: EB_CAL.livraison.indexOf(cle) > -1,
+    selection: EB_CAL.selections[cle] || null
+  };
+}
+function ebCalAttribut(l){ return ((l && l.attributes) || []).filter(function(a){ return a.key === '_calendrier'; })[0]; }
+function ebCalEstOffert(l){ const a = ebCalAttribut(l); return !!a && a.value === 'offert'; }
+function ebCalEstBoule(m){
+  return String((m && m.product && m.product.id) || '').split('/').pop() === EB_CAL.boule.produit
+    || /^boule de bain/.test(ebEchNorm(m && m.product && m.product.title));
+}
+function ebCalEstSonCode(code){
+  const g = ebCalGain(); code = String(code || '').toUpperCase();
+  if(g && g.code === code) return true;
+  return Object.keys(EB_CAL.codes).some(function(k){ return EB_CAL.codes[k] === code; });
+}
+function ebCalCodePresent(c, g){ return !!(c && g && g.code && (c.discountCodes || []).some(function(d){ return d.code.toUpperCase() === g.code; })); }
+function ebCalCodeEnPlace(c){ const g = ebCalGain(); return !!(c && g && g.code && (c.discountCodes || []).some(function(d){ return d.code.toUpperCase() === g.code && d.applicable; })); }
+function ebCalLivraisonOfferte(){ const g = ebCalGain(); return !!(g && g.livraison && ebCalCodeEnPlace(ebDernierPanier)); }
+function ebCalRefuser(){ const g = ebCalGain(); if(g) ebCalSession('ebcal_refus', g.date + '|' + g.cle); }
+function ebCalLignes(c){ return c ? c.lines.edges.map(function(e){ return e.node; }) : []; }
+function ebCalAchats(c){   // soins, routines et coffrets achetés (sans échantillon, boule ni soin offert)
+  return ebCalLignes(c).filter(function(l){ return !ebEchEstEchantillon(l.merchandise) && !ebCalEstOffert(l); })
+    .reduce(function(n, l){ return n + l.quantity; }, 0);
+}
+function ebCalOffertRemise(l){   // le soin offert est-il vraiment à 0 € ?
+  let r = 0; (l.discountAllocations || []).forEach(function(a){ r += parseFloat(a.discountedAmount.amount) || 0; });
+  return r >= (parseFloat(l.merchandise.price.amount) || 0) * l.quantity - 0.01;
+}
+// Valeur d'une réduction pour la cliente (le soin offert compte s'il est bien à 0 € ; la livraison offerte compte si elle paierait le port)
+function ebCalValeur(c, avecSurprise){
+  let r = 0;
+  (c.discountAllocations || []).forEach(function(a){ r += parseFloat(a.discountedAmount.amount) || 0; });
+  let brut = 0;
+  ebCalLignes(c).forEach(function(l){
+    brut += (parseFloat(l.merchandise.price.amount) || 0) * l.quantity;
+    if(!avecSurprise && ebCalEstOffert(l)) return;   // sans la surprise, le soin offert sera retiré
+    (l.discountAllocations || []).forEach(function(a){ r += parseFloat(a.discountedAmount.amount) || 0; });
+  });
+  const g = ebCalGain();
+  if(avecSurprise && g && g.livraison && ebCalCodeEnPlace(c) && brut - r < EB_SEUIL_LIVRAISON) r += EB_CAL.fraisPort;
+  return r;
+}
+
+// La surprise ou un autre code (tapé par la cliente, lien du Skin ID…) : on garde le plus avantageux.
+// Renvoie null si le calendrier n'est pas en jeu (le panier fait alors comme d'habitude).
+async function ebCalArbitrer(code){
+  const g = ebCalGain();
+  if(!g || !g.code || !cartId || code === g.code) return null;
+  let c = await ebCartFetch(); if(!c) return null;
+  if(!ebCalCodePresent(c, g)) c = (await ebCartSetCode([g.code])) || c;
+  const vCal = ebCalCodeEnPlace(c) ? ebCalValeur(c, true) : 0;
+  const c2 = await ebCartSetCode([code]);
+  const dc = c2 && (c2.discountCodes || []).filter(function(d){ return d.code.toUpperCase() === code; })[0];
+  if(!c2 || !dc || !dc.applicable){
+    const c3 = await ebCartSetCode([g.code]);
+    return { cart: c3 || c, ok: false, message: 'Ce code n\'est pas valide ou ne s\'applique pas à votre panier.' };
+  }
+  const vCli = ebCalValeur(c2, false);
+  if(vCli > vCal){
+    ebCalSession('ebcal_cede', g.date);   // la cliente garde son code pour aujourd'hui
+    let c4 = c2;
+    for(const l of ebCalLignes(c2).filter(ebCalEstOffert)){ c4 = (await ebCartRemoveLine(l.id)) || c4; }
+    return { cart: c4, ok: true, message: '' };
+  }
+  const c5 = await ebCartSetCode([g.code]);
+  return { cart: c5 || c, ok: false, message: 'Votre surprise du calendrier est déjà appliquée. Elle est plus avantageuse que ce code.' };
+}
+async function ebCalCodeClient(code){
+  const r = await ebEnFile(function(){ return ebCalArbitrer(code); });
+  if(!r) return null;
+  if(r.cart) ebRenderCart(r.cart);
+  return { ok: r.ok, message: r.message };
+}
+
+// Mise en place automatique : code du jour, soin offert, boule de bain
+let ebCalEnCours = false, ebCalDejaTente = {};
+function ebCalSync(cart){
+  if(ebCalEnCours || !cart) return;
+  const g = ebCalGain();
+  const marques = ebCalLignes(cart).filter(function(l){ return !!ebCalAttribut(l); });
+  if(!g && !marques.length) return;
+  ebCalEnCours = true;
+  ebEnFile(async function(){
+    try { await ebCalSyncDirect(ebDernierPanier || cart); }
+    catch(err){ console.error('ELKHA.B panier — calendrier :', err); }
+    ebCalEnCours = false;
+  });
+}
+async function ebCalSyncDirect(cart){
+  const g = ebCalGain();
+  let c = cart, change = false;
+  const achats = ebCalAchats(c);
+  const cede = !!g && ebCalSession('ebcal_cede') === g.date;
+  const refus = !!g && ebCalSession('ebcal_refus') === g.date + '|' + g.cle;
+  // 1) le code du jour (une seule tentative par état du panier : jamais de boucle)
+  if(g && g.code && !cede && achats > 0 && !ebCalCodePresent(c, g)){
+    const cleTente = g.code + '|' + c.id + '|' + c.totalQuantity;
+    if(!ebCalDejaTente[cleTente]){
+      ebCalDejaTente[cleTente] = true;
+      const autre = (c.discountCodes || []).filter(function(d){ return d.applicable && d.code.toUpperCase() !== g.code; })[0];
+      if(autre){
+        const r = await ebCalArbitrer(autre.code.toUpperCase());
+        if(r && r.cart){ c = r.cart; change = true; }
+      } else {
+        const n = await ebCartSetCode([g.code]);
+        if(n){ c = n; change = true; }
+      }
+    }
+  }
+  // 2) le soin offert pour l'achat d'un soin
+  const veutOffert = !!(g && g.offert && !cede && !refus && achats > 0 && ebCalCodePresent(c, g));
+  let offerts = ebCalLignes(c).filter(ebCalEstOffert);
+  if(veutOffert && !offerts.length){
+    const cleTente = 'offert|' + c.id + '|' + c.totalQuantity;
+    if(!ebCalDejaTente[cleTente]){
+      ebCalDejaTente[cleTente] = true;
+      const n = await ebCartAddLine(g.offert, 1, [{ key: '_calendrier', value: 'offert' }]);
+      if(n){ c = n; change = true; }
+      offerts = ebCalLignes(c).filter(ebCalEstOffert);
+      // Shopify ne l'offre pas (code refusé…) : on le retire aussitôt, il ne doit jamais être payé
+      for(const l of offerts){ if(!ebCalOffertRemise(l)){ c = (await ebCartRemoveLine(l.id)) || c; } }
+      offerts = ebCalLignes(c).filter(ebCalEstOffert);
+    }
+  }
+  for(const l of offerts){
+    const bon = veutOffert && String(l.merchandise.id).split('/').pop() === g.offert;
+    if(!bon){ c = (await ebCartRemoveLine(l.id)) || c; change = true; }
+    else if(l.quantity !== 1){ c = (await ebCartUpdateLineQuantity(l.id, 1)) || c; change = true; }
+  }
+  // 3) la boule de bain (dès 2 soins achetés, un coffret compte pour 2)
+  const veutBoule = !!(g && g.boule && !refus && ebEchantillonEtat(c).nb >= 2);
+  const boules = ebCalLignes(c).filter(function(l){ return ebCalEstBoule(l.merchandise); });
+  if(veutBoule && !boules.length){
+    const v = await ebCalVarianteBoule();
+    const cleTente = 'boule|' + c.id + '|' + c.totalQuantity;
+    if(v && !ebCalDejaTente[cleTente]){
+      ebCalDejaTente[cleTente] = true;
+      const n = await ebCartAddLine(v, 1, [{ key: '_calendrier', value: 'boule' }]);
+      if(n){ c = n; change = true; }
+    }
+  }
+  for(const l of boules){
+    const a = ebCalAttribut(l);
+    if(!a) continue;   // ajoutée par quelqu'un d'autre (récompense…) : on n'y touche pas
+    if(!veutBoule){ c = (await ebCartRemoveLine(l.id)) || c; change = true; }
+    else if(l.quantity !== 1){ c = (await ebCartUpdateLineQuantity(l.id, 1)) || c; change = true; }
+  }
+  if(change && c) ebRenderCart(c);
+}
+// La boule est retrouvée à partir de son numéro de produit (gardé pour la visite)
+async function ebCalVarianteBoule(){
+  const deja = ebCalSession('ebcal_boule_v'); if(deja) return deja;
+  try {
+    const r = await shopifyFetch('query p($id: ID!) { product(id: $id) { variants(first: 1) { nodes { id } } } }',
+      { id: 'gid://shopify/Product/' + EB_CAL.boule.produit });
+    const n = r && r.data && r.data.product && r.data.product.variants.nodes[0];
+    const v = n ? String(n.id).split('/').pop() : '';
+    if(v) ebCalSession('ebcal_boule_v', v);
+    return v;
+  } catch(e){ return ''; }
+}
+
+// Petite ligne sous la liste (comme l'échantillon) : boule de bain ajoutée / en attente, soin offert en attente
+function ebCalZone(cart){
+  const footer = document.querySelector('#ebCartPanel .eb-cart-footer');
+  if(!footer) return;
+  let zone = document.getElementById('ebCalZone');
+  if(!zone){ zone = document.createElement('div'); zone.id = 'ebCalZone'; zone.className = 'eb-cart-echantillon'; }
+  const avant = document.getElementById('ebCartPromo') || footer.querySelector('.eb-cart-total');
+  if(zone.parentNode !== footer || zone.nextSibling !== avant) footer.insertBefore(zone, avant || null);
+  const g = ebCalGain();
+  const cede = !!g && ebCalSession('ebcal_cede') === g.date;
+  const refus = !!g && ebCalSession('ebcal_refus') === g.date + '|' + g.cle;
+  let html = '';
+  if(cart && g && g.boule && !refus){
+    const nb = ebEchantillonEtat(cart).nb, ok = nb >= 2;
+    zone.classList.toggle('eb-ech-attente', !ok);
+    html = '<span class="eb-ech-mini"><img src="' + EB_CAL.boule.mini + '" alt="Boule de bain ' + EB_CAL.boule.nom + ' ELKHA.B" loading="lazy"></span>'
+      + '<span class="eb-ech-txt">' + (ok
+        ? '<b>Boule de bain offerte</b>Votre surprise du calendrier, ' + EB_CAL.boule.nom + ', est ajoutée à votre commande.'
+        : '<b>Une boule de bain vous attend</b>Votre surprise du calendrier vous est offerte dès votre deuxième soin.') + '</span>';
+  } else if(cart && g && g.offert && !cede && !refus && ebCalAchats(cart) === 0 && cart.lines.edges.length){
+    zone.classList.add('eb-ech-attente');
+    html = '<span class="eb-ech-txt"><b>Votre ' + g.nomOffert + ' offert</b>Il s\'ajoutera à votre commande dès votre premier soin.</span>';
+  }
+  zone.innerHTML = html;
+  zone.style.display = html ? 'flex' : 'none';
+}
+
+// Pastilles « −30 % CALENDRIER » sur les soins de la sélection, seulement pour celles qui ont ouvert la case
+(function(){
+  function demarrer(){
+    const g = ebCalGain(); if(!g || !g.selection) return;
+    const st = document.createElement('style');
+    st.textContent = '.eb-cal-pastille{position:absolute;top:9px;right:9px;z-index:3;width:50px;height:50px;border-radius:50%;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;font-family:Montserrat,sans-serif;'
+      + 'background:radial-gradient(ellipse 60% 30% at 50% 14%,rgba(255,255,255,.24),rgba(255,255,255,0) 70%),radial-gradient(circle at 50% 36%,#c8263d 0%,#b01b30 28%,#8a1226 55%,#5c0a19 82%,#3e0510 100%);'
+      + 'box-shadow:inset 0 1px 1px rgba(255,255,255,.22),0 2px 6px rgba(70,5,18,.18)}'
+      + '.eb-cal-pastille b{font-size:13.5px;font-weight:600;letter-spacing:.2px;line-height:1}'
+      + '.eb-cal-pastille i{font-style:normal;font-size:5.6px;letter-spacing:.5px;font-weight:600;margin-top:2px;opacity:.9}'
+      + '#ebCalSel{position:fixed;inset:0;z-index:2147483000;display:none}#ebCalSel.ouvert{display:block}'
+      + '#ebCalSel .fond{position:absolute;inset:0;background:rgba(0,0,0,.12)}'
+      + '#ebCalSel .pan{position:absolute;top:0;right:0;height:100%;width:min(420px,92vw);background:rgba(246,244,240,.92);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);overflow:auto;padding:26px 22px 30px;box-sizing:border-box;font-family:Montserrat,sans-serif;color:#2b1a17}'
+      + '#ebCalSel h2{font-size:13px;letter-spacing:2.5px;font-weight:600;margin:0 30px 6px 0}#ebCalSel p{font-size:12.5px;line-height:1.55;margin:0 0 18px;color:#6b4a3e}'
+      + '#ebCalSel .x{position:absolute;top:18px;right:16px;background:none;border:0;font-size:22px;line-height:1;cursor:pointer;color:#2b1a17}'
+      + '#ebCalSel a{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;padding:10px 0;border-top:1px solid rgba(43,26,23,.08)}'
+      + '#ebCalSel .ph{position:relative;flex:0 0 74px;height:74px;border-radius:10px;background:#ECE5DB;overflow:hidden}#ebCalSel .ph img{width:100%;height:100%;object-fit:contain}'
+      + '#ebCalSel .ph .eb-cal-pastille{top:3px;right:3px;width:30px;height:30px}#ebCalSel .ph .eb-cal-pastille b{font-size:8px}#ebCalSel .ph .eb-cal-pastille i{display:none}'
+      + '#ebCalSel .n{font-size:11.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase}#ebCalSel .s{font-size:11.5px;color:#6b4a3e;margin-top:3px}#ebCalSel .p{font-size:12px;margin-top:4px}';
+    document.head.appendChild(st);
+    const PASTILLE = '<span class="eb-cal-pastille"><b>–30&nbsp;%</b><i>CALENDRIER</i></span>';
+    let attente = null;
+    function poser(){
+      attente = null;
+      document.querySelectorAll('[data-fiche]').forEach(function(el){
+        if(g.selection.indexOf(el.getAttribute('data-fiche')) < 0 || el.closest('#ebCalSel')) return;
+        const img = el.querySelector('img'); if(!img) return;   // seulement les vignettes avec photo
+        const cadre = img.parentElement;
+        if(cadre.querySelector(':scope > .eb-cal-pastille')) return;
+        if(getComputedStyle(cadre).position === 'static') cadre.style.position = 'relative';
+        cadre.insertAdjacentHTML('beforeend', PASTILLE);
+      });
+    }
+    poser();
+    new MutationObserver(function(){ if(!attente) attente = setTimeout(poser, 150); }).observe(document.body, { childList: true, subtree: true });
+    // « Voir la sélection » (lien de la carte du calendrier) : petit panneau avec les soins de la sélection
+    let q; try { q = new URLSearchParams(location.search); } catch(e){ return; }
+    if(!q.get('selection')) return;
+    try { const u = new URL(location.href); u.searchParams.delete('selection'); history.replaceState(history.state, '', u.pathname + u.search + u.hash); } catch(e){}
+    ebChargerFichesPanier();
+    function ouvrir(essais){
+      const P = window.EB_PRODUITS;
+      if((!P || g.selection.some(function(id){ return !P[id]; })) && essais > 0){ setTimeout(function(){ ouvrir(essais - 1); }, 300); return; }
+      const box = document.createElement('div'); box.id = 'ebCalSel';
+      let liste = '';
+      g.selection.forEach(function(id){
+        const p = P && P[id]; if(!p) return;
+        const md = p.media || {}, photo = ebPhotoTaille(md.miniature || (md.images || [])[0] || md.image || '');
+        const site = EB_CAL.bloom.indexOf(id) > -1 ? 'https://bloom.elkhab.com/?fiche=' : 'https://balance.elkhab.com/?fiche=';
+        liste += '<a href="' + site + id + '" data-fiche="' + id + '"><span class="ph">' + (photo ? '<img src="' + photo + '" alt="' + p.nom + ' ELKHA.B" loading="lazy">' : '') + PASTILLE + '</span>'
+          + '<span><span class="n">' + p.nom + '</span>' + (p.sousTitre ? '<span class="s" style="display:block">' + p.sousTitre + '</span>' : '') + '<span class="p" style="display:block">' + (p.prix || '') + '</span></span></a>';
+      });
+      box.innerHTML = '<div class="fond"></div><div class="pan" role="dialog" aria-label="La sélection du calendrier"><button class="x" type="button" aria-label="Fermer">×</button>'
+        + '<h2>LA SÉLECTION DU JOUR</h2><p>Aujourd\'hui, dès 2 soins achetés, le soin de la sélection de votre panier passe à −30 %.</p>' + liste + '</div>';
+      document.body.appendChild(box);
+      requestAnimationFrame(function(){ box.classList.add('ouvert'); });
+      const fermer = function(){ box.classList.remove('ouvert'); };
+      box.querySelector('.fond').addEventListener('click', fermer);
+      box.querySelector('.x').addEventListener('click', fermer);
+      box.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', fermer); });
+    }
+    ouvrir(20);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer); else demarrer();
+})();
+
 // ── Champ « Code promo » dans le panier ──
 let ebCartCodeActif = '';
 function ebCartPromoZone(cart, reduction){
@@ -752,7 +1075,7 @@ function ebCartPromoZone(cart, reduction){
     zone.querySelector('.eb-cart-promo-lien').addEventListener('click', function(){ zone.classList.toggle('ouvert'); if(zone.classList.contains('ouvert')) champ.focus(); });
     async function appliquer(){
       const code = champ.value.trim().toUpperCase();
-      err.style.display = 'none';
+      err.style.display = 'none'; err.classList.remove('doux');
       if(!code || !cartId) return;
       btn.disabled = true; btn.textContent = '…';
       try {
@@ -760,6 +1083,14 @@ function ebCartPromoZone(cart, reduction){
           const brut = await ebCartDebugCode([code]);
           err.style.cssText = 'display:block;color:#000;font-size:10px;word-break:break-all;white-space:pre-wrap;max-height:220px;overflow:auto;background:#fff;border:1px solid #ddd;padding:6px';
           err.textContent = 'DIAGNOSTIC — ' + JSON.stringify(brut, null, 1);
+          btn.disabled = false; btn.textContent = 'Appliquer';
+          return;
+        }
+        const cal = await ebCalCodeClient(code);
+        if(cal){
+          if(cal.ok) champ.value = '';
+          err.classList.toggle('doux', !cal.ok && /^Votre surprise/.test(cal.message || ''));
+          if(cal.message){ err.textContent = cal.message; err.style.display = 'block'; }
           btn.disabled = false; btn.textContent = 'Appliquer';
           return;
         }
@@ -782,14 +1113,20 @@ function ebCartPromoZone(cart, reduction){
     btn.addEventListener('click', appliquer);
     champ.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); appliquer(); } });
     zone.querySelector('.eb-cart-promo-retirer').addEventListener('click', async function(){
+      ebCalSession('ebcal_cede', null);   // la surprise du calendrier revient (si la cliente a joué)
       const c = await ebEnFile(function(){ return ebCartSetCode([]); });
       if(c) ebRenderCart(c);
     });
   }
   if(!cart || !cart.lines.edges.length){ zone.style.display = 'none'; return; }
   zone.style.display = 'block';
-  zone.classList.toggle('applique', !!ebCartCodeActif);
-  if(ebCartCodeActif){
+  const calActif = !!ebCartCodeActif && ebCalEstSonCode(ebCartCodeActif);
+  let calLigne = document.getElementById('ebCalPromo');
+  if(!calLigne){ calLigne = document.createElement('div'); calLigne.id = 'ebCalPromo'; calLigne.className = 'eb-cal-promo'; zone.insertBefore(calLigne, zone.firstChild); }
+  calLigne.style.display = calActif ? 'block' : 'none';
+  if(calActif) calLigne.innerHTML = 'Surprise du calendrier appliquée' + (reduction > 0 ? ' · <strong>−' + ebFormatPrice(reduction) + '</strong>' : '');
+  zone.classList.toggle('applique', !!ebCartCodeActif && !calActif);
+  if(ebCartCodeActif && !calActif){
     zone.querySelector('.eb-cart-promo-ok strong').textContent = ebCartCodeActif;
     zone.querySelector('.eb-cart-promo-montant').textContent = reduction > 0 ? '−' + ebFormatPrice(reduction) : 'offre appliquée';
     zone.classList.remove('ouvert');
@@ -829,7 +1166,11 @@ function ebCartStylePhotos(){
     + '.eb-cart-promo-ok strong{font-weight:600;letter-spacing:.04em}'
     + '.eb-cart-promo-retirer{background:none;border:0;padding:0 0 0 10px;font-family:Montserrat,sans-serif;font-size:11px;color:#000;opacity:.6;text-decoration:underline;cursor:pointer}'
     + '.eb-cart-promo.applique .eb-cart-promo-lien,.eb-cart-promo.applique .eb-cart-promo-form{display:none}'
-    + '.eb-cart-promo.applique .eb-cart-promo-ok{display:flex}';
+    + '.eb-cart-promo.applique .eb-cart-promo-ok{display:flex}'
+    // calendrier des fêtes
+    + '.eb-cal-promo{font-size:12px;margin:0 0 10px;color:#1d1b18}.eb-cal-promo strong{font-weight:600}'
+    + '.eb-cart-promo-err.doux{color:#4a453e}'
+    + '.eb-cart-item-variant.eb-cal-offert{color:#8a1226;font-weight:500}';
   document.head.appendChild(st);
 }
 
@@ -862,7 +1203,8 @@ function ebRenderCart(cart, attemptsLeft){
     ebCartLivraison(0);
     ebCartPromoZone(null, 0);
     ebCartEchantillonZone(null);
-    if(cart) ebEchantillonSync(cart);
+    ebCalZone(null);
+    if(cart){ ebEchantillonSync(cart); ebCalSync(cart); }
     return;
   }
 
@@ -885,10 +1227,14 @@ function ebRenderCart(cart, attemptsLeft){
     if(m.title && !m.title.split(' / ').every(function(t){ return t === 'Default' || t === 'Default Title'; })){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
+    if(ebCalEstOffert(line)) html += '<div class="eb-cart-item-variant eb-cal-offert">Surprise du calendrier</div>';
     html += '<div class="eb-cart-item-bottom">';
     const separes = ebPrixSepares(m.id);
+    if(ebCalEstOffert(line) && ebCalCodeEnPlace(cart)){
+      html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — <s class="eb-cart-barre">' + ebFormatPrice(m.price.amount * line.quantity) + '</s> Offert</span>';
+    } else
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + (separes ? '<s class="eb-cart-barre">' + ebFormatPrice(separes * line.quantity) + '</s> ' : '') + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
-    html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
+    html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + (ebCalEstOffert(line) ? ', 1' : '') + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';
     html += '</div></div></div>';
   });
   itemsEl.innerHTML = html;
@@ -907,10 +1253,13 @@ function ebRenderCart(cart, attemptsLeft){
   ebCartPromoZone(cart, reduction);
   ebCartLivraison(aPayer);
   ebCartEchantillonZone(cart);
+  ebCalZone(cart);
   ebEchantillonSync(cart);
+  ebCalSync(cart);
 }
 
-window.ebCartRemoveClick = function(lineId, currentQuantity){
+window.ebCartRemoveClick = function(lineId, currentQuantity, surprise){
+  if(surprise) ebCalRefuser();
   return ebEnFile(async function(){
     const cart = currentQuantity > 1
       ? await ebCartUpdateLineQuantity(lineId, currentQuantity - 1)
@@ -949,7 +1298,9 @@ async function ebLienPanier(ouvrir){
       const c = await ebCartAddItem(v, 1);
       if(c) cart = c;
     }
-    if(code && /^[A-Z0-9-]{4,30}$/.test(code) && cartId){
+    const calLien = code && /^[A-Z0-9-]{4,30}$/.test(code) && cartId ? await ebCalCodeClient(code) : null;
+    if(calLien){ /* surprise du calendrier en jeu : la règle du plus avantageux a été appliquée */ }
+    else if(code && /^[A-Z0-9-]{4,30}$/.test(code) && cartId){
       const c = await ebEnFile(function(){ return ebCartSetCode([code]); });
       const dc = c && (c.discountCodes || []).filter(function(d){ return d.code.toUpperCase() === code; })[0];
       if(c && dc && dc.applicable){ ebRenderCart(c); }
