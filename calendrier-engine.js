@@ -105,7 +105,11 @@
     '#ebc .ch2 .livr{font-size:10px;line-height:1.45;color:#6b4a3e;font-style:italic;margin-top:5px}' +
     '#ebc .reglement{text-decoration:underline}' +
     '#ebc .charge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:11px;letter-spacing:2px;color:#a8814a;opacity:0;transition:opacity .4s;pointer-events:none}' +
-    '#ebc.attend .charge{opacity:1}';
+    '#ebc.attend .charge{opacity:1}' +
+    // carte « soin offert » : flocons et étoiles dorés ; nom et valeur écrits pareil (doré), seul « J’en profite » reste en rouge
+    '#ebc .carte.g-soin{background-image:url(' + IMG + 'calendrier-fond-soin.png),linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,240,232,.15));background-size:100% 100%,100% 100%}' +
+    '#ebc .carte .soin .t{background:none;-webkit-text-fill-color:#a8814a;color:#a8814a;filter:none;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;font-size:15px}' +
+    '#ebc .carte .soin .v{font-weight:700;letter-spacing:2.4px;color:#a8814a}#ebc .carte .soin .s{font-style:italic}';
 
   // ───────────────────────────── OUTILS ─────────────────────────────
   var $ = function(i){ return document.getElementById(i); };
@@ -428,10 +432,11 @@
       envoi = false; $('nlok').textContent = lib; $('nlok').style.opacity = '';
       if(periode === 'jeu') preparerCarte();
       majAvant();
-      if(periode === 'jeu') $('nlMerci').textContent = attente ? 'Votre case s’ouvre…' : 'Votre première case vous attend.';
+      if(periode === 'jeu') $('nlMerci').textContent = 'Votre case vous attend : touchez-la pour l’ouvrir.';
       nl.classList.add('ebn-ok');
       if(periode === 'jeu' && S.ouvert){ attente = false; setTimeout(function(){ fermerBandeau(); dejaOuverte(); }, 1300); return; }
-      if(attente && periode === 'jeu'){ attente = false; setTimeout(function(){ fermerBandeau(); setTimeout(function(){ ouvrir(); }, 350); }, 1300); }
+      // la case ne s'ouvre pas toute seule : la cliente la touche à nouveau (elle garde sa couleur et continue de battre)
+      if(attente && periode === 'jeu'){ attente = false; setTimeout(function(){ fermerBandeau(); if(tir && etat === 'ferme'){ tir.classList.add('appel'); texteAide('touchez'); aide.classList.remove('cache'); } }, 2200); }
       else setTimeout(fermerBandeau, 2600);
     }).catch(function(){
       envoi = false; $('nlok').textContent = lib; $('nlok').style.opacity = '';
