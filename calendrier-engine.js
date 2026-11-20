@@ -1,0 +1,498 @@
+// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
+// =====================================================================
+// ELKHA.B — Calendrier des fêtes 2026 (page calendrier.elkhab.com)
+// Les textes lus par Google (titre, règles, coffret) sont écrits dans l'embed Carrd.
+// Ce fichier dessine le flacon-calendrier, ouvre la case du jour et parle au registre (Google Sheet).
+// Toutes les images sont préparées à l'avance (rien n'est retouché dans le téléphone).
+// =====================================================================
+(function(){ if(document.getElementById('eb-montserrat')) return; var l = document.createElement('link'); l.id = 'eb-montserrat'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap'; document.head.appendChild(l); })();
+(function(){ var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=Parisienne&display=swap'; document.head.appendChild(l); })();
+(function(){
+  if(window.ebCalendrier) return; window.ebCalendrier = true;
+
+  // ───────────────────────────── RÉGLAGES ─────────────────────────────
+  var REGLAGES = {
+    registre: 'https://script.google.com/macros/s/AKfycbyjt74Gg3u7w20CGsECMA0OeXhfz_YLAsq3m0hESsWhcZ2myy3PlM9mjTQCHaqDGM2aWw/exec',
+    images:   'https://elkhabskincare.github.io/elkhab-site/',
+    page:     'https://calendrier.elkhab.com/',
+    boutique: 'https://soins.elkhab.com/',
+    confidentialite: 'https://elkhab.com/#politique-confidentialite',
+    skinId:   'https://elkhabskincare.github.io/elkhab-site/skin-id-engine.js?v=9',
+    annee: 2026,
+    dimanches: [6, 13, 20],
+    casesDoubles: [6, 13, 18, 20, 23]
+  };
+  var IMG = REGLAGES.images;
+  var BAL = 'https://balance.elkhab.com/?fiche=', BLO = 'https://bloom.elkhab.com/?fiche=';
+
+  // ───────────────────────── LES 24 CASES ─────────────────────────
+  // type : liv (livraison), txt (texte seul), soin (soin offert, avec image), remise (soin à −x %, avec image), bonus (chances en plus)
+  var LIV = { type: 'liv', titre: 'Votre livraison offerte', sous: 'Sans minimum d’achat, sur toute la boutique.',
+              conf: 'Votre livraison offerte est enregistrée : elle s’appliquera à votre commande jusqu’à minuit.' };
+  var SEL = function(n){ return { type: 'txt', titre: '–30 % sur un soin de la sélection', sous: 'Dès 2 soins achetés. Repérez la pastille rouge.',
+              conf: 'Votre remise de 30 % est enregistrée : elle s’appliquera au soin de la sélection de votre panier jusqu’à minuit.',
+              lien: 'VOIR LA SÉLECTION', url: REGLAGES.boutique + '?selection=' + n }; };
+  var CASES = {
+    1:  LIV,
+    2:  { type: 'remise', soin: 'Fusion Balance', img: 'fusion-balance', sous: 'Démaquillant biphasé, doux même pour le waterproof', remise: '–20 %', url: BAL + 'fusion-balance' },
+    3:  { type: 'bonus', titre: 'Vos amies comptent double', sous: 'Aujourd’hui, chaque amie qui vous rejoint vous rapporte 5 chances au lieu de 3.',
+          conf: 'Aujourd’hui seulement, chaque amie qui ouvre sa première case grâce à vous vous rapporte 5 chances.' },
+    4:  SEL(1),
+    5:  { type: 'soin', soin: 'Hydra Balance', img: 'hydra-balance', valeur: '28,90 €', genre: 'm', url: BAL + 'hydra-balance' },
+    6:  { type: 'txt', titre: '–20 % sur toute votre commande', sous: 'Aujourd’hui seulement, hors coffrets.',
+          conf: 'Votre remise de 20 % est enregistrée : elle s’appliquera à toute votre commande jusqu’à minuit, hors coffrets.' },
+    7:  { type: 'remise', soin: 'Radiance Protect', img: 'radiance-protect', sous: 'Protection solaire SPF 50 minérale en stick, sans effet gras', remise: '–15 %', url: BLO + 'radiance-protect' },
+    8:  LIV,
+    9:  { type: 'txt', titre: '–30 % sur votre 2e soin', sous: 'Sur toute la boutique, dès 2 soins achetés.',
+          conf: 'Votre remise de 30 % sur votre 2e soin est enregistrée : elle s’appliquera à votre commande jusqu’à minuit.' },
+    10: { type: 'txt', titre: '–20 % sur votre routine Skin ID', sous: 'Faites votre diagnostic de peau et recevez votre routine avant Noël.',
+          conf: 'Votre remise de 20 % sur votre routine Skin ID est enregistrée : elle s’appliquera jusqu’à minuit. Commandez aujourd’hui pour la recevoir avant Noël.',
+          lien: 'FAIRE MON SKIN ID', skinId: true },
+    11: { type: 'remise', soin: 'Lumi-Bloom Arbutin', img: 'lumibloom-arbutin', sous: 'Sérum unifiant anti-taches', remise: '–15 %', url: BLO + 'lumibloom-arbutin' },
+    12: { type: 'soin', soin: 'Gelée Lumi-Bloom', img: 'gelee-lumibloom', valeur: '28,90 €', genre: 'f', url: BLO + 'gelee-lumibloom' },
+    13: { type: 'remise', soin: 'Glyco Balance', img: 'glyco-balance', sous: 'Lotion resurfaçante, effet peau neuve', remise: '–20 %', url: BAL + 'glyco-balance' },
+    14: { type: 'remise', soin: 'Bright Control', img: 'bright-control', sous: 'Crème correctrice et lissante anti-taches', remise: '–15 %', url: BAL + 'bright-control' },
+    15: { type: 'remise', soin: 'Lumi-Veil', img: 'lumiveil-cc-cream', sous: 'Votre teint de fête : unifie, illumine, SPF 30', remise: '–10 %', apres: 'SUR LES 4 TEINTES', url: BLO + 'lumiveil-cc-cream' },
+    16: { type: 'remise', soin: 'BHA Balance', img: 'bha-balance', sous: 'Lotion purifiante anti-imperfections', remise: '–15 %', url: BAL + 'bha-balance' },
+    17: { type: 'remise', soin: 'Luminescence Nuit', img: 'luminescence-nuit', sous: 'Crème de nuit repulpante au plancton marin, soutien du collagène', remise: '–15 %', url: BLO + 'luminescence-nuit' },
+    18: { type: 'bonus', titre: 'Votre case compte double', sous: '2 chances au tirage de dimanche et 2 au grand tirage du 24.',
+          conf: 'Votre case compte double : 2 chances au tirage de dimanche et 2 au grand tirage du 24.' },
+    19: { type: 'txt', titre: 'Votre boule de bain offerte', sous: 'Rituel Spa, offerte dès 2 soins achetés.',
+          conf: 'Votre boule de bain Rituel Spa est enregistrée : elle sera ajoutée à votre commande de 2 soins jusqu’à minuit.' },
+    20: { type: 'soin', soin: 'Fusion Balance', img: 'fusion-balance', valeur: '26,90 €', genre: 'm', url: BAL + 'fusion-balance' },
+    21: { type: 'remise', soin: 'Gelée Lumi-Bloom', img: 'gelee-lumibloom', sous: 'Soin aux prébiotiques, soutien de la barrière cutanée', remise: '–20 %', url: BLO + 'gelee-lumibloom' },
+    22: SEL(2),
+    23: { type: 'bonus', titre: 'Votre case compte double', sous: 'Veille du grand tirage : 2 chances de plus pour le coffret Velours d’Hiver, demain à 18 h.',
+          conf: 'Votre case compte double : 2 chances de plus pour le grand tirage de demain, 18 h.' },
+    24: { type: 'soin', soin: 'Luminescence Jour', img: 'luminescence-jour', valeur: '34,90 €', genre: 'm', url: BLO + 'luminescence-jour' }
+  };
+  // images des soins déjà préparées (les autres cases s'affichent en texte en attendant)
+  var IMAGES_PRETES = ['hydra-balance'];
+
+  // les coffrets à gagner
+  var LOTS = {
+    lumiere: { nom: 'Lumière d’hiver', sous: 'COFFRET ÉCLAT · VALEUR 59 €', img: 'calendrier-lot-lumiere-dhiver.jpg',
+               alt: 'Coffret de soins visage vegan Lumière d’hiver ELKHA.B',
+               txt: 'Un duo de soins vegan à la formulation naturelle, pour garder un teint de fête tout l’hiver : le Radiance C Serum, sérum crémeux antioxydant qui ravive l’éclat, et le Lumi-Bloom Arbutin, sérum unifiant qui estompe les taches. Une peau lumineuse, même sous la neige.' },
+    velours: { nom: 'Velours d’Hiver', sous: 'COFFRET SÉRUMS FERMETÉ · VALEUR 94 €', img: 'calendrier-lot-velours-dhiver.jpg',
+               alt: 'Coffret de sérums visage vegan Velours d’Hiver ELKHA.B',
+               txt: 'Trois soins vegan à la formulation naturelle réunis pour le grand tirage : le Bakuchiol Elixir, le sérum Active Lift et le Luminescence Boost. Un coffret à offrir… ou à s’offrir.' }
+  };
+
+  var AUG = 'Augmentez vos chances : chaque amie qui vous rejoint vous rapporte 3 chances.';
+  var AUG_RETARD = 'Vous arrivez en cours de route ? Chaque amie qui vous rejoint vous rapporte 3 chances pour le grand tirage du 24.';
+  var AUG_3 = 'Aujourd’hui seulement : chaque amie qui vous rejoint vous rapporte 5 chances.';
+  var AUG_24 = 'Augmentez vos chances pour ce soir : chaque amie qui vous rejoint vous rapporte 3 chances.';
+  var MSG = 'Une case à ouvrir chaque jour sur le calendrier des fêtes ELKHA.B, des surprises et des coffrets à gagner : ';
+
+  // ───────────────────────── PLACEMENT DES 24 CASES (pixels du flacon 620 × 1500) ─────────────────────────
+  var GEO = {"1":[171,526,274,616],"2":[171,729,274,821],"3":[381,523,470,615],"4":[381,889,470,983],"5":[268,652,387,740],"6":[171,811,332,904],"7":[381,969,470,1106],"8":[381,604,470,697],"9":[268,1184,387,1273],"10":[268,734,387,822],"11":[268,1020,387,1109],"12":[268,529,387,658],"13":[268,897,387,1027],"14":[171,1177,274,1272],"15":[326,807,470,904],"16":[171,1055,274,1190],"17":[171,607,274,739],"18":[381,1173,470,1270],"19":[171,892,274,985],"20":[171,1259,332,1355],"21":[381,685,470,820],"22":[171,973,274,1067],"23":[326,1254,470,1355],"24":[268,1091,470,1191]};
+
+  // ───────────────────────────── LE STYLE ─────────────────────────────
+  var CSS = "#ebc,#ebc-bas{font-family:Montserrat,system-ui,sans-serif;color:#5a1e2c}\n#ebc *,#ebc-bas *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}\n#ebc .page{display:flex;flex-direction:column;align-items:center;padding:0 0 30px}\n#ebc .stage{position:relative;width:min(100vw,440px);aspect-ratio:620/1320;overflow:hidden;flex:none}\n#ebc .scene{position:absolute;left:0;width:100%;top:-7.955%;aspect-ratio:620/1500}\n#ebc .scene img{position:absolute;display:block;user-select:none;-webkit-user-drag:none}\n#ebc .base{inset:0;width:100%;height:100%}\n#ebc .capot{left:21.77%;top:13.27%;width:56.45%}\n#ebc .tiroir.revoir{opacity:.38!important;animation:appel 1.8s ease-in-out infinite}\n#ebc .tiroir.appel{animation:appel 1.8s ease-in-out infinite}\n@keyframes appel{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}\n#ebc .aide{position:absolute;left:21.77%;width:56.45%;top:28.15%;pointer-events:none;transition:opacity .5s}\n#ebc .aide.cache{opacity:0}\n#ebc .aide img{position:static!important;display:block;width:100%;animation:souffle 4.2s ease-in-out infinite}\n@keyframes souffle{0%,100%{opacity:0}30%,70%{opacity:1}}\n#ebc .verre{background-color:rgba(255,250,246,.58);-webkit-backdrop-filter:blur(16px) saturate(1.25);backdrop-filter:blur(16px) saturate(1.25);border:1px solid rgba(255,255,255,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 16px 34px rgba(40,0,8,.30);background-repeat:no-repeat}\n#ebc .carte,#ebc .ch2,#ebc .f24{position:absolute;left:50%;width:78%;border-radius:11px;text-align:center;top:52%;transform:translate(-50%,-50%) scale(.1);opacity:0;pointer-events:none}\n#ebc .carte,#ebc .f24{aspect-ratio:1160/1000;overflow:hidden}\n#ebc .carte{background-image:url(https://elkhabskincare.github.io/elkhab-site/calendrier-fond-gain.png),linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,240,232,.15));background-size:100% 100%}\n#ebc .f24{background-image:url(https://elkhabskincare.github.io/elkhab-site/calendrier-fond-24.png),linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,240,232,.15));background-size:100% 100%}\n#ebc .f24 .d{position:absolute;left:8%;top:8%;text-align:left;font-size:10px;letter-spacing:3.2px;font-weight:700;color:#a8814a;line-height:1.5}\n#ebc .f24 .d span{font-size:8px;letter-spacing:2.4px;font-weight:600}\n#ebc .f24 .mot{position:absolute;left:9%;right:9%;top:23.5%;font-size:10.8px;line-height:1.5;color:#5c3a30;font-weight:500;font-style:italic}\n#ebc .f24 .sig{position:absolute;left:0;right:0;top:61%;font-family:Parisienne,cursive;font-size:21px;color:#a8814a}\n#ebc .f24 .b{position:absolute;left:0;right:0;top:73%;font-size:12px;letter-spacing:2.6px;font-weight:800;cursor:pointer}\n#ebc .f24 .ce-soir{position:absolute;left:6%;right:6%;bottom:5.5%;font-size:9.5px;color:#6b4a3e;font-weight:600;letter-spacing:.3px;line-height:1.5}\n#ebc .f24 .ce-soir span{font-weight:500;font-size:9px}\n#ebc .reflet.go2{animation:reflet 1.3s cubic-bezier(.45,.05,.3,1) 2 forwards}\n#ebc .relief{background:linear-gradient(180deg,#b3283f 0%,#8c1a2c 55%,#6e0f20 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 1.5px 1px rgba(70,8,20,.28)) drop-shadow(0 5px 7px rgba(70,8,20,.16))}\n#ebc .carte .txt{transition:opacity .5s}\n#ebc .carte:not(.lu) .txt{opacity:0}\n#ebc .carte .d,#ebc .ch2 .d{position:absolute;left:8%;top:9%;font-size:10px;letter-spacing:3.2px;font-weight:700;color:#a8814a}\n#ebc .carte .in{position:absolute;left:6%;right:6%;top:33%}\n#ebc .carte .t{display:inline-block;font-size:18px;font-weight:700;line-height:1.15;white-space:nowrap}\n#ebc .carte .s{font-size:11.5px;line-height:1.45;margin-top:6px;color:#5c3a30;font-weight:500}\n#ebc .carte .b{display:inline-block;margin-top:16px;padding:2px 2px;cursor:pointer;font-size:17px;letter-spacing:3px;font-weight:800}\n#ebc .carte .soin{position:absolute;left:6%;right:6%;top:14%}\n#ebc .carte .soin img{position:static!important;display:block;height:calc(min(100vw,440px)*0.3);margin:0 auto;filter:drop-shadow(0 6px 8px rgba(60,10,20,.16))}\n#ebc .carte .soin .t{margin-top:6px;font-size:18px}\n#ebc .carte .soin .s{margin-top:3px;font-size:11px}\n#ebc .carte .soin .v{margin-top:3px;font-size:9px;letter-spacing:2.4px;font-weight:700;color:#a8814a}\n#ebc .carte .soin .b{margin-top:9px;font-size:15px}\n#ebc .carte.g-soin{background-image:url(https://elkhabskincare.github.io/elkhab-site/calendrier-fond-chances.png),linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,240,232,.15))}\n#ebc .carte .gl,#ebc .carte .soin{display:none}\n#ebc .carte.g-liv .gl,#ebc .carte.g-soin .soin{display:block}\n#ebc .ch2{background-image:url(https://elkhabskincare.github.io/elkhab-site/calendrier-fond-chances.png),linear-gradient(135deg,rgba(255,255,255,.35),rgba(255,240,232,.15));background-size:100% auto,100% 100%;background-position:top center,0 0;padding:15.5% 7% 5.5%}\n#ebc .ch2 .conf{font-size:11px;line-height:1.5;color:#5c3a30;font-weight:500}\n#ebc .ch2 .conf b{font-weight:700;color:#5a1e2c}\n#ebc .ch2 .lien{display:inline-block;margin-top:5px;font-size:9px;letter-spacing:2.2px;font-weight:700;color:#a8814a;text-decoration:none;border-bottom:1px solid rgba(168,129,74,.6);padding-bottom:1px}\n#ebc .ch2 .filet{width:34px;height:1px;background:#c9a25c;margin:11px auto 9px}\n#ebc .ch2 .vc{font-size:9px;letter-spacing:2.8px;font-weight:700;color:#a8814a}\n#ebc .ch2 .cols{display:flex;justify-content:center;gap:10px;margin-top:3px}\n#ebc .ch2 .col{flex:1;max-width:46%}\n#ebc .ch2 .n{display:inline-block;font-size:24px;font-weight:700;line-height:1.2}\n#ebc .ch2 .n.pop{animation:popn .7s}\n@keyframes popn{40%{transform:scale(1.4)}}\n#ebc .ch2 .lb{font-size:9.5px;line-height:1.35;color:#6b4a3e;font-weight:500}\n#ebc .ch2 .aug{font-size:10px;line-height:1.45;color:#5c3a30;font-weight:500;margin-top:9px}\n#ebc .ch2 .pz{position:relative;display:inline-block;margin-top:7px}\n#ebc .ch2 .pa{display:inline-block;font-size:11px;letter-spacing:2.6px;font-weight:800;cursor:pointer;padding:3px 0}\n#ebc .ch2 .badge{left:50%;bottom:auto;top:calc(100% + 56px);transform:translate(-50%,3px);background:rgba(255,250,246,.72);border-color:rgba(255,255,255,.95)}\n#ebc .ch2 .badge.on{transform:translate(-50%,0)}\n#ebc .reflet{position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,rgba(255,255,255,0) 35%,rgba(255,236,196,.55) 47%,rgba(255,255,255,.75) 50%,rgba(255,236,196,.5) 53%,rgba(255,255,255,0) 65%);transform:translateX(-120%);opacity:0}\n#ebc .reflet.go{animation:reflet 1.3s cubic-bezier(.45,.05,.3,1) forwards}\n@keyframes reflet{0%{transform:translateX(-120%);opacity:1}100%{transform:translateX(120%);opacity:1}}\n#ebc .badge{position:absolute;bottom:calc(100% + 5px);left:calc(100% - 14px);white-space:nowrap;background:rgba(255,255,255,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.95);color:#5a1e2c;font-size:9px;font-weight:600;letter-spacing:.3px;padding:4px 9px;border-radius:12px;opacity:0;transform:translateY(3px);transition:opacity .45s,transform .45s;pointer-events:none}\n#ebc .badge.on{opacity:1;transform:none}\n#ebc .info .badge{border-color:#b08a52;background:rgba(255,255,255,.35)}\n#ebc .bulles{position:absolute;display:flex;gap:8px;pointer-events:none}\n#ebc .ch2 .bulles{left:50%;top:calc(100% + 12px);transform:translateX(-50%);flex-direction:row}\n#ebc .bul{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.35);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 4px 10px rgba(70,10,20,.18);opacity:0;transform:translateY(-6px) scale(.85);transition:opacity .3s,transform .35s cubic-bezier(.2,.9,.3,1.2)}\n#ebc .bul svg{width:24px;height:24px}\n#ebc .bulles.on{pointer-events:auto}\n#ebc .bulles.on .bul{opacity:1;transform:none}\n#ebc .bulles.on .bul:nth-child(2){transition-delay:.05s}\n#ebc .bulles.on .bul:nth-child(3){transition-delay:.1s}\n#ebc .bulles.on .bul:nth-child(4){transition-delay:.15s}\n#ebc .bulles.on .bul:nth-child(5){transition-delay:.2s}\n#ebc .info .bulles{left:50%;top:calc(100% + 10px);transform:translateX(-50%);flex-direction:row}\n#ebc .info .bul{width:38px;height:38px;border-color:rgba(176,138,82,.6)}\n#ebc .info .bul svg{width:26px;height:26px}\n#ebc .info{width:min(100vw,440px);padding:4px 22px 10px;text-align:center}\n#ebc .titre{font-size:12px;letter-spacing:3px;color:#9a7440;font-weight:600;margin:22px 0 4px}\n#ebc .sstitre{font-size:11px;letter-spacing:2px;color:#8a6d60;margin:0 0 12px;text-transform:uppercase}\n#ebc .info h4{font-size:11px;letter-spacing:3px;color:#9a7440;font-weight:600;margin:22px 0 10px}\n#ebc .acc{font-size:14px;line-height:1.6;color:#5a1e2c;margin:0 0 6px}\n#ebc .info ol{list-style:none;text-align:left;max-width:340px;margin:0 auto;font-size:13px;line-height:1.55;color:#5a1e2c}\n#ebc .info ol li{margin:7px 0}\n#ebc .info ol span{color:#9a7440;font-weight:600;margin-right:6px}\n#ebc .lotimg{display:block;width:100%;max-width:330px;margin:0 auto}\n#ebc .lotnom{font-size:22px;font-weight:600;color:#5a1e2c;margin-top:4px}\n#ebc .lotsous{font-size:10.5px;letter-spacing:3px;color:#9a7440;font-weight:600;margin-top:4px}\n#ebc .lottxt{font-size:13px;line-height:1.6;color:#6b4a3e;margin:10px 4px 0}\n#ebc .lotdate{display:inline-block;margin-top:12px;font-size:12px;letter-spacing:1.5px;color:#5a1e2c;font-weight:600;border-top:1px solid #cdb48a;border-bottom:1px solid #cdb48a;padding:6px 10px}\n#ebc .conclu{font-size:13px;color:#9a7440;font-style:italic;margin:10px 0 0}\n#ebc .partzone{position:relative;display:inline-block;margin-top:18px}\n#ebc .partage{position:relative;display:inline-block;padding:11px 20px;font-size:10.5px;letter-spacing:2.4px;font-weight:600;color:#5a1e2c;border:1px solid #b08a52;border-radius:2px;cursor:pointer;background:transparent;font-family:inherit}\n#ebc .partage.off{opacity:.38;cursor:default}\n#ebc #partxt{font-size:11px;color:#8a6d60;margin-top:8px}\n#ebc .ouvert-res{margin-bottom:56px}\n#ebc .reglement{display:block;margin:20px 0 8px;font-size:12px;color:#8a6d60;text-decoration:underline;cursor:pointer}\n#ebc-bas .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);width:max-content;max-width:88vw;text-align:center;line-height:1.45;background:rgba(255,250,246,.8);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(176,138,82,.6);color:#5a1e2c;font-size:12px;padding:10px 16px;border-radius:6px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:9999}\n#ebc-bas .toast.on{opacity:1}\n@media (min-width:900px){#ebc .page{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);max-width:1180px;margin:0 auto;align-items:start;gap:40px;padding:30px 40px 50px}\n#ebc .stage{justify-self:center}\n#ebc .info{width:auto;max-width:480px;justify-self:center;text-align:center;padding-top:70px;position:sticky;top:10px}\n#ebc .info h4:first-child,#ebc .info .titre{margin-top:0}\n#ebc .info ol{text-align:center;max-width:420px;margin:0 auto}\n}\n#ebc .periode{display:none}\n#ebc .gagsem{display:none;margin:26px auto 0;max-width:330px;padding:14px 0 12px;border-top:1px solid #cdb48a;border-bottom:1px solid #cdb48a}\n#ebc.lundi .gagsem{display:block}\n#ebc .gs-t{font-size:10.5px;letter-spacing:2.6px;color:#9a7440;font-weight:600;text-transform:uppercase}\n#ebc .gs-n{font-size:22px;font-weight:600;color:#8c1a2c;margin:4px 0 2px}\n#ebc .gs-p{font-size:13px;color:#6b4a3e}\n#ebc .gs-r{margin-top:10px;font-size:12px;letter-spacing:.3px;color:#8c1a2c;font-weight:600}\n#ebc.avant #infoAvant,#ebc.apres #infoApres{display:block}\n#ebc.avant #jeu,#ebc.apres #jeu{display:none}\n#ebc.avant .tiroir,#ebc.apres .rebours{font-size:13px;color:#5a1e2c;margin:0 0 12px}\n#ebc .rebours b{font-size:30px;font-weight:600;margin:0 4px;color:#8c1a2c}\n#ebc .gagnante{margin:16px 0 14px;font-size:11px;letter-spacing:2.5px;color:#9a7440;font-weight:600;text-transform:uppercase;line-height:1.9}\n#ebc .gagnante b{font-size:22px;letter-spacing:.5px;color:#8c1a2c;text-transform:none;font-weight:600}\n#ebc a.partage{text-decoration:none;margin-top:6px}\n#ebc #infoAvant .partage,#ebc #infoApres .partage{margin-top:8px}\n#ebc-bas .ebn-merci{display:none}\n#ebc-bas .ebn.ebn-ok .ebn-in>div:not(.ebn-merci),#ebc-bas .ebn.ebn-ok .ebn-fermer{display:none}\n#ebc-bas .ebn.ebn-ok .ebn-in>.ebn-merci{display:block;text-align:center;padding:6px 0 4px}\n#ebc-bas .ebn-merci .ebn-titre{white-space:normal}\n#ebc-bas .ebn-filet{width:34px;height:1px;background:#c9a25c;margin:10px auto}\n#ebc-bas .ebn{position:fixed;left:0;right:0;bottom:0;z-index:9000;background:#EBE5DB;color:#000;font-family:\"Montserrat\",sans-serif;box-shadow:0 -12px 40px rgba(0,0,0,.10);transform:translateY(105%);visibility:hidden;transition:transform .6s cubic-bezier(.65,0,.35,1),visibility 0s linear .6s}\n#ebc-bas .ebn.ebn-ouvert{transform:translateY(0);visibility:visible;transition:transform .6s cubic-bezier(.65,0,.35,1),visibility 0s}\n#ebc-bas .ebn *{box-sizing:border-box}\n#ebc-bas .ebn-fermer{position:absolute;z-index:2;top:14px;right:16px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(0,0,0,.2);background:transparent;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#000;padding:0;font-family:\"Montserrat\",sans-serif}\n#ebc-bas .ebn-in{max-width:1000px;margin:0 auto;padding:30px 24px 24px;display:grid;grid-template-columns:minmax(0,1fr);gap:16px}\n#ebc-bas .ebn-tag{font-size:9.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:#a3162b;margin:0 0 8px}\n#ebc-bas .ebn-titre{font-size:clamp(12px,3.8vw,19px);font-weight:600;color:#a3162b;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px;line-height:1.3;white-space:nowrap}\n#ebc-bas .ebn-texte{font-size:13.5px;font-weight:300;line-height:1.65;margin:0}\n#ebc-bas .ebn-form{display:flex;width:100%}\n#ebc-bas .ebn-email{flex:1;min-width:0;height:50px;border:1px solid #000;border-right:0;background:#F6F4F0;padding:0 16px;font-family:\"Montserrat\",sans-serif;font-size:16px;color:#000;border-radius:0;-webkit-appearance:none;appearance:none;outline:none;margin:0}\n#ebc-bas .ebn-email::placeholder{color:rgba(0,0,0,.45)}\n#ebc-bas .ebn-btn{height:50px;border:1px solid #000;background:#000;color:#fff;padding:0 20px;font-family:\"Montserrat\",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;white-space:nowrap;border-radius:0;margin:0}\n#ebc-bas .ebn-nl{display:flex;gap:9px;align-items:flex-start;margin:12px 0 0;font-size:12.5px;font-weight:400;line-height:1.45;cursor:pointer}\n#ebc-bas .ebn-nl input{flex:none;width:16px;height:16px;margin:1px 0 0;accent-color:#a3162b;cursor:pointer}\n#ebc-bas .ebn-mention{font-size:10.5px;font-weight:300;line-height:1.5;opacity:.65;margin:10px 0 0}\n#ebc-bas .ebn-mention a{color:#000}\n#ebc-bas .ebn-erreur{display:none;font-size:11.5px;color:#b3261e;margin:8px 0 0}\n" +
+    '#ebc .case{position:absolute;background-repeat:no-repeat;pointer-events:none}' +
+    '#ebc .k-ouverte{background-image:url(' + IMG + 'calendrier-cases-ouverte.png)}' +
+    '#ebc .k-manquee{background-image:url(' + IMG + 'calendrier-cases-manquee.png)}' +
+    '#ebc .k-jour{background-image:url(' + IMG + 'calendrier-cases-jour.png)}' +
+    '#ebc .k-vide{background-image:url(' + IMG + 'calendrier-cases-vide.png);opacity:0;transition:opacity .6s}' +
+    '#ebc .k-vide.on{opacity:1}' +
+    '#ebc .tiroir{cursor:pointer;pointer-events:auto;filter:drop-shadow(0 2px 2px rgba(40,0,8,.35))}' +
+    '#ebc .glow{position:absolute;width:44%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,228,165,.95) 0%,rgba(240,198,122,.5) 32%,rgba(230,180,100,0) 70%);opacity:0;pointer-events:none}' +
+    '#ebc .fente{position:absolute;border-radius:9px;background:radial-gradient(ellipse at 50% 30%,rgba(255,214,150,.55),rgba(60,0,12,.85) 70%);box-shadow:inset 0 4px 8px rgba(0,0,0,.6);opacity:0;pointer-events:none}' +
+    '#ebc .carte .pc{display:inline-block;margin-top:4px;font-size:22px;font-weight:800;letter-spacing:1px}' +
+    '#ebc .carte .pc small{display:block;font-size:9px;letter-spacing:2.4px;font-weight:700;-webkit-text-fill-color:#a8814a;color:#a8814a}' +
+    '#ebc .carte .gl .lien2{display:block;margin:10px auto 0;font-size:9px;letter-spacing:2.2px;font-weight:700;color:#a8814a;text-decoration:none}' +
+    '#ebc .ch2 .livr{font-size:10px;line-height:1.45;color:#6b4a3e;font-style:italic;margin-top:5px}' +
+    '#ebc .reglement{text-decoration:underline}' +
+    '#ebc .charge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:11px;letter-spacing:2px;color:#a8814a;opacity:0;transition:opacity .4s;pointer-events:none}' +
+    '#ebc.attend .charge{opacity:1}';
+
+  // ───────────────────────────── OUTILS ─────────────────────────────
+  var $ = function(i){ return document.getElementById(i); };
+  function lire(k){ try { return localStorage.getItem(k); } catch(e){ return null; } }
+  function ecrire(k, v){ try { if(v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch(e){} }
+  function valideMail(v){ return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v); }
+  // la date à Paris, quel que soit le réglage du téléphone
+  function paris(){
+    var p = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).formatToParts(new Date());
+    var o = {}; p.forEach(function(x){ o[x.type] = +x.value; }); return o;
+  }
+  function appeler(action, donnees){
+    donnees = donnees || {}; donnees.action = action;
+    // « text/plain » : Google accepte la demande sans vérification préalable du navigateur
+    return fetch(REGLAGES.registre, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(donnees), redirect: 'follow' })
+      .then(function(r){ return r.json(); });
+  }
+  // le gain du jour, gardé jusqu'à minuit et lisible par le panier sur tous les sites elkhab.com
+  function domaine(){ return /(^|\.)elkhab\.com$/.test(location.hostname) ? '; domain=.elkhab.com' : ''; }
+  function garderGain(jour){
+    var p = paris(), reste = ((23 - p.hour) * 3600 + (59 - p.minute) * 60 + (60 - p.second));
+    document.cookie = 'eb_calendrier=' + REGLAGES.annee + '-12-' + (jour < 10 ? '0' : '') + jour + '; max-age=' + reste + '; path=/' + domaine() + '; SameSite=Lax';
+  }
+
+  // ───────────────────────────── LA PAGE ─────────────────────────────
+  var racine = $('eb-calendrier'); if(!racine) return;
+  var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
+  racine.id = 'ebc';
+  var info = $('eb-calendrier-textes');
+  racine.innerHTML =
+    '<div class="page"><div class="stage" id="stage"><div class="scene" id="scene">' +
+      '<img class="base" id="base" src="' + IMG + 'calendrier-flacon.png" alt="Calendrier de l’avent beauté ELKHA.B en forme de flacon">' +
+      '<div id="cases"></div>' +
+      '<img class="capot" id="capot" src="' + IMG + 'calendrier-capot.png" alt="">' +
+      '<div class="glow" id="glow"></div><div class="fente" id="fente"></div>' +
+      '<div class="aide" id="aide"><img id="aideimg" src="' + IMG + 'calendrier-bague-touchez.png" alt=""></div>' +
+      '<div class="charge">UN INSTANT…</div>' +
+      "<div class=\"carte verre g-liv\" id=\"carte\"> <div class=\"reflet\" id=\"reflet\"></div> <div class=\"d txt\" id=\"date1\"></div> <div class=\"in txt gl\"> <div class=\"t relief\"></div> <div class=\"s\"></div> <span class=\"b relief\" data-profiter>J’EN PROFITE</span> </div> <div class=\"soin txt\"> <img src=\"\" alt=\"Hydra Balance, gel hydratant repulpant à l’acide hyaluronique ELKHA.B\"> <div class=\"t relief\">Hydra Balance</div> <div class=\"s\">Offert pour l’achat d’un soin</div> <div class=\"v\">VALEUR 28,90 €</div> <span class=\"b relief\" data-profiter>J’EN PROFITE</span> </div> </div> <div class=\"ch2 verre\" id=\"ch2\"> <div class=\"conf\" id=\"conf\">Votre livraison offerte est enregistrée : elle s’appliquera à votre commande jusqu’à minuit.</div> <a class=\"lien\" href=\"#\" id=\"boutique\">ALLER À LA BOUTIQUE</a> <div class=\"filet\"></div> <div class=\"vc\">VOS CHANCES</div> <div class=\"cols\"> <div class=\"col\" id=\"rgS\"><b class=\"n relief\" id=\"chS\">0</b><div class=\"lb\">Tirage de dimanche</div></div> <div class=\"col\"><b class=\"n relief\" id=\"ch24\">0</b><div class=\"lb\" id=\"lb24\">Grand tirage du 24</div></div> </div> <div class=\"aug\" id=\"aug\"></div> <div class=\"pz\"><span class=\"pa relief\" data-share id=\"pa1\">PARTAGER À UNE AMIE</span></div> <span class=\"badge\" id=\"bd1\"><span class=\"nbp\">0 lien partagé</span></span> <div class=\"bulles\" id=\"res1\"><a class=\"bul\" data-r=\"fwa\" href=\"#\" aria-label=\"WhatsApp\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#25D366\"/><path d=\"M16 7.2a8.8 8.8 0 0 0-7.6 13.3L7.3 24.7l4.3-1.1A8.8 8.8 0 1 0 16 7.2Z\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><path d=\"M13 12.3c.3-.6.6-.6.9-.6h.5c.2 0 .4 0 .6.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.3 1.7 2.3 2.2.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.5.7c.2.1.4.2.4.4 0 .5-.2 1.1-.6 1.4-.5.4-1.3.6-2.2.3-1.8-.6-3.6-2.1-4.6-4-.5-1-.6-2.2-.2-3.3Z\" fill=\"#fff\"/></svg></a><a class=\"bul\" data-r=\"fig\" href=\"#\" aria-label=\"Instagram\"><svg viewBox=\"0 0 32 32\"><defs><radialGradient id=\"ig1\" cx=\"30%\" cy=\"107%\" r=\"150%\"><stop offset=\"0\" stop-color=\"#fdf497\"/><stop offset=\".05\" stop-color=\"#fdf497\"/><stop offset=\".45\" stop-color=\"#fd5949\"/><stop offset=\".6\" stop-color=\"#d6249f\"/><stop offset=\".9\" stop-color=\"#285AEB\"/></radialGradient></defs><rect width=\"32\" height=\"32\" rx=\"9\" fill=\"url(#ig1)\"/><rect x=\"8\" y=\"8\" width=\"16\" height=\"16\" rx=\"5\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.8\"/><circle cx=\"16\" cy=\"16\" r=\"3.9\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.8\"/><circle cx=\"21\" cy=\"11\" r=\"1.1\" fill=\"#fff\"/></svg></a><a class=\"bul\" data-r=\"fms\" href=\"#\" aria-label=\"Messenger\"><svg viewBox=\"0 0 32 32\"><defs><linearGradient id=\"ms1\" x1=\"0\" y1=\"1\" x2=\"1\" y2=\"0\"><stop offset=\"0\" stop-color=\"#0099FF\"/><stop offset=\".6\" stop-color=\"#A033FF\"/><stop offset=\".9\" stop-color=\"#FF5280\"/><stop offset=\"1\" stop-color=\"#FF7061\"/></linearGradient></defs><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"url(#ms1)\"/><path d=\"M16 7c-5.2 0-9.2 3.8-9.2 8.8 0 2.7 1.1 5 2.9 6.6v3.1l2.8-1.6c1.1.4 2.3.5 3.5.5 5.2 0 9.2-3.8 9.2-8.6S21.2 7 16 7Z\" fill=\"#fff\"/><path d=\"m10.6 18.6 3-4.7 2.3 1.9 3.3-2 -3 4.7-2.3-1.9Z\" fill=\"#7a3cff\"/></svg></a><a class=\"bul\" data-r=\"ftt\" href=\"#\" aria-label=\"TikTok\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#111\"/><path d=\"M18.3 7.5c.3 2.3 1.6 3.7 3.8 3.9v2.7a6.6 6.6 0 0 1-3.8-1.2v5.5a5 5 0 1 1-5-5v2.8a2.2 2.2 0 1 0 2.2 2.2V7.5Z\" fill=\"#25F4EE\" transform=\"translate(-.8 -.6)\"/><path d=\"M18.3 7.5c.3 2.3 1.6 3.7 3.8 3.9v2.7a6.6 6.6 0 0 1-3.8-1.2v5.5a5 5 0 1 1-5-5v2.8a2.2 2.2 0 1 0 2.2 2.2V7.5Z\" fill=\"#FE2C55\" transform=\"translate(.8 .6)\"/><path d=\"M18.3 7.5c.3 2.3 1.6 3.7 3.8 3.9v2.7a6.6 6.6 0 0 1-3.8-1.2v5.5a5 5 0 1 1-5-5v2.8a2.2 2.2 0 1 0 2.2 2.2V7.5Z\" fill=\"#fff\"/></svg></a><a class=\"bul\" data-r=\"fcopie\" href=\"#\" aria-label=\"Copier le lien\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#5a1e2c\"/><path d=\"M14 18a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1\" fill=\"none\" stroke=\"#f3e2bf\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M18 14a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1\" fill=\"none\" stroke=\"#f3e2bf\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg></a></div> </div> <div class=\"f24 verre\" id=\"f24\"> <div class=\"reflet\" id=\"reflet24\"></div> <div class=\"d\">24 DÉCEMBRE<br><span>LA CASE DE LA FONDATRICE</span></div> <div class=\"mot\">Le 24 décembre est une date qui m’est chère, et je suis heureuse de la partager avec vous. Merci de faire partie de cette toute première aventure ELKHA.B.<br>De très belles fêtes à vous.</div> <div class=\"sig\">La fondatrice d’Elkha.B</div> <span class=\"b relief\" id=\"cadeau24\">DÉCOUVRIR VOTRE CADEAU</span> <div class=\"ce-soir\">Grand tirage ce soir à 18 h : le coffret Velours d’Hiver<br><span>La gagnante annoncée sur TikTok et Instagram</span></div> </div>" +
+    '</div></div></div>';
+  racine.firstChild.appendChild(info); info.className = 'info'; info.style.display = '';
+  var bas = document.createElement('div'); bas.id = 'ebc-bas';
+  bas.innerHTML = "<div class=\"ebn\" id=\"nl\" role=\"dialog\" aria-label=\"Participer au calendrier des fêtes ELKHA.B\"> <button type=\"button\" class=\"ebn-fermer\" id=\"nlplus\" aria-label=\"Fermer\">×</button> <div class=\"ebn-in\"><div class=\"ebn-merci\"><p class=\"ebn-tag\">Calendrier des fêtes</p><p class=\"ebn-titre\">Bienvenue</p><div class=\"ebn-filet\"></div><p class=\"ebn-texte\" id=\"nlMerci\">Votre première case vous attend.</p></div> <div><p class=\"ebn-tag\">Calendrier des fêtes</p><p class=\"ebn-titre\" id=\"nlTitre\">Vos 24 surprises vous attendent</p><p class=\"ebn-texte\" id=\"nlTexte\">Indiquez votre e-mail pour ouvrir votre case du jour et participer aux tirages. Nous ne vous le demanderons qu’une fois.</p></div> <div><div class=\"ebn-form\"><input class=\"ebn-email\" id=\"nlin\" type=\"email\" inputmode=\"email\" autocomplete=\"email\" placeholder=\"Votre adresse e-mail\"><button class=\"ebn-btn\" id=\"nlok\" type=\"button\">Je participe</button></div> <p class=\"ebn-erreur\" id=\"nlerr\">Merci d’indiquer une adresse e-mail valide.</p> <label class=\"ebn-nl\"><input type=\"checkbox\" id=\"nlcase\"><span>Je souhaite aussi recevoir les nouveautés et les offres ELKHA.B.</span></label> <p class=\"ebn-mention\">En participant, vous acceptez le <a href=\"#\">règlement du jeu</a>. <a href=\"#\">Politique de confidentialité</a></p></div> </div> </div>" + '<div class="toast" id="toast"></div>';
+  document.body.appendChild(bas);
+  $('pz2').insertAdjacentHTML('beforeend', "<div class=\"bulles\" id=\"res2\"><a class=\"bul\" data-r=\"fwa\" href=\"#\" aria-label=\"WhatsApp\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#25D366\"/><path d=\"M16 7.2a8.8 8.8 0 0 0-7.6 13.3L7.3 24.7l4.3-1.1A8.8 8.8 0 1 0 16 7.2Z\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><path d=\"M13 12.3c.3-.6.6-.6.9-.6h.5c.2 0 .4 0 .6.5l.7 1.6c.1.2 0 .4-.1.6l-.5.6c-.1.1-.2.3 0 .5.5.9 1.3 1.7 2.3 2.2.2.1.4.1.5 0l.7-.8c.2-.2.4-.2.6-.1l1.5.7c.2.1.4.2.4.4 0 .5-.2 1.1-.6 1.4-.5.4-1.3.6-2.2.3-1.8-.6-3.6-2.1-4.6-4-.5-1-.6-2.2-.2-3.3Z\" fill=\"#fff\"/></svg></a><a class=\"bul\" data-r=\"fig\" href=\"#\" aria-label=\"Instagram\"><svg viewBox=\"0 0 32 32\"><defs><radialGradient id=\"ig2\" cx=\"30%\" cy=\"107%\" r=\"150%\"><stop offset=\"0\" stop-color=\"#fdf497\"/><stop offset=\".05\" stop-color=\"#fdf497\"/><stop offset=\".45\" stop-color=\"#fd5949\"/><stop offset=\".6\" stop-color=\"#d6249f\"/><stop offset=\".9\" stop-color=\"#285AEB\"/></radialGradient></defs><rect width=\"32\" height=\"32\" rx=\"9\" fill=\"url(#ig2)\"/><rect x=\"8\" y=\"8\" width=\"16\" height=\"16\" rx=\"5\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.8\"/><circle cx=\"16\" cy=\"16\" r=\"3.9\" fill=\"none\" stroke=\"#fff\" stroke-width=\"1.8\"/><circle cx=\"21\" cy=\"11\" r=\"1.1\" fill=\"#fff\"/></svg></a><a class=\"bul\" data-r=\"fms\" href=\"#\" aria-label=\"Messenger\"><svg viewBox=\"0 0 32 32\"><defs><linearGradient id=\"ms2\" x1=\"0\" y1=\"1\" x2=\"1\" y2=\"0\"><stop offset=\"0\" stop-color=\"#0099FF\"/><stop offset=\".6\" stop-color=\"#A033FF\"/><stop offset=\".9\" stop-color=\"#FF5280\"/><stop offset=\"1\" stop-color=\"#FF7061\"/></linearGradient></defs><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"url(#ms2)\"/><path d=\"M16 7c-5.2 0-9.2 3.8-9.2 8.8 0 2.7 1.1 5 2.9 6.6v3.1l2.8-1.6c1.1.4 2.3.5 3.5.5 5.2 0 9.2-3.8 9.2-8.6S21.2 7 16 7Z\" fill=\"#fff\"/><path d=\"m10.6 18.6 3-4.7 2.3 1.9 3.3-2 -3 4.7-2.3-1.9Z\" fill=\"#7a3cff\"/></svg></a><a class=\"bul\" data-r=\"ftt\" href=\"#\" aria-label=\"TikTok\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#111\"/><path d=\"M18.3 7.5c.3 2.3 1.6 3.7 3.8 3.9v2.7a6.6 6.6 0 0 1-3.8-1.2v5.5a5 5 0 1 1-5-5v2.8a2.2 2.2 0 1 0 2.2 2.2V7.5Z\" fill=\"#25F4EE\" transform=\"translate(-.8 -.6)\"/><path d=\"M18.3 7.5c.3 2.3 1.6 3.7 3.8 3.9v2.7a6.6 6.6 0 0 1-3.8-1.2v5.5a5 5 0 1 1-5-5v2.8a2.2 2.2 0 1 0 2.2 2.2V7.5Z\" fill=\"#FE2C55\" transform=\"translate(.8 .6)\"/><path d=\"M18.3 7.5c.3 2.3 1.6 3.7 3.8 3.9v2.7a6.6 6.6 0 0 1-3.8-1.2v5.5a5 5 0 1 1-5-5v2.8a2.2 2.2 0 1 0 2.2 2.2V7.5Z\" fill=\"#fff\"/></svg></a><a class=\"bul\" data-r=\"fcopie\" href=\"#\" aria-label=\"Copier le lien\"><svg viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#5a1e2c\"/><path d=\"M14 18a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1\" fill=\"none\" stroke=\"#f3e2bf\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M18 14a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1\" fill=\"none\" stroke=\"#f3e2bf\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg></a></div>");
+  bas.querySelectorAll('.ebn-mention a')[0].addEventListener('click', function(ev){ ev.preventDefault(); toast('Le règlement du jeu sera bientôt en ligne'); });
+  bas.querySelectorAll('.ebn-mention a')[1].href = REGLAGES.confidentialite;
+
+  var sc = $('scene'), cap = $('capot'), glow = $('glow'), fente = $('fente'), carte = $('carte'), ch2 = $('ch2'), aide = $('aide'), nl = $('nl');
+  var tir = null, fond = null;
+  var etat = 'ferme', anims = [], attente = false, compte1 = false, P = 'perspective(420px) ', demT = null, nlT = null;
+  var S = { email: lire('ebcal_email') || '', inscrite: false, jour: 0, ouvert: false, jours: [], codeAmie: lire('ebcal_code') || '', tirage: 0, chancesDimanche: 0, chances24: 0, gagnantes: {} };
+  var periode = '';          // avant / jeu / apres
+  var nbPart = +(lire('ebcal_partages') || 0);
+  // lien d'amie ou de collaboratrice : gardé pour l'inscription
+  var ami = (new URLSearchParams(location.search).get('ami') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 20);
+  if(ami) ecrire('ebcal_ami', ami); else ami = lire('ebcal_ami') || '';
+
+  function A(el, kf, op){ var a = el.animate(kf, Object.assign({ fill: 'forwards' }, op)); anims.push(a); return a; }
+  function toast(t){ var e = $('toast'); e.textContent = t; e.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function(){ e.classList.remove('on'); }, 2800); }
+  function texteAide(f){ $('aideimg').src = IMG + 'calendrier-bague-' + f + '.png'; }
+  function ecart(){ var s = sc.getBoundingClientRect(), t = tir.getBoundingClientRect(); return { x: (t.left + t.width / 2) - (s.left + s.width * 0.5), y: (t.top + t.height / 2) - (s.top + s.height * 0.52) }; }
+  function montrerBadge(b){ if(!b) return; b.classList.add('on'); clearTimeout(b._t); b._t = setTimeout(function(){ b.classList.remove('on'); b._t = null; }, 2200); }
+  function ouvrirBandeau(){ clearTimeout(nlT); nl.classList.remove('ebn-ok'); nl.classList.add('ebn-ouvert'); }
+  function fermerBandeau(){ nl.classList.remove('ebn-ouvert'); }
+  function urlAmi(){ return REGLAGES.page + (S.codeAmie ? '?ami=' + S.codeAmie : ''); }
+
+  // une case du flacon, découpée dans la planche préparée à l'avance
+  function caseDiv(j, sorte){
+    var b = GEO[j], w = b[2] - b[0], h = b[3] - b[1], d = document.createElement('div');
+    d.className = 'case k-' + sorte;
+    d.style.cssText = 'left:' + (b[0] / 6.2) + '%;top:' + (b[1] / 15) + '%;width:' + (w / 6.2) + '%;height:' + (h / 15) + '%;' +
+      'background-size:' + (62000 / w) + '% ' + (150000 / h) + '%;background-position:' + (b[0] / (620 - w) * 100) + '% ' + (b[1] / (1500 - h) * 100) + '%';
+    return d;
+  }
+  function dessinerFlacon(){
+    var box = $('cases'); box.innerHTML = ''; tir = null; fond = null;
+    for(var j = 1; j <= 24; j++){
+      if(periode === 'apres'){ box.appendChild(caseDiv(j, 'ouverte')); continue; }
+      if(periode !== 'jeu') continue;
+      if(j < S.jour) box.appendChild(caseDiv(j, S.jours.indexOf(j) >= 0 ? 'ouverte' : 'manquee'));
+      if(j === S.jour){
+        fond = caseDiv(j, 'vide'); box.appendChild(fond);
+        box.appendChild(glow); box.appendChild(fente);   // sous le tiroir, comme dans la démo
+        tir = caseDiv(j, 'jour'); tir.classList.add('tiroir'); tir.setAttribute('role', 'button');
+        tir.setAttribute('aria-label', 'Ouvrir la case du ' + j + ' décembre'); box.appendChild(tir);
+        var b = GEO[j];
+        glow.style.left = ((b[0] + b[2]) / 12.4) + '%'; glow.style.top = ((b[1] + b[3]) / 30) + '%';
+        fente.style.cssText = 'left:' + ((b[0] + 4) / 6.2) + '%;top:' + ((b[1] + 5) / 15) + '%;width:' + ((b[2] - b[0] - 7) / 6.2) + '%;height:' + ((b[3] - b[1] - 7) / 15) + '%';
+        tir.addEventListener('click', function(ev){ ev.stopPropagation(); demander(); });
+      }
+    }
+  }
+
+  // ───────────────────────── LA CARTE DU GAIN ─────────────────────────
+  function preparerCarte(){
+    var j = S.jour, c = CASES[j] || LIV, avecImage = (c.type === 'soin' || c.type === 'remise') && IMAGES_PRETES.indexOf(c.img) >= 0;
+    $('date1').textContent = j + (j === 1 ? 'ER' : '') + ' DÉCEMBRE';
+    carte.classList.remove('g-liv', 'g-soin'); carte.classList.add(avecImage ? 'g-soin' : 'g-liv');
+    var sz = carte.querySelector('.soin'), gl = carte.querySelector('.gl');
+    if(avecImage){
+      sz.querySelector('img').src = IMG + 'calendrier-soin-' + c.img + '.png';
+      sz.querySelector('img').alt = c.soin + ' ELKHA.B';
+      sz.querySelector('.t').textContent = c.soin;
+      if(c.type === 'soin'){ sz.querySelector('.s').textContent = 'Offert' + (c.genre === 'f' ? 'e' : '') + ' pour l’achat d’un soin'; sz.querySelector('.v').innerHTML = 'VALEUR ' + c.valeur; }
+      else { sz.querySelector('.s').textContent = c.sous; sz.querySelector('.v').innerHTML = '<span class="pc relief">' + c.remise + '</span><br>' + (c.apres || 'AUJOURD’HUI'); }
+    } else {
+      var titre = c.titre, sous = c.sous;
+      if(c.type === 'soin'){ titre = c.soin + ' offert' + (c.genre === 'f' ? 'e' : ''); sous = 'Pour l’achat d’un soin. Valeur ' + c.valeur + '.'; }
+      if(c.type === 'remise'){ titre = c.soin + ' ' + c.remise; sous = c.sous + (c.apres ? ', ' + c.apres.toLowerCase() : ', aujourd’hui seulement') + '.'; }
+      gl.querySelector('.t').textContent = titre;
+      gl.querySelector('.s').textContent = sous;
+    }
+    // carte 2 : la confirmation
+    var conf = c.conf;
+    if(c.type === 'soin') conf = 'Votre ' + c.soin + ' offert' + (c.genre === 'f' ? 'e' : '') + ' est enregistré' + (c.genre === 'f' ? 'e' : '') + ' : ' + (c.genre === 'f' ? 'elle' : 'il') + ' sera ajouté' + (c.genre === 'f' ? 'e' : '') + ' à votre commande jusqu’à minuit.';
+    if(c.type === 'remise') conf = 'Votre remise de ' + c.remise.replace('–', '') + ' sur ' + c.soin + ' est enregistrée : elle s’appliquera à votre commande jusqu’à minuit.';
+    var livr = '';
+    if(c.type !== 'bonus'){
+      if(j >= 11 && j <= 17) livr = 'Votre commande arrivera juste après Noël : un cadeau à vous offrir entre les fêtes.';
+      if(j >= 18) livr = 'Votre commande vous sera livrée sous 10 jours ouvrés, pour bien démarrer la nouvelle année.';
+    }
+    $('conf').innerHTML = ''; $('conf').appendChild(document.createTextNode(conf));
+    if(livr){ var l = document.createElement('div'); l.className = 'livr'; l.textContent = livr; $('conf').appendChild(l); }
+    var bt = $('boutique');
+    bt.textContent = c.lien || (c.url ? 'DÉCOUVRIR LE SOIN' : 'ALLER À LA BOUTIQUE');
+    bt.href = c.url || REGLAGES.boutique; bt.dataset.skin = c.skinId ? '1' : '';
+    if(c.type === 'bonus'){ bt.textContent = 'ALLER À LA BOUTIQUE'; bt.href = REGLAGES.boutique; }
+    // les chances
+    var dernier = (j === 24), sansDimanche = dernier || !S.tirage;
+    $('rgS').style.display = sansDimanche ? 'none' : '';
+    $('lb24').textContent = dernier ? 'Grand tirage de ce soir' : 'Grand tirage du 24';
+    var manques = 0; for(var k = 1; k < j; k++) if(S.jours.indexOf(k) < 0) manques++;
+    $('aug').textContent = dernier ? AUG_24 : j === 3 ? AUG_3 : (manques ? AUG_RETARD : AUG);
+  }
+  function afficherChances(avant){
+    $('chS').textContent = avant ? avant.d : S.chancesDimanche;
+    $('ch24').textContent = avant ? avant.g : S.chances24;
+  }
+  // les chances gagnées aujourd'hui montent sous les yeux de la cliente
+  function monterChances(){
+    [['chS', S.chancesDimanche], ['ch24', S.chances24]].forEach(function(x){
+      var b = $(x[0]), de = +b.textContent, a = x[1];
+      if(a <= de){ b.textContent = a; return; }
+      var n = de;
+      (function pas(){ n++; b.textContent = n; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); if(n < a) setTimeout(pas, 380); })();
+    });
+  }
+
+  // ───────────────────────── OUVRIR LA CASE ─────────────────────────
+  function demander(){
+    clearTimeout(nlT);
+    if(etat === 'fini'){ rouvrir(); return; }
+    if(etat !== 'ferme') return;
+    if(S.inscrite){ ouvrir(); return; }
+    attente = true; ouvrirBandeau(); setTimeout(function(){ $('nlin').focus({ preventScroll: true }); }, 450);
+  }
+  function rouvrir(){
+    clearTimeout(demT); fond.classList.remove('on'); anims.forEach(function(a){ a.cancel(); }); anims = [];
+    carte.classList.remove('lu'); $('reflet').classList.remove('go'); tir.classList.remove('revoir'); etat = 'ferme';
+    compte1 = true; afficherChances(); ouvrir(true);
+  }
+  var reponse = null;
+  function ouvrir(revoir){
+    if(etat !== 'ferme') return; etat = 'anim'; tir.classList.remove('appel'); aide.classList.add('cache');
+    try { navigator.vibrate && navigator.vibrate(12); } catch(e){}
+    if(!revoir){
+      var avant = { d: S.chancesDimanche, g: S.chances24 };
+      afficherChances(avant); compte1 = false; reponse = null;
+      appeler('ouvrir', { email: S.email }).then(function(r){
+        if(!r || !r.ok) throw new Error(r && r.erreur);
+        Object.assign(S, r); S.ouvert = true; garderGain(S.jour); reponse = 'ok';
+        $('rgS').style.display = (S.jour === 24 || !S.tirage) ? 'none' : '';
+        if(etat === 'ch2' && !compte1){ compte1 = true; monterChances(); }
+      }).catch(function(){ reponse = 'erreur'; });
+    }
+    if(S.jour === 24 && !revoir){ ouvrir24(); return; }
+    A(tir, [{ transform: P + 'translateZ(0) translateY(0)' }, { transform: P + 'translateZ(40px) translateY(8%)', offset: .45 }, { transform: P + 'translateZ(115px) translateY(28%)', filter: 'drop-shadow(0 18px 14px rgba(40,0,8,.55))' }], { duration: 700, easing: 'cubic-bezier(.3,.6,.25,1)' });
+    A(fente, [{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: 80 });
+    A(glow, [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.3)' }, { opacity: 1, transform: 'translate(-50%,-50%) scale(1.1)' }, { opacity: .45, transform: 'translate(-50%,-50%) scale(.85)' }], { duration: 1500, delay: 350, easing: 'ease-out' });
+    A(cap, [{ transform: 'translateY(0)' }, { transform: 'translateY(-32%)' }], { duration: 900, delay: 100, easing: 'cubic-bezier(.22,.9,.3,1)' });
+    var e = ecart();
+    setTimeout(function(){
+      A(tir, [{ opacity: 1 }, { opacity: 0 }], { duration: 600, easing: 'ease-in' });
+      A(fente, [{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 300 });
+      A(carte, [{ opacity: 0, transform: 'translate(-50%,-50%) translate(' + e.x + 'px,' + e.y + 'px) scale(.12)' }, { opacity: 1, offset: .35 }, { opacity: 1, transform: 'translate(-50%,-50%) translate(0,0) scale(1)' }], { duration: 1000, easing: 'cubic-bezier(.2,.9,.25,1.1)' }).onfinish = function(){
+        etat = 'ouvert'; carte.style.pointerEvents = 'auto'; activerPartage();
+        $('reflet').classList.add('go');
+        setTimeout(function(){ carte.classList.add('lu'); }, 500);
+      };
+    }, 1050);
+  }
+  // le 24 : la carte de la fondatrice d'abord, puis le cadeau
+  function ouvrir24(){
+    var f = $('f24');
+    A(cap, [{ transform: 'translateY(0)' }, { transform: 'translateY(-32%)' }], { duration: 900, delay: 100, easing: 'cubic-bezier(.22,.9,.3,1)' });
+    A(tir, [{ opacity: 1 }, { opacity: 0 }], { duration: 700, delay: 300 });
+    setTimeout(function(){
+      A(f, [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.12)' }, { opacity: 1, offset: .35 }, { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }], { duration: 1100, easing: 'cubic-bezier(.2,.9,.25,1.1)' }).onfinish = function(){ f.style.pointerEvents = 'auto'; $('reflet24').classList.add('go2'); etat = 'f24'; };
+    }, 500);
+  }
+  $('cadeau24').addEventListener('click', function(ev){
+    ev.stopPropagation(); if(etat !== 'f24') return; var f = $('f24'); f.style.pointerEvents = 'none';
+    A(f, [{ opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }, { opacity: 0, transform: 'translate(-50%,-50%) scale(.97)' }], { duration: 450 });
+    A(carte, [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.97)' }, { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }], { duration: 450 }).onfinish = function(){ etat = 'ouvert'; carte.style.pointerEvents = 'auto'; activerPartage(); $('reflet').classList.add('go'); carte.classList.add('lu'); };
+  });
+  $('f24').addEventListener('click', function(ev){ ev.stopPropagation(); });
+
+  // carte 1 → carte 2 (fondu enchaîné)
+  function versChances(){
+    if(etat !== 'ouvert') return; etat = 'anim'; carte.style.pointerEvents = 'none';
+    A(carte, [{ opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }, { opacity: 0, transform: 'translate(-50%,-50%) scale(.97)' }], { duration: 450 });
+    A(ch2, [{ opacity: 0, transform: 'translate(-50%,-50%) scale(.97)' }, { opacity: 1, transform: 'translate(-50%,-50%) scale(1)' }], { duration: 450 }).onfinish = function(){
+      etat = 'ch2'; ch2.style.pointerEvents = 'auto';
+      if(reponse === 'ok' && !compte1){ compte1 = true; setTimeout(monterChances, 250); }
+      if(reponse === 'erreur') toast('La connexion a été interrompue : touchez à nouveau votre case dans un instant.');
+    };
+  }
+  // toucher à côté : la carte rentre dans le tiroir
+  function ranger(){
+    if(etat !== 'ch2') return; etat = 'anim'; ch2.style.pointerEvents = 'none'; fermerRes(); var e = ecart();
+    A(ch2, [{ opacity: 1, transform: 'translate(-50%,-50%) translate(0,0) scale(1)' }, { opacity: 1, offset: .6 }, { opacity: 0, transform: 'translate(-50%,-50%) translate(' + e.x + 'px,' + e.y + 'px) scale(.12)' }], { duration: 850, easing: 'cubic-bezier(.5,0,.7,.4)' });
+    setTimeout(function(){
+      A(fente, [{ opacity: 0 }, { opacity: 1 }, { opacity: 1, offset: .8 }, { opacity: 0 }], { duration: 1100 });
+      A(tir, [{ opacity: 1, transform: P + 'translateZ(115px) translateY(28%)' }, { opacity: 1, transform: P + 'translateZ(0) translateY(0)' }], { duration: 900, easing: 'cubic-bezier(.4,0,.2,1)' });
+      A(cap, [{ transform: 'translateY(-32%)' }, { transform: 'translateY(0)' }], { duration: 1000, delay: 150, easing: 'cubic-bezier(.4,0,.2,1)' });
+      A(glow, [{ opacity: .45 }, { opacity: 0 }], { duration: 800 });
+      setTimeout(function(){
+        // la connexion a échoué : la case redevient à ouvrir
+        if(reponse === 'erreur'){ anims.forEach(function(a){ a.cancel(); }); anims = []; etat = 'ferme'; tir.classList.add('appel'); texteAide('touchez'); aide.classList.remove('cache'); return; }
+        etat = 'fini'; texteAide('demain'); aide.classList.remove('cache');
+        A(tir, [{ opacity: 1 }, { opacity: 0 }], { duration: 700 }).onfinish = function(){
+          fond.classList.add('on'); anims.forEach(function(a){ if(a.effect && a.effect.target === tir) a.cancel(); }); tir.classList.add('revoir'); };
+        demT = setTimeout(function(){ if(etat === 'fini') texteAide('revoir'); }, 4200);
+      }, 1100);
+    }, 650);
+  }
+  // déjà ouverte aujourd'hui : on arrive directement sur « Revoir votre surprise »
+  function dejaOuverte(){ etat = 'fini'; fond.classList.add('on'); tir.classList.remove('appel'); tir.classList.add('revoir'); texteAide('revoir'); aide.classList.remove('cache'); activerPartage(); }
+
+  // ───────────────────────────── LE PARTAGE ─────────────────────────────
+  var joue = false;
+  function activerPartage(){ joue = true; $('pa2').classList.remove('off'); $('partxt').style.display = 'none'; }
+  function liens(box){
+    var m = encodeURIComponent(MSG + urlAmi());
+    var w = box.querySelector('[data-r=fwa]'); w.href = 'https://wa.me/?text=' + m; w.target = '_blank'; w.rel = 'noopener';
+    box.querySelector('[data-r=fms]').href = 'fb-messenger://share?link=' + encodeURIComponent(urlAmi());
+  }
+  function fermerRes(){ var bd = $('bd1'); if(bd && !bd._t) bd.classList.remove('on'); racine.querySelectorAll('.bulles').forEach(function(r){ r.classList.remove('on'); }); $('pz2').classList.remove('ouvert-res'); }
+  function texteNb(){ return nbPart + (nbPart > 1 ? ' liens partagés' : ' lien partagé'); }
+  function majNb(){ racine.querySelectorAll('.nbp').forEach(function(n){ n.textContent = texteNb(); }); }
+  function compte(box){ nbPart++; ecrire('ebcal_partages', String(nbPart)); majNb(); montrerBadge(box.id === 'res1' ? $('bd1') : racine.querySelector('#pa2 .badge')); fermerRes(); }
+  var SURVOL = !!(window.matchMedia && matchMedia('(hover:hover)').matches);
+  racine.querySelectorAll('[data-share]').forEach(function(b){ b.addEventListener('click', function(ev){
+    ev.stopPropagation(); if(!joue) return;
+    var box = this.id === 'pa1' ? $('res1') : $('res2'); liens(box); var on = (this.id === 'pa1' && SURVOL) || !box.classList.contains('on'); fermerRes(); box.classList.toggle('on', on);
+    if(this.id === 'pa1'){ var bd = $('bd1'); clearTimeout(bd._t); bd._t = null; bd.classList.toggle('on', on); }
+    if(this.id === 'pa2'){ $('pz2').classList.toggle('ouvert-res', on); if(on) montrerBadge(this.querySelector('.badge')); }
+  }); });
+  racine.querySelectorAll('.bul').forEach(function(a){ a.addEventListener('click', function(ev){
+    ev.stopPropagation(); var r = this.dataset.r, box = this.parentNode;
+    if(r === 'fwa' || r === 'fms'){ setTimeout(function(){ compte(box); }, 250); return; }
+    ev.preventDefault(); try { navigator.clipboard.writeText(urlAmi()); } catch(e){} compte(box);
+    toast(r === 'fig' ? 'Lien copié : collez-le dans votre message Instagram' : r === 'ftt' ? 'Lien copié : collez-le dans votre message TikTok' : 'Lien copié : collez-le où vous voulez');
+  }); });
+  if(SURVOL){
+    $('pa1').addEventListener('mouseenter', function(){ if(!joue || etat !== 'ch2') return; var box = $('res1'); liens(box); if(!box.classList.contains('on')){ fermerRes(); box.classList.add('on'); var bd = $('bd1'); clearTimeout(bd._t); bd._t = null; bd.classList.add('on'); } });
+    ch2.addEventListener('mouseleave', function(ev){ if($('res1').classList.contains('on') && !$('res1').contains(ev.relatedTarget)) fermerRes(); });
+    $('res1').addEventListener('mouseleave', function(ev){ if(!ch2.contains(ev.relatedTarget)) fermerRes(); });
+  }
+  $('pa2').addEventListener('mouseenter', function(){ if(joue) montrerBadge(this.querySelector('.badge')); });
+
+  // ───────────────────────── L'INSCRIPTION (bandeau du bas) ─────────────────────────
+  $('nlin').addEventListener('input', function(){ $('nlerr').style.display = 'none'; });
+  $('nlin').addEventListener('keydown', function(ev){ if(ev.key === 'Enter') $('nlok').click(); });
+  var envoi = false;
+  $('nlok').addEventListener('click', function(ev){
+    ev.stopPropagation(); if(envoi) return;
+    var v = $('nlin').value.trim().toLowerCase();
+    if(!valideMail(v)){ $('nlerr').textContent = 'Merci d’indiquer une adresse e-mail valide.'; $('nlerr').style.display = 'block'; return; }
+    $('nlerr').style.display = 'none'; envoi = true; var lib = $('nlok').textContent; $('nlok').textContent = 'Un instant…'; $('nlok').style.opacity = '.6';
+    appeler('inscrire', { email: v, newsletter: $('nlcase').checked, ami: ami }).then(function(r){
+      if(!r || !r.ok) throw new Error(r && r.erreur);
+      Object.assign(S, r); S.email = v; S.inscrite = true; S.jours = r.jours || [];
+      ecrire('ebcal_email', v); ecrire('ebcal_code', S.codeAmie || '');
+      envoi = false; $('nlok').textContent = lib; $('nlok').style.opacity = '';
+      if(periode === 'jeu') preparerCarte();
+      majAvant();
+      if(periode === 'jeu') $('nlMerci').textContent = attente ? 'Votre case s’ouvre…' : 'Votre première case vous attend.';
+      nl.classList.add('ebn-ok');
+      if(periode === 'jeu' && S.ouvert){ attente = false; setTimeout(function(){ fermerBandeau(); dejaOuverte(); }, 1300); return; }
+      if(attente && periode === 'jeu'){ attente = false; setTimeout(function(){ fermerBandeau(); setTimeout(function(){ ouvrir(); }, 350); }, 1300); }
+      else setTimeout(fermerBandeau, 2600);
+    }).catch(function(){
+      envoi = false; $('nlok').textContent = lib; $('nlok').style.opacity = '';
+      $('nlerr').textContent = 'La connexion a été interrompue. Merci de réessayer dans un instant.'; $('nlerr').style.display = 'block';
+    });
+  });
+  $('nlplus').addEventListener('click', function(ev){ ev.stopPropagation(); attente = false; fermerBandeau(); });
+  nl.addEventListener('click', function(ev){ ev.stopPropagation(); });
+
+  // ───────────────────────── LES BOUTONS DES CARTES ─────────────────────────
+  racine.querySelectorAll('[data-profiter]').forEach(function(b){ b.addEventListener('click', function(ev){ ev.stopPropagation(); versChances(); }); });
+  $('boutique').addEventListener('click', function(ev){
+    ev.stopPropagation();
+    if(this.dataset.skin){ ev.preventDefault(); chargerSkinId(); }
+  });
+  function chargerSkinId(){
+    if(typeof window.ebSkinIdOpen === 'function'){ window.ebSkinIdOpen(); return; }
+    var s = document.createElement('script'); s.src = REGLAGES.skinId; s.async = true;
+    s.onload = function(){ if(typeof window.ebSkinIdOpen === 'function') window.ebSkinIdOpen(); };
+    document.head.appendChild(s);
+  }
+  carte.addEventListener('click', function(ev){ ev.stopPropagation(); });
+  ch2.addEventListener('click', function(ev){ ev.stopPropagation(); if(!ev.target.closest('[data-share]')) fermerRes(); });
+  document.addEventListener('click', function(ev){
+    if(!racine.contains(ev.target)) return;
+    if(etat === 'f24') return;
+    if(racine.querySelector('.bulles.on')){ fermerRes(); return; }
+    if(etat === 'ouvert'){ versChances(); return; }
+    ranger();
+  });
+  // avant le 1er : toucher le flacon affiche « Patience… »
+  var patT;
+  $('stage').addEventListener('click', function(ev){ if(periode === 'avant'){ ev.stopPropagation(); texteAide('patience'); clearTimeout(patT); patT = setTimeout(function(){ texteAide('avant'); }, 2600); } });
+
+  // ───────────────────────── LES TROIS PÉRIODES ─────────────────────────
+  function majAvant(){
+    var t = $('avTxt'); if(!t) return;
+    t.textContent = S.inscrite ? 'Le calendrier des fêtes ELKHA.B se prépare. Vous recevrez un e-mail le matin de l’ouverture : la première case vous attendra.' : 'Le calendrier des fêtes ELKHA.B se prépare. Inscrivez-vous pour être prévenue le matin de l’ouverture : la première case vous attendra.';
+    $('prevenir').style.display = S.inscrite ? 'none' : '';
+  }
+  function nomTirage(t){ return t === 24 ? 'du grand tirage' : 'du ' + t + ' décembre'; }
+  function mettreEnPlace(){
+    var p = paris();
+    if(S.jour) periode = 'jeu';
+    else periode = (p.year > REGLAGES.annee || (p.year === REGLAGES.annee && p.month === 12 && p.day > 24)) ? 'apres' : 'avant';
+    racine.classList.remove('avant', 'apres', 'lundi'); if(periode !== 'jeu') racine.classList.add(periode);
+    dessinerFlacon();
+    cap.style.display = '';
+    texteAide(periode === 'jeu' ? 'touchez' : periode); aide.classList.remove('cache');
+    $('nlTitre').textContent = periode === 'avant' ? 'Soyez prévenue dès l’ouverture' : 'Vos 24 surprises vous attendent';
+    $('nlTexte').textContent = periode === 'avant' ? 'Indiquez votre e-mail : nous vous prévenons le matin du 1er décembre, dès l’ouverture.' : 'Indiquez votre e-mail pour ouvrir votre case du jour et participer aux tirages. Nous ne vous le demanderons qu’une fois.';
+    $('nlok').textContent = periode === 'avant' ? 'Me prévenir' : 'Je participe';
+    $('nlMerci').textContent = periode === 'avant' ? 'Vous serez prévenue par e-mail le matin du 1er décembre, dès l’ouverture.' : 'Votre première case vous attend.';
+    majAvant();
+    if(periode === 'avant'){
+      var o = Date.UTC(REGLAGES.annee, 11, 1), d = Date.UTC(p.year, p.month - 1, p.day), n = Math.max(1, Math.round((o - d) / 864e5));
+      $('jours').textContent = n; $('jours').nextElementSibling.textContent = n > 1 ? ' jours' : ' jour';
+    }
+    // le coffret à gagner : Lumière d'hiver jusqu'au dimanche 20 à 18 h, puis Velours d'Hiver
+    var tirage = S.tirage || (S.jour ? 24 : 6);
+    if(periode === 'jeu' && !S.inscrite){ var h = p.hour; tirage = 0; for(var i = 0; i < REGLAGES.dimanches.length; i++){ var dm = REGLAGES.dimanches[i]; if(S.jour < dm || (S.jour === dm && h < 18)){ tirage = dm; break; } } if(!tirage) tirage = 24; }
+    var L = tirage === 24 ? LOTS.velours : LOTS.lumiere, li = $('lotimg');
+    if(li){ li.src = IMG + L.img; li.alt = L.alt; $('lotnom').textContent = L.nom; $('lotsous').textContent = L.sous; $('lottxt').textContent = L.txt;
+      $('lotdate').textContent = tirage === 24 ? 'Grand tirage jeudi 24 décembre à 18 h' : 'Tirage au sort dimanche ' + tirage + ' décembre';
+      $('lottitre').textContent = tirage === 24 ? 'LE GRAND TIRAGE DU 24' : 'À GAGNER CETTE SEMAINE'; }
+    // la gagnante du dernier tirage (prénom tapé dans le Sheet)
+    var der = 0; [6, 13, 20, 24].forEach(function(t){ if(S.gagnantes && S.gagnantes[t] && (periode === 'apres' || S.jour > t)) der = t; });
+    if(der && periode === 'jeu'){
+      racine.classList.add('lundi');
+      $('gsT').textContent = 'La gagnante ' + nomTirage(der); $('gsN').textContent = S.gagnantes[der];
+      $('gsP').textContent = 'a remporté le coffret Lumière d’hiver. Félicitations !';
+      var pro = tirage === 24 ? 'Grand tirage le jeudi 24 décembre : à vous de tenter votre chance !' : 'Prochain tirage le dimanche ' + tirage + ' décembre : à vous de tenter votre chance !';
+      $('gsR').textContent = pro;
+    }
+    if(periode === 'apres' && S.gagnantes && S.gagnantes[24] && $('gag24')) $('gag24').textContent = S.gagnantes[24];
+    if(periode === 'jeu'){
+      preparerCarte(); afficherChances();
+      if(S.ouvert) dejaOuverte(); else { tir.classList.add('appel'); etat = 'ferme'; }
+    }
+    majNb();
+  }
+  $('prevenir') && $('prevenir').addEventListener('click', function(ev){ ev.stopPropagation(); attente = false; ouvrirBandeau(); });
+
+  // ───────────────────────────── DÉMARRAGE ─────────────────────────────
+  // affichage immédiat d'après la date de Paris, puis confirmation par le registre
+  (function(){ var p = paris(); S.jour = (p.year === REGLAGES.annee && p.month === 12 && p.day <= 24) ? p.day : 0; })();
+  S.inscrite = !!S.email; S.ouvert = false;
+  racine.classList.add('attend'); aide.classList.add('cache');
+  appeler('etat', { email: S.email }).then(function(r){
+    if(!r || !r.ok) throw new Error();
+    Object.assign(S, r);
+    if(!r.inscrite && S.email){ S.email = ''; ecrire('ebcal_email', null); }
+    S.jours = r.jours || []; S.inscrite = !!r.inscrite;
+  }).catch(function(){ S.inscrite = false; S.jours = []; }).then(function(){
+    racine.classList.remove('attend');
+    mettreEnPlace();
+    if(!S.inscrite && periode !== 'apres') nlT = setTimeout(function(){ if(etat === 'ferme' || periode === 'avant') ouvrirBandeau(); }, 1500);
+  });
+})();
