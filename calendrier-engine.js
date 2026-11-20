@@ -272,7 +272,8 @@
     if(etat === 'fini'){ rouvrir(); return; }
     if(etat !== 'ferme') return;
     if(S.inscrite){ ouvrir(); return; }
-    attente = true; ouvrirBandeau(); setTimeout(function(){ $('nlin').focus({ preventScroll: true }); }, 450);
+    attente = true;
+    apresCookies(function(){ ouvrirBandeau(); setTimeout(function(){ $('nlin').focus({ preventScroll: true }); }, 450); });
   }
   function rouvrir(){
     clearTimeout(demT); fond.classList.remove('on'); anims.forEach(function(a){ a.cancel(); }); anims = [];
@@ -493,6 +494,13 @@
   }
   $('prevenir') && $('prevenir').addEventListener('click', function(ev){ ev.stopPropagation(); attente = false; ouvrirBandeau(); });
 
+  // un seul panneau à la fois : on attend que le panneau des cookies ait reçu une réponse (cookie eb_cookies)
+  function cookiesRepondu(){ return /(?:^|; )eb_cookies=/.test(document.cookie); }
+  function apresCookies(fait){
+    if(cookiesRepondu()) return fait();
+    var t = setInterval(function(){ if(cookiesRepondu()){ clearInterval(t); fait(); } }, 400);
+  }
+
   // ───────────────────────────── DÉMARRAGE ─────────────────────────────
   // affichage immédiat d'après la date de Paris, puis confirmation par le registre
   (function(){ var p = paris(); S.jour = (p.year === REGLAGES.annee && p.month === 12 && p.day <= 24) ? p.day : 0; })();
@@ -508,7 +516,9 @@
   }).catch(function(){ S.inscrite = false; S.jours = []; }).then(function(){
     racine.classList.remove('attend'); pret = true;
     mettreEnPlace(); ajusterZoom();
-    if(!S.inscrite && periode !== 'apres') nlT = setTimeout(function(){ if(etat === 'ferme' || periode === 'avant') ouvrirBandeau(); }, 1500);
+    // avant le 1er seulement : le panneau monte tout seul, une fois que la cliente a répondu au panneau des cookies
+    // (pendant le jeu, il ne monte que quand elle touche sa case)
+    if(!S.inscrite && periode === 'avant') apresCookies(function(){ nlT = setTimeout(function(){ if(!S.inscrite) ouvrirBandeau(); }, 1200); });
     if(enAttente && periode === 'jeu'){ enAttente = false; demander(); }
   });
 })();
