@@ -137,7 +137,7 @@
   var info = $('eb-calendrier-textes');
   racine.innerHTML =
     '<div class="page"><div class="stage" id="stage"><div class="scene" id="scene">' +
-      '<img class="base" id="base" src="' + IMG + 'calendrier-flacon.png" alt="Calendrier de l’avent beauté ELKHA.B en forme de flacon">' +
+      '<img class="base" id="base" src="' + IMG + 'calendrier-flacon.png?v=2" alt="Calendrier de l’avent beauté ELKHA.B en forme de flacon">' +
       '<div id="cases"></div>' +
       '<img class="capot" id="capot" src="' + IMG + 'calendrier-capot.png" alt="">' +
       '<div class="glow" id="glow"></div><div class="fente" id="fente"></div>' +
