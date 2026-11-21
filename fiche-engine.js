@@ -36,14 +36,13 @@
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
   + ".eb-fp-slide{clip-path:inset(0 1px)}"   /* la photo voisine ne dépasse jamais d'un pixel (trait au bord de la photo, écrans Windows) */
   + ".eb-fp-slide img,.eb-fp-slide video{display:block;width:100%;height:auto}"
-  + ".eb-fp-dots{position:absolute;left:0;right:0;bottom:14px;display:flex;justify-content:center;gap:7px}"
-  + ".eb-fp-dot{width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.25);transition:background .2s ease}"
-  + ".eb-fp-dot.on{background:#000}"
-  // points cliquables : zone de clic plus grande, même petit rond visible
-  + ".eb-fp-dots{gap:0}"
-  + ".eb-fp-dot{position:relative;width:19px;height:19px;background:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}"
-  + ".eb-fp-dot:after{content:'';position:absolute;left:6px;top:6px;width:7px;height:7px;border-radius:50%;background:rgba(0,0,0,.25);transition:background .2s ease}"
-  + ".eb-fp-dot.on:after{background:#000}"
+  // Miniatures du diaporama (à la place des points) : en bas de la photo sur téléphone, en colonne à droite sur ordinateur
+  + ".eb-fp-minis{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:9px;padding:0 16px;z-index:2}"
+  + ".eb-fp-mini{position:relative;flex:0 0 auto;width:46px;height:46px;padding:0;border:1.5px solid #fff;border-radius:8px;overflow:hidden;background:#efe9e1;cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.10);transition:border-color .25s ease;-webkit-tap-highlight-color:transparent}"
+  + ".eb-fp-mini.on{border-color:#1a1a1a}"
+  + ".eb-fp-minis.eb-nombreuses{gap:6px}.eb-fp-minis.eb-nombreuses .eb-fp-mini{width:37px;height:37px;border-radius:7px}"
+  + ".eb-fp-mini img,.eb-fp-mini video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 55%;pointer-events:none}"
+  + ".eb-fp-mini img.eb-fp-mini-flacon{transform:scale(1.75);transform-origin:50% 62%}"   /* photos sable : on resserre sur le soin */
   + ".eb-fp-slides{touch-action:pan-x pan-y;cursor:grab}"
   // En-tête de la fiche
   + ".eb-fp-content{padding:32px 24px 70px;max-width:620px;margin:0 auto}"
@@ -64,6 +63,11 @@
   + ".eb-fp-sel-opt{background:#fff;color:#000;border:1px solid #cfcfcf;border-radius:0;padding:11px 6px;font-family:'Montserrat',sans-serif;font-size:10.5px;font-weight:500;letter-spacing:.02em;cursor:pointer;white-space:nowrap;transition:background .2s ease,color .2s ease,border-color .2s ease}"
   + ".eb-fp-sel-opt.active{background:#000;color:#fff;border-color:#000}"
   // Aperçu de la teinte choisie : petite photo qui apparaît sous les options
+  + ".eb-fp-sel-tex .eb-fp-sel-options{display:flex;justify-content:space-between;gap:6px}"
+  + ".eb-fp-sel-tex .eb-fp-sel-opt{flex:1 1 0;display:flex;flex-direction:column;align-items:center;gap:9px;background:none;border:0;padding:0;color:#6a5a52;font-size:9.5px;font-weight:500;letter-spacing:.06em;white-space:normal;line-height:1.35;text-align:center}"
+  + ".eb-fp-sel-tex .eb-fp-sel-opt.active{background:none;color:#000;font-weight:600}"
+  + ".eb-fp-sel-pastille{display:block;width:54px;height:54px;border-radius:10px;background-size:cover;background-position:center;border:1.5px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.12);transition:border-color .25s ease}"
+  + ".eb-fp-sel-tex .eb-fp-sel-opt.active .eb-fp-sel-pastille{border-color:#1a1a1a}"
   + ".eb-fp-sel-preview{display:flex;align-items:center;gap:14px;margin-top:0;max-height:0;opacity:0;overflow:hidden;transition:max-height .45s ease,opacity .45s ease,margin-top .45s ease}"
   + ".eb-fp-sel-preview.on{max-height:110px;opacity:1;margin-top:14px}"
   + ".eb-fp-sel-thumb{width:84px;height:84px;flex-shrink:0;object-fit:cover;background:#f6f4f0;transform:scale(.85);transition:transform .45s cubic-bezier(.2,.8,.2,1)}"
@@ -194,6 +198,8 @@
   +   ".eb-fp-left .eb-fp-media video,.eb-fp-left .eb-fp-media > img{width:100%;height:100%;object-fit:contain;object-position:center}"
   +   ".eb-fp-left .eb-fp-slides{height:100%}"
   +   ".eb-fp-left .eb-fp-media .eb-fp-slides .eb-fp-slide img,.eb-fp-left .eb-fp-media .eb-fp-slides .eb-fp-slide video{width:100%;height:100%;object-fit:contain;object-position:center}"
+  +   ".eb-fp-left .eb-fp-minis,.eb-fp-left .eb-fp-minis.eb-nombreuses{left:auto;right:22px;top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;gap:12px;padding:0}"
+  +   ".eb-fp-left .eb-fp-mini,.eb-fp-left .eb-fp-minis.eb-nombreuses .eb-fp-mini{width:58px;height:72px;border-radius:9px}"
   // Vidéos et photos qui ont leur propre fond : elles remplissent toute la colonne (du bord de l'écran
   // jusqu'à la colonne de texte), sans bandes beiges. Les photos produits sur le beige du site ne bougent pas.
   // (actif seulement si le fichier produits contient window.EB_MEDIA_PLEIN = true)
@@ -300,13 +306,13 @@
       adresse: 'https://bloom.elkhab.com/?fiche=luminescence-boost'
     },
     'luminescence-nuit': {
-      titre: 'Luminescence Nuit, crème de nuit au plancton marin et collagène',
-      description: 'Crème de nuit riche au plancton marin et au collagène : elle accompagne la régénération nocturne pour une peau plus lisse au réveil. Vegan, peaux sensibles. 50 ml.',
+      titre: 'Luminescence Nuit, crème de nuit au plancton marin, soutien du collagène',
+      description: 'Crème de nuit riche au plancton marin, qui soutient le collagène de la peau : elle accompagne la régénération nocturne pour une peau plus lisse au réveil. Vegan, peaux sensibles. 50 ml.',
       adresse: 'https://bloom.elkhab.com/?fiche=luminescence-nuit'
     },
     'rituel-luminescence': {
       titre: 'Rituel Luminescence, duo crèmes jour et nuit hydratation éclat',
-      description: 'Luminescence Jour et Luminescence Nuit : acide hyaluronique le matin, plancton marin et collagène le soir, pour une peau hydratée et lumineuse. 2 × 50 ml.',
+      description: 'Luminescence Jour et Luminescence Nuit : acide hyaluronique le matin, plancton marin le soir pour soutenir le collagène : une peau hydratée et lumineuse. 2 × 50 ml.',
       adresse: 'https://bloom.elkhab.com/?fiche=rituel-luminescence'
     },
     'radiance-protect': {
@@ -513,6 +519,7 @@
       seoAdresse(id);
       var prix = String(data.prix || '').replace(/[^0-9,\.]/g, '').replace(',', '.');
       var images = ((data.media && data.media.images) || []).slice();
+      (data.variantes || []).forEach(function(v){ (v.photos || []).forEach(function(u){ if(images.indexOf(u) < 0) images.push(u); }); });   // photos de chaque teinte
       // la photo d'ambiance (dernière de la fiche) passe en premier pour Google
       var amb = images.filter(function(u){ return /-ambiance(-v\d+)?\.jpg/.test(u); });
       if(amb.length) images = amb.concat(images.filter(function(u){ return amb.indexOf(u) < 0; }));
@@ -660,6 +667,19 @@
           apercu.classList.add('on');
           apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
         }
+        // Soin à teintes : le diaporama est remplacé par les photos de la teinte choisie
+        var ficheSel = window.EB_PRODUITS[bloc.getAttribute('data-produit')];
+        var kSel = Array.prototype.indexOf.call(bloc.querySelectorAll('.eb-fp-sel-opt'), opt);
+        if(cible === 'main' && ficheSel && ficheSel.variantes && ficheSel.variantes[kSel] && ficheSel.variantes[kSel].photos){
+          var gauche = overlay.querySelector('.eb-fp-left');
+          if(gauche){
+            clearTimeout(slideTimer);
+            gauche.innerHTML = mediaHTML(mediaTeinte(ficheSel, kSel), ficheSel.nom);
+            demarrerDiaporama(); clearTimeout(slideTimer);   // la cliente a choisi : pas de défilement automatique
+            remplirSiFond();
+          }
+          return;
+        }
         var piste = overlay.querySelector('.eb-fp-slides');
         if(cible === 'main' && photo != null && piste && bloc.getAttribute('data-produit') === (courant && courant.id)){
           clearTimeout(slideTimer); // la cliente a choisi : le diaporama s'arrête sur sa teinte
@@ -746,6 +766,16 @@
     })();
   }
 
+  // Soins à teintes : le diaporama ne montre que les photos de la teinte choisie (variantes[].photos),
+  // suivies des photos communes à toutes les teintes (media.images)
+  function mediaTeinte(data, k){
+    var v = data.variantes && data.variantes[k];
+    if(!v || !v.photos || !data.media) return data.media;
+    var m = {}; for(var p in data.media) m[p] = data.media[p];
+    m.images = v.photos.concat(data.media.images || []);
+    return m;
+  }
+
   function mediaHTML(m, nom){
     if(!m) return '';
     if(m.type === 'video' && m.video){
@@ -770,15 +800,23 @@
         h += '<div class="eb-fp-slide"><img src="' + esc(hd(src, 1600)) + '" alt="' + esc(nom) + (amb ? ' – coffret cadeau des fêtes' : '') + '"></div>';
       }
     });
-    h += '</div><div class="eb-fp-dots">';
-    imgs.forEach(function(_, i){ h += '<span class="eb-fp-dot' + (i === 0 ? ' on' : '') + '"></span>'; });
+    // Miniatures : la photo elle-même (déjà chargée par le diaporama) ; pour une vidéo, son image d'aperçu (media.apercus)
+    var apercus = m.apercus || {};
+    h += '</div><div class="eb-fp-minis' + (imgs.length > 6 ? ' eb-nombreuses' : '') + '">';
+    imgs.forEach(function(src, i){
+      var video = /\.mp4(\?|$)/i.test(src), ap = apercus[src];
+      var contenu = ap ? '<img src="' + esc(ap) + '" alt="">'
+        : video ? '<video muted playsinline preload="metadata" src="' + esc(src) + '#t=0.5"></video>'
+        : '<img' + (/bloom-fiche-(?!rituel)/.test(src) ? ' class="eb-fp-mini-flacon"' : '') + ' src="' + esc(hd(src, 1600)) + '" alt="">';
+      h += '<button type="button" class="eb-fp-mini' + (i === 0 ? ' on' : '') + '" aria-label="Voir la photo ' + (i + 1) + '">' + contenu + '</button>';
+    });
     return h + '</div></div>';
   }
 
   // Ordinateur : une photo dont le bord n'est pas le beige du site est marquée « eb-remplir »
   function remplirSiFond(){
     if(!window.EB_MEDIA_PLEIN || !window.matchMedia('(min-width:900px)').matches) return;
-    overlay.querySelectorAll('.eb-fp-left .eb-fp-media img:not(.eb-fp-poster)').forEach(function(img){
+    overlay.querySelectorAll('.eb-fp-left .eb-fp-slide img, .eb-fp-left .eb-fp-media > img:not(.eb-fp-poster)').forEach(function(img){
       var t = new Image(); t.crossOrigin = 'anonymous';
       t.onload = function(){
         try {
@@ -803,7 +841,7 @@
     clearTimeout(slideTimer);
     var track = overlay.querySelector('.eb-fp-slides');
     if(!track) return;
-    var dots = overlay.querySelectorAll('.eb-fp-dot');
+    var dots = overlay.querySelectorAll('.eb-fp-mini');
     var slides = track.querySelectorAll('.eb-fp-slide');
     var indexActuel = function(){ return Math.round(track.scrollLeft / track.clientWidth); };
     // Seule la vidéo visible joue, les autres sont en pause
@@ -904,22 +942,27 @@
 
   // cible : "main" (bouton de la fiche) ou "accord" (bouton de l'accord parfait)
   // produit : fiche dont on reprend les photos pour la petite photo de rappel
-  function selecteurHTML(variantes, label, cible, produit){
+  function selecteurHTML(variantes, label, cible, produit, actif){
+    actif = actif || 0;
     var longues = variantes.some(function(v){ return String(v.label).length > 16; });
-    var h = '<div class="eb-fp-sel" data-cible="' + cible + '" data-produit="' + esc(produit) + '">';
+    // Teintes avec une photo de texture : petites cases de texture (comme sur la page Bloom) au lieu des boutons texte
+    var textures = variantes.every(function(v){ return v.texture; });
+    var h = '<div class="eb-fp-sel' + (textures ? ' eb-fp-sel-tex' : '') + '" data-cible="' + cible + '" data-produit="' + esc(produit) + '">';
     h += '<div class="eb-fp-sel-label">' + esc(label || 'Choisissez votre teinte') + '</div>';
     h += '<div class="eb-fp-sel-options' + (longues ? ' eb-une-col' : '') + '">';
     variantes.forEach(function(v, i){
-      h += '<button type="button" class="eb-fp-sel-opt' + (i === 0 ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
+      h += '<button type="button" class="eb-fp-sel-opt' + (i === actif ? ' active' : '') + '" data-variant="' + esc(v.variantId) + '"'
         + (v.photo != null ? ' data-photo="' + esc(v.photo) + '"' : '')
         + (v.image ? ' data-img="' + esc(hd(v.image, 400)) + '"' : '')
         + (v.fiche ? ' data-cible-fiche="' + esc(v.fiche) + '"' : '')
         + (v.mention ? ' data-mention="' + esc(v.mention) + '"' : '')
         + (v.sousTitre ? ' data-sous="' + esc(v.sousTitre) + '"' : '')
-        + (v.etape ? ' data-etape="' + esc(v.etape) + '"' : '') + '>' + esc(v.label) + '</button>';
+        + (v.etape ? ' data-etape="' + esc(v.etape) + '"' : '') + '>'
+        + (textures ? '<span class="eb-fp-sel-pastille" style="background-image:url(\'' + esc(v.texture) + '\')"></span><span class="eb-fp-sel-nom">' + esc(v.label) + '</span>' : esc(v.label))
+        + '</button>';
     });
     h += '</div>';
-    if(variantes.some(function(v){ return v.photo != null || v.image; })){
+    if(!textures && variantes.some(function(v){ return v.photo != null || v.image; })){
       h += '<div class="eb-fp-sel-preview"><img class="eb-fp-sel-thumb" alt=""><div class="eb-fp-sel-caption">Votre choix<strong></strong></div></div>';
     }
     return h + '</div>';
@@ -955,12 +998,13 @@
     charger(REVIEWS_ENGINE, function(){ return typeof window.ebRenderReviews === 'function'; });
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
 
-    var h = '<div class="eb-fp-wrap' + (window.EB_MEDIA_PLEIN ? ' eb-fp-plein' : '') + '"><div class="eb-fp-left">' + mediaHTML(data.media, data.nom) + '</div><div class="eb-fp-right"><div class="eb-fp-content">';
+    var dep = (data.variantes && data.variantes[data.teinteDepart]) ? data.teinteDepart : 0;   // teinte affichée à l'ouverture
+    var h = '<div class="eb-fp-wrap' + (window.EB_MEDIA_PLEIN ? ' eb-fp-plein' : '') + '"><div class="eb-fp-left">' + mediaHTML(mediaTeinte(data, dep), data.nom) + '</div><div class="eb-fp-right"><div class="eb-fp-content">';
 
     // En-tête : titre, actifs, détails, petite note
     h += '<div class="eb-fp-head">';
     h += '<h1 class="eb-fp-title">' + esc(data.nom) + '</h1>';
-    var sousDepart = (data.variantes && data.variantes[0] && data.variantes[0].sousTitre) || data.sousTitre;   // routine à choix : sous-titre de la version choisie
+    var sousDepart = (data.variantes && data.variantes[dep] && data.variantes[dep].sousTitre) || data.sousTitre;   // routine à choix : sous-titre de la version choisie
     if(sousDepart) h += '<p class="eb-fp-sub">' + esc(sousDepart).replace(/\n/g, '<br>') + '</p>';   // \n = retour à la ligne (type de soin, puis actifs)
     if(data.actifs) h += '<p class="eb-fp-actifs">' + esc(data.actifs) + '</p>';
     if(data.details && data.details.length){
@@ -977,13 +1021,13 @@
       h += '<p class="eb-fp-inclus">Inclus dans votre ' + esc(routineParente.nom) + '</p>';
     } else {
       // Sélecteur de variantes (teintes, formules…)
-      if(variantes.length) h += selecteurHTML(variantes, data.choixLabel, 'main', data.photosTeintes || id);
+      if(variantes.length) h += selecteurHTML(variantes, data.choixLabel, 'main', data.photosTeintes || id, dep);
       // Achat
-      var idAchat = variantes.length ? variantes[0].variantId : data.variantId;
+      var idAchat = variantes.length ? variantes[dep].variantId : data.variantId;
       if(idAchat){
         h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
         // petite ligne sous le bouton : « mention » de la version choisie, sinon le rappel de livraison
-        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[0].mention ? esc(variantes[0].mention) : prixSepares(data) + 'Livraison offerte dès 65€ d\'achat') + '</p>';
+        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[dep].mention ? esc(variantes[dep].mention) : prixSepares(data) + 'Livraison offerte dès 65€ d\'achat') + '</p>';
       }
     }
 
