@@ -43,28 +43,28 @@
       nom: "Milky Bloom", actifs: "Camomille · Argousier",
       benefice: "Démaquille et nettoie sans tiraillement, préserve la barrière cutanée", prix: "29,90€", taille: "150 ml",
       // 📷 Milky Bloom
-      photo: PHOTOS + "bloom-sable-milky-bloom.webp",
+      photo: PHOTOS + "bloom-sable-milky-bloom.png",
       alt: "Milky Bloom ELKHA.B, nettoyant huile-en-lait démaquillant pour peaux sensibles et sèches, flacon pompe 150 ml"
     },
     "radiance-cleanser": {
       nom: "Radiance Cleanser", actifs: "Aloe vera · Extrait de mûre",
       benefice: "Nettoie en profondeur et ravive l'éclat, sans dessécher", prix: "24,90€", taille: "145 ml",
       // 📷 Radiance Cleanser
-      photo: PHOTOS + "bloom-sable-radiance-cleanser.webp",
+      photo: PHOTOS + "bloom-sable-radiance-cleanser.png",
       alt: "Radiance Cleanser ELKHA.B, gel nettoyant éclat pour peaux mixtes à grasses, flacon pompe 145 ml"
     },
     "lumi-pure": {
       nom: "Lumi-Pure", actifs: "Argiles · Charbon végétal",
       benefice: "Désincruste les pores et matifie, sans agresser la peau", prix: "29,90€", taille: "90 ml",
       // 📷 Lumi-Pure
-      photo: PHOTOS + "bloom-sable-lumi-pure.webp",
+      photo: PHOTOS + "bloom-sable-lumi-pure.png",
       alt: "Lumi-Pure ELKHA.B, masque purifiant séborégulateur aux argiles et au charbon végétal pour peaux mixtes à grasses, pot 90 ml"
     },
     "gelee-lumibloom": {
       nom: "Gelée Lumi-Bloom", actifs: "Prébiotique · Acide hyaluronique · Sodium PCA", actifsCourt: "Prébiotique · Acide hyaluronique",
       benefice: "Hydrate, rééquilibre et préserve le microbiome de la peau", prix: "28,90€", taille: "30 ml",
       // 📷 Gelée Lumi-Bloom
-      photo: PHOTOS + "bloom-sable-gelee-lumibloom.webp",
+      photo: PHOTOS + "bloom-sable-gelee-lumibloom.png",
       alt: "Gelée Lumi-Bloom ELKHA.B, gel aux prébiotiques et à l'acide hyaluronique, flacon pipette 30 ml",
       conseil: {
         titre: "L'éclat de la peau commence par son équilibre",
@@ -80,28 +80,28 @@
       nom: "Radiance C Serum", actifs: "Vitamine C & E · Acide hyaluronique",
       benefice: "Antioxydant, ravive l'éclat et unifie le teint", prix: "34,90€", taille: "30 ml",
       // 📷 Radiance C Serum
-      photo: PHOTOS + "bloom-sable-radiance-serum.webp",
+      photo: PHOTOS + "bloom-sable-radiance-serum.png",
       alt: "Radiance C Serum ELKHA.B, sérum éclat à la vitamine C pour peaux sensibles, 30 ml"
     },
     "lumibloom-niac-5": {
       nom: "Lumi-Bloom Niacinamide 5", actifs: "Vitamine B3 · Ginkgo biloba",
       benefice: "Matifie, rééquilibre et unifie le teint", prix: "34,90€", taille: "50 ml",
       // 📷 Lumi-Bloom Niacinamide 5
-      photo: PHOTOS + "bloom-sable-lumibloom-niac-5.webp",
+      photo: PHOTOS + "bloom-sable-lumibloom-niac-5.png",
       alt: "Lumi-Bloom Niacinamide 5 ELKHA.B, soin pores et teint unifié à la niacinamide, 50 ml"
     },
     "lumibloom-arbutin": {
       nom: "Lumi-Bloom Arbutin", actifs: "Alpha-arbutine · Bidens pilosa · Vitamine C", actifsCourt: "Alpha-arbutine · Bidens pilosa",
       benefice: "Atténue les taches, unifie le teint et hydrate", prix: "29,90€", taille: "30 ml",
       // 📷 Lumi-Bloom Arbutin
-      photo: PHOTOS + "bloom-sable-lumibloom-arbutin.webp",
+      photo: PHOTOS + "bloom-sable-lumibloom-arbutin.png",
       alt: "Lumi-Bloom Arbutin ELKHA.B, sérum anti-taches à l'alpha-arbutine, flacon verre 30 ml"
     },
     "radiance-eye-cream": {
       nom: "Radiance Eye Cream", actifs: "Acide hyaluronique · Ginkgo biloba · Beurre de karité", actifsCourt: "Acide hyaluronique · Ginkgo biloba",
       benefice: "Atténue cernes et poches, lisse les ridules", prix: "28,90€", taille: "15 ml",
       // 📷 Radiance Eye Cream
-      photo: PHOTOS + "bloom-sable-radiance-eye-cream.webp",
+      photo: PHOTOS + "bloom-sable-radiance-eye-cream.png",
       alt: "Radiance Eye Cream ELKHA.B, crème contour des yeux cernes et poches, 15 ml",
       conseil: {
         titre: "Tout l'éclat du regard, dans un seul soin",
@@ -116,19 +116,19 @@
       nom: "Luminescence Jour", actifs: "Acide hyaluronique multi-moléculaire · Bisabolol", actifsCourt: "Acide hyaluronique · Bisabolol",
       benefice: "Hydrate en profondeur, repulpe et apaise la peau", prix: "34,90€", taille: "50 ml",
       // 📷 Luminescence Jour
-      photo: PHOTOS + "bloom-sable-luminescence-jour.webp",
+      photo: PHOTOS + "bloom-sable-luminescence-jour.png",
       alt: "Luminescence Jour ELKHA.B, crème hydratante éclat à l'acide hyaluronique, 50 ml"
     },
     "radiance-protect": {
       nom: "Radiance Protect", actifs: "Jojoba · Filtres minéraux · SPF 50", actifsCourt: "Filtres minéraux · SPF 50",
       benefice: "Hydrate sans effet gras, protège des UV, stick minéral", prix: "26,90€", taille: "12 g",
       // 📷 Radiance Protect (photo de la teinte affichée en premier)
-      photo: PHOTOS + "bloom-sable-radiance-protect-teinte.webp",
+      photo: PHOTOS + "bloom-sable-radiance-protect-teinte.png",
       alt: "Radiance Protect ELKHA.B, stick solaire minéral SPF 50, 12 g",
       // « variante » = nom exact de la variante dans produits-data-test.js
       teintes: [
-        { nom: "Teinté",      variante: "TEINTÉ",      texture: PHOTOS + "bloom-texture-radiance-protect-teinte.webp",      photo: PHOTOS + "bloom-sable-radiance-protect-teinte.webp" },
-        { nom: "Sans teinte", variante: "SANS TEINTE", texture: PHOTOS + "bloom-texture-radiance-protect-sans-teinte.webp", photo: PHOTOS + "bloom-sable-radiance-protect-sans-teinte.webp" }
+        { nom: "Teinté",      variante: "TEINTÉ",      texture: PHOTOS + "bloom-texture-radiance-protect-teinte.png",      photo: PHOTOS + "bloom-sable-radiance-protect-teinte.png" },
+        { nom: "Sans teinte", variante: "SANS TEINTE", texture: PHOTOS + "bloom-texture-radiance-protect-sans-teinte.png", photo: PHOTOS + "bloom-sable-radiance-protect-sans-teinte.png" }
       ],
       teinteDepart: 0
     },
@@ -136,13 +136,13 @@
       nom: "Lumi-Veil CC Cream SPF30", actifs: "Céramides · Beurre de cacao",
       benefice: "Unifie le teint, protège et hydrate intensément", prix: "26,90€", taille: "12 g",
       // 📷 Lumi-Veil CC Cream (photo de la teinte affichée en premier)
-      photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.webp",
+      photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.png",
       alt: "Lumi-Veil CC Cream SPF 30 ELKHA.B, stick teinté en 4 teintes",
       teintes: [
-        { nom: "B1 Clair",  variante: "N°B1 CLAIR",  texture: PHOTOS + "bloom-texture-lumiveil-b1.webp", photo: PHOTOS + "bloom-sable-lumiveil-b1-clair.webp" },
-        { nom: "B2 Moyen",  variante: "N°B2 MOYEN",  texture: PHOTOS + "bloom-texture-lumiveil-b2.webp", photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.webp" },
-        { nom: "B3 Hâlé",   variante: "N°B3 HÂLÉ",   texture: PHOTOS + "bloom-texture-lumiveil-b3.webp", photo: PHOTOS + "bloom-sable-lumiveil-b3-hale.webp" },
-        { nom: "B4 Foncé",  variante: "N°B4 FONCÉ",  texture: PHOTOS + "bloom-texture-lumiveil-b4.webp", photo: PHOTOS + "bloom-sable-lumiveil-b4-fonce.webp" }
+        { nom: "B1 Clair",  variante: "N°B1 CLAIR",  texture: PHOTOS + "bloom-texture-lumiveil-b1.png", photo: PHOTOS + "bloom-sable-lumiveil-b1-clair.png" },
+        { nom: "B2 Moyen",  variante: "N°B2 MOYEN",  texture: PHOTOS + "bloom-texture-lumiveil-b2.png", photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.png" },
+        { nom: "B3 Hâlé",   variante: "N°B3 HÂLÉ",   texture: PHOTOS + "bloom-texture-lumiveil-b3.png", photo: PHOTOS + "bloom-sable-lumiveil-b3-hale.png" },
+        { nom: "B4 Foncé",  variante: "N°B4 FONCÉ",  texture: PHOTOS + "bloom-texture-lumiveil-b4.png", photo: PHOTOS + "bloom-sable-lumiveil-b4-fonce.png" }
       ],
       teinteDepart: 1
     },
@@ -150,42 +150,42 @@
       nom: "Luminescence Boost", actifs: "Cresson · Sureau · Acide hyaluronique", actifsCourt: "Cresson · Sureau",
       benefice: "Raffermit et lisse, tout en soutenant le collagène", prix: "31,90€", taille: "30 ml",
       // 📷 Luminescence Boost
-      photo: PHOTOS + "bloom-sable-luminescence-boost.webp",
+      photo: PHOTOS + "bloom-sable-luminescence-boost.png",
       alt: "Luminescence Boost ELKHA.B, sérum booster de fermeté, 30 ml"
     },
     "luminescence-nuit": {
       nom: "Luminescence Nuit", actifs: "Collagène · Plancton marin · Beurre de cacao", actifsCourt: "Collagène · Plancton marin",
       benefice: "Nourrit, régénère et stimule le collagène", prix: "34,90€", taille: "50 ml",
       // 📷 Luminescence Nuit
-      photo: PHOTOS + "bloom-sable-luminescence-nuit.webp",
+      photo: PHOTOS + "bloom-sable-luminescence-nuit.png",
       alt: "Luminescence Nuit ELKHA.B, crème de nuit fermeté au collagène et plancton marin, 50 ml"
     },
     "rituel-luminescence": {
       nom: "Rituel Luminescence", actifs: "Le duo Jour & Nuit · Hydratation & fermeté", actifsCourt: "Le duo Jour & Nuit",
       benefice: "Le rituel complet : hydratation intense, régénération et apaisement", prix: "67,90€", taille: "2 × 50 ml",
       // 📷 Rituel Luminescence
-      photo: PHOTOS + "bloom-sable-rituel-luminescence.webp",
+      photo: PHOTOS + "bloom-sable-rituel-luminescence.png",
       alt: "Rituel Luminescence ELKHA.B, coffret crème de jour et crème de nuit"
     },
     "bright-glow-patch": {
       nom: "Patchs éclaircissants & lissants", actifs: "Niacinamide · Acide hyaluronique",
       benefice: "Éclaircissent et lissent le contour des yeux", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes niacinamide
-      photo: PHOTOS + "bloom-sable-bright-glow-patch.webp",
+      photo: PHOTOS + "bloom-sable-bright-glow-patch.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B à la niacinamide, cernes et ridules"
     },
     "bright-glow-decongestionnant": {
       nom: "Patchs éclat décongestionnants", actifs: "Caféine · Vitamine C",
       benefice: "Décongestionnent et réveillent le regard", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes caféine + vitamine C
-      photo: PHOTOS + "bloom-sable-bright-glow-decongestionnant.webp",
+      photo: PHOTOS + "bloom-sable-bright-glow-decongestionnant.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B à la caféine et vitamine C, poches"
     },
     "bright-glow-anti-fatigue": {
       nom: "Patchs anti-fatigue réconfortants", actifs: "Antioxydants · Provitamine B5",
       benefice: "Réconfortent le regard fatigué", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes antioxydants
-      photo: PHOTOS + "bloom-sable-bright-glow-anti-fatigue.webp",
+      photo: PHOTOS + "bloom-sable-bright-glow-anti-fatigue.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B anti-fatigue aux antioxydants"
     }
   };
@@ -425,7 +425,7 @@
   function conseilHTML(id){
     var c = SOINS[id].conseil, v = c.video;
     return '<aside class="ebs-conseil"><h3>' + esc(c.titre) + '</h3>' + c.textes.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('')
-      + (v ? '<video class="ebs-vid ebs-auto" aria-hidden="true" muted loop playsinline preload="none" poster="' + esc(PHOTOS + v + '.webp') + '">'
+      + (v ? '<video class="ebs-vid ebs-auto" aria-hidden="true" muted loop playsinline preload="none" poster="' + esc(PHOTOS + v + '.png') + '">'
            + '<source src="' + esc(PHOTOS + v + '.webm') + '" type="video/webm"><source src="' + esc(PHOTOS + v + '.mp4') + '" type="video/mp4"></video>' : '')
       + '</aside>';
   }
