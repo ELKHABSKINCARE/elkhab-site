@@ -60,14 +60,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Radiance C Serum              │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-2-flacon_dezoome.png?v=1792676875",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-serum.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-2-flacon_dezoome.png?v=1792676875",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397"
       ]
     },
@@ -145,16 +142,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Jour             │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-luminescence-jour.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-jour-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000067a081f4b806353042f5d59c.png?v=1792224216",
-        // 📷 3. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_LUMI_JOUR.png?v=1792581371",
-        // 📷 4. PHOTO 4
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_beaute_avec_soin_hydratant_ELKHA.B_1.png?v=1792580243"
       ]
     },
@@ -220,16 +213,13 @@ window.EB_PRODUITS = {
     // │ 📷  PHOTOS DE LA FICHE — Gelée Lumi-Bloom (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-gelee-lumibloom.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      apercus: {"https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4": "https://elkhabskincare.github.io/elkhab-site/bloom-apercu-video-gelee-lumibloom.png"},   // image de la vidéo pour sa miniature
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/gelee-lumibloom-1-boite-flacon.png?v=1793375005",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gel_e_Lumi-Bloom_Flacon.png?v=1793380848",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-2.png",
         "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
-        // 📷 4. PHOTO 4
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000004cd88243810b9ae55a9f7669.png?v=1792579905"
       ]
     },
@@ -293,36 +283,32 @@ window.EB_PRODUITS = {
     // Sélecteur de teintes : la teinte choisie part au panier,
     // et le diaporama glisse jusqu'à sa photo (photo : 0 = 1re photo, 1 = 2e photo…)
     choixLabel: "Choisissez votre teinte",
+    // Teintes : petite case de texture (texture), photos de la fiche pour cette teinte (photos),
+    // petite photo du panier (image) ; la fiche s'ouvre sur la teinte n° teinteDepart (0 = 1re)
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59361531560281", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
-      { label: "N°B2 MOYEN", variantId: "59361531593049", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
-      { label: "N°B3 HÂLÉ",  variantId: "59361531625817", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
-      { label: "N°B4 FONCÉ", variantId: "59361531658585", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
+      { label: "N°B1 CLAIR", variantId: "59361531560281", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png",
+        texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b1.png",
+        photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b1-clair-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b1-clair-2.png", "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948"] },
+      { label: "N°B2 MOYEN", variantId: "59361531593049", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png",
+        texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b2.png",
+        photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b2-moyen-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b2-moyen-2.png", "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962"] },
+      { label: "N°B3 HÂLÉ", variantId: "59361531625817", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png",
+        texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b3.png",
+        photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b3-hale-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b3-hale-2.png", "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743"] },
+      { label: "N°B4 FONCÉ", variantId: "59361531658585", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png",
+        texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b4.png",
+        photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b4-fonce-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b4-fonce-2.png", "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970"] }
     ],
+    teinteDepart: 1,
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  PHOTOS DE LA FICHE — Lumi-Veil CC Cream (diaporama)        │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867",   // 📷 petite photo : stick seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png",   // 📷 petite photo : stick seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 1. B1 CLAIR · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b1-clair-1-boite-flacon_-_Copie.png?v=1793375505",
-        // 📷 2. B2 MOYEN · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b2-moyen-1-boite-flacon_-_Copie.png?v=1793375453",
-        // 📷 3. B3 HÂLÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b3-hale-1-boite-flacon_-_Copie.png?v=1793375478",
-        // 📷 4. B4 FONCÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-veil-b4-fonce-1-boite-flacon.png?v=1793375415",
-        // 📷 5. B1 CLAIR · TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_CLAIR_c06c07dc-44a2-4d5d-b942-164990d69865.jpg?v=1791308948",
-        // 📷 6. B2 MOYEN · TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_MOYENNE_ad0953ad-5a17-4603-b5ef-3c78bd357ffe.jpg?v=1791308962",
-        // 📷 7. B3 HÂLÉ · TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/HALE_a966c14d-9b78-4dc7-a661-f8a1cf5ab0c4.jpg?v=1791308743",
-        // 📷 8. B4 FONCÉ · TEXTURE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/FONCE_5b3e6189-9008-4c99-a85a-dbef815da88f.jpg?v=1791308970"
+
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -390,14 +376,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Niacinamide 5      │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-niacinamide-5.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
+      apercus: {"https://cdn.shopify.com/videos/c/o/v/2306ccc5a1554bcea8c47c32c12f29be.mp4": "https://elkhabskincare.github.io/elkhab-site/bloom-apercu-video-niacinamide-5.png"},   // image de la vidéo pour sa miniature
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/niacinamide-5-1-boite-flacon_673d71dc-9fcb-4556-94ee-65f84a9af9d8.png?v=1792576759",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000f6dc81f488084229cc8f2994.png?v=1792228227",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-niacinamide-5-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-niacinamide-5-2.png",
         "https://cdn.shopify.com/videos/c/o/v/2306ccc5a1554bcea8c47c32c12f29be.mp4"
       ]
     },
@@ -476,16 +460,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Bloom Arbutin                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-flacon-pompe-v7.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-arbutin.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-1-boite-flacon_cc9a2df4-0202-4453-8e69-b16daa06c0e3.png?v=1793375045",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-bloom-arbutin-flacon-pompe-v7.png",
-        // 📷 3. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-arbutin-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-arbutin-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE.png?v=1792649763",
-        // 📷 4. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE.png?v=1792649764"
       ]
     },
@@ -563,14 +543,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Milky Bloom                        │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-miniature-v3-fond-site.png?v=1792679878",   // 📷 petite photo (routines, accord parfait) : flacon cadré comme les autres soins
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-milky-bloom.png",   // 📷 petite photo (routines, accord parfait) : flacon cadré comme les autres soins
       type: "diaporama",
       images: [
-        // 📷 1. FLACON DE FACE (dézoomé)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-face-fond-site-v5.png",
-        // 📷 2. FLACON DE DOS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/milky-bloom-dos-fond-site.png?v=1792659730",
-        // 📷 3. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-milky-bloom-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-milky-bloom-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c46dc4f1-9601-4c60-a383-a2347b777549.png?v=1792660545"
       ]
     },
@@ -650,16 +627,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Pure                          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",   // 📷 petite photo (routines, accord parfait) : le pot seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumi-pure.png",   // 📷 petite photo (routines, accord parfait) : le pot seul
       type: "diaporama",
       images: [
-        // 📷 1. POT DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-face-fond-site.jpg?v=1793381217",
-        // 📷 2. POT DE DOS
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/lumi-pure-dos-fond-site.jpg?v=1793208637",
-        // 📷 3. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumi-pure-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumi-pure-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d637d80b-e15b-40f3-92b5-0aaf6cf4ec6e.png?v=1793208600",
-        // 📷 4. VISAGE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_558a59d1-b12f-48c9-987f-19808cd3a870.png?v=1793208601"
       ]
     },
@@ -738,14 +711,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Radiance Cleanser                  │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-cleanser.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. FLACON DE FACE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-cleanser-face-fond-site.png?v=1792659777",
-        // 📷 2. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-cleanser-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-cleanser-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c209338b-01b0-4427-b4a1-6d2453144ddf.png?v=1792660763",
-        // 📷 3. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_RADIANCE_CLEANSER.png?v=1792660603"
       ]
     },
@@ -828,14 +799,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Boost                 │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-flacon-pompe-v7.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-luminescence-boost.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-1-boite-flacon.png?v=1793376159",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-boost-flacon-pompe-v7.png",
-        // 📷 3. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-boost-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-boost-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Swoosh_cremeux_blanc_nacre.png?v=1793974858"
       ]
     },
@@ -894,7 +862,7 @@ window.EB_PRODUITS = {
   },
   "luminescence-nuit": {
     nom: "Luminescence Nuit",
-    sousTitre: "Plancton marin · Collagène",
+    sousTitre: "Plancton marin · Soutien du collagène",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
@@ -906,16 +874,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Luminescence Nuit             │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-luminescence-nuit.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/luminescence-nuit-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000c27082109ec53e33d47ac1b1.png?v=1792228225",
-        // 📷 3. TEXTURE
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-nuit-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-nuit-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_LUMI_NUIT.png?v=1792581442",
-        // 📷 4. PHOTO 4
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cb60824390f842b82871e67a.png?v=1792579944"
       ]
     },
@@ -933,7 +897,7 @@ window.EB_PRODUITS = {
       { titre: "L'expérience",
         texte: "La nuit est le moment où la peau se régénère naturellement. Luminescence Nuit l'accompagne dans ce précieux instant en l'enveloppant d'une texture riche, fondante et réconfortante. Au réveil, la peau paraît plus ferme, plus souple, visiblement rebondie et parfaitement reposée." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que les plus beaux résultats s'obtiennent souvent pendant le sommeil. Luminescence Nuit associe un extrait innovant de plancton marin et du collagène à des actifs nourrissants comme le beurre de cacao, le beurre de karité, l'aloe vera et le Sodium PCA." },
+        texte: "Parce que les plus beaux résultats s'obtiennent souvent pendant le sommeil. Luminescence Nuit associe un extrait innovant de plancton marin, qui soutient le collagène de la peau, à des actifs nourrissants comme le beurre de cacao, le beurre de karité, l'aloe vera et le Sodium PCA." },
       { titre: "Bénéfices clés",
         liste: [
           "Nourrit intensément la peau pendant la nuit",
@@ -980,7 +944,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "rituel-luminescence": {
     nom: "Rituel Luminescence",
-    sousTitre: "Acide hyaluronique · Plancton marin · Collagène",
+    sousTitre: "Acide hyaluronique · Plancton marin",
     details: ["Jour & Nuit", "2 × 50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "67,90€",
@@ -992,13 +956,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE  — Rituel Luminescence           │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-rituel-luminescence.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-1-boites-flacons_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/rituel-luminescence-carrousel-v2.png?v=1792224561"
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-rituel-luminescence-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-rituel-luminescence-2.png"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1018,7 +980,7 @@ window.EB_PRODUITS = {
       { titre: "L'expérience",
         texte: "Le Rituel Luminescence accompagne votre peau du matin jusqu'au soir pour lui offrir une hydratation continue et révéler un éclat naturel durable. Jour après jour, la peau paraît plus souple, plus rebondie et visiblement plus lumineuse." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Le Rituel Luminescence réunit deux formules complémentaires qui accompagnent la peau à chaque moment de la journée. Le matin, l'acide hyaluronique multimoléculaire hydrate à différents niveaux, tandis que le bisabolol apaise et aide à préserver le confort cutané pour une peau plus souple, fraîche et lumineuse.\nLe soir, le plancton marin, le collagène et les actifs hydratants prennent le relais pour soutenir la fermeté, le rebond et l'aspect régénéré de la peau. Ensemble, Luminescence Jour et Luminescence Nuit offrent une routine complète pour une peau intensément hydratée, apaisée, plus rebondie et naturellement éclatante au réveil comme tout au long de la journée." },
+        texte: "Le Rituel Luminescence réunit deux formules complémentaires qui accompagnent la peau à chaque moment de la journée. Le matin, l'acide hyaluronique multimoléculaire hydrate à différents niveaux, tandis que le bisabolol apaise et aide à préserver le confort cutané pour une peau plus souple, fraîche et lumineuse.\nLe soir, le plancton marin, qui soutient le collagène, et les actifs hydratants prennent le relais pour soutenir la fermeté, le rebond et l'aspect régénéré de la peau. Ensemble, Luminescence Jour et Luminescence Nuit offrent une routine complète pour une peau intensément hydratée, apaisée, plus rebondie et naturellement éclatante au réveil comme tout au long de la journée." },
       { titre: "Bénéfices clés",
         liste: [
           "Hydrate intensément jour et nuit",
@@ -1064,28 +1026,26 @@ window.EB_PRODUITS = {
     // Sélecteur : la version choisie part au panier,
     // et le diaporama glisse jusqu'à sa photo (0 = 1re photo, 1 = 2e photo…)
     choixLabel: "Choisissez votre protection",
+    // Versions : petite case de texture (texture), photos de la fiche pour cette version (photos),
+    // petite photo du panier (image) ; la fiche s'ouvre sur la version n° teinteDepart (0 = 1re)
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547107950937", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
-      { label: "TEINTÉ",      variantId: "59547107983705", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886" }
+      { label: "SANS TEINTE", variantId: "59547107950937", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-sans-teinte.png",
+        texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-radiance-protect-sans-teinte.png",
+        photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-protect-sans-teinte-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-protect-sans-teinte-2.png", "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282"] },
+      { label: "TEINTÉ", variantId: "59547107983705", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png",
+        texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-radiance-protect-teinte.png",
+        photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-protect-teinte-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-protect-teinte-2.png", "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291"] }
     ],
+    teinteDepart: 1,
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  PHOTOS DE LA FICHE — Radiance Protect (diaporama)          │
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886",   // 📷 petite photo : stick seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png",   // 📷 petite photo : stick seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
       images: [
-        // 📷 1. TEINTÉ · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-teinte-1-boite-flacon.png?v=1793376713",
-        // 📷 2. SANS TEINTE · BOÎTE + STICK
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect-sans-teinte-1-boite.png?v=1793376672",
-        // 📷 3. PHOTO D'AMBIANCE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207",
-        // 📷 TEXTURE TEINTÉE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEINTE_57dc7c1a-83a1-4921-8981-147ee4b8e422.jpg?v=1791384291",
-        // 📷 TEXTURE SANS TEINTE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/NON_TEINTE_e8ed88e7-e4b2-4449-b381-8fd1a2487438.jpg?v=1791384282"
+        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1217,16 +1177,12 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Radiance Eye Cream
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-eye-cream.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-eye-cream-1-boite-flacon.png?v=1793375349",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance_eye_cream.png?v=1793379673",
-        // 📷 3. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-eye-cream-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-eye-cream-2.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Votre_texte_de_paragraphe_2.jpg?v=1791055787",
-        // 📷 4. PHOTO / VIDÉO D'AMBIANCE (à remplacer si ancien packaging)
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Texture_creme.png?v=1791055980"
       ]
     },
@@ -1270,16 +1226,16 @@ window.EB_PRODUITS = {
       nom: "Lumi-Eyes Bright & Glow",
 
       // 📷 PHOTO DE L'ACCORD PARFAIT
-      image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Trio_Bright_Glow.png?v=1791272097",
+      image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-trio.png",
 
       texte: "Deux gestes complémentaires pour réveiller le regard.\nRadiance Eye Cream accompagne le contour de l'œil au quotidien, tandis que Lumi-Eyes Bright & Glow lui offre un boost de fraîcheur et d'hydratation.\nUn duo complice pour un contour des yeux visiblement plus lisse, lumineux et un regard qui paraît moins marqué par la fatigue.",
       prix: "28,90€",
       choixLabel: "Choisissez vos patchs",
       variantes: [
         // 📷 image : petite photo de rappel de chaque formule
-        { label: "CAFÉINE + VITAMINE C",             variantId: "59565820182873", fiche: "bright-glow-decongestionnant", image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367" },
-        { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59565819887961", fiche: "bright-glow-anti-fatigue",     image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367" },
-        { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59565820412249", fiche: "bright-glow-patch",            image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518" }
+        { label: "CAFÉINE + VITAMINE C",             variantId: "59565820182873", fiche: "bright-glow-decongestionnant", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-cafeine-vitamine-c.png" },
+        { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59565819887961", fiche: "bright-glow-anti-fatigue",     image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-antioxydants-b5.png" },
+        { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59565820412249", fiche: "bright-glow-patch",            image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-niacinamide.png" }
       ]
     }
   },
@@ -1302,16 +1258,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Lumi-Eyes Bright & Glow Niacinamide + Acide hyaluronique
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000018cc82108970f45b4b30dfff.png?v=1792225964",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-niacinamide.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000018cc82108970f45b4b30dfff.png?v=1792225964",
-        // 📷 3. PATCHS SEULS
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-patchs-niacinamide.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_dore.png?v=1791273110",
-        // 📷 4. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_dore.png?v=1791273035"
       ]
     },
@@ -1381,16 +1332,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Lumi-Eyes Bright & Glow Caféine + Vitamine C
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000426481f48f8efd886f65ba45.png?v=1792225964",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-cafeine-vitamine-c.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000426481f48f8efd886f65ba45.png?v=1792225964",
-        // 📷 3. PATCHS SEULS
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-patchs-cafeine-vitamine-c.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_gris.png?v=1791273110",
-        // 📷 4. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_gris.png?v=1791273034"
       ]
     },
@@ -1458,16 +1404,11 @@ window.EB_PRODUITS = {
     // │ 📷  DIAPORAMA DE LA FICHE — Lumi-Eyes Bright & Glow Antioxydants + Provitamine B5
     // └─────────────────────────────────────────────────────────────────┘
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000027bc81f4ab57858a2c77cf29.png?v=1792225964",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-antioxydants-b5.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
-        // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367",
-        // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_0000000027bc81f4ab57858a2c77cf29.png?v=1792225964",
-        // 📷 3. PATCHS SEULS
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-patchs-antioxydants-b5.png",
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Patchs_orange.png?v=1791273110",
-        // 📷 4. MANNEQUIN
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_orange.png?v=1791273034"
       ]
     },
@@ -1570,8 +1511,8 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre protection",
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Radiance-protect_-sans_teinte_Flacon.png?v=1793376115" },
-      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-protect_teint_-flacon.png?v=1793378886" }
+      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-sans-teinte.png" },
+      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1590,7 +1531,7 @@ window.EB_PRODUITS = {
     // │ 🌿  CONTENU DE LA ROUTINE                                       │
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
-      intro: "Une routine complète pour agir au quotidien sur les signes du vieillissement cutané.\nLuminescence Jour, avec son acide hyaluronique multimoléculaire, agit à différents niveaux de la peau pour la repulper.\nRadiance Protect SPF 50 offre une protection à large spectre contre les UVA et les UVB, responsables du photovieillissement.\nLuminescence Nuit, enrichie en collagène et en plancton marin, accompagne la peau durant sa régénération nocturne pour lui offrir un aspect plus lisse au réveil.\nJour après jour, la peau paraît plus rebondie, repulpée et visiblement plus lisse.",
+      intro: "Une routine complète pour agir au quotidien sur les signes du vieillissement cutané.\nLuminescence Jour, avec son acide hyaluronique multimoléculaire, agit à différents niveaux de la peau pour la repulper.\nRadiance Protect SPF 50 offre une protection à large spectre contre les UVA et les UVB, responsables du photovieillissement.\nLuminescence Nuit, enrichie en plancton marin qui soutient le collagène, accompagne la peau durant sa régénération nocturne pour lui offrir un aspect plus lisse au réveil.\nJour après jour, la peau paraît plus rebondie, repulpée et visiblement plus lisse.",
       soins: ["luminescence-jour", "radiance-protect", "luminescence-nuit"],
       etapes: [
         { moment: "Le matin", soin: "luminescence-jour", texte: "Sur peau propre, appliquez une pression de Luminescence Jour sur le visage et le cou." },
@@ -1615,10 +1556,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
-      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
-      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
+      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
+      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
+      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1662,10 +1603,10 @@ window.EB_PRODUITS = {
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B1_Flacon.png?v=1793375947" },
-      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B2_Flacon.png?v=1793375867" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-veil_b3_flacon.png?v=1793375609" },
-      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Lumi-Veil_B4_Flacon.png?v=1793376010" }
+      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
+      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
+      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1708,9 +1649,9 @@ window.EB_PRODUITS = {
 
     choixLabel: "Choisissez votre formule",
     variantes: [
-      { label: "CAFÉINE + VITAMINE C",             variantId: "59358402216281", fiche: "bright-glow-decongestionnant", image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-cafeine-vitamine-c-1-boite-flacon_-_Copie.png?v=1792576367" },
-      { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59358466703705", fiche: "bright-glow-anti-fatigue",     image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-antioxydants-b5-1-boite-flacon_-_Copie.png?v=1792576367" },
-      { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59358466736473", fiche: "bright-glow-patch",            image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/patchs-niacinamide-1-boite-flacon_-_Copie.png?v=1792576518" }
+      { label: "CAFÉINE + VITAMINE C",             variantId: "59358402216281", fiche: "bright-glow-decongestionnant", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-cafeine-vitamine-c.png" },
+      { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59358466703705", fiche: "bright-glow-anti-fatigue",     image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-antioxydants-b5.png" },
+      { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59358466736473", fiche: "bright-glow-patch",            image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-niacinamide.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
