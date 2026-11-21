@@ -295,7 +295,7 @@
   + "#eb-soins .ebs-conseil h3{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:500;letter-spacing:.04em;line-height:1.35;margin:0 0 16px;color:#000}"
   + ".ebs-conseil h3:after{content:'';display:block;width:46px;height:1px;background:rgba(0,0,0,.3);margin-top:14px}"
   + ".ebs-conseil p{font-size:14px;line-height:1.75;color:#3a2a24;margin:0 0 12px}"
-  + ".ebs-vid{display:block;width:100%;aspect-ratio:2 / 1;object-fit:cover;border-radius:12px;margin-top:10px;background:" + REGLAGES.fondCarte + "}"
+  + ".ebs-vid{display:block;width:100%;aspect-ratio:2 / 1;object-fit:cover;margin-top:10px;background:" + REGLAGES.fondCarte + "}"
 
   // Vidéo d'ambiance
   + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;order:2}.ebs-bande{width:100%}"
@@ -357,6 +357,7 @@
   +   ".ebs-card.seul .ebs-ajouter{width:62%}"
   +   "#eb-soins .ebs-card.seul .ebs-tx h3{font-size:12.5px}"
   +   ".ebs-card.seul .ebs-ph img.ebs-detail{width:19%;right:17%;bottom:7%}"
+  +   ".ebs-card.seul[data-fiche='luminescence-jour'] .ebs-ph img{transform:scale(1.42);transform-origin:50% 52%}"   /* le soin star de Bloom : plus grand dans sa vignette */
   // teintes : le flacon glisse un peu vers la gauche pour ne pas passer sous les cases
   +   ".ebs-card.avec-teintes .ebs-ph img{transform:translateX(-9%)}"
     +   "#eb-soins .ebs-h h2{font-size:12px}"
@@ -377,8 +378,11 @@
   +   "#eb-soins .ebs-conseil h3{font-size:15px}"
   +   ".ebs-conseil h3:after{margin:12px auto 0}"
   +   ".ebs-conseil p{font-size:12px;line-height:1.65}"
-  +   ".ebs-vid{max-width:340px;margin:12px auto 0;aspect-ratio:16 / 10}"
-  +   ".ebs-cimg{display:block;max-width:340px;margin:12px auto 0;border-radius:12px;overflow:hidden;aspect-ratio:16 / 10;background:#f39a2c}.ebs-cimg img{display:block;width:100%;height:100%;object-fit:cover}"
+  // visuels (vidéo et photo de texture) d'un bord à l'autre de l'écran, angles droits ; seules les vignettes restent arrondies
+  +   ".ebs-vid{width:100vw;max-width:none;margin:16px 0 0 calc(50% - 50vw);aspect-ratio:16 / 10}"
+  +   ".ebs-cimg{display:block;position:relative;width:100vw;max-width:none;margin:16px 0 0 calc(50% - 50vw);overflow:hidden;aspect-ratio:4 / 3;background:#f39a2c}"
+  // la photo de texture (en hauteur) est tournée d'un quart de tour pour s'étaler en largeur
+  +   ".ebs-cimg img{position:absolute;left:50%;top:50%;display:block;width:75vw;height:100vw;object-fit:cover;transform:translate(-50%,-50%) rotate(-90deg)}"
   +   ".ebs-amb{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}"
   +   ".ebs-amb video{aspect-ratio:4 / 3;object-fit:cover}"
   +   ".ebs-cof{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}"
@@ -402,7 +406,7 @@
   +   ".ebs-card{width:25%;padding:0 11px 62px}"
   +   ".ebs-bande{width:100%;display:flex;justify-content:center;padding:6px 0 56px}"
   +   ".ebs-bande .ebs-conseil{width:100%;max-width:820px;display:grid;grid-template-columns:1fr 1fr;column-gap:48px;align-items:center}"
-  +   ".ebs-bande .ebs-conseil h3,.ebs-bande .ebs-conseil p{grid-column:1}.ebs-bande .ebs-vid{grid-column:2;grid-row:1 / span 4;margin:0;aspect-ratio:4 / 3}.ebs-bande .ebs-cimg{grid-column:2;grid-row:1 / span 4;display:block;border-radius:12px;overflow:hidden;background:#f39a2c;aspect-ratio:1 / 1}.ebs-bande .ebs-cimg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}.ebs-bande .ebs-conseil.sans-vid{display:block;max-width:640px;text-align:center}.ebs-bande .sans-vid h3:after{margin:14px auto 0}"
+  +   ".ebs-bande .ebs-conseil h3,.ebs-bande .ebs-conseil p{grid-column:1}.ebs-bande .ebs-vid{grid-column:2;grid-row:1 / span 4;margin:0;aspect-ratio:4 / 3}.ebs-bande .ebs-cimg{grid-column:2;grid-row:1 / span 4;display:block;overflow:hidden;background:#f39a2c;aspect-ratio:1 / 1}.ebs-bande .ebs-cimg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}.ebs-bande .ebs-conseil.sans-vid{display:block;max-width:640px;text-align:center}.ebs-bande .sans-vid h3:after{margin:14px auto 0}"
   // textes plus fins sur ordinateur, prix proche de la contenance, plus d'air avant le bouton
   +   "#eb-soins .ebs-tx h3{font-size:13px;letter-spacing:.15em}"
   +   ".ebs-tx .a{font-size:9.5px;margin-top:8px;text-wrap:balance}"
