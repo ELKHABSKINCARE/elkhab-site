@@ -109,7 +109,9 @@
           "La finesse du contour des yeux mérite une attention particulière. Radiance Eye Cream associe des extraits végétaux ciblés, reconnus pour leur action sur la microcirculation, à l'acide hyaluronique pour aider à estomper cernes et poches tout en lissant les ridules.",
           "Et son petit plus ? Une texture légère, sans fini gras, qui se fond sous le maquillage et aide l'anticernes à rester en place, sans filer dans les plis."
         ],
-        video: ""
+        video: "",
+        // 📷 photo posée à côté du texte (quand il n'y a pas de vidéo)
+        image: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Texture_creme.png?v=1791055980"
       }
     },
     "luminescence-jour": {
@@ -172,6 +174,8 @@
       benefice: "Éclaircissent et lissent le contour des yeux", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes niacinamide
       photo: PHOTOS + "bloom-sable-bright-glow-patch.png",
+      // 📷 le patch lui-même, posé en bas à droite de la vignette
+      detail: PHOTOS + "bloom-patch-niacinamide.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B à la niacinamide, cernes et ridules"
     },
     "bright-glow-decongestionnant": {
@@ -179,6 +183,7 @@
       benefice: "Décongestionnent et réveillent le regard", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes caféine + vitamine C
       photo: PHOTOS + "bloom-sable-bright-glow-decongestionnant.png",
+      detail: PHOTOS + "bloom-patch-cafeine-vitamine-c.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B à la caféine et vitamine C, poches"
     },
     "bright-glow-anti-fatigue": {
@@ -186,6 +191,7 @@
       benefice: "Réconfortent le regard fatigué", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes antioxydants
       photo: PHOTOS + "bloom-sable-bright-glow-anti-fatigue.png",
+      detail: PHOTOS + "bloom-patch-antioxydants-b5.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B anti-fatigue aux antioxydants"
     }
   };
@@ -255,7 +261,9 @@
   + ".ebs-h p{text-align:center;font-size:13.5px;font-weight:400;line-height:1.5;opacity:.85;margin:8px 0 0}"
 
   // Vignette d'un soin
-  + ".ebs-card{position:relative;display:block;width:50%;padding:0 0 34px}"
+  + ".ebs-card{position:relative;display:flex;flex-direction:column;width:50%;padding:0 0 34px}"
+  // prix et bouton calés en bas : tous les boutons d'une rangée sont au même niveau
+  + ".ebs-tx{flex:1;display:flex;flex-direction:column}.ebs-tx .p{margin-top:auto !important;padding-top:12px}"
   + ".ebs-ph{display:block;position:relative;aspect-ratio:4 / 7;overflow:hidden;border-radius:12px;background:" + REGLAGES.fondCarte + "}"
   + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%}"
   + ".ebs-num{position:absolute;z-index:2;top:14px;left:12px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.88}"
@@ -263,6 +271,8 @@
   // note : posée sur le fond de la photo, en bas à gauche
   + ".ebs-note{position:absolute;left:16px;bottom:14px;z-index:2;display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;letter-spacing:.06em;color:#000}"
   + ".ebs-note i{font-style:normal;font-size:15px;line-height:1;color:" + REGLAGES.couleurEtoile + "}"
+  // patchs : le patch posé directement sur le fond, en bas à droite de la vignette
+  + ".ebs-ph img.ebs-detail{position:absolute;inset:auto;right:6%;bottom:5%;width:30%;height:auto;object-fit:contain;transform:rotate(-8deg);z-index:2;filter:drop-shadow(0 3px 5px rgba(80,50,30,.12))}"
   // teintes : cases de texture à droite de la photo
   + ".ebs-tt{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2}"
   + ".ebs-t{display:block;width:42px;height:42px;border-radius:10px;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 0 0 1px rgba(0,0,0,.08)}"
@@ -280,9 +290,7 @@
   + ".ebs-ajouter{display:block;margin:14px auto 0;width:72%;max-width:240px;background:#000;color:" + REGLAGES.fondSite + ";padding:13px 0;font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;text-align:center;cursor:pointer;transition:background .25s ease}"
   + ".ebs-ajouter:hover,.ebs-ajouter.ok{background:#3a2a24}"
 
-  // Soin seul avec son conseil (à côté sur ordinateur, en dessous sur téléphone)
-  + ".ebs-solo{display:flex;align-items:center;justify-content:center;gap:56px;width:100%}"
-  + "#eb-soins .ebs-solo .ebs-card{width:40%;max-width:430px}"
+  // Texte de respiration placé sous la rangée de son étape (texte + vidéo ou photo à côté sur ordinateur, en dessous sur téléphone)
   + ".ebs-conseil{width:38%;max-width:420px;text-align:left}"
   + "#eb-soins .ebs-conseil h3{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:500;letter-spacing:.04em;line-height:1.35;margin:0 0 16px;color:#000}"
   + ".ebs-conseil h3:after{content:'';display:block;width:46px;height:1px;background:rgba(0,0,0,.3);margin-top:14px}"
@@ -290,7 +298,7 @@
   + ".ebs-vid{display:block;width:100%;aspect-ratio:2 / 1;object-fit:cover;border-radius:12px;margin-top:10px;background:" + REGLAGES.fondCarte + "}"
 
   // Vidéo d'ambiance
-  + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;order:2}"
+  + ".ebs-amb{width:100%;margin:6px 0 40px;overflow:hidden;order:2}.ebs-bande{width:100%}"
   + ".ebs-amb video{display:block;width:100%;height:auto}"
 
   // Coffret
@@ -338,7 +346,19 @@
   + "@media (max-width:899px){"
   +   "#eb-soins{width:100vw !important;max-width:100vw !important;margin-left:calc(50% - 50vw) !important}"
   +   ".ebs-flow{padding-left:20px;padding-right:20px}"
-  +   ".ebs-card .ebs-ph{margin:0 5px}"
+  // téléphone : vignette moins haute (la photo entière, flacon centré comme sur ordinateur)
+  +   ".ebs-card .ebs-ph{margin:0 5px;aspect-ratio:3 / 4}.ebs-ph img{object-position:50% 0%}"
+  +   ".ebs-card{padding-bottom:50px}"
+  // soin seul sur sa ligne : vignette sur toute la largeur (format paysage), textes étalés, bouton plus large
+  +   ".ebs-card.seul{width:100%}"
+  +   ".ebs-card.seul .ebs-ph{aspect-ratio:16 / 11}.ebs-card.seul .ebs-ph img{object-fit:contain;object-position:50% 0%}"
+  +   ".ebs-card.seul .ebs-tx{padding-left:12px;padding-right:12px}"
+  +   ".ebs-card.seul .ebs-tx .ao{display:inline}.ebs-card.seul .ebs-tx .am{display:none}"
+  +   ".ebs-card.seul .ebs-ajouter{width:62%}"
+  +   "#eb-soins .ebs-card.seul .ebs-tx h3{font-size:12.5px}"
+  +   ".ebs-card.seul .ebs-ph img.ebs-detail{width:19%;right:17%;bottom:7%}"
+  // teintes : le flacon glisse un peu vers la gauche pour ne pas passer sous les cases
+  +   ".ebs-card.avec-teintes .ebs-ph img{transform:translateX(-9%)}"
     +   "#eb-soins .ebs-h h2{font-size:12px}"
   +   ".ebs-h p{font-size:11.5px}"
   +   ".ebs-tx{padding-left:4px;padding-right:4px}"
@@ -350,16 +370,15 @@
   +   ".ebs-tx .p{margin-top:9px;gap:6px}"
   +   ".ebs-tx .p b{font-size:13px}"
   +   ".ebs-tx .p small{font-size:9.5px}"
-  +   ".ebs-ajouter{width:88%;padding:10px 0;font-size:9px;letter-spacing:.2em;margin-top:11px}"
+  +   ".ebs-ajouter{width:88%;padding:10px 0;font-size:9px;letter-spacing:.2em;margin-top:16px}"
   +   ".ebs-note{font-size:10px;left:10px;bottom:9px;gap:4px}.ebs-note i{font-size:12.5px}"
   +   ".ebs-tt{right:9px;gap:7px}.ebs-t{width:31px;height:31px;border-radius:8px}.ebs-tt em{font-size:8px}"
-  +   ".ebs-solo{display:contents}"
-  +   "#eb-soins .ebs-solo .ebs-card{width:50%}"
   +   ".ebs-conseil{width:100%;max-width:none;padding:6px 26px 34px;text-align:center}"
   +   "#eb-soins .ebs-conseil h3{font-size:15px}"
   +   ".ebs-conseil h3:after{margin:12px auto 0}"
   +   ".ebs-conseil p{font-size:12px;line-height:1.65}"
   +   ".ebs-vid{max-width:340px;margin:12px auto 0;aspect-ratio:16 / 10}"
+  +   ".ebs-cimg{display:block;max-width:340px;margin:12px auto 0;border-radius:12px;overflow:hidden;aspect-ratio:16 / 10;background:#f39a2c}.ebs-cimg img{display:block;width:100%;height:100%;object-fit:cover}"
   +   ".ebs-amb{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}"
   +   ".ebs-amb video{aspect-ratio:4 / 3;object-fit:cover}"
   +   ".ebs-cof{width:calc(100% + 40px);margin-left:-20px;margin-right:-20px}"
@@ -377,11 +396,28 @@
   +   ".ebs-flow{max-width:1080px;margin:8px auto 0}"
   +   ".ebs-h div{border-top:0}"
   +   ".ebs-h:before{content:'';display:block;width:56px;height:1px;background:rgba(0,0,0,.22);margin:0 auto}"
-  +   ".ebs-ph{aspect-ratio:auto;height:clamp(330px,29vw,420px)}"
-  +   ".ebs-card{width:25%;padding:0 9px 40px}"
+  // vignettes plus petites ; le haut de la photo est gardé : le flacon le plus haut (Milky Bloom) est centré, tous restent posés sur la même ligne
+  +   ".ebs-ph{aspect-ratio:41 / 50;height:auto}"
+  +   ".ebs-ph img{object-position:50% 0%}"
+  +   ".ebs-card{width:25%;padding:0 11px 62px}"
+  +   ".ebs-bande{width:100%;display:flex;justify-content:center;padding:6px 0 56px}"
+  +   ".ebs-bande .ebs-conseil{width:100%;max-width:820px;display:grid;grid-template-columns:1fr 1fr;column-gap:48px;align-items:center}"
+  +   ".ebs-bande .ebs-conseil h3,.ebs-bande .ebs-conseil p{grid-column:1}.ebs-bande .ebs-vid{grid-column:2;grid-row:1 / span 4;margin:0;aspect-ratio:4 / 3}.ebs-bande .ebs-cimg{grid-column:2;grid-row:1 / span 4;display:block;border-radius:12px;overflow:hidden;background:#f39a2c;aspect-ratio:1 / 1}.ebs-bande .ebs-cimg img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}.ebs-bande .ebs-conseil.sans-vid{display:block;max-width:640px;text-align:center}.ebs-bande .sans-vid h3:after{margin:14px auto 0}"
+  // textes plus fins sur ordinateur, prix proche de la contenance, plus d'air avant le bouton
+  +   "#eb-soins .ebs-tx h3{font-size:13px;letter-spacing:.15em}"
+  +   ".ebs-tx .a{font-size:9.5px;margin-top:8px;text-wrap:balance}"
+  +   ".ebs-t{width:34px;height:34px;border-radius:8px}.ebs-tt{gap:8px;right:12px}"
+  +   ".ebs-tx .l{font-size:12.5px;margin-top:8px}"
+  +   ".ebs-tx .p{margin-top:14px;gap:8px}"
+  +   ".ebs-tx .p b{font-size:14px;font-weight:500}"
+  +   ".ebs-tx .p small{font-size:11.5px}"
+  +   ".ebs-ajouter{margin-top:18px;width:78%;max-width:210px;padding:12px 0;font-size:10px}"
+  // écritures fines (élégance) : nom en medium, actifs, phrase et prix en léger
+  +   "#eb-soins .ebs-tx h3{font-weight:500}"
+  +   ".ebs-tx .a,.ebs-tx .l{font-weight:300}"
+  +   ".ebs-tx .l{color:#2a1d18}"
+  +   ".ebs-tx .p b{font-weight:400}"
   // le nombre de soins par rangée dépend de la place (environ 360 px par soin)
-  +   ".ebs-c2 .ebs-card{width:50%}"
-  +   ".ebs-c3 .ebs-card{width:33.333%}"
   // la vidéo à gauche (collée au bord de la colonne), Luminescence Jour à droite
   +   ".avec-amb{flex-wrap:nowrap;align-items:center;justify-content:flex-start}"
   +   ".avec-amb .ebs-amb{order:-1;flex:0 0 50%;width:50%;margin:0 0 40px}"
@@ -404,29 +440,31 @@
     var s = SOINS[id], t = s.teintes; if(!t) return '';
     var d = s.teinteDepart || 0;
     return '<span class="ebs-tt">' + t.map(function(x, k){
-      return '<span class="ebs-t' + (k === d ? ' on' : '') + '" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" data-k="' + k + '" style="background-image:url(' + esc(x.texture) + ')"></span>';
+      return '<span class="ebs-t' + (k === d ? ' on' : '') + '" data-fiche="" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" data-k="' + k + '" style="background-image:url(' + esc(x.texture) + ')"></span>';
     }).join('') + '<em>' + esc(t[d].nom) + '</em></span>';
   }
-  function vignette(id, etape){
+  function vignette(id, etape, seul){
     var s = SOINS[id]; if(!s) return '';
     var actifs = s.actifsCourt ? '<span class="ao">' + esc(s.actifs) + '</span><span class="am">' + esc(s.actifsCourt) + '</span>' : esc(s.actifs);
     var photo = s.teintes ? s.teintes[s.teinteDepart || 0].photo : s.photo;
-    return '<a class="ebs-card" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-e="' + (etape ? etape.num : '') + '">'
+    return '<a class="ebs-card' + (seul ? ' seul' : '') + (s.teintes ? ' avec-teintes' : '') + '" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-e="' + (etape ? etape.num : '') + '">'
       + '<div class="ebs-ph"><img src="' + esc(photo) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
       + (etape ? '<span class="ebs-num"><i style="background:' + etape.couleur + '"></i>' + etape.num + '</span>' : '')
+      + (s.detail ? '<img class="ebs-detail" src="' + esc(s.detail) + '" alt="" aria-hidden="true" loading="lazy" decoding="async">' : '')
       + '<span class="ebs-note" hidden></span>' + teintesHTML(id) + '</div>'
       + '<div class="ebs-tx"><h3>' + nomInsecable(s.nom) + '</h3>'
       + '<span class="a">' + actifs + '</span>'
       + '<span class="l">' + esc(s.benefice) + '</span>'
       + '<span class="p" data-prix="' + esc(id) + '">' + prixHTML(id) + '</span>'
-      + '<span class="ebs-ajouter" role="button" tabindex="0" aria-label="Ajouter ' + esc(s.nom) + ' au panier">Ajouter</span></div>'
+      + '<span class="ebs-ajouter" data-fiche="" role="button" tabindex="0" aria-label="Ajouter ' + esc(s.nom) + ' au panier">Ajouter</span></div>'
       + '</a>';
   }
   function conseilHTML(id){
     var c = SOINS[id].conseil, v = c.video;
-    return '<aside class="ebs-conseil"><h3>' + esc(c.titre) + '</h3>' + c.textes.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('')
+    return '<aside class="ebs-conseil' + (v || c.image ? '' : ' sans-vid') + '"><h3>' + esc(c.titre) + '</h3>' + c.textes.map(function(t){ return '<p>' + esc(t) + '</p>'; }).join('')
       + (v ? '<video class="ebs-vid ebs-auto" aria-hidden="true" muted loop playsinline preload="none" poster="' + esc(PHOTOS + v + '.png') + '">'
            + '<source src="' + esc(PHOTOS + v + '.webm') + '" type="video/webm"><source src="' + esc(PHOTOS + v + '.mp4') + '" type="video/mp4"></video>' : '')
+      + (!v && c.image ? '<a class="ebs-cimg" href="' + esc(REGLAGES.lienFiche + id) + '"><img src="' + esc(c.image) + '" alt="' + esc('Texture crème de ' + SOINS[id].nom + ' ELKHA.B') + '" loading="lazy" decoding="async"></a>' : '')
       + '</aside>';
   }
 
@@ -437,16 +475,18 @@
   ETAPES.forEach(function(e){
     h += '<section class="ebs-h" data-h="' + e.num + '"><div><i class="ebs-sq" style="background:' + e.couleur + '"></i><h2>Étape ' + e.num + ' · ' + esc(e.titre) + '</h2></div><p>' + esc(e.texte) + '</p></section>';
     var amb = e.ambiance && e.ambiance.video ? e.ambiance : null;
-    h += '<div class="ebs-grp' + (amb ? ' avec-amb' : '') + '">' + e.soins.map(function(id){
-      return SOINS[id] && SOINS[id].conseil ? '<div class="ebs-solo">' + vignette(id, e) + conseilHTML(id) + '</div>' : vignette(id, e);
+    // un soin seul sur sa ligne de téléphone (nombre impair) prend toute la largeur
+    h += '<div class="ebs-grp' + (amb ? ' avec-amb' : '') + '">' + e.soins.map(function(id, k){
+      return vignette(id, e, e.soins.length % 2 === 1 && k === e.soins.length - 1);
     }).join('');
+    e.soins.forEach(function(id){ if(SOINS[id] && SOINS[id].conseil) h += '<div class="ebs-bande">' + conseilHTML(id) + '</div>'; });
     // la vidéo est dans le même groupe que le soin : à gauche du soin sur ordinateur, en dessous sur téléphone
     if(amb) h += '<figure class="ebs-amb"><video class="ebs-auto" src="' + esc(amb.video) + '" muted loop playsinline preload="none" aria-label="' + esc(amb.alt) + '" data-tel="' + esc(amb.cadrageTelephone || '50% 50%') + '"></video></figure>';
     h += '</div>';
   });
   if(SOINS[COFFRET.soin]) h += '<section class="ebs-cof"><h2 class="ebs-coft">' + esc(COFFRET.surtitre) + '</h2>' + (COFFRET.texte ? '<p class="ebs-cofp">' + esc(COFFRET.texte) + '</p>' : '') + vignette(COFFRET.soin, null) + '</section>';
   h += '<div class="ebs-cib"><h2>' + esc(CIBLES.titre) + '</h2><span>' + esc(CIBLES.sousTitre) + '</span><p>' + esc(CIBLES.texte) + '</p></div>';
-  h += CIBLES.soins.map(function(id){ return vignette(id, null); }).join('');
+  h += CIBLES.soins.map(function(id, k){ return vignette(id, null, CIBLES.soins.length % 2 === 1 && k === CIBLES.soins.length - 1); }).join('');
   h += '</div>';
   if(intro) h += '<section class="ebs-bloom"><h2>' + esc(REGLAGES.titreTexte) + '</h2><div class="ebs-txt"><div class="ebs-plein">' + intro.innerHTML + '</div><p class="ebs-court"></p></div></section>';
   root.innerHTML = h;
@@ -454,14 +494,8 @@
   var cards = root.querySelectorAll('.ebs-card');
   var flow = root.querySelector('.ebs-flow');
 
-  // ── Ordinateur : 2, 3 ou 4 soins par rangée selon la place ; vidéo étirée jusqu'au bord de la colonne ──
-  function largeurBloc(){
-    var w = flow ? flow.clientWidth : root.clientWidth;
-    var n = window.innerWidth < 900 || !w ? 0 : Math.max(2, Math.min(4, Math.round(w / 360)));
-    root.classList.toggle('ebs-c2', n === 2);
-    root.classList.toggle('ebs-c3', n === 3);
-    pleineLargeur();
-  }
+  // ── Ordinateur : 4 soins par rangée ; vidéo étirée jusqu'au bord de la colonne ──
+  function largeurBloc(){ pleineLargeur(); }
   function colonne(){
     var el = root;
     while(el.parentElement && el.parentElement !== document.body){
