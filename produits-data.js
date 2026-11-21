@@ -413,7 +413,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "luminescence-nuit": {
     nom: "Luminescence Nuit",
-    sousTitre: "Plancton marin · Collagène",
+    sousTitre: "Plancton marin · Soutien du collagène",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
@@ -449,7 +449,7 @@ window.EB_PRODUITS = {
       { titre: "L'expérience",
         texte: "La nuit est le moment où la peau se régénère naturellement. Luminescence Nuit l'accompagne dans ce précieux instant en l'enveloppant d'une texture riche, fondante et réconfortante. Au réveil, la peau paraît plus ferme, plus souple, visiblement rebondie et parfaitement reposée." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que les plus beaux résultats s'obtiennent souvent pendant le sommeil. Luminescence Nuit associe un extrait innovant de plancton marin et du collagène à des actifs nourrissants comme le beurre de cacao, le beurre de karité, l'aloe vera et le Sodium PCA." },
+        texte: "Parce que les plus beaux résultats s'obtiennent souvent pendant le sommeil. Luminescence Nuit associe un extrait innovant de plancton marin, qui soutient le collagène de la peau, à des actifs nourrissants comme le beurre de cacao, le beurre de karité, l'aloe vera et le Sodium PCA." },
       { titre: "Bénéfices clés",
         liste: [
           "Nourrit intensément la peau pendant la nuit",
@@ -496,7 +496,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "rituel-luminescence": {
     nom: "Rituel Luminescence",
-    sousTitre: "Acide hyaluronique · Plancton marin · Collagène",
+    sousTitre: "Acide hyaluronique · Plancton marin",
     details: ["Jour & Nuit", "2 × 50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "67,90€",
@@ -535,7 +535,7 @@ window.EB_PRODUITS = {
       { titre: "L'expérience",
         texte: "Le Rituel Luminescence accompagne votre peau du matin jusqu'au soir pour lui offrir une hydratation continue et révéler un éclat naturel durable. Jour après jour, la peau paraît plus souple, plus rebondie et visiblement plus lumineuse." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Le Rituel Luminescence réunit deux formules complémentaires qui accompagnent la peau à chaque moment de la journée. Le matin, l'acide hyaluronique multimoléculaire hydrate à différents niveaux, tandis que le bisabolol apaise et aide à préserver le confort cutané pour une peau plus souple, fraîche et lumineuse.\nLe soir, le plancton marin, le collagène et les actifs hydratants prennent le relais pour soutenir la fermeté, le rebond et l'aspect régénéré de la peau. Ensemble, Luminescence Jour et Luminescence Nuit offrent une routine complète pour une peau intensément hydratée, apaisée, plus rebondie et naturellement éclatante au réveil comme tout au long de la journée." },
+        texte: "Le Rituel Luminescence réunit deux formules complémentaires qui accompagnent la peau à chaque moment de la journée. Le matin, l'acide hyaluronique multimoléculaire hydrate à différents niveaux, tandis que le bisabolol apaise et aide à préserver le confort cutané pour une peau plus souple, fraîche et lumineuse.\nLe soir, le plancton marin, qui soutient le collagène, et les actifs hydratants prennent le relais pour soutenir la fermeté, le rebond et l'aspect régénéré de la peau. Ensemble, Luminescence Jour et Luminescence Nuit offrent une routine complète pour une peau intensément hydratée, apaisée, plus rebondie et naturellement éclatante au réveil comme tout au long de la journée." },
       { titre: "Bénéfices clés",
         liste: [
           "Hydrate intensément jour et nuit",
@@ -1094,7 +1094,7 @@ window.EB_PRODUITS = {
     // │ 🌿  CONTENU DE LA ROUTINE                                       │
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
-      intro: "Une routine complète pour agir au quotidien sur les signes du vieillissement cutané.\nLuminescence Jour, avec son acide hyaluronique multimoléculaire, agit à différents niveaux de la peau pour la repulper.\nRadiance Protect SPF 50 offre une protection à large spectre contre les UVA et les UVB, responsables du photovieillissement.\nLuminescence Nuit, enrichie en collagène et en plancton marin, accompagne la peau durant sa régénération nocturne pour lui offrir un aspect plus lisse au réveil.\nJour après jour, la peau paraît plus rebondie, repulpée et visiblement plus lisse.",
+      intro: "Une routine complète pour agir au quotidien sur les signes du vieillissement cutané.\nLuminescence Jour, avec son acide hyaluronique multimoléculaire, agit à différents niveaux de la peau pour la repulper.\nRadiance Protect SPF 50 offre une protection à large spectre contre les UVA et les UVB, responsables du photovieillissement.\nLuminescence Nuit, enrichie en plancton marin qui soutient le collagène, accompagne la peau durant sa régénération nocturne pour lui offrir un aspect plus lisse au réveil.\nJour après jour, la peau paraît plus rebondie, repulpée et visiblement plus lisse.",
       soins: ["luminescence-jour", "radiance-protect", "luminescence-nuit"],
       etapes: [
         { moment: "Le matin", soin: "luminescence-jour", texte: "Sur peau propre, appliquez une pression de Luminescence Jour sur le visage et le cou." },
