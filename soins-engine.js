@@ -156,11 +156,11 @@
       alt: "Luminescence Boost ELKHA.B, sérum booster de fermeté, 30 ml"
     },
     "luminescence-nuit": {
-      nom: "Luminescence Nuit", actifs: "Collagène · Plancton marin · Beurre de cacao", actifsCourt: "Collagène · Plancton marin",
+      nom: "Luminescence Nuit", actifs: "Plancton marin · Soutien du collagène · Beurre de cacao", actifsCourt: "Plancton marin · Beurre de cacao",
       benefice: "Nourrit, régénère et stimule le collagène", prix: "34,90€", taille: "50 ml",
       // 📷 Luminescence Nuit
       photo: PHOTOS + "bloom-sable-luminescence-nuit.png",
-      alt: "Luminescence Nuit ELKHA.B, crème de nuit fermeté au collagène et plancton marin, 50 ml"
+      alt: "Luminescence Nuit ELKHA.B, crème de nuit fermeté au plancton marin, soutien du collagène, 50 ml"
     },
     "rituel-luminescence": {
       nom: "Rituel Luminescence", actifs: "Le duo Jour & Nuit · Hydratation & fermeté", actifsCourt: "Le duo Jour & Nuit",
