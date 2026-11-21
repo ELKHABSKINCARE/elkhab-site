@@ -277,7 +277,8 @@
   + ".ebs-tt{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;z-index:2}"
   + ".ebs-t{display:block;width:42px;height:42px;border-radius:10px;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 0 0 1px rgba(0,0,0,.08)}"
   + ".ebs-t.on{box-shadow:0 0 0 1.5px " + REGLAGES.fondCarte + ",0 0 0 2.6px #000}"
-  + ".ebs-tt em{font-style:normal;font-size:10px;letter-spacing:.08em;white-space:nowrap;margin-top:2px;color:#3a2a24}"
+  + ".ebs-tt em{font-style:normal;font-size:10px;letter-spacing:.08em;white-space:nowrap;margin-top:2px;color:#3a2a24;width:0;display:flex;justify-content:center}"   // le nom ne pousse plus les cases
+  + ".ebs-ph img.ebs-ti{opacity:0;transition:opacity .25s ease}.ebs-ph img.ebs-ti.on{opacity:1}"
   // textes
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
   + "#eb-soins .ebs-tx h3{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.45;margin:0;color:#000;overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}"
@@ -447,12 +448,19 @@
       return '<span class="ebs-t' + (k === d ? ' on' : '') + '" data-fiche="" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" data-k="' + k + '" style="background-image:url(' + esc(x.texture) + ')"></span>';
     }).join('') + '<em>' + esc(t[d].nom) + '</em></span>';
   }
+  // toutes les photos de teintes sont posées l'une sur l'autre dès le départ : changer de teinte ne recharge rien (pas de saut)
+  function photosTeintes(s){
+    var d = s.teinteDepart || 0;
+    return s.teintes.map(function(x, k){
+      return '<img class="ebs-ti' + (k === d ? ' on' : '') + '" src="' + esc(x.photo) + '" alt="' + (k === d ? esc(s.alt) : '') + '"' + (k === d ? '' : ' aria-hidden="true"') + ' loading="lazy" decoding="async">';
+    }).join('');
+  }
   function vignette(id, etape, seul){
     var s = SOINS[id]; if(!s) return '';
     var actifs = s.actifsCourt ? '<span class="ao">' + esc(s.actifs) + '</span><span class="am">' + esc(s.actifsCourt) + '</span>' : esc(s.actifs);
     var photo = s.teintes ? s.teintes[s.teinteDepart || 0].photo : s.photo;
     return '<a class="ebs-card' + (seul ? ' seul' : '') + (s.teintes ? ' avec-teintes' : '') + '" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-e="' + (etape ? etape.num : '') + '">'
-      + '<div class="ebs-ph"><img src="' + esc(photo) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">'
+      + '<div class="ebs-ph">' + (s.teintes ? photosTeintes(s) : '<img src="' + esc(photo) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">')
       + (etape ? '<span class="ebs-num"><i style="background:' + etape.couleur + '"></i>' + etape.num + '</span>' : '')
       + (s.detail ? '<img class="ebs-detail" src="' + esc(s.detail) + '" alt="" aria-hidden="true" loading="lazy" decoding="async">' : '')
       + '<span class="ebs-note" hidden></span>' + teintesHTML(id) + '</div>'
@@ -590,7 +598,10 @@
   }
   function choisirTeinte(t){
     var card = t.closest('.ebs-card'), id = card.getAttribute('data-fiche'), k = +t.getAttribute('data-k'), x = SOINS[id].teintes[k];
-    card.querySelector('.ebs-ph img').src = x.photo;
+    card.querySelectorAll('.ebs-ph img.ebs-ti').forEach(function(im, j){
+      var on = j === k; im.classList.toggle('on', on);
+      im.alt = on ? SOINS[id].alt : ''; if(on) im.removeAttribute('aria-hidden'); else im.setAttribute('aria-hidden', 'true');
+    });
     card.querySelectorAll('.ebs-t').forEach(function(y){ y.classList.toggle('on', y === t); });
     card.querySelector('.ebs-tt em').textContent = x.nom;
   }

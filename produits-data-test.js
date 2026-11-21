@@ -215,12 +215,12 @@ window.EB_PRODUITS = {
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-gelee-lumibloom.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",   // photos et vidéos de texture (.mp4), dans l'ordre du défilement
-      apercus: {"https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4": "https://elkhabskincare.github.io/elkhab-site/bloom-apercu-video-gelee-lumibloom.png"},   // image de la vidéo pour sa miniature
+      apercus: {"https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-texture.mp4": "https://elkhabskincare.github.io/elkhab-site/bloom-apercu-video-gelee-lumibloom.png"},   // image de la vidéo pour sa miniature
       images: [
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png",
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-2.png",
-        "https://cdn.shopify.com/videos/c/o/v/f39e74d85032496689b66ce6fa09cf3a.mp4",
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_000000004cd88243810b9ae55a9f7669.png?v=1792579905"
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-texture.mp4",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-mannequin.png"
       ]
     },
     // ┌─────────────────────────────────────────────────────────────────┐
