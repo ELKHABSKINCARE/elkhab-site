@@ -180,7 +180,7 @@
       role: "Elle nourrit intensément la peau pendant le sommeil et améliore sa fermeté et sa souplesse, pour un réveil avec une peau rebondie et reposée.",
       sens: "Une texture riche et fondante, aux notes de nénuphar, de jasmin blanc et de vanille, relevées d'une pointe de menthe poivrée.",
       etapes: [{ moment: 'Le soir', texte: "Réchauffez une pression entre vos mains, posez-les sur le visage puis enveloppez-le de gestes lents, de l'ovale vers les tempes, et le cou en descendant." }],
-      savoir: { 'Le soir': ["La nuit, la peau passe en mode réparation : son renouvellement s'accélère, mais elle perd aussi plus d'eau que dans la journée. C'est pour cela qu'une crème de nuit est plus riche : les beurres de cacao et de karité forment un voile qui limite cette perte, pendant que le plancton marin et le collagène accompagnent la fermeté et le rebond de la peau."] },
+      savoir: { 'Le soir': ["La nuit, la peau passe en mode réparation : son renouvellement s'accélère, mais elle perd aussi plus d'eau que dans la journée. C'est pour cela qu'une crème de nuit est plus riche : les beurres de cacao et de karité forment un voile qui limite cette perte, pendant que le plancton marin soutient le collagène pour accompagner la fermeté et le rebond de la peau."] },
       conseil: "Appliquez-la une vingtaine de minutes avant de vous coucher, pour qu'elle pénètre avant le contact avec l'oreiller. Avec Luminescence Boost juste avant, son action raffermissante se prolonge toute la nuit."
     },
     lb: {
