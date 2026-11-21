@@ -1132,13 +1132,13 @@ window.EB_PRODUITS = {
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  DIAPORAMA DE LA FICHE — Routine Éclat                       │
     // └─────────────────────────────────────────────────────────────────┘
+    carte: { position: "50% 50%", zoom: 1 },   // cadrage de la photo sur la carte (page Routines)
     media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-eclat-peau-mixte.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
       images: [
-        // 📷 1. ROUTINE PEAU MIXTE À GRASSE (Radiance Cleanser)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-mixte-carrousel_1.png?v=1792677686",
-        // 📷 2. ROUTINE PEAU SÈCHE OU SENSIBLE (Milky Bloom)
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-eclat-peau-sensible-carrousel_1.png?v=1792677687"
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-eclat-peau-mixte.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-eclat-peau-sensible.png"
       ]
     },
 
@@ -1473,12 +1473,13 @@ window.EB_PRODUITS = {
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  DIAPORAMA DE LA FICHE — Routine Hydratation
     // └─────────────────────────────────────────────────────────────────┘
+    carte: { position: "50% 50%", zoom: 1 },   // cadrage de la photo sur la carte (page Routines)
     media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-hydratation.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-hydratation-v2.png"
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-hydratation.png"
       ]
     },
 
@@ -1510,21 +1511,24 @@ window.EB_PRODUITS = {
 
     choixLabel: "Choisissez votre protection",
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
+    teinteDepart: 1,   // version affichée à l'ouverture (photo du carrousel)
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547258618201", photo: 1, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-sans-teinte.png" },
-      { label: "TEINTÉ",      variantId: "59547258650969", photo: 0, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png" }
+      { label: "SANS TEINTE", variantId: "59547258618201", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete-sans-teinte.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-sans-teinte.png" },
+      { label: "TEINTÉ",      variantId: "59547258650969", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  DIAPORAMA DE LA FICHE — Routine Fermeté 
     // └─────────────────────────────────────────────────────────────────┘
+    carte: { position: "50% 50%", zoom: 1 },   // cadrage de la photo sur la carte (page Routines)
     media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-fermete.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-fermete-carrousel-v2.png?v=1793386032"
-      ]
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete.png"
+      ],
+      communes: []   // pas de photo commune : seule la scène de la version choisie s'affiche
     },
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1555,23 +1559,26 @@ window.EB_PRODUITS = {
 
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
+    teinteDepart: 1,   // version affichée à l'ouverture (photo du carrousel)
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358176477529", photo: 0, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
-      { label: "N°B2 MOYEN", variantId: "59358197186905", photo: 1, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photo: 2, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
-      { label: "N°B4 FONCÉ", variantId: "59358197252441", photo: 3, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
+      { label: "N°B1 CLAIR", variantId: "59358176477529", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
+      { label: "N°B2 MOYEN", variantId: "59358197186905", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b3.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
+      { label: "N°B4 FONCÉ", variantId: "59358197252441", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b4.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  DIAPORAMA DE LA FICHE — Routine Équilibre
     // └─────────────────────────────────────────────────────────────────┘
+    carte: { position: "50% 50%", zoom: 1 },   // cadrage de la photo sur la carte (page Routines)
     media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-equilibre.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-equilibre-v2.png"
-      ]
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre.png"
+      ],
+      communes: []   // pas de photo commune : seule la scène de la teinte choisie s'affiche
     },
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1602,23 +1609,26 @@ window.EB_PRODUITS = {
 
     choixLabel: "Choisissez votre teinte",
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
+    teinteDepart: 1,   // version affichée à l'ouverture (photo du carrousel)
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358330847577", photo: 0, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
-      { label: "N°B2 MOYEN", variantId: "59358346903897", photo: 1, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photo: 2, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
-      { label: "N°B4 FONCÉ", variantId: "59358346969433", photo: 3, image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
+      { label: "N°B1 CLAIR", variantId: "59358330847577", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
+      { label: "N°B2 MOYEN", variantId: "59358346903897", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b3.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
+      { label: "N°B4 FONCÉ", variantId: "59358346969433", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b4.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  DIAPORAMA DE LA FICHE — Routine Teint & Protection
     // └─────────────────────────────────────────────────────────────────┘
+    carte: { position: "50% 50%", zoom: 1 },   // cadrage de la photo sur la carte (page Routines)
     media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-teint-protection.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-teint-protection-carrousel.png?v=1793385991"
-      ]
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection.png"
+      ],
+      communes: []   // pas de photo commune : seule la scène de la teinte choisie s'affiche
     },
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1657,12 +1667,13 @@ window.EB_PRODUITS = {
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 📷  DIAPORAMA DE LA FICHE — Routine Regard
     // └─────────────────────────────────────────────────────────────────┘
+    carte: { position: "50% 50%", zoom: 1 },   // cadrage de la photo sur la carte (page Routines)
     media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-regard.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
       mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        // 📷 1. PHOTO DE LA ROUTINE
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/routine-regard-carrousel.png?v=1793385845"
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-regard.png"
       ]
     },
 

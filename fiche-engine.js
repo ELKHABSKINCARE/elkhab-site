@@ -34,6 +34,11 @@
   + ".eb-fp-slides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}"
   + ".eb-fp-slides::-webkit-scrollbar{display:none}"
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
+  // Zoom des photos sable : un toucher (ou un clic) agrandit, on se promène en glissant le doigt (ou la souris), un autre toucher ramène la photo
+  + ".eb-fp-media.eb-fp-unique{overflow:hidden}"
+  + ".eb-fp-left img.eb-zoomable{transition:transform .35s ease;will-change:transform}"
+  + "@media (hover:hover){.eb-fp-left img.eb-zoomable{cursor:zoom-in}.eb-fp-left img.eb-zoomable.eb-zoom{cursor:zoom-out}}"
+  + ".eb-fp-left img.eb-zoomable.eb-zoom{transform:scale(2.2) !important;touch-action:none}"
   + ".eb-fp-slide{clip-path:inset(0 1px)}"   /* la photo voisine ne dépasse jamais d'un pixel (trait au bord de la photo, écrans Windows) */
   + ".eb-fp-slide img,.eb-fp-slide video{display:block;width:100%;height:auto}"
   // Miniatures du diaporama (à la place des points) : en bas de la photo sur téléphone, en colonne à droite sur ordinateur
@@ -610,6 +615,8 @@
     document.body.appendChild(cartBtn);
     suivrePanier();
 
+    brancherZoom();
+
     overlay.addEventListener('click', function(e){
       // Accordéon : une seule section ouverte à la fois
       var head = e.target.closest('.eb-fp-acc-head');
@@ -668,7 +675,7 @@
           apercu.classList.remove('eb-flash'); void apercu.offsetWidth; apercu.classList.add('eb-flash');
         }
         // Soin à teintes : le diaporama est remplacé par les photos de la teinte choisie
-        var ficheSel = window.EB_PRODUITS[bloc.getAttribute('data-produit')];
+        var ficheSel = (cible === 'main' && courant) ? (courant.data || window.EB_PRODUITS[courant.id]) : window.EB_PRODUITS[bloc.getAttribute('data-produit')];   // la fiche ouverte (une routine peut reprendre les teintes d'un autre soin)
         var kSel = Array.prototype.indexOf.call(bloc.querySelectorAll('.eb-fp-sel-opt'), opt);
         if(cible === 'main' && ficheSel && ficheSel.variantes && ficheSel.variantes[kSel] && ficheSel.variantes[kSel].photos){
           var gauche = overlay.querySelector('.eb-fp-left');
@@ -772,9 +779,12 @@
     var v = data.variantes && data.variantes[k];
     if(!v || !v.photos || !data.media) return data.media;
     var m = {}; for(var p in data.media) m[p] = data.media[p];
-    m.images = v.photos.concat(data.media.images || []);
+    m.images = v.photos.concat(data.media.communes || data.media.images || []);   // communes : [] = seule la photo de la version choisie
     return m;
   }
+
+  // Zoom : les photos sable (soin seul, soin + boîte, scènes des routines) s'agrandissent au toucher ou au clic
+  function zoomClasse(src){ return /bloom-fiche-(?!.*mannequin)/.test(src) ? ' class="eb-zoomable"' : ''; }
 
   function mediaHTML(m, nom){
     if(!m) return '';
@@ -789,7 +799,7 @@
       imgs = imgs.filter(function(_, i){ return m.mobileSeulement.indexOf(i + 1) === -1; });
     }
     if(imgs.length <= 1){
-      return imgs.length ? '<div class="eb-fp-media"><img src="' + esc(hd(imgs[0], 1600)) + '" alt="' + esc(nom) + '"></div>' : '';
+      return imgs.length ? '<div class="eb-fp-media eb-fp-unique"><img' + zoomClasse(imgs[0]) + ' src="' + esc(hd(imgs[0], 1600)) + '" alt="' + esc(nom) + '"></div>' : '';
     }
     var h = '<div class="eb-fp-media"><div class="eb-fp-slides">';
     imgs.forEach(function(src){
@@ -797,7 +807,7 @@
         h += '<div class="eb-fp-slide"><video muted loop playsinline preload="metadata" src="' + esc(src) + '"></video></div>';
       } else {
         var amb = /-ambiance(-v\d+)?\.jpg/.test(src);   // photo d'ambiance des fêtes : texte alternatif plus précis pour Google
-        h += '<div class="eb-fp-slide"><img src="' + esc(hd(src, 1600)) + '" alt="' + esc(nom) + (amb ? ' – coffret cadeau des fêtes' : '') + '"></div>';
+        h += '<div class="eb-fp-slide"><img' + zoomClasse(src) + ' src="' + esc(hd(src, 1600)) + '" alt="' + esc(nom) + (amb ? ' – coffret cadeau des fêtes' : '') + '"></div>';
       }
     });
     // Miniatures : la photo elle-même (déjà chargée par le diaporama) ; pour une vidéo, son image d'aperçu (media.apercus)
@@ -807,7 +817,7 @@
       var video = /\.mp4(\?|$)/i.test(src), ap = apercus[src];
       var contenu = ap ? '<img src="' + esc(ap) + '" alt="">'
         : video ? '<video muted playsinline preload="metadata" src="' + esc(src) + '#t=0.5"></video>'
-        : '<img' + (/bloom-fiche-(?!rituel)/.test(src) ? ' class="eb-fp-mini-flacon"' : '') + ' src="' + esc(hd(src, 1600)) + '" alt="">';
+        : '<img' + (/bloom-fiche-(?!rituel|routine)/.test(src) ? ' class="eb-fp-mini-flacon"' : '') + ' src="' + esc(hd(src, 1600)) + '" alt="">';
       h += '<button type="button" class="eb-fp-mini' + (i === 0 ? ' on' : '') + '" aria-label="Voir la photo ' + (i + 1) + '">' + contenu + '</button>';
     });
     return h + '</div></div>';
@@ -835,6 +845,45 @@
       };
       t.src = img.currentSrc || img.src;
     });
+  }
+
+  // ---------- Zoom des photos ----------
+  function dezoomer(){
+    if(overlay) overlay.querySelectorAll('.eb-fp-left img.eb-zoom').forEach(function(img){ img.classList.remove('eb-zoom'); });
+  }
+  function brancherZoom(){
+    var x0 = 0, y0 = 0;
+    var viser = function(img, x, y){
+      var r = img.getBoundingClientRect();
+      var px = Math.min(100, Math.max(0, (x - r.left) / r.width * 100)), py = Math.min(100, Math.max(0, (y - r.top) / r.height * 100));
+      img.style.transformOrigin = px + '% ' + py + '%';
+    };
+    overlay.addEventListener('mousedown', function(e){ x0 = e.clientX; y0 = e.clientY; }, true);
+    overlay.addEventListener('click', function(e){
+      var img = e.target.closest && e.target.closest('.eb-fp-left img.eb-zoomable');
+      if(!img) return;
+      if(Math.abs(e.clientX - x0) > 6 || Math.abs(e.clientY - y0) > 6) return;   // c'était un glissement, pas un clic
+      e.stopPropagation();
+      if(img.classList.contains('eb-zoom')){ img.classList.remove('eb-zoom'); return; }
+      clearTimeout(slideTimer);   // la cliente regarde de près : le diaporama s'arrête
+      viser(img, e.clientX, e.clientY);
+      img.classList.add('eb-zoom');
+    }, true);
+    // Ordinateur : une fois zoomée, la photo suit la souris
+    overlay.addEventListener('mousemove', function(e){
+      var img = e.target.closest && e.target.closest('.eb-fp-left img.eb-zoom');
+      if(img) viser(img, e.clientX, e.clientY);
+    });
+    // Téléphone : une fois zoomée, on se promène en glissant le doigt (le diaporama ne bouge pas)
+    var tactile = function(e){
+      var img = e.target.closest && e.target.closest('.eb-fp-left img.eb-zoom');
+      if(!img) return;
+      e.stopPropagation();
+      if(e.type === 'touchmove'){ e.preventDefault(); viser(img, e.touches[0].clientX, e.touches[0].clientY); }
+    };
+    overlay.addEventListener('touchstart', tactile, { capture: true, passive: true });
+    overlay.addEventListener('touchmove', tactile, { capture: true, passive: false });
+    overlay.addEventListener('touchend', tactile, { capture: true, passive: true });
   }
 
   function demarrerDiaporama(){
@@ -867,7 +916,8 @@
     var attente = null;
     choixManuel = false;
     var aller = function(i){
-      clearTimeout(slideTimer);   // la cliente fait défiler elle-même : le défilement automatique s'arrête
+      clearTimeout(slideTimer);
+      dezoomer();   // la cliente fait défiler elle-même : le défilement automatique s'arrête
       i = (i + slides.length) % slides.length;
       track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
     };
@@ -908,7 +958,7 @@
     window.addEventListener('mouseup', function(ev){ fin(ev.clientX); });
     track.addEventListener('scroll', function(){
       clearTimeout(attente);
-      attente = setTimeout(function(){ var i = indexActuel(); activer(i); suivreTeinte(i); }, 120);
+      attente = setTimeout(function(){ var i = indexActuel(); activer(i); suivreTeinte(i); dezoomer(); }, 120);
     }, { passive: true });
     activer(0);
     suivreTeinte(0);
