@@ -36,6 +36,31 @@
       { nom: "Velours d'Hiver",   sous: "Sérums fermeté · Bloom & Balance", prix: "94 €", fiche: "coffret-velours-dhiver" }
     ]
   };
+  // ── Bannières d'événement : elles passent EN PREMIER dans la bannière, chacune avec sa photo et son texte,
+  // et s'affichent / disparaissent toutes seules aux dates prévues (heure de Paris).
+  // Tant qu'au moins une est affichée, les photos habituelles de la bannière sont en pause ; elles reviennent seules ensuite.
+  // « etapes » : le texte change tout seul à la date « jusqua » (ex. « dès le 23 novembre » puis « jusqu'au 30 novembre »).
+  var GH = "https://elkhabskincare.github.io/elkhab-site/";
+  var EVENEMENTS = [
+    { nom: "Black Week", debut: "2026-11-22T00:00:00+01:00", fin: "2026-12-01T00:00:00+01:00",
+      photo: GH + "banniere-black-week.jpg", photoTel: GH + "banniere-black-week-tel.jpg",
+      alt: "Coffret soin visage Le Temps Suspendu ELKHA.B, édition des fêtes, dans un décor d'hiver",
+      voileDoux: true, cadrageTel: "50% 0%",   // téléphone : photo claire, voile léger sous le texte pour garder l'ambiance
+      lien: "https://routines.elkhab.com/?fiche=coffret-temps-suspendu",
+      etapes: [
+        { jusqua: "2026-11-23T00:00:00+01:00", surtitre: "Black Week · Dès le 23 novembre", titre: ["Le Temps", "Suspendu"], texte: "Le coffret Rituel Lift à prix privilège, du 23 au 30 novembre.", bouton: "Découvrir le coffret" },
+        { surtitre: "Black Week · Jusqu'au 30 novembre", titre: ["Le Temps", "Suspendu"], texte: "Le coffret Rituel Lift à prix privilège, jusqu'au 30 novembre.", bouton: "Découvrir le coffret" }
+      ] },
+    { nom: "Calendrier des fêtes", debut: "2026-11-22T00:00:00+01:00", fin: "2026-12-25T00:00:00+01:00",
+      photo: GH + "banniere-calendrier.jpg", photoTel: GH + "banniere-calendrier-tel.jpg",
+      alt: "Calendrier des fêtes ELKHA.B, une surprise soin à ouvrir chaque jour de décembre",
+      lien: "https://calendrier.elkhab.com/",
+      etapes: [
+        { jusqua: "2026-12-01T00:00:00+01:00", surtitre: "Dès le 1er décembre", titre: ["Calendrier", "des fêtes"], texte: "Une surprise à ouvrir chaque jour, et chaque semaine un coffret de soins à gagner.", bouton: "Je m'inscris" },
+        { surtitre: "Jusqu'au 24 décembre", titre: ["Calendrier", "des fêtes"], texte: "Votre case du jour vous attend, et chaque semaine un coffret de soins à gagner.", bouton: "J'ouvre ma case" }
+      ] }
+  ];
+
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
   var F = REGLAGES.fondSite, FR = '245,244,240';
   var CSS = ""
@@ -49,6 +74,12 @@
   + ".eba-ban{position:relative;height:clamp(600px,100svh,860px);overflow:hidden;background:" + F + "}"
   + ".eba-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity " + REGLAGES.dureeFondu + "s ease}"
   + ".eba-slides img.on{opacity:1}"
+  // bannières d'événement : un texte par photo, en fondu avec elle ; le texte habituel (titre lu par Google) reste dans la page sans s'afficher
+  + ".eba-ev{opacity:0;visibility:hidden;transition:opacity " + REGLAGES.dureeFondu + "s ease,visibility 0s linear " + REGLAGES.dureeFondu + "s}"
+  + ".eba-ev.on{opacity:1;visibility:visible;transition:opacity " + REGLAGES.dureeFondu + "s ease}"
+  + "#eb-acc .eba-ev a.eba-btn{display:inline-block;color:" + F + "}"
+  + ".eba-ban:after{transition:opacity " + REGLAGES.dureeFondu + "s ease}"
+  + ".eba-cache{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}"
   + ".eba-ban:after{content:'';position:absolute;z-index:1;top:0;bottom:0;left:0;width:56%;background:linear-gradient(90deg,rgba(" + FR + ",.8) 0%,rgba(" + FR + ",.62) 40%,rgba(" + FR + ",.22) 74%,rgba(" + FR + ",0) 100%);pointer-events:none}"
   + ".eba-ban:before{content:'';position:absolute;z-index:1;left:0;right:0;top:0;height:120px;background:linear-gradient(180deg,rgba(" + FR + ",.4),rgba(" + FR + ",0));pointer-events:none}"
   + ".eba-bt{position:absolute;z-index:2;left:0;top:0;bottom:0;width:50%;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:" + REGLAGES.espaceMenu + "px 4% 0 6%}"
@@ -228,6 +259,7 @@
   +   "#eb-acc .eba-bm{font-size:13.5px;max-width:300px;margin:16px auto 0}"
   +   ".eba-btn{margin-top:24px;padding:15px 22px;font-size:9.5px;letter-spacing:.2em}"
   +   ".eba-pts{width:auto;right:0;bottom:30px;padding:0}"
+  +   ".eba-ban.eba-doux:after{opacity:.5}"
   +   ".eba-sec{padding:72px 16px 0}"
   +   "#eb-acc .eba-t{font-size:22px;letter-spacing:.26em;padding-left:.26em}"
   +   ".eba-gam{gap:10px;margin-top:30px}"
@@ -284,6 +316,29 @@
     var bandeSid = root.querySelector('.eba-sid'); if(bandeSid) bandeSid.classList.add('v-clair', 'v-beige');
     requestAnimationFrame(function(){ root.classList.add('eba-pret'); });
 
+    // ── Bannières d'événement (Black Week, calendrier…) : en premier, chacune avec son texte ; photos habituelles en pause
+    var textes = [];
+    if(ban){
+      var maintenant = Date.now(), actifs = EVENEMENTS.filter(function(v){ return maintenant >= Date.parse(v.debut) && maintenant < Date.parse(v.fin); });
+      var slides = ban.querySelector('.eba-slides'), texteHabituel = ban.querySelector('.eba-bt');
+      if(actifs.length && slides && texteHabituel){
+        var x = function(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
+        [].slice.call(slides.children).forEach(function(n){ n.remove(); });   // pause des photos habituelles (seulement pour cette visite)
+        texteHabituel.classList.add('eba-cache');
+        actifs.forEach(function(v, k){
+          var et = v.etapes.filter(function(e){ return !e.jusqua || maintenant < Date.parse(e.jusqua); })[0] || v.etapes[v.etapes.length - 1];
+          if(v.voileDoux) slides.setAttribute('data-doux' + k, '1');
+          slides.insertAdjacentHTML('beforeend', '<picture><source media="(max-width:699px)" srcset="' + x(v.photoTel) + '"><img src="' + x(v.photo) + '" alt="' + x(v.alt) + '"' + (v.cadrageTel ? ' data-pos="50% 50%" data-pos-tel="' + x(v.cadrageTel) + '"' : '') + (k ? ' loading="lazy"' : ' fetchpriority="high"') + '></picture>');
+          texteHabituel.insertAdjacentHTML('beforebegin', '<div class="eba-bt eba-ev"><p class="eba-titre-ev"><span class="eba-bk">' + x(et.surtitre) + '</span><span class="eba-bn">'
+            + et.titre.map(function(l){ return '<span class="eba-nw">' + x(l) + '</span>'; }).join(' ') + '</span></p><i class="eba-bg"></i>'
+            + '<p class="eba-bm">' + x(et.texte) + '</p><a class="eba-btn" href="' + x(v.lien) + '">' + x(et.bouton) + '</a></div>');
+        });
+        textes = [].slice.call(ban.querySelectorAll('.eba-ev'));
+        cadrer();
+      }
+    }
+
+    function slidesDoux(k){ var sl = ban.querySelector('.eba-slides'); return sl && sl.getAttribute('data-doux' + k); }
     // ── Bannière : une photo après l'autre, en fondu
     if(ban){
       var photos = [].slice.call(ban.querySelectorAll('.eba-slides img')), pts = ban.querySelector('.eba-pts'), i = 0, minut = null;
@@ -291,11 +346,13 @@
       function montrer(k){
         i = (k + photos.length) % photos.length;
         photos.forEach(function(p, n){ p.classList.toggle('on', n === i); });
+        textes.forEach(function(t, n){ t.classList.toggle('on', n === i); });
+        ban.classList.toggle('eba-doux', !!(textes.length && slidesDoux(i)));
         traits.forEach(function(t, n){ t.classList.remove('on'); t.classList.toggle('vu', n < i); void t.offsetWidth; });
         traits[i].classList.add('on');
         clearTimeout(minut); minut = setTimeout(function(){ montrer(i + 1); }, REGLAGES.dureePhoto * 1000);
       }
-      if(photos.length > 1) montrer(0); else if(pts) pts.style.display = 'none';
+      if(photos.length > 1) montrer(0); else { if(pts) pts.style.display = 'none'; if(photos[0]) photos[0].classList.add('on'); if(textes[0]) textes[0].classList.add('on'); if(textes.length && slidesDoux(0)) ban.classList.add('eba-doux'); }
       // la bannière se met en pause quand on ne la voit plus
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(e){ if(e[0].isIntersecting){ if(!minut && photos.length > 1) montrer(i); } else { clearTimeout(minut); minut = null; } }).observe(ban);
