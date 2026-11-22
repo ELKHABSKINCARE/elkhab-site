@@ -66,6 +66,17 @@ var PAR_BESOIN = [
   ["Taches & teint unifié",PAGE_BESOINS+"?besoin=taches"],["Rides & fermeté",PAGE_BESOINS+"?besoin=fermete"],["Pores & imperfections",PAGE_BESOINS+"?besoin=pores"]
 ];
 
+/* ─── Calendrier des fêtes : lien dans le menu (avec sa miniature) et petit calendrier flottant sur toutes les pages
+       Tout s'affiche et disparaît tout seul aux dates ci-dessous (rien à retirer à la main le 25 décembre) ─── */
+var CALENDRIER = {
+  lien:      "https://calendrier.elkhab.com/",
+  image:     "https://elkhabskincare.github.io/elkhab-site/calendrier-flottant.webp",
+  ouverture: "2026-12-01T00:00:00+01:00",   // avant : phrases « dès le 1er décembre » ; après : « votre surprise du jour »
+  fin:       "2026-12-25T00:00:00+01:00",   // à partir de cette date, plus rien ne s'affiche
+  avant: [["24 jours de surprises","Calendrier des fêtes, dès le 1er décembre"],["Une surprise chaque jour","Dès le 1er décembre"],["Une case, une surprise","Ouverture le 1er décembre"]],
+  pendant: [["Votre surprise du jour vous attend","Calendrier des fêtes"],["Une surprise chaque jour","Jusqu'au 24 décembre"],["Une case, une surprise","Ouvrez celle du jour"]]
+};
+
 /* ┌─────────────────────────────────────────────────────────────────────┐
    │ ⛔ NE RIEN MODIFIER EN DESSOUS                                        │
    └─────────────────────────────────────────────────────────────────────┘ */
@@ -83,6 +94,9 @@ var BLOOM_DEG = "linear-gradient(90deg,#efe5da,#e6cbbd,#d39b82,#eb895e,#6d222a)"
 var BAL_DEG   = "linear-gradient(90deg,#ebecdb,#d9ddb7,#c3cc8f,#a6b965,#85a33a)";
 var h = location.hostname;
 var ICI = /routines/.test(h) ? "routines" : /soins|besoins/.test(h) ? "soins" : /bloom/.test(h) ? "bloom" : /balance/.test(h) ? "balance" : /journal/.test(h) ? "journal" : /experience/.test(h) ? "experience" : "";
+
+var CAL_ACTIF = Date.now() < Date.parse(CALENDRIER.fin) && !/calendrier/.test(h);
+var CAL_OUVERT = Date.now() >= Date.parse(CALENDRIER.ouverture);
 
 var CSS = ""
 + ".eb-navbar{height:64px;padding:0 max(18px,env(safe-area-inset-left,0px)) 0 max(18px,env(safe-area-inset-right,0px))}"
@@ -139,6 +153,11 @@ var CSS = ""
 + ".ebm-skin .ebm-code b{font-weight:600}"
 + ".ebm-skin p{margin:0 0 12px;font-size:11.5px;font-weight:300;line-height:1.6;color:#2a2723}"
 + ".ebm-skin .ebm-cta{display:inline-block;font-size:9px;letter-spacing:.22em;font-weight:600;border-bottom:1px solid #000;padding-bottom:3px;text-transform:uppercase}"
++ ".ebm-t.ebm-cal{color:#9A7B4F !important;display:none !important}"
++ "@media (min-width:1360px){.ebm-t.ebm-cal{display:inline-block !important}}"
++ ".ebm-l a.ebm-cal-l{color:#9A7B4F}"
++ ".ebm-l a.ebm-cal-l .ebm-cal-t{display:flex;align-items:center;gap:14px}"
++ ".ebm-l a.ebm-cal-l img{height:40px;width:auto;filter:drop-shadow(0 3px 4px rgba(60,20,20,.3))}"
 + "@media (min-width:1000px){"
 + ".eb-navbar{padding:0 40px}"
 + ".ebm-g,.ebm-d{display:flex}"
@@ -191,6 +210,8 @@ function construire(){
   var loupe=el('div','ebm-icone',LOUPE); loupe.title='Rechercher';
   loupe.addEventListener('click',function(){ if(typeof window.ebSearchOpen==='function') window.ebSearchOpen(); });
   [loupe,aSkin,aJour,aExp].forEach(function(x){ d.appendChild(x); });
+  // Calendrier des fêtes : seulement sur les grands écrans (sinon il toucherait le logo ; le calendrier flottant reste visible à droite)
+  if(CAL_ACTIF){ var aCal=lien('Calendrier',CALENDRIER.lien,'ebm-t ebm-cal'); d.insertBefore(aCal, aSkin); }
   droite.insertBefore(d, droite.firstChild);
   droite.style.gap='24px'; droite.classList.add('ebm-droite');
 
@@ -211,6 +232,11 @@ function construire(){
   ov.classList.add('ebm-liste'); ov.innerHTML='';
   var L=el('div','ebm-l');
   function ligne(txt,href,extra){ var a=lien(txt,href); a.innerHTML='<span'+(extra||'')+'>'+esc(txt)+'</span><span class="ebm-fl">›</span>'; return a; }
+  if(CAL_ACTIF){
+    var lCal=lien('Calendrier des fêtes',CALENDRIER.lien,'ebm-cal-l');
+    lCal.innerHTML='<span class="ebm-cal-t"><img src="'+CALENDRIER.image+'" alt="" width="12" height="40">Calendrier des fêtes</span><span class="ebm-fl">›</span>';
+    L.appendChild(lCal);
+  }
   L.appendChild(ligne('Accueil',LIENS.accueil));
   L.appendChild(ligne('Bloom',LIENS.bloom));
   L.appendChild(ligne('Balance',LIENS.balance));
@@ -291,4 +317,67 @@ function construire(){
   return true;
 }
 (function attendre(n){ if(construire()) return; if(n>0) setTimeout(function(){ attendre(n-1); },200); })(40);
+/* ─── Petit calendrier flottant en bas à droite
+       • Ordinateur : toujours visible, il flotte doucement ; une bulle apparaît quand la cliente fait défiler (une phrase différente à chaque fois)
+       • Téléphone : il arrive en glissant pendant le défilement, reste 3,5 s puis repart (jamais quand la cliente est arrêtée)
+         Chassé d'un toucher : revient 5 s plus tard ; chassé 2 fois : pause d'une minute ; chassé 3 fois : ne revient plus de la visite ─── */
+function calendrierFlottant(){
+  if(!CAL_ACTIF || document.getElementById('ebc')) return;
+  var M = CAL_OUVERT ? CALENDRIER.pendant : CALENDRIER.avant;
+  var css = ""
+  + "@keyframes ebcF{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}"
+  + "@keyframes ebcS{0%,100%{transform:translateX(-50%) scale(1);opacity:.55}50%{transform:translateX(-50%) scale(.78);opacity:.32}}"
+  + "#ebc{position:fixed;right:26px;bottom:26px;z-index:9990;text-decoration:none;-webkit-tap-highlight-color:transparent}"
+  + "#ebc .ebc-v{position:relative;display:flex;align-items:flex-end;justify-content:center;width:84px;height:150px;padding-bottom:22px;box-sizing:border-box;border-radius:42px;background:rgba(255,255,255,.45);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.8);box-shadow:0 10px 30px rgba(60,40,30,.16)}"
+  + "#ebc .ebc-v img{display:block;height:156px;width:auto;margin-top:-40px;animation:ebcF 4.5s ease-in-out infinite;filter:drop-shadow(0 10px 10px rgba(60,20,20,.28)) drop-shadow(0 2px 3px rgba(60,20,20,.25))}"
+  + "#ebc .ebc-v:after{content:'';position:absolute;left:50%;bottom:12px;width:46px;height:9px;border-radius:50%;background:radial-gradient(ellipse,rgba(60,30,20,.45),rgba(60,30,20,0) 70%);animation:ebcS 4.5s ease-in-out infinite}"
+  + "#ebc .ebc-b{position:absolute;right:0;bottom:calc(100% + 52px);white-space:nowrap;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.9);box-shadow:0 8px 24px rgba(60,40,30,.14);border-radius:14px;padding:10px 16px;text-align:right;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s;pointer-events:none}"
+  + "#ebc .ebc-b:after{content:'';position:absolute;right:36px;bottom:-6px;width:12px;height:12px;background:inherit;transform:rotate(45deg);border-right:1px solid rgba(255,255,255,.9);border-bottom:1px solid rgba(255,255,255,.9)}"
+  + "#ebc.ebc-bulle .ebc-b{opacity:1;transform:none}"
+  + "#ebc .ebc-b1{display:block;font-family:Georgia,'Times New Roman',serif;font-size:15px;color:#2b2420}"
+  + "#ebc .ebc-b2{display:block;font-family:'Montserrat',Arial,sans-serif;font-size:10.5px;letter-spacing:1.6px;text-transform:uppercase;color:#9A7B4F;margin-top:4px}"
+  + "@media (max-width:736px){"
+  +   "#ebc{right:14px;bottom:22px;transform:translateX(150%);transition:transform .7s cubic-bezier(.2,.8,.2,1)}"
+  +   "#ebc.ebc-la{transform:none}"
+  +   "#ebc .ebc-v{width:64px;height:116px;border-radius:32px;padding-bottom:16px}"
+  +   "#ebc .ebc-v img{height:118px;margin-top:-30px}"
+  +   "#ebc .ebc-v:after{bottom:8px;width:36px;height:7px}"
+  +   "#ebc .ebc-b{right:6px;bottom:calc(100% + 40px);padding:8px 13px;white-space:normal;width:max-content;max-width:270px}"
+  +   "#ebc.ebc-bulle .ebc-b{transition-delay:.35s}"
+  +   "#ebc .ebc-b1{font-size:13.5px}#ebc .ebc-b2{font-size:9.5px;letter-spacing:1.3px}#ebc .ebc-b:after{right:24px}"
+  + "}"
+  + "@media (prefers-reduced-motion:reduce){#ebc .ebc-v img,#ebc .ebc-v:after{animation:none}#ebc{transition:none}}";
+  var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
+  var a=document.createElement('a'); a.id='ebc'; a.href=CALENDRIER.lien; a.setAttribute('aria-label','Calendrier des fêtes ELKHA.B');
+  a.innerHTML='<span class="ebc-b"><span class="ebc-b1"></span><span class="ebc-b2"></span></span><span class="ebc-v"><img src="'+CALENDRIER.image+'" alt="Calendrier des fêtes ELKHA.B" width="47" height="156"></span>';
+  document.body.appendChild(a);
+  var b1=a.querySelector('.ebc-b1'), b2=a.querySelector('.ebc-b2');
+  function tel(){ return window.matchMedia('(max-width:736px)').matches; }
+  var k=0, la=false, prochain=0, chasse=0, stop=false, tSortie=null;
+  function phrase(){ b1.textContent=M[k%M.length][0]; b2.textContent=M[k%M.length][1]; k++; }
+  function montrer(){
+    if(la || stop || Date.now()<prochain) return;
+    phrase(); la=true;
+    a.classList.add('ebc-bulle'); if(tel()) a.classList.add('ebc-la');
+    clearTimeout(tSortie); tSortie=setTimeout(function(){ cacher(false); },3500);
+  }
+  function cacher(parCliente){
+    if(!la) return; la=false; clearTimeout(tSortie);
+    a.classList.remove('ebc-bulle','ebc-la');
+    if(parCliente){
+      chasse++;
+      if(chasse>=3){ stop=true; }
+      else { prochain=Date.now()+(chasse===2?60000:5000); }
+    } else { chasse=0; prochain=Date.now()+15000; }
+  }
+  // défilement de la fenêtre, ou de la page elle-même (certains iPhone) ; pas celui des carrousels
+  function defile(e){ var t=e && e.target; if(t && t!==document && t!==document.body && t!==document.documentElement && t!==document.scrollingElement) return; montrer(); }
+  window.addEventListener('scroll',defile,{passive:true});
+  document.addEventListener('scroll',defile,{capture:true,passive:true});
+  // un toucher ailleurs pendant qu'il est là le fait repartir (téléphone)
+  document.addEventListener('pointerdown',function(e){ if(la && tel() && !a.contains(e.target)) cacher(true); },true);
+  setTimeout(montrer,1500);
+}
+(function attendreCorps(n){ if(document.body){ calendrierFlottant(); return; } if(n>0) setTimeout(function(){ attendreCorps(n-1); },200); })(40);
+
 })();
