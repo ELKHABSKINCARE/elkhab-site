@@ -82,6 +82,8 @@
   + ".eb-fp-sel-caption{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#3a3a3a;line-height:1.6;text-align:left}"
   + ".eb-fp-sel-caption strong{display:block;color:#000;font-weight:600;letter-spacing:.06em}"
   + ".eb-fp-buy .eb-produit-add-price{font-weight:400;opacity:.85}"
+  + ".eb-fp-buy .eb-fp-avant{opacity:.6;margin-right:2px}"
+  + ".eb-fp-ship .eb-fp-bw{color:#9A7B4F;font-weight:400}"
   + ".eb-fp-ship{font-size:12px;line-height:1.6;text-align:center;color:#2e2e2e;margin:12px auto 0;max-width:320px;opacity:0;transform:translateY(10px) scale(.88);transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)}"
   + ".eb-fp-ship.eb-in{opacity:1;transform:scale(1)}"
   + ".eb-fp-ship .eb-fp-eco{display:block;text-wrap:balance;margin-bottom:2px}.eb-fp-ship .eb-fp-barre{opacity:.6}"
@@ -1030,9 +1032,10 @@
     return '<span class="eb-fp-eco">Au lieu de <s class="eb-fp-barre">' + somme.toFixed(2).replace('.', ',') + ' €</s> pour les soins achetés séparément</span>';
   }
 
-  function boutonAchat(variantId, prix, extraClass){
+  // prixAvant (promotion datée en cours, ex. Black Week) : prix normal barré devant le prix promo
+  function boutonAchat(variantId, prix, extraClass, prixAvant){
     return '<button type="button" class="eb-fp-buy eb-cart-add-btn' + (extraClass ? ' ' + extraClass : '') + '" data-variant-id="' + esc(variantId) + '">'
-      + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + esc(prix) + '</span>' : '') + '</button>';
+      + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + (prixAvant ? '<s class="eb-fp-avant">' + esc(prixAvant) + '</s> ' : '') + esc(prix) + '</span>' : '') + '</button>';
   }
 
   // ctx.routine : identifiant de la routine depuis laquelle le soin est consulté
@@ -1077,9 +1080,11 @@
       // Achat
       var idAchat = variantes.length ? variantes[dep].variantId : data.variantId;
       if(idAchat){
-        h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy');
+        h += boutonAchat(idAchat, data.prix, 'eb-fp-main-buy', data.prixAvant);
         // petite ligne sous le bouton : « mention » de la version choisie, sinon le rappel de livraison
-        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[dep].mention ? esc(variantes[dep].mention) : prixSepares(data) + 'Livraison offerte dès 65€ d\'achat') + '</p>';
+        // (pendant une promotion datée, la phrase de la promo remplace « Au lieu de … achetés séparément » : un seul prix barré)
+        var avantLivraison = data.prixAvant ? '<span class="eb-fp-eco eb-fp-bw">' + esc((data.promo && data.promo.texte) || '') + '</span>' : prixSepares(data);
+        h += '<p class="eb-fp-ship">' + (variantes.length && variantes[dep].mention ? esc(variantes[dep].mention) : avantLivraison + 'Livraison offerte dès 65€ d\'achat') + '</p>';
       }
     }
 

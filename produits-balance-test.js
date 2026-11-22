@@ -1110,6 +1110,9 @@ var BALANCE = {
     details: ["Coffret · 3 soins", "Vegan"],
     note: "Édition limitée des fêtes",
     prix: "92€",
+    // BLACK WEEK : du lun. 23 nov. 0 h au lun. 30 nov. 23 h 59 (heure de Paris), le prix devient 78,20 € tout seul sur le site.
+    // Le prix payé à la caisse vient de la réduction automatique Shopify « Black Week · Prix privilège » (mêmes dates).
+    promo: { prix: "78,20€", debut: "2026-11-23T00:00:00+01:00", fin: "2026-12-01T00:00:00+01:00", texte: "Privilège Black Week, jusqu'au 30 novembre" },
     variantId: "60381914235225",
     coffret: true,
     carte: { position: "50% 58%", zoom: 1.05 },   // cadrage de la photo sur la carte de la page Routines
@@ -1277,7 +1280,17 @@ for(var k in BALANCE){
   // accord parfait : flacon bien cadré, bien visible (photo de la page des soins)
   var mm = BALANCE[k].media; if(mm && mm.miniature) mm.accord = mm.miniature.replace('-miniature-', '-flacon-site-').replace(/\.jpg(?=\?|$)/, '.png');   // (marche aussi quand le lien finit par ?v=…)
   window.EB_PRODUITS[k] = BALANCE[k];
-}   // gamme : bloc « Vos expériences » vert partout
+}
+// PROMOTIONS DATÉES (ex. Black Week) : pendant les dates, le prix promo remplace le prix partout sur le site
+// (fiches, routines, panier, données Google) ; prixAvant garde le prix normal, barré seulement sur la fiche et au panier.
+// Avant et après les dates, rien ne change : il n'y a rien à retirer à la main.
+(function(){
+  var t = Date.now();
+  for(var k in BALANCE){
+    var p = BALANCE[k].promo;
+    if(p && t >= Date.parse(p.debut) && t < Date.parse(p.fin)){ BALANCE[k].prixAvant = BALANCE[k].prix; BALANCE[k].prix = p.prix; }
+  }
+})();   // gamme : bloc « Vos expériences » vert partout
 var INCI = {
   "calm-balance-jour": {
     "ingredients": "Aloe Barbadensis (Aloe) Leaf Juice¹, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil¹, Pentylene Glycol, Polyglyceryl-3 Stearate, Cetearyl Alcohol, Sodium PCA, Coco-Caprylate, Isoamyl Laurate, Caprylic/Capric Triglyceride, Aqua/Water, Hydrolyzed Rhodophyceae Extract, Octyldodecanol, Xanthan Gum, Cellulose, Irvingia Gabonensis Kernel Butter, Potassium Hydroxide, Sodium Hyaluronate, Hydrogenated Coco-Glycerides, Tocopherol, Ascorbyl Palmitate, Sodium Phytate, Hydrolyzed Hyaluronic Acid.\n¹ Ingrédients issus de l'agriculture biologique.",

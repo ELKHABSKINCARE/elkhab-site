@@ -365,7 +365,7 @@ const CART_FIELDS = `
         id
         quantity
         attributes { key value }
-        discountAllocations { discountedAmount { amount } }
+        discountAllocations { __typename discountedAmount { amount } ... on CartAutomaticDiscountAllocation { title } }
         merchandise {
           ... on ProductVariant {
             id
@@ -672,6 +672,16 @@ function ebPrixSepares(gid){
     return somme - n(p.prix) >= 3 ? somme : 0;
   }
   return 0;
+}
+// Réduction automatique Shopify sur une ligne du panier (ex. Black Week) : montant et nom de l'offre
+function ebRemiseAuto(line){
+  let montant = 0, titre = '';
+  (line.discountAllocations || []).forEach(function(a){
+    if(a.__typename !== 'CartAutomaticDiscountAllocation') return;
+    montant += parseFloat(a.discountedAmount.amount) || 0;
+    if(a.title && !titre) titre = a.title;
+  });
+  return { montant: montant, titre: titre };
 }
 // Taille demandée : seulement pour les photos Shopify (comme la recherche)
 function ebPhotoTaille(u){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; return u.split('?')[0] + '?width=160'; }
@@ -1228,10 +1238,16 @@ function ebRenderCart(cart, attemptsLeft){
       html += '<div class="eb-cart-item-variant">' + m.title + '</div>';
     }
     if(ebCalEstOffert(line)) html += '<div class="eb-cart-item-variant eb-cal-offert">Surprise du calendrier</div>';
+    const offre = ebCalEstOffert(line) ? null : ebRemiseAuto(line);
+    if(offre && offre.montant > 0 && offre.titre) html += '<div class="eb-cart-item-variant eb-cart-offre">' + offre.titre + '</div>';
     html += '<div class="eb-cart-item-bottom">';
     const separes = ebPrixSepares(m.id);
     if(ebCalEstOffert(line) && ebCalCodeEnPlace(cart)){
       html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — <s class="eb-cart-barre">' + ebFormatPrice(m.price.amount * line.quantity) + '</s> Offert</span>';
+    } else if(ebRemiseAuto(line).montant > 0){
+      // Réduction automatique Shopify sur ce soin (ex. Black Week) : prix normal barré, prix réduit, et le nom de l'offre dessous
+      const ra = ebRemiseAuto(line), brutLigne = m.price.amount * line.quantity;
+      html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — <s class="eb-cart-barre">' + ebFormatPrice(brutLigne) + '</s> ' + ebFormatPrice(Math.max(0, brutLigne - ra.montant)) + '</span>';
     } else
     html += '<span class="eb-cart-item-price">Qté ' + line.quantity + ' — ' + (separes ? '<s class="eb-cart-barre">' + ebFormatPrice(separes * line.quantity) + '</s> ' : '') + ebFormatPrice(m.price.amount * line.quantity) + '</span>';
     html += '<button class="eb-cart-remove" onclick="ebCartRemoveClick(\'' + line.id + '\', ' + line.quantity + (ebCalEstOffert(line) ? ', 1' : '') + ')" aria-label="Retirer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"></path><path d="M9 7V4h6v3"></path><path d="M6 7l1 13h10l1-13"></path></svg></button>';

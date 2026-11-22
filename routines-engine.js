@@ -114,6 +114,7 @@
   + ".ebr-gl{height:2px;width:56px;margin:2px 0 12px}"
   + ".ebr-pied{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:#7a7368;margin-top:auto;display:flex;justify-content:space-between;align-items:center;padding-top:6px}"
   + ".ebr-pied b{font-weight:600;color:#111;letter-spacing:.1em;font-size:11px}"
+  + ".ebr-bw{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#9A7B4F;font-weight:400;text-align:right;padding-top:3px;line-height:1.5}"
   // verso
   + ".ebr-pour{font-size:12.5px;font-style:italic;color:#4a453e;margin:2px 0 6px;line-height:1.5}"
   + ".ebr-mos{display:grid;grid-template-columns:1fr;gap:0}"
@@ -177,6 +178,7 @@
   +   ".ebr-ph{margin:10px 0;border-radius:9px}"
   +   ".ebr-k{font-size:7px;letter-spacing:.2em}#eb-routines h3.ebr-n{font-size:9.5px;letter-spacing:.1em;margin:5px 0 4px}.ebr-gl{width:36px;margin:2px 0 8px}"
   +   ".ebr-pied{font-size:6.5px;letter-spacing:.18em}.ebr-pied b{font-size:9.5px}"
+  +   ".ebr-bw{font-size:7px;letter-spacing:.12em}"
   // avec la bande vidéo : une seule carte par rangée, un peu plus grande
   +   "#eb-routines.ebr-av{padding-left:calc(10px + 15vw + 14px);padding-right:14px}"
   +   ".ebr-bande{left:10px;width:15vw}"
@@ -238,7 +240,9 @@
     var r = P[cfg.id], g = r.gamme === 'balance' ? 'balance' : 'bloom', c = COUL[g], ro = r.routine || {};
     var nb = (ro.soins || []).length, prix = nombre(r.prix);
     var somme = (ro.soins || []).reduce(function(t, s){ return t + (P[s] ? nombre(P[s].prix) : 0); }, 0);
-    var eco = somme - prix >= REGLAGES.economieMini ? '<p class="ebr-eco">Au lieu de <s>' + euros(somme) + '</s> pour les soins achetés séparément</p>' : '';
+    // promotion datée en cours (ex. Black Week, prixAvant posé par produits-balance-test.js) : on le dit sur la carte, sans prix barré
+    var promo = r.prixAvant && r.promo ? r.promo : null;
+    var eco = promo ? '<p class="ebr-eco" style="color:#9A7B4F">' + esc(promo.texte) + '</p>' : somme - prix >= REGLAGES.economieMini ? '<p class="ebr-eco">Au lieu de <s>' + euros(somme) + '</s> pour les soins achetés séparément</p>' : '';
     var img = r.media && r.media.images && r.media.images[0];
     var code = (r.coffret ? 'Coffret · ' : 'Routine · ') + (n < 10 ? '0' : '') + n;
     var gamme = r.gammeLabel || (g === 'bloom' ? 'Bloom' : 'Balance');
@@ -252,6 +256,7 @@
       +   '<div class="ebr-k" style="color:' + c.k + '">' + gamme + ' · ' + nb + ' soins</div>'
       +   '<h3 class="ebr-n">' + insecable(r.nom) + '</h3><div class="ebr-gl" style="background:' + c.deg + '"></div>'
       +   '<div class="ebr-pied"><span>Retourner</span><b>' + euros(prix) + '</b></div>'
+      +   (promo ? '<div class="ebr-bw">' + esc(promo.texte).replace(', ', '<br>').replace(/ (Week|novembre|décembre)/g, '\u00A0$1') + '</div>' : '')
       + '</div>'
       + '<div class="ebr-fa ebr-dos" aria-hidden="true">'
       +   '<div class="ebr-top"><span class="ebr-code">' + code + ' — Votre rituel</span>' + MONO + '</div>'

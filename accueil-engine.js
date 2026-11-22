@@ -27,7 +27,9 @@
     lien: "https://routines.elkhab.com/",
     bouton: "Découvrir les coffrets",
     coffrets: [
-      { nom: "Le Temps Suspendu", sous: "Rituel Lift · Balance",          prix: "92 €", fiche: "coffret-temps-suspendu" },
+      // Black Week : 78,20 € du lun. 23 nov. 0 h au lun. 30 nov. 23 h 59, sans prix barré ici (barré seulement sur la fiche et au panier)
+      { nom: "Le Temps Suspendu", sous: "Rituel Lift · Balance",          prix: "92 €", fiche: "coffret-temps-suspendu",
+        promo: { prix: "78,20 €", debut: "2026-11-23T00:00:00+01:00", fin: "2026-12-01T00:00:00+01:00" } },
       { nom: "Rituel de Minuit",  sous: "Soin du soir · Bloom & Balance", prix: "87 €", fiche: "coffret-rituel-de-minuit" },
       { nom: "Nouvelle Aube",     sous: "Peau neuve · Balance",           prix: "82 €", fiche: "coffret-nouvelle-aube" },
       { nom: "Lumière d'hiver",   sous: "Rituel éclat · Bloom",           prix: "59 €", fiche: "coffret-lumiere-dhiver" },
@@ -213,6 +215,7 @@
   + "#eb-acc .eba-f4 h3{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;line-height:1.4}"
   + ".eba-f4 span{display:block;font-size:11px;color:#4a453e;margin-top:6px;line-height:1.4}"
   + ".eba-f4 b{display:block;font-size:12px;font-weight:500;margin-top:8px}"
+  + ".eba-f4 .eba-bw{display:block;font-style:normal;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:400;color:#9A7B4F;margin-top:5px;line-height:1.5}"
   + "#eb-acc .eba-fetes .eba-btn{display:inline-block;margin-top:34px;color:#f5f4f0}"
   // ── Téléphone
   + "@media (max-width:699px){"
@@ -237,6 +240,7 @@
   +   ".eba-fetes .eba-fph{margin:26px 0 0}"
   +   ".eba-f4{grid-template-columns:1fr 1fr}.eba-f4 a:last-child:nth-child(odd){grid-column:1/-1}"
   +   "#eb-acc .eba-f4 h3{font-size:10px;letter-spacing:.12em}.eba-f4 span{font-size:10px}"
+  +   ".eba-f4 .eba-bw{font-size:8px;letter-spacing:.08em}"
   +   ".eba-fetes .eba-btn{margin-top:26px}"
   + "}"
   + "@media (prefers-reduced-motion:reduce){.eba-slides img{transition:opacity .8s ease;transform:none !important}.eba-entre{opacity:1;transform:none}}";
@@ -259,10 +263,12 @@
     // les coffrets des fêtes, juste sous la bannière
     if(REGLAGES.fetes && ban && !root.querySelector('.eba-fetes')){
       var e = function(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
+      // prix promo pendant ses dates (ex. Black Week), prix normal le reste du temps
+      var prixDuJour = function(c){ var p = c.promo, t = Date.now(); return p && t >= Date.parse(p.debut) && t < Date.parse(p.fin) ? p.prix : c.prix; };
       var hf = '<section class="eba-sec eba-fetes" id="eba-fetes"><p class="eba-k">' + e(FETES.surtitre) + '</p><h2 class="eba-t">' + e(FETES.titre) + '</h2><i class="eba-g"></i>'
         + '<p class="eba-st2">' + e(FETES.texte) + '</p>'
         + '<a class="eba-fph" href="' + e(FETES.lien) + '"><picture><source media="(max-width:699px)" srcset="' + e(FETES.photoTel) + '"><img src="' + e(FETES.photo) + '" alt="Coffrets cadeaux soin visage ELKHA.B, édition des fêtes : ' + e(FETES.coffrets.map(function(c){ return c.nom; }).join(', ')) + '" loading="lazy" decoding="async"></picture></a>'
-        + '<div class="eba-f4" style="--eba-n:' + FETES.coffrets.length + '">' + FETES.coffrets.map(function(c){ return '<a href="' + e(FETES.lien + '?fiche=' + c.fiche) + '"><h3>' + e(c.nom) + '</h3><span>' + e(c.sous) + '</span><b>' + e(c.prix) + '</b></a>'; }).join('') + '</div>'
+        + '<div class="eba-f4" style="--eba-n:' + FETES.coffrets.length + '">' + FETES.coffrets.map(function(c){ return '<a href="' + e(FETES.lien + '?fiche=' + c.fiche) + '"><h3>' + e(c.nom) + '</h3><span>' + e(c.sous) + '</span><b>' + e(prixDuJour(c)) + '</b>' + (prixDuJour(c) !== c.prix ? '<em class="eba-bw">Privilège Black\u00A0Week<br>jusqu\'au 30\u00A0novembre</em>' : '') + '</a>'; }).join('') + '</div>'
         + '<a class="eba-btn" href="' + e(FETES.lien) + '">' + e(FETES.bouton) + '</a></section>';
       ban.insertAdjacentHTML('afterend', hf);
     }
