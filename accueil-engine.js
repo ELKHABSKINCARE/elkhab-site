@@ -46,6 +46,7 @@
       photo: GH + "banniere-black-week.jpg", photoTel: GH + "banniere-black-week-tel.jpg",
       alt: "Coffret soin visage Le Temps Suspendu ELKHA.B, édition des fêtes, dans un décor d'hiver",
       voileDoux: true, cadrageTel: "50% 0%", surtitreEnHautTel: true,
+      basProduitTel: 1.232,   // téléphone : bas du coffret sur la photo (en largeurs d'écran) → le texte commence juste en dessous, quelle que soit la taille du téléphone
       texteADroite: true,   // ordinateur : le coffret est à gauche sur la photo, le texte passe à droite (devant la fenêtre)   // téléphone : photo claire, voile léger sous le texte pour garder l'ambiance
       lien: "https://routines.elkhab.com/?fiche=coffret-temps-suspendu",
       etapes: [
@@ -270,9 +271,10 @@
   // téléphone : textes des bannières d'événement plus marqués ; surtitre au-dessus du produit si demandé
   +   ".eba-ev .eba-pc{display:none}.eba-ev .eba-tc{display:inline}"
   // petits téléphones : la bannière garde au moins 760 px de haut, pour que le texte passe sous le produit
-  +   ".eba-ban.eba-evts{min-height:760px}"
+  +   ".eba-ban.eba-evts{min-height:var(--eba-min,760px)}"
   +   "#eb-acc .eba-ev .eba-bn{font-weight:500}#eb-acc .eba-ev .eba-bk{font-size:10px;font-weight:600;letter-spacing:.32em;color:#111}"
-  +   ".eba-ev.eba-haut{top:0}#eb-acc .eba-ev.eba-haut .eba-bk{position:absolute;left:0;right:0;top:" + (REGLAGES.espaceMenu + 22) + "px;margin:0;padding:0 16px 0 calc(16px + .32em)}"
+  +   ".eba-ev.eba-haut{top:var(--eba-sous,0px);bottom:auto;justify-content:flex-start;padding-top:0}"
+  +   "#eb-acc .eba-ev.eba-haut .eba-bk{position:absolute;left:0;right:0;top:calc(" + (REGLAGES.espaceMenu + 22) + "px - var(--eba-sous,0px));margin:0;padding:0 16px 0 calc(16px + .32em)}"
   +   ".eba-sec{padding:72px 16px 0}"
   +   "#eb-acc .eba-t{font-size:22px;letter-spacing:.26em;padding-left:.26em}"
   +   ".eba-gam{gap:10px;margin-top:30px}"
@@ -343,11 +345,14 @@
           if(v.voileDoux) slides.setAttribute('data-doux' + k, '1');
           if(v.texteADroite) slides.setAttribute('data-droite' + k, '1');
           slides.insertAdjacentHTML('beforeend', '<picture><source media="(max-width:699px)" srcset="' + x(v.photoTel) + '"><img src="' + x(v.photo) + '" alt="' + x(v.alt) + '"' + (v.cadrageTel ? ' data-pos="50% 50%" data-pos-tel="' + x(v.cadrageTel) + '"' : '') + (k ? ' loading="lazy"' : ' fetchpriority="high"') + '></picture>');
-          texteHabituel.insertAdjacentHTML('beforebegin', '<div class="eba-bt eba-ev' + (v.surtitreEnHautTel ? ' eba-haut' : '') + (v.texteADroite ? ' eba-adroite' : '') + '"><p class="eba-titre-ev"><span class="eba-bk">' + x(et.surtitre) + '</span><span class="eba-bn">'
+          texteHabituel.insertAdjacentHTML('beforebegin', '<div class="eba-bt eba-ev' + (v.surtitreEnHautTel ? ' eba-haut' : '') + (v.texteADroite ? ' eba-adroite' : '') + '"' + (v.basProduitTel ? ' style="--eba-sous:calc(' + (v.basProduitTel * 100 + 2) + 'vw + 6px)"' : '') + '><p class="eba-titre-ev"><span class="eba-bk">' + x(et.surtitre) + '</span><span class="eba-bn">'
             + et.titre.map(function(l){ return '<span class="eba-nw">' + x(l) + '</span>'; }).join(' ') + '</span></p><i class="eba-bg"></i>'
             + '<p class="eba-bm">' + (et.texteTel ? '<span class="eba-pc">' + x(et.texte) + '</span><span class="eba-tc">' + x(et.texteTel) + '</span>' : x(et.texte)) + '</p><a class="eba-btn" href="' + x(v.lien) + '">' + x(et.bouton) + '</a></div>');
         });
         textes = [].slice.call(ban.querySelectorAll('.eba-ev'));
+        // téléphone : la bannière est assez haute pour que le texte passe sous le produit (photo + bloc de texte)
+        var basMax = Math.max.apply(null, actifs.map(function(v){ return v.basProduitTel || 0; }));
+        if(basMax) ban.style.setProperty('--eba-min', 'max(760px, calc(' + (basMax * 100 + 2) + 'vw + 270px))');
         cadrer();
       }
     }
