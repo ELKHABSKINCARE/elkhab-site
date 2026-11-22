@@ -1121,10 +1121,10 @@ window.EB_PRODUITS = {
     // fiche = soin qui remplace la 1re vignette de « Votre routine » ; mention = petite ligne sous le bouton panier
     choixLabel: "Votre type de peau",
     variantes: [
-      { label: "Peau mixte à grasse",    variantId: "60085332509017", photo: 0, fiche: "radiance-cleanser", mention: "Livraison offerte",
+      { label: "Peau mixte à grasse",    variantId: "60085332509017", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-eclat-peau-mixte.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-cleanser-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-1.png"], fiche: "radiance-cleanser", mention: "Livraison offerte",
         sousTitre: "Radiance Cleanser · Radiance C Serum · Luminescence Jour",
         etape: "Faites mousser une noisette de Radiance Cleanser entre vos mains humides, massez délicatement le visage, puis rincez abondamment à l'eau." },
-      { label: "Peau sèche ou sensible", variantId: "60085379694937", photo: 1, fiche: "milky-bloom",       mention: "5,70 € d'économie par rapport aux soins achetés séparément · Livraison offerte",
+      { label: "Peau sèche ou sensible", variantId: "60085379694937", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-eclat-peau-sensible.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-milky-bloom-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-1.png"], fiche: "milky-bloom",       mention: "5,70 € d'économie par rapport aux soins achetés séparément · Livraison offerte",
         sousTitre: "Milky Bloom · Radiance C Serum · Luminescence Jour",
         etape: "Sur peau sèche ou humide, massez délicatement une noisette de Milky Bloom sur le visage, puis rincez abondamment à l'eau." }
     ],
@@ -1139,7 +1139,8 @@ window.EB_PRODUITS = {
       images: [
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-eclat-peau-mixte.png",
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-eclat-peau-sensible.png"
-      ]
+      ],
+      communes: []   // seules les photos du type de peau choisi
     },
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1477,9 +1478,10 @@ window.EB_PRODUITS = {
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-hydratation.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
-        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-hydratation.png"
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-hydratation.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-1.png"
       ]
     },
 
@@ -1513,8 +1515,8 @@ window.EB_PRODUITS = {
     photosTeintes: "radiance-protect",   // petites photos de rappel reprises de cette fiche
     teinteDepart: 1,   // version affichée à l'ouverture (photo du carrousel)
     variantes: [
-      { label: "SANS TEINTE", variantId: "59547258618201", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete-sans-teinte.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-sans-teinte.png" },
-      { label: "TEINTÉ",      variantId: "59547258650969", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png" }
+      { label: "SANS TEINTE", variantId: "59547258618201", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-radiance-protect-sans-teinte.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete-sans-teinte.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-protect-sans-teinte-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-nuit-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-sans-teinte.png" },
+      { label: "TEINTÉ",      variantId: "59547258650969", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-radiance-protect-teinte.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-jour-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-protect-teinte-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-luminescence-nuit-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-radiance-protect-teinte.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1524,7 +1526,6 @@ window.EB_PRODUITS = {
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-fermete.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-fermete.png"
       ],
@@ -1561,10 +1562,10 @@ window.EB_PRODUITS = {
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     teinteDepart: 1,   // version affichée à l'ouverture (photo du carrousel)
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358176477529", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
-      { label: "N°B2 MOYEN", variantId: "59358197186905", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b3.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
-      { label: "N°B4 FONCÉ", variantId: "59358197252441", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b4.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
+      { label: "N°B1 CLAIR", variantId: "59358176477529", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b1.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-niacinamide-5-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b1-clair-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
+      { label: "N°B2 MOYEN", variantId: "59358197186905", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b2.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-niacinamide-5-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b2-moyen-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358197219673", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b3.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b3.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-niacinamide-5-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b3-hale-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
+      { label: "N°B4 FONCÉ", variantId: "59358197252441", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b4.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre-b4.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-niacinamide-5-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b4-fonce-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1574,7 +1575,6 @@ window.EB_PRODUITS = {
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-equilibre.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-equilibre.png"
       ],
@@ -1611,10 +1611,10 @@ window.EB_PRODUITS = {
     photosTeintes: "lumiveil-cc-cream",   // petites photos de rappel reprises de cette fiche
     teinteDepart: 1,   // version affichée à l'ouverture (photo du carrousel)
     variantes: [
-      { label: "N°B1 CLAIR", variantId: "59358330847577", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
-      { label: "N°B2 MOYEN", variantId: "59358346903897", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
-      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b3.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
-      { label: "N°B4 FONCÉ", variantId: "59358346969433", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b4.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
+      { label: "N°B1 CLAIR", variantId: "59358330847577", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b1.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b1-clair-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b1-clair.png" },
+      { label: "N°B2 MOYEN", variantId: "59358346903897", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b2.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b2-moyen-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b2-moyen.png" },
+      { label: "N°B3 HÂLÉ",  variantId: "59358346936665", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b3.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b3.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b3-hale-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b3-hale.png" },
+      { label: "N°B4 FONCÉ", variantId: "59358346969433", texture: "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumiveil-b4.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection-b4.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-serum-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumiveil-b4-fonce-1.png"], image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumiveil-b4-fonce.png" }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1624,7 +1624,6 @@ window.EB_PRODUITS = {
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-teint-protection.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-teint-protection.png"
       ],
@@ -1659,9 +1658,9 @@ window.EB_PRODUITS = {
 
     choixLabel: "Choisissez votre formule",
     variantes: [
-      { label: "CAFÉINE + VITAMINE C",             variantId: "59358402216281", fiche: "bright-glow-decongestionnant", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-cafeine-vitamine-c.png" },
-      { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59358466703705", fiche: "bright-glow-anti-fatigue",     image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-antioxydants-b5.png" },
-      { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59358466736473", fiche: "bright-glow-patch",            image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-niacinamide.png" }
+      { label: "CAFÉINE + VITAMINE C",             variantId: "59358402216281", fiche: "bright-glow-decongestionnant", image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-cafeine-vitamine-c.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-regard.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-eye-cream-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-patchs-cafeine-vitamine-c.png"] },
+      { label: "ANTIOXYDANTS + PROVITAMINE B5",    variantId: "59358466703705", fiche: "bright-glow-anti-fatigue",     image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-antioxydants-b5.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-regard.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-eye-cream-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-patchs-antioxydants-b5.png"] },
+      { label: "NIACINAMIDE + ACIDE HYALURONIQUE", variantId: "59358466736473", fiche: "bright-glow-patch",            image: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-patchs-niacinamide.png", photos: ["https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-regard.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-radiance-eye-cream-1.png", "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-patchs-niacinamide.png"] }
     ],
 
     // ┌─────────────────────────────────────────────────────────────────┐
@@ -1671,10 +1670,10 @@ window.EB_PRODUITS = {
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-routine-regard.png",   // 📷 petite photo carrée (recherche, mini-fiches)
       type: "diaporama",
-      mobileSeulement: [2],   // la photo 2 ne s'affiche que sur téléphone
       images: [
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-routine-regard.png"
-      ]
+      ],
+      communes: []
     },
 
     // ┌─────────────────────────────────────────────────────────────────┐

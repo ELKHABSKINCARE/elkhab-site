@@ -36,6 +36,7 @@
   + ".eb-fp-slide{flex:0 0 100%;scroll-snap-align:start}"
   // Zoom des photos sable : un toucher (ou un clic) agrandit, on se promène en glissant le doigt (ou la souris), un autre toucher ramène la photo
   + ".eb-fp-media.eb-fp-unique{overflow:hidden}"
+  + ".eb-fp-plein .eb-fp-left .eb-fp-media img.eb-remplir[src*='bloom-fiche-routine']{object-position:50% 50% !important}"   /* scènes des routines : toujours au milieu de l'écran */
   + ".eb-fp-left img.eb-zoomable{transition:transform .35s ease;will-change:transform}"
   + "@media (hover:hover){.eb-fp-left img.eb-zoomable{cursor:zoom-in}.eb-fp-left img.eb-zoomable.eb-zoom{cursor:zoom-out}}"
   + ".eb-fp-left img.eb-zoomable.eb-zoom{transform:scale(2.2) !important;touch-action:none}"
@@ -855,7 +856,9 @@
     var x0 = 0, y0 = 0;
     var viser = function(img, x, y){
       var r = img.getBoundingClientRect();
-      var px = Math.min(100, Math.max(0, (x - r.left) / r.width * 100)), py = Math.min(100, Math.max(0, (y - r.top) / r.height * 100));
+      // la zone utile est élargie : pas besoin d'aller tout au bord (ou sous la barre de l'ordinateur) pour voir le bas ou les côtés de la photo
+      var bord = function(v){ return Math.min(100, Math.max(0, (v - 0.15) / 0.7 * 100)); };
+      var px = bord((x - r.left) / r.width), py = bord((y - r.top) / r.height);
       img.style.transformOrigin = px + '% ' + py + '%';
     };
     overlay.addEventListener('mousedown', function(e){ x0 = e.clientX; y0 = e.clientY; }, true);
