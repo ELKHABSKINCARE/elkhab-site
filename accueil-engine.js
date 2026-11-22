@@ -45,14 +45,15 @@
     { nom: "Black Week", debut: "2026-11-22T00:00:00+01:00", fin: "2026-12-01T00:00:00+01:00",
       photo: GH + "banniere-black-week.jpg", photoTel: GH + "banniere-black-week-tel.jpg",
       alt: "Coffret soin visage Le Temps Suspendu ELKHA.B, édition des fêtes, dans un décor d'hiver",
-      voileDoux: true, cadrageTel: "50% 0%",   // téléphone : photo claire, voile léger sous le texte pour garder l'ambiance
+      voileDoux: true, cadrageTel: "50% 0%", surtitreEnHautTel: true,
+      texteADroite: true,   // ordinateur : le coffret est à gauche sur la photo, le texte passe à droite (devant la fenêtre)   // téléphone : photo claire, voile léger sous le texte pour garder l'ambiance
       lien: "https://routines.elkhab.com/?fiche=coffret-temps-suspendu",
       etapes: [
-        { jusqua: "2026-11-23T00:00:00+01:00", surtitre: "Black Week · Dès le 23 novembre", titre: ["Le Temps", "Suspendu"], texte: "Le coffret Rituel Lift à prix privilège, du 23 au 30 novembre.", bouton: "Découvrir le coffret" },
-        { surtitre: "Black Week · Jusqu'au 30 novembre", titre: ["Le Temps", "Suspendu"], texte: "Le coffret Rituel Lift à prix privilège, jusqu'au 30 novembre.", bouton: "Découvrir le coffret" }
+        { jusqua: "2026-11-23T00:00:00+01:00", surtitre: "Black Week · Dès le 23 novembre", titre: ["Le Temps", "Suspendu"], texte: "Le coffret Rituel Lift à prix privilège, du 23 au 30 novembre.", texteTel: "À prix privilège, du 23 au 30 novembre.", bouton: "Découvrir le coffret" },
+        { surtitre: "Black Week · Jusqu'au 30 novembre", titre: ["Le Temps", "Suspendu"], texte: "Le coffret Rituel Lift à prix privilège, jusqu'au 30 novembre.", texteTel: "À prix privilège, jusqu'au 30 novembre.", bouton: "Découvrir le coffret" }
       ] },
     { nom: "Calendrier des fêtes", debut: "2026-11-22T00:00:00+01:00", fin: "2026-12-25T00:00:00+01:00",
-      photo: GH + "banniere-calendrier.jpg", photoTel: GH + "banniere-calendrier-tel.jpg",
+      photo: GH + "banniere-calendrier.jpg", photoTel: GH + "banniere-calendrier-tel.jpg", cadrageTel: "50% 0%",
       alt: "Calendrier des fêtes ELKHA.B, une surprise soin à ouvrir chaque jour de décembre",
       lien: "https://calendrier.elkhab.com/",
       etapes: [
@@ -78,7 +79,13 @@
   + ".eba-ev{opacity:0;visibility:hidden;transition:opacity " + REGLAGES.dureeFondu + "s ease,visibility 0s linear " + REGLAGES.dureeFondu + "s}"
   + ".eba-ev.on{opacity:1;visibility:visible;transition:opacity " + REGLAGES.dureeFondu + "s ease}"
   + "#eb-acc .eba-ev a.eba-btn{display:inline-block;color:" + F + "}"
-  + ".eba-ban:after{transition:opacity " + REGLAGES.dureeFondu + "s ease}"
+  + ".eba-ban:after{transition:opacity " + REGLAGES.dureeFondu + "s ease}.eba-ban.eba-doux:after{opacity:.45}"
+  + ".eba-ev .eba-tc{display:none}"
+  + "#eb-acc .eba-ev .eba-bk{font-weight:600;color:#111}"
+  // ordinateur : bannière dont le texte est à droite (voile et petits traits passent à droite)
+  + "@media (min-width:700px){.eba-ev.eba-adroite{left:auto;right:0;padding:" + REGLAGES.espaceMenu + "px 6% 0 4%}"
+  + ".eba-ban:after{transition:opacity " + REGLAGES.dureeFondu + "s ease,left 0s,right 0s}.eba-ban.eba-droite:after{left:auto;right:0;background:linear-gradient(270deg,rgba(" + FR + ",.8) 0%,rgba(" + FR + ",.62) 40%,rgba(" + FR + ",.22) 74%,rgba(" + FR + ",0) 100%)}"
+  + ".eba-ban.eba-droite .eba-pts{left:auto;right:0;padding-left:0;padding-right:2%}}"
   + ".eba-cache{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}"
   + ".eba-ban:after{content:'';position:absolute;z-index:1;top:0;bottom:0;left:0;width:56%;background:linear-gradient(90deg,rgba(" + FR + ",.8) 0%,rgba(" + FR + ",.62) 40%,rgba(" + FR + ",.22) 74%,rgba(" + FR + ",0) 100%);pointer-events:none}"
   + ".eba-ban:before{content:'';position:absolute;z-index:1;left:0;right:0;top:0;height:120px;background:linear-gradient(180deg,rgba(" + FR + ",.4),rgba(" + FR + ",0));pointer-events:none}"
@@ -260,6 +267,12 @@
   +   ".eba-btn{margin-top:24px;padding:15px 22px;font-size:9.5px;letter-spacing:.2em}"
   +   ".eba-pts{width:auto;right:0;bottom:30px;padding:0}"
   +   ".eba-ban.eba-doux:after{opacity:.5}"
+  // téléphone : textes des bannières d'événement plus marqués ; surtitre au-dessus du produit si demandé
+  +   ".eba-ev .eba-pc{display:none}.eba-ev .eba-tc{display:inline}"
+  // petits téléphones : la bannière garde au moins 760 px de haut, pour que le texte passe sous le produit
+  +   ".eba-ban.eba-evts{min-height:760px}"
+  +   "#eb-acc .eba-ev .eba-bn{font-weight:500}#eb-acc .eba-ev .eba-bk{font-size:10px;font-weight:600;letter-spacing:.32em;color:#111}"
+  +   ".eba-ev.eba-haut{top:0}#eb-acc .eba-ev.eba-haut .eba-bk{position:absolute;left:0;right:0;top:" + (REGLAGES.espaceMenu + 22) + "px;margin:0;padding:0 16px 0 calc(16px + .32em)}"
   +   ".eba-sec{padding:72px 16px 0}"
   +   "#eb-acc .eba-t{font-size:22px;letter-spacing:.26em;padding-left:.26em}"
   +   ".eba-gam{gap:10px;margin-top:30px}"
@@ -324,14 +337,15 @@
       if(actifs.length && slides && texteHabituel){
         var x = function(t){ return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); };
         [].slice.call(slides.children).forEach(function(n){ n.remove(); });   // pause des photos habituelles (seulement pour cette visite)
-        texteHabituel.classList.add('eba-cache');
+        texteHabituel.classList.add('eba-cache'); ban.classList.add('eba-evts');
         actifs.forEach(function(v, k){
           var et = v.etapes.filter(function(e){ return !e.jusqua || maintenant < Date.parse(e.jusqua); })[0] || v.etapes[v.etapes.length - 1];
           if(v.voileDoux) slides.setAttribute('data-doux' + k, '1');
+          if(v.texteADroite) slides.setAttribute('data-droite' + k, '1');
           slides.insertAdjacentHTML('beforeend', '<picture><source media="(max-width:699px)" srcset="' + x(v.photoTel) + '"><img src="' + x(v.photo) + '" alt="' + x(v.alt) + '"' + (v.cadrageTel ? ' data-pos="50% 50%" data-pos-tel="' + x(v.cadrageTel) + '"' : '') + (k ? ' loading="lazy"' : ' fetchpriority="high"') + '></picture>');
-          texteHabituel.insertAdjacentHTML('beforebegin', '<div class="eba-bt eba-ev"><p class="eba-titre-ev"><span class="eba-bk">' + x(et.surtitre) + '</span><span class="eba-bn">'
+          texteHabituel.insertAdjacentHTML('beforebegin', '<div class="eba-bt eba-ev' + (v.surtitreEnHautTel ? ' eba-haut' : '') + (v.texteADroite ? ' eba-adroite' : '') + '"><p class="eba-titre-ev"><span class="eba-bk">' + x(et.surtitre) + '</span><span class="eba-bn">'
             + et.titre.map(function(l){ return '<span class="eba-nw">' + x(l) + '</span>'; }).join(' ') + '</span></p><i class="eba-bg"></i>'
-            + '<p class="eba-bm">' + x(et.texte) + '</p><a class="eba-btn" href="' + x(v.lien) + '">' + x(et.bouton) + '</a></div>');
+            + '<p class="eba-bm">' + (et.texteTel ? '<span class="eba-pc">' + x(et.texte) + '</span><span class="eba-tc">' + x(et.texteTel) + '</span>' : x(et.texte)) + '</p><a class="eba-btn" href="' + x(v.lien) + '">' + x(et.bouton) + '</a></div>');
         });
         textes = [].slice.call(ban.querySelectorAll('.eba-ev'));
         cadrer();
@@ -339,6 +353,7 @@
     }
 
     function slidesDoux(k){ var sl = ban.querySelector('.eba-slides'); return sl && sl.getAttribute('data-doux' + k); }
+    function slidesDroite(k){ var sl = ban.querySelector('.eba-slides'); return sl && sl.getAttribute('data-droite' + k); }
     // ── Bannière : une photo après l'autre, en fondu
     if(ban){
       var photos = [].slice.call(ban.querySelectorAll('.eba-slides img')), pts = ban.querySelector('.eba-pts'), i = 0, minut = null;
@@ -348,11 +363,12 @@
         photos.forEach(function(p, n){ p.classList.toggle('on', n === i); });
         textes.forEach(function(t, n){ t.classList.toggle('on', n === i); });
         ban.classList.toggle('eba-doux', !!(textes.length && slidesDoux(i)));
+        ban.classList.toggle('eba-droite', !!(textes.length && slidesDroite(i)));
         traits.forEach(function(t, n){ t.classList.remove('on'); t.classList.toggle('vu', n < i); void t.offsetWidth; });
         traits[i].classList.add('on');
         clearTimeout(minut); minut = setTimeout(function(){ montrer(i + 1); }, REGLAGES.dureePhoto * 1000);
       }
-      if(photos.length > 1) montrer(0); else { if(pts) pts.style.display = 'none'; if(photos[0]) photos[0].classList.add('on'); if(textes[0]) textes[0].classList.add('on'); if(textes.length && slidesDoux(0)) ban.classList.add('eba-doux'); }
+      if(photos.length > 1) montrer(0); else { if(pts) pts.style.display = 'none'; if(photos[0]) photos[0].classList.add('on'); if(textes[0]) textes[0].classList.add('on'); if(textes.length && slidesDoux(0)) ban.classList.add('eba-doux'); if(textes.length && slidesDroite(0)) ban.classList.add('eba-droite'); }
       // la bannière se met en pause quand on ne la voit plus
       if('IntersectionObserver' in window){
         new IntersectionObserver(function(e){ if(e[0].isIntersecting){ if(!minut && photos.length > 1) montrer(i); } else { clearTimeout(minut); minut = null; } }).observe(ban);
