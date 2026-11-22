@@ -374,8 +374,9 @@ function calendrierFlottant(){
   function defile(e){ var t=e && e.target; if(t && t!==document && t!==document.body && t!==document.documentElement && t!==document.scrollingElement) return; montrer(); }
   window.addEventListener('scroll',defile,{passive:true});
   document.addEventListener('scroll',defile,{capture:true,passive:true});
-  // un toucher ailleurs pendant qu'il est là le fait repartir (téléphone)
-  document.addEventListener('pointerdown',function(e){ if(la && tel() && !a.contains(e.target)) cacher(true); },true);
+  // un toucher ailleurs pendant qu'il est là le fait repartir (téléphone) ; seulement un vrai toucher (« click »),
+  // jamais le doigt posé pour faire défiler la page (sinon chaque défilement le chassait)
+  document.addEventListener('click',function(e){ if(la && tel() && !a.contains(e.target)) cacher(true); },true);
   setTimeout(montrer,1500);
 }
 (function attendreCorps(n){ if(document.body){ calendrierFlottant(); return; } if(n>0) setTimeout(function(){ attendreCorps(n-1); },200); })(40);
