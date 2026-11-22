@@ -38,8 +38,7 @@
   + ".eb-fp-media.eb-fp-unique{overflow:hidden}"
   + ".eb-fp-plein .eb-fp-left .eb-fp-media img.eb-remplir[src*='bloom-fiche-routine']{object-position:50% 50% !important}"   /* scènes des routines : toujours au milieu de l'écran */
   + ".eb-fp-left img.eb-zoomable{transition:transform .35s ease;will-change:transform}"
-  + "@media (hover:hover){.eb-fp-left img.eb-zoomable{cursor:zoom-in}.eb-fp-left img.eb-zoomable.eb-zoom{cursor:zoom-out}}"
-  + ".eb-fp-left img.eb-zoomable.eb-zoom{transform:scale(2.2) !important;touch-action:none}"
+  + ".eb-fp-left img.eb-zoomable{cursor:zoom-in}.eb-fp-left img.eb-zoomable.eb-zoom{cursor:zoom-out;transform:scale(2.2) !important}"
   + ".eb-fp-slide{clip-path:inset(0 1px)}"   /* la photo voisine ne dépasse jamais d'un pixel (trait au bord de la photo, écrans Windows) */
   + ".eb-fp-slide img,.eb-fp-slide video{display:block;width:100%;height:auto}"
   // Miniatures du diaporama (à la place des points) : en bas de la photo sur téléphone, en colonne à droite sur ordinateur
@@ -48,8 +47,8 @@
   + ".eb-fp-mini.on{border-color:#1a1a1a}"
   + ".eb-fp-minis.eb-nombreuses{gap:6px}.eb-fp-minis.eb-nombreuses .eb-fp-mini{width:37px;height:37px;border-radius:7px}"
   + ".eb-fp-mini img,.eb-fp-mini video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 55%;pointer-events:none}"
-  + ".eb-fp-mini img.eb-fp-mini-flacon{transform:scale(1.75);transform-origin:50% 62%}"   /* photos sable : on resserre sur le soin */
-  + ".eb-fp-slides{touch-action:pan-x pan-y;cursor:grab}"
+  + ".eb-fp-mini img.eb-fp-mini-cadre{position:absolute;left:50%;top:50%;height:auto;max-width:none;object-fit:fill}"   /* photos sable : le soin entier, centré */
+  + ".eb-fp-slides{touch-action:pan-x pan-y pinch-zoom;cursor:grab}"
   // En-tête de la fiche
   + ".eb-fp-content{padding:32px 24px 70px;max-width:620px;margin:0 auto}"
   + "@media (max-width:899px){.eb-fp-content{padding-top:16px}}"
@@ -784,8 +783,15 @@
     return m;
   }
 
-  // Zoom : les photos sable (soin seul, soin + boîte, scènes des routines) s'agrandissent au toucher ou au clic
-  function zoomClasse(src){ return /bloom-fiche-(?!.*mannequin)/.test(src) ? ' class="eb-zoomable"' : ''; }
+  // Miniatures des photos sable : [largeur de la photo en %, centre du soin en % (horizontal, vertical)], mesuré sur chaque photo
+  var CADRES_MINI = {"arbutin-1":[128.3,50.0,56.7],"arbutin-2":[155.0,49.9,59.7],"gelee-lumibloom-1":[128.3,50.1,56.7],"gelee-lumibloom-2":[155.8,50.0,59.7],"lumi-pure-1":[185.8,49.9,63.3],"lumi-pure-2":[185.8,49.9,63.3],"luminescence-boost-1":[128.3,50.0,56.7],"luminescence-boost-2":[155.0,50.0,59.7],"luminescence-jour-1":[100.2,49.9,49.5],"luminescence-jour-2":[107.9,50.0,50.7],"luminescence-nuit-1":[100.2,49.9,49.5],"luminescence-nuit-2":[107.9,50.0,50.7],"lumiveil-b1-clair-1":[138.2,50.0,51.8],"lumiveil-b1-clair-2":[162.0,50.0,55.0],"lumiveil-b2-moyen-1":[138.2,50.1,51.8],"lumiveil-b2-moyen-2":[162.0,50.0,55.0],"lumiveil-b3-hale-1":[138.2,50.1,51.8],"lumiveil-b3-hale-2":[161.8,50.0,54.9],"lumiveil-b4-fonce-1":[138.3,50.1,51.8],"lumiveil-b4-fonce-2":[161.8,50.0,54.9],"milky-bloom-1":[100.0,50.0,45.5],"milky-bloom-2":[100.0,50.0,45.6],"niacinamide-5-1":[100.2,49.9,49.5],"niacinamide-5-2":[107.9,50.0,50.7],"patchs-antioxydants-b5":[127.9,50.8,50.2],"patchs-cafeine-vitamine-c":[127.9,50.8,50.2],"patchs-niacinamide":[127.9,50.8,50.2],"radiance-cleanser-1":[100.0,50.0,45.9],"radiance-cleanser-2":[100.0,50.0,45.8],"radiance-eye-cream-1":[148.3,49.2,60.3],"radiance-eye-cream-2":[181.1,49.9,62.7],"radiance-protect-sans-teinte-1":[138.2,50.0,51.8],"radiance-protect-sans-teinte-2":[162.9,50.0,55.1],"radiance-protect-teinte-1":[138.2,50.1,51.8],"radiance-protect-teinte-2":[162.0,50.0,55.0],"radiance-serum-1":[131.0,50.3,56.4],"radiance-serum-2":[147.1,49.9,58.5],"rituel-luminescence-1":[100.0,50.0,49.0],"rituel-luminescence-2":[101.6,49.9,54.6],"routine-eclat-peau-mixte":[108.3,50.0,50.0],"routine-eclat-peau-sensible":[107.8,50.0,50.0],"routine-equilibre-b1":[125.4,50.0,50.0],"routine-equilibre-b3":[125.4,50.0,50.0],"routine-equilibre-b4":[125.4,50.0,50.0],"routine-equilibre":[125.4,50.0,50.0],"routine-fermete-sans-teinte":[125.3,50.0,50.0],"routine-fermete":[125.3,50.0,50.0],"routine-hydratation":[125.4,50.0,50.0],"routine-regard":[135.1,49.9,50.0],"routine-teint-protection-b1":[170.6,50.0,50.0],"routine-teint-protection-b3":[170.6,50.0,50.0],"routine-teint-protection-b4":[170.6,50.0,50.0],"routine-teint-protection":[170.6,50.0,50.0]};
+  function cadreMini(src){
+    var m = /bloom-fiche-([a-z0-9-]+)\.png/.exec(src), c = m && CADRES_MINI[m[1]];
+    return c ? ' class="eb-fp-mini-cadre" style="width:' + c[0] + '%;transform:translate(-' + c[1] + '%,-' + c[2] + '%)"' : '';
+  }
+
+  // Zoom (ordinateur) : les photos sable (soin seul, soin + boîte, scènes des routines) s'agrandissent au clic
+  function zoomClasse(src){ return /bloom-fiche-(?!.*mannequin)/.test(src) && window.matchMedia('(hover:hover) and (pointer:fine)').matches ? ' class="eb-zoomable"' : ''; }
 
   function mediaHTML(m, nom){
     if(!m) return '';
@@ -818,7 +824,7 @@
       var video = /\.mp4(\?|$)/i.test(src), ap = apercus[src];
       var contenu = ap ? '<img src="' + esc(ap) + '" alt="">'
         : video ? '<video muted playsinline preload="metadata" src="' + esc(src) + '#t=0.5"></video>'
-        : '<img' + (/bloom-fiche-(?!rituel|routine)/.test(src) ? ' class="eb-fp-mini-flacon"' : '') + ' src="' + esc(hd(src, 1600)) + '" alt="">';
+        : '<img' + cadreMini(src) + ' src="' + esc(hd(src, 1600)) + '" alt="">';
       h += '<button type="button" class="eb-fp-mini' + (i === 0 ? ' on' : '') + '" aria-label="Voir la photo ' + (i + 1) + '">' + contenu + '</button>';
     });
     return h + '</div></div>';
@@ -877,16 +883,6 @@
       var img = e.target.closest && e.target.closest('.eb-fp-left img.eb-zoom');
       if(img) viser(img, e.clientX, e.clientY);
     });
-    // Téléphone : une fois zoomée, on se promène en glissant le doigt (le diaporama ne bouge pas)
-    var tactile = function(e){
-      var img = e.target.closest && e.target.closest('.eb-fp-left img.eb-zoom');
-      if(!img) return;
-      e.stopPropagation();
-      if(e.type === 'touchmove'){ e.preventDefault(); viser(img, e.touches[0].clientX, e.touches[0].clientY); }
-    };
-    overlay.addEventListener('touchstart', tactile, { capture: true, passive: true });
-    overlay.addEventListener('touchmove', tactile, { capture: true, passive: false });
-    overlay.addEventListener('touchend', tactile, { capture: true, passive: true });
   }
 
   function demarrerDiaporama(){
@@ -1052,6 +1048,9 @@
     if(data.inci) charger(INCI_DATA, function(){ return typeof INCI_DETAILS !== 'undefined'; });
 
     var dep = (data.variantes && data.variantes[data.teinteDepart]) ? data.teinteDepart : 0;   // teinte affichée à l'ouverture
+    if(ctx.teinte && data.variantes){   // teinte déjà choisie par la cliente (ex. sur la page Bloom)
+      data.variantes.forEach(function(v, k){ if(v.label === ctx.teinte) dep = k; });
+    }
     var h = '<div class="eb-fp-wrap' + (window.EB_MEDIA_PLEIN ? ' eb-fp-plein' : '') + '"><div class="eb-fp-left">' + mediaHTML(mediaTeinte(data, dep), data.nom) + '</div><div class="eb-fp-right"><div class="eb-fp-content">';
 
     // En-tête : titre, actifs, détails, petite note
@@ -1294,8 +1293,10 @@
     // Ouverte depuis une autre fiche : on garde la précédente pour le bouton « Retour »
     var dejaOuverte = overlay && overlay.classList.contains('open') && courant;
     if(dejaOuverte) pile.push(courant); else pile = [];
-    var depuis = el.getAttribute('data-depuis-routine');
-    ebFicheOpen(id, depuis ? { routine: depuis } : {});
+    var depuis = el.getAttribute('data-depuis-routine'), ctx = {};
+    if(depuis) ctx.routine = depuis;
+    if(el.getAttribute('data-teinte-nom')) ctx.teinte = el.getAttribute('data-teinte-nom');
+    ebFicheOpen(id, ctx);
   }, true);
 
   // Ouverture directe par l'adresse : ?fiche=radiance-serum

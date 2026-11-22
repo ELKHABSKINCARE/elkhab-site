@@ -603,6 +603,7 @@
       im.alt = on ? SOINS[id].alt : ''; if(on) im.removeAttribute('aria-hidden'); else im.setAttribute('aria-hidden', 'true');
     });
     card.querySelectorAll('.ebs-t').forEach(function(y){ y.classList.toggle('on', y === t); });
+    card.setAttribute('data-teinte-nom', x.variante);   // la fiche s'ouvrira sur cette teinte
     card.querySelector('.ebs-tt em').textContent = x.nom;
   }
   function ajouter(btn){
