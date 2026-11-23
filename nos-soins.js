@@ -14,7 +14,6 @@
     espaceMenu: 64,          // hauteur du menu fixe : la bande des types se colle juste dessous
     fondSite: "#f5f4f0",     // couleur exacte du fond du site
     photoTelephoneHaut: "-10%",   // téléphone : remonte la photo de la bannière (les flacons au-dessus du texte, comme Balance)
-    versionPhotos: 3,        // +1 si une photo remplacée dans Shopify ne se met pas à jour
     typeParDefaut: "nettoyants",
     // Types sans échelle de texture (pas de phrase « du plus léger au plus riche », pas de curseur sur le côté)
     typesSansEchelle: ["protection", "masques"],
@@ -102,8 +101,6 @@
   var PARAM = root.getAttribute('data-param') || 'type', LIBELLE = root.getAttribute('data-choix') || 'Type de soin';
   var DEFAUT = root.getAttribute('data-defaut') || REGLAGES.typeParDefaut;
   function esc(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
-  function src(u, w){ if(!u) return ''; if(u.indexOf('cdn.shopify.com') < 0) return u; u = u.split('?')[0];   // l'ancien numéro « ?v= » de Shopify est retiré : on reçoit toujours la photo du jour
-    return u + '?width=' + w + '&eb=' + REGLAGES.versionPhotos; }
   function brute(img){ return (img.getAttribute('data-src') || img.getAttribute('src') || '').replace(/([?&])width=\d+&?/, '$1').replace(/[?&]$/, ''); }
 
   // Les types du 2e embed rejoignent le 1er (une seule page pour la cliente)
@@ -203,11 +200,7 @@
   + ".ens-c{display:block;text-decoration:none;color:#111;cursor:pointer}"
   + ".ens-c.off{display:none}"
   + ".ens-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto}"
-  + ".ens-ph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 93%;opacity:0;transition:opacity .6s ease,transform .4s ease}"
-  + ".ens-ph img.pret{opacity:1}"
-  // bords toujours fondus : même si un écran affiche le fond de la photo un rien différent du site, aucun cadre n'apparaît
-  + ".ens-ph img.pret{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 6%,#000 95%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 6%,#000 95%,transparent);mask-composite:intersect}"
-  + ".ens-ph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
+  + ".ens-ph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;transition:transform .4s ease}"
   + ".ens-c:hover .ens-ph img{transform:translateY(-3px)}"
   + ".ens-g{font-size:8.5px;letter-spacing:.28em;font-weight:600;margin:10px 0 6px;text-transform:uppercase}"
   + ".ens-g.bloom{color:#c58b74}.ens-g.balance{color:#7d8f66}"
@@ -217,7 +210,7 @@
   // ── Cartes v2 (vignettes préparées à l'avance, comme Bloom et Balance) : vignette arrondie, textes centrés, bouton Ajouter ──
   + ".ens-c.v2{text-align:center}"
   + ".ens-c.v2 .ens-ph{max-width:none;border-radius:12px;background:#f6f4f0;border:1px solid #fff;box-shadow:0 6px 18px rgba(40,25,20,.10)}"
-  + ".ens-c.v2 .ens-ph img{opacity:1;object-fit:cover;object-position:50% 50%;-webkit-mask-image:none;mask-image:none;border-radius:11px}"
+  + ".ens-c.v2 .ens-ph img{border-radius:11px}"
   + ".ens-c.v2 .ens-g{margin:16px 0 0}"
   + "#eb-ns .ens-c.v2 h3{font-size:13px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;line-height:1.45;margin:6px 0 0;color:#000}"
   + ".ens-c.v2 .ens-a{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;line-height:1.55;margin:8px 0 0;color:#8a6a55;text-wrap:balance}"
@@ -342,7 +335,6 @@
     setTimeout(montrer, 1500);   // sécurité : si la photo tarde (réseau lent), on n'attend pas plus
   }
   var secs = [].slice.call(root.querySelectorAll('.ens-s'));
-  secs.forEach(function(s){ s.querySelectorAll('.ens-c').forEach(function(c){ var im = c.querySelector('img'); if(im) im.setAttribute('data-g', c.getAttribute('data-gamme')); }); });
 
   // ── Prix toujours à jour (ceux des fiches, quand elles sont chargées) ──
   function majPrix(){
@@ -442,7 +434,6 @@
     choix.innerHTML = esc(LIBELLE) + ' : <b>' + esc(nomT) + '</b><i>+</i>';
     drop.querySelectorAll('a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-type') === type); var o = root.querySelector('.ens-tabs a[data-type="' + a.getAttribute('data-type') + '"]'); a.classList.toggle('vide', !!(o && o.classList.contains('vide'))); });
     colorer();
-    s.querySelectorAll('.ens-c:not(.v2) .ens-ph img').forEach(function(im){ if(!im.getAttribute('data-vu')){ im.setAttribute('data-vu', '1'); retravailler(im); } });
     // nouveau type = comme une nouvelle page : on remonte en douceur jusqu'à la bannière, qui affiche le nouveau titre
     if(defiler){
       var haut = ban ? window.scrollY + ban.getBoundingClientRect().top - REGLAGES.espaceMenu : 0;
@@ -568,133 +559,6 @@
     document.body.appendChild(s);
   }
   charger(0);
-
-  // ── Photos : fondues dans le fond du site, même échelle, même ligne de sol ──
-  var FONDSITE = (function(c){ c = c.replace('#', ''); return [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }); })(REGLAGES.fondSite);
-  var CW = 600, CH = 800, SOL = CH * .93, PXCM = CH * .84 / 16;
-  function couleur(c){ c = (c || '').replace('#', ''); return c.length === 6 ? [0, 2, 4].map(function(i){ return parseInt(c.substr(i, 2), 16); }) : null; }
-  // Modèle du fond (polynôme de degré 3 en x et y, par couleur), mesuré sur les points de fond uniquement
-  function aplanir(p, w, h, FOND){
-    var pas = Math.max(4, Math.round(Math.min(w, h) / 90)), T = [], V = [[], [], []];
-    function termes(u, v){ return [1, u, v, u * u, u * v, v * v, u * u * u, u * u * v, u * v * v, v * v * v]; }
-    for(var y = 0; y < h; y += pas) for(var xx = 0; xx < w; xx += pas){
-      var i = (y * w + xx) * 4;
-      if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 16) continue;   // flacon, ombre : ignorés
-      T.push(termes(xx / w * 2 - 1, y / h * 2 - 1)); V[0].push(p[i]); V[1].push(p[i + 1]); V[2].push(p[i + 2]);
-    }
-    if(T.length < 60) return;
-    var n = 10, coefs = [];
-    for(var c = 0; c < 3; c++){
-      var A = [], k, j, l;
-      for(k = 0; k < n; k++){ A.push(new Array(n + 1).fill(0)); }
-      for(var t = 0; t < T.length; t++){ var r = T[t]; for(k = 0; k < n; k++){ for(j = 0; j < n; j++) A[k][j] += r[k] * r[j]; A[k][n] += r[k] * V[c][t]; } }
-      for(k = 0; k < n; k++) A[k][k] += 1e-6;
-      for(k = 0; k < n; k++){   // élimination de Gauss
-        var piv = k; for(j = k + 1; j < n; j++) if(Math.abs(A[j][k]) > Math.abs(A[piv][k])) piv = j;
-        var tmp = A[k]; A[k] = A[piv]; A[piv] = tmp; if(Math.abs(A[k][k]) < 1e-12) return;
-        for(j = k + 1; j < n; j++){ var f = A[j][k] / A[k][k]; for(l = k; l <= n; l++) A[j][l] -= f * A[k][l]; }
-      }
-      var x0 = new Array(n).fill(0);
-      for(k = n - 1; k >= 0; k--){ var sm = A[k][n]; for(j = k + 1; j < n; j++) sm -= A[k][j] * x0[j]; x0[k] = sm / A[k][k]; }
-      coefs.push(x0);
-    }
-    for(var y2 = 0; y2 < h; y2++){
-      var v2 = y2 / h * 2 - 1;
-      for(var x2 = 0; x2 < w; x2++){
-        var tt = termes(x2 / w * 2 - 1, v2), i2 = (y2 * w + x2) * 4;
-        for(var c2 = 0; c2 < 3; c2++){
-          var fond = 0, cf = coefs[c2]; for(var q = 0; q < n; q++) fond += cf[q] * tt[q];
-          if(fond > 40) p[i2 + c2] = Math.max(0, Math.min(255, p[i2 + c2] * FOND[c2] / fond));
-        }
-      }
-    }
-  }
-  function retravailler(img){
-    var s = { hauteur: parseFloat(img.getAttribute('data-h')) || 0 }, url = src(brute(img), 700), bloom = img.getAttribute('data-g') === 'bloom';
-    var FOND = couleur(img.getAttribute('data-fond')) || FONDSITE;
-    var secours = setTimeout(function(){ img.classList.add('brut'); }, 12000);
-    fetch(url, { mode: 'cors' }).then(function(r){ if(!r.ok) throw 0; return r.blob(); })
-    .then(function(b){ return createImageBitmap(b); })
-    .then(function(bmp){
-      var w = bmp.width, h = bmp.height, c = document.createElement('canvas'); c.width = w; c.height = h;
-      var x = c.getContext('2d'); x.drawImage(bmp, 0, 0);
-      var d = x.getImageData(0, 0, w, h), p = d.data, i, k;
-      // 1. couleur du fond de la photo (bords du haut et des côtés)
-      var ech = [[], [], []];
-      function prendre(px, py){ var j = (py * w + px) * 4; ech[0].push(p[j]); ech[1].push(p[j + 1]); ech[2].push(p[j + 2]); }
-      for(k = 0; k < w; k += 4){ prendre(k, 2); prendre(k, 5); }
-      for(k = 0; k < h / 4; k += 4){ prendre(2, k | 0); prendre(w - 3, k | 0); }
-      var F = ech.map(function(a, n){ a.sort(function(u, v){ return u - v; }); return FOND[n] / (a[a.length >> 1] || 255); });
-      // 2. le fond de la photo devient exactement celui du site
-      for(i = 0; i < p.length; i += 4){ p[i] = Math.min(255, p[i] * F[0]); p[i + 1] = Math.min(255, p[i + 1] * F[1]); p[i + 2] = Math.min(255, p[i + 2] * F[2]); }
-      // 2 bis. fond uniforme : les photos de studio ont souvent un halo plus clair ou un dégradé derrière le flacon.
-      //        On mesure ce fond partout (hors flacon et ombre), on le modélise, puis on le ramène partout au beige exact du site.
-      aplanir(p, w, h, FOND);
-      x.putImageData(d, 0, 0);
-      // 3. repérer le soin (colonnes hautes ; l'ombre au sol, plate, est ignorée)
-      var col = new Uint32Array(w), dif = new Uint8Array(w * h);
-      for(var y = 0; y < h; y++) for(var xx = 0; xx < w; xx++){
-        i = (y * w + xx) * 4;
-        if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 10){ dif[y * w + xx] = 1; col[xx]++; }
-      }
-      var x0 = -1, x1 = -1;
-      // le flacon = les colonnes nettement différentes du fond (une ombre douce n'est pas prise pour le flacon)
-      var fort = new Uint32Array(w);
-      for(var y3 = 0; y3 < h; y3++) for(var x3 = 0; x3 < w; x3++){ i = (y3 * w + x3) * 4; if(Math.max(Math.abs(p[i] - FOND[0]), Math.abs(p[i + 1] - FOND[1]), Math.abs(p[i + 2] - FOND[2])) > 40) fort[x3]++; }
-      for(xx = 0; xx < w; xx++) if(fort[xx] > h * .08){ if(x0 < 0) x0 = xx; x1 = xx; }
-      if(x0 < 0 || x1 - x0 < w * .1){ x0 = x1 = -1; for(xx = 0; xx < w; xx++) if(col[xx] > h * .12){ if(x0 < 0) x0 = xx; x1 = xx; } }
-      var y0 = -1, y1 = -1;
-      if(x0 >= 0 && x1 - x0 > w * .1){
-        var seuil = Math.max(2, (x1 - x0) * .04);
-        for(y = 0; y < h; y++){ var n = 0; for(xx = x0; xx <= x1; xx++) n += dif[y * w + xx]; if(n >= seuil){ if(y0 < 0) y0 = y; y1 = y; } }
-        // le pied du soin = dernière ligne vraiment pleine (le reflet sous le flacon ne compte pas)
-        if(y0 >= 0){
-          var yb = y1, plein = (x1 - x0) * .5;
-          while(yb > y0){ var m = 0; for(xx = x0; xx <= x1; xx++) m += dif[yb * w + xx]; if(m >= plein) break; yb--; }
-          if(y1 - yb > (y1 - y0) * .03) y1 = yb;
-        }
-      }
-      // 4. bords fondus (l'ombre s'efface doucement au lieu d'être coupée)
-      x.globalCompositeOperation = 'destination-in';
-      //    seulement AUTOUR du flacon : le flacon lui-même n'est jamais rendu transparent (pas de halo blanc sur ses bords)
-      var fg = .14, fd = .86, fh = .08, fb = .92;
-      if(x0 >= 0){ var mg = (x1 - x0) * .1 + 4; fg = Math.min(.14, Math.max(0, (x0 - mg) / w)); fd = Math.max(.86, Math.min(1, (x1 + mg) / w)); }
-      if(y0 >= 0){ fh = Math.min(.08, Math.max(0, (y0 - 3) / h)); fb = Math.max(.92, Math.min(1, (y1 + 3) / h)); }
-      // photos Bloom (cadrées serré, fond moins régulier) : bords toujours fondus, comme sur la page Bloom
-      // les ombres touchent parfois le bord de la photo : on fond le plus loin possible, jusqu'au flacon
-      if(true){   // toutes les photos : l'ombre s'efface progressivement jusqu'au flacon, jamais coupée net
-        var mb = x0 >= 0 ? (x1 - x0) * .06 + 4 : 0;
-        fg = x0 >= 0 ? Math.min(.45, Math.max(.02, (x0 - mb) / w)) : .14;
-        fd = x0 >= 0 ? Math.max(.55, Math.min(.98, (x1 + mb) / w)) : .86;
-        fh = y0 >= 0 ? Math.min(.3, Math.max(.02, (y0 - 6) / h)) : .08;
-        fb = y1 >= 0 ? Math.min(1, Math.max((y1 + 3) / h, .9, Math.min(.97, (y1 + (h - y1) * .25) / h))) : .92;
-      }
-      var g = x.createLinearGradient(0, 0, w, 0);
-      g.addColorStop(0, fg > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fg, '#000'); g.addColorStop(fd, '#000'); g.addColorStop(1, fd < .999 ? 'rgba(0,0,0,0)' : '#000');
-      x.fillStyle = g; x.fillRect(0, 0, w, h);
-      g = x.createLinearGradient(0, 0, 0, h);
-      g.addColorStop(0, fh > .001 ? 'rgba(0,0,0,0)' : '#000'); g.addColorStop(fh, '#000'); g.addColorStop(fb, '#000'); g.addColorStop(1, fb < .999 ? 'rgba(0,0,0,0)' : '#000');
-      x.fillStyle = g; x.fillRect(0, 0, w, h);
-      // 5. cadre commun : même échelle (hauteur réelle), même ligne de sol
-      var o = document.createElement('canvas'); o.width = CW; o.height = CH;
-      var ox = o.getContext('2d');   // fond transparent : la photo se fond dans la page
-      var sc, dx, dy;
-      if(y0 >= 0 && s.hauteur && (y1 - y0) > h * .2){
-        sc = s.hauteur * PXCM / (y1 - y0);
-        if((x1 - x0) * sc > CW * .8) sc = CW * .8 / (x1 - x0);
-        dx = CW / 2 - (x0 + x1) / 2 * sc; dy = SOL - y1 * sc;
-      } else { sc = Math.min(CW / w, CH / h); dx = (CW - w * sc) / 2; dy = CH - h * sc; }
-      ox.drawImage(c, dx, dy, w * sc, h * sc);
-      o.toBlob(function(b){
-        clearTimeout(secours);
-        if(!b){ img.classList.add('brut'); return; }
-        img.onload = function(){ img.classList.add('pret'); };
-        img.src = URL.createObjectURL(b);
-      }, 'image/png');
-    })
-    .catch(function(){ clearTimeout(secours); img.classList.add('brut'); });
-  }
-
 
   // ── Pour Google : la liste des soins (nom, photo, prix, marque) ──
   try {
