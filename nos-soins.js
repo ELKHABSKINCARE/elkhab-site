@@ -42,46 +42,45 @@
   // ── Photo de bannière propre à un type de soin (les types absents gardent la photo de l'embed)
   //    photo : le lien de la photo (photoTel : une autre photo pour le téléphone, facultatif)
   //    cadrage : la partie de la photo à garder visible (ordinateur, puis téléphone)
-  //    fond : couleur du fond derrière la photo · telPlein + telHaut : sur téléphone, photo depuis le haut sur telHaut de l'écran
-  //    sombreTel : sur téléphone, textes en blanc sur fond noir (photo foncée)
+  //    fond : couleur du fond derrière la photo
   var PHOTOS_TYPES = {
     nettoyants: { photo: REGLAGES.base + "nos-soins-nettoyants.webp", cadrage: "70% 50%", cadrageTel: "68% 50%",
                   alt: "Mousse d'un nettoyant visage doux ELKHA.B : démaquillants et nettoyants" },
     lotions:    { photo: REGLAGES.base + "nos-soins-lotions.webp", photoTel: REGLAGES.base + "nos-soins-lotions-tel.webp",
-                  cadrage: "100% 50%", cadrageTel: "45% 50%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "45% 50%",
                   alt: "Gouttes de lotion sur une surface claire : lotions toniques et exfoliants visage ELKHA.B" },
-    serums:     { photo: REGLAGES.base + "nos-soins-serums.webp", photoTel: REGLAGES.base + "nos-soins-serums-tel.webp", fond: "#d9cab7",
-                  cadrage: "60% 50%", cadrageTel: "50% 75%",
+    serums:     { photo: REGLAGES.base + "nos-soins-serums.webp", photoTel: REGLAGES.base + "nos-soins-serums-tel-v2.webp", fond: "#d9cab7",
+                  cadrage: "60% 50%", cadrageTel: "50% 50%",
                   alt: "Goutte de sérum visage doré aux bulles fines ELKHA.B : sérums" },
-    cremes:     { photo: REGLAGES.base + "nos-soins-cremes.webp", photoTel: REGLAGES.base + "nos-soins-cremes-tel.webp",
-                  cadrage: "100% 50%", cadrageTel: "55% 50%",
+    cremes:     { photo: REGLAGES.base + "nos-soins-cremes.webp", photoTel: REGLAGES.base + "nos-soins-cremes-tel-v2.webp",
+                  cadrage: "100% 50%", cadrageTel: "50% 50%",
                   alt: "Texture d'un gel et d'une crème hydratante ELKHA.B : crèmes et gels visage" },
     yeux:       { photo: REGLAGES.base + "nos-soins-yeux.webp", photoTel: REGLAGES.base + "nos-soins-yeux-tel.webp", fond: "#f2e5de",
-                  cadrage: "100% 50%", cadrageTel: "87% 0%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "87% 0%",
                   alt: "Contour des yeux ELKHA.B : touches de crème appliquées sous l'œil pour hydrater et défroisser le regard" },
     masques:    { photo: REGLAGES.base + "nos-soins-masques.webp", photoTel: REGLAGES.base + "nos-soins-masques-tel.webp", fond: "#c4b2a4",
-                  cadrage: "100% 35%", cadrageTel: "64% 0%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 35%", cadrageTel: "64% 0%",
                   alt: "Patchs yeux ELKHA.B posés sous les yeux : masques et patchs visage" },
     sensibles:  { photo: REGLAGES.base + "nos-soins-sensibles.webp", photoTel: REGLAGES.base + "nos-soins-sensibles-tel.webp", fond: "#f4e4d3",
-                  cadrage: "100% 50%", cadrageTel: "57% 0%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "57% 0%",
                   alt: "Visages de femmes à la peau sensible, en lumière douce : soins pour peaux sensibles ELKHA.B" },
     hydratation: { photo: REGLAGES.base + "nos-soins-hydratation.webp", photoTel: REGLAGES.base + "nos-soins-hydratation-tel.webp", fond: "#e8d6c6",
-                  cadrage: "100% 50%", cadrageTel: "62% 50%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "62% 50%",
                   alt: "Crème hydratante appliquée sur une peau naturelle aux taches de rousseur : soins hydratation visage ELKHA.B" },
     eclat:      { photo: REGLAGES.base + "nos-soins-eclat.webp", photoTel: REGLAGES.base + "nos-soins-eclat-tel.webp", fond: "#e8d3c2",
-                  cadrage: "100% 50%", cadrageTel: "50% 0%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "50% 0%",
                   alt: "Gros plan d'un visage à la peau lumineuse : soins éclat du teint ELKHA.B" },
     taches:     { photo: REGLAGES.base + "nos-soins-taches.webp", photoTel: REGLAGES.base + "nos-soins-taches-tel.webp", fond: "#e9d6c6",
-                  cadrage: "100% 50%", cadrageTel: "60% 0%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "60% 0%",
                   alt: "Peau aux taches de rousseur en gros plan : soins anti-taches et teint unifié ELKHA.B" },
     fermete:    { photo: REGLAGES.base + "nos-soins-fermete.webp", photoTel: REGLAGES.base + "nos-soins-fermete-tel.webp", fond: "#e6d2c1",
-                  cadrage: "100% 50%", cadrageTel: "58% 50%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "58% 50%",
                   alt: "Sérum anti-âge appliqué à la pipette près de l'œil : soins rides et fermeté ELKHA.B" },
     pores:      { photo: REGLAGES.base + "nos-soins-pores.webp", photoTel: REGLAGES.base + "nos-soins-pores-tel.webp", fond: "#ecd9ca",
-                  cadrage: "100% 50%", cadrageTel: "50% 0%", telPlein: true, telHaut: "100%",
+                  cadrage: "100% 50%", cadrageTel: "50% 0%",
                   alt: "Peau du visage en gros plan, grain de peau et pores : soins pores et imperfections ELKHA.B" },
     protection: { photo: REGLAGES.base + "nos-soins-protection.webp", photoTel: REGLAGES.base + "nos-soins-protection-tel.webp",
-                  cadrage: "100% 40%", cadrageTel: "73% 0%", telPlein: true, telHaut: "100%", sombreTel: true,
+                  cadrage: "100% 40%", cadrageTel: "73% 0%",
                   alt: "Femme au chapeau de paille au soleil couchant : protection solaire visage ELKHA.B" }
   };
   // ── NE RIEN MODIFIER EN DESSOUS ──────────────────────────────────────
@@ -153,13 +152,9 @@
   // téléphone : exactement comme la bannière Balance — photo sur toute la hauteur, fondu beige en bas (sans voile en haut : la photo garde ses couleurs), texte posé dessus
   + "@media(max-width:699px){.ens-ban{display:block;height:100vh;height:100svh;min-height:660px;max-height:900px;background:" + REGLAGES.fondSite + "}"
   +   ".ens-bimg{position:absolute;left:0;top:"+REGLAGES.photoTelephoneHaut+";width:100%;height:100%;aspect-ratio:auto;object-fit:cover;object-position:50% 50%;-webkit-mask-image:linear-gradient(180deg,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,#000 82%,transparent 100%)}"
-  +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:28%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.45) 40%,rgba(245,244,240,.8) 72%,rgba(245,244,240,.96) 92%,#f5f4f0 100%);transition:opacity .6s ease}"
+  +   ".ens-ban:after{content:'';position:absolute;left:0;right:0;bottom:0;height:44%;z-index:1;background:linear-gradient(180deg,rgba(245,244,240,0) 0%,rgba(245,244,240,.03) 14%,rgba(245,244,240,.09) 26%,rgba(245,244,240,.19) 37%,rgba(245,244,240,.33) 48%,rgba(245,244,240,.5) 59%,rgba(245,244,240,.67) 70%,rgba(245,244,240,.81) 81%,rgba(245,244,240,.9) 91%,rgba(245,244,240,.94) 100%)}"
   +   ".ens-bt{position:absolute;left:0;right:0;bottom:4%;max-width:none;margin:0;padding:0 32px;z-index:2}"
-  +   ".ens-cal img,.ens-cal.portrait img{left:0;right:auto;width:100%;aspect-ratio:auto;height:62%;-webkit-mask-image:linear-gradient(180deg,#000 75%,transparent 100%);mask-image:linear-gradient(180deg,#000 75%,transparent 100%)}"
-  // (telPlein : sur téléphone, la photo part du haut et descend sur telHaut de l'écran, avec un fondu très léger en bas seulement)
-  // (sombreTel : sur téléphone, photo foncée sur fond noir → textes clairs)
-  +   ".ens-ban.ens-sombre .ens-bn,.ens-ban.ens-sombre .ens-bm{color:#fff}#eb-ns .ens-ban.ens-sombre .ens-bk{color:#e9e3d9}.ens-ban.ens-sombre .ens-bt{text-shadow:0 1px 10px rgba(0,0,0,.55)}.ens-ban.ens-sombre .ens-bg{background:linear-gradient(90deg,#8f8676,#e9e3d9 45%,#fbfaf7)}"
-  +   ".ens-cal.tp img{height:var(--ens-telh,100%);-webkit-mask-image:linear-gradient(180deg,#000 90%,transparent 100%);mask-image:linear-gradient(180deg,#000 90%,transparent 100%)}.ens-ban.ens-telplein:after{opacity:0}"
+  +   ".ens-cal img,.ens-cal.portrait img{left:0;right:auto;width:100%;aspect-ratio:auto;height:100%}"
   +   ".ens-ban.ens-photo .ens-bt{max-width:none}"
   +   "#eb-ns .ens-bk{font-size:9px;color:#2a2723;margin:0 0 11px}"
   +   ".ens-bn{font-size:24px;letter-spacing:.28em;padding-left:.28em;line-height:1.3}"
@@ -297,9 +292,7 @@
   function reglerCalque(cal, p, tel){
     var img = cal.firstChild;
     cal.classList.toggle('portrait', !!p.portrait);
-    cal.classList.toggle('tp', !!p.telPlein);
-    if(p.telHaut) cal.style.setProperty('--ens-telh', p.telHaut); else cal.style.removeProperty('--ens-telh');
-    cal.style.background = tel ? (p.sombreTel ? '#111' : REGLAGES.fondSite) : (p.fond || REGLAGES.fondSite);
+    cal.style.background = tel ? REGLAGES.fondSite : (p.fond || REGLAGES.fondSite);
     img.style.objectPosition = tel ? (p.cadrageTel || p.cadrage || '50% 50%') : (p.cadrage || '50% 50%');
     img.alt = p.alt || '';
   }
@@ -309,8 +302,6 @@
     if(!plein){ pret(); return; }
     var p = PHOTOS_TYPES[type], n = ++nPhoto, tel = window.innerWidth < 700;
     function appliquer(){
-      ban.classList.toggle('ens-telplein', !!(p && p.telPlein));
-      ban.classList.toggle('ens-sombre', !!(p && p.sombreTel));
       ban.classList.toggle('ens-photo', !!p);
     }
     if(!p){ cals.forEach(function(c){ c.classList.remove('ok'); }); appliquer(); pret(); return; }
