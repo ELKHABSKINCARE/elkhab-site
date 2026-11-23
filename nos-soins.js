@@ -200,6 +200,26 @@
   + "#eb-ns h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 6px;line-height:1.35}"
   + ".ens-a{font-size:11px;font-weight:400;color:#2a2723;margin:0 0 6px;line-height:1.5}"
   + ".ens-p{font-size:11px;font-weight:400;margin:0}"
+  // ── Cartes v2 (vignettes préparées à l'avance, comme Bloom et Balance) : vignette arrondie, textes centrés, bouton Ajouter ──
+  + ".ens-c.v2{text-align:center}"
+  + ".ens-c.v2 .ens-ph{max-width:none;border-radius:12px;background:#f6f4f0;border:1px solid #fff;box-shadow:0 6px 18px rgba(40,25,20,.10)}"
+  + ".ens-c.v2 .ens-ph img{opacity:1;object-fit:cover;object-position:50% 50%;-webkit-mask-image:none;mask-image:none;border-radius:11px}"
+  + ".ens-c.v2 .ens-g{margin:16px 0 0}"
+  + "#eb-ns .ens-c.v2 h3{font-size:13px;font-weight:500;letter-spacing:.15em;text-transform:uppercase;line-height:1.45;margin:6px 0 0;color:#000}"
+  + ".ens-c.v2 .ens-a{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;line-height:1.55;margin:8px 0 0;color:#8a6a55;text-wrap:balance}"
+  + ".ens-c.v2[data-gamme=balance] .ens-a{color:#6b7a52}"
+  + ".ens-c.v2 .ens-l{font-size:12.5px;font-weight:300;line-height:1.55;margin:8px 0 0;color:#3a2a24;text-wrap:balance}"
+  + ".ens-c.v2[data-gamme=balance] .ens-l{color:#2f3a2a}"
+  + ".ens-c.v2 .ens-p{display:flex;align-items:baseline;justify-content:center;gap:8px;margin:14px 0 0;font-size:11.5px;letter-spacing:.08em;color:rgba(0,0,0,.5)}"
+  + ".ens-c.v2 .ens-prix{font-size:14px;font-weight:500;letter-spacing:.03em;color:#000}"
+  + ".ens-aj{display:block;margin:18px auto 0;width:78%;max-width:210px;background:#000;color:#f5f4f0;padding:12px 0;font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;text-align:center;cursor:pointer;transition:background .25s ease}"
+  + ".ens-aj:hover,.ens-aj.ok{background:#3a2a24}"
+  + ".ens-c[data-gamme=balance] .ens-aj:hover,.ens-c[data-gamme=balance] .ens-aj.ok{background:#2f3a2a}"
+  + "@media(max-width:599px){.ens-c.v2 .ens-ph{margin:0 2px}#eb-ns .ens-c.v2 h3{font-size:11px;letter-spacing:.11em}.ens-c.v2 .ens-a{font-size:8.5px;margin-top:7px}.ens-c.v2 .ens-l{font-size:10.5px;margin-top:7px}.ens-c.v2 .ens-p{margin-top:9px;gap:6px;font-size:9.5px}.ens-c.v2 .ens-prix{font-size:13px}.ens-aj{width:88%;padding:10px 0;font-size:9px;letter-spacing:.2em;margin-top:14px}}"
+  + ".ens-c.v2{display:flex;flex-direction:column}"
+  + ".ens-c.v2 .ens-ph{width:100%}"
+  + ".ens-c.v2 .ens-p{margin-top:auto;padding-top:14px}"
+  + "@media(max-width:599px){.ens-c.v2 .ens-p{padding-top:9px}}"
   // Échelle de texture : fine barre en dégradé sur le bord droit, avec un curseur carré (comme Bloom et Balance)
   + ".ens-rail{position:fixed;right:0;width:30px;z-index:45;opacity:0;pointer-events:none;transition:opacity .4s ease;touch-action:none;cursor:pointer}"
   + ".ens-rail.vu{opacity:1;pointer-events:auto}"
@@ -402,7 +422,7 @@
     choix.innerHTML = esc(LIBELLE) + ' : <b>' + esc(nomT) + '</b><i>+</i>';
     drop.querySelectorAll('a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('data-type') === type); var o = root.querySelector('.ens-tabs a[data-type="' + a.getAttribute('data-type') + '"]'); a.classList.toggle('vide', !!(o && o.classList.contains('vide'))); });
     colorer();
-    s.querySelectorAll('.ens-ph img').forEach(function(im){ if(!im.getAttribute('data-vu')){ im.setAttribute('data-vu', '1'); retravailler(im); } });
+    s.querySelectorAll('.ens-c:not(.v2) .ens-ph img').forEach(function(im){ if(!im.getAttribute('data-vu')){ im.setAttribute('data-vu', '1'); retravailler(im); } });
     // nouveau type = comme une nouvelle page : on remonte en douceur jusqu'à la bannière, qui affiche le nouveau titre
     if(defiler){
       var haut = ban ? window.scrollY + ban.getBoundingClientRect().top - REGLAGES.espaceMenu : 0;
@@ -445,6 +465,42 @@
     var b = e.target.closest && e.target.closest('.ens-skb'); if(!b) return;
     if(typeof window.ebDiagOpen === 'function'){ e.preventDefault(); window.ebDiagOpen(); }
   });
+
+  // ── Bouton Ajouter (cartes v2) : ajoute le soin au panier sans quitter la page ──
+  root.querySelectorAll('.ens-c.v2').forEach(function(c){
+    if(c.querySelector('.ens-aj')) return;
+    var b = document.createElement('span'); b.className = 'ens-aj'; b.setAttribute('role', 'button'); b.tabIndex = 0;
+    b.setAttribute('data-fiche', '');   // data-fiche vide : la fiche ne s'ouvre pas, le clic reste au bouton (comme sur Bloom)
+    b.setAttribute('aria-label', 'Ajouter ' + c.querySelector('h3').textContent + ' au panier'); b.textContent = 'Ajouter';
+    c.appendChild(b);
+  });
+  function variante(id){
+    var p = window.EB_PRODUITS && window.EB_PRODUITS[id]; if(!p) return '';
+    return p.variantId || (p.variantes && p.variantes[0] && p.variantes[0].variantId) || '';
+  }
+  function ajouter(btn){
+    if(btn.classList.contains('ok') || btn.getAttribute('data-envoi')) return;
+    var c = btn.closest('.ens-c'), v = variante(c.getAttribute('data-fiche'));
+    // panier indisponible : on ouvre la fiche du soin à la place
+    if(!v || typeof window.ebCartAddItem !== 'function'){ if(typeof window.ebFicheOpen === 'function' && window.EB_PRODUITS && window.EB_PRODUITS[c.getAttribute('data-fiche')]) window.ebFicheOpen(c.getAttribute('data-fiche')); else window.location.href = c.href; return; }
+    btn.setAttribute('data-envoi', '1');
+    function fini(ok){
+      btn.removeAttribute('data-envoi'); if(!ok) return;
+      btn.textContent = 'Ajouté'; btn.classList.add('ok');
+      setTimeout(function(){ btn.textContent = 'Ajouter'; btn.classList.remove('ok'); }, 2000);
+    }
+    Promise.resolve(window.ebCartAddItem(v, 1)).then(function(r){ fini(!!r); }, function(){ fini(false); });
+  }
+  // écouté sur window, en tout premier : le lien de la carte (changement de site du panier) ne doit pas partir
+  window.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('.ens-aj'); if(!b || !root.contains(b)) return;
+    e.preventDefault(); e.stopImmediatePropagation(); ajouter(b);
+  }, true);
+  window.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    var b = e.target.closest && e.target.closest('.ens-aj'); if(!b || !root.contains(b)) return;
+    e.preventDefault(); e.stopImmediatePropagation(); ajouter(b);
+  }, true);
 
   // ── Fiches : elles s'ouvrent ici même ──
   root.addEventListener('click', function(e){
