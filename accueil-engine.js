@@ -136,8 +136,8 @@
   + ".eba-up{font-size:13.5px;font-weight:400;line-height:1.75;color:#2a2723;margin:18px 0 0}"
   + ".eba-uprix{font-size:13px;font-weight:500;margin:20px 0 0}"
   + ".eba-ubtn{align-self:flex-start;margin-top:26px}"
-  // la photo des produits se fond dans le fond du site (bords adoucis), le texte est sur la carte sauge
-  + ".eba-uph{-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
+  // photo de la une : coins arrondis, sans fondu (le mode sombre ne crée plus de rectangle)
+  + ".eba-uph{border-radius:12px}"
   + "@media (max-width:699px){.eba-une{grid-template-columns:1fr;margin-top:30px}.eba-uph{aspect-ratio:1 / 1}.eba-utx{padding:28px 24px 32px;text-align:center;align-items:center}#eb-acc .eba-un{font-size:19px}.eba-up{font-size:12.5px}.eba-ubtn{align-self:center}}"
   // ── 5. Par où commencer : les besoins
   + "#eb-acc .eba-st2{font-size:13.5px;font-weight:400;line-height:1.7;color:#2a2723;max-width:520px;margin:20px auto 0}"
@@ -146,14 +146,14 @@
   + ".eba-bes a:hover{background-position:100% 0}"
   + ".eba-tout{display:inline-block;margin-top:30px;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;border-bottom:1px solid #111;padding-bottom:4px}"
   // ── 6. Les soins phares : à l'échelle réelle, posés sur la même ligne
-  + ".eba-rang{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 4 * 22px) / 5);gap:22px;max-width:1120px;margin:40px auto 0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}"
+  + ".eba-rang{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 4 * 22px) / 5);gap:22px;max-width:1120px;margin:34px auto 0;padding:6px 14px 22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}"
   + ".eba-rang::-webkit-scrollbar{display:none}"
   + ".eba-pc{display:block;scroll-snap-align:start;text-align:center;color:#111}"
-  + ".eba-pph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto}"
-  + ".eba-pph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 93%;opacity:0;transition:transform .4s ease}"
+  + ".eba-pph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto;border-radius:12px;background:#f5f4f0;border:1px solid #fff;box-shadow:0 6px 18px rgba(40,25,20,.10);transition:transform .4s ease}"
+  + ".eba-pph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0}"
   + ".eba-pph img.pret{opacity:1}"
   + ".eba-pph img.brut{opacity:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}"
-  + ".eba-pc:hover .eba-pph img{transform:translateY(-3px)}"
+  + ".eba-pc:hover .eba-pph{transform:translateY(-3px)}"
   + ".eba-pg{font-size:8.5px;letter-spacing:.28em;font-weight:600;margin:10px 0 6px;text-transform:uppercase}"
   + ".eba-pg.bloom{color:#c58b74}.eba-pg.balance{color:#7d8f66}"
   + "#eb-acc .eba-pn{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 6px;line-height:1.35}"
@@ -174,7 +174,7 @@
   + ".eba-fl button:disabled{opacity:.3;cursor:default}"
   + "@media (max-width:899px){.eba-bes{grid-template-columns:repeat(3,1fr)}}"
   + "@media (max-width:699px){.eba-bes{grid-template-columns:1fr 1fr;gap:8px;margin-top:28px}.eba-bes a{min-height:86px;font-size:10px;letter-spacing:.14em;padding:16px 8px}"
-  +   ".eba-rang{grid-auto-columns:44%;gap:10px;margin:28px -16px 0;padding:0 16px;scroll-padding:0 16px}"
+  +   ".eba-rang{grid-auto-columns:44%;gap:10px;margin:22px -16px 0;padding:6px 16px 22px;scroll-padding:0 16px}"
   +   ".eba-rout{grid-auto-columns:76%}.eba-fl{display:none}}"
   // ── 8. Elles ont choisi ELKHA.B : photos des clientes, toutes au même cadrage
   + ".eba-ugc{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:1120px;margin:40px auto 0}"
@@ -516,17 +516,28 @@
   
     // photos des soins phares déjà préparées (fond du site, même échelle) : elles s'affichent tout de suite, sans calcul
     var PRETES = {
-      'file_000000000e1481f585b2ee37b40be0d3.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-radiance-c-serum.webp',
-      'Lumi-Veil_B2_Flacon.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-lumi-veil-b2.webp',
-      'file_00000000c27082109ec53e33d47ac1b1.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-luminescence-nuit.webp',
-      'balance-cellular-reveal-flacon-site-v6.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-cellular-reveal.webp',
-      'balance-bright-control-flacon-site-v6.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-bright-control.webp'
+      'file_000000000e1481f585b2ee37b40be0d3.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-radiance-c-serum.webp?v=2',
+      'Lumi-Veil_B2_Flacon.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-lumi-veil-b2.webp?v=2',
+      'file_00000000c27082109ec53e33d47ac1b1.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-luminescence-nuit.webp?v=2',
+      'balance-cellular-reveal-flacon-site-v6.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-cellular-reveal.webp?v=2',
+      'balance-bright-control-flacon-site-v6.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-phare-bright-control.webp?v=2'
     };
     root.querySelectorAll('.eba-pph img[data-h]').forEach(function(img){
       var nom = brute(img).split('/').pop(), prete = PRETES[nom];
       if(!prete) return retravailler(img);   // une nouvelle photo : préparée sur place, comme avant
       img.onerror = function(){ img.onerror = null; img.classList.remove('pret'); retravailler(img); };
       img.loading = 'eager'; img.src = prete; img.classList.add('pret');
+    });
+    // photos des routines Bloom : nouveaux packagings sur le fond du site (comme les routines Balance)
+    var ROUTINES_PRETES = {
+      'routine-teint-protection-carrousel.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-routine-teint-protection.webp?v=7',
+      'routine-hydratation-v2.png': 'https://elkhabskincare.github.io/elkhab-site/accueil-routine-hydratation.webp?v=7'
+    };
+    root.querySelectorAll('.eba-rc img').forEach(function(img){
+      var ancienne = img.getAttribute('src') || '', prete = ROUTINES_PRETES[brute(img).split('/').pop().split('?')[0]];
+      if(!prete) return;
+      img.onerror = function(){ img.onerror = null; img.src = ancienne; };
+      img.src = prete;
     });
     // flèches des rangées qui défilent (routines sur ordinateur)
     root.querySelectorAll('.eba-fl').forEach(function(fl){
