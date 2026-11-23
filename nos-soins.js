@@ -26,6 +26,20 @@
     base: "https://elkhabskincare.github.io/elkhab-site/",
     fichiers: ["produits-data-test.js", "produits-balance-test.js", "avis-engine.js", "fiche-engine.js"]
   };
+  // ── Soins à teintes : cases de texture sur la vignette, comme sur Bloom (variante = nom exact de la variante Shopify)
+  //    depart : la teinte affichée au départ (sa vignette est celle écrite dans l'embed)
+  var TEINTES = {
+    "radiance-protect": { depart: 0, teintes: [
+      { nom: "Teinté",      variante: "TEINTÉ",      vignette: "radiance-protect-teinte",      texture: "bloom-texture-radiance-protect-teinte.png" },
+      { nom: "Sans teinte", variante: "SANS TEINTE", vignette: "radiance-protect-sans-teinte", texture: "bloom-texture-radiance-protect-sans-teinte.png" } ] },
+    "lumiveil-cc-cream": { depart: 1, teintes: [
+      { nom: "B1 Clair", variante: "N°B1 CLAIR", vignette: "lumiveil-cc-cream-b1", texture: "bloom-texture-lumiveil-b1.png" },
+      { nom: "B2 Moyen", variante: "N°B2 MOYEN", vignette: "lumiveil-cc-cream-b2", texture: "bloom-texture-lumiveil-b2.png" },
+      { nom: "B3 Hâlé",  variante: "N°B3 HÂLÉ",  vignette: "lumiveil-cc-cream-b3", texture: "bloom-texture-lumiveil-b3.png" },
+      { nom: "B4 Foncé", variante: "N°B4 FONCÉ", vignette: "lumiveil-cc-cream-b4", texture: "bloom-texture-lumiveil-b4.png" } ] }
+  };
+  var VERSION_VIGNETTES = 1;
+
   // ── Photo de bannière propre à un type de soin (les types absents gardent la photo de l'embed)
   //    photo : le lien de la photo (photoTel : une autre photo pour le téléphone, facultatif)
   //    cadrage : la partie de la photo à garder visible (ordinateur, puis téléphone)
@@ -220,6 +234,12 @@
   + ".ens-c.v2 .ens-ph{width:100%}"
   + ".ens-c.v2 .ens-p{margin-top:auto;padding-top:14px}"
   + "@media(max-width:599px){.ens-c.v2 .ens-p{padding-top:9px}}"
+  + ".ens-c.v2 .ens-ph img.ens-ti{opacity:0;transition:opacity .25s ease}.ens-c.v2 .ens-ph img.ens-ti.on{opacity:1}"
+  + ".ens-tt{position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2}"
+  + ".ens-t{display:block;width:34px;height:34px;border-radius:8px;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 0 0 1px rgba(0,0,0,.08)}"
+  + ".ens-t.on{box-shadow:0 0 0 1.5px #f6f4f0,0 0 0 2.6px #000}"
+  + ".ens-tt em{font-style:normal;font-size:10px;letter-spacing:.08em;white-space:nowrap;margin-top:2px;color:#3a2a24;width:0;display:flex;justify-content:center}"
+  + "@media(max-width:599px){.ens-tt{right:8px;gap:6px}.ens-t{width:27px;height:27px;border-radius:7px}.ens-tt em{font-size:8px;width:27px;justify-content:flex-end}}"
   // Échelle de texture : fine barre en dégradé sur le bord droit, avec un curseur carré (comme Bloom et Balance)
   + ".ens-rail{position:fixed;right:0;width:30px;z-index:45;opacity:0;pointer-events:none;transition:opacity .4s ease;touch-action:none;cursor:pointer}"
   + ".ens-rail.vu{opacity:1;pointer-events:auto}"
@@ -474,13 +494,38 @@
     b.setAttribute('aria-label', 'Ajouter ' + c.querySelector('h3').textContent + ' au panier'); b.textContent = 'Ajouter';
     c.appendChild(b);
   });
-  function variante(id){
+  // soins à teintes : les vignettes des autres teintes (préparées à l'avance) et les cases de texture
+  root.querySelectorAll('.ens-c.v2').forEach(function(c){
+    var T = TEINTES[c.getAttribute('data-fiche')], ph = c.querySelector('.ens-ph'); if(!T || !ph || ph.querySelector('.ens-tt')) return;
+    var h = '';
+    T.teintes.forEach(function(x, k){
+      if(k !== T.depart) h += '<img class="ens-ti" data-k="' + k + '" src="' + REGLAGES.base + 'soins-vignette-' + x.vignette + '.webp?v=' + VERSION_VIGNETTES + '" alt="" aria-hidden="true" loading="lazy" width="900" height="1200">';
+    });
+    h += '<span class="ens-tt">' + T.teintes.map(function(x, k){
+      return '<span class="ens-t' + (k === T.depart ? ' on' : '') + '" data-fiche="" data-k="' + k + '" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" style="background-image:url(' + REGLAGES.base + x.texture + ')"></span>';
+    }).join('') + '<em>' + esc(T.teintes[T.depart].nom) + '</em></span>';
+    ph.insertAdjacentHTML('beforeend', h);
+  });
+  function choisirTeinte(t){
+    var c = t.closest('.ens-c'), T = TEINTES[c.getAttribute('data-fiche')], k = +t.getAttribute('data-k');
+    c.querySelectorAll('.ens-ti').forEach(function(im){ im.classList.toggle('on', +im.getAttribute('data-k') === k); });
+    c.querySelectorAll('.ens-t').forEach(function(y){ y.classList.toggle('on', y === t); });
+    c.querySelector('.ens-tt em').textContent = T.teintes[k].nom;
+  }
+  function sansAccent(t){ return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim(); }
+  function variante(id, c){
     var p = window.EB_PRODUITS && window.EB_PRODUITS[id]; if(!p) return '';
+    var T = TEINTES[id], t = c && c.querySelector('.ens-t.on');
+    if(T && t && p.variantes){
+      var voulu = sansAccent(T.teintes[+t.getAttribute('data-k')].variante);
+      for(var i = 0; i < p.variantes.length; i++){ if(sansAccent(p.variantes[i].label) === voulu) return p.variantes[i].variantId; }
+      return '';
+    }
     return p.variantId || (p.variantes && p.variantes[0] && p.variantes[0].variantId) || '';
   }
   function ajouter(btn){
     if(btn.classList.contains('ok') || btn.getAttribute('data-envoi')) return;
-    var c = btn.closest('.ens-c'), v = variante(c.getAttribute('data-fiche'));
+    var c = btn.closest('.ens-c'), v = variante(c.getAttribute('data-fiche'), c);
     // panier indisponible : on ouvre la fiche du soin à la place
     if(!v || typeof window.ebCartAddItem !== 'function'){ if(typeof window.ebFicheOpen === 'function' && window.EB_PRODUITS && window.EB_PRODUITS[c.getAttribute('data-fiche')]) window.ebFicheOpen(c.getAttribute('data-fiche')); else window.location.href = c.href; return; }
     btn.setAttribute('data-envoi', '1');
@@ -493,11 +538,15 @@
   }
   // écouté sur window, en tout premier : le lien de la carte (changement de site du panier) ne doit pas partir
   window.addEventListener('click', function(e){
+    var t = e.target.closest && e.target.closest('.ens-t');
+    if(t && root.contains(t)){ e.preventDefault(); e.stopImmediatePropagation(); choisirTeinte(t); return; }
     var b = e.target.closest && e.target.closest('.ens-aj'); if(!b || !root.contains(b)) return;
     e.preventDefault(); e.stopImmediatePropagation(); ajouter(b);
   }, true);
   window.addEventListener('keydown', function(e){
     if(e.key !== 'Enter' && e.key !== ' ') return;
+    var t = e.target.closest && e.target.closest('.ens-t');
+    if(t && root.contains(t)){ e.preventDefault(); e.stopImmediatePropagation(); choisirTeinte(t); return; }
     var b = e.target.closest && e.target.closest('.ens-aj'); if(!b || !root.contains(b)) return;
     e.preventDefault(); e.stopImmediatePropagation(); ajouter(b);
   }, true);
