@@ -559,8 +559,8 @@
       if(!document.getElementById('eb-acc-ld')){
         var ld = document.createElement('script'); ld.type = 'application/ld+json'; ld.id = 'eb-acc-ld';
         ld.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": [
-          { "@type": "Organization", "name": "ELKHA.B", "url": "https://elkhab.com/", "description": "Soins visage vegan et naturels, formulations certifiées COSMOS Natural. Deux gammes : Bloom et Balance.", "sameAs": ["https://www.tiktok.com/@elkha.b"] },
-          { "@type": "WebSite", "name": "ELKHA.B", "url": "https://elkhab.com/", "inLanguage": "fr-FR" }
+          { "@type": "Organization", "@id": "https://elkhab.com/#marque", "name": "ELKHA.B", "alternateName": ["Elkhab", "Elkha B", "ELKHAB"], "url": "https://elkhab.com/", "logo": "https://elkhabskincare.github.io/elkhab-site/elkhab-logo.png", "description": "Elkhab (ELKHA.B), marque française de soins visage vegan et naturels pour les peaux sensibles, formulations certifiées COSMOS Natural. Deux gammes : Bloom et Balance.", "sameAs": ["https://www.tiktok.com/@elkha.b", "https://www.instagram.com/elkhab.skincare/"] },
+          { "@type": "WebSite", "name": "ELKHA.B", "alternateName": ["Elkhab", "elkhab.com"], "url": "https://elkhab.com/", "inLanguage": "fr-FR", "publisher": { "@id": "https://elkhab.com/#marque" } }
         ] });
         document.head.appendChild(ld);
       }
