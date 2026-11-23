@@ -1,6 +1,6 @@
 // © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 // =====================================================================
-// ELKHA.B — Les soins Bloom, rangés par étape de routine (v3 : sans filtre, bouton « Ajouter », teintes, notes)
+// ELKHA.B — Les soins Bloom, rangés par étape de routine (v3.1 : vignettes à liseré blanc et ombre légère, comme Balance et les routines ; coffret Jour & Nuit centré dans une vignette invisible sur la bande : sans filtre, bouton « Ajouter », teintes, notes)
 // Un seul embed Carrd :  <div id="eb-soins"><div class="ebs-intro"><p>Ton texte…</p></div></div>
 //                        <script src="https://elkhabskincare.github.io/elkhab-site/soins-engine.js"></script>
 //
@@ -166,7 +166,7 @@
       nom: "Rituel Luminescence", actifs: "Le duo Jour & Nuit · Hydratation & fermeté", actifsCourt: "Le duo Jour & Nuit",
       benefice: "Le rituel complet : hydratation intense, régénération et apaisement", prix: "67,90€", taille: "2 × 50 ml",
       // 📷 Rituel Luminescence
-      photo: PHOTOS + "bloom-sable-rituel-luminescence.png",
+      photo: PHOTOS + "bloom-sable-rituel-luminescence-centre.png",
       alt: "Rituel Luminescence ELKHA.B, coffret crème de jour et crème de nuit"
     },
     "bright-glow-patch": {
@@ -264,7 +264,7 @@
   + ".ebs-card{position:relative;display:flex;flex-direction:column;width:50%;padding:0 0 34px}"
   // prix et bouton calés en bas : tous les boutons d'une rangée sont au même niveau
   + ".ebs-tx{flex:1;display:flex;flex-direction:column}.ebs-tx .p{margin-top:auto !important;padding-top:12px}"
-  + ".ebs-ph{display:block;position:relative;aspect-ratio:4 / 7;overflow:hidden;border-radius:12px;background:" + REGLAGES.fondCarte + "}"
+  + ".ebs-ph{display:block;position:relative;aspect-ratio:4 / 7;overflow:hidden;border-radius:12px;background:" + REGLAGES.fondCarte + ";border:1px solid #fff;box-shadow:0 6px 18px rgba(40,25,20,.10)}"
   + ".ebs-ph img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 78%}"
   + ".ebs-num{position:absolute;z-index:2;top:14px;left:12px;display:flex;align-items:center;gap:6px;font-size:9px;font-weight:500;letter-spacing:.12em;opacity:.88}"
   + ".ebs-num i{display:block;width:8px;height:8px}"
@@ -309,7 +309,7 @@
   + "#eb-soins .ebs-cof .ebs-card{width:100%;max-width:600px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:center;padding:0}"
   + ".ebs-cof .ebs-tx{text-align:left;padding:0 4px}"
   // la photo du coffret est une scène sur le même fond sable que la bande : montrée en entier, ombre comprise, sans cadre
-  + "#eb-soins .ebs-cof .ebs-ph{aspect-ratio:auto;height:auto;margin:0;border-radius:0;background:none;overflow:visible}"
+  + "#eb-soins .ebs-cof .ebs-ph{aspect-ratio:auto;height:auto;margin:0;border-radius:12px;background:" + REGLAGES.fondCarte + ";overflow:hidden;border:0;box-shadow:none}"
   + "#eb-soins .ebs-cof .ebs-ph img{position:static;height:auto;object-fit:contain}"
 
   // Patchs
@@ -430,7 +430,7 @@
   +   ".ebs-amb video{object-fit:cover}"
   +   "#eb-soins .ebs-coft{font-size:23px}"
   +   "#eb-soins .ebs-bloom h2{font-size:17px}"
-  +   "#eb-soins .ebs-cof .ebs-card{max-width:620px;grid-template-columns:260px 1fr;gap:30px}"
+  +   "#eb-soins .ebs-cof .ebs-card{max-width:660px;grid-template-columns:320px 1fr;gap:30px}"
   + "}";
 
   function construire(root){
