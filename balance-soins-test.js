@@ -782,29 +782,30 @@
   function bandeau(){
     var t = Date.now();
     if(document.getElementById('ebs-bw') || t < Date.parse(BANDEAU.debut) || t >= Date.parse(BANDEAU.fin)) return;
-    var hero = document.getElementById('ebh'), texteHero = hero && hero.querySelector('.ebh-txt'), soins = document.getElementById('eb-soins');
+    var hero = document.getElementById('ebh'), soins = document.getElementById('eb-soins');
     if(!hero && !soins) return;
     var tx = BANDEAU.textes.filter(function(x){ return !x.jusqua || t < Date.parse(x.jusqua); })[0] || BANDEAU.textes[BANDEAU.textes.length - 1];
     if(!document.getElementById('ebs-bw-style')){
       var st = document.createElement('style'); st.id = 'ebs-bw-style';
-      // bande vert sapin d'un bord à l'autre : en bas de la grande photo sur ordinateur, entre la photo et « Les soins Balance » sur téléphone
+      // bande vert sapin d'un bord à l'autre, en bas de la bannière (ordinateur et téléphone)
       st.textContent = "#ebs-bw{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 26px;background:#1f2e24;color:#f3ecdf;text-decoration:none;font-family:'Montserrat',sans-serif;text-align:center;line-height:1.6;padding:17px 24px}"
         + "#ebh #ebs-bw.ebs-bw-bas{position:absolute;z-index:3;left:0;right:0;bottom:0}"
         + "#ebs-bw .ebs-bw-k{font-size:10.5px;letter-spacing:.36em;padding-left:.36em;font-weight:600;text-transform:uppercase;color:#e2c98f}"
         + "#ebs-bw .ebs-bw-t{font-size:13px;letter-spacing:.03em;font-weight:400}"
         + "#ebs-bw .ebs-bw-l{font-size:10px;letter-spacing:.26em;padding-left:.26em;font-weight:600;text-transform:uppercase;color:#e2c98f;border-bottom:1px solid #c9a86a;padding-bottom:3px}"
-        + "@media (max-width:736px){.ebh-txt #ebs-bw{margin:0 -30px 30px;padding:18px 20px 20px;gap:10px 14px}#ebs-bw .ebs-bw-t{flex-basis:100%;order:2;font-size:12.5px}#ebs-bw .ebs-bw-k{order:1}#ebs-bw .ebs-bw-l{order:3}}";
+        // téléphone : le bandeau ferme le bas de la bannière ; le texte et le fondu remontent juste au-dessus (--bwh = hauteur du bandeau)
+        + "@media (max-width:736px){#ebs-bw{padding:14px 18px 15px;gap:6px 14px}#ebs-bw .ebs-bw-t{flex-basis:100%;order:2;font-size:12px}#ebs-bw .ebs-bw-k{order:1}#ebs-bw .ebs-bw-l{order:3}#ebh:has(#ebs-bw) .ebh-txt{bottom:calc(4% + var(--bwh,0px))}#ebh:has(#ebs-bw):after{bottom:var(--bwh,0px)}}";
       document.head.appendChild(st);
     }
     var a = document.createElement('a'); a.id = 'ebs-bw'; a.href = BANDEAU.lien;
     a.innerHTML = '<span class="ebs-bw-k">' + BANDEAU.surtitre + '</span><span class="ebs-bw-t">' + tx.texte + '</span><span class="ebs-bw-l">' + BANDEAU.bouton + '</span>';
-    var tel = window.matchMedia('(max-width:736px)');
-    function placer(){
-      if(hero && texteHero && tel.matches){ a.classList.remove('ebs-bw-bas'); texteHero.insertBefore(a, texteHero.firstChild); }
-      else if(hero){ a.classList.add('ebs-bw-bas'); hero.appendChild(a); }
-      else soins.parentNode.insertBefore(a, soins);
+    if(hero){
+      a.classList.add('ebs-bw-bas'); hero.appendChild(a);
+      var hauteur = function(){ hero.style.setProperty('--bwh', a.offsetHeight + 'px'); };
+      hauteur(); window.addEventListener('resize', hauteur);
+      if(document.fonts && document.fonts.ready) document.fonts.ready.then(hauteur);
     }
-    placer(); if(tel.addEventListener) tel.addEventListener('change', placer);
+    else soins.parentNode.insertBefore(a, soins);
   }
 
   lancer(); bandeau();
