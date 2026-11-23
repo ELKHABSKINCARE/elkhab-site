@@ -118,7 +118,7 @@
       nom: "Luminescence Jour", actifs: "Acide hyaluronique multi-moléculaire · Bisabolol", actifsCourt: "Acide hyaluronique · Bisabolol",
       benefice: "Hydrate en profondeur, repulpe et apaise la peau", prix: "34,90€", taille: "50 ml",
       // 📷 Luminescence Jour
-      photo: PHOTOS + "bloom-sable-luminescence-jour.png",
+      photo: PHOTOS + "bloom-sable-luminescence-jour.png", photoLarge: PHOTOS + "bloom-sable-luminescence-jour-large.png",
       alt: "Luminescence Jour ELKHA.B, crème hydratante éclat à l'acide hyaluronique, 50 ml"
     },
     "radiance-protect": {
@@ -129,8 +129,8 @@
       alt: "Radiance Protect ELKHA.B, stick solaire minéral SPF 50, 12 g",
       // « variante » = nom exact de la variante dans produits-data-test.js
       teintes: [
-        { nom: "Teinté",      variante: "TEINTÉ",      texture: PHOTOS + "bloom-texture-radiance-protect-teinte.png",      photo: PHOTOS + "bloom-sable-radiance-protect-teinte.png" },
-        { nom: "Sans teinte", variante: "SANS TEINTE", texture: PHOTOS + "bloom-texture-radiance-protect-sans-teinte.png", photo: PHOTOS + "bloom-sable-radiance-protect-sans-teinte.png" }
+        { nom: "Teinté",      variante: "TEINTÉ",      texture: PHOTOS + "bloom-texture-radiance-protect-teinte.png",      photo: PHOTOS + "bloom-sable-radiance-protect-teinte.png", photoTel: PHOTOS + "bloom-sable-radiance-protect-teinte-tel.png" },
+        { nom: "Sans teinte", variante: "SANS TEINTE", texture: PHOTOS + "bloom-texture-radiance-protect-sans-teinte.png", photo: PHOTOS + "bloom-sable-radiance-protect-sans-teinte.png", photoTel: PHOTOS + "bloom-sable-radiance-protect-sans-teinte-tel.png" }
       ],
       teinteDepart: 0
     },
@@ -141,10 +141,10 @@
       photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.png",
       alt: "Lumi-Veil CC Cream SPF 30 ELKHA.B, stick teinté en 4 teintes",
       teintes: [
-        { nom: "B1 Clair",  variante: "N°B1 CLAIR",  texture: PHOTOS + "bloom-texture-lumiveil-b1.png", photo: PHOTOS + "bloom-sable-lumiveil-b1-clair.png" },
-        { nom: "B2 Moyen",  variante: "N°B2 MOYEN",  texture: PHOTOS + "bloom-texture-lumiveil-b2.png", photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.png" },
-        { nom: "B3 Hâlé",   variante: "N°B3 HÂLÉ",   texture: PHOTOS + "bloom-texture-lumiveil-b3.png", photo: PHOTOS + "bloom-sable-lumiveil-b3-hale.png" },
-        { nom: "B4 Foncé",  variante: "N°B4 FONCÉ",  texture: PHOTOS + "bloom-texture-lumiveil-b4.png", photo: PHOTOS + "bloom-sable-lumiveil-b4-fonce.png" }
+        { nom: "B1 Clair",  variante: "N°B1 CLAIR",  texture: PHOTOS + "bloom-texture-lumiveil-b1.png", photo: PHOTOS + "bloom-sable-lumiveil-b1-clair.png", photoTel: PHOTOS + "bloom-sable-lumiveil-b1-clair-tel.png" },
+        { nom: "B2 Moyen",  variante: "N°B2 MOYEN",  texture: PHOTOS + "bloom-texture-lumiveil-b2.png", photo: PHOTOS + "bloom-sable-lumiveil-b2-moyen.png", photoTel: PHOTOS + "bloom-sable-lumiveil-b2-moyen-tel.png" },
+        { nom: "B3 Hâlé",   variante: "N°B3 HÂLÉ",   texture: PHOTOS + "bloom-texture-lumiveil-b3.png", photo: PHOTOS + "bloom-sable-lumiveil-b3-hale.png", photoTel: PHOTOS + "bloom-sable-lumiveil-b3-hale-tel.png" },
+        { nom: "B4 Foncé",  variante: "N°B4 FONCÉ",  texture: PHOTOS + "bloom-texture-lumiveil-b4.png", photo: PHOTOS + "bloom-sable-lumiveil-b4-fonce.png", photoTel: PHOTOS + "bloom-sable-lumiveil-b4-fonce-tel.png" }
       ],
       teinteDepart: 1
     },
@@ -190,7 +190,7 @@
       nom: "Patchs anti-fatigue réconfortants", actifs: "Antioxydants · Provitamine B5",
       benefice: "Réconfortent le regard fatigué", prix: "28,90€", taille: "7 paires",
       // 📷 Patchs Lumi-Eyes antioxydants
-      photo: PHOTOS + "bloom-sable-bright-glow-anti-fatigue.png",
+      photo: PHOTOS + "bloom-sable-bright-glow-anti-fatigue.png", photoLarge: PHOTOS + "bloom-sable-bright-glow-anti-fatigue-large.png",
       detail: PHOTOS + "bloom-patch-antioxydants-b5.png",
       alt: "Patchs yeux Lumi-Eyes ELKHA.B anti-fatigue aux antioxydants"
     }
@@ -352,15 +352,14 @@
   +   ".ebs-card{padding-bottom:50px}"
   // soin seul sur sa ligne : vignette sur toute la largeur (format paysage), textes étalés, bouton plus large
   +   ".ebs-card.seul{width:100%}"
-  +   ".ebs-card.seul .ebs-ph{aspect-ratio:16 / 11}.ebs-card.seul .ebs-ph img{object-fit:contain;object-position:50% 0%}"
+  +   ".ebs-card.seul .ebs-ph{aspect-ratio:16 / 11}.ebs-card.seul .ebs-ph img{object-fit:cover;object-position:50% 0%}"
   +   ".ebs-card.seul .ebs-tx{padding-left:12px;padding-right:12px}"
   +   ".ebs-card.seul .ebs-tx .ao{display:inline}.ebs-card.seul .ebs-tx .am{display:none}"
   +   ".ebs-card.seul .ebs-ajouter{width:62%}"
   +   "#eb-soins .ebs-card.seul .ebs-tx h3{font-size:12.5px}"
   +   ".ebs-card.seul .ebs-ph img.ebs-detail{width:19%;right:17%;bottom:7%}"
   +   ".ebs-card.seul[data-fiche='luminescence-jour'] .ebs-ph img{transform:scale(1.42);transform-origin:50% 52%}"   /* le soin star de Bloom : plus grand dans sa vignette */
-  // teintes : le flacon glisse un peu vers la gauche pour ne pas passer sous les cases
-  +   ".ebs-card.avec-teintes .ebs-ph img{transform:translateX(-9%)}"
+  // teintes : sur téléphone, les photos des teintes ont le flacon déjà décalé à gauche (photos « -tel » préparées), pour ne pas passer sous les cases
     +   "#eb-soins .ebs-h h2{font-size:12px}"
   +   ".ebs-h p{font-size:11.5px}"
   +   ".ebs-tx{padding-left:4px;padding-right:4px}"
@@ -452,7 +451,8 @@
   function photosTeintes(s){
     var d = s.teinteDepart || 0;
     return s.teintes.map(function(x, k){
-      return '<img class="ebs-ti' + (k === d ? ' on' : '') + '" src="' + esc(x.photo) + '" alt="' + (k === d ? esc(s.alt) : '') + '"' + (k === d ? '' : ' aria-hidden="true"') + ' loading="lazy" decoding="async">';
+      var im = '<img class="ebs-ti' + (k === d ? ' on' : '') + '" src="' + esc(x.photo) + '" alt="' + (k === d ? esc(s.alt) : '') + '"' + (k === d ? '' : ' aria-hidden="true"') + ' loading="lazy" decoding="async">';
+      return x.photoTel ? '<picture><source media="(max-width:899px)" srcset="' + esc(x.photoTel) + '">' + im + '</picture>' : im;
     }).join('');
   }
   function vignette(id, etape, seul){
@@ -460,7 +460,7 @@
     var actifs = s.actifsCourt ? '<span class="ao">' + esc(s.actifs) + '</span><span class="am">' + esc(s.actifsCourt) + '</span>' : esc(s.actifs);
     var photo = s.teintes ? s.teintes[s.teinteDepart || 0].photo : s.photo;
     return '<a class="ebs-card' + (seul ? ' seul' : '') + (s.teintes ? ' avec-teintes' : '') + '" href="' + esc(REGLAGES.lienFiche + id) + '" data-fiche="' + esc(id) + '" data-e="' + (etape ? etape.num : '') + '">'
-      + '<div class="ebs-ph">' + (s.teintes ? photosTeintes(s) : '<img src="' + esc(photo) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">')
+      + '<div class="ebs-ph">' + (s.teintes ? photosTeintes(s) : (seul && s.photoLarge ? '<picture><source media="(max-width:899px)" srcset="' + esc(s.photoLarge) + '">' : '') + '<img src="' + esc(photo) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">' + (seul && s.photoLarge ? '</picture>' : ''))
       + (etape ? '<span class="ebs-num"><i style="background:' + etape.couleur + '"></i>' + etape.num + '</span>' : '')
       + (s.detail ? '<img class="ebs-detail" src="' + esc(s.detail) + '" alt="" aria-hidden="true" loading="lazy" decoding="async">' : '')
       + '<span class="ebs-note" hidden></span>' + teintesHTML(id) + '</div>'
