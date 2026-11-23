@@ -767,7 +767,47 @@
   if(document.readyState === 'complete') plusTard(); else window.addEventListener('load', plusTard);
   }   // fin de construire()
 
-  lancer();
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', lancer);
-  window.addEventListener('load', lancer);
+  // ── BANDEAU BLACK WEEK (coffret Le Temps Suspendu) : s'affiche et disparaît tout seul aux dates prévues (heure de Paris).
+  // Placé sous la grande photo de la page, juste avant « Les soins Balance ».
+  var BANDEAU = {
+    debut: "2026-11-22T00:00:00+01:00", fin: "2026-12-01T00:00:00+01:00",
+    lien: "https://routines.elkhab.com/?fiche=coffret-temps-suspendu",
+    surtitre: "Black Week",
+    textes: [
+      { jusqua: "2026-11-23T00:00:00+01:00", texte: "Le Temps Suspendu à prix privilège, dès le 23\u00A0novembre" },
+      { texte: "Le Temps Suspendu à prix privilège, jusqu'au 30\u00A0novembre" }
+    ],
+    bouton: "Découvrir"
+  };
+  function bandeau(){
+    var t = Date.now();
+    if(document.getElementById('ebs-bw') || t < Date.parse(BANDEAU.debut) || t >= Date.parse(BANDEAU.fin)) return;
+    var hero = document.getElementById('ebh'), texteHero = hero && hero.querySelector('.ebh-txt'), soins = document.getElementById('eb-soins');
+    if(!hero && !soins) return;
+    var tx = BANDEAU.textes.filter(function(x){ return !x.jusqua || t < Date.parse(x.jusqua); })[0] || BANDEAU.textes[BANDEAU.textes.length - 1];
+    if(!document.getElementById('ebs-bw-style')){
+      var st = document.createElement('style'); st.id = 'ebs-bw-style';
+      // bande vert sapin d'un bord à l'autre : en bas de la grande photo sur ordinateur, entre la photo et « Les soins Balance » sur téléphone
+      st.textContent = "#ebs-bw{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 26px;background:#1f2e24;color:#f3ecdf;text-decoration:none;font-family:'Montserrat',sans-serif;text-align:center;line-height:1.6;padding:17px 24px}"
+        + "#ebh #ebs-bw.ebs-bw-bas{position:absolute;z-index:3;left:0;right:0;bottom:0}"
+        + "#ebs-bw .ebs-bw-k{font-size:10.5px;letter-spacing:.36em;padding-left:.36em;font-weight:600;text-transform:uppercase;color:#e2c98f}"
+        + "#ebs-bw .ebs-bw-t{font-size:13px;letter-spacing:.03em;font-weight:400}"
+        + "#ebs-bw .ebs-bw-l{font-size:10px;letter-spacing:.26em;padding-left:.26em;font-weight:600;text-transform:uppercase;color:#e2c98f;border-bottom:1px solid #c9a86a;padding-bottom:3px}"
+        + "@media (max-width:736px){.ebh-txt #ebs-bw{margin:0 -30px 30px;padding:18px 20px 20px;gap:10px 14px}#ebs-bw .ebs-bw-t{flex-basis:100%;order:2;font-size:12.5px}#ebs-bw .ebs-bw-k{order:1}#ebs-bw .ebs-bw-l{order:3}}";
+      document.head.appendChild(st);
+    }
+    var a = document.createElement('a'); a.id = 'ebs-bw'; a.href = BANDEAU.lien;
+    a.innerHTML = '<span class="ebs-bw-k">' + BANDEAU.surtitre + '</span><span class="ebs-bw-t">' + tx.texte + '</span><span class="ebs-bw-l">' + BANDEAU.bouton + '</span>';
+    var tel = window.matchMedia('(max-width:736px)');
+    function placer(){
+      if(hero && texteHero && tel.matches){ a.classList.remove('ebs-bw-bas'); texteHero.insertBefore(a, texteHero.firstChild); }
+      else if(hero){ a.classList.add('ebs-bw-bas'); hero.appendChild(a); }
+      else soins.parentNode.insertBefore(a, soins);
+    }
+    placer(); if(tel.addEventListener) tel.addEventListener('change', placer);
+  }
+
+  lancer(); bandeau();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ lancer(); bandeau(); });
+  window.addEventListener('load', function(){ lancer(); bandeau(); });
 })();

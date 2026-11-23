@@ -71,6 +71,7 @@ var PAR_BESOIN = [
 var CALENDRIER = {
   lien:      "https://calendrier.elkhab.com/",
   image:     "https://elkhabskincare.github.io/elkhab-site/calendrier-flottant.webp",
+  vignette:  "https://elkhabskincare.github.io/elkhab-site/calendrier-menu.png",   // menu du téléphone : le même calendrier, bords nettoyés (plus de liseré clair en mode sombre)
   ouverture: "2026-12-01T00:00:00+01:00",   // avant : phrases « dès le 1er décembre » ; après : « votre surprise du jour »
   fin:       "2026-12-25T00:00:00+01:00",   // à partir de cette date, plus rien ne s'affiche
   avant: [["24 jours de surprises","Calendrier des fêtes, dès le 1er décembre"],["Une surprise chaque jour","Dès le 1er décembre"],["Une case, une surprise","Ouverture le 1er décembre"]],
@@ -156,8 +157,10 @@ var CSS = ""
 + ".ebm-t.ebm-cal{color:#9A7B4F !important;display:none !important}"
 + "@media (min-width:1360px){.ebm-t.ebm-cal{display:inline-block !important}}"
 + ".ebm-l a.ebm-cal-l{color:#9A7B4F}"
-+ ".ebm-l a.ebm-cal-l .ebm-cal-t{display:flex;align-items:center;gap:14px}"
-+ ".ebm-l a.ebm-cal-l img{height:40px;width:auto;filter:drop-shadow(0 3px 4px rgba(60,20,20,.3))}"
++ ".ebm-l a.ebm-cal-l .ebm-cal-t{display:flex;align-items:center;gap:18px}"
++ ".ebm-l a.ebm-cal-l img{display:block;width:auto;height:100px;flex:none;margin-left:8px;filter:drop-shadow(0 3px 4px rgba(60,20,20,.25))}"
++ ".ebm-l a.ebm-cal-l .ebm-cal-x{display:flex;flex-direction:column;gap:6px}"
++ ".ebm-l a.ebm-cal-l .ebm-cal-x small{font-size:10px;letter-spacing:.14em;text-transform:none;color:#8a8378;font-weight:400}"
 + "@media (min-width:1000px){"
 + ".eb-navbar{padding:0 40px}"
 + ".ebm-g,.ebm-d{display:flex}"
@@ -234,7 +237,7 @@ function construire(){
   function ligne(txt,href,extra){ var a=lien(txt,href); a.innerHTML='<span'+(extra||'')+'>'+esc(txt)+'</span><span class="ebm-fl">›</span>'; return a; }
   if(CAL_ACTIF){
     var lCal=lien('Calendrier des fêtes',CALENDRIER.lien,'ebm-cal-l');
-    lCal.innerHTML='<span class="ebm-cal-t"><img src="'+CALENDRIER.image+'" alt="" width="12" height="40">Calendrier des fêtes</span><span class="ebm-fl">›</span>';
+    lCal.innerHTML='<span class="ebm-cal-t"><img src="'+CALENDRIER.vignette+'" alt="" width="30" height="100"><span class="ebm-cal-x"><span>Calendrier des fêtes</span><small>'+(CAL_OUVERT ? "Jusqu'au 24 décembre" : "Dès le 1er décembre")+'</small></span></span><span class="ebm-fl">›</span>';
     L.appendChild(lCal);
   }
   L.appendChild(ligne('Accueil',LIENS.accueil));
