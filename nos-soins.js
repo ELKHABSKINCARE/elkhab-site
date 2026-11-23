@@ -193,7 +193,7 @@
   + "@media(max-width:899px){.ens-grid{--col:3}}"
   + "@media(max-width:599px){.ens-gm{margin-top:22px}.ens-grid{--col:2;--gap:8px;row-gap:34px}.ens-s{padding:60px 10px 0}#eb-ns h1{font-size:25px}#eb-ns h2{font-size:22px}.ens-in,.ens-txt{font-size:12.5px}}"
   + ".ens-c{display:block;text-decoration:none;color:#111;cursor:pointer}"
-  + ".ens-c.off{display:none}"
+  + ".ens-c.off,.ens-c.v2.off{display:none}"
   + ".ens-ph{display:block;position:relative;aspect-ratio:3 / 4;overflow:hidden;max-width:300px;margin:0 auto}"
   + ".ens-ph img{color:transparent;display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;transition:transform .4s ease}"
   + ".ens-c:hover .ens-ph img{transform:translateY(-3px)}"
