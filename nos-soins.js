@@ -487,12 +487,27 @@
       return '<span class="ens-t' + (k === T.depart ? ' on' : '') + '" data-fiche="" data-k="' + k + '" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" style="background-image:url(' + REGLAGES.base + x.texture + ')"></span>';
     }).join('') + '<em>' + esc(T.teintes[T.depart].nom) + '</em></span>';
     ph.insertAdjacentHTML('beforeend', h);
+    poserTeinte(c, T, T.depart);
+  });
+  // si les fiches n'étaient pas encore chargées au départ : la teinte est reposée juste avant le clic
+  ['pointerdown', 'keydown'].forEach(function(ev){
+    root.addEventListener(ev, function(e){
+      var c = e.target.closest && e.target.closest('.ens-c.v2'), T = c && TEINTES[c.getAttribute('data-fiche')], t = c && c.querySelector('.ens-t.on');
+      if(T && t) poserTeinte(c, T, +t.getAttribute('data-k'));
+    }, true);
   });
   function choisirTeinte(t){
     var c = t.closest('.ens-c'), T = TEINTES[c.getAttribute('data-fiche')], k = +t.getAttribute('data-k');
     c.querySelectorAll('.ens-ti').forEach(function(im){ im.classList.toggle('on', +im.getAttribute('data-k') === k); });
     c.querySelectorAll('.ens-t').forEach(function(y){ y.classList.toggle('on', y === t); });
     c.querySelector('.ens-tt em').textContent = T.teintes[k].nom;
+    poserTeinte(c, T, k);
+  }
+  // la fiche s'ouvrira sur la teinte choisie (comme sur la page Bloom) : nom exact de la teinte dans la fiche
+  function poserTeinte(c, T, k){
+    var p = window.EB_PRODUITS && window.EB_PRODUITS[c.getAttribute('data-fiche')], voulu = sansAccent(T.teintes[k].variante);
+    if(!p || !p.variantes) return;
+    for(var i = 0; i < p.variantes.length; i++){ if(sansAccent(p.variantes[i].label) === voulu){ c.setAttribute('data-teinte-nom', p.variantes[i].label); return; } }
   }
   function sansAccent(t){ return String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase().trim(); }
   function variante(id, c){
