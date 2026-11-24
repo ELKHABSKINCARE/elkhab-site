@@ -1777,13 +1777,13 @@ window.EB_PRODUITS = {
     // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
-      { nom: "PDRN vegan", titre: "Le renouveau cutané nouvelle génération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-pdrn-vegan.webp",
+      { nom: "PDRN vegan", titre: "Le renouveau cutané nouvelle génération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-pdrn-vegan.png",
         texte: "Le PDRN est un actif composé de fragments d'ADN, reconnu pour son potentiel réparateur. Traditionnellement extrait du saumon, il est ici biosynthétisé par fermentation, sans aucune particule d'origine animale, et vise le même renouvellement. Il soutient les mécanismes naturels de réparation de la peau, améliore sa fermeté et révèle une peau visiblement plus lisse et lumineuse." },
-      { nom: "Spicules", titre: "La technologie au service des actifs", photo: "https://elkhabskincare.github.io/elkhab-site/actif-spicules.webp",
+      { nom: "Spicules", titre: "La technologie au service des actifs", photo: "https://elkhabskincare.github.io/elkhab-site/actif-spicules.png",
         texte: "Microstructures en forme d'aiguilles, les spicules interagissent avec les couches superficielles de la peau pour favoriser la pénétration des actifs. Leurs picotements caractéristiques signent une expérience sensorielle unique. Cette technologie contribue à affiner le grain de peau et à révéler une texture cutanée plus uniforme." },
-      { nom: "Centella asiatica", titre: "Le pouvoir réparateur de la nature", photo: "https://elkhabskincare.github.io/elkhab-site/actif-centella.webp",
+      { nom: "Centella asiatica", titre: "Le pouvoir réparateur de la nature", photo: "https://elkhabskincare.github.io/elkhab-site/actif-centella.png",
         texte: "Précieuse plante reconnue pour ses propriétés apaisantes et réparatrices, la centella asiatica est ici présente sous la forme de ses trois molécules actives purifiées, l'asiaticoside, l'acide madécassique et l'acide asiatique. Elle aide la peau à se rétablir, préserve sa barrière protectrice et contribue à améliorer sa souplesse. Elle apaise aussi la peau après le léger picotement des spicules." },
-      { nom: "Acide hyaluronique", titre: "L'essence d'une peau repulpée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.webp",
+      { nom: "Acide hyaluronique", titre: "L'essence d'une peau repulpée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Véritable réservoir d'hydratation, l'acide hyaluronique attire et retient l'eau au sein des couches superficielles de la peau. Il aide à lisser les ridules de déshydratation, à repulper visiblement la peau et à lui redonner toute sa souplesse." }
     ],
 
