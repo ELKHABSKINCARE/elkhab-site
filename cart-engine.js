@@ -619,7 +619,10 @@ function ebEchEstEchantillon(m){
 const EB_FICHES_BASE = 'https://elkhabskincare.github.io/elkhab-site/';
 const EB_FICHES_FICHIERS = ['produits-data-test.js', 'produits-balance-test.js'];
 let ebFichesDemandees = false;
-function ebPhotoSite(gid){
+// Vignette du panier : chaque photo « bloom-mini-… » a sa version « bloom-panier-… », déjà recadrée (soin plus grand, même zoom pour tous)
+function ebPhotoPanier(u){ return typeof u === 'string' ? u.replace(/\/bloom-mini-([a-z0-9-]+)\.png(\?|$)/i, '/bloom-panier-$1.png$2') : u; }
+function ebPhotoSite(gid){ return ebPhotoPanier(ebPhotoSiteBrute(gid)); }
+function ebPhotoSiteBrute(gid){
   const P = window.EB_PRODUITS; if(!P) return '';
   const v = String(gid || '').split('/').pop(); if(!v) return '';
   const ok = function(u){ return typeof u === 'string' && u && !/\.mp4(\?|$)/i.test(u) ? u : ''; };
@@ -1154,6 +1157,7 @@ function ebCartStylePhotos(){
     // même vignette que la recherche : carré aux bords arrondis, le flacon entier jamais coupé
     + '.eb-cart-thumb{flex:0 0 60px;width:60px;height:60px;border-radius:10px;background:#f5f4f0;overflow:hidden}'
     + '.eb-cart-thumb img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88);color:transparent}'
+    + '.eb-cart-thumb img[src*="bloom-panier-"]{transform:none}'   // photo panier déjà cadrée : pas de réduction
     + '.eb-cart-info{flex:1;min-width:0}'
     + '.eb-cart-echantillon{display:flex;align-items:center;gap:14px;margin:0 0 16px;padding:12px 0;border-bottom:1px solid #EBE5DB;font-family:Montserrat,sans-serif;text-align:left}'
     + '.eb-ech-mini{flex:0 0 60px;width:60px;height:60px;border-radius:10px;background:#f5f4f0;overflow:hidden}.eb-ech-mini img{display:block;width:100%;height:100%;object-fit:contain;object-position:50% 50%;transform:scale(.88)}'
