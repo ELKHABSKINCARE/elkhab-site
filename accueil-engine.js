@@ -138,6 +138,24 @@
   + ".eba-ubtn{align-self:flex-start;margin-top:26px}"
   // photo de la une : coins arrondis, sans fondu (le mode sombre ne crée plus de rectangle)
   + ".eba-uph{border-radius:12px}"
+  // À la une datée (data-des / data-jusqua dans l'embed) : nouveauté Bloom avec ses actifs (Lumi-Glow PDRN, 1er déc. 2026)
+  + "@media (min-width:700px){.eba-lg{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.eba-lg .eba-uph{aspect-ratio:auto;min-height:100%}}"
+  + ".eba-lg .eba-utx{background:linear-gradient(180deg,#f7ece8,#ecd3cc)}.eba-lg .eba-ug{color:#7d1f2b}"
+  + "#eb-acc [hidden]{display:none !important}.eba-lg:hover .eba-uph img{transform:none}"
+  + ".eba-up2{margin-top:10px}.eba-uos{font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;color:#7d1f2b;margin:14px 0 0}"
+  + "#eb-acc .eba-lg a.eba-ubtn{color:#f5f4f0;text-decoration:none}"
+  + ".eba-act{position:absolute;left:0;right:0;bottom:18px;display:flex;justify-content:center;gap:12px;z-index:2}"
+  + ".eba-ai{width:84px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;background:none;border:0;padding:0;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent}"
+  + "#eb-acc .eba-ai img{position:static;inset:auto;width:62px;height:62px;object-fit:cover;border-radius:9px;border:1.5px solid #fff;box-shadow:0 2px 8px rgba(60,40,30,.12);transition:border-color .25s;transform:none}"
+  + ".eba-ai .eba-an{font-size:8.5px;letter-spacing:.16em;font-weight:600;text-transform:uppercase;color:#2a2723;line-height:1.3;max-width:84px;text-align:center}"
+  + ".eba-ai .eba-ad{display:none}#eb-acc .eba-ai.on img{border-color:#111}"
+  + ".eba-pan{position:absolute;left:18px;right:18px;bottom:122px;z-index:3;text-align:left;background:#ece5db;border:1px solid rgba(255,255,255,.95);border-radius:12px;box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 1px 2px rgba(60,40,30,.12),0 12px 30px rgba(60,40,30,.16);padding:20px 22px 18px;max-height:calc(100% - 140px);overflow:auto;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:none}"
+  + ".eba-pan.on{opacity:1;transform:none;pointer-events:auto}"
+  + ".eba-pan b{display:block;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7d1f2b;margin-right:30px}"
+  + ".eba-pan em{display:block;font-style:normal;font-size:12.5px;font-weight:500;color:#111;margin:6px 30px 10px 0}"
+  + ".eba-pan p{margin:0;font-size:12.5px;line-height:1.7;color:#2a2723}"
+  + ".eba-pan button{position:absolute;top:10px;right:10px;width:28px;height:28px;border:0;border-radius:50%;background:#f5f1ea;font-size:15px;line-height:28px;padding:0;cursor:pointer;color:#111}"
+  + "@media (max-width:699px){.eba-act{gap:6px;bottom:8px}#eb-acc .eba-ai img{width:44px;height:44px;border-radius:7px}.eba-ai{width:70px}.eba-ai .eba-an{font-size:7.5px;letter-spacing:.1em;max-width:74px}.eba-pan{left:10px;right:10px;bottom:84px;padding:16px 16px 14px;max-height:calc(100% - 96px)}.eba-pan p{font-size:12px;line-height:1.6}}"
   + "@media (max-width:699px){.eba-une{grid-template-columns:1fr;margin-top:30px}.eba-uph{aspect-ratio:1 / 1}.eba-utx{padding:28px 24px 32px;text-align:center;align-items:center}#eb-acc .eba-un{font-size:19px}.eba-up{font-size:12.5px}.eba-ubtn{align-self:center}}"
   // ── 5. Par où commencer : les besoins
   + "#eb-acc .eba-st2{font-size:13.5px;font-weight:400;line-height:1.7;color:#2a2723;max-width:520px;margin:20px auto 0}"
@@ -327,6 +345,31 @@
     }
     root.querySelectorAll('img[data-zoom]').forEach(function(im){ var z = parseFloat(im.getAttribute('data-zoom')) || 1; if(z !== 1) im.style.transform = 'scale(' + z + ')'; });
     cadrer(); if(tel.addEventListener) tel.addEventListener('change', cadrer);
+    // blocs datés de l'embed : data-des = apparaît à cette date, data-jusqua = disparaît à cette date (heure de Paris)
+    // essai avant la date : ajouter ?date=2026-12-01 à l'adresse de la page
+    var maintenant = Date.now();
+    try { var dEssai = new URL(location.href).searchParams.get('date'); if(dEssai && !isNaN(Date.parse(dEssai + 'T00:00:00+01:00'))) maintenant = Date.parse(dEssai + 'T00:00:00+01:00'); } catch(err){}
+    root.querySelectorAll('[data-des],[data-jusqua]').forEach(function(el){
+      var des = el.getAttribute('data-des'), fin = el.getAttribute('data-jusqua');
+      var visible = (!des || maintenant >= Date.parse(des)) && (!fin || maintenant < Date.parse(fin));
+      if(visible) el.removeAttribute('hidden'); else el.setAttribute('hidden', '');
+    });
+    // actifs de la nouveauté : un clic ouvre l'encadré, un 2e clic (ou la croix) le referme
+    root.querySelectorAll('.eba-une').forEach(function(bloc){
+      var pan = bloc.querySelector('.eba-pan'); if(!pan) return;
+      var boutons = bloc.querySelectorAll('.eba-ai');
+      function montrer(i){
+        boutons.forEach(function(b, n){ b.classList.toggle('on', n === i); b.setAttribute('aria-expanded', n === i ? 'true' : 'false'); });
+        if(i < 0){ pan.classList.remove('on'); return; }
+        var d = boutons[i].querySelector('.eba-ad');
+        pan.querySelector('b').textContent = boutons[i].querySelector('.eba-an').textContent;
+        pan.querySelector('em').textContent = d.getAttribute('data-titre') || '';
+        pan.querySelector('p').textContent = d.textContent;
+        pan.scrollTop = 0; pan.classList.add('on');
+      }
+      boutons.forEach(function(b, n){ b.addEventListener('click', function(){ montrer(b.classList.contains('on') ? -1 : n); }); });
+      pan.querySelector('button').addEventListener('click', function(){ montrer(-1); });
+    });
     // bande Skin ID : fond dégradé beige (choisi le 3 nov.)
     var bandeSid = root.querySelector('.eba-sid'); if(bandeSid) bandeSid.classList.add('v-clair', 'v-beige');
     requestAnimationFrame(function(){ root.classList.add('eba-pret'); });
