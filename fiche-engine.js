@@ -17,6 +17,24 @@
   + ".eb-fp-overlay *{box-sizing:border-box}"
   + ".eb-fp-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:400;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
   + ".eb-fp-close.visible{display:flex}.eb-fp-close:hover{transform:scale(1.1)}"
+  // « Les actifs » : mini-vignettes au-dessus du bouton panier ; au clic, une fenêtre (style vignette Bloom) s'ouvre AU-DESSUS, sans pousser le bouton
+  + ".eb-fp-act{position:relative;margin:22px 0 18px;text-align:center}"
+  + ".eb-fp-act-t{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#111;margin:0 0 12px}"
+  + ".eb-fp-act-r{display:flex;gap:10px;justify-content:center}"
+  + ".eb-fp-ai{width:76px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;background:none;border:0;padding:0;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent}"
+  + ".eb-fp-ai img{width:60px;height:60px;object-fit:cover;border-radius:9px;border:1.5px solid #fff;box-shadow:0 2px 8px rgba(60,40,30,.12);transition:border-color .25s}"
+  + ".eb-fp-ai .eb-fp-an{font-size:8.5px;letter-spacing:.14em;font-weight:600;text-transform:uppercase;color:#2a2723;line-height:1.3;text-align:center}"
+  + ".eb-fp-ai .eb-fp-ad{display:none}.eb-fp-ai.on img{border-color:#111}"
+  + ".eb-fp-apan{display:none;position:absolute;left:0;right:0;bottom:calc(100% + 4px);z-index:5;text-align:left;background:#ece5db;border:1px solid rgba(255,255,255,.95);border-radius:12px;box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 1px 2px rgba(60,40,30,.12),0 12px 30px rgba(60,40,30,.16);padding:18px 18px 16px;font-family:'Montserrat',sans-serif;max-height:min(62vh,440px);overflow:auto}"
+  + ".eb-fp-apan.on{display:block}"
+  + ".eb-fp-apan-h{display:flex;gap:14px;align-items:center;margin:0 26px 12px 0}"
+  + ".eb-fp-apan-h img{width:74px;height:74px;border-radius:10px;object-fit:cover;flex:none}"
+  + ".eb-fp-apan b{display:block;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7d1f2b}"
+  + ".eb-fp-apan em{display:block;font-style:normal;font-size:13px;font-weight:500;color:#111;margin-top:6px;line-height:1.4}"
+  + ".eb-fp-apan p{margin:0;font-size:12.5px;line-height:1.7;color:#2a2723}"
+  + ".eb-fp-apan-x{position:absolute;top:10px;right:10px;width:28px;height:28px;border:0;border-radius:50%;background:#f5f1ea;font-size:15px;line-height:28px;cursor:pointer;color:#111;padding:0}"
+  + "body.eb-act-ouvert .eb-fp-close{opacity:0;pointer-events:none}"
+  + "@media (max-width:699px){.eb-fp-act-r{justify-content:space-between}.eb-fp-ai{width:22%}.eb-fp-ai img{width:54px;height:54px}.eb-fp-ai .eb-fp-an{font-size:7.5px;letter-spacing:.08em}}"
   // Panier de la fiche : même sac que le menu, en haut à droite
   + ".eb-fp-cartbtn{position:fixed;top:12px;right:18px;z-index:99995;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s ease}"
   + ".eb-fp-cartbtn.visible{display:flex}.eb-fp-cartbtn:hover{transform:scale(1.08)}"
@@ -262,6 +280,11 @@
       adresse: 'https://routines.elkhab.com/?fiche=coffret-velours-dhiver'
     },
     // ── Les soins et les routines (textes validés le 11 nov. 2026) ──
+    'lumi-glow-pdrn': {
+      titre: 'Lumi-Glow PDRN, sérum booster au PDRN vegan et spicules',
+      description: 'Sérum booster aux spicules, PDRN vegan, centella asiatica et acide hyaluronique : il affine le grain de peau, raffermit et révèle l\u2019éclat dès la première application. 30 ml.',
+      adresse: 'https://bloom.elkhab.com/?fiche=lumi-glow-pdrn'
+    },
     'radiance-serum': {
       titre: 'Radiance C Serum, sérum vitamine C éclat et hydratation',
       description: 'Sérum visage à la vitamine C stabilisée et à l\u2019acide hyaluronique : il ravive l\u2019éclat du teint sans dessécher. Texture sorbet, vegan, peaux sensibles. 30 ml.',
@@ -786,7 +809,7 @@
   }
 
   // Miniatures des photos sable : [largeur de la photo en %, centre du soin en % (horizontal, vertical)], mesuré sur chaque photo
-  var CADRES_MINI = {"arbutin-1":[128.3,50.0,56.7],"arbutin-2":[155.0,49.9,59.7],"gelee-lumibloom-1":[128.3,50.1,56.7],"gelee-lumibloom-2":[155.8,50.0,59.7],"lumi-pure-1":[185.8,49.9,63.3],"lumi-pure-2":[185.8,49.9,63.3],"luminescence-boost-1":[128.3,50.0,56.7],"luminescence-boost-2":[155.0,50.0,59.7],"luminescence-jour-1":[100.2,49.9,49.5],"luminescence-jour-2":[107.9,50.0,50.7],"luminescence-nuit-1":[100.2,49.9,49.5],"luminescence-nuit-2":[107.9,50.0,50.7],"lumiveil-b1-clair-1":[138.2,50.0,51.8],"lumiveil-b1-clair-2":[162.0,50.0,55.0],"lumiveil-b2-moyen-1":[138.2,50.1,51.8],"lumiveil-b2-moyen-2":[162.0,50.0,55.0],"lumiveil-b3-hale-1":[138.2,50.1,51.8],"lumiveil-b3-hale-2":[161.8,50.0,54.9],"lumiveil-b4-fonce-1":[138.3,50.1,51.8],"lumiveil-b4-fonce-2":[161.8,50.0,54.9],"milky-bloom-1":[100.0,50.0,45.5],"milky-bloom-2":[100.0,50.0,45.6],"niacinamide-5-1":[100.2,49.9,49.5],"niacinamide-5-2":[107.9,50.0,50.7],"patchs-antioxydants-b5":[127.9,50.8,50.2],"patchs-cafeine-vitamine-c":[127.9,50.8,50.2],"patchs-niacinamide":[127.9,50.8,50.2],"radiance-cleanser-1":[100.0,50.0,45.9],"radiance-cleanser-2":[100.0,50.0,45.8],"radiance-eye-cream-1":[148.3,49.2,60.3],"radiance-eye-cream-2":[181.1,49.9,62.7],"radiance-protect-sans-teinte-1":[138.2,50.0,51.8],"radiance-protect-sans-teinte-2":[162.9,50.0,55.1],"radiance-protect-teinte-1":[138.2,50.1,51.8],"radiance-protect-teinte-2":[162.0,50.0,55.0],"radiance-serum-1":[131.0,50.3,56.4],"radiance-serum-2":[147.1,49.9,58.5],"rituel-luminescence-1":[100.0,50.0,49.0],"rituel-luminescence-2":[101.6,49.9,54.6],"routine-eclat-peau-mixte":[108.3,50.0,50.0],"routine-eclat-peau-sensible":[107.8,50.0,50.0],"routine-equilibre-b1":[125.4,50.0,50.0],"routine-equilibre-b3":[125.4,50.0,50.0],"routine-equilibre-b4":[125.4,50.0,50.0],"routine-equilibre":[125.4,50.0,50.0],"routine-fermete-sans-teinte":[125.3,50.0,50.0],"routine-fermete":[125.3,50.0,50.0],"routine-hydratation":[125.4,50.0,50.0],"routine-regard":[135.1,49.9,50.0],"routine-teint-protection-b1":[170.6,50.0,50.0],"routine-teint-protection-b3":[170.6,50.0,50.0],"routine-teint-protection-b4":[170.6,50.0,50.0],"routine-teint-protection":[170.6,50.0,50.0]};
+  var CADRES_MINI = {"lumi-glow-pdrn-1":[126.5,50.0,55.9],"lumi-glow-pdrn-2":[132.2,50.0,56.3],"arbutin-1":[128.3,50.0,56.7],"arbutin-2":[155.0,49.9,59.7],"gelee-lumibloom-1":[128.3,50.1,56.7],"gelee-lumibloom-2":[155.8,50.0,59.7],"lumi-pure-1":[185.8,49.9,63.3],"lumi-pure-2":[185.8,49.9,63.3],"luminescence-boost-1":[128.3,50.0,56.7],"luminescence-boost-2":[155.0,50.0,59.7],"luminescence-jour-1":[100.2,49.9,49.5],"luminescence-jour-2":[107.9,50.0,50.7],"luminescence-nuit-1":[100.2,49.9,49.5],"luminescence-nuit-2":[107.9,50.0,50.7],"lumiveil-b1-clair-1":[138.2,50.0,51.8],"lumiveil-b1-clair-2":[162.0,50.0,55.0],"lumiveil-b2-moyen-1":[138.2,50.1,51.8],"lumiveil-b2-moyen-2":[162.0,50.0,55.0],"lumiveil-b3-hale-1":[138.2,50.1,51.8],"lumiveil-b3-hale-2":[161.8,50.0,54.9],"lumiveil-b4-fonce-1":[138.3,50.1,51.8],"lumiveil-b4-fonce-2":[161.8,50.0,54.9],"milky-bloom-1":[100.0,50.0,45.5],"milky-bloom-2":[100.0,50.0,45.6],"niacinamide-5-1":[100.2,49.9,49.5],"niacinamide-5-2":[107.9,50.0,50.7],"patchs-antioxydants-b5":[127.9,50.8,50.2],"patchs-cafeine-vitamine-c":[127.9,50.8,50.2],"patchs-niacinamide":[127.9,50.8,50.2],"radiance-cleanser-1":[100.0,50.0,45.9],"radiance-cleanser-2":[100.0,50.0,45.8],"radiance-eye-cream-1":[148.3,49.2,60.3],"radiance-eye-cream-2":[181.1,49.9,62.7],"radiance-protect-sans-teinte-1":[138.2,50.0,51.8],"radiance-protect-sans-teinte-2":[162.9,50.0,55.1],"radiance-protect-teinte-1":[138.2,50.1,51.8],"radiance-protect-teinte-2":[162.0,50.0,55.0],"radiance-serum-1":[131.0,50.3,56.4],"radiance-serum-2":[147.1,49.9,58.5],"rituel-luminescence-1":[100.0,50.0,49.0],"rituel-luminescence-2":[101.6,49.9,54.6],"routine-eclat-peau-mixte":[108.3,50.0,50.0],"routine-eclat-peau-sensible":[107.8,50.0,50.0],"routine-equilibre-b1":[125.4,50.0,50.0],"routine-equilibre-b3":[125.4,50.0,50.0],"routine-equilibre-b4":[125.4,50.0,50.0],"routine-equilibre":[125.4,50.0,50.0],"routine-fermete-sans-teinte":[125.3,50.0,50.0],"routine-fermete":[125.3,50.0,50.0],"routine-hydratation":[125.4,50.0,50.0],"routine-regard":[135.1,49.9,50.0],"routine-teint-protection-b1":[170.6,50.0,50.0],"routine-teint-protection-b3":[170.6,50.0,50.0],"routine-teint-protection-b4":[170.6,50.0,50.0],"routine-teint-protection":[170.6,50.0,50.0]};
   function cadreMini(src){
     var m = /bloom-fiche-([a-z0-9-]+)\.png/.exec(src), c = m && CADRES_MINI[m[1]];
     return c ? ' class="eb-fp-mini-cadre" style="width:' + c[0] + '%;transform:translate(-' + c[1] + '%,-' + c[2] + '%)"' : '';
@@ -1033,6 +1056,44 @@
   }
 
   // prixAvant (promotion datée en cours, ex. Black Week) : prix normal barré devant le prix promo
+  // « Les actifs » d'un soin (mini-vignettes) : data.actifsCles = [{ nom, titre, texte, photo }]  (data.actifs reste la petite ligne des patchs)
+  function actifsHTML(data){
+    var A = data.actifsCles; if(!A || !A.length) return '';
+    return '<div class="eb-fp-act"><p class="eb-fp-act-t">Les actifs</p><div class="eb-fp-act-r">'
+      + A.map(function(a){ return '<button type="button" class="eb-fp-ai" aria-expanded="false"><img src="' + esc(a.photo) + '" alt="' + esc(a.nom) + ', actif du soin ' + esc(data.nom) + '" loading="lazy" decoding="async"><span class="eb-fp-an">' + esc(a.nom) + '</span><span class="eb-fp-ad" data-titre="' + esc(a.titre) + '">' + esc(a.texte) + '</span></button>'; }).join('')
+      + '</div><div class="eb-fp-apan" role="region" aria-live="polite"><button type="button" class="eb-fp-apan-x" aria-label="Fermer">×</button><div class="eb-fp-apan-h"><img alt=""><div><b></b><em></em></div></div><p></p></div></div>';
+  }
+  function actifMontrer(bloc, i){
+    var boutons = bloc.querySelectorAll('.eb-fp-ai'), pan = bloc.querySelector('.eb-fp-apan');
+    boutons.forEach(function(b, n){ b.classList.toggle('on', n === i); b.setAttribute('aria-expanded', n === i ? 'true' : 'false'); });
+    document.body.classList.toggle('eb-act-ouvert', i >= 0);
+    if(i < 0){ pan.classList.remove('on'); return; }
+    var b = boutons[i], d = b.querySelector('.eb-fp-ad');
+    pan.querySelector('b').textContent = b.querySelector('.eb-fp-an').textContent;
+    pan.querySelector('em').textContent = d.getAttribute('data-titre') || '';
+    pan.querySelector('p').textContent = d.textContent;
+    pan.querySelector('.eb-fp-apan-h img').src = b.querySelector('img').src;
+    pan.scrollTop = 0; pan.classList.add('on');
+  }
+  document.addEventListener('click', function(e){
+    var x = e.target.closest && e.target.closest('.eb-fp-apan-x');
+    if(x){ actifMontrer(x.closest('.eb-fp-act'), -1); return; }
+    var b = e.target.closest && e.target.closest('.eb-fp-ai'); if(!b) return;
+    var bloc = b.closest('.eb-fp-act'), liste = [].slice.call(bloc.querySelectorAll('.eb-fp-ai'));
+    actifMontrer(bloc, b.classList.contains('on') ? -1 : liste.indexOf(b));
+  });
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.eb-fp-duo-buy'); if(!btn || !window.ebCartAddItem || btn.disabled) return;
+    var ids = (btn.getAttribute('data-variant-ids') || '').split(',').filter(Boolean), avant = btn.innerHTML;
+    btn.disabled = true;
+    ids.reduce(function(p, id){ return p.then(function(){ return window.ebCartAddItem(id, 1); }); }, Promise.resolve()).then(function(){
+      var prix = btn.querySelector('.eb-produit-add-price');
+      btn.innerHTML = 'AJOUTÉS ✓ ' + (prix ? prix.outerHTML : '');
+      setTimeout(function(){ btn.innerHTML = avant; btn.disabled = false; }, 1500);
+    }, function(){ btn.disabled = false; });
+  });
+
   function boutonAchat(variantId, prix, extraClass, prixAvant){
     return '<button type="button" class="eb-fp-buy eb-cart-add-btn' + (extraClass ? ' ' + extraClass : '') + '" data-variant-id="' + esc(variantId) + '">'
       + 'Ajouter au panier' + (prix ? ' <span class="eb-produit-add-price">— ' + (prixAvant ? '<s class="eb-fp-avant">' + esc(prixAvant) + '</s> ' : '') + esc(prix) + '</span>' : '') + '</button>';
@@ -1040,6 +1101,7 @@
 
   // ctx.routine : identifiant de la routine depuis laquelle le soin est consulté
   function ebFicheOpen(id, ctx){
+    document.body.classList.remove('eb-act-ouvert');
     var data = window.EB_PRODUITS && window.EB_PRODUITS[id];
     if(!data){ console.error('ELKHA.B fiche — produit inconnu :', id); return; }
     ctx = ctx || {};
@@ -1069,6 +1131,7 @@
     if(data.note) h += '<p class="eb-fp-note">' + esc(data.note) + '</p>';
     h += '</div>';
 
+    h += actifsHTML(data);
     var variantes = data.variantes || [];
     if(routineParente){
       // Soin consulté depuis une routine : prix seul, l'achat se fait dans la routine
@@ -1186,7 +1249,29 @@
 
     // Pour aller plus loin — L'accord parfait
     var a = routineParente ? null : data.accord;
-    if(a){
+    if(a && a.soins){
+      // Accord parfait « en duo » : une photo des deux soins, un bouton « Découvrir » pour chacun, un seul bouton pour les ajouter ensemble
+      h += '<hr class="eb-fp-sep">';
+      h += '<p class="eb-fp-kicker">Pour aller plus loin</p>';
+      h += '<h2 class="eb-fp-h2" style="margin-top:6px">L\'accord parfait</h2>';
+      if(a.image) h += '<img class="eb-fp-accord-img" src="' + esc(a.image) + '" alt="' + esc(a.nom || '') + '">';
+      if(a.nom) h += '<p class="eb-fp-accord-nom">' + esc(a.nom) + '</p>';
+      if(a.sousTitre) h += '<p class="eb-fp-accord-sous">' + esc(a.sousTitre).replace(/\n/g, '<br>') + '</p>';
+      if(a.texte){
+        var parasD = String(a.texte).split('\n').filter(function(p){ return p.trim(); });
+        h += '<div class="eb-fp-accord-text eb-clamp' + (parasD.length === 1 ? ' eb-un' : '') + '">';
+        parasD.forEach(function(p, i){ h += '<p' + (i > 0 ? ' class="eb-suite"' : '') + '>' + esc(p) + '</p>'; });
+        h += '</div>';
+        if(parasD.length > 1) h += '<button type="button" class="eb-fp-more">Voir plus</button>';
+      }
+      // même bouton « Découvrir » que sur les autres fiches : il ouvre le premier soin du duo (dont l'accord parfait mène au second)
+      if(window.EB_PRODUITS[a.soins[0]]) h += '<div class="eb-fp-center"><button type="button" class="eb-fp-pill" data-fiche="' + esc(a.soins[0]) + '">Découvrir</button></div>';
+      var ids = a.soins.map(function(id){ var f = window.EB_PRODUITS[id]; return f && f.variantId; }).filter(Boolean);
+      if(ids.length === a.soins.length){
+        h += '<button type="button" class="eb-fp-buy eb-fp-accord-buy eb-fp-duo-buy" data-variant-ids="' + esc(ids.join(',')) + '">Ajouter les deux au panier' + (a.prix ? ' <span class="eb-produit-add-price">— ' + esc(a.prix) + '</span>' : '') + '</button>';
+        h += '<p class="eb-fp-ship">Complétez votre rituel Bloom et profitez de la livraison offerte dès 65 € d\'achat</p>';
+      }
+    } else if(a){
       h += '<hr class="eb-fp-sep">';
       h += '<p class="eb-fp-kicker">Pour aller plus loin</p>';
       h += '<h2 class="eb-fp-h2" style="margin-top:6px">L\'accord parfait</h2>';
@@ -1267,6 +1352,7 @@
   }
 
   function ebFicheClose(){
+    document.body.classList.remove('eb-act-ouvert');
     if(!overlay) return;
     pile = []; courant = null;
     seoRetablir();

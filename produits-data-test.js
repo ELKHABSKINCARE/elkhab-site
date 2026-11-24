@@ -1733,3 +1733,114 @@ window.EB_PRODUITS = {
   }
 
 };
+
+// =====================================================================
+// LUMI-GLOW PDRN — nouveauté Bloom, en ligne le 1er décembre 2026 à 0 h (heure de Paris)
+// Avant cette date, la fiche n'existe pas sur le site.
+// Pour la voir avant : ajouter ?date=2026-12-01 à l'adresse de la page.
+// =====================================================================
+(function(){
+  var maintenant = Date.now();
+  try { var d = new URLSearchParams(location.search).get('date'); if(d && !isNaN(Date.parse(d + 'T00:00:00+01:00'))) maintenant = Date.parse(d + 'T00:00:00+01:00'); } catch(e){}
+  if(maintenant < Date.parse('2026-12-01T00:00:00+01:00')) return;
+
+  window.EB_INCI_PLUS = window.EB_INCI_PLUS || {};
+  window.EB_INCI_PLUS["lumi-glow-pdrn"] = {
+    ingredients: "Water (Aqua), Glycerin, Betaine, Propanediol, Xanthan Gum, Caprylyl Glycol, Hydrolyzed Sponge, Phenylpropanol, Sodium Hyaluronate, Sodium DNA, Hydrogenated Lecithin, Asiaticoside, Madecassic Acid, Asiatic Acid, CI 17200."
+  };
+
+  window.EB_PRODUITS["lumi-glow-pdrn"] = {
+    nom: "Lumi-Glow PDRN",
+    sousTitre: "Sérum booster\nSpicules · Centella asiatica tri-moléculaire",
+    details: ["30 ml", "PDRN vegan"],
+    note: "s'applique par tapotements",
+    prix: "36,90€",
+    variantId: "60687982068057",
+    inci: "lumi-glow-pdrn",
+    avis: "Lumi-Glow PDRN",
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 📷  DIAPORAMA DE LA FICHE  — Lumi-Glow PDRN                     │
+    // └─────────────────────────────────────────────────────────────────┘
+    media: {
+      miniature: "https://elkhabskincare.github.io/elkhab-site/bloom-mini-lumi-glow-pdrn.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      type: "diaporama",
+      images: [
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumi-glow-pdrn-1.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-lumi-glow-pdrn-2.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-texture-lumi-glow-pdrn.png",
+        "https://elkhabskincare.github.io/elkhab-site/bloom-visage-lumi-glow-pdrn.png"
+      ]
+    },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "PDRN vegan", titre: "Le renouveau cutané nouvelle génération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-pdrn-vegan.webp",
+        texte: "Le PDRN est un actif composé de fragments d'ADN, reconnu pour son potentiel réparateur. Traditionnellement extrait du saumon, il est ici biosynthétisé par fermentation, sans aucune particule d'origine animale, et vise le même renouvellement. Il soutient les mécanismes naturels de réparation de la peau, améliore sa fermeté et révèle une peau visiblement plus lisse et lumineuse." },
+      { nom: "Spicules", titre: "La technologie au service des actifs", photo: "https://elkhabskincare.github.io/elkhab-site/actif-spicules.webp",
+        texte: "Microstructures en forme d'aiguilles, les spicules interagissent avec les couches superficielles de la peau pour favoriser la pénétration des actifs. Leurs picotements caractéristiques signent une expérience sensorielle unique. Cette technologie contribue à affiner le grain de peau et à révéler une texture cutanée plus uniforme." },
+      { nom: "Centella asiatica", titre: "Le pouvoir réparateur de la nature", photo: "https://elkhabskincare.github.io/elkhab-site/actif-centella.webp",
+        texte: "Précieuse plante reconnue pour ses propriétés apaisantes et réparatrices, la centella asiatica est ici présente sous la forme de ses trois molécules actives purifiées, l'asiaticoside, l'acide madécassique et l'acide asiatique. Elle aide la peau à se rétablir, préserve sa barrière protectrice et contribue à améliorer sa souplesse. Elle apaise aussi la peau après le léger picotement des spicules." },
+      { nom: "Acide hyaluronique", titre: "L'essence d'une peau repulpée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.webp",
+        texte: "Véritable réservoir d'hydratation, l'acide hyaluronique attire et retient l'eau au sein des couches superficielles de la peau. Il aide à lisser les ridules de déshydratation, à repulper visiblement la peau et à lui redonner toute sa souplesse." }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
+    // └─────────────────────────────────────────────────────────────────┘
+    routine: {
+      etapes: [
+        { moment: "Le soir", soin: "lumi-glow-pdrn", texte: "Sur peau propre et sèche, appliquez Lumi-Glow PDRN par légers tapotements. Laissez le léger picotement s'estomper avant de poursuivre." },
+        { moment: "Le soir", soin: "luminescence-boost", texte: "Poursuivez avec Luminescence Boost, qui apporte ses actifs fermeté à une peau parfaitement préparée." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Scellez avec Luminescence Nuit pour une peau plus ferme, plus lisse et lumineuse au réveil." }
+      ]
+    },
+
+    sections: [
+      { titre: "L'expérience",
+        texte: "Un booster qui réveille l'éclat dès le premier geste. Lumi-Glow PDRN associe du PDRN vegan, des spicules, de la centella asiatica et de l'acide hyaluronique dans un soin léger, pensé comme la première étape de votre routine. À l'application, les fines spicules procurent un picotement caractéristique et une action micro-exfoliante, tandis que la formule contribue à laisser la peau visiblement plus lisse, plus ferme, hydratée et lumineuse." },
+      { titre: "Pourquoi vous allez l'aimer",
+        texte: "Parce qu'il offre une expérience différente d'un sérum classique. Les fines spicules procurent une sensation immédiatement perceptible, tandis que le PDRN vegan, l'acide hyaluronique et la centella asiatica accompagnent la peau vers davantage d'hydratation, de confort et d'éclat. Un glow visible dès la première utilisation." },
+      { titre: "Bénéfices clés",
+        liste: [
+          "Éclat visible dès la première application",
+          "Grain de peau affiné",
+          "Peau visiblement plus lisse et plus ferme",
+          "Hydratation intense et préservée"
+        ] },
+      { titre: "Pensé pour",
+        liste: [
+          "Les peaux normales, mixtes à grasses, à la recherche d'un soin ciblé pour retrouver éclat, hydratation et une peau visiblement plus lisse et plus ferme",
+          "Les teints ternes, les peaux qui manquent de souplesse et celles qui souhaitent intégrer une action micro-exfoliante à leur routine",
+          "Non recommandé aux peaux sensibles ou sensibilisées, en raison de l'action et du picotement caractéristiques des spicules"
+        ] },
+      { titre: "Texture & sensorialité",
+        texte: "Une texture légère à absorption rapide, conçue pour s'intégrer en première étape de la routine. Les fines spicules procurent une légère sensation de picotement à l'application. Cette sensation est normale et caractéristique de leur action. Sans parfum." },
+      { titre: "Bon à savoir",
+        texte: "Une légère sensation de picotement est normale. Évitez le contour des yeux et les zones irritées. À conserver à l'abri de la lumière directe du soleil." },
+      { titre: "Engagement ELKHA.B",
+        liste: [
+          "Une formule associant PDRN vegan, centella asiatica, acide hyaluronique et éponge hydrolysée",
+          "Sans parfum et testée sous contrôle dermatologique",
+          "Un soin pensé pour conjuguer innovation, efficacité et expérience sensorielle, sans multiplier les gestes inutilement"
+        ] }
+    ],
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🤝  L'ACCORD PARFAIT                                            │
+    // └─────────────────────────────────────────────────────────────────┘
+    accord: {
+      soins: ["luminescence-boost", "luminescence-nuit"],   // accord parfait en duo : un bouton ajoute les deux soins au panier
+      nom: "Luminescence Boost & Nuit",
+      sousTitre: "Le duo du soir · Sérum fermeté et crème de nuit",
+
+      // 📷 PHOTO DE L'ACCORD PARFAIT (les deux flacons seuls, sur le fond du site, comme sur les autres fiches)
+      image: "https://elkhabskincare.github.io/elkhab-site/bloom-accord-boost-nuit.png",
+
+      texte: "Le rituel du soir complet de la gamme Bloom.\nLumi-Glow PDRN prépare la peau et révèle son éclat en lissant le grain de peau. Luminescence Boost apporte ensuite ses actifs fermeté, les extraits de cresson et de sureau, pour soutenir et prolonger l'action du soin précédent. Luminescence Nuit referme le rituel. Son extrait de plancton marin aide à soutenir le collagène pendant la nuit, tandis que les beurres de cacao et de karité nourrissent la peau et scellent son hydratation.\nAu réveil, la peau paraît plus lisse, plus ferme, rebondie et lumineuse.",
+      prix: "66,80€"
+    }
+  };
+})();
