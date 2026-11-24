@@ -61,7 +61,7 @@ var SECTIONS = [
 //                diagnostic: "Ta question ici"   → ta question en grand, puis la phrase standard
 var ARTICLES = [
   { id: "article-vitaminec",           section: "actifs",  gamme: "bloom", titre: "Vitamine C",                 question: "Pourquoi est-elle devenue incontournable en skincare ?",
-    photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/radiance-c-serum-cerise-fond-site.png?v=1793617062" },
+    photo: "https://elkhabskincare.github.io/elkhab-site/journal-vitamine-c-radiance-c-serum.png" },
   { id: "article-niacinamide",         section: "actifs",  gamme: "bloom", titre: "Niacinamide",                question: "Pourquoi tout le monde en parle ?",
     photo: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gouttes_de_verre_sur_creme_pale.png?v=1791355188" },
   { id: "article-bakuchiol",           section: "actifs",  gamme: "balance", titre: "Bakuchiol",                question: "Le secret végétal d'une peau plus lisse et plus ferme",
