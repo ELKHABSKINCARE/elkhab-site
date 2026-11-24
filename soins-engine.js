@@ -148,6 +148,15 @@
       ],
       teinteDepart: 1
     },
+    "lumi-glow-pdrn": {
+      nom: "Lumi-Glow PDRN", actifs: "PDRN vegan · Spicules\u00a0· Centella asiatica", actifsCourt: "PDRN vegan · Spicules",
+      benefice: "Lisse visiblement la peau, tout en la gardant ferme et hydratée", prix: "36,90€", taille: "30 ml",
+      // 📅 nouveauté : le soin n'apparaît qu'à partir de cette date (heure de Paris) — essai avant : ajouter ?date=2026-12-01 à l'adresse
+      des: "2026-12-01T00:00:00+01:00",
+      // 📷 Lumi-Glow PDRN (photoLarge = vignette en grand sur téléphone)
+      photo: PHOTOS + "bloom-sable-lumi-glow-pdrn.png", photoLarge: PHOTOS + "bloom-sable-lumi-glow-pdrn-large.png",
+      alt: "Lumi-Glow PDRN ELKHA.B, sérum booster au PDRN vegan, aux spicules et à la centella asiatica, flacon pipette 30 ml"
+    },
     "luminescence-boost": {
       nom: "Luminescence Boost", actifs: "Cresson · Sureau · Acide hyaluronique", actifsCourt: "Cresson · Sureau",
       benefice: "Raffermit et lisse, tout en soutenant le collagène", prix: "31,90€", taille: "30 ml",
@@ -205,7 +214,9 @@
       //    cadrageTelephone = partie de la vidéo gardée sur téléphone (format plus bas)
       ambiance: { video: "https://cdn.shopify.com/videos/c/o/v/10cbd7af9222428db48ede51b66e58c9.mp4", alt: "Rituel ELKHA.B Bloom, peau lumineuse et hydratée", cadrageTelephone: "50% 38%" } },
     { num: "04", titre: "Protéger",  texte: "Le geste du matin, chaque jour.",                      couleur: "#e0663c", soins: ["radiance-protect","lumiveil-cc-cream"] },
-    { num: "05", titre: "Régénérer", texte: "La nuit, la peau se répare.",                          couleur: "#7d1f2b", soins: ["luminescence-boost","luminescence-nuit"] }
+    { num: "05", titre: "Régénérer", texte: "La nuit, la peau se répare.",                          couleur: "#7d1f2b", soins: ["lumi-glow-pdrn","luminescence-boost","luminescence-nuit"],
+      // ⭐ soin affiché en grand sur téléphone (les deux autres côte à côte en dessous)
+      grand: "lumi-glow-pdrn" }
   ];
 
   // Le coffret, en grand, après l'étape 05
@@ -358,7 +369,7 @@
   +   ".ebs-card.seul .ebs-ajouter{width:62%}"
   +   "#eb-soins .ebs-card.seul .ebs-tx h3{font-size:12.5px}"
   +   ".ebs-card.seul .ebs-ph img.ebs-detail{width:19%;right:17%;bottom:7%}"
-  +   ".ebs-card.seul[data-fiche='luminescence-jour'] .ebs-ph img{transform:scale(1.42);transform-origin:50% 52%}"   /* le soin star de Bloom : plus grand dans sa vignette */
+  +   ".ebs-card.seul[data-fiche='luminescence-jour'] .ebs-ph img,.ebs-card.seul[data-fiche='lumi-glow-pdrn'] .ebs-ph img{transform:scale(1.42);transform-origin:50% 52%}"   /* le soin star de Bloom : plus grand dans sa vignette */
   // teintes : sur téléphone, les photos des teintes ont le flacon déjà décalé à gauche (photos « -tel » préparées), pour ne pas passer sous les cases
     +   "#eb-soins .ebs-h h2{font-size:12px}"
   +   ".ebs-h p{font-size:11.5px}"
@@ -481,6 +492,13 @@
   }
 
   // ─────────────────────────── CONSTRUCTION ───────────────────────────
+  // Soins datés (« des ») : retirés de la page avant leur date de sortie
+  (function(){
+    var maintenant = Date.now();
+    try { var d = new URLSearchParams(location.search).get('date'); if(d && !isNaN(Date.parse(d + 'T00:00:00+01:00'))) maintenant = Date.parse(d + 'T00:00:00+01:00'); } catch(e){}
+    for(var id in SOINS){ if(SOINS[id].des && maintenant < Date.parse(SOINS[id].des)) delete SOINS[id]; }
+    ETAPES.forEach(function(e){ e.soins = e.soins.filter(function(id){ return !!SOINS[id]; }); if(e.grand && !SOINS[e.grand]) delete e.grand; });
+  })();
   // Texte d'introduction : écrit directement dans l'embed Carrd (lisible par Google), repris ici avec un « + »
   var intro = root.querySelector('.ebs-intro');
   var h = '<div class="ebs-flow">';
@@ -489,7 +507,7 @@
     var amb = e.ambiance && e.ambiance.video ? e.ambiance : null;
     // un soin seul sur sa ligne de téléphone (nombre impair) prend toute la largeur
     h += '<div class="ebs-grp' + (amb ? ' avec-amb' : '') + '">' + e.soins.map(function(id, k){
-      return vignette(id, e, e.soins.length % 2 === 1 && k === e.soins.length - 1);
+      return vignette(id, e, e.grand ? id === e.grand : (e.soins.length % 2 === 1 && k === e.soins.length - 1));
     }).join('');
     e.soins.forEach(function(id){ if(SOINS[id] && SOINS[id].conseil) h += '<div class="ebs-bande">' + conseilHTML(id) + '</div>'; });
     // la vidéo est dans le même groupe que le soin : à gauche du soin sur ordinateur, en dessous sur téléphone
