@@ -821,7 +821,7 @@ window.EB_PRODUITS = {
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
         texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera forme le cœur hydratant du gel. Il apaise la peau pendant le nettoyage et préserve son confort, pour qu'elle ne tiraille pas après le rinçage." },
-      { nom: "Extrait de mûre", titre: "L'éclat antioxydant de la mûre", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure.png",
+      { nom: "Extrait de mûre", titre: "L'éclat uniforme de la mûre", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure.png",
         texte: "La mûre est riche en acide ellagique, une molécule qui freine la tyrosinase, l'enzyme à l'origine des taches. Dès le nettoyage, elle aide le teint à rester uniforme et lumineux." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
         texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est nette, sans jamais être desséchée." }
