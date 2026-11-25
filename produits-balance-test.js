@@ -18,7 +18,7 @@ var BALANCE = {
   // CALM BALANCE JOUR
   // =====================================================================
   "calm-balance-jour": {
-    nom: "Calm Balance Jour",
+    nom: "Balance Calm Jour",
     sousTitre: "Crème de jour apaisante · Aloe vera · Sans parfum",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
@@ -27,13 +27,13 @@ var BALANCE = {
     inci: "calm-balance-jour",
     avis: "Calm Balance Jour",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/balance-calm-jour-miniature.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-1-boite-flacon-v6.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/balance-calm-jour-boite-flacon.png",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-jour-2-flacon-v6.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/balance-calm-jour-flacon.png",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_CALM_JOUR_3.png?v=1793810533",
         // 📷 4. VISAGE
@@ -57,15 +57,15 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom : ses prébiotiques préparent la peau en douceur et l'aident à retrouver son équilibre." },
-        { moment: "Le matin", soin: "calm-balance-jour", texte: "Appliquez une pression de Calm Balance Jour et lissez-la du centre vers l'extérieur du visage : elle apaise, hydrate et enveloppe la peau de confort, sans fini gras." },
+        { moment: "Le matin", soin: "calm-balance-jour", texte: "Appliquez une pression de Balance Calm Jour et lissez-la du centre vers l'extérieur du visage : elle apaise, hydrate et enveloppe la peau de confort, sans fini gras." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 : son filtre minéral protège les peaux sensibles des UV, qui accentuent rougeurs et inconfort." }
       ]
     },
     sections: [
       { titre: "L'expérience",
-        texte: "Calm Balance Jour est une parenthèse de douceur pour les peaux sensibles. Sa crème légère et sans parfum apaise les inconforts, atténue l'apparence des rougeurs et hydrate durablement. Jour après jour, la peau paraît plus calme, plus souple et retrouve son équilibre." },
+        texte: "Balance Calm Jour est une parenthèse de douceur pour les peaux sensibles. Sa crème légère et sans parfum apaise les inconforts, atténue l'apparence des rougeurs et hydrate durablement. Jour après jour, la peau paraît plus calme, plus souple et retrouve son équilibre." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que les peaux sensibles ont besoin de douceur, mais aussi d'une hydratation qui dure. Calm Balance Jour associe le jus d'aloe vera, l'acide hyaluronique, le Sodium PCA et l'huile de jojoba dans une formule sans parfum, pour calmer la peau et soutenir sa barrière naturelle. Sa texture légère mais nourrissante s'absorbe rapidement, sans sensation grasse." },
+        texte: "Parce que les peaux sensibles ont besoin de douceur, mais aussi d'une hydratation qui dure. Balance Calm Jour associe le jus d'aloe vera, l'acide hyaluronique, le Sodium PCA et l'huile de jojoba dans une formule sans parfum, pour calmer la peau et soutenir sa barrière naturelle. Sa texture légère mais nourrissante s'absorbe rapidement, sans sensation grasse." },
       { titre: "Bénéfices clés",
         liste: ["Aide à apaiser les sensations d'inconfort", "Atténue visiblement l'apparence des rougeurs", "Hydrate durablement la peau", "Soutient la barrière cutanée", "Sans parfum, pensée pour les peaux sensibles"] },
       { titre: "Pensé pour",
@@ -73,12 +73,12 @@ var BALANCE = {
       { titre: "Texture & sensorialité",
         texte: "Une texture crème légère et nourrissante, qui s'absorbe facilement et laisse la peau douce et confortable, sans fini gras. Sans parfum ajouté : une expérience simple et délicate, pensée pour les peaux sensibles." },
       { titre: "Engagement ELKHA.B",
-        texte: "• 100% d'ingrédients d'origine naturelle\n• 22% d'ingrédients issus de l'agriculture biologique\n• Sans parfum\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Calm Balance Jour en est l'expression la plus pure : une formule sans parfum qui prend soin des peaux sensibles sans jamais les brusquer." }
+        texte: "• 100% d'ingrédients d'origine naturelle\n• 22% d'ingrédients issus de l'agriculture biologique\n• Sans parfum\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Balance Calm Jour en est l'expression la plus pure : une formule sans parfum qui prend soin des peaux sensibles sans jamais les brusquer." }
     ],
     accord: {
       fiche: "calm-balance-nuit",
-      nom: "Calm Balance Nuit",
-      texte: "Le duo apaisant, du matin au soir.\nCalm Balance Jour apaise et hydrate la peau tout au long de la journée.\nCalm Balance Nuit prend le relais pendant le sommeil, pour une peau calme, confortable et reposée au réveil.",
+      nom: "Balance Calm Nuit",
+      texte: "Le duo apaisant, du matin au soir.\nBalance Calm Jour apaise et hydrate la peau tout au long de la journée.\nBalance Calm Nuit prend le relais pendant le sommeil, pour une peau calme, confortable et reposée au réveil.",
       prix: "36,90€",
       variantId: "60321802289497"
     }
