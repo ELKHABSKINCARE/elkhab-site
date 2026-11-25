@@ -68,6 +68,20 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Goutte_de_creme_jaune_brillante.png?v=1791129397"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous forme d'ascorbyl glucoside, une vitamine C stabilisée que la peau convertit progressivement en vitamine C pure. Antioxydante, elle neutralise les radicaux libres, illumine le teint et atténue l'apparence des taches, tout en restant bien tolérée." },
+      { nom: "Acide férulique", titre: "Le booster de la vitamine C", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-ferulique.png",
+        texte: "Antioxydant d'origine végétale, il protège la vitamine C de l'oxydation et prolonge son action. Ensemble, ils forment un bouclier plus efficace contre le stress oxydatif lié aux UV et à la pollution." },
+      { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
