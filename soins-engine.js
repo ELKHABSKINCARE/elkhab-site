@@ -481,15 +481,16 @@
       return '<span class="ebs-t' + (k === d ? ' on' : '') + '" data-fiche="" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" data-k="' + k + '" style="background-image:url(' + esc(x.texture) + ')"></span>';
     }).join('') + '<em>' + esc(t[d].nom) + '</em></span>';
   }
+  // (data-fiche vide sur les cases et la bulle : comme pour les teintes, le clic ne doit pas ouvrir la fiche)
   // actifs du soin (seulement Luminescence Jour) : cases dans la photo (téléphone, petit écran) ou colonne à côté (grand écran), bulle d'explication au clic
   function actifsListe(id){ var p = produit(id); return (SOINS[id].actifsPage && p && p.actifsCles && p.actifsCles.length) ? p.actifsCles : null; }
   function actifsCases(id, cls){
     var l = actifsListe(id); if(!l) return '';
     return '<span class="' + cls + '">' + l.map(function(a, k){
-      return '<span class="ebs-a" role="button" tabindex="0" aria-label="' + esc(a.nom) + ' : en savoir plus" data-k="' + k + '"><i style="background-image:url(' + esc(a.photo) + ')"></i><em>' + esc(a.nom) + '</em></span>';
+      return '<span class="ebs-a" data-fiche="" role="button" tabindex="0" aria-label="' + esc(a.nom) + ' : en savoir plus" data-k="' + k + '"><i style="background-image:url(' + esc(a.photo) + ')"></i><em>' + esc(a.nom) + '</em></span>';
     }).join('') + '</span>';
   }
-  function actifsBulle(id){ return actifsListe(id) ? '<span class="ebs-bul" role="status" aria-live="polite"><small></small><b></b><span></span></span>' : ''; }
+  function actifsBulle(id){ return actifsListe(id) ? '<span class="ebs-bul" data-fiche="" role="status" aria-live="polite"><small></small><b></b><span></span></span>' : ''; }
   // toutes les photos de teintes sont posées l'une sur l'autre dès le départ : changer de teinte ne recharge rien (pas de saut)
   function photosTeintes(s){
     var d = s.teinteDepart || 0;
@@ -683,11 +684,11 @@
     b.querySelector('small').textContent = a.nom; b.querySelector('b').textContent = a.titre; b.querySelector('span').textContent = a.texte;
     b.classList.add('vu');
   }
-  document.addEventListener('click', function(ev){ if(!ev.target.closest('.ebs-a')) fermerActifs(); }, true);
+  document.addEventListener('click', function(ev){ if(!ev.target.closest('.ebs-a, .ebs-bul')) fermerActifs(); }, true);
   root.addEventListener('click', function(ev){
     var ac = ev.target.closest('.ebs-a');
     if(ac){ ev.preventDefault(); ev.stopPropagation(); ouvrirActif(ac); return; }
-    if(ev.target.closest('.ebs-bul.vu')){ ev.preventDefault(); ev.stopPropagation(); fermerActifs(); return; }
+    if(ev.target.closest('.ebs-bul')){ ev.preventDefault(); ev.stopPropagation(); fermerActifs(); return; }
     var t = ev.target.closest('.ebs-t');
     if(t){ ev.preventDefault(); ev.stopPropagation(); choisirTeinte(t); return; }
     var a = ev.target.closest('.ebs-ajouter');
