@@ -3,7 +3,7 @@
 // ELKHA.B — Page « Votre rituel » (rituel.elkhab.com), ouverte par le QR code au dos des coffrets
 // Embed Carrd :  <div id="eb-rituel"></div>
 //                <script defer src="https://elkhabskincare.github.io/elkhab-site/rituel-engine.js"></script>
-// L'adresse choisit le coffret : ?ts (Le Temps Suspendu), ?lh (Lumière d'hiver), ?rm (Rituel de Minuit), ?na (Nouvelle Aube), ?vh (Velours d'Hiver)
+// L'adresse choisit le coffret ou le soin (?lg = Lumi-Glow PDRN, en ligne le 1er déc.) : ?ts (Le Temps Suspendu), ?lh (Lumière d'hiver), ?rm (Rituel de Minuit), ?na (Nouvelle Aube), ?vh (Velours d'Hiver)
 // Le rituel (étapes, conclusion) vient des fiches des coffrets (produits-data-test.js et produits-balance-test.js) :
 // une étape modifiée dans la fiche l'est aussi ici.
 //
@@ -198,6 +198,14 @@
       etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, déposez une petite quantité sous l'œil et sur la paupière, puis faites-la pénétrer en tapotant du bout de l'annulaire, de l'intérieur vers l'extérieur." }],
       savoir: { 'Matin et/ou soir': ["La peau du contour des yeux est jusqu'à quatre fois plus fine que celle du reste du visage et presque dépourvue de glandes sébacées : elle se déshydrate plus vite et montre la fatigue en premier. L'annulaire est le doigt qui exerce la pression la plus légère, c'est pour cela qu'on l'utilise sur cette zone."] },
       conseil: "Une petite quantité suffit pour les deux yeux. Ne l'appliquez pas trop près des cils : la crème migre naturellement vers l'œil avec la chaleur de la peau."
+    },
+    lg: {
+      geste: 'quelques gouttes suffisent', fiche: 'lumi-glow-pdrn', nom: 'Lumi-Glow PDRN', gamme: 'Bloom', sous: 'Sérum booster', couleur: '#6e1f29', clair: '#ead2d0',
+      role: "Ce sérum booster affine le grain de peau, ravive l'éclat et soutient la régénération de la peau, pour une peau visiblement plus lisse, plus ferme et repulpée.",
+      sens: "Un sérum léger d'un rose tendre, sans parfum, absorbé en quelques secondes. Les fines spicules procurent un léger picotement à l'application, tout à fait normal, qui s'estompe vite.",
+      etapes: [{ moment: 'Le soir', texte: "Sur peau propre et sèche, déposez quelques gouttes au creux de la main et appliquez-les sur le visage par légers tapotements, en évitant le contour des yeux. Laissez le picotement s'estomper, puis poursuivez avec Luminescence Boost et Luminescence Nuit." }],
+      savoir: { 'Le soir': ["Les spicules sont des microstructures en forme d'aiguilles, invisibles à l'œil nu. Elles se glissent dans les couches superficielles de la peau et ouvrent la voie aux actifs qui suivent, d'où leur picotement caractéristique. Le PDRN, lui, est composé de fragments d'ADN qui soutiennent les mécanismes naturels de réparation de la peau. Traditionnellement extrait du saumon, il est ici biosynthétisé par fermentation, sans aucune particule d'origine animale."] },
+      conseil: "Les premières semaines, appliquez-le deux à trois soirs par semaine, puis chaque soir une fois que votre peau s'y est habituée. Ne l'associez pas le même soir à Glyco Balance ou BHA Balance, et le matin, terminez toujours par une protection solaire comme Radiance Protect SPF 50."
     },
     // ── BALANCE ──
     hy: {
@@ -394,7 +402,9 @@
     'spot-control':       [7.5,  SHOP + 'balance-spot-control-flacon-site-v7.png', 'Sérum anti-taches ciblé'],
     'bright-control':     [14.5, SHOP + 'balance-bright-control-flacon-site-v6.png', 'Crème correctrice anti-taches'],
     'bha-balance':        [16,   SHOP + 'balance-bha-balance-flacon-site-v6.png', "Lotion à l'acide salicylique"],
-    'glyco-balance':      [12.5, SHOP + 'balance-glyco-balance-flacon-site-v6.png', "Lotion à l'acide glycolique"]
+    'glyco-balance':      [12.5, SHOP + 'balance-glyco-balance-flacon-site-v6.png', "Lotion à l'acide glycolique"],
+    // 4e valeur : photo du rituel déjà prête (PNG), quand elle ne suit pas le nom rituel-flacon-….webp
+    'lumi-glow-pdrn':     [14,   BASE + 'bloom-mini-lumi-glow-pdrn.png', 'Sérum booster', BASE + 'rituel-flacon-lumi-glow-pdrn.png']
   };
   var LIENS = { site: 'https://elkhab.com/', routines: 'https://routines.elkhab.com/' };
   // ─────────────────────────── FIN DES RÉGLAGES ───────────────────────────
@@ -544,7 +554,7 @@
       var f = FLACONS[s], p = P[s] || {};
       // photo cadrée (flacon centré, de 7 % à 87 % de sa hauteur) : même taille de flacon qu'avant, tous posés sur la même ligne
       var h = f ? Math.round(138 * f[0] / hmax * 0.98) : 120;
-      var img = f ? photoRituel(f[1]) : ((p.media && (p.media.miniature || (p.media.images && p.media.images[0]))) || '');
+      var img = f ? photoDe(f) : ((p.media && (p.media.miniature || (p.media.images && p.media.images[0]))) || '');
       return '<div class="ebq-soin"><span class="ebq-fl">' + (img ? '<img src="' + esc(img + (img.indexOf('cdn.shopify.com') < 0 ? '' : (img.indexOf('?') < 0 ? '?' : '&') + 'width=400')) + '" alt="' + esc((p.nom || '') + ' ELKHA.B') + '" style="height:' + h + 'px;width:' + Math.round(h * 2 / 3) + 'px;margin-bottom:-' + Math.round(h * 0.13) + 'px" loading="lazy">' : '') + '</span>'
         + '<b>' + esc(p.nom || '') + '</b>' + (sens[s] ? '<em>' + esc(sens[s]) + '</em>' : '<span>' + esc(f ? f[2] : '') + '</span>') + '</div>';
     }).join('') + '</div>';
@@ -552,6 +562,7 @@
 
   // photo du flacon cadrée pour la fiche (360×540, flacon centré, rien de coupé)
   function photoRituel(u){ return BASE + 'rituel-flacon-' + u.split('/').pop().replace(/^(balance|bloom)-|-flacon-site-v\d+\.png.*$/g, '') + '.webp'; }
+  function photoDe(f){ return f[3] || photoRituel(f[1]); }
   function estNuit(m){ return /soir/i.test(m) && !/matin/i.test(m); }
   function momentsHTML(P, ro, C){
     var groupes = [], g = null;
@@ -661,11 +672,16 @@
     var etapes = (S.etapes || []).map(function(e){ return { moment: e.moment, soin: S.fiche, texte: e.texte }; });
     // l'accord parfait de la fiche
     var a = r.accord && P[r.accord.fiche] ? r.accord : null, acc = '';
+    // accord en duo (ex. Lumi-Glow → Luminescence Boost & Nuit) : la carte ouvre le premier soin, comme le bouton « Découvrir » de la fiche
+    var duo = !a && r.accord && r.accord.soins && P[r.accord.soins[0]] ? r.accord : null;
     if(a){
       var vig = VIGNETTES[a.fiche] ? BASE + VIGNETTES[a.fiche] + '.webp' : '';
       var phr = String(a.texte || '').split('\n').filter(function(x){ return x.trim(); });
       acc = '<h2>Pour aller plus loin</h2><button type="button" class="ebq-acc ebq-rv" data-fiche="' + esc(a.fiche) + '">' + (vig ? '<img src="' + esc(vig) + '" alt="' + esc(P[a.fiche].nom + ' ELKHA.B') + '" loading="lazy">' : '')
         + '<span><b>' + esc(P[a.fiche].nom) + '</b><em>' + esc(phr.length > 1 ? phr[1] : (phr[0] || '')) + '</em><u>Découvrir</u></span></button>';
+    } else if(duo){
+      acc = '<h2>Pour aller plus loin</h2><button type="button" class="ebq-acc ebq-rv" data-fiche="' + esc(duo.soins[0]) + '">' + (duo.image ? '<img src="' + esc(duo.image) + '" alt="' + esc(duo.nom + ' ELKHA.B') + '" loading="lazy">' : '')
+        + '<span><b>' + esc(duo.nom) + '</b><em>' + esc(String(duo.sousTitre || '').split(' · ').pop()) + '</em><u>Découvrir</u></span></button>';
     }
     root.innerHTML = '<div class="ebq-in">'
       + '<div class="ebq-griffe">' + MONO + '<i class="ebq-filet"></i><div class="ebq-logo">ELKHA.B</div><div class="ebq-paris">PARIS</div></div>'
@@ -674,7 +690,7 @@
       + '<i class="ebq-g" style="background:linear-gradient(90deg,#f5f4f0,' + coul + ')"></i>'
       + '<p class="ebq-mot ebq-rv">' + esc(MOT_SOIN) + '</p>'
       + '<div class="ebq-rv"><h2>Votre soin</h2><div class="ebq-soin1">'
-      +   (f ? '<span><img src="' + esc(photoRituel(f[1])) + '" width="360" height="540" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '"></span>' : '')
+      +   (f ? '<span><img src="' + esc(photoDe(f)) + '" width="360" height="540" alt="' + esc(r.nom + ' ELKHA.B ' + S.gamme) + '"></span>' : '')
       +   '<div><b>Ce qu\'il fait</b><p>' + esc(S.role) + '</p></div></div>'
       +   (S.sens ? '<p class="ebq-sens">' + esc(S.sens) + '</p>' : '') + concentre(S.geste, false) + '</div>'
       + '<h2 style="margin-bottom:0">Votre rituel</h2>'
