@@ -176,6 +176,90 @@
       pour: 'Idéal pour lisser les rides et les ridules sans agresser la peau, même sensible. À appliquer le soir.',
       duree: 'Formule concentrée : quelques gouttes suffisent. Estimation d’utilisation : 3 mois, soit moins de 14 € par mois.'
     },
+    'milky-bloom': {
+      gamme: 'bloom', type: 'Nettoyant démaquillant',
+      photo: 'mf-milky-bloom.webp', net: true, cm: 15.5,
+      sous: 'Nettoyant huile-en-lait<br>Mûre arctique · 150 ml',
+      eng: ['100 % d’origine naturelle', '39 % d’ingrédients bio', 'Vegan', 'Testé sous contrôle dermatologique'],
+      accroche: 'Le démaquillage <b>complet</b>, sans jamais <b>tirailler</b>.',
+      points: [
+        'Sur peau sèche, l’huile fond sous les doigts et dissout le maquillage, même le plus épais, ainsi que les impuretés de la journée.',
+        'Au contact de l’eau, elle se transforme en un lait soyeux qui se rince en un geste. Sans agent moussant, Milky Bloom nettoie sans déshydrater.',
+        'La mûre arctique, l’argousier et la camomille bio nourrissent et réconfortent la peau, qui reste douce, nette et prête à recevoir vos soins.'
+      ],
+      pour: 'Idéal pour les peaux sensibles, sèches et délicates, et pour le double nettoyage du soir. Le matin et le soir.',
+      duree: 'Une noisette suffit pour tout le visage.'
+    },
+    'hydra-balance': {
+      gamme: 'balance', type: 'Gel hydratant',
+      photo: 'mf-hydra-balance.webp', net: true, cm: 11,
+      sous: 'Gel hydratant repulpant<br>Acide hyaluronique · 30 ml',
+      eng: ['99 % d’origine naturelle', '11 % d’ingrédients bio', 'Vegan', 'COSMOS NATURAL'],
+      accroche: 'Un véritable <b>bain d’hydratation</b>, pour une peau <b>rebondie</b>.',
+      points: [
+        'L’acide hyaluronique, en plusieurs poids moléculaires, hydrate à chaque niveau de l’épiderme et lisse visiblement les ridules de déshydratation.',
+        'Le Sodium PCA, composant naturel de la peau, capte l’eau et la retient pour une hydratation qui dure toute la journée.',
+        'Un gel frais et léger, enrichi en aloe vera et en thé blanc, qui pénètre en un instant sans aucune lourdeur.'
+      ],
+      pour: 'Idéal pour les peaux déshydratées, qui tiraillent ou manquent de souplesse, quel que soit le type de peau. Le matin et le soir.',
+      duree: 'Une pression suffit pour tout le visage.'
+    },
+    'ceramide-night-restore': {
+      gamme: 'balance', type: 'Crème de nuit',
+      photo: 'mf-ceramide-night-restore.webp', net: true, cm: 14.5,
+      sous: 'Crème de nuit nourrissante<br>Céramides végétaux · 50 ml',
+      eng: ['99 % d’origine naturelle', '27 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Une <b>barrière cutanée</b> renforcée, une peau <b>apaisée</b> au réveil.',
+      points: [
+        'Les céramides végétaux comblent les espaces entre les cellules de la peau, pour renforcer sa barrière et limiter la perte en eau pendant la nuit.',
+        'Les beurres de cacao et de karité nourrissent et assouplissent la peau, qui ne tiraille plus au réveil.',
+        'L’acide hyaluronique et l’aloe vera hydratent en profondeur. Le soin réconfort idéal, aussi, après une exfoliation.'
+      ],
+      pour: 'Idéale pour les peaux sèches, inconfortables ou à la barrière fragilisée, et les soirs d’exfoliation. Le soir.',
+      duree: 'Une pression suffit pour tout le visage.'
+    },
+    'eye-lift': {
+      gamme: 'balance', type: 'Contour des yeux',
+      photo: 'mf-eye-lift.webp', net: true, cm: 9,
+      sous: 'Crème liftante contour des yeux<br>Peptides · 15 ml',
+      eng: ['99 % d’origine naturelle', '8 % d’ingrédients bio', 'Vegan'],
+      accroche: 'Un regard <b>plus lisse</b>, une peau <b>plus ferme</b>.',
+      points: [
+        'Un complexe de peptides, de petites chaînes d’acides aminés, stimule la fermeté de la peau et aide à lisser les ridules et les pattes-d’oie.',
+        'Les vitamines C et E protègent le contour de l’œil des agressions extérieures et ravivent l’éclat du regard.',
+        'Une texture légère qui pénètre facilement, sans film gras, parfaite le matin sous le maquillage.'
+      ],
+      pour: 'Idéale pour les ridules, les pattes-d’oie et le manque de fermeté du contour des yeux. Le matin et le soir.',
+      duree: 'Une petite quantité suffit pour tout le contour des yeux.'
+    },
+    'calm-balance-jour': {
+      gamme: 'balance', type: 'Crème de jour',
+      photo: 'mf-calm-balance-jour.webp', net: true, cm: 14.5,
+      sous: 'Crème de jour apaisante<br>Aloe vera · 50 ml',
+      eng: ['100 % d’origine naturelle', '22 % d’ingrédients bio', 'Vegan', 'Sans parfum'],
+      accroche: 'Moins de <b>rougeurs</b>, plus de <b>confort</b>, toute la journée.',
+      points: [
+        'Le jus d’aloe vera, premier ingrédient de la formule, apaise les sensations d’inconfort et atténue visiblement l’apparence des rougeurs.',
+        'L’acide hyaluronique et le Sodium PCA retiennent l’eau dans la peau, pour une hydratation qui dure.',
+        'L’huile de jojoba soutient la barrière cutanée. Une crème légère et sans parfum, qui s’absorbe vite et sans fini gras.'
+      ],
+      pour: 'Idéale pour les peaux sensibles, réactives ou sujettes aux rougeurs. Le matin.',
+      duree: 'Une pression suffit pour tout le visage.'
+    },
+    'calm-balance-nuit': {
+      gamme: 'balance', type: 'Crème de nuit',
+      photo: 'mf-calm-balance-nuit.webp', net: true, cm: 14.5,
+      sous: 'Crème de nuit apaisante<br>Aloe vera · Algues · 50 ml',
+      eng: ['99 % d’origine naturelle', '42 % d’ingrédients bio', 'Vegan', 'Sans parfum'],
+      accroche: 'Une peau <b>apaisée</b> et <b>reposée</b> au réveil.',
+      points: [
+        'Le jus d’aloe vera et les algues rouges calment les irritations et atténuent visiblement l’apparence des rougeurs pendant le sommeil.',
+        'L’acide hyaluronique hydrate durablement et renforce la barrière d’hydratation naturelle de la peau.',
+        'L’huile de jojoba nourrit sans alourdir. Une texture enveloppante et sans parfum, qui respecte les peaux les plus délicates.'
+      ],
+      pour: 'Idéale pour les peaux sensibles, délicates ou sujettes aux rougeurs et aux irritations. Le soir.',
+      duree: 'Une pression suffit pour tout le visage.'
+    },
     'radiance-eye-cream': {
       gamme: 'bloom', type: 'Soin contour des yeux',
       photo: 'mf-radiance-eye-cream.webp', net: true, cm: 8.5,
