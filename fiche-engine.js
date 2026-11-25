@@ -17,25 +17,24 @@
   + ".eb-fp-overlay *{box-sizing:border-box}"
   + ".eb-fp-close{position:fixed;top:66px;right:21px;z-index:99995;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:20px;font-weight:400;line-height:1;color:#000;cursor:pointer;padding:0;transition:transform .2s ease}"
   + ".eb-fp-close.visible{display:flex}.eb-fp-close:hover{transform:scale(1.1)}"
-  // « Les actifs » : mini-vignettes au-dessus du bouton panier ; au clic, une fenêtre (style vignette Bloom) s'ouvre AU-DESSUS, sans pousser le bouton
+  // « Les actifs » : mini-vignettes au-dessus du bouton panier ; au clic, une fenêtre (style vignette Bloom, texte seul : la photo est déjà dessous) s'ouvre AU-DESSUS, sans pousser le bouton
   + ".eb-fp-act{position:relative;margin:22px 0 18px;text-align:center}"
   + ".eb-fp-act-t{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#111;margin:0 0 12px}"
   + ".eb-fp-act-r{display:flex;gap:10px;justify-content:center}"
   + ".eb-fp-ai{width:90px;display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;background:none;border:0;padding:0;font-family:'Montserrat',sans-serif;-webkit-tap-highlight-color:transparent}"
-  + ".eb-fp-ai img{width:60px;height:60px;object-fit:cover;border-radius:9px;border:1.5px solid #fff;box-shadow:0 2px 8px rgba(60,40,30,.12);transition:border-color .25s}"
+  + ".eb-fp-ai img{width:50px;height:50px;object-fit:cover;border-radius:9px;border:1.5px solid #fff;box-shadow:0 2px 8px rgba(60,40,30,.12);transition:border-color .25s}"
   + ".eb-fp-ai .eb-fp-an{font-size:8.5px;letter-spacing:.14em;font-weight:600;text-transform:uppercase;color:#2a2723;line-height:1.3;text-align:center}"
   + ".eb-fp-ai .eb-fp-ad{display:none}.eb-fp-ai.on img{border-color:#111}"
   + ".eb-fp-ai .eb-fp-an{overflow-wrap:normal;word-break:normal;hyphens:none}"
   + ".eb-fp-apan{display:none;position:absolute;left:0;right:0;bottom:calc(100% + 4px);z-index:5;text-align:left;background:#ece5db;border:1px solid rgba(255,255,255,.95);border-radius:12px;box-shadow:inset 0 1px 1px rgba(255,255,255,.8),0 1px 2px rgba(60,40,30,.12),0 12px 30px rgba(60,40,30,.16);padding:18px 18px 16px;font-family:'Montserrat',sans-serif;max-height:min(62vh,440px);overflow:auto}"
   + ".eb-fp-apan.on{display:block}"
-  + ".eb-fp-apan-h{display:flex;gap:14px;align-items:center;margin:0 26px 12px 0}"
-  + ".eb-fp-apan-h img{width:74px;height:74px;border-radius:10px;object-fit:cover;flex:none}"
+  + ".eb-fp-apan-h{margin:0 30px 12px 0}"
   + ".eb-fp-apan b{display:block;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7d1f2b}"
   + ".eb-fp-apan em{display:block;font-style:normal;font-size:13px;font-weight:500;color:#111;margin-top:6px;line-height:1.4}"
   + ".eb-fp-apan p{margin:0;font-size:12.5px;line-height:1.7;color:#2a2723}"
   + ".eb-fp-apan-x{position:absolute;top:10px;right:10px;width:28px;height:28px;border:0;border-radius:50%;background:#f5f1ea;font-size:15px;line-height:28px;cursor:pointer;color:#111;padding:0}"
   + "body.eb-act-ouvert .eb-fp-close{opacity:0;pointer-events:none}"
-  + "@media (max-width:699px){.eb-fp-act-r{justify-content:space-between}.eb-fp-ai{width:22%}.eb-fp-ai img{width:54px;height:54px}.eb-fp-ai .eb-fp-an{font-size:7.5px;letter-spacing:.08em}}"
+  + "@media (max-width:699px){.eb-fp-act-r{justify-content:space-between}.eb-fp-ai{width:22%}.eb-fp-ai img{width:44px;height:44px}.eb-fp-ai .eb-fp-an{font-size:7.5px;letter-spacing:.08em}}"
   // Panier de la fiche : même sac que le menu, en haut à droite
   + ".eb-fp-cartbtn{position:fixed;top:12px;right:18px;z-index:99995;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s ease}"
   + ".eb-fp-cartbtn.visible{display:flex}.eb-fp-cartbtn:hover{transform:scale(1.08)}"
@@ -1062,7 +1061,7 @@
     var A = data.actifsCles; if(!A || !A.length) return '';
     return '<div class="eb-fp-act"><p class="eb-fp-act-t">Les actifs</p><div class="eb-fp-act-r">'
       + A.map(function(a){ return '<button type="button" class="eb-fp-ai" aria-expanded="false"><img src="' + esc(a.photo) + '" alt="' + esc(a.nom) + ', actif du soin ' + esc(data.nom) + '" loading="lazy" decoding="async"><span class="eb-fp-an">' + esc(a.nom) + '</span><span class="eb-fp-ad" data-titre="' + esc(a.titre) + '">' + esc(a.texte) + '</span></button>'; }).join('')
-      + '</div><div class="eb-fp-apan" role="region" aria-live="polite"><button type="button" class="eb-fp-apan-x" aria-label="Fermer">×</button><div class="eb-fp-apan-h"><img alt=""><div><b></b><em></em></div></div><p></p></div></div>';
+      + '</div><div class="eb-fp-apan" role="region" aria-live="polite"><button type="button" class="eb-fp-apan-x" aria-label="Fermer">×</button><div class="eb-fp-apan-h"><b></b><em></em></div><p></p></div></div>';
   }
   function actifMontrer(bloc, i){
     var boutons = bloc.querySelectorAll('.eb-fp-ai'), pan = bloc.querySelector('.eb-fp-apan');
@@ -1073,7 +1072,6 @@
     pan.querySelector('b').textContent = b.querySelector('.eb-fp-an').textContent;
     pan.querySelector('em').textContent = d.getAttribute('data-titre') || '';
     pan.querySelector('p').textContent = d.textContent;
-    pan.querySelector('.eb-fp-apan-h img').src = b.querySelector('img').src;
     pan.scrollTop = 0; pan.classList.add('on');
   }
   document.addEventListener('click', function(e){

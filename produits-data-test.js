@@ -531,7 +531,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "milky-bloom": {
     nom: "Milky Bloom",
-    sousTitre: "Nettoyant huile-en-lait\nCamomille · Argousier",
+    sousTitre: "Nettoyant huile-en-lait\nMûre arctique · Argousier",
     details: ["150 ml", "Vegan"],
     note: "une noisette suffit",
     prix: "29,90€",
@@ -551,6 +551,20 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_c46dc4f1-9601-4c60-a383-a2347b777549.png?v=1792660545"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Mûre arctique", titre: "Le trésor des terres nordiques", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure-arctique.png",
+        texte: "Aussi appelée plaquebière, la mûre arctique est une baie rare qui pousse dans les tourbières du Grand Nord. Riche en vitamine C et en antioxydants naturels, son extrait issu de l'agriculture biologique aide à protéger la peau des agressions du quotidien et révèle l'éclat du teint dès le nettoyage." },
+      { nom: "Argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
+        texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le rinçage." },
+      { nom: "Camomille", titre: "L'apaisement des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-camomille.png",
+        texte: "Fleur emblématique des soins pour peaux délicates, la camomille est connue pour ses propriétés apaisantes. Son extrait issu de l'agriculture biologique aide à calmer les sensations d'inconfort pendant le démaquillage, même sur les peaux les plus réactives." },
+      { nom: "Vitamine E", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
+        texte: "Antioxydant de référence en cosmétique, la vitamine E aide à protéger la peau du stress oxydatif lié à la pollution et aux agressions extérieures. Elle participe au maintien de la barrière cutanée et laisse la peau douce et souple après le nettoyage." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
