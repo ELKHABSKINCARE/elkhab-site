@@ -147,6 +147,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_68d4e2b1-4b7a-408e-b982-bdd0859e8f36.png?v=1793813457"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+      { nom: "Aloe vera", titre: "La base apaisante du gel", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée des peaux sensibles. Premier ingrédient de la formule, il en constitue la base." },
+      { nom: "Thé blanc", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-the-blanc.png",
+        texte: "Concentré en polyphénols, l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif." }
+    ],
     routine: {
       etapes: [
         { moment: "Matin et/ou soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance : son gel frais désaltère la peau et la prépare à recevoir les soins suivants." },
@@ -237,7 +251,7 @@ var BALANCE = {
   // =====================================================================
   "ceramide-night-restore": {
     nom: "Ceramide Night Restore",
-    sousTitre: "Crème de nuit nourrissante · Céramides végétaux · Karité",
+    sousTitre: "Crème de nuit nourrissante · Céramides végétaux · Beurre de cacao",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "38,90€",
@@ -256,6 +270,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_CERAMIDE_NIGHT_RESTORE.png?v=1793812031"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Céramides végétaux", titre: "Le ciment de la barrière cutanée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ceramides.png",
+        texte: "Lipides naturellement présents dans la peau, ils agissent comme un ciment entre les cellules de l'épiderme. Ils renforcent la barrière cutanée et limitent la perte en eau, pour une peau plus résistante et confortable au réveil." },
+      { nom: "Beurre de cacao", titre: "Le cocon nourrissant de la nuit", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
+        texte: "Riche en acides gras et en antioxydants naturels, il enveloppe la peau d'un voile protecteur qui la nourrit intensément et la préserve du dessèchement pendant la nuit." },
+      { nom: "Beurre de karité", titre: "Souplesse et confort", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-karite.png",
+        texte: "Concentré en acides gras et en insaponifiables, il assouplit la peau, renforce son élasticité et apaise les sensations de tiraillement." },
+      { nom: "Huile de jojoba", titre: "L'huile qui ressemble à la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour gorger la peau d'hydratation." },

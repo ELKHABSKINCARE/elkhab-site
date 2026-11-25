@@ -32,6 +32,7 @@
   + ".eb-fp-apan b{display:block;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7d1f2b}"
   + ".eb-fp-apan em{display:block;font-style:normal;font-size:13px;font-weight:500;color:#111;margin-top:6px;line-height:1.4}"
   + ".eb-fp-apan p{margin:0;font-size:12.5px;line-height:1.7;color:#2a2723}"
+  + ".eb-fp-act-bal .eb-fp-apan{background:#e9eadc}.eb-fp-act-bal .eb-fp-apan b{color:#5b6b37}"   // site Balance : fenêtre aux couleurs vertes de la gamme
   + ".eb-fp-apan-x{position:absolute;top:10px;right:10px;width:28px;height:28px;border:0;border-radius:50%;background:#f5f1ea;font-size:15px;line-height:28px;cursor:pointer;color:#111;padding:0}"
   + "body.eb-act-ouvert .eb-fp-close{opacity:0;pointer-events:none}"
   + "@media (max-width:699px){.eb-fp-act-r{justify-content:space-between}.eb-fp-ai{width:22%}.eb-fp-ai img{width:44px;height:44px}.eb-fp-ai .eb-fp-an{font-size:7.5px;letter-spacing:.08em}}"
@@ -1059,7 +1060,8 @@
   // « Les actifs » d'un soin (mini-vignettes) : data.actifsCles = [{ nom, titre, texte, photo }]  (data.actifs reste la petite ligne des patchs)
   function actifsHTML(data){
     var A = data.actifsCles; if(!A || !A.length) return '';
-    return '<div class="eb-fp-act"><p class="eb-fp-act-t">Les actifs</p><div class="eb-fp-act-r">'
+    var bal = /balance/i.test(window.location.hostname) || data.gamme === 'balance';
+    return '<div class="eb-fp-act' + (bal ? ' eb-fp-act-bal' : '') + '"><p class="eb-fp-act-t">Les actifs</p><div class="eb-fp-act-r">'
       + A.map(function(a){ return '<button type="button" class="eb-fp-ai" aria-expanded="false"><img src="' + esc(a.photo) + '" alt="' + esc(a.nom) + ', actif du soin ' + esc(data.nom) + '" loading="lazy" decoding="async"><span class="eb-fp-an">' + esc(a.nom) + '</span><span class="eb-fp-ad" data-titre="' + esc(a.titre) + '">' + esc(a.texte) + '</span></button>'; }).join('')
       + '</div><div class="eb-fp-apan" role="region" aria-live="polite"><button type="button" class="eb-fp-apan-x" aria-label="Fermer">×</button><div class="eb-fp-apan-h"><b></b><em></em></div><p></p></div></div>';
   }
