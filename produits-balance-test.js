@@ -925,6 +925,14 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gros_plan_beaute_peau_radieuse.png?v=1793813098"
       ]
     },
+    actifsCles: [
+      { nom: "Acide glycolique", titre: "Le révélateur d'éclat", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-glycolique.png",
+        texte: "Extrait de la canne à sucre, l'acide glycolique est le plus petit des AHA, les acides de fruits exfoliants, ce qui lui permet d'agir en profondeur. Il dissout le ciment qui retient les cellules mortes à la surface de la peau, pour affiner le grain de peau et révéler un teint lumineux. Associé à la bétaïne apaisante, il exfolie sans agresser." },
+      { nom: "Canneberge", titre: "Les baies qui purifient et affinent", photo: "https://elkhabskincare.github.io/elkhab-site/actif-canneberge.png",
+        texte: "Petites baies des tourbières, la canneberge et l'airelle sont riches en proanthocyanidines, des molécules réputées pour empêcher les bactéries de s'accrocher. Ce sont des alliées des peaux sujettes aux imperfections. Elles apportent aussi leurs propres acides de fruits, qui complètent l'action de l'acide glycolique pour un grain de peau plus net et plus lisse." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est exfoliée, sans jamais être desséchée." }
+    ],
     routine: {
       etapes: [
         { moment: "2 à 3 soirs par semaine", soin: "glyco-balance", texte: "Sur peau propre et sèche, appliquez Glyco Balance à l'aide d'un coton, en évitant le contour des yeux. Ne rincez pas." },
@@ -979,6 +987,16 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_AHA_PEEL.png?v=1793809180"
       ]
     },
+    actifsCles: [
+      { nom: "Acide lactique", titre: "L'exfoliant qui hydrate", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-lactique.png",
+        texte: "Issu de la fermentation de sucres végétaux, comme ceux de la canne, l'acide lactique est le plus doux des AHA. Sa molécule, plus grosse que celle de l'acide glycolique, agit en surface sans pénétrer trop vite, et elle retient l'eau dans la peau. Il exfolie et lisse le grain de peau tout en l'hydratant." },
+      { nom: "Sauge", titre: "La purifiante apaisante", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sauge.png",
+        texte: "Riche en antioxydants et reconnue pour ses vertus purifiantes, la sauge bio aide à réguler l'excès de sébum et apaise la peau pendant l'exfoliation." },
+      { nom: "Thé blanc", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-the-blanc.png",
+        texte: "Concentré en polyphénols, l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     routine: {
       etapes: [
         { moment: "1 à 2 soirs par semaine", soin: "aha-balance-peel", texte: "Sur peau propre et sèche, appliquez une fine couche de AHA Balance Peel en évitant le contour des yeux. Jamais le même soir que Glyco Balance." },
@@ -1104,6 +1122,14 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_monochrome_d_un_visage_ruisselant.png?v=1793810187"
       ]
     },
+    actifsCles: [
+      { nom: "Acide salicylique", titre: "Le désincrusteur des pores", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-salicylique.png",
+        texte: "Son nom vient du saule, Salix en latin, dont l'écorce a fait connaître cette molécule. Soluble dans le sébum, l'acide salicylique pénètre au cœur des pores pour les désincruster et limiter les points noirs, sans agresser la peau. Le grain de peau est affiné, le teint plus net." },
+      { nom: "Concombre", titre: "La fraîcheur désaltérante", photo: "https://elkhabskincare.github.io/elkhab-site/actif-concombre.png",
+        texte: "Gorgé d'eau, de minéraux et d'antioxydants, l'extrait de concombre bio rafraîchit et apaise la peau à chaque passage de la lotion. Il préserve son hydratation et son confort." },
+      { nom: "Eau florale de lavande", titre: "La fraîcheur apaisante", photo: "https://elkhabskincare.github.io/elkhab-site/actif-lavande.png",
+        texte: "Recueillie lors de la distillation des fleurs de lavande vraie bio, l'eau florale rafraîchit et apaise la peau. Ses propriétés purifiantes accompagnent l'action de l'acide salicylique, sans jamais dessécher." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser." },

@@ -176,8 +176,8 @@ window.EB_PRODUITS = {
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper et lisser la peau." },
       { nom: "Bisabolol", titre: "Le cœur apaisant de la camomille", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bisabolol.png",
         texte: "Molécule naturellement présente dans la camomille, il est reconnu pour ses propriétés apaisantes. Il calme les rougeurs passagères et les sensations d'inconfort, et aide les peaux sensibles à retrouver leur équilibre." },
-      { nom: "Extraits de baies", titre: "Le bouclier antioxydant des baies", photo: "https://elkhabskincare.github.io/elkhab-site/actif-extraits-de-baies.png",
-        texte: "Extraits de mûre et de sorbier, associés à l'huile de pépins de framboise, ils apportent polyphénols et acides gras essentiels. Ces antioxydants aident la peau à se défendre contre le stress oxydatif et préservent l'éclat du teint." }
+      { nom: "Extraits de baies", titre: "Le trio de baies de l'éclat", photo: "https://elkhabskincare.github.io/elkhab-site/actif-extraits-de-baies.png",
+        texte: "Un trio complémentaire. La mûre apporte son acide ellagique pour l'éclat, le sorbier sa vitamine C, et l'huile de pépins de framboise ses oméga 3 et 6, qui nourrissent la barrière cutanée." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -631,7 +631,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Mûre arctique", titre: "Le trésor des terres nordiques", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure-arctique.png",
-        texte: "Aussi appelée plaquebière, la mûre arctique est une baie rare qui pousse dans les tourbières du Grand Nord. Riche en vitamine C et en antioxydants naturels, son extrait issu de l'agriculture biologique aide à protéger la peau des agressions du quotidien et révèle l'éclat du teint dès le nettoyage." },
+        texte: "Aussi appelée plaquebière, la mûre arctique est une baie rare qui pousse dans les tourbières du Grand Nord. Elle contient plus de vitamine C que l'orange. Son extrait issu de l'agriculture biologique aide à protéger la peau des agressions du quotidien et révèle l'éclat du teint dès le nettoyage." },
       { nom: "Argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
         texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le rinçage." },
       { nom: "Camomille", titre: "L'apaisement des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-camomille.png",
@@ -822,7 +822,7 @@ window.EB_PRODUITS = {
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
         texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera forme le cœur hydratant du gel. Il apaise la peau pendant le nettoyage et préserve son confort, pour qu'elle ne tiraille pas après le rinçage." },
       { nom: "Extrait de mûre", titre: "L'éclat antioxydant de la mûre", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure.png",
-        texte: "Riche en vitamine C et en polyphénols, des antioxydants naturels, l'extrait de mûre aide la peau à se défendre contre le stress oxydatif, qui ternit le teint. Dès le nettoyage, le teint paraît plus frais et revitalisé." },
+        texte: "La mûre est riche en acide ellagique, une molécule qui freine la tyrosinase, l'enzyme à l'origine des taches. Dès le nettoyage, elle aide le teint à rester uniforme et lumineux." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
         texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est nette, sans jamais être desséchée." }
     ],
@@ -917,7 +917,7 @@ window.EB_PRODUITS = {
       { nom: "Cresson", titre: "Le réveil de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-cresson.png",
         texte: "Riche en vitamines, en minéraux et en antioxydants, l'extrait de cresson aide à préserver la fermeté de la peau. Il améliore visiblement sa tonicité et atténue l'apparence des ridules, pour une peau plus lisse et rebondie." },
       { nom: "Sureau", titre: "Le bouclier pourpre des baies noires", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sureau.png",
-        texte: "Ses baies sombres concentrent des anthocyanes, des pigments antioxydants qui protègent la peau du stress oxydatif, l'une des causes du relâchement cutané. Le teint paraît plus frais et revitalisé." },
+        texte: "Parmi les baies les plus riches en anthocyanes, le sureau renferme aussi de la rutine, un flavonoïde qui renforce les petits vaisseaux. La peau paraît plus tonique et le teint plus frais." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
@@ -1421,6 +1421,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_dore.png?v=1791273035"
       ]
     },
+    actifsCles: [
+      { nom: "Panthénol", titre: "Le réparateur du contour de l'œil", photo: "https://elkhabskincare.github.io/elkhab-site/actif-panthenol.png",
+        texte: "Une fois sur la peau, le panthénol se transforme en vitamine B5. Il hydrate, apaise et soutient la réparation du contour de l'œil, la zone la plus fine du visage, qui retrouve souplesse et confort." },
+      { nom: "Niacinamide", titre: "La vitamine qui illumine le regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-niacinamide.png",
+        texte: "Forme de la vitamine B3, la niacinamide renforce la barrière cutanée du contour de l'œil et aide à atténuer l'apparence des cernes pigmentés, pour un regard plus lumineux." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Riche en polysaccharides, l'aloe vera hydrate et apaise le contour de l'œil, pour un regard plus frais." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -1495,6 +1505,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_gris.png?v=1791273034"
       ]
     },
+    actifsCles: [
+      { nom: "Caféine", titre: "Le réveil du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-cafeine.png",
+        texte: "Extraite des graines du caféier, la caféine stimule la microcirculation et aide à drainer l'excès d'eau sous les yeux. Les poches paraissent dégonflées et le regard plus frais." },
+      { nom: "Rose de Provins", titre: "La rose des apothicaires", photo: "https://elkhabskincare.github.io/elkhab-site/actif-rose-de-provins.png",
+        texte: "Plus ancienne rose cultivée d'Europe, la rose de Provins était déjà utilisée par les apothicaires du Moyen Âge. Elle est riche en tanins aux propriétés astringentes, qui resserrent et décongestionnent : le contour de l'œil paraît moins gonflé et plus apaisé." },
+      { nom: "Vitamine C", titre: "La lumière du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous une forme stable, cette vitamine C aide à atténuer l'apparence des cernes et ravive l'éclat du regard." },
+      { nom: "Panthénol", titre: "Le réparateur du contour de l'œil", photo: "https://elkhabskincare.github.io/elkhab-site/actif-panthenol.png",
+        texte: "Une fois sur la peau, le panthénol se transforme en vitamine B5. Il hydrate, apaise et soutient la réparation du contour de l'œil, la zone la plus fine du visage, qui retrouve souplesse et confort." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -1567,6 +1587,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Mannequin_patchs_orange.png?v=1791273034"
       ]
     },
+    actifsCles: [
+      { nom: "Chérimole", titre: "Le fruit des Andes qui réconforte", photo: "https://elkhabskincare.github.io/elkhab-site/actif-cherimole.png",
+        texte: "Originaire des vallées des Andes, la chérimole est un fruit à la chair blanche et crémeuse, riche en sucres naturels et en vitamines. Son extrait hydrate et adoucit le contour de l'œil, qui paraît plus reposé." },
+      { nom: "Rooibos", titre: "L'antioxydant unique d'Afrique du Sud", photo: "https://elkhabskincare.github.io/elkhab-site/actif-rooibos.png",
+        texte: "Cultivé seulement dans les montagnes du Cederberg, en Afrique du Sud, le rooibos renferme de l'aspalathine, un antioxydant qu'on ne trouve dans aucune autre plante. Il protège le contour de l'œil et aide à effacer les marques de fatigue." },
+      { nom: "Panthénol", titre: "Le réparateur du contour de l'œil", photo: "https://elkhabskincare.github.io/elkhab-site/actif-panthenol.png",
+        texte: "Une fois sur la peau, le panthénol se transforme en vitamine B5. Il hydrate, apaise et soutient la réparation du contour de l'œil, la zone la plus fine du visage, qui retrouve souplesse et confort." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
