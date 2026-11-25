@@ -291,7 +291,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-1-boite-flacon-v6.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/balance-ceramide-night-restore-boite-flacon.png",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-ceramide-night-restore-2-flacon-v6.jpg",
         // 📷 3. TEXTURE
@@ -537,7 +537,7 @@ var BALANCE = {
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-1-boite-flacon-v6.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/balance-age-lift-boite-flacon.png",
         // 📷 2. FLACON SEUL
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-age-lift-2-flacon-v6.jpg",
         // 📷 3. TEXTURE
