@@ -46,11 +46,11 @@ var BALANCE = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
       { nom: "Algues rouges", titre: "L'allié marin contre les rougeurs", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algues-rouges.png",
-        texte: "Riches en polysaccharides et en minéraux, elles aident à calmer les sensations d'échauffement et à atténuer l'apparence des rougeurs." },
+        texte: "Riches en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge) et en minéraux, elles aident à calmer les sensations d'échauffement et à atténuer l'apparence des rougeurs." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
     ],
@@ -114,9 +114,9 @@ var BALANCE = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
       { nom: "Algues rouges", titre: "L'allié marin contre les rougeurs", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algues-rouges.png",
-        texte: "Riches en polysaccharides et en minéraux, elles aident à calmer les sensations d'échauffement et à atténuer l'apparence des rougeurs." },
+        texte: "Riches en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge) et en minéraux, elles aident à calmer les sensations d'échauffement et à atténuer l'apparence des rougeurs." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
         texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
@@ -183,11 +183,11 @@ var BALANCE = {
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée des peaux sensibles. Premier ingrédient de la formule, il en constitue la base." },
+        texte: "Riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée des peaux sensibles. Premier ingrédient de la formule, il en constitue la base." },
       { nom: "Thé blanc", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-the-blanc.png",
-        texte: "Concentré en polyphénols, l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif." }
+        texte: "Concentré en polyphénols (des molécules que les plantes fabriquent pour se protéger du soleil), l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau)." }
     ],
     routine: {
       etapes: [
@@ -251,11 +251,11 @@ var BALANCE = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
       { nom: "Camomille", titre: "L'apaisement des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-camomille.png",
         texte: "Fleur emblématique des soins pour peaux délicates, la camomille est connue pour ses propriétés apaisantes. Son extrait issu de l'agriculture biologique aide à calmer les sensations d'inconfort pendant le démaquillage, même sur les peaux les plus réactives." },
       { nom: "Argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
-        texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le démaquillage." },
+        texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes (des pigments naturels orangés qui aident la peau à se régénérer), l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le démaquillage." },
       { nom: "Acide hyaluronique", titre: "L'hydratation préservée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Véritable capteur d'eau, il retient l'hydratation à la surface de la peau pendant le démaquillage. La peau reste souple et confortable, sans sensation de tiraillement." }
     ],
@@ -322,7 +322,7 @@ var BALANCE = {
       { nom: "Beurre de cacao", titre: "Le cocon nourrissant de la nuit", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
         texte: "Riche en acides gras et en antioxydants naturels, il enveloppe la peau d'un voile protecteur qui la nourrit intensément et la préserve du dessèchement pendant la nuit." },
       { nom: "Beurre de karité", titre: "Le beurre réparateur des peaux sèches", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-karite.png",
-        texte: "Concentré en acides gras et en insaponifiables, il assouplit la peau, renforce son élasticité et apaise les sensations de tiraillement." },
+        texte: "Concentré en acides gras et en insaponifiables (la part la plus précieuse du beurre, qui protège et répare la peau), il assouplit la peau, renforce son élasticité et apaise les sensations de tiraillement." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
         texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
     ],
@@ -385,9 +385,9 @@ var BALANCE = {
       { nom: "Bidens pilosa", titre: "Le lissant végétal des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bidens-pilosa.png",
         texte: "Riche en flavonoïdes, des antioxydants végétaux, son extrait agit comme une alternative au rétinol. Il soutient le renouvellement cellulaire pour lisser les ridules et affiner le grain de peau, tout en respectant les peaux sensibles." },
       { nom: "Myrte rose", titre: "L'éclat venu d'Asie", photo: "https://elkhabskincare.github.io/elkhab-site/actif-myrte-rose.png",
-        texte: "Originaire d'Asie du Sud-Est, la myrte rose donne de petites baies riches en piceatannol, un antioxydant végétal de la même famille que celui du raisin, réputé pour ses vertus anti-âge. Son extrait protège la peau du stress oxydatif et l'aide à retrouver un teint plus uniforme et lumineux." },
+        texte: "Originaire d'Asie du Sud-Est, la myrte rose donne de petites baies riches en piceatannol, un antioxydant végétal de la même famille que celui du raisin, réputé pour ses vertus anti-âge. Son extrait protège la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et l'aide à retrouver un teint plus uniforme et lumineux." },
       { nom: "Huile de rose musquée", titre: "L'huile de la régénération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-rose-musquee.png",
-        texte: "Riche en acides gras essentiels et en caroténoïdes, elle régénère la peau, aide à estomper l'apparence des marques et redonne de l'éclat au teint." },
+        texte: "Riche en acides gras essentiels et en caroténoïdes (des pigments naturels orangés, précurseurs de la vitamine A), elle régénère la peau, aide à estomper l'apparence des marques et redonne de l'éclat au teint." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
         texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
     ],
@@ -457,9 +457,9 @@ var BALANCE = {
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires, il hydrate en surface comme au cœur de l'épiderme. Il repulpe le contour de l'œil et lisse les ridules de déshydratation." },
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
       { nom: "Huile de ricin", titre: "Le voile protecteur du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-ricin.png",
-        texte: "Riche en acide ricinoléique, elle nourrit et assouplit la peau très fine du contour de l'œil, et forme un léger voile qui limite la perte en eau." }
+        texte: "Riche en acide ricinoléique (un acide gras propre au ricin, qu'on ne trouve presque dans aucune autre huile), elle nourrit et assouplit la peau très fine du contour de l'œil, et forme un léger voile qui limite la perte en eau." }
     ],
     routine: {
       etapes: [
@@ -520,11 +520,11 @@ var BALANCE = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Peptides", titre: "Les messagers du lissage et de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
-        texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les rides et à raffermir la peau." },
+        texte: "Courtes chaînes d'acides aminés (les briques qui forment les protéines de la peau, comme le collagène), ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les rides et à raffermir la peau." },
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
       { nom: "Huile de pépins de fraise", titre: "Le nectar antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-fraise.png",
-        texte: "Riche en acides gras essentiels (oméga 3 et 6) et en antioxydants naturels, elle nourrit la peau sans la graisser et l'aide à se défendre contre le stress oxydatif." },
+        texte: "Riche en acides gras essentiels (oméga 3 et 6) et en antioxydants naturels, elle nourrit la peau sans la graisser et l'aide à se défendre contre le stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau)." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
     ],
@@ -590,7 +590,7 @@ var BALANCE = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Peptides", titre: "Les messagers du lissage et de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
-        texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les rides et à raffermir la peau." },
+        texte: "Courtes chaînes d'acides aminés (les briques qui forment les protéines de la peau, comme le collagène), ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les rides et à raffermir la peau." },
       { nom: "Beurre de mangue", titre: "La nutrition longue durée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-mangue.png",
         texte: "Riche en acides gras et en antioxydants, il nourrit intensément, assouplit la peau et l'aide à retenir son hydratation, pour une peau souple et confortable tout au long de la journée." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
@@ -658,15 +658,15 @@ var BALANCE = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Peptides", titre: "Les messagers du lissage et de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
-        texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les ridules et à raffermir le contour de l'œil." },
+        texte: "Courtes chaînes d'acides aminés (les briques qui forment les protéines de la peau, comme le collagène), ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les ridules et à raffermir le contour de l'œil." },
       { nom: "Huile de bourrache", titre: "Le nectar nourricier des peaux fines", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-bourrache.png",
         texte: "Particulièrement riche en acide gamma-linolénique, un acide gras essentiel, elle nourrit la peau fine du contour de l'œil et lui redonne souplesse et confort." },
       { nom: "Huile de ricin", titre: "Le voile protecteur du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-ricin.png",
-        texte: "Riche en acide ricinoléique, elle nourrit et assouplit la peau très fine du contour de l'œil, et forme un léger voile qui limite la perte en eau." },
+        texte: "Riche en acide ricinoléique (un acide gras propre au ricin, qu'on ne trouve presque dans aucune autre huile), elle nourrit et assouplit la peau très fine du contour de l'œil, et forme un léger voile qui limite la perte en eau." },
       { nom: "Vitamine C", titre: "L'éclat du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
         texte: "Sous une forme stable et bien tolérée, cet antioxydant neutralise les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et illumine le regard." },
       { nom: "Vitamine E", titre: "Le bouclier protecteur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
-        texte: "Antioxydant de référence, elle protège la peau fine du contour de l'œil du stress oxydatif et participe au maintien de la barrière cutanée." }
+        texte: "Antioxydant de référence, elle protège la peau fine du contour de l'œil du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et participe au maintien de la barrière cutanée." }
     ],
     routine: {
       etapes: [
@@ -731,7 +731,7 @@ var BALANCE = {
       { nom: "Bakuchiol", titre: "L'alternative végétale au rétinol", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bakuchiol.png",
         texte: "Extrait des graines du babchi, une plante de la tradition ayurvédique, il stimule le renouvellement cellulaire pour lisser les rides et raffermir la peau, sans en avoir les effets irritants." },
       { nom: "Huile de rose musquée", titre: "L'huile de la régénération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-rose-musquee.png",
-        texte: "Riche en acides gras essentiels et en caroténoïdes, elle régénère la peau, aide à estomper l'apparence des marques et redonne de l'éclat au teint." },
+        texte: "Riche en acides gras essentiels et en caroténoïdes (des pigments naturels orangés, précurseurs de la vitamine A), elle régénère la peau, aide à estomper l'apparence des marques et redonne de l'éclat au teint." },
       { nom: "Huile d'onagre", titre: "La souplesse et l'apaisement des peaux sèches", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-d-onagre.png",
         texte: "Particulièrement riche en acide gamma-linolénique, un acide gras essentiel, elle renforce la barrière cutanée, assouplit la peau et aide à préserver son élasticité." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
@@ -797,9 +797,9 @@ var BALANCE = {
       { nom: "Acide kojique", titre: "L'anti-taches venu du Japon", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-kojique.png",
         texte: "Né de la fermentation du riz par le koji, le ferment utilisé au Japon pour le saké et le miso, l'acide kojique freine la tyrosinase, l'enzyme à l'origine de la mélanine. Les taches brunes s'atténuent progressivement et le teint devient plus uniforme, sans agresser la peau." },
       { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
-        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif et renforce l'action de l'acide kojique. Elle ravive l'éclat du teint." },
+        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et renforce l'action de l'acide kojique. Elle ravive l'éclat du teint." },
       { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
-        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes (des pigments naturels orangés qui aident la peau à se régénérer), elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
         texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
     ],
@@ -863,9 +863,9 @@ var BALANCE = {
       { nom: "Acide kojique", titre: "L'anti-taches venu du Japon", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-kojique.png",
         texte: "Né de la fermentation du riz par le koji, le ferment utilisé au Japon pour le saké et le miso, l'acide kojique freine la tyrosinase, l'enzyme à l'origine de la mélanine. Les taches brunes s'atténuent progressivement et le teint devient plus uniforme, sans agresser la peau." },
       { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
-        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif et renforce l'action de l'acide kojique. Elle ravive l'éclat du teint." },
+        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et renforce l'action de l'acide kojique. Elle ravive l'éclat du teint." },
       { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
-        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes (des pigments naturels orangés qui aident la peau à se régénérer), elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
         texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
     ],
@@ -927,11 +927,11 @@ var BALANCE = {
     },
     actifsCles: [
       { nom: "Acide glycolique", titre: "Le révélateur d'éclat", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-glycolique.png",
-        texte: "Extrait de la canne à sucre, l'acide glycolique est le plus petit des AHA, les acides de fruits exfoliants, ce qui lui permet d'agir en profondeur. Il dissout le ciment qui retient les cellules mortes à la surface de la peau, pour affiner le grain de peau et révéler un teint lumineux. Associé à la bétaïne apaisante, il exfolie sans agresser." },
+        texte: "Extrait de la canne à sucre, l'acide glycolique est le plus petit des AHA, les acides de fruits exfoliants, ce qui lui permet d'agir en profondeur. Il dissout le ciment qui retient les cellules mortes à la surface de la peau, pour affiner le grain de peau et révéler un teint lumineux. Associé à la bétaïne (une molécule apaisante issue de la betterave), il exfolie sans agresser." },
       { nom: "Canneberge", titre: "Les baies qui purifient et affinent", photo: "https://elkhabskincare.github.io/elkhab-site/actif-canneberge.png",
         texte: "Petites baies des tourbières, la canneberge et l'airelle sont riches en proanthocyanidines, des molécules réputées pour empêcher les bactéries de s'accrocher. Ce sont des alliées des peaux sujettes aux imperfections. Elles apportent aussi leurs propres acides de fruits, qui complètent l'action de l'acide glycolique pour un grain de peau plus net et plus lisse." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est exfoliée, sans jamais être desséchée." }
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau est exfoliée, sans jamais être desséchée." }
     ],
     routine: {
       etapes: [
@@ -993,7 +993,7 @@ var BALANCE = {
       { nom: "Sauge", titre: "La purifiante apaisante", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sauge.png",
         texte: "Riche en antioxydants et reconnue pour ses vertus purifiantes, la sauge bio aide à réguler l'excès de sébum et apaise la peau pendant l'exfoliation." },
       { nom: "Thé blanc", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-the-blanc.png",
-        texte: "Concentré en polyphénols, l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif." },
+        texte: "Concentré en polyphénols (des molécules que les plantes fabriquent pour se protéger du soleil), l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau)." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
     ],
@@ -1063,7 +1063,7 @@ var BALANCE = {
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
       { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
         texte: "Deuxième ingrédient de la formule, sa composition très proche du sébum de la peau lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
     ],

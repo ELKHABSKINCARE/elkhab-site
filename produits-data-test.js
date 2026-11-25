@@ -74,11 +74,11 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
-        texte: "Sous forme d'ascorbyl glucoside, une vitamine C stabilisée que la peau convertit progressivement en vitamine C pure. Antioxydante, elle neutralise les radicaux libres, illumine le teint et atténue l'apparence des taches, tout en restant bien tolérée." },
+        texte: "Sous forme d'ascorbyl glucoside, une vitamine C stabilisée que la peau convertit progressivement en vitamine C pure. Antioxydante, elle neutralise les radicaux libres (des molécules instables qui accélèrent le vieillissement de la peau), illumine le teint et atténue l'apparence des taches, tout en restant bien tolérée." },
       { nom: "Acide férulique", titre: "Le booster de la vitamine C", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-ferulique.png",
-        texte: "Antioxydant d'origine végétale, il protège la vitamine C de l'oxydation et prolonge son action. Ensemble, ils forment un bouclier plus efficace contre le stress oxydatif lié aux UV et à la pollution." },
+        texte: "Antioxydant d'origine végétale, il protège la vitamine C de l'oxydation et prolonge son action. Ensemble, ils forment un bouclier plus efficace contre le stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau)." },
       { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
-        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes (des pigments naturels orangés qui aident la peau à se régénérer), elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
     ],
@@ -171,13 +171,13 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper et lisser la peau." },
       { nom: "Bisabolol", titre: "Le cœur apaisant de la camomille", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bisabolol.png",
         texte: "Molécule naturellement présente dans la camomille, il est reconnu pour ses propriétés apaisantes. Il calme les rougeurs passagères et les sensations d'inconfort, et aide les peaux sensibles à retrouver leur équilibre." },
       { nom: "Extraits de baies", titre: "Le trio de baies de l'éclat", photo: "https://elkhabskincare.github.io/elkhab-site/actif-extraits-de-baies.png",
-        texte: "Un trio complémentaire. La mûre apporte son acide ellagique pour l'éclat, le sorbier sa vitamine C, et l'huile de pépins de framboise ses oméga 3 et 6, qui nourrissent la barrière cutanée." }
+        texte: "Un trio complémentaire. La mûre apporte son acide ellagique (une molécule qui freine la formation des taches) pour l'éclat, le sorbier sa vitamine C, et l'huile de pépins de framboise ses oméga 3 et 6, qui nourrissent la barrière cutanée." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -257,9 +257,9 @@ window.EB_PRODUITS = {
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
       { nom: "Algine", titre: "Le soin complet des algues brunes", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algine.png",
-        texte: "Extraite des algues brunes, l'algine est un polysaccharide marin qui forme à la surface de la peau un voile souple et respirant. Ce voile retient l'eau pour une hydratation durable et exerce un léger effet tenseur qui raffermit visiblement les traits. Apaisante, elle accompagne la réparation de la peau fragilisée et aide à la purifier en captant l'excès de sébum et les impuretés." }
+        texte: "Extraite des algues brunes, l'algine est un polysaccharide marin (une longue chaîne de sucres naturels issue de l'océan) qui forme à la surface de la peau un voile souple et respirant. Ce voile retient l'eau pour une hydratation durable et exerce un léger effet tenseur qui raffermit visiblement les traits. Apaisante, elle accompagne la réparation de la peau fragilisée et aide à la purifier en captant l'excès de sébum et les impuretés." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -361,7 +361,7 @@ window.EB_PRODUITS = {
       { nom: "Beurre de cacao", titre: "Le confort fondant du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
         texte: "Riche en acides gras et en antioxydants naturels, il donne au stick sa texture fondante. Il nourrit la peau et l'enveloppe d'un voile souple qui la préserve du dessèchement." },
       { nom: "Vitamine E", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
-        texte: "Antioxydant de référence en cosmétique, elle aide à protéger la peau du stress oxydatif lié aux UV et à la pollution, et participe au maintien de la barrière cutanée." }
+        texte: "Antioxydant de référence en cosmétique, elle aide à protéger la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau), et participe au maintien de la barrière cutanée." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -445,9 +445,9 @@ window.EB_PRODUITS = {
       { nom: "Niacinamide", titre: "La vitamine du grain de peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-niacinamide.png",
         texte: "Forme de la vitamine B3, elle régule l'excès de sébum, affine visiblement le grain de peau et renforce la barrière cutanée. Elle aide aussi à atténuer l'apparence des taches pour un teint plus uniforme." },
       { nom: "Ginkgo biloba", titre: "L'éclat préservé", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ginkgo-biloba.png",
-        texte: "Riche en flavonoïdes antioxydants, il protège la peau du stress oxydatif et l'aide à préserver son éclat face aux agressions du quotidien." },
+        texte: "Riche en flavonoïdes antioxydants (des pigments végétaux protecteurs), il protège la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et l'aide à préserver son éclat face aux agressions du quotidien." },
       { nom: "Algine", titre: "Le soin complet des algues brunes", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algine.png",
-        texte: "Extraite des algues brunes, l'algine est un polysaccharide marin qui forme à la surface de la peau un voile souple et respirant. Ce voile retient l'eau pour une hydratation durable et exerce un léger effet tenseur qui raffermit visiblement les traits. Apaisante, elle accompagne la réparation de la peau fragilisée et aide à la purifier en captant l'excès de sébum et les impuretés." }
+        texte: "Extraite des algues brunes, l'algine est un polysaccharide marin (une longue chaîne de sucres naturels issue de l'océan) qui forme à la surface de la peau un voile souple et respirant. Ce voile retient l'eau pour une hydratation durable et exerce un léger effet tenseur qui raffermit visiblement les traits. Apaisante, elle accompagne la réparation de la peau fragilisée et aide à la purifier en captant l'excès de sébum et les impuretés." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -539,7 +539,7 @@ window.EB_PRODUITS = {
       { nom: "Bidens pilosa", titre: "Le lissant végétal des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bidens-pilosa.png",
         texte: "Riche en flavonoïdes, des antioxydants végétaux, son extrait agit comme une alternative au rétinol. Il soutient le renouvellement cellulaire pour lisser les ridules et affiner le grain de peau, tout en respectant les peaux sensibles." },
       { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
-        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif et soutient l'action de l'alpha-arbutine. Elle ravive l'éclat du teint." },
+        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et soutient l'action de l'alpha-arbutine. Elle ravive l'éclat du teint." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
     ],
@@ -633,11 +633,11 @@ window.EB_PRODUITS = {
       { nom: "Mûre arctique", titre: "Le trésor des terres nordiques", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure-arctique.png",
         texte: "Aussi appelée plaquebière, la mûre arctique est une baie rare qui pousse dans les tourbières du Grand Nord. Elle contient plus de vitamine C que l'orange. Son extrait issu de l'agriculture biologique aide à protéger la peau des agressions du quotidien et révèle l'éclat du teint dès le nettoyage." },
       { nom: "Argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
-        texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le rinçage." },
+        texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes (des pigments naturels orangés qui aident la peau à se régénérer), l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le rinçage." },
       { nom: "Camomille", titre: "L'apaisement des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-camomille.png",
         texte: "Fleur emblématique des soins pour peaux délicates, la camomille est connue pour ses propriétés apaisantes. Son extrait issu de l'agriculture biologique aide à calmer les sensations d'inconfort pendant le démaquillage, même sur les peaux les plus réactives." },
       { nom: "Vitamine E", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
-        texte: "Antioxydant de référence en cosmétique, la vitamine E aide à protéger la peau du stress oxydatif lié à la pollution et aux agressions extérieures. Elle participe au maintien de la barrière cutanée et laisse la peau douce et souple après le nettoyage." }
+        texte: "Antioxydant de référence en cosmétique, la vitamine E aide à protéger la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau). Elle participe au maintien de la barrière cutanée et laisse la peau douce et souple après le nettoyage." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -726,13 +726,13 @@ window.EB_PRODUITS = {
     },
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera bio hydrate et apaise la peau pendant la pose du masque. Elle est purifiée, mais reste fraîche et confortable." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera bio hydrate et apaise la peau pendant la pose du masque. Elle est purifiée, mais reste fraîche et confortable." },
       { nom: "Argile blanche", titre: "La pureté minérale", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argile-blanche.png",
         texte: "Argile la plus douce, le kaolin absorbe l'excès de sébum et capte les impuretés qui encombrent les pores, sans dessécher la peau. Le grain de peau est visiblement affiné, le teint plus net." },
       { nom: "Charbon végétal", titre: "L'aimant à impuretés", photo: "https://elkhabskincare.github.io/elkhab-site/actif-charbon-vegetal.png",
         texte: "Grâce à sa structure très poreuse, le charbon végétal attire et retient les impuretés, la pollution et l'excès de sébum, comme un aimant. Il aide à désincruster les points noirs pour une peau nette et matifiée." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est purifiée, sans jamais être desséchée." }
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau est purifiée, sans jamais être desséchée." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -820,11 +820,11 @@ window.EB_PRODUITS = {
     },
     actifsCles: [
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera forme le cœur hydratant du gel. Il apaise la peau pendant le nettoyage et préserve son confort, pour qu'elle ne tiraille pas après le rinçage." },
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera forme le cœur hydratant du gel. Il apaise la peau pendant le nettoyage et préserve son confort, pour qu'elle ne tiraille pas après le rinçage." },
       { nom: "Extrait de mûre", titre: "L'éclat uniforme de la mûre", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure.png",
         texte: "La mûre est riche en acide ellagique, une molécule qui freine la tyrosinase, l'enzyme à l'origine des taches. Dès le nettoyage, elle aide le teint à rester uniforme et lumineux." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est nette, sans jamais être desséchée." }
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau est nette, sans jamais être desséchée." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -917,11 +917,11 @@ window.EB_PRODUITS = {
       { nom: "Cresson", titre: "Le réveil de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-cresson.png",
         texte: "Riche en vitamines, en minéraux et en antioxydants, l'extrait de cresson aide à préserver la fermeté de la peau. Il améliore visiblement sa tonicité et atténue l'apparence des ridules, pour une peau plus lisse et rebondie." },
       { nom: "Sureau", titre: "Le bouclier pourpre des baies noires", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sureau.png",
-        texte: "Parmi les baies les plus riches en anthocyanes, le sureau renferme aussi de la rutine, un flavonoïde qui renforce les petits vaisseaux. La peau paraît plus tonique et le teint plus frais." },
+        texte: "Parmi les baies les plus riches en anthocyanes (les pigments qui donnent à la baie sa couleur violet profond), le sureau renferme aussi de la rutine, un flavonoïde (un pigment végétal protecteur) qui renforce les petits vaisseaux. La peau paraît plus tonique et le teint plus frais." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
-        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." }
+        texte: "Le Sodium PCA est une molécule naturellement fabriquée par la peau. Véritable aimant à eau, il capte l'humidité et la garde dans la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -1009,9 +1009,9 @@ window.EB_PRODUITS = {
       { nom: "Beurre de cacao", titre: "Le cocon nourrissant de la nuit", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
         texte: "Riche en acides gras et en antioxydants naturels, il enveloppe la peau d'un voile protecteur qui la nourrit intensément et la préserve du dessèchement pendant la nuit." },
       { nom: "Beurre de karité", titre: "Le beurre réparateur des peaux sèches", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-karite.png",
-        texte: "Concentré en acides gras et en insaponifiables, il assouplit la peau, renforce son élasticité et apaise les sensations de tiraillement." },
+        texte: "Concentré en acides gras et en insaponifiables (la part la plus précieuse du beurre, qui protège et répare la peau), il assouplit la peau, renforce son élasticité et apaise les sensations de tiraillement." },
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." }
+        texte: "Premier ingrédient de la formule, riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -1190,7 +1190,7 @@ window.EB_PRODUITS = {
       { nom: "Beurre de cacao", titre: "Le confort fondant du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
         texte: "Riche en acides gras et en antioxydants naturels, il donne au stick sa texture fondante. Il nourrit la peau et l'enveloppe d'un voile souple qui la préserve du dessèchement." },
       { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
-        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." }
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes (des pigments naturels orangés qui aident la peau à se régénérer), elle nourrit la peau, préserve sa souplesse et ravive son éclat." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -1333,11 +1333,11 @@ window.EB_PRODUITS = {
     },
     actifsCles: [
       { nom: "Vigne rouge", titre: "L'élan de la microcirculation", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vigne-rouge.png",
-        texte: "Riche en polyphénols, l'extrait de feuille de vigne rouge soutient la microcirculation, la circulation dans les tout petits vaisseaux sous la peau. Il aide à atténuer l'apparence des cernes et des poches, pour un regard plus frais et reposé." },
+        texte: "Riche en polyphénols (des molécules que les plantes fabriquent pour se protéger du soleil), l'extrait de feuille de vigne rouge soutient la microcirculation, la circulation dans les tout petits vaisseaux sous la peau. Il aide à atténuer l'apparence des cernes et des poches, pour un regard plus frais et reposé." },
       { nom: "Marronnier d'Inde", titre: "Le défatigant du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-marronnier-d-inde.png",
         texte: "Ses graines renferment de l'escine, une molécule connue pour tonifier les petits vaisseaux et limiter la rétention d'eau. Le contour de l'œil paraît moins gonflé et les poches sont visiblement atténuées." },
       { nom: "Ginkgo biloba", titre: "L'éclat préservé", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ginkgo-biloba.png",
-        texte: "Riche en flavonoïdes antioxydants, il protège la peau du stress oxydatif et l'aide à préserver son éclat face aux agressions du quotidien." },
+        texte: "Riche en flavonoïdes antioxydants (des pigments végétaux protecteurs), il protège la peau du stress oxydatif (l'usure invisible que les UV et la pollution font subir à la peau) et l'aide à préserver son éclat face aux agressions du quotidien." },
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
     ],
@@ -1429,7 +1429,7 @@ window.EB_PRODUITS = {
       { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
-        texte: "Riche en polysaccharides, l'aloe vera hydrate et apaise le contour de l'œil, pour un regard plus frais." }
+        texte: "Riche en polysaccharides (de longues chaînes de sucres naturels qui retiennent l'eau comme une éponge), l'aloe vera hydrate et apaise le contour de l'œil, pour un regard plus frais." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
@@ -1507,7 +1507,7 @@ window.EB_PRODUITS = {
     },
     actifsCles: [
       { nom: "Caféine", titre: "Le réveil du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-cafeine.png",
-        texte: "Extraite des graines du caféier, la caféine stimule la microcirculation et aide à drainer l'excès d'eau sous les yeux. Les poches paraissent dégonflées et le regard plus frais." },
+        texte: "Extraite des graines du caféier, la caféine stimule la microcirculation (la circulation dans les tout petits vaisseaux sous la peau) et aide à drainer l'excès d'eau sous les yeux. Les poches paraissent dégonflées et le regard plus frais." },
       { nom: "Rose de Provins", titre: "La rose des apothicaires", photo: "https://elkhabskincare.github.io/elkhab-site/actif-rose-de-provins.png",
         texte: "Plus ancienne rose cultivée d'Europe, la rose de Provins était déjà utilisée par les apothicaires du Moyen Âge. Elle est riche en tanins aux propriétés astringentes, qui resserrent et décongestionnent : le contour de l'œil paraît moins gonflé et plus apaisé." },
       { nom: "Vitamine C", titre: "La lumière du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
