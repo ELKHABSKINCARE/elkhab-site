@@ -423,6 +423,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_3f77e7a5-3a2d-4ba0-974e-7b4578b2cc9b.png?v=1793811380"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Bidens pilosa", titre: "Le lissant végétal du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bidens-pilosa.png",
+        texte: "Riche en flavonoïdes, des antioxydants végétaux, son extrait agit comme une alternative au rétinol. Il soutient le renouvellement cellulaire pour lisser les ridules, tout en respectant la peau fine du regard." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires, il hydrate en surface comme au cœur de l'épiderme. Il repulpe le contour de l'œil et lisse les ridules de déshydratation." },
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+      { nom: "Huile de ricin", titre: "Le voile protecteur du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-ricin.png",
+        texte: "Riche en acide ricinoléique, elle nourrit et assouplit la peau très fine du contour de l'œil, et forme un léger voile qui limite la perte en eau." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },

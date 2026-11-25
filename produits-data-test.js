@@ -325,6 +325,20 @@ window.EB_PRODUITS = {
 
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Oxyde de zinc", titre: "La protection minérale", photo: "https://elkhabskincare.github.io/elkhab-site/actif-oxyde-de-zinc.png",
+        texte: "Filtre minéral, il reflète et disperse les rayons UVA et UVB à la surface de la peau. Il assure la protection SPF 30 sans filtre chimique et reste bien toléré par les peaux sensibles." },
+      { nom: "Céramides végétaux", titre: "Le ciment de la barrière cutanée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ceramides.png",
+        texte: "Lipides naturellement présents dans la peau, ils agissent comme un ciment entre les cellules de l'épiderme. Ils renforcent la barrière cutanée et limitent la perte en eau tout au long de la journée." },
+      { nom: "Beurre de cacao", titre: "Le confort fondant du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
+        texte: "Riche en acides gras et en antioxydants naturels, il donne au stick sa texture fondante. Il nourrit la peau et l'enveloppe d'un voile souple qui la préserve du dessèchement." },
+      { nom: "Vitamine E", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
+        texte: "Antioxydant de référence en cosmétique, elle aide à protéger la peau du stress oxydatif lié aux UV et à la pollution, et participe au maintien de la barrière cutanée." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
