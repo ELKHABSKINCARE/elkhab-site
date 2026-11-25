@@ -209,7 +209,7 @@
       conseil: "Appliquez-le sur une peau encore légèrement humide : l'acide hyaluronique capte cette eau. Sur une peau mixte, il peut suffire seul ; sur une peau sèche, terminez par une crème."
     },
     cj: {
-      fiche: 'calm-balance-jour', nom: 'Calm Balance Jour', gamme: 'Balance', sous: "Crème de jour apaisante", couleur: '#6e7f58', clair: '#e1e6d6',
+      fiche: 'calm-balance-jour', nom: 'Balance Calm Jour', gamme: 'Balance', sous: "Crème de jour apaisante", couleur: '#6e7f58', clair: '#e1e6d6',
       role: "Cette crème de jour sans parfum apaise les inconforts, atténue l'apparence des rougeurs et hydrate durablement les peaux sensibles.",
       sens: "Une crème légère qui s'absorbe facilement, sans fini gras et sans parfum ajouté.",
       etapes: [{ moment: 'Le matin', texte: "Appliquez une pression de crème et lissez-la du centre vers l'extérieur du visage, puis sur le cou en descendant." }],
@@ -217,12 +217,12 @@
       conseil: "Une peau sensible aime la simplicité : introduisez un seul nouveau soin à la fois et rincez à l'eau tiède plutôt que chaude. Le matin, terminez par une protection solaire."
     },
     nc: {
-      fiche: 'calm-balance-nuit', nom: 'Calm Balance Nuit', gamme: 'Balance', sous: "Crème de nuit apaisante", couleur: '#6e7f58', clair: '#e1e6d6',
+      fiche: 'calm-balance-nuit', nom: 'Balance Calm Nuit', gamme: 'Balance', sous: "Crème de nuit apaisante", couleur: '#6e7f58', clair: '#e1e6d6',
       role: "Cette crème de nuit sans parfum apaise les irritations, atténue les rougeurs et hydrate la peau toute la nuit, pour un réveil confortable.",
       sens: "Une texture enveloppante, sans parfum ajouté, à l'odeur naturellement neutre.",
       etapes: [{ moment: 'Le soir', texte: "Terminez votre routine par une pression de crème, posée à plat sur le visage puis lissée vers l'extérieur." }],
       savoir: { 'Le soir': ["Une peau sensible est souvent une peau dont la barrière laisse s'échapper l'eau et entrer les irritants. La nuit, la peau perd naturellement plus d'eau que le jour : c'est le meilleur moment pour l'aider. Les algues et l'aloe vera apaisent, l'acide hyaluronique retient l'eau jusqu'au matin."] },
-      conseil: "Le soir, évitez les nettoyants trop moussants et l'eau très chaude, qui fragilisent la barrière. Calm Balance Jour prend le relais le matin pour garder la peau apaisée toute la journée."
+      conseil: "Le soir, évitez les nettoyants trop moussants et l'eau très chaude, qui fragilisent la barrière. Balance Calm Jour prend le relais le matin pour garder la peau apaisée toute la journée."
     },
     fb: {
       geste: '', fiche: 'fusion-balance', nom: 'Fusion Balance', gamme: 'Balance', sous: "Démaquillant biphasé", couleur: '#6e7f58', clair: '#e1e6d6',

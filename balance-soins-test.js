@@ -50,14 +50,14 @@
       benefice: "Hydrate en profondeur et repulpe sans alourdir", prix: "28,90€", taille: "30 ml",
       // 📷 Hydra Balance
       photo: PHOTOS + "balance-page-hydra-balance.webp", alt: "Hydra Balance ELKHA.B, gel hydratant à l'acide hyaluronique, flacon pompe 30 ml" },
-    "calm-balance-jour": { nom: "Calm Balance Jour", actifs: "Acide hyaluronique · Sodium PCA · Jojoba",
+    "calm-balance-jour": { nom: "Balance Calm Jour", actifs: "Acide hyaluronique · Sodium PCA · Jojoba",
       benefice: "Apaise les rougeurs · Hydrate toute la journée · Peaux sensibles", prix: "34,90€", taille: "50 ml",
-      // 📷 Calm Balance Jour
-      photo: PHOTOS + "balance-page-calm-balance-jour.webp", alt: "Calm Balance Jour ELKHA.B, crème de jour apaisante anti-rougeurs pour peaux sensibles, 50 ml" },
-    "calm-balance-nuit": { nom: "Calm Balance Nuit", actifs: "Acide hyaluronique · Algues rouges · Jojoba",
+      // 📷 Balance Calm Jour
+      photo: PHOTOS + "balance-page-calm-balance-jour.webp", alt: "Balance Calm Jour ELKHA.B, crème de jour apaisante anti-rougeurs pour peaux sensibles, 50 ml" },
+    "calm-balance-nuit": { nom: "Balance Calm Nuit", actifs: "Acide hyaluronique · Algues rouges · Jojoba",
       benefice: "Calme les peaux irritées · Réhydrate et régénère · Peaux sensibles", prix: "36,90€", taille: "50 ml",
-      // 📷 Calm Balance Nuit
-      photo: PHOTOS + "balance-page-calm-balance-nuit.webp", alt: "Calm Balance Nuit ELKHA.B, crème de nuit apaisante pour peaux sensibles, 50 ml" },
+      // 📷 Balance Calm Nuit
+      photo: PHOTOS + "balance-page-calm-balance-nuit.webp", alt: "Balance Calm Nuit ELKHA.B, crème de nuit apaisante pour peaux sensibles, 50 ml" },
     "ceramide-night-restore": { nom: "Ceramide Night Restore", actifs: "Céramides végétaux · Karité · Beurre de cacao",
       benefice: "Nourrit et renforce la barrière cutanée · Peaux sensibles", prix: "38,90€", taille: "50 ml",
       // 📷 Ceramide Night Restore

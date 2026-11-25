@@ -15,7 +15,7 @@ window.EB_INCI_PLUS = window.EB_INCI_PLUS || {};
 (function(){
 var BALANCE = {
   // =====================================================================
-  // CALM BALANCE JOUR
+  // BALANCE CALM JOUR
   // =====================================================================
   "calm-balance-jour": {
     nom: "Balance Calm Jour",
@@ -25,7 +25,7 @@ var BALANCE = {
     prix: "34,90€",
     variantId: "60321020051801",
     inci: "calm-balance-jour",
-    avis: "Calm Balance Jour",
+    avis: "Balance Calm Jour",
     media: {
       miniature: "https://elkhabskincare.github.io/elkhab-site/balance-calm-jour-miniature.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
@@ -85,25 +85,25 @@ var BALANCE = {
   },
 
   // =====================================================================
-  // CALM BALANCE NUIT
+  // BALANCE CALM NUIT
   // =====================================================================
   "calm-balance-nuit": {
-    nom: "Calm Balance Nuit",
+    nom: "Balance Calm Nuit",
     sousTitre: "Crème de nuit apaisante · Aloe vera · Algues · Sans parfum",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "36,90€",
     variantId: "60321802289497",
     inci: "calm-balance-nuit",
-    avis: "Calm Balance Nuit",
+    avis: "Balance Calm Nuit",
     media: {
-      miniature: "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-miniature-v6.jpg",   // 📷 petite photo (routines, accord parfait) : flacon seul
+      miniature: "https://elkhabskincare.github.io/elkhab-site/balance-calm-nuit-miniature.png",   // 📷 petite photo (routines, accord parfait) : flacon seul
       type: "diaporama",
       images: [
         // 📷 1. BOÎTE + FLACON
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-1-boite-flacon-v6.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/balance-calm-nuit-boite-flacon.png",
         // 📷 2. FLACON SEUL
-        "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/balance-calm-balance-nuit-2-flacon-v6.jpg",
+        "https://elkhabskincare.github.io/elkhab-site/balance-calm-nuit-flacon.png",
         // 📷 3. TEXTURE
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d91c1c53-6ad3-40e7-b6af-8bd6fc4320aa.png?v=1793810582"
       ]
@@ -125,14 +125,14 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau et préserver son équilibre." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Calm Balance Nuit : elle apaise et hydrate la peau pendant toute la nuit, pour un réveil tout en confort." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Balance Calm Nuit : elle apaise et hydrate la peau pendant toute la nuit, pour un réveil tout en confort." }
       ]
     },
     sections: [
       { titre: "L'expérience",
-        texte: "Calm Balance Nuit offre à la peau une parenthèse de douceur pendant le sommeil. Sa formule sans parfum associe le jus d'aloe vera, des algues et l'acide hyaluronique pour apaiser les irritations, atténuer l'apparence des rougeurs et préserver l'hydratation. Au réveil, la peau paraît plus calme, douce et équilibrée." },
+        texte: "Balance Calm Nuit offre à la peau une parenthèse de douceur pendant le sommeil. Sa formule sans parfum associe le jus d'aloe vera, des algues et l'acide hyaluronique pour apaiser les irritations, atténuer l'apparence des rougeurs et préserver l'hydratation. Au réveil, la peau paraît plus calme, douce et équilibrée." },
       { titre: "Pourquoi vous allez l'aimer",
-        texte: "Parce que la nuit est le moment où la peau se répare. Calm Balance Nuit réunit apaisement et hydratation longue durée dans une formule douce et sans parfum, qui accompagne les peaux délicates pendant leur repos. Un soin réconfortant qui s'intègre naturellement à une routine respectueuse des peaux sensibles." },
+        texte: "Parce que la nuit est le moment où la peau se répare. Balance Calm Nuit réunit apaisement et hydratation longue durée dans une formule douce et sans parfum, qui accompagne les peaux délicates pendant leur repos. Un soin réconfortant qui s'intègre naturellement à une routine respectueuse des peaux sensibles." },
       { titre: "Bénéfices clés",
         liste: ["Aide à apaiser les irritations et les sensations d'inconfort", "Atténue visiblement l'apparence des rougeurs", "Hydrate durablement pendant la nuit", "Renforce la barrière d'hydratation naturelle de la peau", "Sans parfum, pensée pour les peaux sensibles"] },
       { titre: "Pensé pour",
@@ -140,12 +140,12 @@ var BALANCE = {
       { titre: "Texture & sensorialité",
         texte: "Une texture douce et enveloppante qui apporte confort à la peau tout au long de la nuit. Sans parfum ajouté : seule l'odeur naturellement neutre de la formule, pour une expérience discrète et respectueuse des peaux sensibles." },
       { titre: "Engagement ELKHA.B",
-        texte: "• 99% d'ingrédients d'origine naturelle\n• 42% d'ingrédients issus de l'agriculture biologique\n• Sans parfum\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Calm Balance Nuit accompagne les peaux sensibles pendant leur repos, avec une formule sans parfum qui respecte leur équilibre." }
+        texte: "• 99% d'ingrédients d'origine naturelle\n• 42% d'ingrédients issus de l'agriculture biologique\n• Sans parfum\nChez ELKHA.B, nous mettons la douceur au cœur des actifs. Balance Calm Nuit accompagne les peaux sensibles pendant leur repos, avec une formule sans parfum qui respecte leur équilibre." }
     ],
     accord: {
       fiche: "calm-balance-jour",
-      nom: "Calm Balance Jour",
-      texte: "Le duo apaisant, du matin au soir.\nCalm Balance Jour apaise et hydrate la peau tout au long de la journée.\nCalm Balance Nuit prend le relais pendant le sommeil, pour une peau calme et reposée au réveil.",
+      nom: "Balance Calm Jour",
+      texte: "Le duo apaisant, du matin au soir.\nBalance Calm Jour apaise et hydrate la peau tout au long de la journée.\nBalance Calm Nuit prend le relais pendant le sommeil, pour une peau calme et reposée au réveil.",
       prix: "34,90€",
       variantId: "60321020051801"
     }
@@ -212,8 +212,8 @@ var BALANCE = {
     ],
     accord: {
       fiche: "calm-balance-jour",
-      nom: "Calm Balance Jour",
-      texte: "Le duo fraîcheur et confort.\nHydra Balance gorge la peau d'eau et la prépare en douceur.\nCalm Balance Jour scelle cette hydratation et apaise la peau tout au long de la journée.",
+      nom: "Balance Calm Jour",
+      texte: "Le duo fraîcheur et confort.\nHydra Balance gorge la peau d'eau et la prépare en douceur.\nBalance Calm Jour scelle cette hydratation et apaise la peau tout au long de la journée.",
       prix: "34,90€",
       variantId: "60321020051801"
     }
@@ -248,7 +248,7 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Sur une peau nette, appliquez une pression de Calm Balance Nuit : elle apaise et nourrit la peau pendant votre sommeil." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Sur une peau nette, appliquez une pression de Balance Calm Nuit : elle apaise et nourrit la peau pendant votre sommeil." }
       ]
     },
     sections: [
@@ -267,8 +267,8 @@ var BALANCE = {
     ],
     accord: {
       fiche: "calm-balance-nuit",
-      nom: "Calm Balance Nuit",
-      texte: "Le rituel du soir des peaux sensibles.\nFusion Balance démaquille les yeux et le visage sans frotter.\nCalm Balance Nuit apaise et nourrit la peau pendant votre sommeil.",
+      nom: "Balance Calm Nuit",
+      texte: "Le rituel du soir des peaux sensibles.\nFusion Balance démaquille les yeux et le visage sans frotter.\nBalance Calm Nuit apaise et nourrit la peau pendant votre sommeil.",
       prix: "36,90€",
       variantId: "60321802289497"
     }
@@ -703,7 +703,7 @@ var BALANCE = {
       etapes: [
         { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour hydrater la peau." },
         { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Réchauffez une pression de Bakuchiol Elixir entre vos paumes et pressez-la délicatement sur le visage. Les soirs d'exfoliation, sautez cette étape." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Calm Balance Nuit, qui apaise et hydrate la peau pendant le sommeil." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Balance Calm Nuit, qui apaise et hydrate la peau pendant le sommeil." }
       ]
     },
     sections: [
@@ -924,7 +924,7 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "1 à 2 soirs par semaine", soin: "aha-balance-peel", texte: "Sur peau propre et sèche, appliquez une fine couche de AHA Balance Peel en évitant le contour des yeux. Jamais le même soir que Glyco Balance." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Calm Balance Nuit pour apaiser et hydrater la peau pendant le sommeil." },
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Balance Calm Nuit pour apaiser et hydrater la peau pendant le sommeil." },
         { moment: "Le lendemain matin", soin: "radiance-protect", texte: "Appliquez Radiance Protect SPF 50 : après une exfoliation, la protection solaire est indispensable." }
       ]
     },
@@ -1036,7 +1036,7 @@ var BALANCE = {
       etapes: [
         { moment: "Le soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser." },
         { moment: "Le soir", soin: "bha-balance", texte: "Versez quelques gouttes de BHA Balance dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." },
-        { moment: "Le soir", soin: "hydra-balance", texte: "Poursuivez avec Hydra Balance, puis Luminescence Nuit. Si votre peau est sensible ou sensibilisée, préférez Calm Balance Nuit." },
+        { moment: "Le soir", soin: "hydra-balance", texte: "Poursuivez avec Hydra Balance, puis Luminescence Nuit. Si votre peau est sensible ou sensibilisée, préférez Balance Calm Nuit." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Le lendemain matin, terminez toujours par Radiance Protect SPF 50." }
       ]
     },
@@ -1160,7 +1160,7 @@ var BALANCE = {
   // =====================================================================
   "routine-apaisante": {
     nom: "Routine Apaisante",
-    sousTitre: "Hydra Balance · Calm Balance Jour · Calm Balance Nuit",
+    sousTitre: "Hydra Balance · Balance Calm Jour · Balance Calm Nuit",
     details: ["3 soins", "Vegan"],
     note: "",
     prix: "95€",
@@ -1174,13 +1174,13 @@ var BALANCE = {
       ]
     },
     routine: {
-      intro: "Une routine pensée pour les peaux sensibles, qui rougissent et tiraillent facilement.\nHydra Balance gorge la peau d'eau grâce à son acide hyaluronique multi-poids moléculaire. Calm Balance Jour apaise les rougeurs et préserve le confort de la peau toute la journée, et Calm Balance Nuit prend le relais pendant le sommeil pour apaiser et réparer.",
+      intro: "Une routine pensée pour les peaux sensibles, qui rougissent et tiraillent facilement.\nHydra Balance gorge la peau d'eau grâce à son acide hyaluronique multi-poids moléculaire. Balance Calm Jour apaise les rougeurs et préserve le confort de la peau toute la journée, et Balance Calm Nuit prend le relais pendant le sommeil pour apaiser et réparer.",
       soins: ["hydra-balance", "calm-balance-jour", "calm-balance-nuit"],
       etapes: [
         { moment: "Le matin", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance sur le visage et le cou." },
-        { moment: "Le matin", soin: "calm-balance-jour", texte: "Poursuivez avec une pression de Calm Balance Jour, lissée du centre vers l'extérieur du visage." },
+        { moment: "Le matin", soin: "calm-balance-jour", texte: "Poursuivez avec une pression de Balance Calm Jour, lissée du centre vers l'extérieur du visage." },
         { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Calm Balance Nuit pour apaiser et hydrater la peau toute la nuit." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Balance Calm Nuit pour apaiser et hydrater la peau toute la nuit." }
       ],
       conclusion: "Une peau bien hydratée est une peau qui réagit moins.\nLe matin, terminez par une protection solaire minérale : les UV accentuent les rougeurs et l'inconfort."
     }

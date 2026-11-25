@@ -403,12 +403,12 @@
       adresse: 'https://routines.elkhab.com/?fiche=routine-regard'
     },
     'calm-balance-jour': {
-      titre: 'Calm Balance Jour, crème de jour apaisante sans parfum',
+      titre: 'Balance Calm Jour, crème de jour apaisante sans parfum',
       description: 'Le soin jour de la ligne Calm : une crème légère, idéale pour les peaux sensibles en quête de confort et d\u2019apaisement, qui atténue visiblement les rougeurs. Vegan. 50 ml.',
       adresse: 'https://balance.elkhab.com/?fiche=calm-balance-jour'
     },
     'calm-balance-nuit': {
-      titre: 'Calm Balance Nuit, crème de nuit apaisante sans parfum',
+      titre: 'Balance Calm Nuit, crème de nuit apaisante sans parfum',
       description: 'Le soin nuit de la ligne Calm : idéal pour les peaux sensibles en quête de confort et d\u2019apaisement, il apaise la peau et atténue visiblement les rougeurs pendant le sommeil. Vegan. 50 ml.',
       adresse: 'https://balance.elkhab.com/?fiche=calm-balance-nuit'
     },
