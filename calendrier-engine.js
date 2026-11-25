@@ -23,7 +23,7 @@
     casesDoubles: [6, 13, 18, 20, 23]
   };
   var IMG = REGLAGES.images;
-  var COLLABS = ['LAURELIE', 'CYNTHIA', 'SELENA', 'PAULINE', 'VERONIQUE'];   // liens ?ami=PRENOM des collaboratrices (comme le registre)
+  var COLLABS = ['LAURELIE', 'CYNTHIA', 'SELENA', 'PAULINE', 'VERONIQUE', 'NOEMIE'];   // liens ?ami=PRENOM des collaboratrices (comme le registre)
   var JOURS_COLLAB = [7, 8];
   var BAL = 'https://balance.elkhab.com/?fiche=', BLO = 'https://bloom.elkhab.com/?fiche=';
 
