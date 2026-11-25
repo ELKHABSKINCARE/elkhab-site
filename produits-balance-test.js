@@ -40,6 +40,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_CALM_JOUR_4.png?v=1793810536"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+      { nom: "Algues rouges", titre: "L'apaisement venu de la mer", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algues-rouges.png",
+        texte: "Riches en polysaccharides et en minéraux, elles aident à calmer les sensations d'échauffement et à atténuer l'apparence des rougeurs." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     routine: {
       etapes: [
         { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom : ses prébiotiques préparent la peau en douceur et l'aident à retrouver son équilibre." },
@@ -643,6 +657,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_macro_realiste_au_septum_dore.png?v=1793809225"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Bakuchiol", titre: "L'alternative végétale au rétinol", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bakuchiol.png",
+        texte: "Extrait des graines du babchi, une plante de la tradition ayurvédique, il stimule le renouvellement cellulaire pour lisser les rides et raffermir la peau, sans en avoir les effets irritants." },
+      { nom: "Huile de rose musquée", titre: "L'huile de la régénération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-rose-musquee.png",
+        texte: "Riche en acides gras essentiels et en caroténoïdes, elle régénère la peau, aide à estomper l'apparence des marques et redonne de l'éclat au teint." },
+      { nom: "Huile d'onagre", titre: "La souplesse retrouvée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-d-onagre.png",
+        texte: "Particulièrement riche en acide gamma-linolénique, un acide gras essentiel, elle renforce la barrière cutanée, assouplit la peau et aide à préserver son élasticité." },
+      { nom: "Huile de jojoba", titre: "L'huile qui ressemble à la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Premier ingrédient de la formule. Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour hydrater la peau." },
