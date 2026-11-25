@@ -951,6 +951,20 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/file_00000000cb60824390f842b82871e67a.png?v=1792579944"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Plancton marin", titre: "Le soutien marin du collagène", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algues-marines.png",
+        texte: "Issu d'un ferment marin et associé à un extrait d'algues, il accompagne la production naturelle de collagène pendant la nuit, au moment où la peau se régénère. Au réveil, elle paraît plus ferme et repulpée." },
+      { nom: "Beurre de cacao", titre: "Le cocon nourrissant de la nuit", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
+        texte: "Riche en acides gras et en antioxydants naturels, il enveloppe la peau d'un voile protecteur qui la nourrit intensément et la préserve du dessèchement pendant la nuit." },
+      { nom: "Beurre de karité", titre: "Le beurre réparateur des peaux sèches", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-karite.png",
+        texte: "Concentré en acides gras et en insaponifiables, il assouplit la peau, renforce son élasticité et apaise les sensations de tiraillement." },
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -1116,6 +1130,20 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Solaire_Bloom_au_bord_de_plage.png?v=1792579207"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Oxyde de zinc", titre: "La protection minérale", photo: "https://elkhabskincare.github.io/elkhab-site/actif-oxyde-de-zinc.png",
+        texte: "Filtre minéral, il reflète et disperse les rayons UVA et UVB à la surface de la peau. Il assure la protection SPF 50 sans filtre chimique et reste bien toléré par les peaux sensibles." },
+      { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." },
+      { nom: "Beurre de cacao", titre: "Le confort fondant du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-cacao.png",
+        texte: "Riche en acides gras et en antioxydants naturels, il donne au stick sa texture fondante. Il nourrit la peau et l'enveloppe d'un voile souple qui la préserve du dessèchement." },
+      { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘

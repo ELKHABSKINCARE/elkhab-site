@@ -245,6 +245,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/IMAGE_YEUX.png?v=1793697938"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+      { nom: "Camomille", titre: "L'apaisement des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-camomille.png",
+        texte: "Fleur emblématique des soins pour peaux délicates, la camomille est connue pour ses propriétés apaisantes. Son extrait issu de l'agriculture biologique aide à calmer les sensations d'inconfort pendant le démaquillage, même sur les peaux les plus réactives." },
+      { nom: "Argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
+        texte: "Petite baie orangée gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, l'argousier est reconnu pour ses vertus nourrissantes et réconfortantes. Son extrait bio aide la peau à préserver sa souplesse et son confort, pour qu'elle ne tiraille pas après le démaquillage." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation préservée", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Véritable capteur d'eau, il retient l'hydratation à la surface de la peau pendant le démaquillage. La peau reste souple et confortable, sans sensation de tiraillement." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." },
@@ -991,6 +1005,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Comparaison_avant-apres_du_front.png?v=1793811027"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Bidens pilosa", titre: "Le lissant végétal des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bidens-pilosa.png",
+        texte: "Riche en flavonoïdes, des antioxydants végétaux, son extrait agit comme une alternative au rétinol. Il soutient le renouvellement cellulaire pour lisser les ridules et affiner le grain de peau, tout en respectant les peaux sensibles." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+      { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Deuxième ingrédient de la formule, sa composition très proche du sébum de la peau lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
+    ],
     routine: {
       etapes: [
         { moment: "Le matin", soin: "cellular-renew", texte: "Sur peau propre, appliquez une pression de Cellular Renew sur le visage et le cou." },
