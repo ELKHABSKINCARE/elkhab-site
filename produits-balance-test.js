@@ -476,6 +476,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_06a1d45e-98c6-4973-aec6-fb156d56eb71.png?v=1793974534"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Peptides", titre: "Les messagers du lissage et de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
+        texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les rides et à raffermir la peau." },
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+      { nom: "Huile de pépins de fraise", titre: "Le nectar antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-fraise.png",
+        texte: "Riche en acides gras essentiels (oméga 3 et 6) et en antioxydants naturels, elle nourrit la peau sans la graisser et l'aide à se défendre contre le stress oxydatif." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     routine: {
       etapes: [
         { moment: "Matin et/ou soir", soin: "active-lift", texte: "Sur peau propre, appliquez une pression de Active Lift sur le visage et le cou, en lissant du centre vers l'extérieur." },
@@ -532,6 +546,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Gros_plan_realiste_d_un_oeil_souriant.png?v=1793809130"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Peptides", titre: "Les messagers du lissage et de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
+        texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les rides et à raffermir la peau." },
+      { nom: "Beurre de mangue", titre: "Le confort qui dure", photo: "https://elkhabskincare.github.io/elkhab-site/actif-beurre-de-mangue.png",
+        texte: "Riche en acides gras et en antioxydants, il nourrit intensément, assouplit la peau et l'aide à retenir son hydratation, pour une peau souple et confortable tout au long de la journée." },
+      { nom: "Huile de jojoba", titre: "L'huile qui ressemble à la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Deuxième ingrédient de la formule, sa composition très proche du sébum de la peau lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." },
+      { nom: "Vitamine C", titre: "L'éclat du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous une forme stable et bien tolérée, cet antioxydant neutralise les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et révèle l'éclat du teint." }
+    ],
     routine: {
       etapes: [
         { moment: "Matin et soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour gorger la peau d'hydratation." },
@@ -591,16 +619,16 @@ var BALANCE = {
     // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
     // └─────────────────────────────────────────────────────────────────┘
     actifsCles: [
-      { nom: "Peptides", titre: "Les messagers du lissage", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
+      { nom: "Peptides", titre: "Les messagers du lissage et de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
         texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les ridules et à raffermir le contour de l'œil." },
       { nom: "Huile de bourrache", titre: "Le nectar des peaux fines", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-bourrache.png",
         texte: "Particulièrement riche en acide gamma-linolénique, un acide gras essentiel, elle nourrit la peau fine du contour de l'œil et lui redonne souplesse et confort." },
+      { nom: "Huile de ricin", titre: "Le soin des peaux fines", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-ricin.png",
+        texte: "Riche en acide ricinoléique, elle nourrit et assouplit la peau très fine du contour de l'œil, et forme un léger voile qui limite la perte en eau." },
       { nom: "Vitamine C", titre: "L'éclat du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
         texte: "Sous une forme stable et bien tolérée, cet antioxydant neutralise les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et illumine le regard." },
       { nom: "Vitamine E", titre: "Le bouclier protecteur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
-        texte: "Antioxydant de référence, elle protège la peau fine du contour de l'œil du stress oxydatif et participe au maintien de la barrière cutanée." },,
-      { nom: "Ginkgo biloba", titre: "Le regard défatigué", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ginkgo-biloba.png",
-        texte: "Riche en flavonoïdes antioxydants, l'extrait de ginkgo biloba aide à défatiguer le regard et protège la peau fine du contour de l'œil du stress oxydatif." }
+        texte: "Antioxydant de référence, elle protège la peau fine du contour de l'œil du stress oxydatif et participe au maintien de la barrière cutanée." }
     ],
     routine: {
       etapes: [

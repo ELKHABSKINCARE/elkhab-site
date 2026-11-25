@@ -364,7 +364,7 @@ window.EB_PRODUITS = {
   // =====================================================================
   "lumibloom-niac-5": {
     nom: "Lumi-Bloom Niacinamide 5",
-    sousTitre: "Niacinamide 5% · Ginkgo biloba",
+    sousTitre: "Niacinamide · Ginkgo biloba",
     details: ["50 ml", "Vegan"],
     note: "une pression suffit",
     prix: "34,90€",
