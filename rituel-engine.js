@@ -205,7 +205,7 @@
       sens: "Un sérum léger d'un rose tendre, sans parfum, absorbé en quelques secondes. Les fines spicules procurent un léger picotement à l'application, tout à fait normal, qui s'estompe vite.",
       etapes: [{ moment: 'Le soir', texte: "Sur peau propre et sèche, déposez quelques gouttes au creux de la main et appliquez-les sur le visage par légers tapotements, en évitant le contour des yeux. Laissez le picotement s'estomper, puis poursuivez avec Luminescence Boost et Luminescence Nuit." }],
       savoir: { 'Le soir': ["Les spicules sont des microstructures en forme d'aiguilles, invisibles à l'œil nu. Elles se glissent dans les couches superficielles de la peau et ouvrent la voie aux actifs qui suivent, d'où leur picotement caractéristique. Le PDRN, lui, est composé de fragments d'ADN qui soutiennent les mécanismes naturels de réparation de la peau. Traditionnellement extrait du saumon, il est ici biosynthétisé par fermentation, sans aucune particule d'origine animale."] },
-      conseil: "Les premières semaines, appliquez-le deux à trois soirs par semaine, puis chaque soir une fois que votre peau s'y est habituée. Ne l'associez pas le même soir à Glyco Balance ou BHA Balance, et le matin, terminez toujours par une protection solaire comme Radiance Protect SPF 50."
+      conseil: "Il s'utilise chaque soir, dès la première application. Le léger picotement est normal et s'estompe en quelques instants. Ne l'associez pas le même soir à Glyco Balance ou BHA Balance, et le matin, terminez toujours par une protection solaire comme Radiance Protect SPF 50."
     },
     // ── BALANCE ──
     hy: {
