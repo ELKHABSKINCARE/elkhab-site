@@ -381,6 +381,16 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Comparatif_peau_avant_et_apres.png?v=1793811844"
       ]
     },
+    actifsCles: [
+      { nom: "Bidens pilosa", titre: "Le lissant végétal des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bidens-pilosa.png",
+        texte: "Riche en flavonoïdes, des antioxydants végétaux, son extrait agit comme une alternative au rétinol. Il soutient le renouvellement cellulaire pour lisser les ridules et affiner le grain de peau, tout en respectant les peaux sensibles." },
+      { nom: "Myrte rose", titre: "L'éclat venu d'Asie", photo: "https://elkhabskincare.github.io/elkhab-site/actif-myrte-rose.png",
+        texte: "Originaire d'Asie du Sud-Est, la myrte rose donne de petites baies riches en piceatannol, un antioxydant végétal de la même famille que celui du raisin, réputé pour ses vertus anti-âge. Son extrait protège la peau du stress oxydatif et l'aide à retrouver un teint plus uniforme et lumineux." },
+      { nom: "Huile de rose musquée", titre: "L'huile de la régénération", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-rose-musquee.png",
+        texte: "Riche en acides gras essentiels et en caroténoïdes, elle régénère la peau, aide à estomper l'apparence des marques et redonne de l'éclat au teint." },
+      { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
@@ -783,6 +793,16 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_SOPT_CONTROL_2.png?v=1793813315"
       ]
     },
+    actifsCles: [
+      { nom: "Acide kojique", titre: "L'anti-taches venu du Japon", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-kojique.png",
+        texte: "Né de la fermentation du riz par le koji, le ferment utilisé au Japon pour le saké et le miso, l'acide kojique freine la tyrosinase, l'enzyme à l'origine de la mélanine. Les taches brunes s'atténuent progressivement et le teint devient plus uniforme, sans agresser la peau." },
+      { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif et renforce l'action de l'acide kojique. Elle ravive l'éclat du teint." },
+      { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
+      { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
+    ],
     routine: {
       etapes: [
         { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau." },
@@ -839,6 +859,16 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_SOPT_CONTROL_2.png?v=1793813315"
       ]
     },
+    actifsCles: [
+      { nom: "Acide kojique", titre: "L'anti-taches venu du Japon", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-kojique.png",
+        texte: "Né de la fermentation du riz par le koji, le ferment utilisé au Japon pour le saké et le miso, l'acide kojique freine la tyrosinase, l'enzyme à l'origine de la mélanine. Les taches brunes s'atténuent progressivement et le teint devient plus uniforme, sans agresser la peau." },
+      { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif et renforce l'action de l'acide kojique. Elle ravive l'éclat du teint." },
+      { nom: "Huile d'argousier", titre: "Le superfruit qui nourrit la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argousier.png",
+        texte: "Gorgée de vitamines, d'acides gras essentiels et de caroténoïdes, elle nourrit la peau, préserve sa souplesse et ravive son éclat." },
+      { nom: "Huile de jojoba", titre: "La gardienne du film hydrolipidique", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." }
+    ],
     routine: {
       etapes: [
         { moment: "Matin et soir", soin: "spot-control", texte: "Sur peau propre, appliquez Spot Control uniquement sur les taches, en tapotant légèrement." },

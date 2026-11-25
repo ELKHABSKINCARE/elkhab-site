@@ -251,6 +251,16 @@ window.EB_PRODUITS = {
         "https://elkhabskincare.github.io/elkhab-site/bloom-fiche-gelee-lumibloom-mannequin.png"
       ]
     },
+    actifsCles: [
+      { nom: "Prébiotiques bioactifs", titre: "L'équilibre du microbiome", photo: "https://elkhabskincare.github.io/elkhab-site/actif-prebiotiques.png",
+        texte: "Issus de la fermentation d'un lactobacille, une bactérie bénéfique, ces bioactifs nourrissent le microbiome, l'ensemble des micro-organismes qui protègent naturellement la peau. Ils renforcent la barrière cutanée, pour une peau plus résistante et plus confortable." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
+      { nom: "Algine", titre: "Le soin complet des algues brunes", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algine.png",
+        texte: "Extraite des algues brunes, l'algine est un polysaccharide marin qui forme à la surface de la peau un voile souple et respirant. Ce voile retient l'eau pour une hydratation durable et exerce un léger effet tenseur qui raffermit visiblement les traits. Apaisante, elle accompagne la réparation de la peau fragilisée et aide à la purifier en captant l'excès de sébum et les impuretés." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -523,6 +533,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE.png?v=1792649764"
       ]
     },
+    actifsCles: [
+      { nom: "Alpha-arbutine", titre: "L'anti-taches qui respecte la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-alpha-arbutine.png",
+        texte: "Molécule inspirée de l'arbutine, présente à l'état naturel dans les feuilles de busserole, l'alpha-arbutine freine la tyrosinase, l'enzyme qui déclenche la production de mélanine. Les taches brunes et les marques pigmentaires s'estompent progressivement, pour un teint plus uniforme, sans agresser la peau." },
+      { nom: "Bidens pilosa", titre: "Le lissant végétal des peaux sensibles", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bidens-pilosa.png",
+        texte: "Riche en flavonoïdes, des antioxydants végétaux, son extrait agit comme une alternative au rétinol. Il soutient le renouvellement cellulaire pour lisser les ridules et affiner le grain de peau, tout en respectant les peaux sensibles." },
+      { nom: "Vitamine C", titre: "La lumière du teint", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous une forme stable, liée à un acide gras, cette vitamine C antioxydante protège la peau du stress oxydatif et soutient l'action de l'alpha-arbutine. Elle ravive l'éclat du teint." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -704,6 +724,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_558a59d1-b12f-48c9-987f-19808cd3a870.png?v=1793208601"
       ]
     },
+    actifsCles: [
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera bio hydrate et apaise la peau pendant la pose du masque. Elle est purifiée, mais reste fraîche et confortable." },
+      { nom: "Argile blanche", titre: "La pureté minérale", photo: "https://elkhabskincare.github.io/elkhab-site/actif-argile-blanche.png",
+        texte: "Argile la plus douce, le kaolin absorbe l'excès de sébum et capte les impuretés qui encombrent les pores, sans dessécher la peau. Le grain de peau est visiblement affiné, le teint plus net." },
+      { nom: "Charbon végétal", titre: "L'aimant à impuretés", photo: "https://elkhabskincare.github.io/elkhab-site/actif-charbon-vegetal.png",
+        texte: "Grâce à sa structure très poreuse, le charbon végétal attire et retient les impuretés, la pollution et l'excès de sébum, comme un aimant. Il aide à désincruster les points noirs pour une peau nette et matifiée." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est purifiée, sans jamais être desséchée." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -883,6 +913,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Swoosh_cremeux_blanc_nacre.png?v=1793974858"
       ]
     },
+    actifsCles: [
+      { nom: "Cresson", titre: "Le réveil de la fermeté", photo: "https://elkhabskincare.github.io/elkhab-site/actif-cresson.png",
+        texte: "Riche en vitamines, en minéraux et en antioxydants, l'extrait de cresson aide à préserver la fermeté de la peau. Il améliore visiblement sa tonicité et atténue l'apparence des ridules, pour une peau plus lisse et rebondie." },
+      { nom: "Sureau", titre: "Le bouclier pourpre des baies noires", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sureau.png",
+        texte: "Ses baies sombres concentrent des anthocyanes, des pigments antioxydants qui protègent la peau du stress oxydatif, l'une des causes du relâchement cutané. Le teint paraît plus frais et revitalisé." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
@@ -1291,6 +1331,16 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Texture_creme.png?v=1791055980"
       ]
     },
+    actifsCles: [
+      { nom: "Vigne rouge", titre: "L'élan de la microcirculation", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vigne-rouge.png",
+        texte: "Riche en polyphénols, l'extrait de feuille de vigne rouge soutient la microcirculation, la circulation dans les tout petits vaisseaux sous la peau. Il aide à atténuer l'apparence des cernes et des poches, pour un regard plus frais et reposé." },
+      { nom: "Marronnier d'Inde", titre: "Le défatigant du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-marronnier-d-inde.png",
+        texte: "Ses graines renferment de l'escine, une molécule connue pour tonifier les petits vaisseaux et limiter la rétention d'eau. Le contour de l'œil paraît moins gonflé et les poches sont visiblement atténuées." },
+      { nom: "Ginkgo biloba", titre: "L'éclat préservé", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ginkgo-biloba.png",
+        texte: "Riche en flavonoïdes antioxydants, il protège la peau du stress oxydatif et l'aide à préserver son éclat face aux agressions du quotidien." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
