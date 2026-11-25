@@ -94,6 +94,20 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_d91c1c53-6ad3-40e7-b6af-8bd6fc4320aa.png?v=1793810582"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+      { nom: "Algues rouges", titre: "L'apaisement venu de la mer", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algues-rouges.png",
+        texte: "Riches en polysaccharides et en minéraux, elles aident à calmer les sensations d'échauffement et à atténuer l'apparence des rougeurs." },
+      { nom: "Huile de jojoba", titre: "L'huile qui ressemble à la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-jojoba.png",
+        texte: "Sa composition, très proche du sébum de la peau, lui permet de pénétrer sans effet gras. Elle assouplit et renforce le film hydrolipidique, la fine couche qui protège la peau." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." }
+    ],
     routine: {
       etapes: [
         { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau et préserver son équilibre." },
@@ -156,7 +170,7 @@ var BALANCE = {
         texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper la peau et lisser les ridules de déshydratation." },
       { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
         texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau reste ainsi hydratée plus longtemps." },
-      { nom: "Aloe vera", titre: "La base apaisante du gel", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
         texte: "Riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée des peaux sensibles. Premier ingrédient de la formule, il en constitue la base." },
       { nom: "Thé blanc", titre: "Le bouclier antioxydant", photo: "https://elkhabskincare.github.io/elkhab-site/actif-the-blanc.png",
         texte: "Concentré en polyphénols, l'extrait de thé blanc aide à neutraliser les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et la protège du stress oxydatif." }
@@ -558,6 +572,22 @@ var BALANCE = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/TEXTURE_e85beec6-d44a-46d8-8f0d-f3c33891593d.png?v=1793812462"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Peptides", titre: "Les messagers du lissage", photo: "https://elkhabskincare.github.io/elkhab-site/actif-peptides.png",
+        texte: "Courtes chaînes d'acides aminés, ils agissent comme des messagers qui stimulent les mécanismes naturels de la peau. Ils aident à lisser les ridules et à raffermir le contour de l'œil." },
+      { nom: "Huile de bourrache", titre: "Le nectar des peaux fines", photo: "https://elkhabskincare.github.io/elkhab-site/actif-huile-de-bourrache.png",
+        texte: "Particulièrement riche en acide gamma-linolénique, un acide gras essentiel, elle nourrit la peau fine du contour de l'œil et lui redonne souplesse et confort." },
+      { nom: "Vitamine C", titre: "L'éclat du regard", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-c.png",
+        texte: "Sous une forme stable et bien tolérée, cet antioxydant neutralise les radicaux libres, ces molécules instables qui accélèrent le vieillissement de la peau, et illumine le regard." },
+      { nom: "Vitamine E", titre: "Le bouclier protecteur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-vitamine-e.png",
+        texte: "Antioxydant de référence, elle protège la peau fine du contour de l'œil du stress oxydatif et participe au maintien de la barrière cutanée." },,
+      { nom: "Ginkgo biloba", titre: "Le regard défatigué", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ginkgo-biloba.png",
+        texte: "Riche en flavonoïdes antioxydants, l'extrait de ginkgo biloba aide à défatiguer le regard et protège la peau fine du contour de l'œil du stress oxydatif." }
+    ],
     routine: {
       etapes: [
         { moment: "Matin et soir", soin: "eye-lift", texte: "Sur peau propre, déposez une petite quantité de Eye Lift sur le contour des yeux et faites-la pénétrer en tapotant doucement." },

@@ -32,10 +32,11 @@
   + ".eb-fp-apan b{display:block;font-size:10px;letter-spacing:.24em;font-weight:600;text-transform:uppercase;color:#7d1f2b}"
   + ".eb-fp-apan em{display:block;font-style:normal;font-size:13px;font-weight:500;color:#111;margin-top:6px;line-height:1.4}"
   + ".eb-fp-apan p{margin:0;font-size:12.5px;line-height:1.7;color:#2a2723}"
-  + ".eb-fp-act-bal .eb-fp-apan{background:#e9eadc}.eb-fp-act-bal .eb-fp-apan b{color:#5b6b37}"   // site Balance : fenêtre aux couleurs vertes de la gamme
+  + ".eb-fp-act-bal .eb-fp-apan{background:rgba(246,245,240,.82);-webkit-backdrop-filter:blur(16px) saturate(1.1);backdrop-filter:blur(16px) saturate(1.1)}.eb-fp-act-bal .eb-fp-apan b{color:#5b6b37}"   // site Balance : fenêtre en verre dépoli clair (fond du site), titre vert de la gamme
   + ".eb-fp-apan-x{position:absolute;top:10px;right:10px;width:28px;height:28px;border:0;border-radius:50%;background:#f5f1ea;font-size:15px;line-height:28px;cursor:pointer;color:#111;padding:0}"
   + "body.eb-act-ouvert .eb-fp-close{opacity:0;pointer-events:none}"
-  + "@media (max-width:699px){.eb-fp-act-r{justify-content:space-between}.eb-fp-ai{width:22%}.eb-fp-ai img{width:44px;height:44px}.eb-fp-ai .eb-fp-an{font-size:7.5px;letter-spacing:.08em}}"
+  // 5 actifs : vignettes un peu plus serrées pour tenir sur une ligne
+  + ".eb-fp-act-r:has(> :nth-child(5)) .eb-fp-ai{width:76px}@media (max-width:699px){.eb-fp-act-r:has(> :nth-child(5)) .eb-fp-ai{width:19%!important}.eb-fp-act-r{justify-content:space-between}.eb-fp-ai{width:22%}.eb-fp-ai img{width:44px;height:44px}.eb-fp-ai .eb-fp-an{font-size:7.5px;letter-spacing:.08em}}"
   // Panier de la fiche : même sac que le menu, en haut à droite
   + ".eb-fp-cartbtn{position:fixed;top:12px;right:18px;z-index:99995;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(0,0,0,.12);box-shadow:0 2px 10px rgba(0,0,0,.08);display:none;align-items:center;justify-content:center;cursor:pointer;padding:0;transition:transform .2s ease}"
   + ".eb-fp-cartbtn.visible{display:flex}.eb-fp-cartbtn:hover{transform:scale(1.08)}"
