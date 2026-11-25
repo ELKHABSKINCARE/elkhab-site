@@ -394,8 +394,8 @@ window.EB_PRODUITS = {
         texte: "Forme de la vitamine B3, elle régule l'excès de sébum, affine visiblement le grain de peau et renforce la barrière cutanée. Elle aide aussi à atténuer l'apparence des taches pour un teint plus uniforme." },
       { nom: "Ginkgo biloba", titre: "L'éclat préservé", photo: "https://elkhabskincare.github.io/elkhab-site/actif-ginkgo-biloba.png",
         texte: "Riche en flavonoïdes antioxydants, il protège la peau du stress oxydatif et l'aide à préserver son éclat face aux agressions du quotidien." },
-      { nom: "Algine", titre: "Le voile hydratant des algues", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algine.png",
-        texte: "Extraite des algues brunes, elle forme à la surface de la peau un voile hydratant et léger, qui retient l'eau et laisse la peau douce et lisse." }
+      { nom: "Algine", titre: "Le soin complet des algues brunes", photo: "https://elkhabskincare.github.io/elkhab-site/actif-algine.png",
+        texte: "Extraite des algues brunes, l'algine est un polysaccharide marin qui forme à la surface de la peau un voile souple et respirant. Ce voile retient l'eau pour une hydratation durable et exerce un léger effet tenseur qui raffermit visiblement les traits. Apaisante, elle accompagne la réparation de la peau fragilisée et aide à la purifier en captant l'excès de sébum et les impuretés." }
     ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
