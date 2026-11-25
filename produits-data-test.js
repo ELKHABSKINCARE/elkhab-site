@@ -788,6 +788,14 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/VISAGE_RADIANCE_CLEANSER.png?v=1792660603"
       ]
     },
+    actifsCles: [
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera forme le cœur hydratant du gel. Il apaise la peau pendant le nettoyage et préserve son confort, pour qu'elle ne tiraille pas après le rinçage." },
+      { nom: "Extrait de mûre", titre: "L'éclat antioxydant de la mûre", photo: "https://elkhabskincare.github.io/elkhab-site/actif-mure.png",
+        texte: "Riche en vitamine C et en polyphénols, des antioxydants naturels, l'extrait de mûre aide la peau à se défendre contre le stress oxydatif, qui ternit le teint. Dès le nettoyage, le teint paraît plus frais et revitalisé." },
+      { nom: "Sodium PCA", titre: "La réserve d'eau de la peau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-sodium-pca.png",
+        texte: "Composant clé du facteur naturel d'hydratation de la peau (NMF), cet humectant capte l'eau et la maintient dans la couche cornée, la couche la plus superficielle de l'épiderme. La peau est nette, sans jamais être desséchée." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘
