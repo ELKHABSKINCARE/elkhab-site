@@ -165,6 +165,20 @@ window.EB_PRODUITS = {
         "https://cdn.shopify.com/s/files/1/1016/8683/7593/files/Portrait_beaute_avec_soin_hydratant_ELKHA.B_1.png?v=1792580243"
       ]
     },
+
+    // ┌─────────────────────────────────────────────────────────────────┐
+    // │ 🧪  LES ACTIFS (mini-vignettes au-dessus du bouton panier)       │
+    // └─────────────────────────────────────────────────────────────────┘
+    actifsCles: [
+      { nom: "Aloe vera", titre: "L'apaisement à l'état pur", photo: "https://elkhabskincare.github.io/elkhab-site/actif-aloe-vera.png",
+        texte: "Premier ingrédient de la formule, riche en polysaccharides, le jus d'aloe vera hydrate, apaise les sensations d'inconfort et aide à renforcer la barrière cutanée." },
+      { nom: "Acide hyaluronique", titre: "L'hydratation à chaque niveau", photo: "https://elkhabskincare.github.io/elkhab-site/actif-acide-hyaluronique.png",
+        texte: "Associé en plusieurs poids moléculaires pour une hydratation intense et durable. Chaque poids agit à son niveau, en surface comme au cœur de l'épiderme, pour repulper et lisser la peau." },
+      { nom: "Bisabolol", titre: "Le cœur apaisant de la camomille", photo: "https://elkhabskincare.github.io/elkhab-site/actif-bisabolol.png",
+        texte: "Molécule naturellement présente dans la camomille, il est reconnu pour ses propriétés apaisantes. Il calme les rougeurs passagères et les sensations d'inconfort, et aide les peaux sensibles à retrouver leur équilibre." },
+      { nom: "Extraits de baies", titre: "Le bouclier antioxydant des baies", photo: "https://elkhabskincare.github.io/elkhab-site/actif-extraits-de-baies.png",
+        texte: "Extraits de mûre et de sorbier, associés à l'huile de pépins de framboise, ils apportent polyphénols et acides gras essentiels. Ces antioxydants aident la peau à se défendre contre le stress oxydatif et préservent l'éclat du teint." }
+    ],
     // ┌─────────────────────────────────────────────────────────────────┐
     // │ 🌿  LE RITUEL EN ÉTAPES (affiché après l'accordéon)             │
     // └─────────────────────────────────────────────────────────────────┘

@@ -119,7 +119,8 @@
       benefice: "Hydrate en profondeur, repulpe et apaise la peau", prix: "34,90€", taille: "50 ml",
       // 📷 Luminescence Jour
       photo: PHOTOS + "bloom-sable-luminescence-jour.png", photoLarge: PHOTOS + "bloom-sable-luminescence-jour-large.png",
-      alt: "Luminescence Jour ELKHA.B, crème hydratante éclat à l'acide hyaluronique, 50 ml"
+      alt: "Luminescence Jour ELKHA.B, crème hydratante éclat à l'acide hyaluronique, 50 ml",
+      actifsPage: true   // ses actifs sur la page (textes repris de la fiche : actifsCles)
     },
     "radiance-protect": {
       nom: "Radiance Protect", actifs: "Jojoba · Filtres minéraux · SPF 50", actifsCourt: "Filtres minéraux · SPF 50",
@@ -290,6 +291,18 @@
   + ".ebs-t.on{box-shadow:0 0 0 1.5px " + REGLAGES.fondCarte + ",0 0 0 2.6px #000}"
   + ".ebs-tt em{font-style:normal;font-size:10px;letter-spacing:.08em;white-space:nowrap;margin-top:2px;color:#3a2a24;width:0;display:flex;justify-content:center}"   // le nom ne pousse plus les cases
   + ".ebs-ph img.ebs-ti{opacity:0;transition:opacity .25s ease}.ebs-ph img.ebs-ti.on{opacity:1}"
+  // actifs (Luminescence Jour) : cases dans la photo, à droite ; bulle en verre dépoli en bas de la photo
+  + ".ebs-ac{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:3}"
+  + ".ebs-acx{display:none}"
+  + ".ebs-a{display:block;cursor:pointer;-webkit-tap-highlight-color:transparent}"
+  + ".ebs-a i{display:block;width:38px;height:38px;border-radius:9px;background-size:cover;background-position:center;box-shadow:0 0 0 1px rgba(0,0,0,.08);transition:transform .25s ease,box-shadow .25s ease}"
+  + ".ebs-a:hover i{transform:scale(1.06)}.ebs-a.on i{box-shadow:0 0 0 1.5px " + REGLAGES.fondCarte + ",0 0 0 2.6px #000}"
+  + ".ebs-ac em{display:none}"
+  + ".ebs-bul{position:absolute;left:12px;right:64px;bottom:12px;z-index:4;padding:13px 15px 14px;background:rgba(250,247,242,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.75);box-shadow:0 8px 24px rgba(40,25,20,.12);text-align:left;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .3s ease,transform .3s ease,visibility 0s .3s;cursor:pointer}"
+  + ".ebs-bul.vu{opacity:1;visibility:visible;transform:none;transition:opacity .3s ease,transform .3s ease}"
+  + ".ebs-bul small{display:block;font-size:9.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#8a6a55}"
+  + ".ebs-bul b{display:block;font-family:'Montserrat',sans-serif;font-size:13.5px;font-weight:600;line-height:1.35;color:#000;margin-top:5px}"
+  + ".ebs-bul span{display:block;font-size:12px;line-height:1.55;color:#3a2a24;margin-top:6px}"
   // textes
   + ".ebs-tx{text-align:center;padding:14px 8px 0}"
   + "#eb-soins .ebs-tx h3{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;line-height:1.45;margin:0;color:#000;overflow-wrap:break-word;-webkit-hyphens:auto;hyphens:auto}"
@@ -385,6 +398,8 @@
   +   ".ebs-ajouter{width:88%;padding:10px 0;font-size:9px;letter-spacing:.2em;margin-top:16px}"
   +   ".ebs-note{font-size:10px;left:10px;bottom:9px;gap:4px}.ebs-note i{font-size:12.5px}"
   +   ".ebs-tt{right:9px;gap:7px}.ebs-t{width:31px;height:31px;border-radius:8px}.ebs-tt em{font-size:8px}"
+  +   ".ebs-ac{right:10px;gap:7px}.ebs-a i{width:31px;height:31px;border-radius:8px}"
+  +   ".ebs-bul{left:9px;right:52px;bottom:9px;padding:10px 12px 11px}.ebs-bul small{font-size:8.5px}.ebs-bul b{font-size:12px;margin-top:3px}.ebs-bul span{font-size:10.5px;line-height:1.5;margin-top:4px}"
   +   ".ebs-conseil{width:100%;max-width:none;padding:6px 26px 34px;text-align:center}"
   +   "#eb-soins .ebs-conseil h3{font-size:15px}"
   +   ".ebs-conseil h3:after{margin:12px auto 0}"
@@ -441,6 +456,14 @@
   +   "#eb-soins .ebs-coft{font-size:23px}"
   +   "#eb-soins .ebs-bloom h2{font-size:17px}"
   +   "#eb-soins .ebs-cof .ebs-card{max-width:660px;grid-template-columns:320px 1fr;gap:30px}"
+  + "}"
+  // grand écran : colonne d'actifs à côté de la vignette Luminescence Jour
+  + "@media (min-width:1280px){"
+  +   ".avec-amb .ebs-ac{display:none}.avec-amb .ebs-bul{right:12px}"
+  +   ".avec-amb .ebs-acx{display:flex;flex-direction:column;gap:14px;position:absolute;top:56px;width:96px;left:calc(100% - max(9px, (100% - 380px) / 2) + 16px);z-index:3}"
+  +   ".ebs-acx .ebs-a{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}"
+  +   ".ebs-acx .ebs-a i{width:46px;height:46px;border-radius:10px}"
+  +   ".ebs-acx em{font-style:normal;font-size:9.5px;font-weight:500;letter-spacing:.1em;line-height:1.35;text-transform:uppercase;color:#3a2a24}"
   + "}";
 
   function construire(root){
@@ -458,6 +481,15 @@
       return '<span class="ebs-t' + (k === d ? ' on' : '') + '" data-fiche="" role="button" tabindex="0" aria-label="Teinte ' + esc(x.nom) + '" data-k="' + k + '" style="background-image:url(' + esc(x.texture) + ')"></span>';
     }).join('') + '<em>' + esc(t[d].nom) + '</em></span>';
   }
+  // actifs du soin (seulement Luminescence Jour) : cases dans la photo (téléphone, petit écran) ou colonne à côté (grand écran), bulle d'explication au clic
+  function actifsListe(id){ var p = produit(id); return (SOINS[id].actifsPage && p && p.actifsCles && p.actifsCles.length) ? p.actifsCles : null; }
+  function actifsCases(id, cls){
+    var l = actifsListe(id); if(!l) return '';
+    return '<span class="' + cls + '">' + l.map(function(a, k){
+      return '<span class="ebs-a" role="button" tabindex="0" aria-label="' + esc(a.nom) + ' : en savoir plus" data-k="' + k + '"><i style="background-image:url(' + esc(a.photo) + ')"></i><em>' + esc(a.nom) + '</em></span>';
+    }).join('') + '</span>';
+  }
+  function actifsBulle(id){ return actifsListe(id) ? '<span class="ebs-bul" role="status" aria-live="polite"><small></small><b></b><span></span></span>' : ''; }
   // toutes les photos de teintes sont posées l'une sur l'autre dès le départ : changer de teinte ne recharge rien (pas de saut)
   function photosTeintes(s){
     var d = s.teinteDepart || 0;
@@ -474,7 +506,7 @@
       + '<div class="ebs-ph">' + (s.teintes ? photosTeintes(s) : (seul && s.photoLarge ? '<picture><source media="(max-width:899px)" srcset="' + esc(s.photoLarge) + '">' : '') + '<img src="' + esc(photo) + '" alt="' + esc(s.alt) + '" loading="lazy" decoding="async">' + (seul && s.photoLarge ? '</picture>' : ''))
       + (etape ? '<span class="ebs-num"><i style="background:' + etape.couleur + '"></i>' + etape.num + '</span>' : '')
       + (s.detail ? '<img class="ebs-detail" src="' + esc(s.detail) + '" alt="" aria-hidden="true" loading="lazy" decoding="async">' : '')
-      + '<span class="ebs-note" hidden></span>' + teintesHTML(id) + '</div>'
+      + '<span class="ebs-note" hidden></span>' + teintesHTML(id) + actifsCases(id, 'ebs-ac') + actifsBulle(id) + '</div>' + actifsCases(id, 'ebs-acx')
       + '<div class="ebs-tx"><h3>' + nomInsecable(s.nom) + '</h3>'
       + '<span class="a">' + actifs + '</span>'
       + '<span class="l">' + esc(s.benefice) + '</span>'
@@ -638,7 +670,24 @@
     }
     Promise.resolve(window.ebCartAddItem(v, 1)).then(function(c){ fini(!!c); }, function(){ fini(false); });
   }
+  function fermerActifs(sauf){
+    root.querySelectorAll('.ebs-bul.vu').forEach(function(b){ if(b !== sauf){ b.classList.remove('vu'); } });
+    root.querySelectorAll('.ebs-a.on').forEach(function(a){ if(!sauf || a.closest('.ebs-card').querySelector('.ebs-bul') !== sauf) a.classList.remove('on'); });
+  }
+  function ouvrirActif(t){
+    var card = t.closest('.ebs-card'), id = card.getAttribute('data-fiche'), k = +t.getAttribute('data-k'), a = actifsListe(id)[k], b = card.querySelector('.ebs-bul');
+    if(t.classList.contains('on')){ fermerActifs(); return; }
+    fermerActifs(b);
+    card.querySelectorAll('.ebs-a').forEach(function(y){ y.classList.toggle('on', +y.getAttribute('data-k') === k); });
+    b.classList.remove('vu'); void b.offsetWidth;   // relance l'animation d'un actif à l'autre
+    b.querySelector('small').textContent = a.nom; b.querySelector('b').textContent = a.titre; b.querySelector('span').textContent = a.texte;
+    b.classList.add('vu');
+  }
+  document.addEventListener('click', function(ev){ if(!ev.target.closest('.ebs-a')) fermerActifs(); }, true);
   root.addEventListener('click', function(ev){
+    var ac = ev.target.closest('.ebs-a');
+    if(ac){ ev.preventDefault(); ev.stopPropagation(); ouvrirActif(ac); return; }
+    if(ev.target.closest('.ebs-bul.vu')){ ev.preventDefault(); ev.stopPropagation(); fermerActifs(); return; }
     var t = ev.target.closest('.ebs-t');
     if(t){ ev.preventDefault(); ev.stopPropagation(); choisirTeinte(t); return; }
     var a = ev.target.closest('.ebs-ajouter');
@@ -646,9 +695,9 @@
   }, true);
   root.addEventListener('keydown', function(ev){
     if(ev.key !== 'Enter' && ev.key !== ' ') return;
-    var t = ev.target.closest('.ebs-t, .ebs-ajouter'); if(!t) return;
+    var t = ev.target.closest('.ebs-t, .ebs-ajouter, .ebs-a'); if(!t) return;
     ev.preventDefault(); ev.stopPropagation();
-    if(t.classList.contains('ebs-t')) choisirTeinte(t); else ajouter(t);
+    if(t.classList.contains('ebs-a')) ouvrirActif(t); else if(t.classList.contains('ebs-t')) choisirTeinte(t); else ajouter(t);
   }, true);
 
   // ── L'échelle à curseur : suit la lecture, et emmène à l'étape choisie ──
