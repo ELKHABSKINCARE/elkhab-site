@@ -260,6 +260,20 @@
       pour: 'Idéale pour les peaux sensibles, délicates ou sujettes aux rougeurs et aux irritations. Le soir.',
       duree: 'Une pression suffit pour tout le visage.'
     },
+    'lumi-glow-pdrn': {
+      gamme: 'bloom', type: 'Sérum booster',
+      photo: 'mf-lumi-glow-pdrn.png', net: true, cm: 14,   // en ligne avec la fiche le 1er déc. (avant, la fiche n'existe pas : rien ne s'ouvre)
+      sous: 'Sérum booster<br>PDRN vegan · Spicules · 30 ml',
+      eng: ['PDRN vegan', 'Sans parfum', 'Testé sous contrôle dermatologique'],
+      accroche: 'Un grain de peau <b>affiné</b> et un éclat <b>révélé</b> dès la première application.',
+      points: [
+        'Les spicules, de fines microstructures en forme d’aiguilles, affinent le grain de peau et ouvrent la voie aux actifs. Leur léger picotement signe leur action.',
+        'Le PDRN vegan, biosynthétisé sans aucune particule d’origine animale, soutient les mécanismes naturels de réparation de la peau, pour une peau plus lisse et plus ferme.',
+        'La centella asiatica apaise la peau après le picotement, et l’acide hyaluronique la repulpe en préservant son hydratation.'
+      ],
+      pour: 'Pour tous les types de peau, idéal pour les peaux déshydratées et les teints ternes. Le soir, avant Luminescence Boost.',
+      duree: 'Quelques gouttes suffisent pour tout le visage.'
+    },
     'radiance-eye-cream': {
       gamme: 'bloom', type: 'Soin contour des yeux',
       photo: 'mf-radiance-eye-cream.webp', net: true, cm: 8.5,

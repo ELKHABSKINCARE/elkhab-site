@@ -1936,7 +1936,7 @@ window.EB_PRODUITS = {
   window.EB_PRODUITS["lumi-glow-pdrn"] = {
     nom: "Lumi-Glow PDRN",
     sousTitre: "Sérum booster\nSpicules · Centella asiatica tri-moléculaire",
-    details: ["30 ml", "PDRN vegan"],
+    details: ["30 ml", "PDRN vegan", "Sans parfum"],
     note: "s'applique par tapotements",
     prix: "36,90€",
     variantId: "60687982068057",
@@ -1996,9 +1996,9 @@ window.EB_PRODUITS = {
         ] },
       { titre: "Pensé pour",
         liste: [
-          "Les peaux normales, mixtes à grasses, à la recherche d'un soin ciblé pour retrouver éclat, hydratation et une peau visiblement plus lisse et plus ferme",
-          "Les teints ternes, les peaux qui manquent de souplesse et celles qui souhaitent intégrer une action micro-exfoliante à leur routine",
-          "Non recommandé aux peaux sensibles ou sensibilisées, en raison de l'action et du picotement caractéristiques des spicules"
+          "Tous les types de peau, à la recherche d'un soin ciblé pour retrouver éclat, hydratation et une peau visiblement plus lisse et plus ferme",
+          "Les peaux déshydratées, qui ont besoin de retrouver hydratation et éclat",
+          "Les teints ternes, les peaux qui manquent de souplesse et celles qui souhaitent intégrer une action micro-exfoliante à leur routine"
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture légère à absorption rapide, conçue pour s'intégrer en première étape de la routine. Les fines spicules procurent une légère sensation de picotement à l'application. Cette sensation est normale et caractéristique de leur action. Sans parfum." },
