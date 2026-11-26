@@ -87,8 +87,8 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Sur peau propre, déposez une pression de ce sorbet à la teinte solaire et appliquez-la sur le visage et le cou. Laissez sa délicate senteur d'agrumes éveiller vos sens." },
-        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Une fois le sérum pénétré, poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir." },
+        { moment: "Le matin", soin: "radiance-serum", texte: "Sur peau propre, déposez une pression de ce sorbet à la teinte solaire et appliquez-la sur le visage et le cou. Laissez sa délicate senteur d'agrumes éveiller vos sens." },
+        { moment: "Le matin", titre: "Crème Luminescence", texte: "Une fois le sérum pénétré, poursuivez avec Luminescence Jour." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 : son stick fondant glisse sur la peau et préserve l'éclat de votre teint tout au long de la journée." }
       ]
     },
@@ -231,7 +231,7 @@ window.EB_PRODUITS = {
     nom: "Gelée Lumi-Bloom",
     sousTitre: "Prébiotiques bioactifs · Acide hyaluronique",
     details: ["30 ml", "Vegan"],
-    note: "une pression suffit",
+    note: "quelques gouttes suffisent",
     prix: "28,90€",
     variantId: "59324234891609",
     inci: "gelee-lumibloom",
@@ -266,8 +266,8 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Matin et/ou soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de gelée : sa texture fraîche se pose comme une eau sur la peau et la prépare en douceur." },
-        { moment: "Matin et/ou soir", soin: "radiance-serum", texte: "Poursuivez avec Radiance C Serum, qui révèle tout son éclat sur une peau parfaitement préparée." }
+        { moment: "Matin et/ou soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de gelée : sa texture fraîche se pose comme une eau sur la peau et la prépare en douceur." },
+        { moment: "Le matin", soin: "radiance-serum", texte: "Le matin, poursuivez avec Radiance C Serum, qui révèle tout son éclat sur une peau parfaitement préparée." }
       ]
     },
 
@@ -455,7 +455,7 @@ window.EB_PRODUITS = {
     routine: {
       etapes: [
         { moment: "Matin et/ou soir", soin: "lumibloom-niac-5", texte: "Sur peau propre, appliquez une pression de gel : frais et léger, il fond instantanément et laisse la peau lisse, sans effet collant." },
-        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir, pour une routine Bloom complète." }
+        { moment: "Matin et/ou soir", titre: "Crème Luminescence", texte: "Poursuivez avec Luminescence Jour le matin, ou Luminescence Nuit le soir, pour une routine Bloom complète. Sur les peaux mixtes à grasses, Lumi-Bloom Niacinamide 5 peut remplacer la crème." }
       ]
     },
 
@@ -548,7 +548,7 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau." },
+        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom pour préparer la peau." },
         { moment: "Le matin", soin: "lumibloom-arbutin", texte: "Appliquez Lumi-Bloom Arbutin sur le visage, en insistant sur les zones présentant des irrégularités pigmentaires, sans frotter." },
         { moment: "Le matin", soin: "luminescence-jour", texte: "Poursuivez avec Luminescence Jour pour hydrater la peau tout au long de la journée." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Terminez toujours par Radiance Protect SPF 50 : sans protection solaire, les taches reviennent plus vite." },
@@ -573,7 +573,7 @@ window.EB_PRODUITS = {
         liste: [
           "Les peaux présentant des taches brunes, des marques pigmentaires ou un teint irrégulier",
           "Celles et ceux qui souhaitent cibler l'apparence des taches liées notamment au soleil ou aux anciennes imperfections, tout en conservant une routine hydratante",
-          "Les peaux normales, sèches et mixtes recherchant un soin correcteur de teint"
+          "Tous les types de peau recherchant un soin correcteur de teint"
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture sérum légère, douce et confortable, qui s'étale facilement sur la peau. Son parfum révèle des notes boisées de vétiver et de cèdre, une touche d'agrumes, sur un fond d'amande douce et de vanille. Une expérience sensorielle délicate qui accompagne chaque application." },
@@ -764,7 +764,7 @@ window.EB_PRODUITS = {
           "Les peaux mixtes à grasses, sujettes à l'excès de sébum et aux brillances",
           "Les points noirs, les pores obstrués et le grain de peau irrégulier",
           "Les impuretés accumulées au quotidien",
-          "Ne convient pas aux peaux sensibles. Pour affiner le grain de peau en douceur, découvrez Lumi-Bloom Niacinamide 5"
+          "Peut convenir aux peaux sensibles, selon leur degré de sensibilité. Pour affiner le grain de peau au quotidien, découvrez aussi Lumi-Bloom Niacinamide 5"
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture de masque à l'argile, enveloppante et facile à répartir. Son parfum discret, aux nuances naturellement argileuses, privilégie une expérience sobre et authentique. La présence d'ingrédients naturels peut entraîner une légère séparation des phases, sans altérer la qualité du soin." },
@@ -857,8 +857,8 @@ window.EB_PRODUITS = {
         liste: [
           "Les peaux mixtes à grasses, sujettes à l'excès de sébum, aux brillances et aux pores visibles",
           "Celles et ceux qui veulent retrouver, matin et soir, une peau parfaitement nette et un teint frais et lumineux, sans dessécher la peau",
-          "Convient aussi aux peaux normales",
-          "Pour les peaux sèches ou sensibles, découvrez Milky Bloom, notre nettoyant huile-en-lait démaquillant"
+          "Convient aussi aux peaux normales et sèches",
+          "Pour les peaux sensibles, découvrez Milky Bloom, notre nettoyant huile-en-lait démaquillant"
         ] },
       { titre: "Texture & sensorialité",
         texte: "Un gel fluide et frais qui se transforme en une mousse légère au contact de l'eau. Il se rince facilement et laisse la peau propre, souple et rafraîchie, avec un parfum léger. Sa formule d'origine naturelle peut présenter une légère séparation : c'est tout à fait normal." },
@@ -928,8 +928,9 @@ window.EB_PRODUITS = {
     // └─────────────────────────────────────────────────────────────────┘
     routine: {
       etapes: [
-        { moment: "Le soir", soin: "luminescence-boost", texte: "Sur peau propre, appliquez une pression de Luminescence Boost sur le visage et le cou, en remontant du bas vers le haut. Sa texture légère pénètre en quelques secondes." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Scellez avec Luminescence Nuit : sa texture riche prolonge l'action du sérum toute la nuit, pour une peau plus ferme et rebondie au réveil." }
+        { moment: "Matin et soir", soin: "luminescence-boost", texte: "Sur peau propre, appliquez une pression de Luminescence Boost sur le visage et le cou, en remontant du bas vers le haut. Sa texture légère pénètre en quelques secondes." },
+        { moment: "Le matin", soin: "luminescence-jour", texte: "Le matin, poursuivez avec Luminescence Jour, puis terminez par Radiance Protect SPF 50." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Le soir, scellez avec Luminescence Nuit : sa texture riche prolonge l'action du sérum toute la nuit, pour une peau plus ferme et rebondie au réveil." }
       ]
     },
 
@@ -950,7 +951,7 @@ window.EB_PRODUITS = {
         liste: [
           "Les peaux qui souhaitent préserver leur fermeté",
           "Les peaux qui montrent une perte de tonicité, des ridules ou un manque de souplesse",
-          "Celles et ceux qui cherchent un soin ciblé fermeté, sans renoncer à l'hydratation"
+          "Celles et ceux qui cherchent un soin ciblé fermeté, sans renoncer à l'hydratation, en particulier les peaux sèches et matures"
         ] },
       { titre: "Texture & sensorialité",
         texte: "Une texture légère et fondante, absorbée rapidement, qui laisse une agréable sensation de fraîcheur. Son parfum dévoile des notes poudrées d'iris, nuancées de violette, sur un fond musqué et boisé." },
@@ -1199,7 +1200,7 @@ window.EB_PRODUITS = {
       etapes: [
         { moment: "Le matin", titre: "Vos soins Bloom", texte: "Appliquez vos sérums, puis votre crème Luminescence." },
         { moment: "Le matin", soin: "radiance-protect", texte: "En dernière étape, faites glisser le stick sur le visage et estompez en douceur : un voile léger, sans effet gras, qui laisse la peau lumineuse." },
-        { moment: "Au cours de la journée", texte: "Renouvelez l'application, notamment après une exposition prolongée au soleil, pour préserver durablement les bénéfices de votre rituel." }
+        { moment: "Au cours de la journée", texte: "Renouvelez l'application au moins toutes les deux heures, et après une baignade ou une forte transpiration, pour préserver durablement les bénéfices de votre rituel." }
       ]
     },
 
@@ -1677,7 +1678,7 @@ window.EB_PRODUITS = {
       soins: ["gelee-lumibloom", "luminescence-jour"],
       moment: "Le matin",
       etapes: [
-        { soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom sur le visage et le cou." },
+        { soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom sur le visage et le cou." },
         { soin: "luminescence-jour", texte: "Laissez pénétrer quelques instants, puis appliquez Luminescence Jour pour compléter l'hydratation." }
       ],
       conclusion: "L'essentiel, simplement.\nDeux gestes complémentaires pour accompagner l'équilibre et le confort de la peau jour après jour."
@@ -1774,7 +1775,7 @@ window.EB_PRODUITS = {
       etapes: [
         { moment: "Le matin", soin: "lumibloom-niac-5", texte: "Sur peau propre, appliquez une pression sur le visage et laissez pénétrer 1 à 2 minutes." },
         { moment: "Le matin", soin: "lumiveil-cc-cream", texte: "Poursuivez avec votre crème de jour, puis terminez par Lumi-Veil CC Cream SPF 30." },
-        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom sur le visage et laissez pénétrer quelques minutes avant votre crème de nuit." }
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom sur le visage et laissez pénétrer quelques minutes avant votre crème de nuit." }
       ],
       conclusion: "L'équilibre, jour après jour.\nUn rituel du matin au soir pour une peau plus nette, apaisée et un teint plus uniforme."
     }

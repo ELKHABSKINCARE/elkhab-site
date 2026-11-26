@@ -56,7 +56,7 @@ var BALANCE = {
     ],
     routine: {
       etapes: [
-        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom : ses prébiotiques préparent la peau en douceur et l'aident à retrouver son équilibre." },
+        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom : ses prébiotiques préparent la peau en douceur et l'aident à retrouver son équilibre." },
         { moment: "Le matin", soin: "calm-balance-jour", texte: "Appliquez une pression de Balance Calm Jour et lissez-la du centre vers l'extérieur du visage : elle apaise, hydrate et enveloppe la peau de confort, sans fini gras." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Terminez par Radiance Protect SPF 50 : son filtre minéral protège les peaux sensibles des UV, qui accentuent rougeurs et inconfort." }
       ]
@@ -124,7 +124,7 @@ var BALANCE = {
     ],
     routine: {
       etapes: [
-        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau et préserver son équilibre." },
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom pour préparer la peau et préserver son équilibre." },
         { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Balance Calm Nuit : elle apaise et hydrate la peau pendant toute la nuit, pour un réveil tout en confort." }
       ]
     },
@@ -261,7 +261,7 @@ var BALANCE = {
     ],
     routine: {
       etapes: [
-        { moment: "Le soir", soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." },
+        { moment: "Le soir", soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre. Pour un double nettoyage, poursuivez avec Milky Bloom." },
         { moment: "Le soir", soin: "calm-balance-nuit", texte: "Sur une peau nette, appliquez une pression de Balance Calm Nuit : elle apaise et nourrit la peau pendant votre sommeil." }
       ]
     },
@@ -340,7 +340,7 @@ var BALANCE = {
       { titre: "Bénéfices clés",
         liste: ["Soutient la barrière cutanée", "Hydrate en profondeur pendant la nuit", "Nourrit et assouplit la peau", "Ravive l'éclat au réveil"] },
       { titre: "Pensé pour",
-        texte: "Les peaux qui manquent d'hydratation, de souplesse ou de confort, notamment lorsqu'elles présentent des sensations de sécheresse ou une barrière cutanée fragilisée. Idéale aussi pour réconforter la peau les soirs d'exfoliation." },
+        texte: "Les peaux normales à sèches qui manquent d'hydratation, de souplesse ou de confort, notamment lorsqu'elles présentent des sensations de sécheresse ou une barrière cutanée fragilisée. Idéale aussi pour réconforter la peau les soirs d'exfoliation." },
       { titre: "Texture & sensorialité",
         texte: "Une texture crème nourrissante qui glisse délicatement sur la peau et l'enveloppe d'un confort durable. Son parfum délicat de fleurs blanches s'accompagne de notes fraîches de lavande, sur un fond herbacé subtil." },
       { titre: "Engagement ELKHA.B",
@@ -464,7 +464,8 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
-        { moment: "Le soir", soin: "cellular-eye-restore", texte: "Déposez une petite quantité de Cellular Eye Restore sur le contour des yeux et faites-la pénétrer en tapotant doucement, de l'intérieur vers l'extérieur." }
+        { moment: "Le soir", soin: "cellular-eye-restore", texte: "Déposez une petite quantité de Cellular Eye Restore sur le contour des yeux et faites-la pénétrer en tapotant doucement, de l'intérieur vers l'extérieur." },
+        { moment: "Le matin", soin: "cellular-eye-restore", texte: "Le matin, renouvelez ce geste sur le contour des yeux, avant votre crème et votre protection solaire." }
       ]
     },
     sections: [
@@ -543,7 +544,7 @@ var BALANCE = {
       { titre: "Bénéfices clés",
         liste: ["Rides & ridules : aide à atténuer leur apparence pour une peau visiblement plus lisse.", "Fermeté & élasticité : contribue à améliorer l'aspect tonique et rebondi de la peau.", "Hydratation & confort : aide à préserver l'hydratation et à soutenir la barrière cutanée.", "Protection antioxydante : associe ginkgo biloba et huile de graines de myrtille pour aider à protéger la peau du stress oxydatif.", "Grain de peau : favorise une apparence plus uniforme et affinée."] },
       { titre: "Pensé pour",
-        texte: "Les peaux qui souhaitent prévenir ou atténuer les premiers signes visibles de l'âge, retrouver de la fermeté et améliorer leur élasticité.\nParticulièrement intéressant lorsque la peau présente des ridules, une perte de rebond ou un manque de souplesse." },
+        texte: "Les peaux normales à sèches qui souhaitent prévenir ou atténuer les premiers signes visibles de l'âge, retrouver de la fermeté et améliorer leur élasticité.\nParticulièrement intéressant lorsque la peau présente des ridules, une perte de rebond ou un manque de souplesse." },
       { titre: "Texture & sensorialité",
         texte: "Un soin qui transforme votre routine en une parenthèse délicate.\nActive Lift enveloppe votre rituel d'un parfum floral subtil, réchauffé par des notes d'ambre et prolongé par un fond doux et poudré.\nUne signature olfactive élégante, pour un moment de soin aussi agréable que précieux." },
       { titre: "Engagement ELKHA.B",
@@ -704,7 +705,7 @@ var BALANCE = {
     nom: "Bakuchiol Elixir",
     sousTitre: "Sérum lissant · Bakuchiol · Rose musquée",
     details: ["30 ml", "Vegan"],
-    note: "une pression suffit",
+    note: "quelques gouttes suffisent",
     prix: "39,90€",
     variantId: "60321254375769",
     inci: "bakuchiol-elixir",
@@ -740,8 +741,8 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance pour hydrater la peau." },
-        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Réchauffez une pression de Bakuchiol Elixir entre vos paumes et pressez-la délicatement sur le visage. Les soirs d'exfoliation, sautez cette étape." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par Balance Calm Nuit, qui apaise et hydrate la peau pendant le sommeil." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Appliquez Balance Calm Nuit, qui apaise et hydrate la peau pendant le sommeil." },
+        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "En dernière étape, réchauffez quelques gouttes de Bakuchiol Elixir entre vos paumes et pressez-les délicatement sur le visage. Les soirs d'exfoliation, sautez cette étape." }
       ]
     },
     sections: [
@@ -805,9 +806,9 @@ var BALANCE = {
     ],
     routine: {
       etapes: [
-        { moment: "Le matin", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez une pression de Gelée Lumi-Bloom pour préparer la peau." },
-        { moment: "Le matin", soin: "bright-control", texte: "Appliquez une pression de Bright Control sur tout le visage : elle unifie le teint et hydrate la peau." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Terminez toujours par Radiance Protect SPF 50 : sans protection solaire, les taches reviennent plus vite." }
+        { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom pour préparer la peau." },
+        { moment: "Le soir", soin: "bright-control", texte: "Appliquez une pression de Bright Control sur tout le visage, pour unifier le teint et hydrater la peau pendant la nuit." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez toujours par Radiance Protect SPF 50 : sans protection solaire, les taches reviennent plus vite." }
       ]
     },
     sections: [
@@ -872,7 +873,7 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Matin et soir", soin: "spot-control", texte: "Sur peau propre, appliquez Spot Control uniquement sur les taches, en tapotant légèrement." },
-        { moment: "Matin et soir", soin: "bright-control", texte: "Poursuivez avec une pression de Bright Control sur tout le visage pour unifier le teint." },
+        { moment: "Le soir", soin: "bright-control", texte: "Le soir, poursuivez avec une pression de Bright Control sur tout le visage pour unifier le teint." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez toujours par Radiance Protect SPF 50 pour protéger le teint des UV." }
       ]
     },
@@ -906,7 +907,7 @@ var BALANCE = {
     nom: "Glyco Balance",
     sousTitre: "Lotion exfoliante · Acide glycolique · Bétaïne",
     details: ["250 ml", "Vegan"],
-    note: "une pression suffit",
+    note: "quelques gouttes sur un coton",
     prix: "29,90€",
     variantId: "60320884687193",
     inci: "glyco-balance",
@@ -970,7 +971,7 @@ var BALANCE = {
     nom: "AHA Balance Peel",
     sousTitre: "Concentré exfoliant · Acide lactique · Acide hyaluronique",
     details: ["30 ml", "Vegan"],
-    note: "une pression suffit",
+    note: "quelques gouttes suffisent",
     prix: "32,90€",
     variantId: "60320901398873",
     inci: "aha-balance-peel",
@@ -1012,7 +1013,7 @@ var BALANCE = {
       { titre: "Bénéfices clés",
         liste: ["Exfolie et renouvelle la surface de la peau", "Lisse le grain de peau et les ridules", "Unifie et illumine le teint", "Préserve l'hydratation et la souplesse"] },
       { titre: "Pensé pour",
-        texte: "Les peaux présentant un teint terne, un grain de peau irrégulier, des ridules ou des taches superficielles. Idéal pour améliorer la texture et l'éclat de la peau grâce à une exfoliation ciblée. Le matin, protégez votre peau avec Radiance Protect SPF 50 : les acides exfoliants la rendent plus sensible au soleil." },
+        texte: "Tous les types de peau, notamment les peaux matures et mixtes à grasses, présentant un teint terne, un grain de peau irrégulier, des ridules ou des taches superficielles. Idéal pour améliorer la texture et l'éclat de la peau grâce à une exfoliation ciblée. Le matin, protégez votre peau avec Radiance Protect SPF 50 : les acides exfoliants la rendent plus sensible au soleil." },
       { titre: "Texture & sensorialité",
         texte: "Une texture liquide et légère qui s'étale facilement sur la peau. Sa formule dévoile une senteur discrète, légèrement sucrée, pour une expérience simple et agréable." },
       { titre: "Engagement ELKHA.B",
@@ -1306,8 +1307,8 @@ var BALANCE = {
       intro: "Une routine du soir pour les rides installées et le grain de peau irrégulier.\nBakuchiol Elixir, au bakuchiol, une alternative végétale au rétinol, accompagne le renouvellement de la peau pour atténuer l'apparence des rides et affiner sa texture. Ceramide Night Restore renforce la barrière cutanée grâce à ses céramides végétaux et nourrit la peau pendant le sommeil.",
       soins: ["bakuchiol-elixir", "ceramide-night-restore"],
       etapes: [
-        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Sur peau propre, réchauffez une pression de Bakuchiol Elixir entre vos paumes et pressez-la délicatement sur le visage et le cou." },
-        { moment: "Le soir", soin: "ceramide-night-restore", texte: "Terminez par une pression de Ceramide Night Restore pour nourrir la peau et renforcer sa barrière pendant la nuit." }
+        { moment: "Le soir", soin: "ceramide-night-restore", texte: "Sur peau propre, appliquez une pression de Ceramide Night Restore pour nourrir la peau et renforcer sa barrière pendant la nuit." },
+        { moment: "Le soir", soin: "bakuchiol-elixir", texte: "Terminez en réchauffant quelques gouttes de Bakuchiol Elixir entre vos paumes, puis pressez-les délicatement sur le visage et le cou." }
       ],
       conclusion: "Deux soins du soir qui travaillent pendant que la peau se régénère.\nLe matin, une protection solaire préserve les résultats."
     }
@@ -1392,7 +1393,7 @@ var BALANCE = {
       soins: ["fusion-balance", "luminescence-boost", "radiance-eye-cream"],
       moment: "Le soir",
       etapes: [
-        { soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." },
+        { soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre. Pour un double nettoyage, poursuivez avec Milky Bloom." },
         { soin: "luminescence-boost", texte: "Sur peau nette, appliquez une pression de Luminescence Boost sur le visage et le cou, en remontant du bas vers le haut." },
         { soin: "radiance-eye-cream", texte: "Terminez par une petite quantité de Radiance Eye Cream sur le contour des yeux, en tapotant du bout des doigts jusqu'à absorption." }
       ],
