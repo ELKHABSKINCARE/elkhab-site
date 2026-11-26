@@ -225,10 +225,10 @@
       conseil: "Une peau sensible aime la simplicité : introduisez un seul nouveau soin à la fois et rincez à l'eau tiède plutôt que chaude. Le matin, terminez par une protection solaire."
     },
     nc: {
-      fiche: 'calm-balance-nuit', nom: 'Balance Calm Nuit', gamme: 'Balance', sous: "Crème de nuit apaisante", couleur: '#6e7f58', clair: '#e1e6d6',
+      geste: 'une à trois pressions suffisent', fiche: 'calm-balance-nuit', nom: 'Balance Calm Nuit', gamme: 'Balance', sous: "Crème de nuit apaisante", couleur: '#6e7f58', clair: '#e1e6d6',
       role: "Cette crème de nuit sans parfum apaise les irritations, atténue les rougeurs et hydrate la peau toute la nuit, pour un réveil confortable.",
       sens: "Une texture enveloppante, sans parfum ajouté, à l'odeur naturellement neutre.",
-      etapes: [{ moment: 'Le soir', texte: "Terminez votre routine par une pression de crème, posée à plat sur le visage puis lissée vers l'extérieur." }],
+      etapes: [{ moment: 'Le soir', texte: "Terminez votre routine par une à trois pressions de crème selon vos besoins, posées à plat sur le visage puis lissées vers l'extérieur." }],
       savoir: { 'Le soir': ["Une peau sensible est souvent une peau dont la barrière laisse s'échapper l'eau et entrer les irritants. La nuit, la peau perd naturellement plus d'eau que le jour : c'est le meilleur moment pour l'aider. Les algues et l'aloe vera apaisent, l'acide hyaluronique retient l'eau jusqu'au matin."] },
       conseil: "Le soir, évitez les nettoyants trop moussants et l'eau très chaude, qui fragilisent la barrière. Balance Calm Jour prend le relais le matin pour garder la peau apaisée toute la journée."
     },
@@ -324,10 +324,10 @@
       conseil: "Appliquez-la chaque soir. Le matin, une protection solaire comme Radiance Protect SPF 50 est indispensable : c'est elle qui préserve les résultats. Pour une tache précise, ajoutez Spot Control en touche avant la crème."
     },
     bh: {
-      geste: 'quelques gouttes suffisent', fiche: 'bha-balance', nom: 'BHA Balance', gamme: 'Balance', sous: "Lotion purifiante au BHA", couleur: '#3b5b2a', clair: '#c9d4bd',
+      geste: 'quelques gouttes sur un coton suffisent', fiche: 'bha-balance', nom: 'BHA Balance', gamme: 'Balance', sous: "Lotion purifiante au BHA", couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Cette lotion à l'acide salicylique désobstrue les pores, élimine l'excès de sébum et les impuretés, sans déséquilibrer la peau.",
       sens: "Une lotion fluide et fraîche qui pénètre instantanément, sans film, à la senteur naturelle d'eaux florales, de fruits secs et de rose.",
-      etapes: [{ moment: 'Le soir', texte: "Après le nettoyage, versez quelques gouttes dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." }],
+      etapes: [{ moment: 'Le soir', texte: "Après le nettoyage, imbibez un coton de BHA Balance et passez-le sur l'ensemble du visage, en évitant le contour des yeux. Ne rincez pas." }],
       savoir: { 'Le soir': ["L'acide salicylique est un BHA : contrairement aux AHA, qui travaillent à la surface de la peau, il est soluble dans les corps gras. Il se glisse donc dans le sébum et va nettoyer l'intérieur du pore, là où se forment les points noirs. C'est l'actif de référence des peaux mixtes à grasses."] },
       conseil: "Les deux premières semaines, utilisez-la un soir sur deux, puis chaque soir si votre peau est à l'aise. Jamais le même soir que Glyco Balance ou AHA Balance Peel, et le matin, une protection solaire."
     },
@@ -646,8 +646,8 @@
 
   // la promesse des formules concentrées, entre deux filets (couleur du soin ou du coffret)
   function concentre(geste, coffret){
-    var t = geste === '' ? (coffret ? 'Des formules concentrées, pensées pour durer jusqu\'à trois mois.' : 'Une formule concentrée, pensée pour durer jusqu\'à trois mois.')
-      : 'Des formules concentrées : ' + (geste || 'une pression suffit') + ', et ' + (coffret ? 'vos soins vous accompagnent' : 'votre soin vous accompagne') + ' jusqu\'à trois mois.';
+    var t = geste === '' ? (coffret ? 'Des formules concentrées, pensées pour durer jusqu\'à trois mois, selon vos habitudes.' : 'Une formule concentrée, pensée pour durer jusqu\'à trois mois, selon vos habitudes.')
+      : 'Des formules concentrées : ' + (geste || 'une pression suffit') + '. ' + (coffret ? 'Vos soins vous accompagnent' : 'Votre soin vous accompagne') + ' jusqu\'à trois mois, selon vos habitudes.';
     return '<div class="ebq-conc"><i></i><p>' + esc(t) + '</p><i></i></div>';
   }
   // la newsletter du site (« Le cercle ELKHA.B ») : même panneau qui remonte en bas de page ;

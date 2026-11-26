@@ -91,7 +91,7 @@ var BALANCE = {
     nom: "Balance Calm Nuit",
     sousTitre: "Crème de nuit apaisante · Aloe vera · Algues · Sans parfum",
     details: ["50 ml", "Vegan"],
-    note: "une pression suffit",
+    note: "une à trois pressions, selon vos besoins",
     prix: "36,90€",
     variantId: "60321802289497",
     inci: "calm-balance-nuit",
@@ -125,7 +125,7 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "gelee-lumibloom", texte: "Sur peau propre, appliquez quelques gouttes de Gelée Lumi-Bloom pour préparer la peau et préserver son équilibre." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Balance Calm Nuit : elle apaise et hydrate la peau pendant toute la nuit, pour un réveil tout en confort." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une à trois pressions de Balance Calm Nuit, selon vos besoins : elle apaise et hydrate la peau pendant toute la nuit, pour un réveil tout en confort." }
       ]
     },
     sections: [
@@ -262,7 +262,7 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "fusion-balance", texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre. Pour un double nettoyage, poursuivez avec Milky Bloom." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Sur une peau nette, appliquez une pression de Balance Calm Nuit : elle apaise et nourrit la peau pendant votre sommeil." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Sur une peau nette, appliquez une à trois pressions de Balance Calm Nuit, selon vos besoins : elle apaise et nourrit la peau pendant votre sommeil." }
       ]
     },
     sections: [
@@ -1106,7 +1106,7 @@ var BALANCE = {
     nom: "BHA Balance",
     sousTitre: "Lotion tonique purifiante · Acide salicylique · Excès de sébum",
     details: ["200 ml", "Vegan"],
-    note: "quelques gouttes suffisent",
+    note: "quelques gouttes sur un coton",
     prix: "24,90€",
     variantId: "60321077199193",
     inci: "bha-balance",
@@ -1134,7 +1134,7 @@ var BALANCE = {
     routine: {
       etapes: [
         { moment: "Le soir", soin: "radiance-cleanser", texte: "Nettoyez votre peau avec Radiance Cleanser." },
-        { moment: "Le soir", soin: "bha-balance", texte: "Versez quelques gouttes de BHA Balance dans le creux de vos mains et appliquez sur l'ensemble du visage, en évitant le contour des yeux." },
+        { moment: "Le soir", soin: "bha-balance", texte: "Imbibez un coton de BHA Balance et passez-le sur l'ensemble du visage, en évitant le contour des yeux. Ne rincez pas." },
         { moment: "Le soir", soin: "hydra-balance", texte: "Poursuivez avec Hydra Balance, puis Luminescence Nuit. Si votre peau est sensible ou sensibilisée, préférez Balance Calm Nuit." },
         { moment: "Le matin", soin: "radiance-protect", texte: "Le lendemain matin, terminez toujours par Radiance Protect SPF 50." }
       ]
@@ -1279,7 +1279,7 @@ var BALANCE = {
         { moment: "Le matin", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance sur le visage et le cou." },
         { moment: "Le matin", soin: "calm-balance-jour", texte: "Poursuivez avec une pression de Balance Calm Jour, lissée du centre vers l'extérieur du visage." },
         { moment: "Le soir", soin: "hydra-balance", texte: "Sur peau propre, appliquez une pression de Hydra Balance." },
-        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une pression de Balance Calm Nuit pour apaiser et hydrater la peau toute la nuit." }
+        { moment: "Le soir", soin: "calm-balance-nuit", texte: "Terminez par une à trois pressions de Balance Calm Nuit, selon vos besoins, pour apaiser et hydrater la peau toute la nuit." }
       ],
       conclusion: "Une peau bien hydratée est une peau qui réagit moins.\nLe matin, terminez par une protection solaire minérale : les UV accentuent les rougeurs et l'inconfort."
     }
