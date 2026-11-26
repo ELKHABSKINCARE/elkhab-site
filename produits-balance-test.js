@@ -393,9 +393,9 @@ var BALANCE = {
     ],
     routine: {
       etapes: [
-        { moment: "Le soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
-        { moment: "Le soir", soin: "luminescence-nuit", texte: "Poursuivez avec Luminescence Nuit : son plancton marin, qui soutient le collagène, prolonge l'action lissante pendant le sommeil." },
-        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, terminez votre routine par Radiance Protect SPF 50 pour préserver la peau des signes de l'âge liés au soleil." }
+        { moment: "Matin et/ou soir", soin: "cellular-reveal", texte: "Sur peau propre, appliquez une pression de Cellular Reveal sur le visage et le cou." },
+        { moment: "Le soir", soin: "luminescence-nuit", texte: "Le soir, poursuivez avec Luminescence Nuit : son plancton marin, qui soutient le collagène, prolonge l'action lissante pendant le sommeil." },
+        { moment: "Le matin", soin: "radiance-protect", texte: "Le matin, appliquez votre crème de jour, puis terminez par Radiance Protect SPF 50 pour préserver la peau des signes de l'âge liés au soleil." }
       ]
     },
     sections: [

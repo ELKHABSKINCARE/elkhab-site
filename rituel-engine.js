@@ -133,7 +133,7 @@
       sens: "Une texture d'argile enveloppante, facile à répartir, au parfum discret aux nuances minérales.",
       etapes: [{ moment: 'Le soir, une à deux fois par semaine', texte: "Sur peau propre, appliquez une couche uniforme en évitant le contour des yeux et des lèvres. Laissez poser 5 à 10 minutes, puis rincez abondamment à l'eau tiède." }],
       savoir: { 'Le soir, une à deux fois par semaine': ["Le kaolin et la montmorillonite sont deux argiles complémentaires : la première absorbe le sébum, la seconde capte les impuretés grâce à sa structure en feuillets. Le charbon végétal, très poreux, retient ce qui encrasse les pores. Ensemble, ils purifient sans décaper."] },
-      conseil: "Rincez avant que le masque ne sèche complètement : une argile qui craquelle tire l'eau de la peau. Une légère rougeur juste après est normale et disparaît vite. Lumi-Pure ne convient pas aux peaux sensibles."
+      conseil: "Rincez avant que le masque ne sèche complètement : une argile qui craquelle tire l'eau de la peau. Une légère rougeur juste après est normale et disparaît vite. Lumi-Pure peut convenir aux peaux sensibles, selon leur degré de sensibilité."
     },
     gl: {
       geste: 'quelques gouttes suffisent', fiche: 'gelee-lumibloom', nom: 'Gelée Lumi-Bloom', gamme: 'Bloom', sous: 'Soin équilibrant aux prébiotiques', couleur: '#8a6f5c', clair: '#efe2d6',
@@ -147,16 +147,16 @@
       fiche: 'radiance-serum', nom: 'Radiance C Serum', gamme: 'Bloom', sous: 'Sérum éclat à la vitamine C', couleur: '#8e5a4c', clair: '#e9d6cc',
       role: "Il ravive l'éclat d'un teint terne, unifie peu à peu les taches et protège la peau des agressions du quotidien, sans jamais l'assécher grâce à l'acide hyaluronique.",
       sens: "Une texture sorbet jaune soleil, fondante et douce, au parfum d'agrumes.",
-      etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, déposez une pression de sorbet sur le visage et le cou, puis appliquez votre crème." }],
-      savoir: { 'Matin et/ou soir': ["La vitamine C pure s'oxyde vite à l'air et à la lumière : elle perd son efficacité et peut irriter. Radiance C Serum contient une vitamine C stabilisée, qui se libère une fois dans la peau, épaulée par la vitamine E et l'acide férulique qui renforcent son action antioxydante. Elle reste efficace jusqu'à la dernière pression, même sur les peaux sensibles."] },
+      etapes: [{ moment: 'Le matin', texte: "Sur peau propre, déposez une pression de sorbet sur le visage et le cou, puis appliquez votre crème." }],
+      savoir: { 'Le matin': ["La vitamine C pure s'oxyde vite à l'air et à la lumière : elle perd son efficacité et peut irriter. Radiance C Serum contient une vitamine C stabilisée, qui se libère une fois dans la peau, épaulée par la vitamine E et l'acide férulique qui renforcent son action antioxydante. Elle reste efficace jusqu'à la dernière pression, même sur les peaux sensibles."] },
       conseil: "Le matin, terminez toujours par une protection solaire : la vitamine C renforce la défense de votre peau contre les UV, mais ne remplace pas un SPF. Les premiers effets sur l'éclat se voient en quelques jours, ceux sur les taches en quelques semaines."
     },
     ar: {
       fiche: 'lumibloom-arbutin', nom: 'Lumi-Bloom Arbutin', gamme: 'Bloom', sous: "Sérum anti-taches", couleur: '#8e5a4c', clair: '#e9d6cc',
       role: "Il cible les taches brunes et les marques laissées par le soleil ou d'anciennes imperfections, pour un teint plus uniforme, tout en gardant la peau hydratée et souple.",
       sens: "Un sérum léger et soyeux, aux notes de vétiver et de cèdre, réchauffées d'amande douce et de vanille.",
-      etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre et sèche, appliquez une pression sur le visage en insistant sur les zones marquées, sans frotter, puis appliquez votre crème." }],
-      savoir: { 'Matin et/ou soir': ["Une tache brune, c'est de la mélanine produite en excès au même endroit. Pour la fabriquer, la peau a besoin d'une enzyme, la tyrosinase : l'alpha-arbutine freine son activité, et la peau produit moins de pigment là où elle en faisait trop. Comme la peau se renouvelle en un mois environ, les taches s'estompent progressivement, au fil des renouvellements."] },
+      etapes: [{ moment: 'Matin et soir', texte: "Sur peau propre et sèche, appliquez une pression sur le visage en insistant sur les zones marquées, sans frotter, puis appliquez votre crème." }],
+      savoir: { 'Matin et soir': ["Une tache brune, c'est de la mélanine produite en excès au même endroit. Pour la fabriquer, la peau a besoin d'une enzyme, la tyrosinase : l'alpha-arbutine freine son activité, et la peau produit moins de pigment là où elle en faisait trop. Comme la peau se renouvelle en un mois environ, les taches s'estompent progressivement, au fil des renouvellements."] },
       conseil: "Comptez six à huit semaines d'application régulière avant de juger le résultat. Le matin, terminez toujours par une protection solaire comme Radiance Protect SPF 50 : sans elle, les UV relancent la production de mélanine et les taches reviennent."
     },
     n5: {
@@ -165,7 +165,7 @@
       sens: "Un gel frais et léger qui fond instantanément, sans effet collant ni fini gras.",
       etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, appliquez une pression de gel sur l'ensemble du visage, puis poursuivez avec votre crème." }],
       savoir: { 'Matin et/ou soir': ["La niacinamide, c'est la vitamine B3. Elle aide la peau à fabriquer ses propres céramides, les lipides qui la protègent du dessèchement, et freine le passage du pigment vers les cellules de surface, d'où un teint plus homogène. Dosée à 5 %, elle donne toute son efficacité en restant bien tolérée. Et contrairement à une idée reçue, elle s'associe très bien à la vitamine C : vous pouvez l'utiliser avec Radiance C Serum."] },
-      conseil: "Les brillances diminuent en quelques jours, le grain de peau s'affine en quatre semaines environ. Le matin, une protection solaire préserve l'uniformité gagnée."
+      conseil: "Les brillances diminuent en quelques jours, le grain de peau s'affine en quatre semaines environ. Le matin, une protection solaire préserve l'uniformité gagnée. Sur les peaux mixtes à grasses, Lumi-Bloom Niacinamide 5 peut remplacer la crème."
     },
     lj: {
       fiche: 'luminescence-jour', nom: 'Luminescence Jour', gamme: 'Bloom', sous: "Crème de jour éclat", couleur: '#8e4d33', clair: '#f0d9cc',
@@ -187,9 +187,9 @@
       fiche: 'luminescence-boost', nom: 'Luminescence Boost', gamme: 'Bloom', sous: 'Sérum booster de fermeté', couleur: '#6e1f29', clair: '#ead2d0',
       role: "Il aide la peau à retrouver tonus et rebond, lisse l'apparence des ridules et la prépare à recevoir toute la richesse de Luminescence Nuit.",
       sens: "Une texture légère et fraîche, absorbée en quelques secondes, aux notes poudrées d'iris et de violette sur un fond musqué.",
-      etapes: [{ moment: 'Le soir', texte: "Sur peau propre, appliquez une pression sur le visage en lissant de l'ovale vers les tempes, puis sur le cou en descendant vers la poitrine. Poursuivez avec Luminescence Nuit." }],
-      savoir: { 'Le soir': ["Le geste compte autant que le soin. Sur le visage, on remonte toujours de l'ovale vers les tempes, pour accompagner les traits vers le haut. Sur le cou, c'est l'inverse : on descend vers la poitrine pour drainer. Remonter le cou fait stagner les liquides sous le menton et alourdit le bas du visage."] },
-      conseil: "Utilisez-le chaque soir avant Luminescence Nuit : le sérum apporte les actifs, la crème les nourrit et les garde au contact de la peau toute la nuit. La peau paraît plus rebondie en quelques semaines."
+      etapes: [{ moment: 'Matin et soir', texte: "Sur peau propre, appliquez une pression sur le visage en lissant de l'ovale vers les tempes, puis sur le cou en descendant vers la poitrine. Poursuivez avec Luminescence Jour le matin, et Luminescence Nuit le soir." }],
+      savoir: { 'Matin et soir': ["Le geste compte autant que le soin. Sur le visage, on remonte toujours de l'ovale vers les tempes, pour accompagner les traits vers le haut. Sur le cou, c'est l'inverse : on descend vers la poitrine pour drainer. Remonter le cou fait stagner les liquides sous le menton et alourdit le bas du visage."] },
+      conseil: "Utilisez-le matin et soir, avant votre crème Luminescence : le sérum apporte les actifs, la crème les nourrit et les garde au contact de la peau. La peau paraît plus rebondie en quelques semaines."
     },
     ec: {
       geste: 'une petite quantité suffit', fiche: 'radiance-eye-cream', nom: 'Radiance Eye Cream', gamme: 'Bloom', sous: 'Soin contour des yeux', couleur: '#8e5a4c', clair: '#e9d6cc',
@@ -238,7 +238,7 @@
       sens: "Deux phases qui fusionnent d'un geste, une texture qui fond sur le maquillage puis disparaît, sans parfum ajouté.",
       etapes: [{ moment: 'Le soir', texte: "Agitez le flacon pour mélanger les deux phases. Imbibez un coton, posez-le quelques secondes sur les paupières fermées, puis glissez-le vers l'extérieur, sans frotter. Recommencez sur le visage jusqu'à ce que le coton ressorte propre." }],
       savoir: { 'Le soir': ["Pourquoi deux phases ? Le mascara waterproof et le maquillage longue tenue sont conçus pour résister à l'eau : seule une phase huileuse peut les dissoudre. La phase aqueuse, à l'aloe vera, rince ensuite les impuretés et laisse la peau fraîche, sans film. C'est pour cela que les maquilleurs professionnels l'utilisent pour les yeux."] },
-      conseil: "Laissez toujours le coton poser quelques secondes avant de le glisser : c'est ce temps de pose qui fait le travail, pas le frottement. Seul, il démaquille et nettoie ; vous pouvez aussi poursuivre avec votre nettoyant."
+      conseil: "Laissez toujours le coton poser quelques secondes avant de le glisser : c'est ce temps de pose qui fait le travail, pas le frottement. Seul, il démaquille et nettoie. Pour un double nettoyage, poursuivez avec Milky Bloom."
     },
     cm: {
       fiche: 'ceramide-night-restore', nom: 'Ceramide Night Restore', gamme: 'Balance', sous: "Crème de nuit réparatrice", couleur: '#5f7149', clair: '#d9dfcd',
@@ -252,9 +252,9 @@
       geste: 'une petite quantité suffit', fiche: 'cellular-eye-restore', nom: 'Cellular Eye Restore', gamme: 'Balance', sous: "Sérum lissant regard", couleur: '#5f7149', clair: '#d9dfcd',
       role: "Ce sérum à l'alternative végétale au rétinol atténue les ridules, les pattes-d'oie et les signes de fatigue, tout en hydratant le contour des yeux.",
       sens: "Une texture légère pensée pour la peau fine du regard, au parfum de rose légèrement sucré, relevé de géranium rouge.",
-      etapes: [{ moment: 'Le soir', texte: "Déposez une petite quantité sur le contour des yeux et faites-la pénétrer en tapotant du bout de l'annulaire, de l'intérieur vers l'extérieur." }],
-      savoir: { 'Le soir': ["Le rétinol est l'actif de référence contre les rides, mais il peut irriter, surtout sur la peau fine du regard. L'extrait de Bidens pilosa, une plante tropicale, aide à atténuer les mêmes signes sans cette irritation : c'est pour cela qu'on parle d'alternative végétale au rétinol."] },
-      conseil: "Appliquez-le le soir, sans aller trop près des cils. Si vous utilisez Cellular Reveal sur le visage, Cellular Eye Restore est son relais pour le regard."
+      etapes: [{ moment: 'Matin et soir', texte: "Déposez une petite quantité sur le contour des yeux et faites-la pénétrer en tapotant du bout de l'annulaire, de l'intérieur vers l'extérieur." }],
+      savoir: { 'Matin et soir': ["Le rétinol est l'actif de référence contre les rides, mais il peut irriter, surtout sur la peau fine du regard. L'extrait de Bidens pilosa, une plante tropicale, aide à atténuer les mêmes signes sans cette irritation : c'est pour cela qu'on parle d'alternative végétale au rétinol."] },
+      conseil: "Appliquez-le matin et soir, sans aller trop près des cils. Le matin, terminez par une protection solaire. Si vous utilisez Cellular Reveal sur le visage, Cellular Eye Restore est son relais pour le regard."
     },
     cn: {
       fiche: 'cellular-renew', nom: 'Cellular Renew', gamme: 'Balance', sous: "Crème régénérante anti-rides", couleur: '#5f7149', clair: '#d9dfcd',
@@ -295,15 +295,15 @@
       fiche: 'cellular-reveal', nom: 'Cellular Reveal', gamme: 'Balance', sous: "Sérum lissant anti-rides", couleur: '#4f6a3d', clair: '#d0d9c4',
       role: "Ce sérum à l'alternative végétale au rétinol affine le grain de peau, atténue les ridules et aide à unifier le teint, pour une peau plus lisse et lumineuse.",
       sens: "Une texture légère qui laisse la peau confortable, au parfum de rose légèrement sucré, relevé de géranium rouge sur un fond vert et fruité.",
-      etapes: [{ moment: 'Le soir', texte: "Sur peau propre, appliquez une pression sur le visage en lissant de l'ovale vers les tempes, puis sur le cou en descendant. Poursuivez avec votre crème." }],
-      savoir: { 'Le soir': ["Cellular Reveal est le premier pas vers les alternatives au rétinol. Son extrait de Bidens pilosa accompagne le renouvellement de la peau, sans les rougeurs ni les tiraillements que peut provoquer le rétinol. Plus doux que Bakuchiol Elixir, il prépare la peau à des actifs plus affirmés, si elle en a besoin plus tard."] },
-      conseil: "Si c'est votre premier soin de ce type, commencez un soir sur deux pendant deux semaines, puis chaque soir. Évitez le contour des yeux : pour le regard, il y a Cellular Eye Restore."
+      etapes: [{ moment: 'Matin et/ou soir', texte: "Sur peau propre, appliquez une pression sur le visage en lissant de l'ovale vers les tempes, puis sur le cou en descendant. Poursuivez avec votre crème." }],
+      savoir: { 'Matin et/ou soir': ["Cellular Reveal est le premier pas vers les alternatives au rétinol. Son extrait de Bidens pilosa accompagne le renouvellement de la peau, sans les rougeurs ni les tiraillements que peut provoquer le rétinol. Plus doux que Bakuchiol Elixir, il prépare la peau à des actifs plus affirmés, si elle en a besoin plus tard."] },
+      conseil: "Si c'est votre premier soin de ce type, commencez un jour sur deux pendant deux semaines, puis chaque jour. Le matin, terminez par une protection solaire. Évitez le contour des yeux : pour le regard, il y a Cellular Eye Restore."
     },
     bk: {
       geste: 'quelques gouttes suffisent', fiche: 'bakuchiol-elixir', nom: 'Bakuchiol Elixir', gamme: 'Balance', sous: 'Élixir lissant au bakuchiol', couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Cet élixir au bakuchiol lisse l'apparence des rides, améliore la fermeté et aide à unifier le teint, dans un soin nourrissant aux huiles précieuses.",
       sens: "Une texture soyeuse aux huiles de jojoba, de rose musquée et d'onagre, au parfum de rose aux notes chaleureuses, épicées et boisées.",
-      etapes: [{ moment: 'Le soir', texte: "Réchauffez quelques gouttes entre vos paumes et pressez-les délicatement sur le visage, puis sur le cou en descendant. Les soirs d'exfoliation, sautez cette étape." }],
+      etapes: [{ moment: 'Le soir', texte: "En dernière étape du soir, réchauffez quelques gouttes entre vos paumes et pressez-les délicatement sur le visage, puis sur le cou en descendant. Les soirs d'exfoliation, sautez cette étape." }],
       savoir: { 'Le soir': ["Le bakuchiol vient des graines du babchi, une plante utilisée depuis des siècles en Inde. Une étude clinique l'a comparé au rétinol : des résultats proches sur les rides, avec beaucoup moins de rougeurs et de desquamation. C'est l'alternative végétale au rétinol la plus affirmée de la gamme."] },
       conseil: "Si votre peau découvre les actifs anti-âge, commencez deux à trois soirs par semaine, puis augmentez. Jamais le même soir que Glyco Balance ou AHA Balance Peel."
     },
@@ -319,9 +319,9 @@
       fiche: 'bright-control', nom: 'Bright Control', gamme: 'Balance', sous: "Crème correctrice anti-taches", couleur: '#3b5b2a', clair: '#c9d4bd',
       role: "Cette crème correctrice agit sur tout le visage : elle atténue l'apparence des taches brunes, unifie le teint et ravive l'éclat, tout en hydratant.",
       sens: "Une crème hydratante au parfum d'agrumes, de gingembre et de concombre sur un fond boisé de vétiver, de cèdre et de patchouli.",
-      etapes: [{ moment: 'Matin ou soir', texte: "Sur peau propre, appliquez une pression sur l'ensemble du visage et le cou. Le matin, terminez toujours par votre protection solaire." }],
-      savoir: { 'Matin ou soir': ["Un teint irrégulier, ce sont des taches visibles, et d'autres encore invisibles, prêtes à apparaître. En traitant tout le visage, Bright Control agit sur les deux : l'acide kojique freine la production de mélanine, la vitamine C et l'extrait de romarin protègent la peau du stress oxydatif qui ternit le teint."] },
-      conseil: "Choisissez le moment qui vous convient, le matin ou le soir, et gardez-le chaque jour. Dans tous les cas, une protection solaire comme Radiance Protect SPF 50 chaque matin est indispensable : c'est elle qui préserve les résultats. Pour une tache précise, ajoutez Spot Control en touche avant la crème."
+      etapes: [{ moment: 'Le soir', texte: "Sur peau propre, appliquez une pression sur l'ensemble du visage et le cou." }],
+      savoir: { 'Le soir': ["Un teint irrégulier, ce sont des taches visibles, et d'autres encore invisibles, prêtes à apparaître. En traitant tout le visage, Bright Control agit sur les deux : l'acide kojique freine la production de mélanine, la vitamine C et l'extrait de romarin protègent la peau du stress oxydatif qui ternit le teint."] },
+      conseil: "Appliquez-la chaque soir. Le matin, une protection solaire comme Radiance Protect SPF 50 est indispensable : c'est elle qui préserve les résultats. Pour une tache précise, ajoutez Spot Control en touche avant la crème."
     },
     bh: {
       geste: 'quelques gouttes suffisent', fiche: 'bha-balance', nom: 'BHA Balance', gamme: 'Balance', sous: "Lotion purifiante au BHA", couleur: '#3b5b2a', clair: '#c9d4bd',
