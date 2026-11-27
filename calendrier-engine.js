@@ -1,4 +1,4 @@
-f// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
+// © 2026 ELKHA.B — Tous droits réservés. Reproduction interdite.
 // =====================================================================
 // ELKHA.B — Calendrier des fêtes 2026 (page calendrier.elkhab.com)
 // Les textes lus par Google (titre, règles, coffret) sont écrits dans l'embed Carrd.
